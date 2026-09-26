@@ -18,6 +18,10 @@ export interface ParsedQcmItem {
   options: ParsedOption[];
   explanationHtml: string;
   isVerified: boolean;
+  source?: string;
+  specialtyId?: string;
+  courseId?: string;
+  year?: number;
 }
 
 /**

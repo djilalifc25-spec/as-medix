@@ -280,9 +280,15 @@ export default function AdminQcmPage() {
 
   // Single QCM import from batch review
   const handleImportSingleParsedQcm = async (qcmItem: ParsedQcmItem) => {
-    const spec = specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId);
-    const crs = courses.find(c => c.id === courseId);
-    const finalSource = source === '__other__' ? sourceOther : source;
+    const itemSpecId = qcmItem.specialtyId || specialtyId;
+    const spec = specialtiesList.find(s => s.id === itemSpecId) || ALL_SPECIALTIES.find(s => s.id === itemSpecId);
+    
+    const itemCourseId = qcmItem.courseId || courseId;
+    const crs = courses.find(c => c.id === itemCourseId);
+
+    const finalGlobalSource = source === '__other__' ? sourceOther : source;
+    const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
+    const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
 
     const correctAnswers = qcmItem.options
       .map((opt, idx) => opt.isCorrect ? idx : -1)
@@ -290,13 +296,13 @@ export default function AdminQcmPage() {
 
     const payload = {
       title: qcmItem.question.length > 80 ? qcmItem.question.substring(0, 80) + '...' : qcmItem.question,
-      year: year !== '' ? Number(year) : undefined,
-      specialtyId,
+      year: itemYear,
+      specialtyId: itemSpecId,
       specialtyName: spec ? spec.name : 'Cardiologie',
-      courseId: courseId || undefined,
+      courseId: itemCourseId || undefined,
       courseTitle: crs ? crs.title : undefined,
       faculty: faculty || 'ORAN',
-      source: finalSource || 'Annales Examens',
+      source: itemSource,
       rang: 'Rang A',
       difficulty: 'Moyen',
       type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
@@ -797,6 +803,68 @@ export default function AdminQcmPage() {
                                 <Plus className="w-3.5 h-3.5" />
                                 <span>Importer ce QCM</span>
                               </button>
+                            </div>
+                          </div>
+
+                          {/* Per-QCM Source & Course Selector */}
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 text-xs">
+                            <div>
+                              <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">📌 Source d'Attribution :</span>
+                              <input
+                                type="text"
+                                value={qcmItem.source !== undefined ? qcmItem.source : (source === '__other__' ? sourceOther : source)}
+                                onChange={e => {
+                                  const val = e.target.value;
+                                  setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val } : q));
+                                }}
+                                list={`sources_list_${qcmItem.id}`}
+                                placeholder="ex: Externat - Rattrapage 2023..."
+                                className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                              />
+                              <datalist id={`sources_list_${qcmItem.id}`}>
+                                <option value="Externat" />
+                                <option value="SIAU" />
+                                <option value="Annales Résidanat" />
+                                <option value="QCM CNP" />
+                                <option value="Hypercours" />
+                                {scopeSources.map(s => (
+                                  <option key={s} value={s} />
+                                ))}
+                              </datalist>
+                            </div>
+
+                            <div>
+                              <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">📚 Cours du QCM :</span>
+                              <select
+                                value={qcmItem.courseId !== undefined ? qcmItem.courseId : courseId}
+                                onChange={e => {
+                                  const val = e.target.value;
+                                  setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, courseId: val } : q));
+                                }}
+                                className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                              >
+                                <option value="">-- Aucun cours spécifique --</option>
+                                {filteredCourses.map(c => (
+                                  <option key={c.id} value={c.id}>{c.title}</option>
+                                ))}
+                              </select>
+                            </div>
+
+                            <div>
+                              <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">🎓 Année d'Études :</span>
+                              <select
+                                value={qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? year : '')}
+                                onChange={e => {
+                                  const val = e.target.value ? Number(e.target.value) : undefined;
+                                  setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, year: val } : q));
+                                }}
+                                className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                              >
+                                <option value="">Global</option>
+                                {MEDICAL_YEARS.map(y => (
+                                  <option key={y.year} value={y.year}>{y.label}</option>
+                                ))}
+                              </select>
                             </div>
                           </div>
 
