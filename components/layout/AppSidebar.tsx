@@ -115,16 +115,22 @@ export const AppSidebar: React.FC = () => {
   // Helper to extract module-level sources for a specialty (only sources with actual QCMs)
   const getModuleSources = useCallback((specId: string): string[] => {
     const set = new Set<string>();
-    const specQcms = qcmsList.filter(q => q.specialtyId === specId);
+    const specObj = specialtiesList.find(s => s.id === specId || s.slug === specId);
+    const specName = specObj?.name?.toLowerCase();
+
+    const specQcms = qcmsList.filter(q =>
+      q.specialtyId === specId ||
+      (q.specialtyId && q.specialtyId.toLowerCase() === specId.toLowerCase()) ||
+      (specName && q.specialtyName && q.specialtyName.toLowerCase() === specName)
+    );
     if (specQcms.length === 0) return [];
 
     adminSources.forEach(s => {
-      if (s.specialty === specId && (!s.course || s.course === '')) {
+      if ((s.specialty === specId || (specName && s.specialty?.toLowerCase() === specName)) && (!s.course || s.course === '')) {
         s.sources?.forEach(src => {
           if (src?.trim()) {
             const clean = src.trim();
-            const hasQcm = specQcms.some(q => q.source && q.source.toLowerCase().includes(clean.toLowerCase()));
-            if (hasQcm) set.add(clean);
+            set.add(clean);
           }
         });
       }
@@ -140,23 +146,26 @@ export const AppSidebar: React.FC = () => {
     });
 
     return Array.from(set);
-  }, [adminSources, qcmsList]);
+  }, [adminSources, qcmsList, specialtiesList]);
 
   // Helper to extract course-level sources for a specific course (only sources with actual QCMs in that course)
   const getCourseSources = useCallback((specId: string, courseId: string, courseTitle?: string): string[] => {
     const set = new Set<string>();
+    const specObj = specialtiesList.find(s => s.id === specId || s.slug === specId);
+    const specName = specObj?.name?.toLowerCase();
+
     const courseQcms = qcmsList.filter(q =>
-      q.specialtyId === specId && (q.courseId === courseId || (courseTitle && (q.courseTitle === courseTitle || q.courseId === courseTitle)))
+      (q.specialtyId === specId || (q.specialtyId && q.specialtyId.toLowerCase() === specId.toLowerCase()) || (specName && q.specialtyName && q.specialtyName.toLowerCase() === specName)) &&
+      (q.courseId === courseId || (courseTitle && (q.courseTitle === courseTitle || q.courseId === courseTitle)))
     );
     if (courseQcms.length === 0) return [];
 
     adminSources.forEach(s => {
-      if (s.specialty === specId && (s.course === courseId || (courseTitle && s.course === courseTitle))) {
+      if ((s.specialty === specId || (specName && s.specialty?.toLowerCase() === specName)) && (s.course === courseId || (courseTitle && s.course === courseTitle))) {
         s.sources?.forEach(src => {
           if (src?.trim()) {
             const clean = src.trim();
-            const hasQcm = courseQcms.some(q => q.source && q.source.toLowerCase().includes(clean.toLowerCase()));
-            if (hasQcm) set.add(clean);
+            set.add(clean);
           }
         });
       }
@@ -172,7 +181,7 @@ export const AppSidebar: React.FC = () => {
     });
 
     return Array.from(set);
-  }, [adminSources, qcmsList]);
+  }, [adminSources, qcmsList, specialtiesList]);
 
   useEffect(() => {
     fetchDynamicData();
@@ -180,10 +189,12 @@ export const AppSidebar: React.FC = () => {
     window.addEventListener('asmedix-qcm-updated', handleUpdate);
     window.addEventListener('asmedix-content-updated', handleUpdate);
     window.addEventListener('focus', handleUpdate);
+    const interval = setInterval(fetchDynamicData, 5000);
     return () => {
       window.removeEventListener('asmedix-qcm-updated', handleUpdate);
       window.removeEventListener('asmedix-content-updated', handleUpdate);
       window.removeEventListener('focus', handleUpdate);
+      clearInterval(interval);
     };
   }, [fetchDynamicData]);
 
