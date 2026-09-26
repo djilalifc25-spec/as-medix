@@ -9,16 +9,22 @@ async function syncQcmsToSupabase(qcms: QCM[]) {
     const payload = qcms.map(qcm => ({
       id: qcm.id,
       specialty: qcm.specialtyId,
+      specialty_id: qcm.specialtyId,
       specialty_name: qcm.specialtyName || 'Cardiologie',
       course_id: qcm.courseId || null,
       course_title: qcm.courseTitle || null,
       faculty: qcm.faculty || 'ORAN',
+      source: qcm.source || 'Annales Examens',
       title: qcm.question || qcm.title || 'Question',
       vignette: qcm.vignette || '',
       options: qcm.options || [],
       correct_answers: qcm.correctAnswers || [0],
       explanation: qcm.explanation || '',
-      rang: qcm.rang || 'Rang A'
+      rang: qcm.rang || 'Rang A',
+      year: qcm.year || null,
+      difficulty: qcm.difficulty || 'Moyen',
+      type: qcm.type || 'SINGLE',
+      reference: qcm.reference || "Faculté de Médecine d'Alger"
     }));
     await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
   } catch (err) {
