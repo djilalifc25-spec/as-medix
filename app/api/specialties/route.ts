@@ -9,6 +9,7 @@ export async function GET(req: Request) {
     const yearParam = url.searchParams.get('year');
     const facultyParam = url.searchParams.get('faculty');
 
+    db.updateSpecialtyCounts();
     let specialties = db.getSpecialties();
 
     if (yearParam && yearParam !== 'all' && yearParam !== 'TOUS') {
