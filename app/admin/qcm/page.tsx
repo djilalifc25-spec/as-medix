@@ -318,6 +318,25 @@ export default function AdminQcmPage() {
       reference: reference || "Faculté de Médecine d'Alger",
     };
 
+    // Auto-save new custom source to DB if it's not already in scopeSources
+    if (itemSource && !scopeSources.includes(itemSource)) {
+      try {
+        await fetch('/api/admin/sources', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: itemSource,
+            specialty: itemSpecId,
+            course: itemCourseId,
+            faculty: faculty !== 'TOUS' ? faculty : undefined,
+          })
+        });
+        setScopeSources(prev => Array.from(new Set([itemSource, ...prev])));
+      } catch (err) {
+        console.warn('Auto save source failed:', err);
+      }
+    }
+
     const res = await fetch('/api/admin/qcm', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -809,28 +828,52 @@ export default function AdminQcmPage() {
                           {/* Per-QCM Source & Course Selector */}
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 text-xs">
                             <div>
-                              <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">📌 Source d'Attribution :</span>
-                              <input
-                                type="text"
-                                value={qcmItem.source !== undefined ? qcmItem.source : (source === '__other__' ? sourceOther : source)}
-                                onChange={e => {
-                                  const val = e.target.value;
-                                  setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val } : q));
-                                }}
-                                list={`sources_list_${qcmItem.id}`}
-                                placeholder="ex: Externat - Rattrapage 2023..."
-                                className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
-                              />
-                              <datalist id={`sources_list_${qcmItem.id}`}>
-                                <option value="Externat" />
-                                <option value="SIAU" />
-                                <option value="Annales Résidanat" />
-                                <option value="QCM CNP" />
-                                <option value="Hypercours" />
-                                {scopeSources.map(s => (
-                                  <option key={s} value={s} />
-                                ))}
-                              </datalist>
+                              <div className="flex items-center justify-between mb-0.5">
+                                <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300">📌 Source pour ce QCM :</span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: qcmItem.source === '__custom__' ? '' : '__custom__' } : q));
+                                  }}
+                                  className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                                >
+                                  {qcmItem.source === '__custom__' ? '← Choisir dans la liste' : '+ Nouvelle Source'}
+                                </button>
+                              </div>
+
+                              {qcmItem.source === '__custom__' ? (
+                                <input
+                                  type="text"
+                                  placeholder="Saisissez la nouvelle source..."
+                                  onChange={e => {
+                                    const val = e.target.value;
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val } : q));
+                                  }}
+                                  className="w-full px-2 py-1 text-xs font-bold rounded-lg border border-indigo-400 bg-white dark:bg-navy-900"
+                                />
+                              ) : (
+                                <select
+                                  value={qcmItem.source !== undefined ? qcmItem.source : (source === '__other__' ? sourceOther : source)}
+                                  onChange={e => {
+                                    const val = e.target.value;
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val === '__custom__' ? '' : val } : q));
+                                  }}
+                                  className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                                >
+                                  <option value="Externat">Externat</option>
+                                  <option value="SIAU">SIAU</option>
+                                  <option value="Annales Résidanat">Annales Résidanat</option>
+                                  <option value="QCM CNP">QCM CNP</option>
+                                  <option value="Hypercours">Hypercours</option>
+                                  {scopeSources.filter(s => !['Externat', 'SIAU', 'Annales Résidanat', 'QCM CNP', 'Hypercours'].includes(s)).map(s => (
+                                    <option key={s} value={s}>{s}</option>
+                                  ))}
+                                  {qcmItem.source && !['Externat', 'SIAU', 'Annales Résidanat', 'QCM CNP', 'Hypercours', ...scopeSources].includes(qcmItem.source) && (
+                                    <option value={qcmItem.source}>{qcmItem.source}</option>
+                                  )}
+                                  <option value="__custom__">✨ + Saisir une nouvelle source...</option>
+                                </select>
+                              )}
                             </div>
 
                             <div>
