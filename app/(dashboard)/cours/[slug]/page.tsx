@@ -32,33 +32,88 @@ function normalizeSlug(str: string): string {
     .replace(/(^-|-$)/g, '');
 }
 
+function stripAll(str: string): string {
+  if (!str) return '';
+  return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
+}
+
+function getKeywords(str: string): string[] {
+  if (!str) return [];
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .split(' ')
+    .filter(w => w.length >= 3);
+}
+
+function matchesCourse(c: Course | any, slugOrId: string): boolean {
+  if (!c || !slugOrId) return false;
+  
+  const target = slugOrId.trim();
+  const decodedTarget = decodeURIComponent(target).trim();
+  
+  if (c.id === target || c.slug === target || c.id === decodedTarget || c.slug === decodedTarget) {
+    return true;
+  }
+  
+  const normTarget = normalizeSlug(target);
+  const normDecodedTarget = normalizeSlug(decodedTarget);
+  const cSlugNorm = normalizeSlug(c.slug || '');
+  const cIdNorm = normalizeSlug(c.id || '');
+  const cTitleNorm = normalizeSlug(c.title || '');
+  
+  if (cSlugNorm && (cSlugNorm === normTarget || cSlugNorm === normDecodedTarget)) return true;
+  if (cIdNorm && (cIdNorm === normTarget || cIdNorm === normDecodedTarget)) return true;
+  if (cTitleNorm && (cTitleNorm === normTarget || cTitleNorm === normDecodedTarget)) return true;
+
+  if (normTarget.length >= 5 && (cSlugNorm.includes(normTarget) || normTarget.includes(cSlugNorm) || cTitleNorm.includes(normTarget))) {
+    return true;
+  }
+
+  const strippedTarget = stripAll(decodedTarget);
+  const strippedCSlug = stripAll(c.slug || '');
+  const strippedCTitle = stripAll(c.title || '');
+  const strippedCId = stripAll(c.id || '');
+
+  if (strippedTarget && strippedTarget.length >= 5) {
+    if (strippedCSlug === strippedTarget || strippedCTitle === strippedTarget || strippedCId === strippedTarget) {
+      return true;
+    }
+    if (strippedCSlug.includes(strippedTarget) || strippedTarget.includes(strippedCSlug) || strippedCTitle.includes(strippedTarget)) {
+      return true;
+    }
+  }
+
+  const targetWords = getKeywords(decodedTarget);
+  if (targetWords.length > 0) {
+    const courseWords = new Set([...getKeywords(c.title || ''), ...getKeywords(c.slug || '')]);
+    let matchedCount = 0;
+    for (const tw of targetWords) {
+      if (courseWords.has(tw) || Array.from(courseWords).some(cw => cw.includes(tw) || tw.includes(cw))) {
+        matchedCount++;
+      }
+    }
+    if (targetWords.length <= 3 && matchedCount === targetWords.length) return true;
+    if (targetWords.length > 3 && (matchedCount / targetWords.length >= 0.4 || matchedCount >= 3)) return true;
+  }
+
+  return false;
+}
+
 function CourseDetailContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params.slug as string;
 
   const [course, setCourse] = useState<Course | null>(() => {
-    const normTarget = normalizeSlug(slug);
-    return INITIAL_COURSES.find(c => 
-      c.id === slug || 
-      c.slug === slug || 
-      normalizeSlug(c.slug) === normTarget || 
-      normalizeSlug(c.id) === normTarget
-    ) || null;
+    return INITIAL_COURSES.find(c => matchesCourse(c, slug)) || null;
   });
   const [loading, setLoading] = useState(!course);
 
   useEffect(() => {
-    const normTarget = normalizeSlug(slug);
-    const decodedTarget = normalizeSlug(decodeURIComponent(slug));
-
-    const initialFallback = INITIAL_COURSES.find(c => 
-      c.id === slug || 
-      c.slug === slug || 
-      normalizeSlug(c.slug) === normTarget || 
-      normalizeSlug(c.slug) === decodedTarget ||
-      normalizeSlug(c.id) === normTarget
-    );
+    const initialFallback = INITIAL_COURSES.find(c => matchesCourse(c, slug));
 
     if (initialFallback) {
       setCourse(initialFallback);
@@ -70,14 +125,7 @@ function CourseDetailContent() {
       .then(r => r.json())
       .then(d => {
         if (d.courses && Array.isArray(d.courses) && d.courses.length > 0) {
-          const found = d.courses.find((c: any) => 
-            c.id === slug || 
-            c.slug === slug || 
-            normalizeSlug(c.slug) === normTarget || 
-            normalizeSlug(c.slug) === decodedTarget ||
-            normalizeSlug(c.id) === normTarget ||
-            normalizeSlug(c.title).includes(normTarget)
-          ) || d.courses[0];
+          const found = d.courses.find((c: any) => matchesCourse(c, slug)) || d.courses[0];
           if (found) {
             setCourse(found);
           }
@@ -87,14 +135,7 @@ function CourseDetailContent() {
             .then(r => r.json())
             .then(allD => {
               if (allD.courses && Array.isArray(allD.courses)) {
-                const foundFallback = allD.courses.find((c: any) =>
-                  c.id === slug ||
-                  c.slug === slug ||
-                  normalizeSlug(c.slug) === normTarget ||
-                  normalizeSlug(c.slug) === decodedTarget ||
-                  normalizeSlug(c.id) === normTarget ||
-                  normalizeSlug(c.title).includes(normTarget)
-                );
+                const foundFallback = allD.courses.find((c: any) => matchesCourse(c, slug));
                 if (foundFallback) setCourse(foundFallback);
               }
             })
