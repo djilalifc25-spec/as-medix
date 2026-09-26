@@ -82,7 +82,7 @@
       "published": true,
       "viewsCount": 3120,
       "likesCount": 385,
-      "qcmCount": 5,
+      "qcmCount": 3,
       "tableOfContents": [
         {
           "id": "intro",
@@ -6866,8 +6866,8 @@
       "iconName": "Brain",
       "color": "#8B5CF6",
       "description": "Accidents vasculaires cérébraux, épilepsies, céphalées, sclérose en plaques et neuropathies.",
-      "totalCourses": 1,
-      "totalQcms": 1,
+      "totalCourses": 2,
+      "totalQcms": 4,
       "totalCat": 7,
       "totalFiches": 1,
       "year": 4,

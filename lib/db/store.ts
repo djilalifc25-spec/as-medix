@@ -316,8 +316,16 @@ class DatabaseStore {
     }
   }
 
-  // --- USERS ---
   public getUsers(): User[] {
+    try {
+      if (fsModule && pathModule && DB_FILE_PATH && fsModule.existsSync(DB_FILE_PATH)) {
+        const fileContent = fsModule.readFileSync(DB_FILE_PATH, 'utf-8');
+        const parsed = JSON.parse(fileContent);
+        if (parsed.users && Array.isArray(parsed.users)) {
+          this.data.users = parsed.users;
+        }
+      }
+    } catch {}
     return this.data.users;
   }
 
