@@ -2,1653 +2,1050 @@ import { Course } from '@/types';
 
 export const INITIAL_COURSES: Course[] = [
   {
-  "id": "cours_neuro_behcet",
-  "slug": "maladie-de-behcet",
-  "title": "La Maladie de Behçet & Neuro-Behçet",
-  "subtitle": "Diagnostic positif (ICBD 2014), Neuro-Behçet parenchymateux vs vasculaire (TVC), génétique (HLA-B51) et stratégie thérapeutique",
-  "specialtyId": "neuro",
-  "specialtyName": "Neurologie",
-  "author": "Pr. A. Benmansour",
-  "authorTitle": "Chef de Service de Neurologie & Pathologies Auto-immunes - CHU Oran / CHU Sidi Bel Abbès",
-  "description": "Guide clinique complet conforme aux programmes officiels du Résidanat des facultés de Médecine d'Oran et de Sidi Bel Abbès (SBA) : vasculite systémique non ANCA-associée, aphtose bipolarisée, uvéite rétinienne, méningo-encéphalite du tronc cérébral, thromboses veineuses cérébrales, test de pathergie et protocoles de biothérapie (anti-TNF alpha).",
-  "coverImage": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "faculty": "ORAN",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "createdAt": "2026-01-01",
-  "updatedAt": "2026-01-01",
-  "tags": [
-    "Maladie de Behçet",
-    "Neuro-Behçet",
-    "Aphtose Bipolarisée",
-    "HLA-B51",
-    "Test de Pathergie",
-    "Thrombose Veineuse Cérébrale",
-    "Colchicine",
-    "Infliximab",
-    "Oran",
-    "SBA"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 3120,
-  "likesCount": 385,
-  "qcmCount": 5,
-  "tableOfContents": [
-    {
-      "id": "intro",
-      "title": "1. Introduction, Épidémiologie & Génétique (HLA-B51)",
-      "level": 1
-    },
-    {
-      "id": "clinique",
-      "title": "2. Triade Clinique : Mucosite Bipolarisée & Lésions Oculaires",
-      "level": 1
-    },
-    {
-      "id": "neuro-behcet",
-      "title": "3. Neuro-Behçet : Forme Parenchymateuse vs Vasculaire (TVC)",
-      "level": 1
-    },
-    {
-      "id": "vascularite",
-      "title": "4. Vascularite Systémique & Anévrysmes Pulmonaires",
-      "level": 1
-    },
-    {
-      "id": "diagnostic",
-      "title": "5. Diagnostic Positif, Test de Pathergie & Critères ICBD",
-      "level": 1
-    },
-    {
-      "id": "traitement",
-      "title": "6. Prise en Charge Thérapeutique & Protocoles EULAR",
-      "level": 1
-    },
-    {
-      "id": "points-cles",
-      "title": "7. Points Clés Concours & Annales (Oran & Sidi Bel Abbès)",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Aphtose buccale récidivante (au moins 3 poussées en 12 mois) : Élément inaugural cardinal présent dans plus de 98% des cas.",
-    "Neuro-Behçet Parenchymateux (80%) : Méningo-encéphalite touchant préférentiellement le tronc cérébral (jonction bulbopontique) et les noyaux gris centraux (Hyperintensité T2/FLAIR à l'IRM).",
-    "Neuro-Behçet Vasculaire (20%) : Thrombose Veineuse Cérébrale (TVC des sinus duraux) se révélant par un syndrome d'hypertension intracrânienne (HTIC).",
-    "Biologie & Génétique : Négativité stricte des auto-anticorps (AAN négatifs, ANCA négatifs). Forte association avec le marqueur HLA-B51 (HLA-B5101).",
-    "Test de Pathergie : Papulo-pustule stérile apparaissant 24 à 48h après une piqûre intradermique à l'avant-bras (très spécifique de la maladie de Behçet).",
-    "Traitement de référence : Colchicine (1 à 2 mg/j) pour l'aphtose ; Bolus de Solumedrol (1g/j x 3-5j) + Cyclophosphamide ou Anti-TNF alpha (Infliximab/Adalimumab) pour les formes graves neurologiques et oculaires."
-  ],
-  "htmlContent": "\n      <section id=\"intro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Introduction, Épidémiologie & Génétique (HLA-B51)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La <strong>Maladie de Behçet</strong> est une vasculite systémique chronique d'évolutivité par poussées-rémissions. Elle se caractérise anatomopathologiquement par une <strong>angéite péricapillaire et veineuse</strong> atteignant les vaisseaux de tous calibres (petits, moyens et gros vaisseaux artériels et veineux), sans nécrose ni ANCA.\n        </p>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Elle prédomine le long de la mythique <em>Route de la Soie</em> (du Bassin Méditerranéen jusqu'à l'Asie de l'Est). En Algérie (notamment dans les régions de l'Ouest : <strong>Oran, Sidi Bel Abbès, Tlemcen</strong>), sa prévalence est élevée, touchant avec prédilection l'adulte jeune (20 à 40 ans) avec un sex-ratio prédominant chez l'homme pour les formes neurologiques graves.\n        </p>\n\n        <div class=\"p-4 my-5 rounded-2xl border border-indigo-100 bg-indigo-50/60 dark:border-indigo-900/50 dark:bg-indigo-950/20\">\n          <div class=\"flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-bold mb-1\">\n            <span class=\"text-lg\">🧬</span> Marqueur Génétique Prépondérant : HLA-B51\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            L'allèle <strong>HLA-B51 (sous-type B*5101)</strong> est présent chez 50 à 80% des patients d'Afrique du Nord. Il constitue le facteur de susceptibilité génétique le plus puissant, bien qu'il ne soit pas indispensable au diagnostic positif. <strong>Biologie habituelle :</strong> Absence d'auto-anticorps (AAN -, ANCA -, FR -).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Triade Clinique : Mucosite Bipolarisée & Lésions Oculaires</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le diagnostic repose essentiellement sur l'examen clinique minutieux à la recherche de la triade d'Hulusi Behçet :\n        </p>\n\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-rose-500\"></span> 1. Aphtose Bipolarisée (Obligatoire)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• <strong>Aphtose buccale :</strong> Présente chez 98-100% des malades. Ulcérations douloureuses, à fond beurre frais, à bords emportés à la pièce, guérissant sans cicatrice en 10-14 jours. Au moins 3 poussées/an.</li>\n              <li>• <strong>Aphtose génitale :</strong> Très spécifique (95%). Ulcérations du scrotum/testicules chez l'homme, des grandes lèvres/vulve chez la femme. Laissent des <em>cicatrices atrophiques blanchâtres pathognomoniques</em>.</li>\n            </ul>\n          </div>\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-amber-500\"></span> 2. Atteinte Oculaire (Pronostic visuel)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• Touchant 50 à 70% des patients, bilatérale et menaçante.</li>\n              <li>• <strong>Uvéite antérieure aiguë à hypopyon</strong> (niveau de pus stérile dans la chambre antérieure).</li>\n              <li>• <strong>Uvéite postérieure & Vasculite rétinienne :</strong> Engaineur veineux, hyalite, œdème maculaire (risque de cécité irréversible).</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-5 rounded-2xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-700 mb-6\">\n          <h3 class=\"font-bold text-navy-900 dark:text-white mb-2\">3. Manifestations Cutanées</h3>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300 leading-relaxed\">\n            • <strong>Érythème noueux :</strong> Nouures dermothermiques douloureuses des membres inférieurs.<br>\n            • <strong>Pseudofolliculite superficielle / Pustules stériles :</strong> Pustules non centré par un poil sur le tronc et les membres.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"neuro-behcet\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Neuro-Behçet : Forme Parenchymateuse vs Vasculaire (TVC)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'atteinte du système nerveux central (<strong>Neuro-Behçet</strong>) survient dans 10 à 20% des cas, habituellement 3 à 5 ans après les aphtes. Elle conditionne le pronostic vital et fonctionnel. On distingue formellement deux phénotypes majeurs :\n        </p>\n\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-5 mb-6\">\n          <!-- Forme Parenchymateuse -->\n          <div class=\"p-6 rounded-2xl bg-rose-50/70 border border-rose-200 dark:bg-rose-950/30 dark:border-rose-900/50 space-y-3\">\n            <div class=\"flex items-center justify-between\">\n              <span class=\"px-3 py-1 bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-200 font-black text-xs rounded-full uppercase\">Forme Parenchymateuse (~80%)</span>\n              <span class=\"text-xl\">🧠</span>\n            </div>\n            <h3 class=\"text-lg font-bold text-rose-950 dark:text-rose-100\">Méningo-Encéphalite du Tronc Cérébral</h3>\n            <ul class=\"text-sm text-rose-900 dark:text-rose-200 space-y-2 leading-relaxed\">\n              <li>• <strong>Siège préférentiel :</strong> Tronc cérébral (pédoncules cérébraux, protubérance), noyaux gris centraux et capsule interne.</li>\n              <li>• <strong>Tableau clinique :</strong> Syndrome pyramidal (hémiparésie), syndrome cérébelleux, ophtalmoplégie internucléaire, paralysie des nerfs crâniens (diplopie), troubles de l'humeur et détérioration cognitive.</li>\n              <li>• <strong>IRM Cérébrale (Clé) :</strong> Hyperintensités en T2 et FLAIR périventriculaires et sous-corticales avec aspect d'œdème inflammatoire (\"en tache de bougie\").</li>\n              <li>• <strong>Ponction Lumbal :</strong> Pléiocytose modérée (panachée PNN / Lymphocytes), hyperprotéinorachie.</li>\n            </ul>\n          </div>\n\n          <!-- Forme Vasculaire -->\n          <div class=\"p-6 rounded-2xl bg-amber-50/70 border border-amber-200 dark:bg-amber-950/30 dark:border-amber-900/50 space-y-3\">\n            <div class=\"flex items-center justify-between\">\n              <span class=\"px-3 py-1 bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-200 font-black text-xs rounded-full uppercase\">Forme Vasculaire / TVC (~20%)</span>\n              <span class=\"text-xl\">🩸</span>\n            </div>\n            <h3 class=\"text-lg font-bold text-amber-950 dark:text-amber-100\">Thrombose Veineuse Cérébrale (TVC)</h3>\n            <ul class=\"text-sm text-amber-900 dark:text-amber-200 space-y-2 leading-relaxed\">\n              <li>• <strong>Mécanisme :</strong> Thrombo-phlébite des sinus veineux duraux (sinus sagittal supérieur, sinus transverse, sinus latéral).</li>\n              <li>• <strong>Tableau clinique :</strong> Syndrome d'<strong>Hypertension Intracrânienne (HTIC)</strong> avec céphalées intenses progressives, œdème papillaire au fond d'œil, vomissements et diplopie par atteinte du VI.</li>\n              <li>• <strong>Angio-IRM Cérébrale (MRV) :</strong> Absence de flux (défaut de rehaussement) dans le sinus dural thrombosé (Signe du delta).</li>\n              <li>• <strong>Pronostic :</strong> Meilleur que la forme parenchymateuse sous anticoagulation et corticothérapie.</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200 dark:bg-purple-950/20 dark:border-purple-900/40 my-4\">\n          <div class=\"flex items-center gap-2 text-purple-700 dark:text-purple-300 font-bold mb-1\">\n            ⚠️ Piège Résidanat Oran / SBA : Forme Mixte\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Les formes parenchymateuses et non-parenchymateuses (TVC) s'excluent mutuellement chez un même patient dans plus de 90% des cas ! La survenue d'une TVC impose de rechercher d'autres thromboses périphériques (TVP des membres inférieurs).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"vascularite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Vascularite Systémique & Anévrysmes Pulmonaires</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La maladie de Behçet est la seule vasculite capable de toucher les artères et les veines de toutes tailles :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-3 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Angio-Behçet Veineux (30%) :</strong> Thromboses veineuses profondes (TVP) récidivantes des membres inférieurs, phlébite de la veine cave inférieure (Syndrome de Budd-Chiari).</li>\n          <li><strong>Angio-Behçet Artériel (5%) :</strong> <strong>Anévrysmes de l'artère pulmonaire (AAP)</strong>. C'est la complication artérielle la plus redoutable ! Elle se manifeste par des <em>hémoptysies foudrayantes</em> par rupture anévrysmale.</li>\n          <li><strong>Atteinte Articulaire (50%) :</strong> Mono ou oligopléomorphe non érosive et non déformante (genoux, chevilles).</li>\n        </ul>\n      </section>\n\n      <section id=\"diagnostic\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">5. Diagnostic Positif, Test de Pathergie & Critères ICBD</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le test de pathergie évalue l'hyperréactivité cutanée non spécifique induite par micro-traumatisme.\n        </p>\n\n        <div class=\"p-4 my-4 rounded-xl border border-teal-200 bg-teal-50/50 dark:border-teal-900/50 dark:bg-teal-950/20\">\n          <div class=\"font-bold text-teal-800 dark:text-teal-300 mb-1\">📌 Protocole du Test de Pathergie (Pathergy Test)</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Inoculation d'une aiguille stérile de 20G en intradermique au niveau de la face antérieure de l'avant-bras. <strong>Lecture à 24-48 heures :</strong> Positif si apparition d'une papule ou pustule stérile d'au moins 2 mm de diamètre entourée d'un érythème.\n          </p>\n        </div>\n\n        <h3 class=\"text-lg font-bold text-navy-900 dark:text-white mb-3\">Critères Diagnostiques Internationaux (ICBD 2014) :</h3>\n        <div class=\"overflow-x-auto mb-6\">\n          <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden\">\n            <thead class=\"bg-slate-100 dark:bg-navy-800 text-xs font-bold uppercase text-navy-700 dark:text-navy-200\">\n              <tr>\n                <th class=\"p-3 border border-slate-200 dark:border-navy-700\">Critère Clinique ICBD</th>\n                <th class=\"p-3 border border-slate-200 dark:border-navy-700 text-center\">Score de Points</th>\n              </tr>\n            </thead>\n            <tbody class=\"text-sm text-navy-700 dark:text-navy-300 divide-y divide-slate-100 dark:divide-navy-800\">\n              <tr>\n                <td class=\"p-3 font-semibold\">Lésions Oculaires (Uvéite, vasculite rétinienne)</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Aphtose Génitale (Cicatrices scrotales/vulvaires)</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Aphtose Buccale Récidivante</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Neurologiques (Neuro-Behçet)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Cutanées (Pseudofolliculite, Érythème noueux)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Vasculaires (TVP, Anévrysmes, TVC)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Test de Pathergie Positif (Optionnel)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n        <p class=\"text-xs font-bold text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/40 p-3 rounded-xl border border-teal-200\">\n          🎯 Règle de Validation : Un score total &ge; 4 Points confirme le diagnostic positif de la maladie de Behçet !\n        </p>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">6. Prise en Charge Thérapeutique & Protocoles EULAR</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le traitement est adapté à l'organe le plus sévèrement atteint :\n        </p>\n\n        <div class=\"space-y-4\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">💊 1. Atteinte Mucocutanée (Aphtose)</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • <strong>Colchicine :</strong> 1 à 2 mg/jour per os en première intention.<br>\n              • Bains de bouche corticoïdes / Dermo-corticoïdes locaux.\n            </p>\n          </div>\n\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">🧠 2. Traitement du Neuro-Behçet Parenchymateux</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • <strong>Bolus de Méthylprednisolone (Solumedrol) :</strong> 1g/jour en IVD sur 3 à 5 jours consécutifs.<br>\n              • Relais par <strong>Prednisolone per os :</strong> 1 mg/kg/jour avec dégression lente sur plusieurs mois.<br>\n              • <strong>Immunosuppresseur de fond :</strong> Azathioprine (Imurel 2.5 mg/kg/j) ou Cyclophosphamide (Endoxan bolus mensuel).<br>\n              • <strong>Formes réfractaires / sévères :</strong> Biothérapie par <strong>Anti-TNF alpha</strong> (Infliximab 5 mg/kg ou Adalimumab).\n            </p>\n          </div>\n\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">🩸 3. Traitement de la Thrombose Veineuse Cérébrale (TVC)</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • Corticothérapie à forte dose + <strong>Anticoagulation curative</strong> par Héparine puis AOD/AVK.\n            </p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"points-cles\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">7. Points Clés & Pièges aux Examens (Annales Oran & SBA)</h2>\n        <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-3\">\n          <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-base\">📌 TOUJOURS RETENIR POUR LE CONCOURS :</div>\n          <ul class=\"text-sm text-indigo-950 dark:text-indigo-200 space-y-2 leading-relaxed\">\n            <li>✅ L'aphtose buccale est le signe inaugural obligatoire présent chez > 98% des sujets.</li>\n            <li>✅ L'atteinte du tronc cérébral à l'IRM (hyperintensité T2) définit la forme parenchymateuse classique du Neuro-Behçet.</li>\n            <li>✅ Le test de Pathergie se lit à 24-48 heures.</li>\n            <li>✅ Il n'y a pas d'auto-anticorps spécifiques (AAN et ANCA sont négatifs).</li>\n            <li>✅ L'anévrysme de l'artère pulmonaire est la cause la plus fréquente de décès par hémoptysie cataclysmique.</li>\n          </ul>\n        </div>\n      </section>\n  "
-},
-  {
-    id: 'cours_pneumo_tb',
-    slug: 'tuberculose-pulmonaire',
-    title: 'La Tuberculose Pulmonaire Commune',
-    subtitle: 'Diagnostic bactériologique, radiologique et protocole national de traitement antituberculeux',
-    specialtyId: 'pneumo',
-    specialtyName: 'Pneumologie',
-    author: 'Pr. K. Benali',
-    authorTitle: 'Chef de Service Pneumo-Phtisiologie - CHU Mustapha Bacha',
-    description: 'Guide complet pour l\'externe et le médecin généraliste : de la primo-infection à la tuberculose maladie cavitaire, prise en charge selon les recommandations du Programme National Algérien.',
-    coverImage: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200',
-    difficulty: 'Incontournable',
-    faculty: 'ORAN',
-    rang: 'Rang A',
-    estimatedDuration: '45 min',
-    tags: ['Mycobacterium tuberculosis', 'Bacilloscopie', 'GeneXpert', 'Quadrithérapie', 'RHZE', 'Isolement respiratoire'],
-    accessLevel: 'FREE', // Accessible en gratuit pour démo
-    published: true,
-    viewsCount: 3420,
-    likesCount: 289,
-    qcmCount: 8,
-    tableOfContents: [
-      { id: 'intro', title: '1. Introduction & Épidémiologie', level: 1 },
-      { id: 'physio', title: '2. Physiopathologie & Transmission', level: 1 },
-      { id: 'clinique', title: '3. Présentation Clinique', level: 1 },
-      { id: 'radio', title: '4. Imagerie Thoracique', level: 1 },
-      { id: 'bacterio', title: '5. Diagnostic Bactériologique (Clé de Voûte)', level: 1 },
-      { id: 'traitement', title: '6. Prise en Charge Thérapeutique (Régime 2RHZE/4RH)', level: 1 },
-      { id: 'points-cles', title: '7. Points Clés & Pièges aux Examens', level: 1 },
+    "id": "cours_neuro_behcet",
+    "slug": "maladie-de-behcet",
+    "title": "La Maladie de Behçet & Neuro-Behçet",
+    "subtitle": "Diagnostic positif (ICBD 2014), Neuro-Behçet parenchymateux vs vasculaire (TVC), génétique (HLA-B51) et stratégie thérapeutique",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "author": "Pr. A. Benmansour",
+    "authorTitle": "Chef de Service de Neurologie & Pathologies Auto-immunes - CHU Oran / CHU Sidi Bel Abbès",
+    "description": "Guide clinique complet conforme aux programmes officiels du Résidanat des facultés de Médecine d'Oran et de Sidi Bel Abbès (SBA) : vasculite systémique non ANCA-associée, aphtose bipolarisée, uvéite rétinienne, méningo-encéphalite du tronc cérébral, thromboses veineuses cérébrales, test de pathergie et protocoles de biothérapie (anti-TNF alpha).",
+    "coverImage": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "rang": "Rang A",
+    "estimatedDuration": "45 min",
+    "createdAt": "2026-01-01",
+    "updatedAt": "2026-01-01",
+    "tags": [
+      "Maladie de Behçet",
+      "Neuro-Behçet",
+      "Aphtose Bipolarisée",
+      "HLA-B51",
+      "Test de Pathergie",
+      "Thrombose Veineuse Cérébrale",
+      "Colchicine",
+      "Infliximab",
+      "Oran",
+      "SBA"
     ],
-    summaryPoints: [
-      'Transmission interhumaine stricte par gouttelettes de Flügge lors de la toux.',
-      'Triade classique : Toux traînante > 3 semaines + Hémoptysie + Altération de l\'état général (AEG) avec sueurs nocturnes.',
-      'Cliché thoracique : Infiltrats, nodules et cavernes prédominant aux sommets pulmonaires.',
-      'Confirmation impérative par l\'examen direct (coloration de Ziehl-Neelsen) ou PCR rapide (GeneXpert MTB/RIF).',
-      'Traitement national codifié : 2 mois de quadrithérapie (RHZE) puis 4 mois de bithérapie (RH) en prise unique matinale à jeun.'
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 3120,
+    "likesCount": 385,
+    "qcmCount": 3,
+    "tableOfContents": [
+      {
+        "id": "intro",
+        "title": "1. Introduction, Épidémiologie & Génétique (HLA-B51)",
+        "level": 1
+      },
+      {
+        "id": "clinique",
+        "title": "2. Triade Clinique : Mucosite Bipolarisée & Lésions Oculaires",
+        "level": 1
+      },
+      {
+        "id": "neuro-behcet",
+        "title": "3. Neuro-Behçet : Forme Parenchymateuse vs Vasculaire (TVC)",
+        "level": 1
+      },
+      {
+        "id": "vascularite",
+        "title": "4. Vascularite Systémique & Anévrysmes Pulmonaires",
+        "level": 1
+      },
+      {
+        "id": "diagnostic",
+        "title": "5. Diagnostic Positif, Test de Pathergie & Critères ICBD",
+        "level": 1
+      },
+      {
+        "id": "traitement",
+        "title": "6. Prise en Charge Thérapeutique & Protocoles EULAR",
+        "level": 1
+      },
+      {
+        "id": "points-cles",
+        "title": "7. Points Clés Concours & Annales (Oran & Sidi Bel Abbès)",
+        "level": 1
+      }
     ],
-    htmlContent: `
-      <section id="intro" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">1. Introduction & Épidémiologie</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          La tuberculose reste un problème majeur de santé publique mondial et en Algérie. Elle est causée par une mycobactérie du complexe <em>Mycobacterium tuberculosis</em> (bacille de Koch ou BK). La forme pulmonaire est de loin la plus fréquente (>70% des cas) et représente la seule forme contagieuse.
-        </p>
-        <div class="p-4 my-4 rounded-xl border border-indigo-100 bg-indigo-50/50 dark:border-indigo-900/50 dark:bg-indigo-950/20">
-          <div class="flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-semibold mb-1">
-            <span class="text-lg">🎯</span> Objectif Résidanat / ECNi
-          </div>
-          <p class="text-sm text-navy-700 dark:text-navy-300">
-            Savoir suspecter la tuberculose devant toute toux inexpliquée durant plus de 3 semaines, prescrire les bons prélèvements bactériologiques et instaurer sans délai la déclaration obligatoire et la quadrithérapie standardisée.
-          </p>
-        </div>
-      </section>
-
-      <section id="physio" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">2. Physiopathologie & Transmission</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          La contamination se fait par voie aéroportée à partir d'un patient bacillifère. Le bacille pénètre jusqu'aux alvéoles pulmonaires où il est phagocyté par les macrophages alvéolaires. Deux issues sont possibles :
-        </p>
-        <ul class="list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4">
-          <li><strong>Infection Tuberculeuse Latente (ITL) :</strong> Le système immunitaire cellulaire circonscrit l'infection sous forme de granulomes épithélioïdes et giganto-cellulaires avec nécrose caséeuse. Le patient est asymptomatique et non contagieux (90% des personnes immunocompétentes).</li>
-          <li><strong>Tuberculose Maladie (TM) :</strong> Rupture de l'équilibre immunitaire (dénutrition, corticothérapie, diabète, VIH) conduisant à la liquéfaction du caséum, à la formation de cavernes et à la dissémination bronchique.</li>
-        </ul>
-      </section>
-
-      <section id="clinique" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">3. Présentation Clinique</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          Le début est insidieux sur plusieurs semaines ou mois. Il associe des signes généraux et des signes respiratoires :
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div class="p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft">
-            <h3 class="font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-amber-500"></span> Signes Généraux (L'Imprégnation)
-            </h3>
-            <ul class="space-y-2 text-sm text-navy-600 dark:text-navy-300">
-              <li>• Altération de l'état général (Asthénie, Anorexie, Amaigrissement chiffré)</li>
-              <li>• Fièvre vespérale ou fébricule modérée</li>
-              <li>• <strong>Sueurs nocturnes profuses</strong> très évocatrices</li>
-            </ul>
-          </div>
-          <div class="p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft">
-            <h3 class="font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-rose-500"></span> Signes Fonctionnels Respiratoires
-            </h3>
-            <ul class="space-y-2 text-sm text-navy-600 dark:text-navy-300">
-              <li>• <strong>Toux chronique productive</strong> > 3 semaines</li>
-              <li>• Expectorations muco-purulentes ou hémoptoïques</li>
-              <li>• <strong>Hémoptysie</strong> d'abondance variable (du crachat strié à l'inondation)</li>
-              <li>• Douleur thoracique en cas d'atteinte pleurale adjacente</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 my-4">
-          <div class="flex items-center gap-2 text-rose-700 dark:text-rose-400 font-bold mb-1">
-            ⚠️ Alerte Rouge : Hémoptysie Cataclysmique
-          </div>
-          <p class="text-sm text-navy-700 dark:text-navy-300">
-            Une hémoptysie massive (> 200 ml/24h) constitue une urgence médico-chirurgicale vitale par asphyxie. Arrêt des manœuvres invasives, décubitus latéral du côté atteint, oxygénothérapie à haut débit, vasoconstricteurs (Terlipressine) et embolisation artérielle bronchique en urgence.
-          </p>
-        </div>
-      </section>
-
-      <section id="radio" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">4. Imagerie Thoracique</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          La radiographie thoracique de face et de profil est l'examen morphologique de première intention. Les lésions sont polymorphes et siègent préférentiellement dans les territoires bien aérés et riches en oxygène (segments apicaux et postérieurs des lobes supérieurs, et apex des lobes inférieurs).
-        </p>
-        <div class="overflow-x-auto my-4">
-          <table class="min-w-full text-sm border-collapse rounded-xl overflow-hidden shadow-soft">
-            <thead class="bg-navy-100 dark:bg-navy-800 text-navy-900 dark:text-white font-semibold">
-              <tr>
-                <th class="p-3 text-left">Type de Lésion</th>
-                <th class="p-3 text-left">Aspect Radiologique</th>
-                <th class="p-3 text-left">Signification Clinique</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-navy-100 dark:divide-navy-800 bg-white dark:bg-navy-900">
-              <tr>
-                <td class="p-3 font-semibold text-brand-600 dark:text-brand-400">Caverne tuberculeuse</td>
-                <td class="p-3">Hyperclarté cernée d'une paroi épaisse, parfois avec niveau liquide</td>
-                <td class="p-3 text-rose-600 dark:text-rose-400 font-medium">Foyer de réplication intense, hautement contagieux</td>
-              </tr>
-              <tr>
-                <td class="p-3 font-semibold">Infiltrats et nodules</td>
-                <td class="p-3">Opacités hétérogènes mal limitées des apex</td>
-                <td class="p-3">Lésions actives de dissémination bronchogène</td>
-              </tr>
-              <tr>
-                <td class="p-3 font-semibold">Miliaire pulmonaire</td>
-                <td class="p-3">Micronodules punctiformes de 1 à 2 mm disséminés en "grains de mil"</td>
-                <td class="p-3 text-amber-600 dark:text-amber-400">Dissémination hématogène, urgence diagnostique</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section id="bacterio" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">5. Diagnostic Bactériologique (Clé de Voûte)</h2>
-        <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 dark:bg-emerald-950/20 dark:border-emerald-900/40 mb-4">
-          <div class="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold mb-1">
-            💡 Règle d'or : La certitude diagnostique est BACTÉRIOLOGIQUE
-          </div>
-          <p class="text-sm text-navy-700 dark:text-navy-300">
-            Ne jamais débuter d'antibacillaires sur une simple impression radiologique sans avoir isolé le germe, sauf détresse vitale immédiate (miliaire asphyxiante).
-          </p>
-        </div>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-3">
-          <strong>Modalités de prélèvement :</strong>
-        </p>
-        <ul class="list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4">
-          <li><strong>Expectorations induites ou spontanées (ECBC) :</strong> 3 jours consécutifs le matin au réveil après rinçage bucco-dentaire.</li>
-          <li><strong>Tubage gastrique au réveil :</strong> Chez le patient qui n'expectore pas ou chez l'enfant, avant tout lever et avant tout repas (le BK dégluti durant la nuit stagne dans l'estomac).</li>
-          <li><strong>Fibroscopie bronchique avec lavage broncho-alvéolaire (LBA) :</strong> Si les expectorations restent négatives malgré une forte suspicion clinique et radiologique.</li>
-        </ul>
-      </section>
-
-      <section id="traitement" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">6. Prise en Charge Thérapeutique (Régime 2RHZE/4RH)</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          Le traitement repose sur le protocole standardisé du Programme National de Lutte Antituberculeuse en Algérie. Il comporte deux phases distinctes :
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div class="p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800">
-            <span class="inline-block px-3 py-1 text-xs font-bold uppercase rounded-full bg-indigo-600 text-white mb-2">Phase Initiale d'Attaque (2 Mois)</span>
-            <h4 class="text-lg font-bold text-navy-900 dark:text-white mb-1">Quadrithérapie RHZE</h4>
-            <p class="text-sm text-navy-600 dark:text-navy-300 mb-3">Rifampicine + Isoniazide + Pyrazinamide + Éthambutol.</p>
-            <p class="text-xs text-navy-500 dark:text-navy-400">Objectif : Destruction rapide de la population bacillaire extracellulaire et prévention de l'émergence de souches résistantes.</p>
-          </div>
-          <div class="p-5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800">
-            <span class="inline-block px-3 py-1 text-xs font-bold uppercase rounded-full bg-emerald-600 text-white mb-2">Phase d'Entretien (4 Mois)</span>
-            <h4 class="text-lg font-bold text-navy-900 dark:text-white mb-1">Bithérapie RH</h4>
-            <p class="text-sm text-navy-600 dark:text-navy-300 mb-3">Rifampicine + Isoniazide.</p>
-            <p class="text-xs text-navy-500 dark:text-navy-400">Objectif : Éradication des bacilles intracellulaires à multiplication lente et prévention des rechutes à long terme.</p>
-          </div>
-        </div>
-
-        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 dark:bg-amber-950/20 dark:border-amber-900/40 mb-4">
-          <div class="font-bold text-amber-900 dark:text-amber-300 mb-2">💊 Règle de Prise & Surveillance Thérapeutique :</div>
-          <ul class="text-sm space-y-1 text-navy-700 dark:text-navy-300">
-            <li>• Prise quotidienne <strong>unique le matin à jeun</strong> (au moins 30 minutes avant le petit déjeuner).</li>
-            <li>• Prévenir le patient de la coloration rouge-orangée bénigne des sécrétions (larmes, urines) sous Rifampicine.</li>
-            <li>• Surveillance du bilan hépatique (Transaminases ASAT/ALAT) bimensuelle le premier mois.</li>
-            <li>• Surveillance ophtalmologique (champ visuel, vision des couleurs) sous Éthambutol pour dépister la névrite optique rétrobulbaire.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="points-cles" class="mb-6">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">7. Points Clés & Pièges aux Examens</h2>
-        <div class="space-y-3">
-          <div class="flex items-start gap-3 p-3 rounded-xl bg-navy-50 dark:bg-navy-800/50">
-            <span class="text-brand-600 dark:text-brand-400 font-bold">1.</span>
-            <span class="text-sm text-navy-700 dark:text-navy-300">L'intradermoréaction à la tuberculine (IDR) ou le test IGRA (QuantiFERON) ne permettent <strong>JAMAIS</strong> à eux seuls d'affirmer une tuberculose pulmonaire maladie active.</span>
-          </div>
-          <div class="flex items-start gap-3 p-3 rounded-xl bg-navy-50 dark:bg-navy-800/50">
-            <span class="text-brand-600 dark:text-brand-400 font-bold">2.</span>
-            <span class="text-sm text-navy-700 dark:text-navy-300">La déclaration à la Direction de la Santé et de la Population (DSP) est <strong>obligatoire</strong> dès confirmation.</span>
-          </div>
-          <div class="flex items-start gap-3 p-3 rounded-xl bg-navy-50 dark:bg-navy-800/50">
-            <span class="text-brand-600 dark:text-brand-400 font-bold">3.</span>
-            <span class="text-sm text-navy-700 dark:text-navy-300">Le dépistage des sujets contacts intrafamiliaux est indissociable du traitement du cas index.</span>
-          </div>
-        </div>
-      </section>
-    `,
-    createdAt: '2026-08-10T09:00:00Z',
-    updatedAt: '2026-09-01T14:30:00Z'
+    "summaryPoints": [
+      "Aphtose buccale récidivante (au moins 3 poussées en 12 mois) : Élément inaugural cardinal présent dans plus de 98% des cas.",
+      "Neuro-Behçet Parenchymateux (80%) : Méningo-encéphalite touchant préférentiellement le tronc cérébral (jonction bulbopontique) et les noyaux gris centraux (Hyperintensité T2/FLAIR à l'IRM).",
+      "Neuro-Behçet Vasculaire (20%) : Thrombose Veineuse Cérébrale (TVC des sinus duraux) se révélant par un syndrome d'hypertension intracrânienne (HTIC).",
+      "Biologie & Génétique : Négativité stricte des auto-anticorps (AAN négatifs, ANCA négatifs). Forte association avec le marqueur HLA-B51 (HLA-B5101).",
+      "Test de Pathergie : Papulo-pustule stérile apparaissant 24 à 48h après une piqûre intradermique à l'avant-bras (très spécifique de la maladie de Behçet).",
+      "Traitement de référence : Colchicine (1 à 2 mg/j) pour l'aphtose ; Bolus de Solumedrol (1g/j x 3-5j) + Cyclophosphamide ou Anti-TNF alpha (Infliximab/Adalimumab) pour les formes graves neurologiques et oculaires."
+    ],
+    "htmlContent": "\n      <section id=\"intro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Introduction, Épidémiologie & Génétique (HLA-B51)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La <strong>Maladie de Behçet</strong> est une vasculite systémique chronique d'évolutivité par poussées-rémissions. Elle se caractérise anatomopathologiquement par une <strong>angéite péricapillaire et veineuse</strong> atteignant les vaisseaux de tous calibres (petits, moyens et gros vaisseaux artériels et veineux), sans nécrose ni ANCA.\n        </p>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Elle prédomine le long de la mythique <em>Route de la Soie</em> (du Bassin Méditerranéen jusqu'à l'Asie de l'Est). En Algérie (notamment dans les régions de l'Ouest : <strong>Oran, Sidi Bel Abbès, Tlemcen</strong>), sa prévalence est élevée, touchant avec prédilection l'adulte jeune (20 à 40 ans) avec un sex-ratio prédominant chez l'homme pour les formes neurologiques graves.\n        </p>\n\n        <div class=\"p-4 my-5 rounded-2xl border border-indigo-100 bg-indigo-50/60 dark:border-indigo-900/50 dark:bg-indigo-950/20\">\n          <div class=\"flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-bold mb-1\">\n            <span class=\"text-lg\">🧬</span> Marqueur Génétique Prépondérant : HLA-B51\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            L'allèle <strong>HLA-B51 (sous-type B*5101)</strong> est présent chez 50 à 80% des patients d'Afrique du Nord. Il constitue le facteur de susceptibilité génétique le plus puissant, bien qu'il ne soit pas indispensable au diagnostic positif. <strong>Biologie habituelle :</strong> Absence d'auto-anticorps (AAN -, ANCA -, FR -).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Triade Clinique : Mucosite Bipolarisée & Lésions Oculaires</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le diagnostic repose essentiellement sur l'examen clinique minutieux à la recherche de la triade d'Hulusi Behçet :\n        </p>\n\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-rose-500\"></span> 1. Aphtose Bipolarisée (Obligatoire)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• <strong>Aphtose buccale :</strong> Présente chez 98-100% des malades. Ulcérations douloureuses, à fond beurre frais, à bords emportés à la pièce, guérissant sans cicatrice en 10-14 jours. Au moins 3 poussées/an.</li>\n              <li>• <strong>Aphtose génitale :</strong> Très spécifique (95%). Ulcérations du scrotum/testicules chez l'homme, des grandes lèvres/vulve chez la femme. Laissent des <em>cicatrices atrophiques blanchâtres pathognomoniques</em>.</li>\n            </ul>\n          </div>\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-amber-500\"></span> 2. Atteinte Oculaire (Pronostic visuel)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• Touchant 50 à 70% des patients, bilatérale et menaçante.</li>\n              <li>• <strong>Uvéite antérieure aiguë à hypopyon</strong> (niveau de pus stérile dans la chambre antérieure).</li>\n              <li>• <strong>Uvéite postérieure & Vasculite rétinienne :</strong> Engaineur veineux, hyalite, œdème maculaire (risque de cécité irréversible).</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-5 rounded-2xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-700 mb-6\">\n          <h3 class=\"font-bold text-navy-900 dark:text-white mb-2\">3. Manifestations Cutanées</h3>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300 leading-relaxed\">\n            • <strong>Érythème noueux :</strong> Nouures dermothermiques douloureuses des membres inférieurs.<br>\n            • <strong>Pseudofolliculite superficielle / Pustules stériles :</strong> Pustules non centré par un poil sur le tronc et les membres.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"neuro-behcet\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Neuro-Behçet : Forme Parenchymateuse vs Vasculaire (TVC)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'atteinte du système nerveux central (<strong>Neuro-Behçet</strong>) survient dans 10 à 20% des cas, habituellement 3 à 5 ans après les aphtes. Elle conditionne le pronostic vital et fonctionnel. On distingue formellement deux phénotypes majeurs :\n        </p>\n\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-5 mb-6\">\n          <!-- Forme Parenchymateuse -->\n          <div class=\"p-6 rounded-2xl bg-rose-50/70 border border-rose-200 dark:bg-rose-950/30 dark:border-rose-900/50 space-y-3\">\n            <div class=\"flex items-center justify-between\">\n              <span class=\"px-3 py-1 bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-200 font-black text-xs rounded-full uppercase\">Forme Parenchymateuse (~80%)</span>\n              <span class=\"text-xl\">🧠</span>\n            </div>\n            <h3 class=\"text-lg font-bold text-rose-950 dark:text-rose-100\">Méningo-Encéphalite du Tronc Cérébral</h3>\n            <ul class=\"text-sm text-rose-900 dark:text-rose-200 space-y-2 leading-relaxed\">\n              <li>• <strong>Siège préférentiel :</strong> Tronc cérébral (pédoncules cérébraux, protubérance), noyaux gris centraux et capsule interne.</li>\n              <li>• <strong>Tableau clinique :</strong> Syndrome pyramidal (hémiparésie), syndrome cérébelleux, ophtalmoplégie internucléaire, paralysie des nerfs crâniens (diplopie), troubles de l'humeur et détérioration cognitive.</li>\n              <li>• <strong>IRM Cérébrale (Clé) :</strong> Hyperintensités en T2 et FLAIR périventriculaires et sous-corticales avec aspect d'œdème inflammatoire (\"en tache de bougie\").</li>\n              <li>• <strong>Ponction Lumbal :</strong> Pléiocytose modérée (panachée PNN / Lymphocytes), hyperprotéinorachie.</li>\n            </ul>\n          </div>\n\n          <!-- Forme Vasculaire -->\n          <div class=\"p-6 rounded-2xl bg-amber-50/70 border border-amber-200 dark:bg-amber-950/30 dark:border-amber-900/50 space-y-3\">\n            <div class=\"flex items-center justify-between\">\n              <span class=\"px-3 py-1 bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-200 font-black text-xs rounded-full uppercase\">Forme Vasculaire / TVC (~20%)</span>\n              <span class=\"text-xl\">🩸</span>\n            </div>\n            <h3 class=\"text-lg font-bold text-amber-950 dark:text-amber-100\">Thrombose Veineuse Cérébrale (TVC)</h3>\n            <ul class=\"text-sm text-amber-900 dark:text-amber-200 space-y-2 leading-relaxed\">\n              <li>• <strong>Mécanisme :</strong> Thrombo-phlébite des sinus veineux duraux (sinus sagittal supérieur, sinus transverse, sinus latéral).</li>\n              <li>• <strong>Tableau clinique :</strong> Syndrome d'<strong>Hypertension Intracrânienne (HTIC)</strong> avec céphalées intenses progressives, œdème papillaire au fond d'œil, vomissements et diplopie par atteinte du VI.</li>\n              <li>• <strong>Angio-IRM Cérébrale (MRV) :</strong> Absence de flux (défaut de rehaussement) dans le sinus dural thrombosé (Signe du delta).</li>\n              <li>• <strong>Pronostic :</strong> Meilleur que la forme parenchymateuse sous anticoagulation et corticothérapie.</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200 dark:bg-purple-950/20 dark:border-purple-900/40 my-4\">\n          <div class=\"flex items-center gap-2 text-purple-700 dark:text-purple-300 font-bold mb-1\">\n            ⚠️ Piège Résidanat Oran / SBA : Forme Mixte\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Les formes parenchymateuses et non-parenchymateuses (TVC) s'excluent mutuellement chez un même patient dans plus de 90% des cas ! La survenue d'une TVC impose de rechercher d'autres thromboses périphériques (TVP des membres inférieurs).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"vascularite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Vascularite Systémique & Anévrysmes Pulmonaires</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La maladie de Behçet est la seule vasculite capable de toucher les artères et les veines de toutes tailles :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-3 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Angio-Behçet Veineux (30%) :</strong> Thromboses veineuses profondes (TVP) récidivantes des membres inférieurs, phlébite de la veine cave inférieure (Syndrome de Budd-Chiari).</li>\n          <li><strong>Angio-Behçet Artériel (5%) :</strong> <strong>Anévrysmes de l'artère pulmonaire (AAP)</strong>. C'est la complication artérielle la plus redoutable ! Elle se manifeste par des <em>hémoptysies foudrayantes</em> par rupture anévrysmale.</li>\n          <li><strong>Atteinte Articulaire (50%) :</strong> Mono ou oligopléomorphe non érosive et non déformante (genoux, chevilles).</li>\n        </ul>\n      </section>\n\n      <section id=\"diagnostic\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">5. Diagnostic Positif, Test de Pathergie & Critères ICBD</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le test de pathergie évalue l'hyperréactivité cutanée non spécifique induite par micro-traumatisme.\n        </p>\n\n        <div class=\"p-4 my-4 rounded-xl border border-teal-200 bg-teal-50/50 dark:border-teal-900/50 dark:bg-teal-950/20\">\n          <div class=\"font-bold text-teal-800 dark:text-teal-300 mb-1\">📌 Protocole du Test de Pathergie (Pathergy Test)</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Inoculation d'une aiguille stérile de 20G en intradermique au niveau de la face antérieure de l'avant-bras. <strong>Lecture à 24-48 heures :</strong> Positif si apparition d'une papule ou pustule stérile d'au moins 2 mm de diamètre entourée d'un érythème.\n          </p>\n        </div>\n\n        <h3 class=\"text-lg font-bold text-navy-900 dark:text-white mb-3\">Critères Diagnostiques Internationaux (ICBD 2014) :</h3>\n        <div class=\"overflow-x-auto mb-6\">\n          <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden\">\n            <thead class=\"bg-slate-100 dark:bg-navy-800 text-xs font-bold uppercase text-navy-700 dark:text-navy-200\">\n              <tr>\n                <th class=\"p-3 border border-slate-200 dark:border-navy-700\">Critère Clinique ICBD</th>\n                <th class=\"p-3 border border-slate-200 dark:border-navy-700 text-center\">Score de Points</th>\n              </tr>\n            </thead>\n            <tbody class=\"text-sm text-navy-700 dark:text-navy-300 divide-y divide-slate-100 dark:divide-navy-800\">\n              <tr>\n                <td class=\"p-3 font-semibold\">Lésions Oculaires (Uvéite, vasculite rétinienne)</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Aphtose Génitale (Cicatrices scrotales/vulvaires)</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Aphtose Buccale Récidivante</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Neurologiques (Neuro-Behçet)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Cutanées (Pseudofolliculite, Érythème noueux)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Vasculaires (TVP, Anévrysmes, TVC)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Test de Pathergie Positif (Optionnel)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n        <p class=\"text-xs font-bold text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/40 p-3 rounded-xl border border-teal-200\">\n          🎯 Règle de Validation : Un score total &ge; 4 Points confirme le diagnostic positif de la maladie de Behçet !\n        </p>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">6. Prise en Charge Thérapeutique & Protocoles EULAR</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le traitement est adapté à l'organe le plus sévèrement atteint :\n        </p>\n\n        <div class=\"space-y-4\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">💊 1. Atteinte Mucocutanée (Aphtose)</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • <strong>Colchicine :</strong> 1 à 2 mg/jour per os en première intention.<br>\n              • Bains de bouche corticoïdes / Dermo-corticoïdes locaux.\n            </p>\n          </div>\n\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">🧠 2. Traitement du Neuro-Behçet Parenchymateux</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • <strong>Bolus de Méthylprednisolone (Solumedrol) :</strong> 1g/jour en IVD sur 3 à 5 jours consécutifs.<br>\n              • Relais par <strong>Prednisolone per os :</strong> 1 mg/kg/jour avec dégression lente sur plusieurs mois.<br>\n              • <strong>Immunosuppresseur de fond :</strong> Azathioprine (Imurel 2.5 mg/kg/j) ou Cyclophosphamide (Endoxan bolus mensuel).<br>\n              • <strong>Formes réfractaires / sévères :</strong> Biothérapie par <strong>Anti-TNF alpha</strong> (Infliximab 5 mg/kg ou Adalimumab).\n            </p>\n          </div>\n\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">🩸 3. Traitement de la Thrombose Veineuse Cérébrale (TVC)</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • Corticothérapie à forte dose + <strong>Anticoagulation curative</strong> par Héparine puis AOD/AVK.\n            </p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"points-cles\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">7. Points Clés & Pièges aux Examens (Annales Oran & SBA)</h2>\n        <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-3\">\n          <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-base\">📌 TOUJOURS RETENIR POUR LE CONCOURS :</div>\n          <ul class=\"text-sm text-indigo-950 dark:text-indigo-200 space-y-2 leading-relaxed\">\n            <li>✅ L'aphtose buccale est le signe inaugural obligatoire présent chez > 98% des sujets.</li>\n            <li>✅ L'atteinte du tronc cérébral à l'IRM (hyperintensité T2) définit la forme parenchymateuse classique du Neuro-Behçet.</li>\n            <li>✅ Le test de Pathergie se lit à 24-48 heures.</li>\n            <li>✅ Il n'y a pas d'auto-anticorps spécifiques (AAN et ANCA sont négatifs).</li>\n            <li>✅ L'anévrysme de l'artère pulmonaire est la cause la plus fréquente de décès par hémoptysie cataclysmique.</li>\n          </ul>\n        </div>\n      </section>\n  "
   },
   {
-    id: 'cours_cardio_rm',
-    slug: 'retrecissement-mitral',
-    title: 'Le Rétrécissement Mitral (Sténose Mitrale)',
-    subtitle: 'Étiologie rhumatismale, retentissement hémodynamique, diagnostic échocardiographique et traitement percutané',
-    specialtyId: 'cardio',
-    specialtyName: 'Cardiologie',
-    author: 'Dr. A. Zerrouki & Pr. S. Mansouri',
-    authorTitle: 'Service de Cardiologie - EHS Draa Ben Khedda',
-    description: 'La valvulopathie classique par excellence en Afrique du Nord : complications rythmiques et thromboemboliques, échographie Doppler clé et indications de la commissurotomie mitrale percutanée.',
-    coverImage: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=1200',
-    difficulty: 'Incontournable',
-    faculty: 'SIDI_BEL_ABBES',
-    rang: 'Rang A',
-    estimatedDuration: '40 min',
-    tags: ['Valvulopathie', 'RAA', 'Fibrillation Atriale', 'Roulement diastolique', 'Duroziez', 'Commissurotomie'],
-    accessLevel: 'FREE', // Accessible en gratuit
-    published: true,
-    viewsCount: 2840,
-    likesCount: 245,
-    qcmCount: 6,
-    tableOfContents: [
-      { id: 'intro', title: '1. Définition & Étiologie (Le RAA)', level: 1 },
-      { id: 'physio', title: '2. Physiopathologie & Conséquences d\'Amont', level: 1 },
-      { id: 'auscultation', title: '3. Signes Physiques (Le Rythme de Duroziez)', level: 1 },
-      { id: 'echo', title: '4. Échocardiographie Doppler (Gold Standard)', level: 1 },
-      { id: 'complications', title: '5. Complications Évolutives', level: 1 },
-      { id: 'traitement', title: '6. Prise en Charge & Commissurotomie', level: 1 }
+    "id": "cours_1790371084562",
+    "slug": "cours-1790371084562",
+    "title": "Introduction aux Politiques de Santé Publique",
+    "subtitle": "Notions fondamentales de santé communautaire",
+    "specialtyId": "sante-publique-epidemiologie",
+    "specialtyName": "Santé Publique & Épidémiologie",
+    "author": "Pr. Karim Benali",
+    "authorTitle": "Chef de Service Hospitalo-Universitaire",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "TOUS",
+    "source": "Externat",
+    "rang": "Rang A",
+    "estimatedDuration": "35 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
     ],
-    summaryPoints: [
-      'Cause quasi-exclusive en Algérie : le Rhumatisme Articulaire Aigu (RAA) post-streptococcique.',
-      'Surface mitrale normale : 4 à 6 cm². RM serré : surface < 1,5 cm².',
-      'Auscultation typique (Rythme de Duroziez) : Éclat de B1, Claquement d\'ouverture mitrale (COM) et Roulement diastolique.',
-      'Le ventricule gauche n\'est PAS dilaté ni hypertrophié (il est protégé par la sténose en amont).',
-      'Complications majeures : Fibrillation Atriale (FA), AVC embolique et Œdème Aigu du Poumon (OAP).',
-      'Traitement de choix de la forme souple non calcifiée : Commissurotomie Mitrale Percutanée (CMP) par ballon d\'Inoue.'
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 0,
+    "tableOfContents": [
+      {
+        "id": "intro",
+        "title": "1. Introduction",
+        "level": 1
+      },
+      {
+        "id": "clinique",
+        "title": "2. Clinique",
+        "level": 1
+      },
+      {
+        "id": "traitement",
+        "title": "3. Traitement",
+        "level": 1
+      }
     ],
-    htmlContent: `
-      <section id="intro" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">1. Définition & Étiologie (Le RAA)</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          Le rétrécissement mitral (RM) est la diminution permanente de la surface de l'orifice mitral faisant obstacle au remplissage du ventricule gauche lors de la diastole.
-        </p>
-        <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 dark:bg-purple-950/20 dark:border-purple-900/40 mb-4">
-          <div class="font-bold text-purple-900 dark:text-purple-300 mb-1">
-            📍 Spécificité Épidémiologique Maghrébine
-          </div>
-          <p class="text-sm text-navy-700 dark:text-navy-300">
-            Alors que le RM a quasiment disparu d'Europe occidentale, il demeure fréquent en Algérie en raison des séquelles de cardite rhumatismale (RAA) contractée durant l'enfance ou l'adolescence. Il touche avec prédilection la femme jeune (sex-ratio 3F/1H).
-          </p>
-        </div>
-      </section>
-
-      <section id="physio" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">2. Physiopathologie & Conséquences d'Amont</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          L'obstacle mécanique valvulaire crée un gradient de pression diastolique entre l'atrium gauche (AG) et le ventricule gauche (VG). Les répercussions se propagent en cascade vers l'amont :
-        </p>
-        <ol class="list-decimal pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4">
-          <li><strong>Hyperpression et dilatation de l'atrium gauche :</strong> Risque d'arythmie atriale (fibrillation auriculaire) et de stase sanguine avec formation de thrombus dans l'auricule gauche.</li>
-          <li><strong>Hypertension veineuse puis capillaire pulmonaire :</strong> Transsudation alvéolaire lorsque la pression dépasse 25 mmHg, responsable d'œdème aigu pulmonaire (OAP).</li>
-          <li><strong>Hypertension artérielle pulmonaire (HTAP) :</strong> D'abord post-capillaire passive, puis pré-capillaire fixée par remodelage artériolaire.</li>
-          <li><strong>Retentissement sur les cavités droites :</strong> Dilatation du ventricule droit, insuffisance tricuspide fonctionnelle et insuffisance cardiaque droite globale.</li>
-        </ol>
-      </section>
-
-      <section id="auscultation" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">3. Signes Physiques (Le Rythme de Duroziez)</h2>
-        <div class="p-5 rounded-2xl bg-white dark:bg-navy-800/90 border border-navy-100 dark:border-navy-700 shadow-soft mb-6">
-          <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-3">La Triade Auscultatoire Classique à l'Apex en Décubitus Latéral Gauche :</h3>
-          <ul class="space-y-3 text-sm text-navy-700 dark:text-navy-300">
-            <li class="flex items-start gap-2">
-              <span class="font-bold text-navy-900 dark:text-white min-w-[32px]">1.</span>
-              <span><strong>Éclat du 1er bruit (B1) :</strong> Fermeture brutale de valves mitrales scléreuses mais encore mobiles.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="font-bold text-navy-900 dark:text-white min-w-[32px]">2.</span>
-              <span><strong>Claquement d'ouverture mitrale (COM) :</strong> Survient au tout début de la diastole, juste après le B2. Plus le COM est précoce et proche du B2, plus le RM est serré !</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="font-bold text-navy-900 dark:text-white min-w-[32px]">3.</span>
-              <span><strong>Roulement méso-télédiastolique :</strong> Bruit sourd, grave, irradiant peu, se terminant en rythme sinusal par un renforcement pré-systolique (disparaît en cas de fibrillation atriale).</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="echo" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">4. Échocardiographie Doppler (Gold Standard)</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          L'échocardiographie transthoracique (ETT) permet le diagnostic positif, l'évaluation de la sévérité et la recherche de contre-indications au traitement percutané :
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div class="p-4 rounded-xl bg-navy-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700">
-            <span class="text-xs font-bold text-navy-500 uppercase">RM Minime</span>
-            <div class="text-lg font-bold text-navy-900 dark:text-white mt-1">Surface > 1.5 cm²</div>
-            <p class="text-xs text-navy-500 mt-1">Gradient moyen &lt; 5 mmHg</p>
-          </div>
-          <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
-            <span class="text-xs font-bold text-amber-600 uppercase">RM Serré</span>
-            <div class="text-lg font-bold text-amber-900 dark:text-amber-200 mt-1">Surface 1.0 - 1.5 cm²</div>
-            <p class="text-xs text-amber-700 dark:text-amber-300 mt-1">Gradient moyen 5 - 10 mmHg</p>
-          </div>
-          <div class="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800">
-            <span class="text-xs font-bold text-rose-600 uppercase">RM Très Serré</span>
-            <div class="text-lg font-bold text-rose-900 dark:text-rose-200 mt-1">Surface &lt; 1.0 cm²</div>
-            <p class="text-xs text-rose-700 dark:text-rose-300 mt-1">Gradient moyen > 10 mmHg</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="traitement" class="mb-6">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">6. Prise en Charge & Commissurotomie</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          En cas de RM serré symptomatique (ou asymptomatique avec HTAP sévère au repos ou à l'effort) :
-        </p>
-        <ul class="list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300">
-          <li><strong>Commissurotomie Mitrale Percutanée (CMP) :</strong> Traitement de première intention si l'anatomie valvulaire est favorable (score de Wilkins ≤ 8, absence de calcification commissurale, absence de fuite mitrale > grade 2 et absence de thrombus dans l'OG/auricule vérifiée par Échographie Transœsophagienne préalable).</li>
-          <li><strong>Remplacement Valvulaire Mitral (RVM) chirurgical :</strong> Par prothèse mécanique ou biologique en cas de contre-indication à la CMP (valves très remaniées ou calcifiées, fuite mitrale associée).</li>
-        </ul>
-      </section>
-    `,
-    createdAt: '2026-08-18T11:00:00Z',
-    updatedAt: '2026-09-02T10:00:00Z'
+    "htmlContent": "<p>Contenu médical en cours de rédaction...</p>",
+    "createdAt": "2026-09-25T21:18:04.562Z",
+    "updatedAt": "2026-09-25T21:18:04.563Z"
   },
   {
-    id: 'cours_neuro_avc',
-    slug: 'avc-ischemique',
-    title: 'L\'Accident Vasculaire Cérébral (AVC) Ischémique Aigu',
-    subtitle: 'Reconnaissance d\'urgence, imagerie multimodale, thrombolyse intraveineuse et thrombectomie mécanique',
-    specialtyId: 'neuro',
-    specialtyName: 'Neurologie',
-    author: 'Dr. F. Khellaf',
-    authorTitle: 'Service des Urgences Cérébro-Vasculaires',
-    description: '"Le temps, c\'est du cerveau !" Guide opérationnel pour la gestion de l\'AVC en phase aiguë : critères d\'éligibilité à la thrombolyse (rt-PA) et à la thrombectomie mécanique jusqu\'à 24h.',
-    coverImage: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1200',
-    difficulty: 'Incontournable',
-    rang: 'Rang A',
-    estimatedDuration: '45 min',
-    tags: ['AVC', 'Thrombolyse', 'Thrombectomie', 'IRM cérébrale', 'NIHSS', 'Fibrillation Atriale', 'Aspirine'],
-    accessLevel: 'PRO', // Contenu réservé PRO
-    published: true,
-    viewsCount: 4120,
-    likesCount: 380,
-    qcmCount: 7,
-    tableOfContents: [
-      { id: 'definition', title: '1. Définition & Score NIHSS', level: 1 },
-      { id: 'imagerie', title: '2. Imagerie en Urgence : IRM vs Scanner', level: 1 },
-      { id: 'recanalisation', title: '3. Traitements de Recanalisation en Phase Aiguë', level: 1 },
-      { id: 'mesures-generales', title: '4. Soins Intensifs & Contrôle des Constantes', level: 1 }
+    "id": "cours_pneumo_tb",
+    "slug": "la-tuberculose-pulmonaire-commune",
+    "title": "La Tuberculose Pulmonaire Commune",
+    "subtitle": "",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
     ],
-    summaryPoints: [
-      'Tout déficit neurologique focal d\'apparition brutale est un AVC jusqu\'à preuve du contraire.',
-      'IRM cérébrale en première intention : séquence Diffusion (anomalie immédiate), FLAIR (datation), T2* (élimine l\'hémorragie) et 3D-TOF.',
-      'Thrombolyse IV par Actilyse (rt-PA) : fenêtre de 4h30 après le début des symptômes.',
-      'Thrombectomie mécanique : jusqu\'à 6h (et jusqu\'à 24h selon critères d\'imagerie perfusion DAWN/DEFUSE-3) en cas d\'occlusion d\'un gros tronc artériel.',
-      'Respecter l\'hypertension artérielle réflexe en phase aiguë : ne pas baisser la PA sauf si > 220/120 mmHg (ou > 185/110 mmHg si thrombolyse envisagée).'
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
     ],
-    htmlContent: `
-      <section id="definition" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">1. Définition & Alerte Immédiate</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          L'AVC ischémique représente 80 à 85% de l'ensemble des AVC. Il résulte de l'interruption du flux sanguin artériel cérébral par un thrombus ou une embole, entraînant une nécrose neuronale progressive.
-        </p>
-        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40">
-          <div class="font-bold text-rose-700 dark:text-rose-300 mb-1">⏱️ Chaque minute perdue = 2 millions de neurones détruits</div>
-          <p class="text-sm text-navy-700 dark:text-navy-300">L'appel au SAMU / Urgences doit déclencher la filière neurovasculaire d'emblée sans passer par le médecin traitant.</p>
-        </div>
-      </section>
-
-      <section id="imagerie" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">2. Imagerie en Urgence : IRM vs Scanner</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          L'IRM cérébrale est l'examen de choix. Le protocole d'urgence comprend :
-        </p>
-        <ul class="list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300">
-          <li><strong>Diffusion (DWI) :</strong> Hyperintensité visible dès les premières minutes, confirmant l'ischémie cytotoxique.</li>
-          <li><strong>FLAIR :</strong> Si le parenchyme est encore normal en FLAIR alors qu'il est brillant en Diffusion, l'AVC date de moins de 4h30 (mismatch Diffusion/FLAIR) !</li>
-          <li><strong>T2* ou SWI :</strong> Élimine formellement tout saignement intracrânien.</li>
-          <li><strong>Angio-IRM (TOF) :</strong> Visualise le thrombus occlusif dans les gros vaisseaux cérébraux (artère cérébrale moyenne M1/M2, carotide interne terminale, tronc basilaire).</li>
-        </ul>
-      </section>
-
-      <section id="recanalisation" class="mb-6">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">3. Traitements de Recanalisation en Phase Aiguë</h2>
-        <div class="space-y-4">
-          <div class="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800">
-            <h4 class="font-bold text-indigo-900 dark:text-indigo-200 mb-1">1. Thrombolyse intraveineuse par rt-PA (Alteplase)</h4>
-            <p class="text-sm text-navy-700 dark:text-navy-300">Dose : 0.9 mg/kg (max 90 mg) avec 10% en bolus sur 1 min, puis le reste sur 1h. Fenêtre d'éligibilité : strictly &lt; 4h30.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-purple-50/60 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800">
-            <h4 class="font-bold text-purple-900 dark:text-purple-200 mb-1">2. Thrombectomie mécanique par voie endovasculaire</h4>
-            <p class="text-sm text-navy-700 dark:text-navy-300">Extraction directe du caillot par stent-retriever ou thrombo-aspiration en cas d'occlusion proximale. Efficace jusqu'à 6h, et jusqu'à 24h si tissu sauvable documenté en imagerie de perfusion.</p>
-          </div>
-        </div>
-      </section>
-    `,
-    createdAt: '2026-08-22T14:00:00Z',
-    updatedAt: '2026-09-03T11:00:00Z'
+    "htmlContent": "\n      <section id=\"intro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Introduction & Épidémiologie</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La tuberculose reste un problème majeur de santé publique mondial et en Algérie. Elle est causée par une mycobactérie du complexe <em>Mycobacterium tuberculosis</em> (bacille de Koch ou BK). La forme pulmonaire est de loin la plus fréquente (>70% des cas) et représente la seule forme contagieuse.\n        </p>\n        <div class=\"p-4 my-4 rounded-xl border border-indigo-100 bg-indigo-50/50 dark:border-indigo-900/50 dark:bg-indigo-950/20\">\n          <div class=\"flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-semibold mb-1\">\n            <span class=\"text-lg\">🎯</span> Objectif Résidanat / ECNi\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Savoir suspecter la tuberculose devant toute toux inexpliquée durant plus de 3 semaines, prescrire les bons prélèvements bactériologiques et instaurer sans délai la déclaration obligatoire et la quadrithérapie standardisée.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"physio\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Physiopathologie & Transmission</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La contamination se fait par voie aéroportée à partir d'un patient bacillifère. Le bacille pénètre jusqu'aux alvéoles pulmonaires où il est phagocyté par les macrophages alvéolaires. Deux issues sont possibles :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Infection Tuberculeuse Latente (ITL) :</strong> Le système immunitaire cellulaire circonscrit l'infection sous forme de granulomes épithélioïdes et giganto-cellulaires avec nécrose caséeuse. Le patient est asymptomatique et non contagieux (90% des personnes immunocompétentes).</li>\n          <li><strong>Tuberculose Maladie (TM) :</strong> Rupture de l'équilibre immunitaire (dénutrition, corticothérapie, diabète, VIH) conduisant à la liquéfaction du caséum, à la formation de cavernes et à la dissémination bronchique.</li>\n        </ul>\n      </section>\n\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Présentation Clinique</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le début est insidieux sur plusieurs semaines ou mois. Il associe des signes généraux et des signes respiratoires :\n        </p>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-amber-500\"></span> Signes Généraux (L'Imprégnation)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• Altération de l'état général (Asthénie, Anorexie, Amaigrissement chiffré)</li>\n              <li>• Fièvre vespérale ou fébricule modérée</li>\n              <li>• <strong>Sueurs nocturnes profuses</strong> très évocatrices</li>\n            </ul>\n          </div>\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-rose-500\"></span> Signes Fonctionnels Respiratoires\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• <strong>Toux chronique productive</strong> > 3 semaines</li>\n              <li>• Expectorations muco-purulentes ou hémoptoïques</li>\n              <li>• <strong>Hémoptysie</strong> d'abondance variable (du crachat strié à l'inondation)</li>\n              <li>• Douleur thoracique en cas d'atteinte pleurale adjacente</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 my-4\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-400 font-bold mb-1\">\n            ⚠️ Alerte Rouge : Hémoptysie Cataclysmique\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Une hémoptysie massive (> 200 ml/24h) constitue une urgence médico-chirurgicale vitale par asphyxie. Arrêt des manœuvres invasives, décubitus latéral du côté atteint, oxygénothérapie à haut débit, vasoconstricteurs (Terlipressine) et embolisation artérielle bronchique en urgence.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"radio\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Imagerie Thoracique</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La radiographie thoracique de face et de profil est l'examen morphologique de première intention. Les lésions sont polymorphes et siègent préférentiellement dans les territoires bien aérés et riches en oxygène (segments apicaux et postérieurs des lobes supérieurs, et apex des lobes inférieurs).\n        </p>\n        <div class=\"overflow-x-auto my-4\">\n          <table class=\"min-w-full text-sm border-collapse rounded-xl overflow-hidden shadow-soft\">\n            <thead class=\"bg-navy-100 dark:bg-navy-800 text-navy-900 dark:text-white font-semibold\">\n              <tr>\n                <th class=\"p-3 text-left\">Type de Lésion</th>\n                <th class=\"p-3 text-left\">Aspect Radiologique</th>\n                <th class=\"p-3 text-left\">Signification Clinique</th>\n              </tr>\n            </thead>\n            <tbody class=\"divide-y divide-navy-100 dark:divide-navy-800 bg-white dark:bg-navy-900\">\n              <tr>\n                <td class=\"p-3 font-semibold text-brand-600 dark:text-brand-400\">Caverne tuberculeuse</td>\n                <td class=\"p-3\">Hyperclarté cernée d'une paroi épaisse, parfois avec niveau liquide</td>\n                <td class=\"p-3 text-rose-600 dark:text-rose-400 font-medium\">Foyer de réplication intense, hautement contagieux</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Infiltrats et nodules</td>\n                <td class=\"p-3\">Opacités hétérogènes mal limitées des apex</td>\n                <td class=\"p-3\">Lésions actives de dissémination bronchogène</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Miliaire pulmonaire</td>\n                <td class=\"p-3\">Micronodules punctiformes de 1 à 2 mm disséminés en \"grains de mil\"</td>\n                <td class=\"p-3 text-amber-600 dark:text-amber-400\">Dissémination hématogène, urgence diagnostique</td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n      </section>\n\n      <section id=\"bacterio\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">5. Diagnostic Bactériologique (Clé de Voûte)</h2>\n        <div class=\"p-4 rounded-xl bg-emerald-50 border border-emerald-200 dark:bg-emerald-950/20 dark:border-emerald-900/40 mb-4\">\n          <div class=\"flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold mb-1\">\n            💡 Règle d'or : La certitude diagnostique est BACTÉRIOLOGIQUE\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Ne jamais débuter d'antibacillaires sur une simple impression radiologique sans avoir isolé le germe, sauf détresse vitale immédiate (miliaire asphyxiante).\n          </p>\n        </div>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-3\">\n          <strong>Modalités de prélèvement :</strong>\n        </p>\n        <ul class=\"list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Expectorations induites ou spontanées (ECBC) :</strong> 3 jours consécutifs le matin au réveil après rinçage bucco-dentaire.</li>\n          <li><strong>Tubage gastrique au réveil :</strong> Chez le patient qui n'expectore pas ou chez l'enfant, avant tout lever et avant tout repas (le BK dégluti durant la nuit stagne dans l'estomac).</li>\n          <li><strong>Fibroscopie bronchique avec lavage broncho-alvéolaire (LBA) :</strong> Si les expectorations restent négatives malgré une forte suspicion clinique et radiologique.</li>\n        </ul>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">6. Prise en Charge Thérapeutique (Régime 2RHZE/4RH)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le traitement repose sur le protocole standardisé du Programme National de Lutte Antituberculeuse en Algérie. Il comporte deux phases distinctes :\n        </p>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\n          <div class=\"p-5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800\">\n            <span class=\"inline-block px-3 py-1 text-xs font-bold uppercase rounded-full bg-indigo-600 text-white mb-2\">Phase Initiale d'Attaque (2 Mois)</span>\n            <h4 class=\"text-lg font-bold text-navy-900 dark:text-white mb-1\">Quadrithérapie RHZE</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mb-3\">Rifampicine + Isoniazide + Pyrazinamide + Éthambutol.</p>\n            <p class=\"text-xs text-navy-500 dark:text-navy-400\">Objectif : Destruction rapide de la population bacillaire extracellulaire et prévention de l'émergence de souches résistantes.</p>\n          </div>\n          <div class=\"p-5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800\">\n            <span class=\"inline-block px-3 py-1 text-xs font-bold uppercase rounded-full bg-emerald-600 text-white mb-2\">Phase d'Entretien (4 Mois)</span>\n            <h4 class=\"text-lg font-bold text-navy-900 dark:text-white mb-1\">Bithérapie RH</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mb-3\">Rifampicine + Isoniazide.</p>\n            <p class=\"text-xs text-navy-500 dark:text-navy-400\">Objectif : Éradication des bacilles intracellulaires à multiplication lente et prévention des rechutes à long terme.</p>\n          </div>\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200 dark:bg-amber-950/20 dark:border-amber-900/40 mb-4\">\n          <div class=\"font-bold text-amber-900 dark:text-amber-300 mb-2\">💊 Règle de Prise & Surveillance Thérapeutique :</div>\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• Prise quotidienne <strong>unique le matin à jeun</strong> (au moins 30 minutes avant le petit déjeuner).</li>\n            <li>• Prévenir le patient de la coloration rouge-orangée bénigne des sécrétions (larmes, urines) sous Rifampicine.</li>\n            <li>• Surveillance du bilan hépatique (Transaminases ASAT/ALAT) bimensuelle le premier mois.</li>\n            <li>• Surveillance ophtalmologique (champ visuel, vision des couleurs) sous Éthambutol pour dépister la névrite optique rétrobulbaire.</li>\n          </ul>\n        </div>\n      </section>\n\n      <section id=\"points-cles\" class=\"mb-6\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">7. Points Clés & Pièges aux Examens</h2>\n        <div class=\"space-y-3\">\n          <div class=\"flex items-start gap-3 p-3 rounded-xl bg-navy-50 dark:bg-navy-800/50\">\n            <span class=\"text-brand-600 dark:text-brand-400 font-bold\">1.</span>\n            <span class=\"text-sm text-navy-700 dark:text-navy-300\">L'intradermoréaction à la tuberculine (IDR) ou le test IGRA (QuantiFERON) ne permettent <strong>JAMAIS</strong> à eux seuls d'affirmer une tuberculose pulmonaire maladie active.</span>\n          </div>\n          <div class=\"flex items-start gap-3 p-3 rounded-xl bg-navy-50 dark:bg-navy-800/50\">\n            <span class=\"text-brand-600 dark:text-brand-400 font-bold\">2.</span>\n            <span class=\"text-sm text-navy-700 dark:text-navy-300\">La déclaration à la Direction de la Santé et de la Population (DSP) est <strong>obligatoire</strong> dès confirmation.</span>\n          </div>\n          <div class=\"flex items-start gap-3 p-3 rounded-xl bg-navy-50 dark:bg-navy-800/50\">\n            <span class=\"text-brand-600 dark:text-brand-400 font-bold\">3.</span>\n            <span class=\"text-sm text-navy-700 dark:text-navy-300\">Le dépistage des sujets contacts intrafamiliaux est indissociable du traitement du cas index.</span>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:35.605803+00:00",
+    "updatedAt": "2026-09-25T16:03:35.605803+00:00"
   },
   {
-    id: 'cours_cardio_ic',
-    slug: 'insuffisance-cardiaque',
-    title: 'L\'Insuffisance Cardiaque Aiguë et Chronique',
-    subtitle: 'Classification selon la FEVG, biomarqueurs (BNP/NT-proBNP) et les 4 piliers pharmacologiques fantastiques',
-    specialtyId: 'cardio',
-    specialtyName: 'Cardiologie',
-    author: 'Pr. S. Mansouri',
-    authorTitle: 'Professeur de Cardiologie',
-    description: 'De la décompensation aiguë (OAP) au traitement de fond moderne de l\'insuffisance cardiaque à fraction d\'éjection réduite (HFrEF) : les inhibiteurs SGLT2, ARNI, bêtabloquants et ARM.',
-    coverImage: 'https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=1200',
-    difficulty: 'Incontournable',
-    rang: 'Rang A',
-    estimatedDuration: '45 min',
-    tags: ['HFrEF', 'HFpEF', 'Entresto', 'Dapagliflozine', 'OAP', 'Furosémide', 'BNP'],
-    accessLevel: 'PRO',
-    published: true,
-    viewsCount: 3900,
-    likesCount: 310,
-    qcmCount: 8,
-    tableOfContents: [
-      { id: 'definition', title: '1. Définition & Classifications (FEVG)', level: 1 },
-      { id: 'biomarqueurs', title: '2. Diagnostic Biologique & Échographique', level: 1 },
-      { id: 'oap', title: '3. Prise en Charge de la Poussée Aiguë (OAP)', level: 1 },
-      { id: 'piliers', title: '4. Les 4 Piliers Thérapeutiques Modernes', level: 1 }
+    "id": "cours_cardio_rm",
+    "slug": "le-r-tr-cissement-mitral-st-nose-mitrale",
+    "title": "Le Rétrécissement Mitral (Sténose Mitrale)",
+    "subtitle": "",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
     ],
-    summaryPoints: [
-      'Distinction fondamentale selon la fraction d\'éjection du VG : FEr ≤ 40%, FEm 41-49%, FEp ≥ 50%.',
-      'Le dosage du BNP ou NT-proBNP a une excellente valeur prédictive négative en cas de dyspnée aiguë.',
-      'Poussée aiguë congestive : diurétiques de l\'anse IV (Furosémide) + dérivés nitrés si PAS > 110 mmHg + VNI si acidose/détresse.',
-      'Les 4 piliers de l\'insuffisance cardiaque à FEVG réduite qui réduisent la mortalité : 1) ARNI (Sacubitril/Valsartan) ou IEC, 2) Bêtabloquant cardio-sélectif, 3) ARM (Spironolactone/Éplérénone), 4) Inhibiteur SGLT2 (Dapagliflozine/Empagliflozine).'
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
     ],
-    htmlContent: `
-      <section id="definition" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">1. Définition & Classifications</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          L'insuffisance cardiaque est un syndrome clinique caractérisé par des symptômes cardinaux (dyspnée d'effort ou de repos, orthopnée, fatigue, œdèmes des membres inférieurs) résultant d'une anomalie structurelle ou fonctionnelle du myocarde.
-        </p>
-      </section>
-      <section id="piliers" class="mb-6">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">4. Les 4 Piliers Thérapeutiques Fondamentaux</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          Tout patient ayant une insuffisance cardiaque à FEVG réduite (&le; 40%) doit recevoir, sauf contre-indication, la combinaison des 4 classes suivantes dès que possible :
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700">
-            <span class="font-bold text-brand-600 dark:text-brand-400">1. ARNI ou IEC</span>
-            <p class="text-sm text-navy-600 dark:text-navy-300 mt-1">Sacubitril/Valsartan (Entresto) en première intention, ou Périndopril/Ramipril.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700">
-            <span class="font-bold text-brand-600 dark:text-brand-400">2. Bêtabloquant cardio-sélectif</span>
-            <p class="text-sm text-navy-600 dark:text-navy-300 mt-1">Bisoprolol, Carvédilol, Métoprolol succinate ou Nébivolol (initiation à dose minimale à distance d'une poussée décompensée).</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700">
-            <span class="font-bold text-brand-600 dark:text-brand-400">3. Antagoniste des récepteurs minéralocorticoïdes (ARM)</span>
-            <p class="text-sm text-navy-600 dark:text-navy-300 mt-1">Spironolactone ou Éplérénone (surveillance étroite de la créatininémie et de la kaliémie).</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700">
-            <span class="font-bold text-brand-600 dark:text-brand-400">4. Inhibiteur des SGLT2 (Gliflozines)</span>
-            <p class="text-sm text-navy-600 dark:text-navy-300 mt-1">Dapagliflozine ou Empagliflozine 10 mg/j (même chez le non diabétique !).</p>
-          </div>
-        </div>
-      </section>
-    `,
-    createdAt: '2026-08-25T16:00:00Z',
-    updatedAt: '2026-09-03T18:00:00Z'
+    "htmlContent": "\n      <section id=\"intro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Étiologie (Le RAA)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le rétrécissement mitral (RM) est la diminution permanente de la surface de l'orifice mitral faisant obstacle au remplissage du ventricule gauche lors de la diastole.\n        </p>\n        <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200 dark:bg-purple-950/20 dark:border-purple-900/40 mb-4\">\n          <div class=\"font-bold text-purple-900 dark:text-purple-300 mb-1\">\n            📍 Spécificité Épidémiologique Maghrébine\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Alors que le RM a quasiment disparu d'Europe occidentale, il demeure fréquent en Algérie en raison des séquelles de cardite rhumatismale (RAA) contractée durant l'enfance ou l'adolescence. Il touche avec prédilection la femme jeune (sex-ratio 3F/1H).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"physio\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Physiopathologie & Conséquences d'Amont</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'obstacle mécanique valvulaire crée un gradient de pression diastolique entre l'atrium gauche (AG) et le ventricule gauche (VG). Les répercussions se propagent en cascade vers l'amont :\n        </p>\n        <ol class=\"list-decimal pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Hyperpression et dilatation de l'atrium gauche :</strong> Risque d'arythmie atriale (fibrillation auriculaire) et de stase sanguine avec formation de thrombus dans l'auricule gauche.</li>\n          <li><strong>Hypertension veineuse puis capillaire pulmonaire :</strong> Transsudation alvéolaire lorsque la pression dépasse 25 mmHg, responsable d'œdème aigu pulmonaire (OAP).</li>\n          <li><strong>Hypertension artérielle pulmonaire (HTAP) :</strong> D'abord post-capillaire passive, puis pré-capillaire fixée par remodelage artériolaire.</li>\n          <li><strong>Retentissement sur les cavités droites :</strong> Dilatation du ventricule droit, insuffisance tricuspide fonctionnelle et insuffisance cardiaque droite globale.</li>\n        </ol>\n      </section>\n\n      <section id=\"auscultation\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Signes Physiques (Le Rythme de Duroziez)</h2>\n        <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/90 border border-navy-100 dark:border-navy-700 shadow-soft mb-6\">\n          <h3 class=\"text-lg font-bold text-brand-600 dark:text-brand-400 mb-3\">La Triade Auscultatoire Classique à l'Apex en Décubitus Latéral Gauche :</h3>\n          <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n            <li class=\"flex items-start gap-2\">\n              <span class=\"font-bold text-navy-900 dark:text-white min-w-[32px]\">1.</span>\n              <span><strong>Éclat du 1er bruit (B1) :</strong> Fermeture brutale de valves mitrales scléreuses mais encore mobiles.</span>\n            </li>\n            <li class=\"flex items-start gap-2\">\n              <span class=\"font-bold text-navy-900 dark:text-white min-w-[32px]\">2.</span>\n              <span><strong>Claquement d'ouverture mitrale (COM) :</strong> Survient au tout début de la diastole, juste après le B2. Plus le COM est précoce et proche du B2, plus le RM est serré !</span>\n            </li>\n            <li class=\"flex items-start gap-2\">\n              <span class=\"font-bold text-navy-900 dark:text-white min-w-[32px]\">3.</span>\n              <span><strong>Roulement méso-télédiastolique :</strong> Bruit sourd, grave, irradiant peu, se terminant en rythme sinusal par un renforcement pré-systolique (disparaît en cas de fibrillation atriale).</span>\n            </li>\n          </ul>\n        </div>\n      </section>\n\n      <section id=\"echo\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Échocardiographie Doppler (Gold Standard)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'échocardiographie transthoracique (ETT) permet le diagnostic positif, l'évaluation de la sévérité et la recherche de contre-indications au traitement percutané :\n        </p>\n        <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n          <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <span class=\"text-xs font-bold text-navy-500 uppercase\">RM Minime</span>\n            <div class=\"text-lg font-bold text-navy-900 dark:text-white mt-1\">Surface > 1.5 cm²</div>\n            <p class=\"text-xs text-navy-500 mt-1\">Gradient moyen &lt; 5 mmHg</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800\">\n            <span class=\"text-xs font-bold text-amber-600 uppercase\">RM Serré</span>\n            <div class=\"text-lg font-bold text-amber-900 dark:text-amber-200 mt-1\">Surface 1.0 - 1.5 cm²</div>\n            <p class=\"text-xs text-amber-700 dark:text-amber-300 mt-1\">Gradient moyen 5 - 10 mmHg</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800\">\n            <span class=\"text-xs font-bold text-rose-600 uppercase\">RM Très Serré</span>\n            <div class=\"text-lg font-bold text-rose-900 dark:text-rose-200 mt-1\">Surface &lt; 1.0 cm²</div>\n            <p class=\"text-xs text-rose-700 dark:text-rose-300 mt-1\">Gradient moyen > 10 mmHg</p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-6\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">6. Prise en Charge & Commissurotomie</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          En cas de RM serré symptomatique (ou asymptomatique avec HTAP sévère au repos ou à l'effort) :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300\">\n          <li><strong>Commissurotomie Mitrale Percutanée (CMP) :</strong> Traitement de première intention si l'anatomie valvulaire est favorable (score de Wilkins ≤ 8, absence de calcification commissurale, absence de fuite mitrale > grade 2 et absence de thrombus dans l'OG/auricule vérifiée par Échographie Transœsophagienne préalable).</li>\n          <li><strong>Remplacement Valvulaire Mitral (RVM) chirurgical :</strong> Par prothèse mécanique ou biologique en cas de contre-indication à la CMP (valves très remaniées ou calcifiées, fuite mitrale associée).</li>\n        </ul>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.095833+00:00",
+    "updatedAt": "2026-09-25T16:03:36.095833+00:00"
   },
   {
-    id: 'cours_pneumo_aag',
-    slug: 'asthme-aigu-grave',
-    title: 'La Crise d\'Asthme Aiguë Grave (AAG)',
-    subtitle: 'Signes de menace vitale, débitmètre de pointe (DEP), nébulisations et corticothérapie systémique',
-    specialtyId: 'pneumo',
-    specialtyName: 'Pneumologie',
-    author: 'Dr. M. Chérif',
-    authorTitle: 'Pneumologue Praticien Spécialiste',
-    description: 'Protocole d\'urgence pour la gestion d\'une crise d\'asthme réfractaire : critères d\'admission en réanimation, utilisation des bronchodilatateurs en nébulisation continue et indication du sulfate de magnésium.',
-    coverImage: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=1200',
-    difficulty: 'Incontournable',
-    rang: 'Rang A',
-    estimatedDuration: '35 min',
-    tags: ['Asthme', 'Urgence respiratoire', 'DEP', 'Salbutamol', 'Ipratropium', 'Corticothérapie'],
-    accessLevel: 'FREE',
-    published: true,
-    viewsCount: 3100,
-    likesCount: 290,
-    qcmCount: 6,
-    tableOfContents: [
-      { id: 'criteres', title: '1. Critères de Gravité Immédiate', level: 1 },
-      { id: 'menace', title: '2. Signes d\'Épuisement et de Menace Vitale', level: 1 },
-      { id: 'traitement', title: '3. Conduite Thérapeutique Immédiate', level: 1 }
+    "id": "cours_neuro_avc",
+    "slug": "l-accident-vasculaire-c-r-bral-avc-isch-mique-aigu",
+    "title": "L'Accident Vasculaire Cérébral (AVC) Ischémique Aigu",
+    "subtitle": "",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
     ],
-    summaryPoints: [
-      'Incapacité à prononcer une phrase complète sans reprendre son souffle = signe cardinal.',
-      'Fréquence respiratoire > 30/min, pouls > 120/min, DEP < 50% de la valeur théorique.',
-      'Signes d\'extrême gravité imposant l\'appel du réanimateur : silence auscultatoire ("poumon muet"), respiration paradoxale, sueurs, cyanose, bradycardie et troubles de la conscience.',
-      'Trépied thérapeutique immédiat : Oxygénothérapie (SpO2 93-95%) + Bêta-2 mimétiques inhalés forte dose (Salbutamol 5 mg en nébulisation avec O2) + Corticothérapie IV précoce (Méthylprednisolone).'
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
     ],
-    htmlContent: `
-      <section id="criteres" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">1. Critères de Gravité Immédiate</h2>
-        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 dark:bg-amber-950/20 dark:border-amber-900/40 mb-4">
-          <h3 class="font-bold text-amber-900 dark:text-amber-300 mb-2">Signes Cliniques de Gravité :</h3>
-          <ul class="text-sm space-y-1 text-navy-700 dark:text-navy-300">
-            <li>• Impossibilité de parler ou de s'allonger (position assise penchée en avant)</li>
-            <li>• FR > 30 cycles/min avec tirage des muscles sterno-cléido-mastoïdiens</li>
-            <li>• Pouls > 120 battements/min, pouls paradoxal</li>
-            <li>• DEP &lt; 50% de la valeur théorique ou &lt; 150 L/min</li>
-          </ul>
-        </div>
-      </section>
-      <section id="menace" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">2. Signes de Menace Vitale (Transfert Réa Immédiat)</h2>
-        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40">
-          <ul class="text-sm space-y-2 text-rose-800 dark:text-rose-300 font-semibold">
-            <li>🚨 <strong>Silence auscultatoire ("poumon muet") :</strong> Absence totale de sifflements par collapsus alvéolaire.</li>
-            <li>🚨 Respiration abdominale paradoxale (faillite diaphragmatique).</li>
-            <li>🚨 Bradycardie, collapsus hémodynamique, troubles de la vigilance (coma hypercapnique).</li>
-          </ul>
-        </div>
-      </section>
-    `,
-    createdAt: '2026-08-28T10:00:00Z',
-    updatedAt: '2026-09-04T09:00:00Z'
+    "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Alerte Immédiate</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'AVC ischémique représente 80 à 85% de l'ensemble des AVC. Il résulte de l'interruption du flux sanguin artériel cérébral par un thrombus ou une embole, entraînant une nécrose neuronale progressive.\n        </p>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-700 dark:text-rose-300 mb-1\">⏱️ Chaque minute perdue = 2 millions de neurones détruits</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">L'appel au SAMU / Urgences doit déclencher la filière neurovasculaire d'emblée sans passer par le médecin traitant.</p>\n        </div>\n      </section>\n\n      <section id=\"imagerie\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Imagerie en Urgence : IRM vs Scanner</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'IRM cérébrale est l'examen de choix. Le protocole d'urgence comprend :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300\">\n          <li><strong>Diffusion (DWI) :</strong> Hyperintensité visible dès les premières minutes, confirmant l'ischémie cytotoxique.</li>\n          <li><strong>FLAIR :</strong> Si le parenchyme est encore normal en FLAIR alors qu'il est brillant en Diffusion, l'AVC date de moins de 4h30 (mismatch Diffusion/FLAIR) !</li>\n          <li><strong>T2* ou SWI :</strong> Élimine formellement tout saignement intracrânien.</li>\n          <li><strong>Angio-IRM (TOF) :</strong> Visualise le thrombus occlusif dans les gros vaisseaux cérébraux (artère cérébrale moyenne M1/M2, carotide interne terminale, tronc basilaire).</li>\n        </ul>\n      </section>\n\n      <section id=\"recanalisation\" class=\"mb-6\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Traitements de Recanalisation en Phase Aiguë</h2>\n        <div class=\"space-y-4\">\n          <div class=\"p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800\">\n            <h4 class=\"font-bold text-indigo-900 dark:text-indigo-200 mb-1\">1. Thrombolyse intraveineuse par rt-PA (Alteplase)</h4>\n            <p class=\"text-sm text-navy-700 dark:text-navy-300\">Dose : 0.9 mg/kg (max 90 mg) avec 10% en bolus sur 1 min, puis le reste sur 1h. Fenêtre d'éligibilité : strictly &lt; 4h30.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-purple-50/60 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800\">\n            <h4 class=\"font-bold text-purple-900 dark:text-purple-200 mb-1\">2. Thrombectomie mécanique par voie endovasculaire</h4>\n            <p class=\"text-sm text-navy-700 dark:text-navy-300\">Extraction directe du caillot par stent-retriever ou thrombo-aspiration en cas d'occlusion proximale. Efficace jusqu'à 6h, et jusqu'à 24h si tissu sauvable documenté en imagerie de perfusion.</p>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.304172+00:00",
+    "updatedAt": "2026-09-25T16:03:36.304172+00:00"
   },
   {
-    id: 'cours_nephro_ira',
-    slug: 'insuffisance-renale-aigue',
-    title: 'L\'Insuffisance Rénale Aiguë (IRA)',
-    subtitle: 'Diagnostic étiologique (pré-rénale, parenchymateuse, obstructive) et indications d\'épuration extrarénale en urgence',
-    specialtyId: 'nephro',
-    specialtyName: 'Néphrologie',
-    author: 'Pr. H. Belkacem',
-    authorTitle: 'Service de Néphrologie & Hémodialyse',
-    description: 'Arbre diagnostique systématique de l\'oligo-anurie : éliminer l\'obstacle par l\'échographie rénale en urgence, différencier l\'IRA fonctionnelle de la nécrose tubulaire aiguë, et gérer l\'hyperkaliémie menaçante.',
-    coverImage: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&q=80&w=1200',
-    difficulty: 'Incontournable',
-    rang: 'Rang A',
-    estimatedDuration: '40 min',
-    tags: ['Créatininémie', 'KDIGO', 'Échographie rénale', 'Hyperkaliémie', 'Dialyse', 'Fraction d\'excrétion sodée'],
-    accessLevel: 'PREMIUM',
-    published: true,
-    viewsCount: 2750,
-    likesCount: 220,
-    qcmCount: 7,
-    tableOfContents: [
-      { id: 'criteres', title: '1. Critères KDIGO & Définition', level: 1 },
-      { id: 'demarche', title: '2. Démarche Diagnostique Étape par Étape', level: 1 },
-      { id: 'dialyse', title: '3. Indications Formelles de Dialyse en Urgence', level: 1 }
+    "id": "cours_cardio_ic",
+    "slug": "l-insuffisance-cardiaque-aigu-et-chronique",
+    "title": "L'Insuffisance Cardiaque Aiguë et Chronique",
+    "subtitle": "",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
     ],
-    summaryPoints: [
-      'Augmentation de la créatininémie d\'au moins 26,5 µmol/L en 48h ou de 50% en 7 jours.',
-      'Première étape réflexe absolue : Éliminer une cause obstructive par une échographie rénale et des voies urinaires (dilatation des cavités pyélocalicielles ?).',
-      'Deuxième étape : Différencier IRA fonctionnelle (pré-rénale réversible avec Na/K urinaire < 1) vs IRA organique parenchymateuse (NTA).',
-      'Indications impératives de dialyse en urgence : 1) Hyperkaliémie menaçante réfractaire, 2) Acidose métabolique sévère (pH < 7.15), 3) OAP anurique réfractaire aux diurétiques, 4) Signes d\'urémie péricardique/encéphalique.'
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
     ],
-    htmlContent: `
-      <section id="criteres" class="mb-10">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">1. Critères KDIGO</h2>
-        <p class="text-navy-700 dark:text-navy-300 leading-relaxed mb-4">
-          L'IRA est définie selon la classification internationale KDIGO par la présence d'au moins un des critères suivants :
-        </p>
-        <ul class="list-disc pl-6 space-y-1 text-navy-700 dark:text-navy-300">
-          <li>Élévation de la créatininémie d'au moins 26,5 µmol/L (0.3 mg/dL) en 48 heures.</li>
-          <li>Élévation de la créatininémie d'au moins 1.5 fois la valeur basale connue ou présumée dans les 7 jours précédents.</li>
-          <li>Diurèse inférieure à 0.5 mL/kg/h pendant 6 heures consécutives.</li>
-        </ul>
-      </section>
-      <section id="dialyse" class="mb-6">
-        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2">3. Indications Formelles de Dialyse en Urgence</h2>
-        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40">
-          <div class="font-bold text-rose-800 dark:text-rose-300 mb-2">Moyen mnémotechnique classique : "AEIOU"</div>
-          <ul class="text-sm space-y-1 text-navy-700 dark:text-navy-300">
-            <li>• <strong>A</strong>cidose métabolique sévère (pH &lt; 7.15 réfractaire)</li>
-            <li>• <strong>E</strong>lectrolytes : Hyperkaliémie menaçante (&gt; 6.5 mmol/L ou signes ECG) réfractaire</li>
-            <li>• <strong>I</strong>ntoxication : Toxiques dialysables (lithium, méthanol, éthylène glycol, salicylés)</li>
-            <li>• <strong>O</strong>verload : Surcharge hydrosodée majeure / OAP réfractaire aux diurétiques</li>
-            <li>• <strong>U</strong>rémie symptomatique : Péricardite urémique, encéphalopathie urémique</li>
-          </ul>
-        </div>
-      </section>
-    `,
-    createdAt: '2026-08-30T14:00:00Z',
-    updatedAt: '2026-09-04T15:00:00Z'
+    "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Classifications</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'insuffisance cardiaque est un syndrome clinique caractérisé par des symptômes cardinaux (dyspnée d'effort ou de repos, orthopnée, fatigue, œdèmes des membres inférieurs) résultant d'une anomalie structurelle ou fonctionnelle du myocarde.\n        </p>\n      </section>\n      <section id=\"piliers\" class=\"mb-6\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Les 4 Piliers Thérapeutiques Fondamentaux</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Tout patient ayant une insuffisance cardiaque à FEVG réduite (&le; 40%) doit recevoir, sauf contre-indication, la combinaison des 4 classes suivantes dès que possible :\n        </p>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <span class=\"font-bold text-brand-600 dark:text-brand-400\">1. ARNI ou IEC</span>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Sacubitril/Valsartan (Entresto) en première intention, ou Périndopril/Ramipril.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <span class=\"font-bold text-brand-600 dark:text-brand-400\">2. Bêtabloquant cardio-sélectif</span>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Bisoprolol, Carvédilol, Métoprolol succinate ou Nébivolol (initiation à dose minimale à distance d'une poussée décompensée).</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <span class=\"font-bold text-brand-600 dark:text-brand-400\">3. Antagoniste des récepteurs minéralocorticoïdes (ARM)</span>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Spironolactone ou Éplérénone (surveillance étroite de la créatininémie et de la kaliémie).</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <span class=\"font-bold text-brand-600 dark:text-brand-400\">4. Inhibiteur des SGLT2 (Gliflozines)</span>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Dapagliflozine ou Empagliflozine 10 mg/j (même chez le non diabétique !).</p>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.42771+00:00",
+    "updatedAt": "2026-09-25T16:03:36.42771+00:00"
+  },
+  {
+    "id": "cours_pneumo_aag",
+    "slug": "la-crise-d-asthme-aigu-grave-aag",
+    "title": "La Crise d'Asthme Aiguë Grave (AAG)",
+    "subtitle": "",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"criteres\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Critères de Gravité Immédiate</h2>\n        <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200 dark:bg-amber-950/20 dark:border-amber-900/40 mb-4\">\n          <h3 class=\"font-bold text-amber-900 dark:text-amber-300 mb-2\">Signes Cliniques de Gravité :</h3>\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• Impossibilité de parler ou de s'allonger (position assise penchée en avant)</li>\n            <li>• FR > 30 cycles/min avec tirage des muscles sterno-cléido-mastoïdiens</li>\n            <li>• Pouls > 120 battements/min, pouls paradoxal</li>\n            <li>• DEP &lt; 50% de la valeur théorique ou &lt; 150 L/min</li>\n          </ul>\n        </div>\n      </section>\n      <section id=\"menace\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Signes de Menace Vitale (Transfert Réa Immédiat)</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <ul class=\"text-sm space-y-2 text-rose-800 dark:text-rose-300 font-semibold\">\n            <li>🚨 <strong>Silence auscultatoire (\"poumon muet\") :</strong> Absence totale de sifflements par collapsus alvéolaire.</li>\n            <li>🚨 Respiration abdominale paradoxale (faillite diaphragmatique).</li>\n            <li>🚨 Bradycardie, collapsus hémodynamique, troubles de la vigilance (coma hypercapnique).</li>\n          </ul>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.553081+00:00",
+    "updatedAt": "2026-09-25T16:03:36.553081+00:00"
+  },
+  {
+    "id": "cours_nephro_ira",
+    "slug": "l-insuffisance-r-nale-aigu-ira",
+    "title": "L'Insuffisance Rénale Aiguë (IRA)",
+    "subtitle": "",
+    "specialtyId": "nephro",
+    "specialtyName": "Néphrologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"criteres\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Critères KDIGO</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'IRA est définie selon la classification internationale KDIGO par la présence d'au moins un des critères suivants :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-1 text-navy-700 dark:text-navy-300\">\n          <li>Élévation de la créatininémie d'au moins 26,5 µmol/L (0.3 mg/dL) en 48 heures.</li>\n          <li>Élévation de la créatininémie d'au moins 1.5 fois la valeur basale connue ou présumée dans les 7 jours précédents.</li>\n          <li>Diurèse inférieure à 0.5 mL/kg/h pendant 6 heures consécutives.</li>\n        </ul>\n      </section>\n      <section id=\"dialyse\" class=\"mb-6\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Indications Formelles de Dialyse en Urgence</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 mb-2\">Moyen mnémotechnique classique : \"AEIOU\"</div>\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>A</strong>cidose métabolique sévère (pH &lt; 7.15 réfractaire)</li>\n            <li>• <strong>E</strong>lectrolytes : Hyperkaliémie menaçante (&gt; 6.5 mmol/L ou signes ECG) réfractaire</li>\n            <li>• <strong>I</strong>ntoxication : Toxiques dialysables (lithium, méthanol, éthylène glycol, salicylés)</li>\n            <li>• <strong>O</strong>verload : Surcharge hydrosodée majeure / OAP réfractaire aux diurétiques</li>\n            <li>• <strong>U</strong>rémie symptomatique : Péricardite urémique, encéphalopathie urémique</li>\n          </ul>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.679386+00:00",
+    "updatedAt": "2026-09-25T16:03:36.679386+00:00"
+  },
+  {
+    "id": "cours_endocrino_acidocetose",
+    "slug": "l-acidoc-tose-diab-tique-complications-aigu-s",
+    "title": "L'Acidocétose Diabétique & Complications Aiguës",
+    "subtitle": "",
+    "specialtyId": "endocrino",
+    "specialtyName": "Endocrinologie - Diabétologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Triade Biologique</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'acidocétose diabétique est une urgence métabolique absolue résultant d'une carence absolue ou relative en insuline associée à une élévation des hormones de contre-régulation (glucagon, catécholamines, cortisol, GH).\n        </p>\n        <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n          <h3 class=\"font-bold text-emerald-900 dark:text-emerald-200 mb-2\">Les 3 critères diagnostiques simultanés :</h3>\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>1. <strong>Hyperglycémie :</strong> Glycémie plasmatique &gt; 14 mmol/L (2,50 g/L).</li>\n            <li>2. <strong>Cétose franche :</strong> Cétonémie &gt; 3,0 mmol/L ou acétonurie &ge; (++) sur bandelette urinaire.</li>\n            <li>3. <strong>Acidose métabolique :</strong> Bicarbonates sériques &lt; 15 mmol/L et/ou pH veineux &lt; 7,30 avec trou anionique &gt; 12.</li>\n          </ul>\n        </div>\n      </section>\n\n      <section id=\"facteurs\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Facteurs Déclenchants Majeurs</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Dans 20 à 30% des cas, l'acidocétose est révélatrice d'un diabète de type 1 inaugural chez l'enfant ou l'adulte jeune. Chez le diabétique connu, rechercher systématiquement les \"5 I\" :\n        </p>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n          <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800/60 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-semibold text-navy-900 dark:text-white mb-1\">Causes fréquentes</h4>\n            <ul class=\"text-sm text-navy-600 dark:text-navy-300 space-y-1\">\n              <li>• Infection aiguë sévère (40-50% des cas : pneumonie, pyélonéphrite)</li>\n              <li>• Inobservance / rupture d'insuline (panne de pompe à insuline)</li>\n              <li>• Ischémie myocardique (IDM indolore chez le diabétique)</li>\n            </ul>\n          </div>\n          <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800/60 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-semibold text-navy-900 dark:text-white mb-1\">Causes médicamenteuses & stress</h4>\n            <ul class=\"text-sm text-navy-600 dark:text-navy-300 space-y-1\">\n              <li>• Corticothérapie à forte dose</li>\n              <li>• Inhibiteurs de SGLT2 (acidocétose euglycémique !)</li>\n              <li>• Accident vasculaire cérébral, pancréatite aiguë</li>\n            </ul>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Tableau Clinique & Respiration de Kussmaul</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'installation se fait en plusieurs phases : phase de cétose simple puis phase d'acidocétose décompensée.\n        </p>\n        <ul class=\"list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Signes de déshydratation globale :</strong> Pli cutané (extracellulaire), hypotension, tachycardie, sécheresse des muqueuses, soif intense (intracellulaire).</li>\n          <li><strong>Troubles digestifs précoces :</strong> Nausées, vomissements incoercibles, douleurs abdominales diffuses pouvant simuler une urgence chirurgicale (fausse appendicite).</li>\n          <li><strong>Signes respiratoires cardinaux :</strong> Odeur acétonique de l'haleine (fruité / solvant) et dyspnée de Kussmaul (ventilation ample, profonde, rapide et bruyante) d'origine compensatoire respiratoire.</li>\n        </ul>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">5. Prise en Charge Thérapeutique Codifiée</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 mb-6\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 text-base mb-2\">⚠️ RÈGLE DE SÉCURITÉ ABSOLUE : Vérifier la Kaliémie !</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            L'insuline fait rentrer le potassium dans les cellules. Administrer de l'insuline sur une hypokaliémie (&lt; 3,3 mmol/L) provoque une baisse catastrophique du potassium circulant et déclenche des torsades de pointes / arrêt cardiaque. Corriger le K+ AVANT l'insuline !\n          </p>\n        </div>\n        <div class=\"space-y-3\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Étape 1 : Réhydratation IV hydro-électrolytique</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">1 L de NaCl 0,9% la 1ère heure, puis 1 L sur 2h, puis 1 L sur 4h. Dès que la glycémie &le; 14 mmol/L (2,5 g/L), passer au Sérum Glucosé 5% + NaCl 0,9% pour éviter l'hypoglycémie et l'œdème cérébral.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Étape 2 : Insulinothérapie IVSE à débit continu</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Insuline rapide à 0,1 UI/kg/h au pousse-seringue électrique. L'objectif est une baisse de la glycémie de 3 à 4 mmol/L par heure (environ 0,5 à 0,7 g/L/h) et la négativation de la cétonémie.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Étape 3 : Supplémentation potassique systématique</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Si K+ entre 3,5 et 5,5 mmol/L : apporter 2 à 4 g de KCl par litre de perfusion dès que le débit urinaire est assuré.</p>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.808168+00:00",
+    "updatedAt": "2026-09-25T16:03:36.808168+00:00"
+  },
+  {
+    "id": "cours_gastro_cirrhose",
+    "slug": "la-cirrhose-h-patique-d-compensation-ascitique",
+    "title": "La Cirrhose Hépatique & Décompensation Ascitique",
+    "subtitle": "",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Étiologies en Algérie</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La cirrhose est le stade ultime de fibrose hépatique. En Algérie et au Maghreb, les étiologies virales (Hépatite B et C) et métaboliques (MASH / stéatohépatite non alcoolique liée au diabète et à l'obésité) occupent la première place, suivies de l'alcoolisme chronique et des causes auto-immunes (cirrhose biliaire primitive, hépatite auto-immune).\n        </p>\n      </section>\n\n      <section id=\"scores\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Évaluation Pronostique : Score de Child-Pugh</h2>\n        <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 mb-4\">\n          <p class=\"text-sm font-semibold text-navy-900 dark:text-white mb-2\">Moyen mnémotechnique : \"TABAC\"</p>\n          <ul class=\"text-sm space-y-1 text-navy-600 dark:text-navy-300\">\n            <li>• <strong>T</strong>P / INR</li>\n            <li>• <strong>A</strong>lbuminémie</li>\n            <li>• <strong>B</strong>ilirubine totale</li>\n            <li>• <strong>A</strong>scite (absente, minime, réfractaire)</li>\n            <li>• <strong>C</strong>erveau (Encéphalopathie hépatique stades I à IV)</li>\n          </ul>\n        </div>\n      </section>\n\n      <section id=\"ascite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Décompensation Ascitique & Infection du Liquide (ILA)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Toute première poussée d'ascite ou toute aggravation brutale chez un cirrhotique nécessite une ponction d'ascite exploratrice avant toute antibiothérapie.\n        </p>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 mb-1\">Diagnostic et Urgence de l'ILA :</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Présence de <strong>&gt; 250 Polynucléaires Neutrophiles (PNN) par mm³</strong> dans le liquide de ponction. Traitement : Céfotaxime 2g x 3/j IV pendant 5 à 7 jours + Perfusion d'Albumine humaine à 20% (1,5 g/kg à J1 puis 1 g/kg à J3) pour prévenir le syndrome hépato-rénal mortel.\n          </p>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:36.927207+00:00",
+    "updatedAt": "2026-09-25T16:03:36.927207+00:00"
+  },
+  {
+    "id": "cours_pediatrie_deshydratation",
+    "slug": "la-d-shydratation-aigu-du-nourrisson-gastro-ent-rite",
+    "title": "La Déshydratation Aiguë du Nourrisson & Gastro-entérite",
+    "subtitle": "",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"gravite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification de la Gravité</h2>\n        <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n          <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n            <h4 class=\"font-bold text-emerald-900 dark:text-emerald-200\">Perte &lt; 5%</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Déshydratation légère. Traitement ambulatoire par SRO. Pas de retentissement hémodynamique.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n            <h4 class=\"font-bold text-amber-900 dark:text-amber-200\">Perte 5 à 10%</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Déshydratation modérée. Yeux creusés, pli cutané, soif vive. SRO sous surveillance ou hospitalisation de jour.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-rose-900 dark:text-rose-200\">Perte &gt; 10% ou Choc</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Urgence vitale hospitalière immédiate. Voie veineuse ou intra-osseuse. Remplissage NaCl 0,9% 20 mL/kg.</p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"sro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Protocole SRO OMS</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le SRO exploite le co-transport actif intestinal Sodium-Glucose (SGLT1) qui reste fonctionnel même lors des diarrhées à rotavirus ou bactériennes. Reconstituer 1 sachet dans exactement 200 mL d'eau pure (ni trop dilué, ni trop concentré). Donner à la cuillère ou à la seringue toutes les 2-3 minutes.\n        </p>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.048036+00:00",
+    "updatedAt": "2026-09-25T16:03:37.048036+00:00"
+  },
+  {
+    "id": "cours_gyneco_geu",
+    "slug": "la-grossesse-extra-ut-rine-geu-urgences-du-1er-trimestre",
+    "title": "La Grossesse Extra-Utérine (GEU) & Urgences du 1er Trimestre",
+    "subtitle": "",
+    "specialtyId": "gyneco",
+    "specialtyName": "Gynécologie - Obstétrique",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"triade\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique & Facteurs de Risque</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Toute femme en âge de procréer consultant pour des métrorragies et/ou des douleurs pelviennes a une GEU jusqu'à preuve du contraire, quel que soit son mode de contraception.\n        </p>\n      </section>\n\n      <section id=\"rupture\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Rupture Tubaire Cataclysmique</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 text-sm mb-1\">🚨 Choc Hémorragique & Inondation Péritonéale :</div>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n            Douleur syncopale en coup de poignard dans le bas-ventre avec irradiation scapulaire (signe de Laffont par irritation phrénique), pâleur cireuse, pouls filant et défense abdominale. Indication opératoire d'extrême urgence : coelioscopie ou laparotomie immédiate avec salpingectomie d'hémostase.\n          </p>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.163648+00:00",
+    "updatedAt": "2026-09-25T16:03:37.163648+00:00"
+  },
+  {
+    "id": "cours_dermato_toxidermies",
+    "slug": "les-toxidermies-m-dicamenteuses-graves-dress-lyell",
+    "title": "Les Toxidermies Médicamenteuses Graves : DRESS & Lyell",
+    "subtitle": "",
+    "specialtyId": "dermato",
+    "specialtyName": "Dermatologie - Vénérologie",
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"signes\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Signes d'Alerte d'une Toxidermie Grave</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Devant toute éruption fébrile médicamenteuse, rechercher les critères de gravité imposant l'arrêt immédiat des traitements imputables :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-1 text-navy-700 dark:text-navy-300\">\n          <li>Érosions muqueuses douloureuses (buccales, conjonctivales, génitales).</li>\n          <li>Signe de Nikolsky positif (l'épiderme glisse sous le doigt laissant un derme suintant).</li>\n          <li>Infiltration faciale majeure en \"tête de lion\".</li>\n          <li>Adénopathies diffuses et fièvre élevée &gt; 38,5°C persistante.</li>\n        </ul>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.278395+00:00",
+    "updatedAt": "2026-09-25T16:03:37.278395+00:00"
+  },
+  {
+    "id": "cours_infectieux_paludisme",
+    "slug": "le-paludisme-grave-d-importation-sepsis",
+    "title": "Le Paludisme Grave d'Importation & Sepsis",
+    "subtitle": "",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"urgence\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Urgence Diagnostique au Retour de Voyage</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le paludisme d'importation à <em>Plasmodium falciparum</em> peut basculer en accès pernicieux mortel en quelques heures. Aucun délai n'est tolérable pour la réalisation et le rendu du frottis-goutte épaisse.\n        </p>\n      </section>\n      <section id=\"artesunate\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Traitement Salvateur : Artésunate IV</h2>\n        <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n          <p class=\"text-sm font-semibold text-emerald-900 dark:text-emerald-200 mb-2\">Protocole International & Recommandations OMS :</p>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n            Artésunate IV 2,4 mg/kg à H0, H12, H24 puis une fois par jour jusqu'à relais oral par une combinaison thérapeutique à base d'artémisinine (CTA) complète de 3 jours. Monitorer l'hémolyse retardée post-artésunate à S2-S4.\n          </p>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.398214+00:00",
+    "updatedAt": "2026-09-25T16:03:37.398214+00:00"
+  },
+  {
+    "id": "cours_hemato_anemies",
+    "slug": "d-marche-diagnostique-devant-une-an-mie-de-l-adulte",
+    "title": "Démarche Diagnostique devant une Anémie de l'Adulte",
+    "subtitle": "",
+    "specialtyId": "hemato",
+    "specialtyName": "Hématologie Clinique",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition selon les Seuils OMS</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'anémie est définie par une diminution de la masse d'hémoglobine circulante totale par rapport aux valeurs physiologiques de référence pour l'âge et le sexe.\n        </p>\n      </section>\n      <section id=\"hemolyse\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Triade Biologique de l'Hémolyse</h2>\n        <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>Haptoglobine effondrée</strong> ou indosable (marqueur le plus sensible).</li>\n            <li>• <strong>Bilirubine libre (non conjuguée)</strong> augmentée (ictère à urines claires).</li>\n            <li>• <strong>LDH sériques</strong> très élevées (reflétant la lyse cellulaire).</li>\n          </ul>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.531379+00:00",
+    "updatedAt": "2026-09-25T16:03:37.531379+00:00"
+  },
+  {
+    "id": "cours_rhumato_pr",
+    "slug": "la-polyarthrite-rhumato-de-pr-du-diagnostic-au-traitement",
+    "title": "La Polyarthrite Rhumatoïde (PR) : Du Diagnostic au Traitement",
+    "subtitle": "",
+    "specialtyId": "rhumato",
+    "specialtyName": "Rhumatologie",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Présentation Clinique & Dérouillage Matinal</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La PR débute classiquement chez la femme d'âge moyen par une oligo ou polyarthrite bilatérale et symétrique prédominant aux mains et poignets. Le \"squeeze test\" (compression transversale des MCP et MTP) déclenche une douleur exquise caractéristique.\n        </p>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.639077+00:00",
+    "updatedAt": "2026-09-25T16:03:37.639077+00:00"
+  },
+  {
+    "id": "cours_psy_troubles_humeur",
+    "slug": "les-pisodes-d-pressifs-majeurs-la-crise-suicidaire",
+    "title": "Les Épisodes Dépressifs Majeurs & La Crise Suicidaire",
+    "subtitle": "",
+    "specialtyId": "psy",
+    "specialtyName": "Psychiatrie",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"rud\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Évaluation du Risque Suicidaire (RUD)</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 mb-4\">\n          <p class=\"text-sm font-semibold text-rose-900 dark:text-rose-200 mb-2\">Aborder directement les idées suicidaires ne donne JAMAIS l'idée du suicide au patient !</p>\n          <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>R (Risque) :</strong> ATCD personnels de TS, isolement, précarité, maladie chronique.</li>\n            <li>• <strong>U (Urgence) :</strong> Degré de planification : scénario prêt, date fixée, adieux faits = URGENCE ÉLEVÉE.</li>\n            <li>• <strong>D (Dangerosité) :</strong> Arme à feu, médicaments stockés, accès à un pont/voie ferrée.</li>\n          </ul>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.74439+00:00",
+    "updatedAt": "2026-09-25T16:03:37.74439+00:00"
+  },
+  {
+    "id": "cours_ophtalmo_gafa",
+    "slug": "le-glaucome-aigu-par-fermeture-de-l-angle-gafa",
+    "title": "Le Glaucome Aigu par Fermeture de l'Angle (GAFA)",
+    "subtitle": "",
+    "specialtyId": "ophtalmo",
+    "specialtyName": "Ophtalmologie",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tableau Clinique & Signes Physiques</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <p class=\"text-sm font-semibold text-rose-900 dark:text-rose-200 mb-2\">Signes physiques cardinaux à retenir pour le concours :</p>\n          <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>Semi-mydriase aréactive</strong> unilatérale.</li>\n            <li>• <strong>Cercle péri-kératique</strong> violacé.</li>\n            <li>• <strong>Cornée trouble</strong> dépolie par œdème épithélial.</li>\n            <li>• Pression intra-oculaire &gt; 40 à 60 mmHg (Normale &le; 21 mmHg).</li>\n          </ul>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.855202+00:00",
+    "updatedAt": "2026-09-25T16:03:37.855202+00:00"
+  },
+  {
+    "id": "cours_orl_epistaxis",
+    "slug": "l-pistaxis-grave-dyspn-es-laryng-es-aigu-s",
+    "title": "L'Épistaxis Grave & Dyspnées Laryngées Aiguës",
+    "subtitle": "",
+    "specialtyId": "orl",
+    "specialtyName": "O.R.L. & Chirurgie Cervico-Faciale",
+    "year": 5,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"hemostase\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Gestes d'Hémostase Gradués</h2>\n        <div class=\"space-y-3\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Palier 1 : Compression bidigitale</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Patient assis, tête penchée en avant (NE PAS pencher la tête en arrière pour ne pas déglutir le sang), mouchage préalable, compression 10 minutes montre en main.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Palier 2 : Tamponnement antérieur</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Mèches imbibées de xylocaïne naphtazolinée ou mèches de Merocel lubrifiées, laissées en place 48 heures sous couverture antibiotique.</p>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:37.990087+00:00",
+    "updatedAt": "2026-09-25T16:03:37.990087+00:00"
+  },
+  {
+    "id": "cours_urgences_acr",
+    "slug": "l-arr-t-cardio-respiratoire-acr-r-animation-cardio-pulmonaire",
+    "title": "L'Arrêt Cardio-Respiratoire (ACR) & Réanimation Cardio-Pulmonaire",
+    "subtitle": "",
+    "specialtyId": "urgences",
+    "specialtyName": "Urgences & Réanimation",
+    "year": 6,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"causes\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Causes Réversibles : 4H / 4T</h2>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n          <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-800\">\n            <h4 class=\"font-bold text-indigo-900 dark:text-indigo-200 mb-2\">Les 4 \"H\"</h4>\n            <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n              <li>• <strong>H</strong>ypoxie</li>\n              <li>• <strong>H</strong>ypovolémie</li>\n              <li>• <strong>H</strong>ypo / Hyperkaliémie & troubles métaboliques</li>\n              <li>• <strong>H</strong>ypothermie</li>\n            </ul>\n          </div>\n          <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-rose-900 dark:text-rose-200 mb-2\">Les 4 \"T\"</h4>\n            <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n              <li>• Pneumothorax sous <strong>T</strong>ension</li>\n              <li>• <strong>T</strong>amponnade cardiaque</li>\n              <li>• <strong>T</strong>oxiques (surdosage médicamenteux)</li>\n              <li>• <strong>T</strong>hrombose (coronaire ou embolie pulmonaire massive)</li>\n            </ul>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:38.096679+00:00",
+    "updatedAt": "2026-09-25T16:03:38.096679+00:00"
+  },
+  {
+    "id": "cours_chirurgie_appendicite",
+    "slug": "l-appendicite-aigu-les-p-ritonites-aigu-s-g-n-ralis-es",
+    "title": "L'Appendicite Aiguë & Les Péritonites Aiguës Généralisées",
+    "subtitle": "",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"peritonite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Péritonite Aiguë Généralisée</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <p class=\"text-sm font-semibold text-rose-900 dark:text-rose-200 mb-2\">Signe cardinal : La Contracture Abdominale</p>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed\">\n            Rigidité pariétale réflexe, involontaire, invincible, permanente et douloureuse (\"ventre de bois\"). Urgence chirurgicale absolue : réanimation hémodynamique, antibiothérapie probabiliste anti-BGN et anaérobies (Ceftriaxone + Métronidazole) et laparotomie / cœlioscopie de toilette péritonéale sans délai.\n          </p>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:38.21095+00:00",
+    "updatedAt": "2026-09-25T16:03:38.21095+00:00"
+  },
+  {
+    "id": "cours_uro_colique_nephretique",
+    "slug": "la-colique-n-phr-tique-aigu-cna-torsion-testiculaire",
+    "title": "La Colique Néphrétique Aiguë (CNA) & Torsion Testiculaire",
+    "subtitle": "",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"gravite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Les 3 Formes Compliquées d'Urgence</h2>\n        <div class=\"space-y-3\">\n          <div class=\"p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-sm text-rose-900 dark:text-rose-200\">1. CNA Fébrile (Urgence Médico-Chirurgicale Absolue)</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Obstruction sur rein infecté. Dérivation urinaire en urgence par sonde double J sous anesthésie + hémocultures + antibiothérapie IV bactéricide.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n            <h4 class=\"font-bold text-sm text-amber-900 dark:text-amber-200\">2. CNA Anurique</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Obstruction sur rein unique anatomique ou fonctionnel, ou calculs bilatéraux simultanés. Risque d'insuffisance rénale anurique irréversible.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800\">\n            <h4 class=\"font-bold text-sm text-purple-900 dark:text-purple-200\">3. CNA Hyperalgique</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Douleur intolérable résistant au traitement morphinique IV bien conduit. Indication de décompression.</p>\n          </div>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:38.355576+00:00",
+    "updatedAt": "2026-09-25T16:03:38.355576+00:00"
+  },
+  {
+    "id": "cours_ortho_fracture_ouverte",
+    "slug": "les-fractures-ouvertes-de-jambe-le-syndrome-des-loges",
+    "title": "Les Fractures Ouvertes de Jambe & Le Syndrome des Loges",
+    "subtitle": "",
+    "specialtyId": "ortho",
+    "specialtyName": "Orthopédie & Traumatologie",
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"loges\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Le Syndrome des Loges</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 mb-1\">🚨 PIÈGE MAJEUR AUX EXAMENS : La Présence des Pouls Distaux</div>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed\">\n            La présence des pouls pédieux ou tibiaux postérieurs <strong>n'élimine absolument pas</strong> un syndrome des loges ! La pression intramusculaire dépasse la pression de perfusion capillaire bien avant d'occlure les gros troncs artériels. Le signe d'alerte le plus précoce et le plus sensible est la <strong>douleur exquise à l'étirement passif des muscles de la loge atteinte</strong>. Traitement sans délai : Aponévrotomie de décharge cutanéo-aponévrotique large.\n          </p>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:38.506409+00:00",
+    "updatedAt": "2026-09-25T16:03:38.506409+00:00"
+  },
+  {
+    "id": "cours_interne_lupus",
+    "slug": "le-lupus-ryth-mateux-syst-mique-les-maladie-de-horton",
+    "title": "Le Lupus Érythémateux Systémique (LES) & Maladie de Horton",
+    "subtitle": "",
+    "specialtyId": "interne",
+    "specialtyName": "Médecine Interne",
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "\n      <section id=\"criteres\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Critères EULAR/ACR 2019</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le diagnostic repose sur le critère d'entrée positif (AAN &ge; 1/80) associé à un score &ge; 10 points réparti entre les domaines cliniques (constitutionnel, hématologique, neuropsychiatrique, cutanéo-muqueux, séreux, musculo-squelettique, rénal) et immunologiques (anticorps anti-phospholipides, fractions du complément C3/C4 consommées, anti-ADN natif ou anti-Sm).\n        </p>\n      </section>\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. L'Hydroxychloroquine : Traitement de Base Indispensable</h2>\n        <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n          <p class=\"text-sm font-semibold text-emerald-900 dark:text-emerald-200 mb-2\">Recommandation Internationale de Niveau A :</p>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n            Tout patient atteint de LES doit recevoir de l'hydroxychloroquine (sauf contre-indication ophtalmologique absolue). Elle prévient les rechutes viscérales, diminue les complications cardiovasculaires et prolonge la survie globale.\n          </p>\n        </div>\n      </section>\n    ",
+    "createdAt": "2026-09-25T16:03:38.637574+00:00",
+    "updatedAt": "2026-09-25T16:03:38.637574+00:00"
+  },
+  {
+    "id": "custom-cardio-1788574898544",
+    "slug": "yyyy",
+    "title": "yyyy",
+    "subtitle": "Fiche officielle ajoutée par l'enseignant",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Vasculaire",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>🫁 La Tuberculose Pulmonaire — Pneumologie</title>\n<script src=\"https://cdn.tailwindcss.com\"></script>\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n<script>\n  tailwind.config = {\n    darkMode: 'class',\n    theme: {\n      extend: {\n        fontFamily: {\n          outfit: ['Outfit', 'sans-serif'],\n          inter: ['Inter', 'sans-serif'],\n        },\n        colors: {\n          bk: {\n            50: '#ecfeff', 100:'#cffafe', 200:'#a5f3fc', 300:'#67e8f9', 400:'#22d3ee',\n            500:'#06b6d4', 600:'#0891b2', 700:'#0e7490', 800:'#155e75', 900:'#164e63'\n          }\n        }\n      }\n    }\n  }\n</script>\n<style>\n  :root{ color-scheme: light; }\n  html.dark{ color-scheme: dark; }\n  body{ font-family:'Inter', sans-serif; }\n  h1,h2,h3,h4,.font-display{ font-family:'Outfit', sans-serif; }\n\n  ::-webkit-scrollbar{ width:10px; height:10px; }\n  ::-webkit-scrollbar-track{ background:transparent; }\n  ::-webkit-scrollbar-thumb{ background:#0891b2; border-radius:8px; }\n\n  .glass{\n    backdrop-filter: blur(14px) saturate(160%);\n    -webkit-backdrop-filter: blur(14px) saturate(160%);\n  }\n\n  /* Slide transitions */\n  .slide{ display:none; }\n  .slide.active{ display:block; animation: slide-enter .5s cubic-bezier(.22,.68,0,1.01); }\n  @keyframes slide-enter{\n    from{ opacity:0; transform: translateY(18px) scale(.99); }\n    to{ opacity:1; transform: translateY(0) scale(1); }\n  }\n  @media (prefers-reduced-motion: reduce){\n    .slide.active{ animation:none; }\n  }\n\n  .continuous .slide{ display:block !important; animation:none !important; scroll-margin-top: 6.5rem; }\n\n  .badge-dot::before{\n    content:''; display:inline-block; width:.5rem; height:.5rem; border-radius:9999px;\n    background: currentColor; margin-right:.4rem;\n  }\n\n  kbd{\n    font-family: 'Inter', sans-serif; font-size:.7rem; padding:.15rem .45rem; border-radius:.375rem;\n    border:1px solid rgba(148,163,184,.4); background: rgba(148,163,184,.12);\n  }\n\n  .chain-arrow{ position:relative; }\n  .chain-arrow::after{\n    content:'\\f078'; font-family:'Font Awesome 6 Free'; font-weight:900;\n    display:block; text-align:center; color:#0891b2; margin: .35rem 0; font-size:1rem;\n    transform: rotate(-90deg);\n  }\n  @media (min-width:768px){\n    .chain-arrow-row .chain-arrow::after{ transform:none; content:'\\f061'; margin:0 .5rem; }\n  }\n\n  #sommaireModal{ transition: opacity .2s ease; }\n\n  .caduceus-spin{ animation: breathe 4s ease-in-out infinite; }\n  @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }\n\n  @media print{\n    .no-print{ display:none !important; }\n    .slide{ display:block !important; page-break-after: always; animation:none !important; }\n    body{ background:white !important; color:black !important; }\n    .print-clean{ box-shadow:none !important; border-color:#ccc !important; }\n  }\n\n  .lung-bar{ transition: all .35s ease; }\n</style>\n</head>\n<body class=\"bg-slate-50 dark:bg-blue-950 text-slate-800 dark:text-slate-100 transition-colors duration-300\">\n\n<!-- ============ PROGRESS BAR (slideshow mode) ============ -->\n<div id=\"progressBar\" class=\"fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-700 z-[60] no-print\" style=\"width:0%\"></div>\n\n<!-- ============ NAVBAR ============ -->\n<header class=\"sticky top-0 z-50 glass bg-white/70 dark:bg-blue-950/60 border-b border-cyan-900/10 dark:border-cyan-100/10 no-print\">\n  <div class=\"max-w-6xl mx-auto px-4 sm:px-6\">\n    <div class=\"flex items-center justify-between h-16 gap-3\">\n      <div class=\"flex items-center gap-3 min-w-0\">\n        <span class=\"text-2xl caduceus-spin\">🫁</span>\n        <div class=\"min-w-0\">\n          <div class=\"flex items-center gap-2 flex-wrap\">\n            <h1 class=\"font-display font-semibold text-sm sm:text-base leading-tight truncate\">La Tuberculose Pulmonaire</h1>\n            <span class=\"hidden sm:inline-flex items-center text-[11px] font-medium px-2 py-0.5 rounded-full bg-cyan-600 text-white badge-dot\">Pneumologie</span>\n          </div>\n          <p class=\"text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate\">Dr Guenedouz Ahmed Yacine · Faculté de Médecine</p>\n        </div>\n      </div>\n\n      <div class=\"flex items-center gap-1.5 sm:gap-2 shrink-0\">\n        <button id=\"btnSommaire\" title=\"Sommaire\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-list-ul text-sm\"></i>\n        </button>\n        <button id=\"btnMode\" title=\"Basculer diaporama / continu\" class=\"h-9 px-3 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors text-xs font-medium gap-1.5 flex\">\n          <i class=\"fa-solid fa-images text-sm\"></i><span class=\"hidden sm:inline\" id=\"modeLabel\">Diaporama</span>\n        </button>\n        <button id=\"btnPrint\" title=\"Imprimer / Export PDF\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-print text-sm\"></i>\n        </button>\n        <button id=\"btnDark\" title=\"Thème sombre / clair\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-moon text-sm\" id=\"darkIcon\"></i>\n        </button>\n      </div>\n    </div>\n  </div>\n</header>\n\n<!-- ============ SOMMAIRE MODAL ============ -->\n<div id=\"sommaireModal\" class=\"fixed inset-0 z-[70] hidden no-print\">\n  <div id=\"sommaireOverlay\" class=\"absolute inset-0 bg-slate-900/50 backdrop-blur-sm\"></div>\n  <div class=\"relative max-w-md mx-auto mt-20 mb-10 bg-white dark:bg-blue-950 border border-cyan-900/10 dark:border-cyan-100/10 rounded-2xl shadow-2xl overflow-hidden mx-4\">\n    <div class=\"flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-white/10\">\n      <h3 class=\"font-display font-semibold flex items-center gap-2\"><i class=\"fa-solid fa-map text-cyan-600\"></i> Sommaire du cours</h3>\n      <button id=\"closeSommaire\" class=\"w-8 h-8 grid place-items-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/10\"><i class=\"fa-solid fa-xmark\"></i></button>\n    </div>\n    <ul id=\"sommaireList\" class=\"max-h-[60vh] overflow-y-auto divide-y divide-slate-100 dark:divide-white/5\"></ul>\n  </div>\n</div>\n\n<!-- ============ MAIN ============ -->\n<main id=\"deck\" class=\"max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10\">\n\n<!-- SLIDE 1 — ACCUEIL -->\n<section class=\"slide active\" data-title=\"Accueil\" data-emoji=\"🫁\">\n  <div class=\"rounded-3xl overflow-hidden relative bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-700 text-white p-8 sm:p-14 print-clean\">\n    <div class=\"absolute -right-16 -top-16 w-72 h-72 rounded-full bg-sky-400/20 blur-3xl\"></div>\n    <div class=\"absolute -left-10 bottom-0 w-56 h-56 rounded-full bg-cyan-300/10 blur-3xl\"></div>\n    <div class=\"relative\">\n      <span class=\"inline-flex items-center gap-2 text-xs font-medium bg-white/10 border border-white/20 rounded-full px-3 py-1\">🫁 Pneumologie · Faculté de Médecine</span>\n      <h2 class=\"font-display font-extrabold text-3xl sm:text-5xl mt-6 leading-tight max-w-3xl\">La Tuberculose : Primo-infection & Forme Pulmonaire Commune</h2>\n      <p class=\"mt-4 text-sky-100 max-w-2xl text-sm sm:text-base\">Maladie infectieuse chronique à déclaration obligatoire causée par le <em>Mycobacterium tuberculosis</em> (bacille de Koch, BK), transmise par voie aérienne. Un défi de santé publique mondial et une priorité pour le système de santé algérien.</p>\n      <p class=\"mt-3 text-xs text-sky-200\">👨‍⚕️ Présenté par Dr Guenedouz Ahmed Yacine</p>\n\n      <div class=\"grid grid-cols-2 md:grid-cols-4 gap-3 mt-8\">\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">10,8M</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Nouveaux cas de tuberculose dans le monde en 2023</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">19 133</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Cas toutes formes en Algérie en 2023 (41,10 / 100 000 hab.)</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">29,5%</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Part des formes pulmonaires (5 635 cas) parmi les TBK notifiées</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">12,50</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Incidence nationale (pour 100 000 hab.) de la TB pulmonaire en 2023</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 2 — DÉFINITIONS -->\n<section class=\"slide\" data-title=\"Définitions & repères\" data-emoji=\"📖\">\n  <div class=\"grid md:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-microscope\"></i> Le bacille de Koch (BK)</h3>\n      <ul class=\"mt-4 space-y-3 text-sm leading-relaxed\">\n        <li>🦠 <strong>Mycobacterium tuberculosis</strong>, transmis exclusivement par voie aérienne (gouttelettes de toux).</li>\n        <li>🧑‍🤝‍🧑 L'homme est le <strong>réservoir essentiel</strong> ; transmission strictement interhumaine.</li>\n        <li>⚠️ <strong>Infection ≠ Maladie</strong> : la majorité des personnes infectées ne développent jamais la maladie active.</li>\n        <li>📋 Maladie à <strong>déclaration obligatoire</strong> en Algérie.</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-lungs\"></i> Deux entités du cours</h3>\n      <div class=\"mt-4 space-y-4 text-sm\">\n        <div class=\"rounded-xl bg-cyan-50 dark:bg-cyan-950/40 p-4 border border-cyan-100 dark:border-cyan-900/40\">\n          <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">Primo-infection tuberculeuse</p>\n          <p class=\"mt-1 text-slate-600 dark:text-slate-300\">Ensemble des modifications immunologiques (virage tuberculinique) et éventuellement cliniques/radiologiques lors du <strong>premier contact</strong> de l'organisme avec le BK.</p>\n        </div>\n        <div class=\"rounded-xl bg-sky-50 dark:bg-sky-950/40 p-4 border border-sky-100 dark:border-sky-900/40\">\n          <p class=\"font-semibold text-sky-800 dark:text-sky-200\">Tuberculose pulmonaire commune</p>\n          <p class=\"mt-1 text-slate-600 dark:text-slate-300\">Infection du <strong>parenchyme pulmonaire</strong> par le BK, atteinte infiltrative et/ou ulcérée : forme la plus fréquente de la tuberculose maladie.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-syringe\"></i> IDR à la tuberculine — normal vs pathologique</h3>\n    <div class=\"mt-4 grid sm:grid-cols-4 gap-3\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">0–4 mm</p>\n        <p class=\"font-semibold text-emerald-600 mt-1 text-sm\">Négative</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">Infection peu probable</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">5–9 mm</p>\n        <p class=\"font-semibold text-amber-500 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">BCG ancien ou ITL latente</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">10–14 mm</p>\n        <p class=\"font-semibold text-orange-500 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">ITL probable</p>\n      </div>\n      <div class=\"rounded-xl border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-950/30 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">≥ 15 mm</p>\n        <p class=\"font-semibold text-red-600 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">ITL probable et récente</p>\n      </div>\n    </div>\n    <p class=\"text-xs text-slate-500 dark:text-slate-400 mt-3\">💡 L'IDR est la méthode de choix car quantitative et standardisée ; alternative : IGRA (Interferon-Gamma Release Assay).</p>\n  </div>\n</section>\n\n<!-- SLIDE 3 — ÉTIOLOGIES / ÉPIDÉMIOLOGIE -->\n<section class=\"slide\" data-title=\"Étiologies & épidémiologie\" data-emoji=\"🌍\">\n  <div class=\"grid lg:grid-cols-3 gap-5\">\n    <div class=\"lg:col-span-2 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-earth-africa\"></i> Épidémiologie</h3>\n      <ul class=\"mt-4 space-y-2.5 text-sm leading-relaxed\">\n        <li>📈 <strong>10,8 millions</strong> de nouveaux cas mondiaux en 2023 (10,7M en 2022, 10,4M en 2021, 10,0M en 2020) : légère hausse post-COVID puis stabilisation.</li>\n        <li>💀 <strong>1,3 million</strong> de décès chez les personnes non infectées par le VIH ; baisse de 8,3% de l'incidence mondiale depuis 2015 (objectif OMS 2025 : -50%).</li>\n        <li>🇩🇿 En Algérie : incidence passée de 42,20 (2022) à <strong>41,10 / 100 000 hab.</strong> (2023), soit -2,6%.</li>\n        <li>🗺️ Wilaya de <strong>Médéa</strong> : incidence la plus élevée du pays (102,16/100 000). Alger et Oran regroupent 21,4% des cas du Tell (1 362 et 1 130 cas).</li>\n        <li>👵 Les <strong>65 ans et plus</strong> sont les plus touchés (60,92/100 000), suivis des 25–34 ans (57,42) puis des 15–24 ans (52,48). Incidence la plus faible chez les 0–4 ans (4,78).</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-800 text-white p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Contagiosité</h3>\n      <p class=\"text-xs text-sky-100 mt-2\">La contamination dépend du nombre de BK expirés dans l'air :</p>\n      <ul class=\"mt-3 space-y-2 text-sm\">\n        <li>📍 Site anatomique (larynx, poumon)</li>\n        <li>🕳️ Existence d'une caverne</li>\n        <li>🤧 Toux ou expirations forcées</li>\n        <li>💨 Fibroscopie, aérosols, expectoration induite</li>\n        <li>⏳ Durée des symptômes (contagiosité maximale avant traitement)</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-user-shield\"></i> Facteurs de risque</h3>\n    <div class=\"grid md:grid-cols-3 gap-4 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🧬 Terrain fragilisé</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Âges extrêmes, dénutrition, grossesse, IRC dialysé, toxicomanie, diabète, ulcère ou gastrectomie.</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🦠 Pathologies & traitements</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Rougeole, oreillons, grippe, MNI, VIH, cancers/hémopathies ; corticoïdes, immunosuppresseurs, greffe.</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🏚️ Contage & précarité</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Promiscuité, manque d'hygiène, habitat précaire, TBK mal traitée, professions exposées, détenus, exclusion sociale.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 4 — PHYSIOPATHOLOGIE -->\n<section class=\"slide\" data-title=\"Physiopathologie\" data-emoji=\"🔬\">\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-timeline\"></i> Cascade physiopathologique de la primo-infection</h3>\n    <div class=\"mt-6 grid md:grid-cols-5 chain-arrow-row items-stretch gap-1\">\n      <div class=\"chain-arrow flex-1 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">1. Pénétration</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Sujet naïf, pas de réaction tissulaire immédiate.</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">2. Chancre d'inoculation</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Multiplication in situ 15–20 jours (lésion exsudative non spécifique).</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-sky-800 dark:text-sky-200\">3. Complexe primaire</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Phagocytose incomplète → migration ganglionnaire (ADP satellite) puis hématogène.</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-sky-800 dark:text-sky-200\">4. Réaction immunitaire</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">À 3 semaines : follicule de Koester (lymphocytes, cellules géantes, nécrose caséeuse) arrête la diffusion.</p>\n      </div>\n      <div class=\"flex-1 rounded-xl bg-blue-100 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 p-4 text-sm\">\n        <p class=\"font-semibold text-blue-900 dark:text-blue-100\">5. Issue</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">90% asymptomatiques (BK quiescents) · 10% patentes → traitement · réactivation possible = TBK postprimaire.</p>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"grid md:grid-cols-2 gap-5 mt-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-layer-group\"></i> Anatomo-pathologie macroscopique</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🧀 Caséum blanc-jaunâtre pâteux, onctueux (\"fromage blanc\")</li>\n        <li>🩹 Ulcération : perte de substance irrégulière</li>\n        <li>⚪ Nodules : granulations blanchâtres/jaunâtres</li>\n        <li>🕳️ Cavernes : cavités remplies/tapissées de caséum</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-microscope\"></i> Phases microscopiques</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🔴 <strong>Aiguë :</strong> réaction inflammatoire exsudative non spécifique</li>\n        <li>🟠 <strong>Sub-aiguë :</strong> follicules de Koester épithélio-gigantocellulaires, nécrose caséeuse centrale</li>\n        <li>⚪ <strong>Chronique :</strong> follicule fibreux</li>\n      </ul>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 5 — DIAGNOSTIC CLINIQUE -->\n<section class=\"slide\" data-title=\"Diagnostic clinique\" data-emoji=\"🩺\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-child\"></i> Primo-infection latente (90% des cas)</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>😌 Patient subjectivement en bonne santé</li>\n        <li>💉 Diagnostic fondé sur le <strong>virage tuberculinique</strong> (8–12 semaines)</li>\n        <li>➕ IDR positive + notion de contage, sans signe clinique ni radiologique évocateur</li>\n        <li>🔎 Rechercher le contaminateur (parent ou proche le plus souvent)</li>\n      </ul>\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300 mt-6\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Primo-infection patente (10%, plus grave)</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🌡️ Signes généraux : asthénie, anorexie, amaigrissement, fièvre</li>\n        <li>🫁 Signes respiratoires : toux, douleur thoracique, dyspnée</li>\n        <li>🤢 Typhobacillose de Landouzy : diarrhée + fièvre élevée + AEG + splénomégalie (simule une fièvre typhoïde)</li>\n        <li>🔴 Signes cutanés : érythème noueux (évolution 3–5 semaines)</li>\n        <li>👁️ Signes oculaires : kérato-conjonctivite</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-stethoscope\"></i> Tuberculose pulmonaire commune</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🗣️ <strong>Interrogatoire :</strong> notion de contage, profession exposante, comorbidités, BCG, antécédents de TBK</li>\n        <li>😤 <strong>Toux</strong> avec expectoration muco-purulente tenace &gt; 15 jours, résistante aux traitements banals</li>\n        <li>💢 Douleur thoracique vague, point de côté sous-mammelonnaire ou sus-scapulaire</li>\n        <li>🫁 Dyspnée, parfois début brutal avec <strong>hémoptysie</strong> d'importance variable, laryngite, pneumothorax</li>\n        <li>🌡️ Signes généraux : amaigrissement, asthénie, anorexie, fièvre 38–38,5°C, sueurs nocturnes, parfois aménorrhée</li>\n        <li>🩺 Examen physique généralement pauvre : parfois syndrome de condensation, souffle caverneux ou ronflant disséminé</li>\n      </ul>\n      <div class=\"mt-5 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4\">\n        <p class=\"text-xs text-cyan-800 dark:text-cyan-200\"><i class=\"fa-solid fa-circle-info mr-1\"></i> L'IDR à la tuberculine est positive mais <strong>non nécessaire</strong> au diagnostic de la forme pulmonaire commune.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 6 — EXAMENS PARACLINIQUES -->\n<section class=\"slide\" data-title=\"Examens paracliniques\" data-emoji=\"🔬\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-x-ray\"></i> Radiographie thoracique</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>⚪ <strong>Nodules :</strong> 3–10 mm, souvent confluents</li>\n        <li>➰ <strong>Opacités linéaires :</strong> 0,5–1 mm, en mailles de filet entre hile et régions sous-claviculaires</li>\n        <li>☁️ <strong>Infiltrats :</strong> opacités en nappe</li>\n        <li>⭕ <strong>Cavernes :</strong> image la plus évocatrice — bulle claire à paroi régulière (2 mm), niveau liquidien, bronche de drainage reliée au hile ; jusqu'à <strong>10⁹ BK</strong> dans une caverne de 2 cm</li>\n        <li>📍 D'abord unilatérales, prédominant aux segments supéro-postérieurs, puis extension et bilatéralisation, fibrose rétractile</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-vial\"></i> Confirmation bactériologique (certitude)</h3>\n      <div class=\"mt-3 space-y-3 text-sm\">\n        <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3\">\n          <p class=\"font-semibold\">🧪 Prélèvements</p>\n          <p class=\"text-slate-600 dark:text-slate-300 mt-1\">Expectoration (3 prélèvements), tubage gastrique (non-cracheurs, 3 matins de suite), aspiration/lavage bronchique après fibroscopie.</p>\n        </div>\n        <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3\">\n          <p class=\"font-semibold\">🔬 Étude bactériologique</p>\n          <p class=\"text-slate-600 dark:text-slate-300 mt-1\">Examen direct (Ziehl-Neelsen / Auramine, BAAR &gt;10/100 champs) · culture sur Löwenstein-Jensen (résultats J7-J21-J48-J72) · antibiogramme si résistance suspectée · GeneXpert (PCR).</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 7 — SÉVÉRITÉ + SIMULATEUR + DIAGNOSTIC DIFFÉRENTIEL -->\n<section class=\"slide\" data-title=\"Sévérité, simulateur & diagnostic différentiel\" data-emoji=\"🎚️\">\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-sliders\"></i> Simulateur : taille de la caverne tuberculeuse</h3>\n    <p class=\"text-sm text-slate-500 dark:text-slate-400 mt-1\">Déplacez le curseur pour observer la charge bacillaire estimée et la gravité associée.</p>\n    <div class=\"mt-6 grid md:grid-cols-3 gap-6 items-center\">\n      <div class=\"md:col-span-2\">\n        <input id=\"caverneRange\" type=\"range\" min=\"0.5\" max=\"5\" step=\"0.1\" value=\"2\" class=\"w-full accent-cyan-600 h-2\">\n        <div class=\"flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-2\">\n          <span>0,5 cm</span><span>2,5 cm</span><span>5 cm</span>\n        </div>\n        <div class=\"mt-4 h-3 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden\">\n          <div id=\"lungBarFill\" class=\"h-full lung-bar bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600\" style=\"width:40%\"></div>\n        </div>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Diamètre de la caverne</p>\n        <p id=\"caverneValue\" class=\"text-3xl font-display font-bold text-cyan-700 dark:text-cyan-300\">2,0 cm</p>\n      </div>\n    </div>\n    <div class=\"grid md:grid-cols-3 gap-4 mt-6\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Charge bacillaire estimée</p>\n        <p id=\"bkCount\" class=\"font-semibold text-lg mt-1\">≈ 1,0 × 10⁹ BK</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Gravité</p>\n        <p id=\"graviteBadge\" class=\"font-semibold text-lg mt-1 inline-flex items-center gap-2\"><span class=\"w-2.5 h-2.5 rounded-full bg-amber-500\"></span> Modérée</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Conduite à tenir</p>\n        <p id=\"conduiteText\" class=\"text-sm mt-1 text-slate-600 dark:text-slate-300\">Confirmation bactériologique, traitement standard, isolement respiratoire, dépistage de l'entourage.</p>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-waveform-lines\"></i> Simulateur acoustique : auscultation pulmonaire</h3>\n    <p class=\"text-sm text-slate-500 dark:text-slate-400 mt-1\">Écoutez une évocation des bruits retrouvés à l'examen physique (approximation pédagogique via synthèse sonore).</p>\n    <div class=\"flex flex-wrap gap-3 mt-4\">\n      <button data-sound=\"crepitants\" class=\"soundBtn px-4 py-2 rounded-lg bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Râles crépitants</button>\n      <button data-sound=\"souffle\" class=\"soundBtn px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Souffle caverneux</button>\n      <button data-sound=\"normal\" class=\"soundBtn px-4 py-2 rounded-lg bg-blue-900 text-white text-sm font-medium hover:bg-blue-950 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Murmure vésiculaire normal</button>\n    </div>\n    <canvas id=\"audioCanvas\" class=\"w-full h-20 mt-4 rounded-lg bg-slate-900\"></canvas>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-shuffle\"></i> Diagnostic différentiel</h3>\n    <div class=\"grid sm:grid-cols-2 gap-3 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Pneumopathie bactérienne traînante</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Fièvre plus aiguë, réponse rapide à l'antibiothérapie standard.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Cancer bronchopulmonaire</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Terrain tabagique, image excavée à paroi épaisse irrégulière.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Mycoses pulmonaires / aspergillome</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Peut compliquer une cavité séquellaire tuberculeuse.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Fièvre typhoïde</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">À évoquer devant une typhobacillose de Landouzy.</p></div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 8 — ÉVOLUTION / PRONOSTIC / COMPLICATIONS -->\n<section class=\"slide\" data-title=\"Évolution, pronostic & complications\" data-emoji=\"📉\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-baby\"></i> Séquelles de la primo-infection</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🫧 Syndrome du lobe moyen (de Brock) : broncho-lithiase + DDB + hémoptysies à répétition</li>\n        <li>🔀 Fistulisation endo-bronchique</li>\n        <li>🪨 Complexe de Ghon : chancre + ganglion calcifié</li>\n        <li>⏩ Tuberculose primaire progressive ou post-primaire</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-gradient-to-br from-blue-900 to-cyan-800 text-white p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Complications de la TB pulmonaire</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm\">\n        <li>🔥 Tuberculose évolutive</li>\n        <li>🩸 <strong>Hémoptysie</strong></li>\n        <li>💨 <strong>Pneumothorax</strong> par rupture d'une caverne dans la cavité pleurale ; les BK infectent la plèvre → pyo-pneumothorax</li>\n        <li>🫧 <strong>Pleurésie</strong> par contiguïté d'une TB pulmonaire évolutive</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-hourglass-half\"></i> Séquelles à long terme</h3>\n    <div class=\"grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">DDB</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Dilatation des bronches séquellaire.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">IRC</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">En cas de séquelles étendues.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Pneumothorax bénin</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Par rupture de cicatrice bulleuse, sans infection pleurale ; guérison en 48h.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Aspergillome</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">D'une cavité séquellaire ; nécessite une cure chirurgicale.</p></div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 9 — PRISE EN CHARGE -->\n<section class=\"slide\" data-title=\"Prise en charge & prévention\" data-emoji=\"💊\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-pills\"></i> Principes thérapeutiques</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>💊 Traitement systématique de <strong>toute primo-infection</strong> pour éviter l'évolution vers la TBK maladie et les formes extra-pulmonaires</li>\n        <li>🧪 La confirmation bactériologique guide la prise en charge et juge la contagiosité, pour adapter la conduite auprès de l'entourage</li>\n        <li>👥 Isolement respiratoire des sujets bacillifères durant la phase contagiante (avant traitement)</li>\n        <li>📈 Surveillance de l'évolution clinique, radiologique et bactériologique (antibiogramme si BK+ persistant à M5-M6)</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-shield-halved\"></i> Prévention</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>💉 <strong>Vaccination BCG</strong> obligatoire dès la naissance (= primo-infection artificielle)</li>\n        <li>📋 Déclaration obligatoire de la maladie</li>\n        <li>🏫 Dépistage familial, scolaire et professionnel du sujet contact, obligatoire</li>\n        <li>🚪 Isolement des sujets bacillifères</li>\n        <li>🏘️ Amélioration des conditions socio-économiques et de l'habitat</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-gradient-to-br from-cyan-600 via-sky-600 to-blue-900 text-white p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-flag-checkered\"></i> À retenir</h3>\n    <p class=\"text-sm text-sky-100 mt-2\">Le diagnostic précoce et le traitement rapide de la tuberculose pulmonaire commune limitent la transmission communautaire. La confirmation bactériologique reste la clé de voûte du diagnostic de certitude et de la stratégie thérapeutique et préventive autour du patient.</p>\n  </div>\n</section>\n\n</main>\n\n<!-- ============ FLOATING SLIDE CONTROLLER ============ -->\n<div id=\"sliderController\" class=\"fixed bottom-5 left-1/2 -translate-x-1/2 z-50 no-print\">\n  <div class=\"glass bg-white/80 dark:bg-blue-950/70 border border-cyan-900/10 dark:border-cyan-100/10 rounded-2xl shadow-xl px-3 py-2 flex items-center gap-3\">\n    <button id=\"prevSlide\" class=\"w-9 h-9 grid place-items-center rounded-xl bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\"><i class=\"fa-solid fa-chevron-left\"></i></button>\n    <div class=\"text-center min-w-[140px]\">\n      <p id=\"slideTitle\" class=\"text-xs font-semibold truncate max-w-[160px] mx-auto\">Accueil</p>\n      <p id=\"slideCounter\" class=\"text-[11px] text-slate-500 dark:text-slate-400\">Diapo 1 / 9</p>\n    </div>\n    <button id=\"nextSlide\" class=\"w-9 h-9 grid place-items-center rounded-xl bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\"><i class=\"fa-solid fa-chevron-right\"></i></button>\n  </div>\n</div>\n\n<footer class=\"text-center text-xs text-slate-400 dark:text-slate-500 pb-28 pt-4 no-print\">\n  🫁 Cours de Pneumologie — Tuberculose · Dr Guenedouz Ahmed Yacine\n</footer>\n\n<script>\n(function(){\n  const slides = Array.from(document.querySelectorAll('.slide'));\n  const deck = document.getElementById('deck');\n  let current = 0;\n  let mode = 'slideshow'; // or 'continuous'\n\n  const slideTitle = document.getElementById('slideTitle');\n  const slideCounter = document.getElementById('slideCounter');\n  const progressBar = document.getElementById('progressBar');\n  const controller = document.getElementById('sliderController');\n\n  function renderSommaire(){\n    const list = document.getElementById('sommaireList');\n    list.innerHTML = '';\n    slides.forEach((s, i) => {\n      const li = document.createElement('li');\n      li.innerHTML = `<button class=\"w-full text-left px-5 py-3 flex items-center gap-3 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 transition-colors\" data-idx=\"${i}\">\n        <span class=\"text-lg\">${s.dataset.emoji}</span>\n        <span class=\"flex-1 text-sm font-medium\">${s.dataset.title}</span>\n        <span class=\"text-[11px] text-slate-400\">${i+1}</span>\n      </button>`;\n      list.appendChild(li);\n    });\n    list.querySelectorAll('button').forEach(btn=>{\n      btn.addEventListener('click', ()=>{\n        goTo(parseInt(btn.dataset.idx));\n        closeSommaire();\n        if(mode==='continuous'){\n          slides[parseInt(btn.dataset.idx)].scrollIntoView({behavior:'smooth', block:'start'});\n        }\n      });\n    });\n  }\n\n  function update(){\n    slides.forEach((s,i)=> s.classList.toggle('active', i===current));\n    slideTitle.textContent = slides[current].dataset.title;\n    slideCounter.textContent = `Diapo ${current+1} / ${slides.length}`;\n    progressBar.style.width = `${((current+1)/slides.length)*100}%`;\n  }\n\n  function goTo(i){\n    current = Math.max(0, Math.min(slides.length-1, i));\n    update();\n  }\n\n  document.getElementById('prevSlide').addEventListener('click', ()=> goTo(current-1));\n  document.getElementById('nextSlide').addEventListener('click', ()=> goTo(current+1));\n\n  document.addEventListener('keydown', (e)=>{\n    if(mode!=='slideshow') return;\n    if(['ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); goTo(current+1); }\n    if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); goTo(current-1); }\n  });\n\n  // Mode toggle\n  const btnMode = document.getElementById('btnMode');\n  const modeLabel = document.getElementById('modeLabel');\n  btnMode.addEventListener('click', ()=>{\n    if(mode==='slideshow'){\n      mode='continuous';\n      deck.classList.add('continuous');\n      controller.classList.add('hidden');\n      progressBar.classList.add('hidden');\n      modeLabel.textContent = 'Continu';\n      btnMode.querySelector('i').className='fa-solid fa-scroll text-sm';\n    } else {\n      mode='slideshow';\n      deck.classList.remove('continuous');\n      controller.classList.remove('hidden');\n      progressBar.classList.remove('hidden');\n      modeLabel.textContent = 'Diaporama';\n      btnMode.querySelector('i').className='fa-solid fa-images text-sm';\n      update();\n    }\n  });\n\n  // Dark mode\n  const btnDark = document.getElementById('btnDark');\n  const darkIcon = document.getElementById('darkIcon');\n  function applyDark(isDark){\n    document.documentElement.classList.toggle('dark', isDark);\n    darkIcon.className = isDark ? 'fa-solid fa-sun text-sm' : 'fa-solid fa-moon text-sm';\n    localStorage.setItem('tbk-dark', isDark ? '1':'0');\n  }\n  applyDark(localStorage.getItem('tbk-dark')==='1');\n  btnDark.addEventListener('click', ()=> applyDark(!document.documentElement.classList.contains('dark')));\n\n  // Print\n  document.getElementById('btnPrint').addEventListener('click', ()=> window.print());\n\n  // Sommaire modal\n  const modal = document.getElementById('sommaireModal');\n  function openSommaire(){ renderSommaire(); modal.classList.remove('hidden'); }\n  function closeSommaire(){ modal.classList.add('hidden'); }\n  document.getElementById('btnSommaire').addEventListener('click', openSommaire);\n  document.getElementById('closeSommaire').addEventListener('click', closeSommaire);\n  document.getElementById('sommaireOverlay').addEventListener('click', closeSommaire);\n\n  update();\n\n  // ===== Simulateur caverne =====\n  const range = document.getElementById('caverneRange');\n  const val = document.getElementById('caverneValue');\n  const bkCount = document.getElementById('bkCount');\n  const badge = document.getElementById('graviteBadge');\n  const conduite = document.getElementById('conduiteText');\n  const fill = document.getElementById('lungBarFill');\n\n  function updateSim(){\n    const d = parseFloat(range.value);\n    val.textContent = d.toFixed(1).replace('.', ',') + ' cm';\n    const bk = (d/2) * 1; // scale relative to 10^9 for 2cm\n    bkCount.textContent = `≈ ${bk.toFixed(2).replace('.', ',')} × 10⁹ BK`;\n    fill.style.width = `${Math.min(100, (d/5)*100)}%`;\n    let color, label, text;\n    if(d < 1.2){\n      color='bg-emerald-500'; label='Limitée'; text='Surveillance rapprochée, confirmation bactériologique, traitement standard ambulatoire possible.';\n    } else if(d < 2.8){\n      color='bg-amber-500'; label='Modérée'; text=\"Confirmation bactériologique, traitement standard, isolement respiratoire, dépistage de l'entourage.\";\n    } else {\n      color='bg-red-600'; label='Sévère'; text='Risque élevé de dissémination et de séquelles (hémoptysie, pneumothorax) : hospitalisation, isolement strict, surveillance rapprochée de la réponse au traitement.';\n    }\n    badge.innerHTML = `<span class=\"w-2.5 h-2.5 rounded-full ${color}\"></span> ${label}`;\n    conduite.textContent = text;\n  }\n  range.addEventListener('input', updateSim);\n  updateSim();\n\n  // ===== Simulateur acoustique (WebAudio) =====\n  let audioCtx;\n  const canvas = document.getElementById('audioCanvas');\n  const ctx2d = canvas.getContext('2d');\n  function resizeCanvas(){ canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; }\n  resizeCanvas();\n  window.addEventListener('resize', resizeCanvas);\n\n  function drawWave(analyser, dataArray){\n    requestAnimationFrame(()=> drawWave(analyser, dataArray));\n    analyser.getByteTimeDomainData(dataArray);\n    ctx2d.fillStyle = '#0f172a';\n    ctx2d.fillRect(0,0,canvas.width, canvas.height);\n    ctx2d.lineWidth = 2 * devicePixelRatio;\n    ctx2d.strokeStyle = '#22d3ee';\n    ctx2d.beginPath();\n    const slice = canvas.width / dataArray.length;\n    let x = 0;\n    for(let i=0;i<dataArray.length;i++){\n      const v = dataArray[i]/128.0;\n      const y = v * canvas.height/2;\n      i===0 ? ctx2d.moveTo(x,y) : ctx2d.lineTo(x,y);\n      x += slice;\n    }\n    ctx2d.stroke();\n  }\n\n  function playSound(type){\n    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();\n    const analyser = audioCtx.createAnalyser();\n    analyser.fftSize = 1024;\n    const dataArray = new Uint8Array(analyser.fftSize);\n    analyser.connect(audioCtx.destination);\n    drawWave(analyser, dataArray);\n\n    const now = audioCtx.currentTime;\n\n    if(type==='normal'){\n      const bufferSize = audioCtx.sampleRate * 1.2;\n      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n      const data = buffer.getChannelData(0);\n      for(let i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1) * 0.15; }\n      const src = audioCtx.createBufferSource(); src.buffer = buffer;\n      const filt = audioCtx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=350;\n      const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.5, now); gain.gain.linearRampToValueAtTime(0.001, now+1.2);\n      src.connect(filt); filt.connect(gain); gain.connect(analyser);\n      src.start(); src.stop(now+1.2);\n    }\n\n    if(type==='crepitants'){\n      // multiple short clicks like velcro crackles\n      for(let i=0;i<18;i++){\n        const t = now + i*0.06 + Math.random()*0.02;\n        const bufferSize = audioCtx.sampleRate * 0.02;\n        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n        const data = buffer.getChannelData(0);\n        for(let j=0;j<bufferSize;j++){ data[j] = (Math.random()*2-1); }\n        const src = audioCtx.createBufferSource(); src.buffer = buffer;\n        const filt = audioCtx.createBiquadFilter(); filt.type='highpass'; filt.frequency.value=1200;\n        const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.35, t); gain.gain.exponentialRampToValueAtTime(0.001, t+0.05);\n        src.connect(filt); filt.connect(gain); gain.connect(analyser);\n        src.start(t); src.stop(t+0.05);\n      }\n    }\n\n    if(type==='souffle'){\n      const bufferSize = audioCtx.sampleRate * 1.4;\n      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n      const data = buffer.getChannelData(0);\n      for(let i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1); }\n      const src = audioCtx.createBufferSource(); src.buffer = buffer;\n      const filt = audioCtx.createBiquadFilter(); filt.type='bandpass'; filt.frequency.value=700; filt.Q.value=1.2;\n      const gain = audioCtx.createGain();\n      gain.gain.setValueAtTime(0.001, now);\n      gain.gain.linearRampToValueAtTime(0.5, now+0.15);\n      gain.gain.linearRampToValueAtTime(0.1, now+0.6);\n      gain.gain.linearRampToValueAtTime(0.5, now+0.75);\n      gain.gain.linearRampToValueAtTime(0.001, now+1.4);\n      src.connect(filt); filt.connect(gain); gain.connect(analyser);\n      src.start(); src.stop(now+1.4);\n    }\n  }\n\n  document.querySelectorAll('.soundBtn').forEach(btn=>{\n    btn.addEventListener('click', ()=> playSound(btn.dataset.sound));\n  });\n\n})();\n</script>\n</body>\n</html>",
+    "createdAt": "2026-09-05T02:21:38.397416+00:00",
+    "updatedAt": "2026-09-05T02:21:38.551+00:00"
+  },
+  {
+    "id": "custom-cardio-1788575101267",
+    "slug": "nononon",
+    "title": "nononon",
+    "subtitle": "Fiche officielle ajoutée par l'enseignant",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Vasculaire",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>🫁 La Tuberculose Pulmonaire — Pneumologie</title>\n<script src=\"https://cdn.tailwindcss.com\"></script>\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n<script>\n  tailwind.config = {\n    darkMode: 'class',\n    theme: {\n      extend: {\n        fontFamily: {\n          outfit: ['Outfit', 'sans-serif'],\n          inter: ['Inter', 'sans-serif'],\n        },\n        colors: {\n          bk: {\n            50: '#ecfeff', 100:'#cffafe', 200:'#a5f3fc', 300:'#67e8f9', 400:'#22d3ee',\n            500:'#06b6d4', 600:'#0891b2', 700:'#0e7490', 800:'#155e75', 900:'#164e63'\n          }\n        }\n      }\n    }\n  }\n</script>\n<style>\n  :root{ color-scheme: light; }\n  html.dark{ color-scheme: dark; }\n  body{ font-family:'Inter', sans-serif; }\n  h1,h2,h3,h4,.font-display{ font-family:'Outfit', sans-serif; }\n\n  ::-webkit-scrollbar{ width:10px; height:10px; }\n  ::-webkit-scrollbar-track{ background:transparent; }\n  ::-webkit-scrollbar-thumb{ background:#0891b2; border-radius:8px; }\n\n  .glass{\n    backdrop-filter: blur(14px) saturate(160%);\n    -webkit-backdrop-filter: blur(14px) saturate(160%);\n  }\n\n  /* Slide transitions */\n  .slide{ display:none; }\n  .slide.active{ display:block; animation: slide-enter .5s cubic-bezier(.22,.68,0,1.01); }\n  @keyframes slide-enter{\n    from{ opacity:0; transform: translateY(18px) scale(.99); }\n    to{ opacity:1; transform: translateY(0) scale(1); }\n  }\n  @media (prefers-reduced-motion: reduce){\n    .slide.active{ animation:none; }\n  }\n\n  .continuous .slide{ display:block !important; animation:none !important; scroll-margin-top: 6.5rem; }\n\n  .badge-dot::before{\n    content:''; display:inline-block; width:.5rem; height:.5rem; border-radius:9999px;\n    background: currentColor; margin-right:.4rem;\n  }\n\n  kbd{\n    font-family: 'Inter', sans-serif; font-size:.7rem; padding:.15rem .45rem; border-radius:.375rem;\n    border:1px solid rgba(148,163,184,.4); background: rgba(148,163,184,.12);\n  }\n\n  .chain-arrow{ position:relative; }\n  .chain-arrow::after{\n    content:'\\f078'; font-family:'Font Awesome 6 Free'; font-weight:900;\n    display:block; text-align:center; color:#0891b2; margin: .35rem 0; font-size:1rem;\n    transform: rotate(-90deg);\n  }\n  @media (min-width:768px){\n    .chain-arrow-row .chain-arrow::after{ transform:none; content:'\\f061'; margin:0 .5rem; }\n  }\n\n  #sommaireModal{ transition: opacity .2s ease; }\n\n  .caduceus-spin{ animation: breathe 4s ease-in-out infinite; }\n  @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }\n\n  @media print{\n    .no-print{ display:none !important; }\n    .slide{ display:block !important; page-break-after: always; animation:none !important; }\n    body{ background:white !important; color:black !important; }\n    .print-clean{ box-shadow:none !important; border-color:#ccc !important; }\n  }\n\n  .lung-bar{ transition: all .35s ease; }\n</style>\n</head>\n<body class=\"bg-slate-50 dark:bg-blue-950 text-slate-800 dark:text-slate-100 transition-colors duration-300\">\n\n<!-- ============ PROGRESS BAR (slideshow mode) ============ -->\n<div id=\"progressBar\" class=\"fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-700 z-[60] no-print\" style=\"width:0%\"></div>\n\n<!-- ============ NAVBAR ============ -->\n<header class=\"sticky top-0 z-50 glass bg-white/70 dark:bg-blue-950/60 border-b border-cyan-900/10 dark:border-cyan-100/10 no-print\">\n  <div class=\"max-w-6xl mx-auto px-4 sm:px-6\">\n    <div class=\"flex items-center justify-between h-16 gap-3\">\n      <div class=\"flex items-center gap-3 min-w-0\">\n        <span class=\"text-2xl caduceus-spin\">🫁</span>\n        <div class=\"min-w-0\">\n          <div class=\"flex items-center gap-2 flex-wrap\">\n            <h1 class=\"font-display font-semibold text-sm sm:text-base leading-tight truncate\">La Tuberculose Pulmonaire</h1>\n            <span class=\"hidden sm:inline-flex items-center text-[11px] font-medium px-2 py-0.5 rounded-full bg-cyan-600 text-white badge-dot\">Pneumologie</span>\n          </div>\n          <p class=\"text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate\">Dr Guenedouz Ahmed Yacine · Faculté de Médecine</p>\n        </div>\n      </div>\n\n      <div class=\"flex items-center gap-1.5 sm:gap-2 shrink-0\">\n        <button id=\"btnSommaire\" title=\"Sommaire\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-list-ul text-sm\"></i>\n        </button>\n        <button id=\"btnMode\" title=\"Basculer diaporama / continu\" class=\"h-9 px-3 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors text-xs font-medium gap-1.5 flex\">\n          <i class=\"fa-solid fa-images text-sm\"></i><span class=\"hidden sm:inline\" id=\"modeLabel\">Diaporama</span>\n        </button>\n        <button id=\"btnPrint\" title=\"Imprimer / Export PDF\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-print text-sm\"></i>\n        </button>\n        <button id=\"btnDark\" title=\"Thème sombre / clair\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-moon text-sm\" id=\"darkIcon\"></i>\n        </button>\n      </div>\n    </div>\n  </div>\n</header>\n\n<!-- ============ SOMMAIRE MODAL ============ -->\n<div id=\"sommaireModal\" class=\"fixed inset-0 z-[70] hidden no-print\">\n  <div id=\"sommaireOverlay\" class=\"absolute inset-0 bg-slate-900/50 backdrop-blur-sm\"></div>\n  <div class=\"relative max-w-md mx-auto mt-20 mb-10 bg-white dark:bg-blue-950 border border-cyan-900/10 dark:border-cyan-100/10 rounded-2xl shadow-2xl overflow-hidden mx-4\">\n    <div class=\"flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-white/10\">\n      <h3 class=\"font-display font-semibold flex items-center gap-2\"><i class=\"fa-solid fa-map text-cyan-600\"></i> Sommaire du cours</h3>\n      <button id=\"closeSommaire\" class=\"w-8 h-8 grid place-items-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/10\"><i class=\"fa-solid fa-xmark\"></i></button>\n    </div>\n    <ul id=\"sommaireList\" class=\"max-h-[60vh] overflow-y-auto divide-y divide-slate-100 dark:divide-white/5\"></ul>\n  </div>\n</div>\n\n<!-- ============ MAIN ============ -->\n<main id=\"deck\" class=\"max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10\">\n\n<!-- SLIDE 1 — ACCUEIL -->\n<section class=\"slide active\" data-title=\"Accueil\" data-emoji=\"🫁\">\n  <div class=\"rounded-3xl overflow-hidden relative bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-700 text-white p-8 sm:p-14 print-clean\">\n    <div class=\"absolute -right-16 -top-16 w-72 h-72 rounded-full bg-sky-400/20 blur-3xl\"></div>\n    <div class=\"absolute -left-10 bottom-0 w-56 h-56 rounded-full bg-cyan-300/10 blur-3xl\"></div>\n    <div class=\"relative\">\n      <span class=\"inline-flex items-center gap-2 text-xs font-medium bg-white/10 border border-white/20 rounded-full px-3 py-1\">🫁 Pneumologie · Faculté de Médecine</span>\n      <h2 class=\"font-display font-extrabold text-3xl sm:text-5xl mt-6 leading-tight max-w-3xl\">La Tuberculose : Primo-infection & Forme Pulmonaire Commune</h2>\n      <p class=\"mt-4 text-sky-100 max-w-2xl text-sm sm:text-base\">Maladie infectieuse chronique à déclaration obligatoire causée par le <em>Mycobacterium tuberculosis</em> (bacille de Koch, BK), transmise par voie aérienne. Un défi de santé publique mondial et une priorité pour le système de santé algérien.</p>\n      <p class=\"mt-3 text-xs text-sky-200\">👨‍⚕️ Présenté par Dr Guenedouz Ahmed Yacine</p>\n\n      <div class=\"grid grid-cols-2 md:grid-cols-4 gap-3 mt-8\">\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">10,8M</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Nouveaux cas de tuberculose dans le monde en 2023</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">19 133</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Cas toutes formes en Algérie en 2023 (41,10 / 100 000 hab.)</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">29,5%</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Part des formes pulmonaires (5 635 cas) parmi les TBK notifiées</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">12,50</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Incidence nationale (pour 100 000 hab.) de la TB pulmonaire en 2023</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 2 — DÉFINITIONS -->\n<section class=\"slide\" data-title=\"Définitions & repères\" data-emoji=\"📖\">\n  <div class=\"grid md:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-microscope\"></i> Le bacille de Koch (BK)</h3>\n      <ul class=\"mt-4 space-y-3 text-sm leading-relaxed\">\n        <li>🦠 <strong>Mycobacterium tuberculosis</strong>, transmis exclusivement par voie aérienne (gouttelettes de toux).</li>\n        <li>🧑‍🤝‍🧑 L'homme est le <strong>réservoir essentiel</strong> ; transmission strictement interhumaine.</li>\n        <li>⚠️ <strong>Infection ≠ Maladie</strong> : la majorité des personnes infectées ne développent jamais la maladie active.</li>\n        <li>📋 Maladie à <strong>déclaration obligatoire</strong> en Algérie.</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-lungs\"></i> Deux entités du cours</h3>\n      <div class=\"mt-4 space-y-4 text-sm\">\n        <div class=\"rounded-xl bg-cyan-50 dark:bg-cyan-950/40 p-4 border border-cyan-100 dark:border-cyan-900/40\">\n          <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">Primo-infection tuberculeuse</p>\n          <p class=\"mt-1 text-slate-600 dark:text-slate-300\">Ensemble des modifications immunologiques (virage tuberculinique) et éventuellement cliniques/radiologiques lors du <strong>premier contact</strong> de l'organisme avec le BK.</p>\n        </div>\n        <div class=\"rounded-xl bg-sky-50 dark:bg-sky-950/40 p-4 border border-sky-100 dark:border-sky-900/40\">\n          <p class=\"font-semibold text-sky-800 dark:text-sky-200\">Tuberculose pulmonaire commune</p>\n          <p class=\"mt-1 text-slate-600 dark:text-slate-300\">Infection du <strong>parenchyme pulmonaire</strong> par le BK, atteinte infiltrative et/ou ulcérée : forme la plus fréquente de la tuberculose maladie.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-syringe\"></i> IDR à la tuberculine — normal vs pathologique</h3>\n    <div class=\"mt-4 grid sm:grid-cols-4 gap-3\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">0–4 mm</p>\n        <p class=\"font-semibold text-emerald-600 mt-1 text-sm\">Négative</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">Infection peu probable</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">5–9 mm</p>\n        <p class=\"font-semibold text-amber-500 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">BCG ancien ou ITL latente</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">10–14 mm</p>\n        <p class=\"font-semibold text-orange-500 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">ITL probable</p>\n      </div>\n      <div class=\"rounded-xl border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-950/30 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">≥ 15 mm</p>\n        <p class=\"font-semibold text-red-600 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">ITL probable et récente</p>\n      </div>\n    </div>\n    <p class=\"text-xs text-slate-500 dark:text-slate-400 mt-3\">💡 L'IDR est la méthode de choix car quantitative et standardisée ; alternative : IGRA (Interferon-Gamma Release Assay).</p>\n  </div>\n</section>\n\n<!-- SLIDE 3 — ÉTIOLOGIES / ÉPIDÉMIOLOGIE -->\n<section class=\"slide\" data-title=\"Étiologies & épidémiologie\" data-emoji=\"🌍\">\n  <div class=\"grid lg:grid-cols-3 gap-5\">\n    <div class=\"lg:col-span-2 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-earth-africa\"></i> Épidémiologie</h3>\n      <ul class=\"mt-4 space-y-2.5 text-sm leading-relaxed\">\n        <li>📈 <strong>10,8 millions</strong> de nouveaux cas mondiaux en 2023 (10,7M en 2022, 10,4M en 2021, 10,0M en 2020) : légère hausse post-COVID puis stabilisation.</li>\n        <li>💀 <strong>1,3 million</strong> de décès chez les personnes non infectées par le VIH ; baisse de 8,3% de l'incidence mondiale depuis 2015 (objectif OMS 2025 : -50%).</li>\n        <li>🇩🇿 En Algérie : incidence passée de 42,20 (2022) à <strong>41,10 / 100 000 hab.</strong> (2023), soit -2,6%.</li>\n        <li>🗺️ Wilaya de <strong>Médéa</strong> : incidence la plus élevée du pays (102,16/100 000). Alger et Oran regroupent 21,4% des cas du Tell (1 362 et 1 130 cas).</li>\n        <li>👵 Les <strong>65 ans et plus</strong> sont les plus touchés (60,92/100 000), suivis des 25–34 ans (57,42) puis des 15–24 ans (52,48). Incidence la plus faible chez les 0–4 ans (4,78).</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-800 text-white p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Contagiosité</h3>\n      <p class=\"text-xs text-sky-100 mt-2\">La contamination dépend du nombre de BK expirés dans l'air :</p>\n      <ul class=\"mt-3 space-y-2 text-sm\">\n        <li>📍 Site anatomique (larynx, poumon)</li>\n        <li>🕳️ Existence d'une caverne</li>\n        <li>🤧 Toux ou expirations forcées</li>\n        <li>💨 Fibroscopie, aérosols, expectoration induite</li>\n        <li>⏳ Durée des symptômes (contagiosité maximale avant traitement)</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-user-shield\"></i> Facteurs de risque</h3>\n    <div class=\"grid md:grid-cols-3 gap-4 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🧬 Terrain fragilisé</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Âges extrêmes, dénutrition, grossesse, IRC dialysé, toxicomanie, diabète, ulcère ou gastrectomie.</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🦠 Pathologies & traitements</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Rougeole, oreillons, grippe, MNI, VIH, cancers/hémopathies ; corticoïdes, immunosuppresseurs, greffe.</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🏚️ Contage & précarité</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Promiscuité, manque d'hygiène, habitat précaire, TBK mal traitée, professions exposées, détenus, exclusion sociale.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 4 — PHYSIOPATHOLOGIE -->\n<section class=\"slide\" data-title=\"Physiopathologie\" data-emoji=\"🔬\">\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-timeline\"></i> Cascade physiopathologique de la primo-infection</h3>\n    <div class=\"mt-6 grid md:grid-cols-5 chain-arrow-row items-stretch gap-1\">\n      <div class=\"chain-arrow flex-1 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">1. Pénétration</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Sujet naïf, pas de réaction tissulaire immédiate.</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">2. Chancre d'inoculation</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Multiplication in situ 15–20 jours (lésion exsudative non spécifique).</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-sky-800 dark:text-sky-200\">3. Complexe primaire</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Phagocytose incomplète → migration ganglionnaire (ADP satellite) puis hématogène.</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-sky-800 dark:text-sky-200\">4. Réaction immunitaire</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">À 3 semaines : follicule de Koester (lymphocytes, cellules géantes, nécrose caséeuse) arrête la diffusion.</p>\n      </div>\n      <div class=\"flex-1 rounded-xl bg-blue-100 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 p-4 text-sm\">\n        <p class=\"font-semibold text-blue-900 dark:text-blue-100\">5. Issue</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">90% asymptomatiques (BK quiescents) · 10% patentes → traitement · réactivation possible = TBK postprimaire.</p>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"grid md:grid-cols-2 gap-5 mt-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-layer-group\"></i> Anatomo-pathologie macroscopique</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🧀 Caséum blanc-jaunâtre pâteux, onctueux (\"fromage blanc\")</li>\n        <li>🩹 Ulcération : perte de substance irrégulière</li>\n        <li>⚪ Nodules : granulations blanchâtres/jaunâtres</li>\n        <li>🕳️ Cavernes : cavités remplies/tapissées de caséum</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-microscope\"></i> Phases microscopiques</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🔴 <strong>Aiguë :</strong> réaction inflammatoire exsudative non spécifique</li>\n        <li>🟠 <strong>Sub-aiguë :</strong> follicules de Koester épithélio-gigantocellulaires, nécrose caséeuse centrale</li>\n        <li>⚪ <strong>Chronique :</strong> follicule fibreux</li>\n      </ul>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 5 — DIAGNOSTIC CLINIQUE -->\n<section class=\"slide\" data-title=\"Diagnostic clinique\" data-emoji=\"🩺\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-child\"></i> Primo-infection latente (90% des cas)</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>😌 Patient subjectivement en bonne santé</li>\n        <li>💉 Diagnostic fondé sur le <strong>virage tuberculinique</strong> (8–12 semaines)</li>\n        <li>➕ IDR positive + notion de contage, sans signe clinique ni radiologique évocateur</li>\n        <li>🔎 Rechercher le contaminateur (parent ou proche le plus souvent)</li>\n      </ul>\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300 mt-6\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Primo-infection patente (10%, plus grave)</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🌡️ Signes généraux : asthénie, anorexie, amaigrissement, fièvre</li>\n        <li>🫁 Signes respiratoires : toux, douleur thoracique, dyspnée</li>\n        <li>🤢 Typhobacillose de Landouzy : diarrhée + fièvre élevée + AEG + splénomégalie (simule une fièvre typhoïde)</li>\n        <li>🔴 Signes cutanés : érythème noueux (évolution 3–5 semaines)</li>\n        <li>👁️ Signes oculaires : kérato-conjonctivite</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-stethoscope\"></i> Tuberculose pulmonaire commune</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🗣️ <strong>Interrogatoire :</strong> notion de contage, profession exposante, comorbidités, BCG, antécédents de TBK</li>\n        <li>😤 <strong>Toux</strong> avec expectoration muco-purulente tenace &gt; 15 jours, résistante aux traitements banals</li>\n        <li>💢 Douleur thoracique vague, point de côté sous-mammelonnaire ou sus-scapulaire</li>\n        <li>🫁 Dyspnée, parfois début brutal avec <strong>hémoptysie</strong> d'importance variable, laryngite, pneumothorax</li>\n        <li>🌡️ Signes généraux : amaigrissement, asthénie, anorexie, fièvre 38–38,5°C, sueurs nocturnes, parfois aménorrhée</li>\n        <li>🩺 Examen physique généralement pauvre : parfois syndrome de condensation, souffle caverneux ou ronflant disséminé</li>\n      </ul>\n      <div class=\"mt-5 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4\">\n        <p class=\"text-xs text-cyan-800 dark:text-cyan-200\"><i class=\"fa-solid fa-circle-info mr-1\"></i> L'IDR à la tuberculine est positive mais <strong>non nécessaire</strong> au diagnostic de la forme pulmonaire commune.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 6 — EXAMENS PARACLINIQUES -->\n<section class=\"slide\" data-title=\"Examens paracliniques\" data-emoji=\"🔬\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-x-ray\"></i> Radiographie thoracique</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>⚪ <strong>Nodules :</strong> 3–10 mm, souvent confluents</li>\n        <li>➰ <strong>Opacités linéaires :</strong> 0,5–1 mm, en mailles de filet entre hile et régions sous-claviculaires</li>\n        <li>☁️ <strong>Infiltrats :</strong> opacités en nappe</li>\n        <li>⭕ <strong>Cavernes :</strong> image la plus évocatrice — bulle claire à paroi régulière (2 mm), niveau liquidien, bronche de drainage reliée au hile ; jusqu'à <strong>10⁹ BK</strong> dans une caverne de 2 cm</li>\n        <li>📍 D'abord unilatérales, prédominant aux segments supéro-postérieurs, puis extension et bilatéralisation, fibrose rétractile</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-vial\"></i> Confirmation bactériologique (certitude)</h3>\n      <div class=\"mt-3 space-y-3 text-sm\">\n        <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3\">\n          <p class=\"font-semibold\">🧪 Prélèvements</p>\n          <p class=\"text-slate-600 dark:text-slate-300 mt-1\">Expectoration (3 prélèvements), tubage gastrique (non-cracheurs, 3 matins de suite), aspiration/lavage bronchique après fibroscopie.</p>\n        </div>\n        <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3\">\n          <p class=\"font-semibold\">🔬 Étude bactériologique</p>\n          <p class=\"text-slate-600 dark:text-slate-300 mt-1\">Examen direct (Ziehl-Neelsen / Auramine, BAAR &gt;10/100 champs) · culture sur Löwenstein-Jensen (résultats J7-J21-J48-J72) · antibiogramme si résistance suspectée · GeneXpert (PCR).</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 7 — SÉVÉRITÉ + SIMULATEUR + DIAGNOSTIC DIFFÉRENTIEL -->\n<section class=\"slide\" data-title=\"Sévérité, simulateur & diagnostic différentiel\" data-emoji=\"🎚️\">\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-sliders\"></i> Simulateur : taille de la caverne tuberculeuse</h3>\n    <p class=\"text-sm text-slate-500 dark:text-slate-400 mt-1\">Déplacez le curseur pour observer la charge bacillaire estimée et la gravité associée.</p>\n    <div class=\"mt-6 grid md:grid-cols-3 gap-6 items-center\">\n      <div class=\"md:col-span-2\">\n        <input id=\"caverneRange\" type=\"range\" min=\"0.5\" max=\"5\" step=\"0.1\" value=\"2\" class=\"w-full accent-cyan-600 h-2\">\n        <div class=\"flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-2\">\n          <span>0,5 cm</span><span>2,5 cm</span><span>5 cm</span>\n        </div>\n        <div class=\"mt-4 h-3 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden\">\n          <div id=\"lungBarFill\" class=\"h-full lung-bar bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600\" style=\"width:40%\"></div>\n        </div>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Diamètre de la caverne</p>\n        <p id=\"caverneValue\" class=\"text-3xl font-display font-bold text-cyan-700 dark:text-cyan-300\">2,0 cm</p>\n      </div>\n    </div>\n    <div class=\"grid md:grid-cols-3 gap-4 mt-6\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Charge bacillaire estimée</p>\n        <p id=\"bkCount\" class=\"font-semibold text-lg mt-1\">≈ 1,0 × 10⁹ BK</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Gravité</p>\n        <p id=\"graviteBadge\" class=\"font-semibold text-lg mt-1 inline-flex items-center gap-2\"><span class=\"w-2.5 h-2.5 rounded-full bg-amber-500\"></span> Modérée</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Conduite à tenir</p>\n        <p id=\"conduiteText\" class=\"text-sm mt-1 text-slate-600 dark:text-slate-300\">Confirmation bactériologique, traitement standard, isolement respiratoire, dépistage de l'entourage.</p>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-waveform-lines\"></i> Simulateur acoustique : auscultation pulmonaire</h3>\n    <p class=\"text-sm text-slate-500 dark:text-slate-400 mt-1\">Écoutez une évocation des bruits retrouvés à l'examen physique (approximation pédagogique via synthèse sonore).</p>\n    <div class=\"flex flex-wrap gap-3 mt-4\">\n      <button data-sound=\"crepitants\" class=\"soundBtn px-4 py-2 rounded-lg bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Râles crépitants</button>\n      <button data-sound=\"souffle\" class=\"soundBtn px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Souffle caverneux</button>\n      <button data-sound=\"normal\" class=\"soundBtn px-4 py-2 rounded-lg bg-blue-900 text-white text-sm font-medium hover:bg-blue-950 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Murmure vésiculaire normal</button>\n    </div>\n    <canvas id=\"audioCanvas\" class=\"w-full h-20 mt-4 rounded-lg bg-slate-900\"></canvas>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-shuffle\"></i> Diagnostic différentiel</h3>\n    <div class=\"grid sm:grid-cols-2 gap-3 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Pneumopathie bactérienne traînante</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Fièvre plus aiguë, réponse rapide à l'antibiothérapie standard.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Cancer bronchopulmonaire</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Terrain tabagique, image excavée à paroi épaisse irrégulière.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Mycoses pulmonaires / aspergillome</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Peut compliquer une cavité séquellaire tuberculeuse.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Fièvre typhoïde</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">À évoquer devant une typhobacillose de Landouzy.</p></div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 8 — ÉVOLUTION / PRONOSTIC / COMPLICATIONS -->\n<section class=\"slide\" data-title=\"Évolution, pronostic & complications\" data-emoji=\"📉\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-baby\"></i> Séquelles de la primo-infection</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🫧 Syndrome du lobe moyen (de Brock) : broncho-lithiase + DDB + hémoptysies à répétition</li>\n        <li>🔀 Fistulisation endo-bronchique</li>\n        <li>🪨 Complexe de Ghon : chancre + ganglion calcifié</li>\n        <li>⏩ Tuberculose primaire progressive ou post-primaire</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-gradient-to-br from-blue-900 to-cyan-800 text-white p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Complications de la TB pulmonaire</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm\">\n        <li>🔥 Tuberculose évolutive</li>\n        <li>🩸 <strong>Hémoptysie</strong></li>\n        <li>💨 <strong>Pneumothorax</strong> par rupture d'une caverne dans la cavité pleurale ; les BK infectent la plèvre → pyo-pneumothorax</li>\n        <li>🫧 <strong>Pleurésie</strong> par contiguïté d'une TB pulmonaire évolutive</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-hourglass-half\"></i> Séquelles à long terme</h3>\n    <div class=\"grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">DDB</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Dilatation des bronches séquellaire.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">IRC</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">En cas de séquelles étendues.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Pneumothorax bénin</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Par rupture de cicatrice bulleuse, sans infection pleurale ; guérison en 48h.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Aspergillome</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">D'une cavité séquellaire ; nécessite une cure chirurgicale.</p></div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 9 — PRISE EN CHARGE -->\n<section class=\"slide\" data-title=\"Prise en charge & prévention\" data-emoji=\"💊\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-pills\"></i> Principes thérapeutiques</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>💊 Traitement systématique de <strong>toute primo-infection</strong> pour éviter l'évolution vers la TBK maladie et les formes extra-pulmonaires</li>\n        <li>🧪 La confirmation bactériologique guide la prise en charge et juge la contagiosité, pour adapter la conduite auprès de l'entourage</li>\n        <li>👥 Isolement respiratoire des sujets bacillifères durant la phase contagiante (avant traitement)</li>\n        <li>📈 Surveillance de l'évolution clinique, radiologique et bactériologique (antibiogramme si BK+ persistant à M5-M6)</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-shield-halved\"></i> Prévention</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>💉 <strong>Vaccination BCG</strong> obligatoire dès la naissance (= primo-infection artificielle)</li>\n        <li>📋 Déclaration obligatoire de la maladie</li>\n        <li>🏫 Dépistage familial, scolaire et professionnel du sujet contact, obligatoire</li>\n        <li>🚪 Isolement des sujets bacillifères</li>\n        <li>🏘️ Amélioration des conditions socio-économiques et de l'habitat</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-gradient-to-br from-cyan-600 via-sky-600 to-blue-900 text-white p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-flag-checkered\"></i> À retenir</h3>\n    <p class=\"text-sm text-sky-100 mt-2\">Le diagnostic précoce et le traitement rapide de la tuberculose pulmonaire commune limitent la transmission communautaire. La confirmation bactériologique reste la clé de voûte du diagnostic de certitude et de la stratégie thérapeutique et préventive autour du patient.</p>\n  </div>\n</section>\n\n</main>\n\n<!-- ============ FLOATING SLIDE CONTROLLER ============ -->\n<div id=\"sliderController\" class=\"fixed bottom-5 left-1/2 -translate-x-1/2 z-50 no-print\">\n  <div class=\"glass bg-white/80 dark:bg-blue-950/70 border border-cyan-900/10 dark:border-cyan-100/10 rounded-2xl shadow-xl px-3 py-2 flex items-center gap-3\">\n    <button id=\"prevSlide\" class=\"w-9 h-9 grid place-items-center rounded-xl bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\"><i class=\"fa-solid fa-chevron-left\"></i></button>\n    <div class=\"text-center min-w-[140px]\">\n      <p id=\"slideTitle\" class=\"text-xs font-semibold truncate max-w-[160px] mx-auto\">Accueil</p>\n      <p id=\"slideCounter\" class=\"text-[11px] text-slate-500 dark:text-slate-400\">Diapo 1 / 9</p>\n    </div>\n    <button id=\"nextSlide\" class=\"w-9 h-9 grid place-items-center rounded-xl bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\"><i class=\"fa-solid fa-chevron-right\"></i></button>\n  </div>\n</div>\n\n<footer class=\"text-center text-xs text-slate-400 dark:text-slate-500 pb-28 pt-4 no-print\">\n  🫁 Cours de Pneumologie — Tuberculose · Dr Guenedouz Ahmed Yacine\n</footer>\n\n<script>\n(function(){\n  const slides = Array.from(document.querySelectorAll('.slide'));\n  const deck = document.getElementById('deck');\n  let current = 0;\n  let mode = 'slideshow'; // or 'continuous'\n\n  const slideTitle = document.getElementById('slideTitle');\n  const slideCounter = document.getElementById('slideCounter');\n  const progressBar = document.getElementById('progressBar');\n  const controller = document.getElementById('sliderController');\n\n  function renderSommaire(){\n    const list = document.getElementById('sommaireList');\n    list.innerHTML = '';\n    slides.forEach((s, i) => {\n      const li = document.createElement('li');\n      li.innerHTML = `<button class=\"w-full text-left px-5 py-3 flex items-center gap-3 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 transition-colors\" data-idx=\"${i}\">\n        <span class=\"text-lg\">${s.dataset.emoji}</span>\n        <span class=\"flex-1 text-sm font-medium\">${s.dataset.title}</span>\n        <span class=\"text-[11px] text-slate-400\">${i+1}</span>\n      </button>`;\n      list.appendChild(li);\n    });\n    list.querySelectorAll('button').forEach(btn=>{\n      btn.addEventListener('click', ()=>{\n        goTo(parseInt(btn.dataset.idx));\n        closeSommaire();\n        if(mode==='continuous'){\n          slides[parseInt(btn.dataset.idx)].scrollIntoView({behavior:'smooth', block:'start'});\n        }\n      });\n    });\n  }\n\n  function update(){\n    slides.forEach((s,i)=> s.classList.toggle('active', i===current));\n    slideTitle.textContent = slides[current].dataset.title;\n    slideCounter.textContent = `Diapo ${current+1} / ${slides.length}`;\n    progressBar.style.width = `${((current+1)/slides.length)*100}%`;\n  }\n\n  function goTo(i){\n    current = Math.max(0, Math.min(slides.length-1, i));\n    update();\n  }\n\n  document.getElementById('prevSlide').addEventListener('click', ()=> goTo(current-1));\n  document.getElementById('nextSlide').addEventListener('click', ()=> goTo(current+1));\n\n  document.addEventListener('keydown', (e)=>{\n    if(mode!=='slideshow') return;\n    if(['ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); goTo(current+1); }\n    if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); goTo(current-1); }\n  });\n\n  // Mode toggle\n  const btnMode = document.getElementById('btnMode');\n  const modeLabel = document.getElementById('modeLabel');\n  btnMode.addEventListener('click', ()=>{\n    if(mode==='slideshow'){\n      mode='continuous';\n      deck.classList.add('continuous');\n      controller.classList.add('hidden');\n      progressBar.classList.add('hidden');\n      modeLabel.textContent = 'Continu';\n      btnMode.querySelector('i').className='fa-solid fa-scroll text-sm';\n    } else {\n      mode='slideshow';\n      deck.classList.remove('continuous');\n      controller.classList.remove('hidden');\n      progressBar.classList.remove('hidden');\n      modeLabel.textContent = 'Diaporama';\n      btnMode.querySelector('i').className='fa-solid fa-images text-sm';\n      update();\n    }\n  });\n\n  // Dark mode\n  const btnDark = document.getElementById('btnDark');\n  const darkIcon = document.getElementById('darkIcon');\n  function applyDark(isDark){\n    document.documentElement.classList.toggle('dark', isDark);\n    darkIcon.className = isDark ? 'fa-solid fa-sun text-sm' : 'fa-solid fa-moon text-sm';\n    localStorage.setItem('tbk-dark', isDark ? '1':'0');\n  }\n  applyDark(localStorage.getItem('tbk-dark')==='1');\n  btnDark.addEventListener('click', ()=> applyDark(!document.documentElement.classList.contains('dark')));\n\n  // Print\n  document.getElementById('btnPrint').addEventListener('click', ()=> window.print());\n\n  // Sommaire modal\n  const modal = document.getElementById('sommaireModal');\n  function openSommaire(){ renderSommaire(); modal.classList.remove('hidden'); }\n  function closeSommaire(){ modal.classList.add('hidden'); }\n  document.getElementById('btnSommaire').addEventListener('click', openSommaire);\n  document.getElementById('closeSommaire').addEventListener('click', closeSommaire);\n  document.getElementById('sommaireOverlay').addEventListener('click', closeSommaire);\n\n  update();\n\n  // ===== Simulateur caverne =====\n  const range = document.getElementById('caverneRange');\n  const val = document.getElementById('caverneValue');\n  const bkCount = document.getElementById('bkCount');\n  const badge = document.getElementById('graviteBadge');\n  const conduite = document.getElementById('conduiteText');\n  const fill = document.getElementById('lungBarFill');\n\n  function updateSim(){\n    const d = parseFloat(range.value);\n    val.textContent = d.toFixed(1).replace('.', ',') + ' cm';\n    const bk = (d/2) * 1; // scale relative to 10^9 for 2cm\n    bkCount.textContent = `≈ ${bk.toFixed(2).replace('.', ',')} × 10⁹ BK`;\n    fill.style.width = `${Math.min(100, (d/5)*100)}%`;\n    let color, label, text;\n    if(d < 1.2){\n      color='bg-emerald-500'; label='Limitée'; text='Surveillance rapprochée, confirmation bactériologique, traitement standard ambulatoire possible.';\n    } else if(d < 2.8){\n      color='bg-amber-500'; label='Modérée'; text=\"Confirmation bactériologique, traitement standard, isolement respiratoire, dépistage de l'entourage.\";\n    } else {\n      color='bg-red-600'; label='Sévère'; text='Risque élevé de dissémination et de séquelles (hémoptysie, pneumothorax) : hospitalisation, isolement strict, surveillance rapprochée de la réponse au traitement.';\n    }\n    badge.innerHTML = `<span class=\"w-2.5 h-2.5 rounded-full ${color}\"></span> ${label}`;\n    conduite.textContent = text;\n  }\n  range.addEventListener('input', updateSim);\n  updateSim();\n\n  // ===== Simulateur acoustique (WebAudio) =====\n  let audioCtx;\n  const canvas = document.getElementById('audioCanvas');\n  const ctx2d = canvas.getContext('2d');\n  function resizeCanvas(){ canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; }\n  resizeCanvas();\n  window.addEventListener('resize', resizeCanvas);\n\n  function drawWave(analyser, dataArray){\n    requestAnimationFrame(()=> drawWave(analyser, dataArray));\n    analyser.getByteTimeDomainData(dataArray);\n    ctx2d.fillStyle = '#0f172a';\n    ctx2d.fillRect(0,0,canvas.width, canvas.height);\n    ctx2d.lineWidth = 2 * devicePixelRatio;\n    ctx2d.strokeStyle = '#22d3ee';\n    ctx2d.beginPath();\n    const slice = canvas.width / dataArray.length;\n    let x = 0;\n    for(let i=0;i<dataArray.length;i++){\n      const v = dataArray[i]/128.0;\n      const y = v * canvas.height/2;\n      i===0 ? ctx2d.moveTo(x,y) : ctx2d.lineTo(x,y);\n      x += slice;\n    }\n    ctx2d.stroke();\n  }\n\n  function playSound(type){\n    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();\n    const analyser = audioCtx.createAnalyser();\n    analyser.fftSize = 1024;\n    const dataArray = new Uint8Array(analyser.fftSize);\n    analyser.connect(audioCtx.destination);\n    drawWave(analyser, dataArray);\n\n    const now = audioCtx.currentTime;\n\n    if(type==='normal'){\n      const bufferSize = audioCtx.sampleRate * 1.2;\n      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n      const data = buffer.getChannelData(0);\n      for(let i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1) * 0.15; }\n      const src = audioCtx.createBufferSource(); src.buffer = buffer;\n      const filt = audioCtx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=350;\n      const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.5, now); gain.gain.linearRampToValueAtTime(0.001, now+1.2);\n      src.connect(filt); filt.connect(gain); gain.connect(analyser);\n      src.start(); src.stop(now+1.2);\n    }\n\n    if(type==='crepitants'){\n      // multiple short clicks like velcro crackles\n      for(let i=0;i<18;i++){\n        const t = now + i*0.06 + Math.random()*0.02;\n        const bufferSize = audioCtx.sampleRate * 0.02;\n        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n        const data = buffer.getChannelData(0);\n        for(let j=0;j<bufferSize;j++){ data[j] = (Math.random()*2-1); }\n        const src = audioCtx.createBufferSource(); src.buffer = buffer;\n        const filt = audioCtx.createBiquadFilter(); filt.type='highpass'; filt.frequency.value=1200;\n        const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.35, t); gain.gain.exponentialRampToValueAtTime(0.001, t+0.05);\n        src.connect(filt); filt.connect(gain); gain.connect(analyser);\n        src.start(t); src.stop(t+0.05);\n      }\n    }\n\n    if(type==='souffle'){\n      const bufferSize = audioCtx.sampleRate * 1.4;\n      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n      const data = buffer.getChannelData(0);\n      for(let i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1); }\n      const src = audioCtx.createBufferSource(); src.buffer = buffer;\n      const filt = audioCtx.createBiquadFilter(); filt.type='bandpass'; filt.frequency.value=700; filt.Q.value=1.2;\n      const gain = audioCtx.createGain();\n      gain.gain.setValueAtTime(0.001, now);\n      gain.gain.linearRampToValueAtTime(0.5, now+0.15);\n      gain.gain.linearRampToValueAtTime(0.1, now+0.6);\n      gain.gain.linearRampToValueAtTime(0.5, now+0.75);\n      gain.gain.linearRampToValueAtTime(0.001, now+1.4);\n      src.connect(filt); filt.connect(gain); gain.connect(analyser);\n      src.start(); src.stop(now+1.4);\n    }\n  }\n\n  document.querySelectorAll('.soundBtn').forEach(btn=>{\n    btn.addEventListener('click', ()=> playSound(btn.dataset.sound));\n  });\n\n})();\n</script>\n</body>\n</html>",
+    "createdAt": "2026-09-05T02:25:01.161233+00:00",
+    "updatedAt": "2026-09-05T02:28:40.815+00:00"
+  },
+  {
+    "id": "custom-cardio-1788574443032",
+    "slug": "hyh",
+    "title": "hyh",
+    "subtitle": "Fiche officielle ajoutée par l'enseignant",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Vasculaire",
+    "year": 4,
+    "author": "Faculté de Médecine",
+    "authorTitle": "Professeurs Hospitalo-Universitaires",
+    "description": "",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+    "difficulty": "Incontournable",
+    "faculty": "ORAN",
+    "source": "Annales Examens",
+    "rang": "Rang A",
+    "estimatedDuration": "30 min",
+    "tags": [
+      "Médecine",
+      "Résidanat"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "viewsCount": 0,
+    "likesCount": 0,
+    "qcmCount": 5,
+    "tableOfContents": [
+      {
+        "id": "sec-1",
+        "title": "1. Introduction",
+        "level": 1
+      }
+    ],
+    "htmlContent": "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>🫁 La Tuberculose Pulmonaire — Pneumologie</title>\n<script src=\"https://cdn.tailwindcss.com\"></script>\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n<script>\n  tailwind.config = {\n    darkMode: 'class',\n    theme: {\n      extend: {\n        fontFamily: {\n          outfit: ['Outfit', 'sans-serif'],\n          inter: ['Inter', 'sans-serif'],\n        },\n        colors: {\n          bk: {\n            50: '#ecfeff', 100:'#cffafe', 200:'#a5f3fc', 300:'#67e8f9', 400:'#22d3ee',\n            500:'#06b6d4', 600:'#0891b2', 700:'#0e7490', 800:'#155e75', 900:'#164e63'\n          }\n        }\n      }\n    }\n  }\n</script>\n<style>\n  :root{ color-scheme: light; }\n  html.dark{ color-scheme: dark; }\n  body{ font-family:'Inter', sans-serif; }\n  h1,h2,h3,h4,.font-display{ font-family:'Outfit', sans-serif; }\n\n  ::-webkit-scrollbar{ width:10px; height:10px; }\n  ::-webkit-scrollbar-track{ background:transparent; }\n  ::-webkit-scrollbar-thumb{ background:#0891b2; border-radius:8px; }\n\n  .glass{\n    backdrop-filter: blur(14px) saturate(160%);\n    -webkit-backdrop-filter: blur(14px) saturate(160%);\n  }\n\n  /* Slide transitions */\n  .slide{ display:none; }\n  .slide.active{ display:block; animation: slide-enter .5s cubic-bezier(.22,.68,0,1.01); }\n  @keyframes slide-enter{\n    from{ opacity:0; transform: translateY(18px) scale(.99); }\n    to{ opacity:1; transform: translateY(0) scale(1); }\n  }\n  @media (prefers-reduced-motion: reduce){\n    .slide.active{ animation:none; }\n  }\n\n  .continuous .slide{ display:block !important; animation:none !important; scroll-margin-top: 6.5rem; }\n\n  .badge-dot::before{\n    content:''; display:inline-block; width:.5rem; height:.5rem; border-radius:9999px;\n    background: currentColor; margin-right:.4rem;\n  }\n\n  kbd{\n    font-family: 'Inter', sans-serif; font-size:.7rem; padding:.15rem .45rem; border-radius:.375rem;\n    border:1px solid rgba(148,163,184,.4); background: rgba(148,163,184,.12);\n  }\n\n  .chain-arrow{ position:relative; }\n  .chain-arrow::after{\n    content:'\\f078'; font-family:'Font Awesome 6 Free'; font-weight:900;\n    display:block; text-align:center; color:#0891b2; margin: .35rem 0; font-size:1rem;\n    transform: rotate(-90deg);\n  }\n  @media (min-width:768px){\n    .chain-arrow-row .chain-arrow::after{ transform:none; content:'\\f061'; margin:0 .5rem; }\n  }\n\n  #sommaireModal{ transition: opacity .2s ease; }\n\n  .caduceus-spin{ animation: breathe 4s ease-in-out infinite; }\n  @keyframes breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }\n\n  @media print{\n    .no-print{ display:none !important; }\n    .slide{ display:block !important; page-break-after: always; animation:none !important; }\n    body{ background:white !important; color:black !important; }\n    .print-clean{ box-shadow:none !important; border-color:#ccc !important; }\n  }\n\n  .lung-bar{ transition: all .35s ease; }\n</style>\n</head>\n<body class=\"bg-slate-50 dark:bg-blue-950 text-slate-800 dark:text-slate-100 transition-colors duration-300\">\n\n<!-- ============ PROGRESS BAR (slideshow mode) ============ -->\n<div id=\"progressBar\" class=\"fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-700 z-[60] no-print\" style=\"width:0%\"></div>\n\n<!-- ============ NAVBAR ============ -->\n<header class=\"sticky top-0 z-50 glass bg-white/70 dark:bg-blue-950/60 border-b border-cyan-900/10 dark:border-cyan-100/10 no-print\">\n  <div class=\"max-w-6xl mx-auto px-4 sm:px-6\">\n    <div class=\"flex items-center justify-between h-16 gap-3\">\n      <div class=\"flex items-center gap-3 min-w-0\">\n        <span class=\"text-2xl caduceus-spin\">🫁</span>\n        <div class=\"min-w-0\">\n          <div class=\"flex items-center gap-2 flex-wrap\">\n            <h1 class=\"font-display font-semibold text-sm sm:text-base leading-tight truncate\">La Tuberculose Pulmonaire</h1>\n            <span class=\"hidden sm:inline-flex items-center text-[11px] font-medium px-2 py-0.5 rounded-full bg-cyan-600 text-white badge-dot\">Pneumologie</span>\n          </div>\n          <p class=\"text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate\">Dr Guenedouz Ahmed Yacine · Faculté de Médecine</p>\n        </div>\n      </div>\n\n      <div class=\"flex items-center gap-1.5 sm:gap-2 shrink-0\">\n        <button id=\"btnSommaire\" title=\"Sommaire\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-list-ul text-sm\"></i>\n        </button>\n        <button id=\"btnMode\" title=\"Basculer diaporama / continu\" class=\"h-9 px-3 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors text-xs font-medium gap-1.5 flex\">\n          <i class=\"fa-solid fa-images text-sm\"></i><span class=\"hidden sm:inline\" id=\"modeLabel\">Diaporama</span>\n        </button>\n        <button id=\"btnPrint\" title=\"Imprimer / Export PDF\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-print text-sm\"></i>\n        </button>\n        <button id=\"btnDark\" title=\"Thème sombre / clair\" class=\"w-9 h-9 grid place-items-center rounded-lg bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\">\n          <i class=\"fa-solid fa-moon text-sm\" id=\"darkIcon\"></i>\n        </button>\n      </div>\n    </div>\n  </div>\n</header>\n\n<!-- ============ SOMMAIRE MODAL ============ -->\n<div id=\"sommaireModal\" class=\"fixed inset-0 z-[70] hidden no-print\">\n  <div id=\"sommaireOverlay\" class=\"absolute inset-0 bg-slate-900/50 backdrop-blur-sm\"></div>\n  <div class=\"relative max-w-md mx-auto mt-20 mb-10 bg-white dark:bg-blue-950 border border-cyan-900/10 dark:border-cyan-100/10 rounded-2xl shadow-2xl overflow-hidden mx-4\">\n    <div class=\"flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-white/10\">\n      <h3 class=\"font-display font-semibold flex items-center gap-2\"><i class=\"fa-solid fa-map text-cyan-600\"></i> Sommaire du cours</h3>\n      <button id=\"closeSommaire\" class=\"w-8 h-8 grid place-items-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/10\"><i class=\"fa-solid fa-xmark\"></i></button>\n    </div>\n    <ul id=\"sommaireList\" class=\"max-h-[60vh] overflow-y-auto divide-y divide-slate-100 dark:divide-white/5\"></ul>\n  </div>\n</div>\n\n<!-- ============ MAIN ============ -->\n<main id=\"deck\" class=\"max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10\">\n\n<!-- SLIDE 1 — ACCUEIL -->\n<section class=\"slide active\" data-title=\"Accueil\" data-emoji=\"🫁\">\n  <div class=\"rounded-3xl overflow-hidden relative bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-700 text-white p-8 sm:p-14 print-clean\">\n    <div class=\"absolute -right-16 -top-16 w-72 h-72 rounded-full bg-sky-400/20 blur-3xl\"></div>\n    <div class=\"absolute -left-10 bottom-0 w-56 h-56 rounded-full bg-cyan-300/10 blur-3xl\"></div>\n    <div class=\"relative\">\n      <span class=\"inline-flex items-center gap-2 text-xs font-medium bg-white/10 border border-white/20 rounded-full px-3 py-1\">🫁 Pneumologie · Faculté de Médecine</span>\n      <h2 class=\"font-display font-extrabold text-3xl sm:text-5xl mt-6 leading-tight max-w-3xl\">La Tuberculose : Primo-infection & Forme Pulmonaire Commune</h2>\n      <p class=\"mt-4 text-sky-100 max-w-2xl text-sm sm:text-base\">Maladie infectieuse chronique à déclaration obligatoire causée par le <em>Mycobacterium tuberculosis</em> (bacille de Koch, BK), transmise par voie aérienne. Un défi de santé publique mondial et une priorité pour le système de santé algérien.</p>\n      <p class=\"mt-3 text-xs text-sky-200\">👨‍⚕️ Présenté par Dr Guenedouz Ahmed Yacine</p>\n\n      <div class=\"grid grid-cols-2 md:grid-cols-4 gap-3 mt-8\">\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">10,8M</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Nouveaux cas de tuberculose dans le monde en 2023</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">19 133</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Cas toutes formes en Algérie en 2023 (41,10 / 100 000 hab.)</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">29,5%</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Part des formes pulmonaires (5 635 cas) parmi les TBK notifiées</p>\n        </div>\n        <div class=\"bg-white/10 border border-white/15 rounded-2xl p-4\">\n          <p class=\"text-2xl sm:text-3xl font-display font-bold\">12,50</p>\n          <p class=\"text-[11px] sm:text-xs text-sky-100 mt-1\">Incidence nationale (pour 100 000 hab.) de la TB pulmonaire en 2023</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 2 — DÉFINITIONS -->\n<section class=\"slide\" data-title=\"Définitions & repères\" data-emoji=\"📖\">\n  <div class=\"grid md:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-microscope\"></i> Le bacille de Koch (BK)</h3>\n      <ul class=\"mt-4 space-y-3 text-sm leading-relaxed\">\n        <li>🦠 <strong>Mycobacterium tuberculosis</strong>, transmis exclusivement par voie aérienne (gouttelettes de toux).</li>\n        <li>🧑‍🤝‍🧑 L'homme est le <strong>réservoir essentiel</strong> ; transmission strictement interhumaine.</li>\n        <li>⚠️ <strong>Infection ≠ Maladie</strong> : la majorité des personnes infectées ne développent jamais la maladie active.</li>\n        <li>📋 Maladie à <strong>déclaration obligatoire</strong> en Algérie.</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-lungs\"></i> Deux entités du cours</h3>\n      <div class=\"mt-4 space-y-4 text-sm\">\n        <div class=\"rounded-xl bg-cyan-50 dark:bg-cyan-950/40 p-4 border border-cyan-100 dark:border-cyan-900/40\">\n          <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">Primo-infection tuberculeuse</p>\n          <p class=\"mt-1 text-slate-600 dark:text-slate-300\">Ensemble des modifications immunologiques (virage tuberculinique) et éventuellement cliniques/radiologiques lors du <strong>premier contact</strong> de l'organisme avec le BK.</p>\n        </div>\n        <div class=\"rounded-xl bg-sky-50 dark:bg-sky-950/40 p-4 border border-sky-100 dark:border-sky-900/40\">\n          <p class=\"font-semibold text-sky-800 dark:text-sky-200\">Tuberculose pulmonaire commune</p>\n          <p class=\"mt-1 text-slate-600 dark:text-slate-300\">Infection du <strong>parenchyme pulmonaire</strong> par le BK, atteinte infiltrative et/ou ulcérée : forme la plus fréquente de la tuberculose maladie.</p>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-syringe\"></i> IDR à la tuberculine — normal vs pathologique</h3>\n    <div class=\"mt-4 grid sm:grid-cols-4 gap-3\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">0–4 mm</p>\n        <p class=\"font-semibold text-emerald-600 mt-1 text-sm\">Négative</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">Infection peu probable</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">5–9 mm</p>\n        <p class=\"font-semibold text-amber-500 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">BCG ancien ou ITL latente</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">10–14 mm</p>\n        <p class=\"font-semibold text-orange-500 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">ITL probable</p>\n      </div>\n      <div class=\"rounded-xl border border-red-200 dark:border-red-900/40 bg-red-50 dark:bg-red-950/30 p-3 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">≥ 15 mm</p>\n        <p class=\"font-semibold text-red-600 mt-1 text-sm\">Positive</p>\n        <p class=\"text-[11px] mt-1 text-slate-500\">ITL probable et récente</p>\n      </div>\n    </div>\n    <p class=\"text-xs text-slate-500 dark:text-slate-400 mt-3\">💡 L'IDR est la méthode de choix car quantitative et standardisée ; alternative : IGRA (Interferon-Gamma Release Assay).</p>\n  </div>\n</section>\n\n<!-- SLIDE 3 — ÉTIOLOGIES / ÉPIDÉMIOLOGIE -->\n<section class=\"slide\" data-title=\"Étiologies & épidémiologie\" data-emoji=\"🌍\">\n  <div class=\"grid lg:grid-cols-3 gap-5\">\n    <div class=\"lg:col-span-2 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-earth-africa\"></i> Épidémiologie</h3>\n      <ul class=\"mt-4 space-y-2.5 text-sm leading-relaxed\">\n        <li>📈 <strong>10,8 millions</strong> de nouveaux cas mondiaux en 2023 (10,7M en 2022, 10,4M en 2021, 10,0M en 2020) : légère hausse post-COVID puis stabilisation.</li>\n        <li>💀 <strong>1,3 million</strong> de décès chez les personnes non infectées par le VIH ; baisse de 8,3% de l'incidence mondiale depuis 2015 (objectif OMS 2025 : -50%).</li>\n        <li>🇩🇿 En Algérie : incidence passée de 42,20 (2022) à <strong>41,10 / 100 000 hab.</strong> (2023), soit -2,6%.</li>\n        <li>🗺️ Wilaya de <strong>Médéa</strong> : incidence la plus élevée du pays (102,16/100 000). Alger et Oran regroupent 21,4% des cas du Tell (1 362 et 1 130 cas).</li>\n        <li>👵 Les <strong>65 ans et plus</strong> sont les plus touchés (60,92/100 000), suivis des 25–34 ans (57,42) puis des 15–24 ans (52,48). Incidence la plus faible chez les 0–4 ans (4,78).</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-800 text-white p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Contagiosité</h3>\n      <p class=\"text-xs text-sky-100 mt-2\">La contamination dépend du nombre de BK expirés dans l'air :</p>\n      <ul class=\"mt-3 space-y-2 text-sm\">\n        <li>📍 Site anatomique (larynx, poumon)</li>\n        <li>🕳️ Existence d'une caverne</li>\n        <li>🤧 Toux ou expirations forcées</li>\n        <li>💨 Fibroscopie, aérosols, expectoration induite</li>\n        <li>⏳ Durée des symptômes (contagiosité maximale avant traitement)</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-user-shield\"></i> Facteurs de risque</h3>\n    <div class=\"grid md:grid-cols-3 gap-4 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🧬 Terrain fragilisé</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Âges extrêmes, dénutrition, grossesse, IRC dialysé, toxicomanie, diabète, ulcère ou gastrectomie.</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🦠 Pathologies & traitements</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Rougeole, oreillons, grippe, MNI, VIH, cancers/hémopathies ; corticoïdes, immunosuppresseurs, greffe.</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"font-semibold mb-2\">🏚️ Contage & précarité</p>\n        <p class=\"text-slate-600 dark:text-slate-300\">Promiscuité, manque d'hygiène, habitat précaire, TBK mal traitée, professions exposées, détenus, exclusion sociale.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 4 — PHYSIOPATHOLOGIE -->\n<section class=\"slide\" data-title=\"Physiopathologie\" data-emoji=\"🔬\">\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-timeline\"></i> Cascade physiopathologique de la primo-infection</h3>\n    <div class=\"mt-6 grid md:grid-cols-5 chain-arrow-row items-stretch gap-1\">\n      <div class=\"chain-arrow flex-1 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">1. Pénétration</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Sujet naïf, pas de réaction tissulaire immédiate.</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-cyan-800 dark:text-cyan-200\">2. Chancre d'inoculation</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Multiplication in situ 15–20 jours (lésion exsudative non spécifique).</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-sky-800 dark:text-sky-200\">3. Complexe primaire</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">Phagocytose incomplète → migration ganglionnaire (ADP satellite) puis hématogène.</p>\n      </div>\n      <div class=\"chain-arrow flex-1 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/40 p-4 text-sm\">\n        <p class=\"font-semibold text-sky-800 dark:text-sky-200\">4. Réaction immunitaire</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">À 3 semaines : follicule de Koester (lymphocytes, cellules géantes, nécrose caséeuse) arrête la diffusion.</p>\n      </div>\n      <div class=\"flex-1 rounded-xl bg-blue-100 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800 p-4 text-sm\">\n        <p class=\"font-semibold text-blue-900 dark:text-blue-100\">5. Issue</p>\n        <p class=\"text-xs text-slate-600 dark:text-slate-300 mt-1\">90% asymptomatiques (BK quiescents) · 10% patentes → traitement · réactivation possible = TBK postprimaire.</p>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"grid md:grid-cols-2 gap-5 mt-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-layer-group\"></i> Anatomo-pathologie macroscopique</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🧀 Caséum blanc-jaunâtre pâteux, onctueux (\"fromage blanc\")</li>\n        <li>🩹 Ulcération : perte de substance irrégulière</li>\n        <li>⚪ Nodules : granulations blanchâtres/jaunâtres</li>\n        <li>🕳️ Cavernes : cavités remplies/tapissées de caséum</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-microscope\"></i> Phases microscopiques</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🔴 <strong>Aiguë :</strong> réaction inflammatoire exsudative non spécifique</li>\n        <li>🟠 <strong>Sub-aiguë :</strong> follicules de Koester épithélio-gigantocellulaires, nécrose caséeuse centrale</li>\n        <li>⚪ <strong>Chronique :</strong> follicule fibreux</li>\n      </ul>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 5 — DIAGNOSTIC CLINIQUE -->\n<section class=\"slide\" data-title=\"Diagnostic clinique\" data-emoji=\"🩺\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-child\"></i> Primo-infection latente (90% des cas)</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>😌 Patient subjectivement en bonne santé</li>\n        <li>💉 Diagnostic fondé sur le <strong>virage tuberculinique</strong> (8–12 semaines)</li>\n        <li>➕ IDR positive + notion de contage, sans signe clinique ni radiologique évocateur</li>\n        <li>🔎 Rechercher le contaminateur (parent ou proche le plus souvent)</li>\n      </ul>\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300 mt-6\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Primo-infection patente (10%, plus grave)</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🌡️ Signes généraux : asthénie, anorexie, amaigrissement, fièvre</li>\n        <li>🫁 Signes respiratoires : toux, douleur thoracique, dyspnée</li>\n        <li>🤢 Typhobacillose de Landouzy : diarrhée + fièvre élevée + AEG + splénomégalie (simule une fièvre typhoïde)</li>\n        <li>🔴 Signes cutanés : érythème noueux (évolution 3–5 semaines)</li>\n        <li>👁️ Signes oculaires : kérato-conjonctivite</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-stethoscope\"></i> Tuberculose pulmonaire commune</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🗣️ <strong>Interrogatoire :</strong> notion de contage, profession exposante, comorbidités, BCG, antécédents de TBK</li>\n        <li>😤 <strong>Toux</strong> avec expectoration muco-purulente tenace &gt; 15 jours, résistante aux traitements banals</li>\n        <li>💢 Douleur thoracique vague, point de côté sous-mammelonnaire ou sus-scapulaire</li>\n        <li>🫁 Dyspnée, parfois début brutal avec <strong>hémoptysie</strong> d'importance variable, laryngite, pneumothorax</li>\n        <li>🌡️ Signes généraux : amaigrissement, asthénie, anorexie, fièvre 38–38,5°C, sueurs nocturnes, parfois aménorrhée</li>\n        <li>🩺 Examen physique généralement pauvre : parfois syndrome de condensation, souffle caverneux ou ronflant disséminé</li>\n      </ul>\n      <div class=\"mt-5 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-100 dark:border-cyan-900/40 p-4\">\n        <p class=\"text-xs text-cyan-800 dark:text-cyan-200\"><i class=\"fa-solid fa-circle-info mr-1\"></i> L'IDR à la tuberculine est positive mais <strong>non nécessaire</strong> au diagnostic de la forme pulmonaire commune.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 6 — EXAMENS PARACLINIQUES -->\n<section class=\"slide\" data-title=\"Examens paracliniques\" data-emoji=\"🔬\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-x-ray\"></i> Radiographie thoracique</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>⚪ <strong>Nodules :</strong> 3–10 mm, souvent confluents</li>\n        <li>➰ <strong>Opacités linéaires :</strong> 0,5–1 mm, en mailles de filet entre hile et régions sous-claviculaires</li>\n        <li>☁️ <strong>Infiltrats :</strong> opacités en nappe</li>\n        <li>⭕ <strong>Cavernes :</strong> image la plus évocatrice — bulle claire à paroi régulière (2 mm), niveau liquidien, bronche de drainage reliée au hile ; jusqu'à <strong>10⁹ BK</strong> dans une caverne de 2 cm</li>\n        <li>📍 D'abord unilatérales, prédominant aux segments supéro-postérieurs, puis extension et bilatéralisation, fibrose rétractile</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-vial\"></i> Confirmation bactériologique (certitude)</h3>\n      <div class=\"mt-3 space-y-3 text-sm\">\n        <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3\">\n          <p class=\"font-semibold\">🧪 Prélèvements</p>\n          <p class=\"text-slate-600 dark:text-slate-300 mt-1\">Expectoration (3 prélèvements), tubage gastrique (non-cracheurs, 3 matins de suite), aspiration/lavage bronchique après fibroscopie.</p>\n        </div>\n        <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-3\">\n          <p class=\"font-semibold\">🔬 Étude bactériologique</p>\n          <p class=\"text-slate-600 dark:text-slate-300 mt-1\">Examen direct (Ziehl-Neelsen / Auramine, BAAR &gt;10/100 champs) · culture sur Löwenstein-Jensen (résultats J7-J21-J48-J72) · antibiogramme si résistance suspectée · GeneXpert (PCR).</p>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 7 — SÉVÉRITÉ + SIMULATEUR + DIAGNOSTIC DIFFÉRENTIEL -->\n<section class=\"slide\" data-title=\"Sévérité, simulateur & diagnostic différentiel\" data-emoji=\"🎚️\">\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-sliders\"></i> Simulateur : taille de la caverne tuberculeuse</h3>\n    <p class=\"text-sm text-slate-500 dark:text-slate-400 mt-1\">Déplacez le curseur pour observer la charge bacillaire estimée et la gravité associée.</p>\n    <div class=\"mt-6 grid md:grid-cols-3 gap-6 items-center\">\n      <div class=\"md:col-span-2\">\n        <input id=\"caverneRange\" type=\"range\" min=\"0.5\" max=\"5\" step=\"0.1\" value=\"2\" class=\"w-full accent-cyan-600 h-2\">\n        <div class=\"flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-2\">\n          <span>0,5 cm</span><span>2,5 cm</span><span>5 cm</span>\n        </div>\n        <div class=\"mt-4 h-3 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden\">\n          <div id=\"lungBarFill\" class=\"h-full lung-bar bg-gradient-to-r from-emerald-500 via-amber-500 to-red-600\" style=\"width:40%\"></div>\n        </div>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4 text-center\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Diamètre de la caverne</p>\n        <p id=\"caverneValue\" class=\"text-3xl font-display font-bold text-cyan-700 dark:text-cyan-300\">2,0 cm</p>\n      </div>\n    </div>\n    <div class=\"grid md:grid-cols-3 gap-4 mt-6\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Charge bacillaire estimée</p>\n        <p id=\"bkCount\" class=\"font-semibold text-lg mt-1\">≈ 1,0 × 10⁹ BK</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Gravité</p>\n        <p id=\"graviteBadge\" class=\"font-semibold text-lg mt-1 inline-flex items-center gap-2\"><span class=\"w-2.5 h-2.5 rounded-full bg-amber-500\"></span> Modérée</p>\n      </div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\">\n        <p class=\"text-xs text-slate-500 dark:text-slate-400\">Conduite à tenir</p>\n        <p id=\"conduiteText\" class=\"text-sm mt-1 text-slate-600 dark:text-slate-300\">Confirmation bactériologique, traitement standard, isolement respiratoire, dépistage de l'entourage.</p>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-waveform-lines\"></i> Simulateur acoustique : auscultation pulmonaire</h3>\n    <p class=\"text-sm text-slate-500 dark:text-slate-400 mt-1\">Écoutez une évocation des bruits retrouvés à l'examen physique (approximation pédagogique via synthèse sonore).</p>\n    <div class=\"flex flex-wrap gap-3 mt-4\">\n      <button data-sound=\"crepitants\" class=\"soundBtn px-4 py-2 rounded-lg bg-cyan-600 text-white text-sm font-medium hover:bg-cyan-700 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Râles crépitants</button>\n      <button data-sound=\"souffle\" class=\"soundBtn px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Souffle caverneux</button>\n      <button data-sound=\"normal\" class=\"soundBtn px-4 py-2 rounded-lg bg-blue-900 text-white text-sm font-medium hover:bg-blue-950 transition-colors\"><i class=\"fa-solid fa-play mr-1.5\"></i> Murmure vésiculaire normal</button>\n    </div>\n    <canvas id=\"audioCanvas\" class=\"w-full h-20 mt-4 rounded-lg bg-slate-900\"></canvas>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-shuffle\"></i> Diagnostic différentiel</h3>\n    <div class=\"grid sm:grid-cols-2 gap-3 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Pneumopathie bactérienne traînante</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Fièvre plus aiguë, réponse rapide à l'antibiothérapie standard.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Cancer bronchopulmonaire</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Terrain tabagique, image excavée à paroi épaisse irrégulière.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Mycoses pulmonaires / aspergillome</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Peut compliquer une cavité séquellaire tuberculeuse.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Fièvre typhoïde</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">À évoquer devant une typhobacillose de Landouzy.</p></div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 8 — ÉVOLUTION / PRONOSTIC / COMPLICATIONS -->\n<section class=\"slide\" data-title=\"Évolution, pronostic & complications\" data-emoji=\"📉\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-baby\"></i> Séquelles de la primo-infection</h3>\n      <ul class=\"mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300\">\n        <li>🫧 Syndrome du lobe moyen (de Brock) : broncho-lithiase + DDB + hémoptysies à répétition</li>\n        <li>🔀 Fistulisation endo-bronchique</li>\n        <li>🪨 Complexe de Ghon : chancre + ganglion calcifié</li>\n        <li>⏩ Tuberculose primaire progressive ou post-primaire</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-gradient-to-br from-blue-900 to-cyan-800 text-white p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-triangle-exclamation\"></i> Complications de la TB pulmonaire</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm\">\n        <li>🔥 Tuberculose évolutive</li>\n        <li>🩸 <strong>Hémoptysie</strong></li>\n        <li>💨 <strong>Pneumothorax</strong> par rupture d'une caverne dans la cavité pleurale ; les BK infectent la plèvre → pyo-pneumothorax</li>\n        <li>🫧 <strong>Pleurésie</strong> par contiguïté d'une TB pulmonaire évolutive</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm mt-5 print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-hourglass-half\"></i> Séquelles à long terme</h3>\n    <div class=\"grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 text-sm\">\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">DDB</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Dilatation des bronches séquellaire.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">IRC</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">En cas de séquelles étendues.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Pneumothorax bénin</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">Par rupture de cicatrice bulleuse, sans infection pleurale ; guérison en 48h.</p></div>\n      <div class=\"rounded-xl border border-slate-200 dark:border-white/10 p-4\"><p class=\"font-semibold\">Aspergillome</p><p class=\"text-slate-600 dark:text-slate-300 mt-1\">D'une cavité séquellaire ; nécessite une cure chirurgicale.</p></div>\n    </div>\n  </div>\n</section>\n\n<!-- SLIDE 9 — PRISE EN CHARGE -->\n<section class=\"slide\" data-title=\"Prise en charge & prévention\" data-emoji=\"💊\">\n  <div class=\"grid lg:grid-cols-2 gap-5\">\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-pills\"></i> Principes thérapeutiques</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>💊 Traitement systématique de <strong>toute primo-infection</strong> pour éviter l'évolution vers la TBK maladie et les formes extra-pulmonaires</li>\n        <li>🧪 La confirmation bactériologique guide la prise en charge et juge la contagiosité, pour adapter la conduite auprès de l'entourage</li>\n        <li>👥 Isolement respiratoire des sujets bacillifères durant la phase contagiante (avant traitement)</li>\n        <li>📈 Surveillance de l'évolution clinique, radiologique et bactériologique (antibiogramme si BK+ persistant à M5-M6)</li>\n      </ul>\n    </div>\n    <div class=\"rounded-2xl bg-white dark:bg-blue-900/40 border border-slate-200 dark:border-white/10 p-6 shadow-sm print-clean\">\n      <h3 class=\"font-display font-semibold text-lg flex items-center gap-2 text-cyan-700 dark:text-cyan-300\"><i class=\"fa-solid fa-shield-halved\"></i> Prévention</h3>\n      <ul class=\"mt-3 space-y-2.5 text-sm text-slate-600 dark:text-slate-300\">\n        <li>💉 <strong>Vaccination BCG</strong> obligatoire dès la naissance (= primo-infection artificielle)</li>\n        <li>📋 Déclaration obligatoire de la maladie</li>\n        <li>🏫 Dépistage familial, scolaire et professionnel du sujet contact, obligatoire</li>\n        <li>🚪 Isolement des sujets bacillifères</li>\n        <li>🏘️ Amélioration des conditions socio-économiques et de l'habitat</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"mt-5 rounded-2xl bg-gradient-to-br from-cyan-600 via-sky-600 to-blue-900 text-white p-6 shadow-sm print-clean\">\n    <h3 class=\"font-display font-semibold text-lg flex items-center gap-2\"><i class=\"fa-solid fa-flag-checkered\"></i> À retenir</h3>\n    <p class=\"text-sm text-sky-100 mt-2\">Le diagnostic précoce et le traitement rapide de la tuberculose pulmonaire commune limitent la transmission communautaire. La confirmation bactériologique reste la clé de voûte du diagnostic de certitude et de la stratégie thérapeutique et préventive autour du patient.</p>\n  </div>\n</section>\n\n</main>\n\n<!-- ============ FLOATING SLIDE CONTROLLER ============ -->\n<div id=\"sliderController\" class=\"fixed bottom-5 left-1/2 -translate-x-1/2 z-50 no-print\">\n  <div class=\"glass bg-white/80 dark:bg-blue-950/70 border border-cyan-900/10 dark:border-cyan-100/10 rounded-2xl shadow-xl px-3 py-2 flex items-center gap-3\">\n    <button id=\"prevSlide\" class=\"w-9 h-9 grid place-items-center rounded-xl bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\"><i class=\"fa-solid fa-chevron-left\"></i></button>\n    <div class=\"text-center min-w-[140px]\">\n      <p id=\"slideTitle\" class=\"text-xs font-semibold truncate max-w-[160px] mx-auto\">Accueil</p>\n      <p id=\"slideCounter\" class=\"text-[11px] text-slate-500 dark:text-slate-400\">Diapo 1 / 9</p>\n    </div>\n    <button id=\"nextSlide\" class=\"w-9 h-9 grid place-items-center rounded-xl bg-slate-900/5 dark:bg-white/10 hover:bg-cyan-600 hover:text-white transition-colors\"><i class=\"fa-solid fa-chevron-right\"></i></button>\n  </div>\n</div>\n\n<footer class=\"text-center text-xs text-slate-400 dark:text-slate-500 pb-28 pt-4 no-print\">\n  🫁 Cours de Pneumologie — Tuberculose · Dr Guenedouz Ahmed Yacine\n</footer>\n\n<script>\n(function(){\n  const slides = Array.from(document.querySelectorAll('.slide'));\n  const deck = document.getElementById('deck');\n  let current = 0;\n  let mode = 'slideshow'; // or 'continuous'\n\n  const slideTitle = document.getElementById('slideTitle');\n  const slideCounter = document.getElementById('slideCounter');\n  const progressBar = document.getElementById('progressBar');\n  const controller = document.getElementById('sliderController');\n\n  function renderSommaire(){\n    const list = document.getElementById('sommaireList');\n    list.innerHTML = '';\n    slides.forEach((s, i) => {\n      const li = document.createElement('li');\n      li.innerHTML = `<button class=\"w-full text-left px-5 py-3 flex items-center gap-3 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 transition-colors\" data-idx=\"${i}\">\n        <span class=\"text-lg\">${s.dataset.emoji}</span>\n        <span class=\"flex-1 text-sm font-medium\">${s.dataset.title}</span>\n        <span class=\"text-[11px] text-slate-400\">${i+1}</span>\n      </button>`;\n      list.appendChild(li);\n    });\n    list.querySelectorAll('button').forEach(btn=>{\n      btn.addEventListener('click', ()=>{\n        goTo(parseInt(btn.dataset.idx));\n        closeSommaire();\n        if(mode==='continuous'){\n          slides[parseInt(btn.dataset.idx)].scrollIntoView({behavior:'smooth', block:'start'});\n        }\n      });\n    });\n  }\n\n  function update(){\n    slides.forEach((s,i)=> s.classList.toggle('active', i===current));\n    slideTitle.textContent = slides[current].dataset.title;\n    slideCounter.textContent = `Diapo ${current+1} / ${slides.length}`;\n    progressBar.style.width = `${((current+1)/slides.length)*100}%`;\n  }\n\n  function goTo(i){\n    current = Math.max(0, Math.min(slides.length-1, i));\n    update();\n  }\n\n  document.getElementById('prevSlide').addEventListener('click', ()=> goTo(current-1));\n  document.getElementById('nextSlide').addEventListener('click', ()=> goTo(current+1));\n\n  document.addEventListener('keydown', (e)=>{\n    if(mode!=='slideshow') return;\n    if(['ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); goTo(current+1); }\n    if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); goTo(current-1); }\n  });\n\n  // Mode toggle\n  const btnMode = document.getElementById('btnMode');\n  const modeLabel = document.getElementById('modeLabel');\n  btnMode.addEventListener('click', ()=>{\n    if(mode==='slideshow'){\n      mode='continuous';\n      deck.classList.add('continuous');\n      controller.classList.add('hidden');\n      progressBar.classList.add('hidden');\n      modeLabel.textContent = 'Continu';\n      btnMode.querySelector('i').className='fa-solid fa-scroll text-sm';\n    } else {\n      mode='slideshow';\n      deck.classList.remove('continuous');\n      controller.classList.remove('hidden');\n      progressBar.classList.remove('hidden');\n      modeLabel.textContent = 'Diaporama';\n      btnMode.querySelector('i').className='fa-solid fa-images text-sm';\n      update();\n    }\n  });\n\n  // Dark mode\n  const btnDark = document.getElementById('btnDark');\n  const darkIcon = document.getElementById('darkIcon');\n  function applyDark(isDark){\n    document.documentElement.classList.toggle('dark', isDark);\n    darkIcon.className = isDark ? 'fa-solid fa-sun text-sm' : 'fa-solid fa-moon text-sm';\n    localStorage.setItem('tbk-dark', isDark ? '1':'0');\n  }\n  applyDark(localStorage.getItem('tbk-dark')==='1');\n  btnDark.addEventListener('click', ()=> applyDark(!document.documentElement.classList.contains('dark')));\n\n  // Print\n  document.getElementById('btnPrint').addEventListener('click', ()=> window.print());\n\n  // Sommaire modal\n  const modal = document.getElementById('sommaireModal');\n  function openSommaire(){ renderSommaire(); modal.classList.remove('hidden'); }\n  function closeSommaire(){ modal.classList.add('hidden'); }\n  document.getElementById('btnSommaire').addEventListener('click', openSommaire);\n  document.getElementById('closeSommaire').addEventListener('click', closeSommaire);\n  document.getElementById('sommaireOverlay').addEventListener('click', closeSommaire);\n\n  update();\n\n  // ===== Simulateur caverne =====\n  const range = document.getElementById('caverneRange');\n  const val = document.getElementById('caverneValue');\n  const bkCount = document.getElementById('bkCount');\n  const badge = document.getElementById('graviteBadge');\n  const conduite = document.getElementById('conduiteText');\n  const fill = document.getElementById('lungBarFill');\n\n  function updateSim(){\n    const d = parseFloat(range.value);\n    val.textContent = d.toFixed(1).replace('.', ',') + ' cm';\n    const bk = (d/2) * 1; // scale relative to 10^9 for 2cm\n    bkCount.textContent = `≈ ${bk.toFixed(2).replace('.', ',')} × 10⁹ BK`;\n    fill.style.width = `${Math.min(100, (d/5)*100)}%`;\n    let color, label, text;\n    if(d < 1.2){\n      color='bg-emerald-500'; label='Limitée'; text='Surveillance rapprochée, confirmation bactériologique, traitement standard ambulatoire possible.';\n    } else if(d < 2.8){\n      color='bg-amber-500'; label='Modérée'; text=\"Confirmation bactériologique, traitement standard, isolement respiratoire, dépistage de l'entourage.\";\n    } else {\n      color='bg-red-600'; label='Sévère'; text='Risque élevé de dissémination et de séquelles (hémoptysie, pneumothorax) : hospitalisation, isolement strict, surveillance rapprochée de la réponse au traitement.';\n    }\n    badge.innerHTML = `<span class=\"w-2.5 h-2.5 rounded-full ${color}\"></span> ${label}`;\n    conduite.textContent = text;\n  }\n  range.addEventListener('input', updateSim);\n  updateSim();\n\n  // ===== Simulateur acoustique (WebAudio) =====\n  let audioCtx;\n  const canvas = document.getElementById('audioCanvas');\n  const ctx2d = canvas.getContext('2d');\n  function resizeCanvas(){ canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; }\n  resizeCanvas();\n  window.addEventListener('resize', resizeCanvas);\n\n  function drawWave(analyser, dataArray){\n    requestAnimationFrame(()=> drawWave(analyser, dataArray));\n    analyser.getByteTimeDomainData(dataArray);\n    ctx2d.fillStyle = '#0f172a';\n    ctx2d.fillRect(0,0,canvas.width, canvas.height);\n    ctx2d.lineWidth = 2 * devicePixelRatio;\n    ctx2d.strokeStyle = '#22d3ee';\n    ctx2d.beginPath();\n    const slice = canvas.width / dataArray.length;\n    let x = 0;\n    for(let i=0;i<dataArray.length;i++){\n      const v = dataArray[i]/128.0;\n      const y = v * canvas.height/2;\n      i===0 ? ctx2d.moveTo(x,y) : ctx2d.lineTo(x,y);\n      x += slice;\n    }\n    ctx2d.stroke();\n  }\n\n  function playSound(type){\n    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();\n    const analyser = audioCtx.createAnalyser();\n    analyser.fftSize = 1024;\n    const dataArray = new Uint8Array(analyser.fftSize);\n    analyser.connect(audioCtx.destination);\n    drawWave(analyser, dataArray);\n\n    const now = audioCtx.currentTime;\n\n    if(type==='normal'){\n      const bufferSize = audioCtx.sampleRate * 1.2;\n      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n      const data = buffer.getChannelData(0);\n      for(let i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1) * 0.15; }\n      const src = audioCtx.createBufferSource(); src.buffer = buffer;\n      const filt = audioCtx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=350;\n      const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.5, now); gain.gain.linearRampToValueAtTime(0.001, now+1.2);\n      src.connect(filt); filt.connect(gain); gain.connect(analyser);\n      src.start(); src.stop(now+1.2);\n    }\n\n    if(type==='crepitants'){\n      // multiple short clicks like velcro crackles\n      for(let i=0;i<18;i++){\n        const t = now + i*0.06 + Math.random()*0.02;\n        const bufferSize = audioCtx.sampleRate * 0.02;\n        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n        const data = buffer.getChannelData(0);\n        for(let j=0;j<bufferSize;j++){ data[j] = (Math.random()*2-1); }\n        const src = audioCtx.createBufferSource(); src.buffer = buffer;\n        const filt = audioCtx.createBiquadFilter(); filt.type='highpass'; filt.frequency.value=1200;\n        const gain = audioCtx.createGain(); gain.gain.setValueAtTime(0.35, t); gain.gain.exponentialRampToValueAtTime(0.001, t+0.05);\n        src.connect(filt); filt.connect(gain); gain.connect(analyser);\n        src.start(t); src.stop(t+0.05);\n      }\n    }\n\n    if(type==='souffle'){\n      const bufferSize = audioCtx.sampleRate * 1.4;\n      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);\n      const data = buffer.getChannelData(0);\n      for(let i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1); }\n      const src = audioCtx.createBufferSource(); src.buffer = buffer;\n      const filt = audioCtx.createBiquadFilter(); filt.type='bandpass'; filt.frequency.value=700; filt.Q.value=1.2;\n      const gain = audioCtx.createGain();\n      gain.gain.setValueAtTime(0.001, now);\n      gain.gain.linearRampToValueAtTime(0.5, now+0.15);\n      gain.gain.linearRampToValueAtTime(0.1, now+0.6);\n      gain.gain.linearRampToValueAtTime(0.5, now+0.75);\n      gain.gain.linearRampToValueAtTime(0.001, now+1.4);\n      src.connect(filt); filt.connect(gain); gain.connect(analyser);\n      src.start(); src.stop(now+1.4);\n    }\n  }\n\n  document.querySelectorAll('.soundBtn').forEach(btn=>{\n    btn.addEventListener('click', ()=> playSound(btn.dataset.sound));\n  });\n\n})();\n</script>\n</body>\n</html>",
+    "createdAt": "2026-09-05T02:14:03.007253+00:00",
+    "updatedAt": "2026-09-05T02:14:03.039+00:00"
   }
-,
-  {
-  "id": "cours_endocrino_acidocetose",
-  "slug": "acidocetose-diabetique",
-  "title": "L'Acidocétose Diabétique & Complications Aiguës",
-  "subtitle": "Diagnostic métabolique, calcul du trou anionique, réhydratation hydro-électrolytique et insulinothérapie IV",
-  "specialtyId": "endocrino",
-  "specialtyName": "Endocrinologie - Diabétologie",
-  "author": "Pr. M. Semrouni",
-  "authorTitle": "Service de Diabétologie & Maladies Métaboliques - CHU Mustapha",
-  "description": "Complication métabolique aiguë potentiellement mortelle du diabète de type 1 et 2 insulino-requérant. Protocole pas à pas : solutés, compensation de la kaliémie avant l'insuline et surveillance rapprochée.",
-  "coverImage": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "Diabète",
-    "Acidocétose",
-    "Cétonémie",
-    "Trou anionique",
-    "Insuline IVSE",
-    "Hypokaliémie"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 3820,
-  "likesCount": 310,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "definition",
-      "title": "1. Définition & Triade Biologique",
-      "level": 1
-    },
-    {
-      "id": "facteurs",
-      "title": "2. Facteurs Déclenchants Majeurs",
-      "level": 1
-    },
-    {
-      "id": "clinique",
-      "title": "3. Tableau Clinique & Respiration de Kussmaul",
-      "level": 1
-    },
-    {
-      "id": "biologie",
-      "title": "4. Bilan Biologique & Trou Anionique",
-      "level": 1
-    },
-    {
-      "id": "traitement",
-      "title": "5. Prise en Charge Thérapeutique Codifiée",
-      "level": 1
-    },
-    {
-      "id": "pieges",
-      "title": "6. Pièges & Complications Iatrogènes",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Triade biologique : Hyperglycémie (> 14 mmol/L soit > 2.5 g/L) + Cétonémie > 3 mmol/L (ou acétonurie ++) + Acidose métabolique (pH < 7.30, HCO3- < 15 mmol/L) à trou anionique élevé.",
-    "Facteurs déclenchants fréquents : Arrêt ou omission d'insuline, infection intercurrente (pulmonaire, urinaire), IDM silencieux, AVC.",
-    "Signes cliniques : Syndrome cardinal (polyuro-polydipsie), douleurs abdominales pseudo-chirurgicales, odeur acétonique de l'haleine (\"pomme reinette\"), dyspnée de Kussmaul.",
-    "Règle d'or du traitement : NE JAMAIS DÉBUTER L'INSULINE si le potassium sanguin est < 3.3 mmol/L (risque d'arrêt cardiaque par hypokaliémie foudroyante).",
-    "Hydratation première : Sérum physiologique 0.9% (1L la 1ère heure), puis adjonction de glucose 5% dès que la glycémie atteint 14 mmol/L (2.5 g/L)."
-  ],
-  "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Triade Biologique</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'acidocétose diabétique est une urgence métabolique absolue résultant d'une carence absolue ou relative en insuline associée à une élévation des hormones de contre-régulation (glucagon, catécholamines, cortisol, GH).\n        </p>\n        <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n          <h3 class=\"font-bold text-emerald-900 dark:text-emerald-200 mb-2\">Les 3 critères diagnostiques simultanés :</h3>\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>1. <strong>Hyperglycémie :</strong> Glycémie plasmatique &gt; 14 mmol/L (2,50 g/L).</li>\n            <li>2. <strong>Cétose franche :</strong> Cétonémie &gt; 3,0 mmol/L ou acétonurie &ge; (++) sur bandelette urinaire.</li>\n            <li>3. <strong>Acidose métabolique :</strong> Bicarbonates sériques &lt; 15 mmol/L et/ou pH veineux &lt; 7,30 avec trou anionique &gt; 12.</li>\n          </ul>\n        </div>\n      </section>\n\n      <section id=\"facteurs\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Facteurs Déclenchants Majeurs</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Dans 20 à 30% des cas, l'acidocétose est révélatrice d'un diabète de type 1 inaugural chez l'enfant ou l'adulte jeune. Chez le diabétique connu, rechercher systématiquement les \"5 I\" :\n        </p>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n          <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800/60 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-semibold text-navy-900 dark:text-white mb-1\">Causes fréquentes</h4>\n            <ul class=\"text-sm text-navy-600 dark:text-navy-300 space-y-1\">\n              <li>• Infection aiguë sévère (40-50% des cas : pneumonie, pyélonéphrite)</li>\n              <li>• Inobservance / rupture d'insuline (panne de pompe à insuline)</li>\n              <li>• Ischémie myocardique (IDM indolore chez le diabétique)</li>\n            </ul>\n          </div>\n          <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800/60 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-semibold text-navy-900 dark:text-white mb-1\">Causes médicamenteuses & stress</h4>\n            <ul class=\"text-sm text-navy-600 dark:text-navy-300 space-y-1\">\n              <li>• Corticothérapie à forte dose</li>\n              <li>• Inhibiteurs de SGLT2 (acidocétose euglycémique !)</li>\n              <li>• Accident vasculaire cérébral, pancréatite aiguë</li>\n            </ul>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Tableau Clinique & Respiration de Kussmaul</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'installation se fait en plusieurs phases : phase de cétose simple puis phase d'acidocétose décompensée.\n        </p>\n        <ul class=\"list-disc pl-6 space-y-2 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Signes de déshydratation globale :</strong> Pli cutané (extracellulaire), hypotension, tachycardie, sécheresse des muqueuses, soif intense (intracellulaire).</li>\n          <li><strong>Troubles digestifs précoces :</strong> Nausées, vomissements incoercibles, douleurs abdominales diffuses pouvant simuler une urgence chirurgicale (fausse appendicite).</li>\n          <li><strong>Signes respiratoires cardinaux :</strong> Odeur acétonique de l'haleine (fruité / solvant) et dyspnée de Kussmaul (ventilation ample, profonde, rapide et bruyante) d'origine compensatoire respiratoire.</li>\n        </ul>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">5. Prise en Charge Thérapeutique Codifiée</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 mb-6\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 text-base mb-2\">⚠️ RÈGLE DE SÉCURITÉ ABSOLUE : Vérifier la Kaliémie !</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            L'insuline fait rentrer le potassium dans les cellules. Administrer de l'insuline sur une hypokaliémie (&lt; 3,3 mmol/L) provoque une baisse catastrophique du potassium circulant et déclenche des torsades de pointes / arrêt cardiaque. Corriger le K+ AVANT l'insuline !\n          </p>\n        </div>\n        <div class=\"space-y-3\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Étape 1 : Réhydratation IV hydro-électrolytique</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">1 L de NaCl 0,9% la 1ère heure, puis 1 L sur 2h, puis 1 L sur 4h. Dès que la glycémie &le; 14 mmol/L (2,5 g/L), passer au Sérum Glucosé 5% + NaCl 0,9% pour éviter l'hypoglycémie et l'œdème cérébral.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Étape 2 : Insulinothérapie IVSE à débit continu</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Insuline rapide à 0,1 UI/kg/h au pousse-seringue électrique. L'objectif est une baisse de la glycémie de 3 à 4 mmol/L par heure (environ 0,5 à 0,7 g/L/h) et la négativation de la cétonémie.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Étape 3 : Supplémentation potassique systématique</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300 mt-1\">Si K+ entre 3,5 et 5,5 mmol/L : apporter 2 à 4 g de KCl par litre de perfusion dès que le débit urinaire est assuré.</p>\n          </div>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-08-25T10:00:00Z",
-  "updatedAt": "2026-09-04T12:00:00Z"
-},
-  {
-  "id": "cours_gastro_cirrhose",
-  "slug": "cirrhose-hepatique-et-hypertension-portale",
-  "title": "La Cirrhose Hépatique & Décompensation Ascitique",
-  "subtitle": "Diagnostic histologique/non-invasif, classification Child-Pugh, rupture de varices œsophagiennes et encéphalopathie",
-  "specialtyId": "gastro",
-  "specialtyName": "Gastro-entérologie & Hépatologie",
-  "author": "Pr. A. Bouzid",
-  "authorTitle": "Service d'Hépato-Gastro-entérologie - CHU Bab El Oued",
-  "description": "Stade terminal des hépatopathies chroniques (alcool, virus B, C, stéato-hépatite métabolique MASH). Prise en charge des complications majeures : ascite, infection du liquide d'ascite (ILA), hémorragie digestive par hypertension portale.",
-  "coverImage": "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "50 min",
-  "tags": [
-    "Cirrhose",
-    "Hypertension portale",
-    "Ascite",
-    "Varices œsophagiennes",
-    "Child-Pugh",
-    "Infection du liquide d'ascite"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 3150,
-  "likesCount": 260,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "definition",
-      "title": "1. Définition & Étiologies en Algérie",
-      "level": 1
-    },
-    {
-      "id": "scores",
-      "title": "2. Évaluation Pronostique : Child-Pugh & MELD",
-      "level": 1
-    },
-    {
-      "id": "ascite",
-      "title": "3. Prise en Charge de l'Ascite & Diagnostic de l'ILA",
-      "level": 1
-    },
-    {
-      "id": "varices",
-      "title": "4. Hémorragie Digestive par Rupture de VO",
-      "level": 1
-    },
-    {
-      "id": "chc",
-      "title": "5. Dépistage du Carcinome Hépatocellulaire (CHC)",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Définition histologique : Fibrose mutilante diffuse délimitant des nodules de régénération avec désorganisation de l'architecture lobulaire.",
-    "Score de Child-Pugh (A, B, C) basé sur 5 critères : Bilirubine, Albumine, TP/INR, Ascite et Encéphalopathie hépatique.",
-    "Ponction d'ascite exploratrice SYSTÉMATIQUE devant toute décompensation, altération de l'état général, fièvre ou douleur abdominale.",
-    "Infection du liquide d'ascite (ILA) définie par > 250 PNN/mm³ dans le liquide d'ascite : urgence vitale imposant Céfotaxime IV + perfusion d'albumine 20% à J1 et J3.",
-    "Hémorragie par rupture de VO : Trépied immédiat = Vaso-actif IV (Terlipressine ou Octréotide) + Ligature endoscopique de varices sous 12h + Antibiothérapie prophylactique (Ceftriaxone 7 jours)."
-  ],
-  "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition & Étiologies en Algérie</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La cirrhose est le stade ultime de fibrose hépatique. En Algérie et au Maghreb, les étiologies virales (Hépatite B et C) et métaboliques (MASH / stéatohépatite non alcoolique liée au diabète et à l'obésité) occupent la première place, suivies de l'alcoolisme chronique et des causes auto-immunes (cirrhose biliaire primitive, hépatite auto-immune).\n        </p>\n      </section>\n\n      <section id=\"scores\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Évaluation Pronostique : Score de Child-Pugh</h2>\n        <div class=\"p-4 rounded-xl bg-navy-50 dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 mb-4\">\n          <p class=\"text-sm font-semibold text-navy-900 dark:text-white mb-2\">Moyen mnémotechnique : \"TABAC\"</p>\n          <ul class=\"text-sm space-y-1 text-navy-600 dark:text-navy-300\">\n            <li>• <strong>T</strong>P / INR</li>\n            <li>• <strong>A</strong>lbuminémie</li>\n            <li>• <strong>B</strong>ilirubine totale</li>\n            <li>• <strong>A</strong>scite (absente, minime, réfractaire)</li>\n            <li>• <strong>C</strong>erveau (Encéphalopathie hépatique stades I à IV)</li>\n          </ul>\n        </div>\n      </section>\n\n      <section id=\"ascite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Décompensation Ascitique & Infection du Liquide (ILA)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Toute première poussée d'ascite ou toute aggravation brutale chez un cirrhotique nécessite une ponction d'ascite exploratrice avant toute antibiothérapie.\n        </p>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 mb-1\">Diagnostic et Urgence de l'ILA :</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Présence de <strong>&gt; 250 Polynucléaires Neutrophiles (PNN) par mm³</strong> dans le liquide de ponction. Traitement : Céfotaxime 2g x 3/j IV pendant 5 à 7 jours + Perfusion d'Albumine humaine à 20% (1,5 g/kg à J1 puis 1 g/kg à J3) pour prévenir le syndrome hépato-rénal mortel.\n          </p>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-08-26T11:00:00Z",
-  "updatedAt": "2026-09-04T10:00:00Z"
-},
-  {
-  "id": "cours_pediatrie_deshydratation",
-  "slug": "deshydratation-aigue-du-nourrisson",
-  "title": "La Déshydratation Aiguë du Nourrisson & Gastro-entérite",
-  "subtitle": "Évaluation clinique de la perte de poids, solutés de réhydratation orale (SRO) et perfusion de réanimation hydro-électrolytique",
-  "specialtyId": "pediatrie",
-  "specialtyName": "Pédiatrie",
-  "author": "Pr. F. Z. Dahmani",
-  "authorTitle": "Chef de Service Pédiatrie Générale & Urgences - CHU Beni Messous",
-  "description": "Première cause d'urgence pédiatrique en période estivale. Apprendre à évaluer précisément la perte pondérale en pourcentage, reconnaître les signes de choc hypovolémique et appliquer les protocoles OMS de réhydratation orale et intraveineuse.",
-  "coverImage": "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "40 min",
-  "tags": [
-    "Nourrisson",
-    "Déshydratation",
-    "SRO",
-    "Gastro-entérite",
-    "Rotavirus",
-    "Perte de poids"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 4210,
-  "likesCount": 395,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "gravite",
-      "title": "1. Classification de la Gravité (% de perte de poids)",
-      "level": 1
-    },
-    {
-      "id": "clinique",
-      "title": "2. Signes Extracellulaires vs Intracellulaires",
-      "level": 1
-    },
-    {
-      "id": "sro",
-      "title": "3. Réhydratation Orale (Protocole SRO OMS)",
-      "level": 1
-    },
-    {
-      "id": "iv",
-      "title": "4. Réhydratation IV en Urgence (Choc pédiatrique)",
-      "level": 1
-    },
-    {
-      "id": "nutrition",
-      "title": "5. Renutrition Précoce & Réintroduction du Lait",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Gravité définie par le pourcentage de perte de poids récent : Légère (< 5%), Modérée (5-10%), Sévère (> 10% ou tout état de choc).",
-    "Signes de déshydratation extracellulaire : Pli cutané persistant, dépression de la fontanelle antérieure, cernes oculaires, yeux enfoncés, hypotension.",
-    "Signes de déshydratation intracellulaire : Sécheresse des muqueuses, soif intense, hyperthermie inexpliquée, troubles de conscience.",
-    "Traitement de 1ère intention (< 10% de perte pondérale sans choc ni vomissements incoercibles) : SRO (Soluté de Réhydratation Orale) à volonté par petites gorgées rapprochées.",
-    "En cas de perte > 10% ou signes de choc : Remplissage vasculaire immédiat en urgence par NaCl 0,9% à 20 mL/kg en 20 minutes."
-  ],
-  "htmlContent": "\n      <section id=\"gravite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification de la Gravité</h2>\n        <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n          <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n            <h4 class=\"font-bold text-emerald-900 dark:text-emerald-200\">Perte &lt; 5%</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Déshydratation légère. Traitement ambulatoire par SRO. Pas de retentissement hémodynamique.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n            <h4 class=\"font-bold text-amber-900 dark:text-amber-200\">Perte 5 à 10%</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Déshydratation modérée. Yeux creusés, pli cutané, soif vive. SRO sous surveillance ou hospitalisation de jour.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-rose-900 dark:text-rose-200\">Perte &gt; 10% ou Choc</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Urgence vitale hospitalière immédiate. Voie veineuse ou intra-osseuse. Remplissage NaCl 0,9% 20 mL/kg.</p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"sro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Protocole SRO OMS</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le SRO exploite le co-transport actif intestinal Sodium-Glucose (SGLT1) qui reste fonctionnel même lors des diarrhées à rotavirus ou bactériennes. Reconstituer 1 sachet dans exactement 200 mL d'eau pure (ni trop dilué, ni trop concentré). Donner à la cuillère ou à la seringue toutes les 2-3 minutes.\n        </p>\n      </section>\n    ",
-  "createdAt": "2026-08-24T14:00:00Z",
-  "updatedAt": "2026-09-04T08:00:00Z"
-},
-  {
-  "id": "cours_gyneco_geu",
-  "slug": "grossesse-extra-uterine",
-  "title": "La Grossesse Extra-Utérine (GEU) & Urgences du 1er Trimestre",
-  "subtitle": "Nidation ectopique, cinétique des β-hCG plasmatiques, échographie endovaginale et prise en charge médicale par Méthotrexate vs coelioscopie",
-  "specialtyId": "gyneco",
-  "specialtyName": "Gynécologie - Obstétrique",
-  "author": "Pr. L. Chérifi",
-  "authorTitle": "Clinique de Gynécologie-Obstétrique & Maternité Universitaire",
-  "description": "Première cause de mortalité maternelle au 1er trimestre de la grossesse. Maîtriser le diagnostic précoce avant rupture de la trompe de Fallope, l'interprétation de la zone discriminatoire d'hCG et les critères de traitement conservateur.",
-  "coverImage": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "GEU",
-    "β-hCG",
-    "Échographie pelvienne",
-    "Méthotrexate",
-    "Coelioscopie",
-    "Hémopéritoine"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 3640,
-  "likesCount": 290,
-  "qcmCount": 7,
-  "tableOfContents": [
-    {
-      "id": "triade",
-      "title": "1. Triade Clinique & Facteurs de Risque",
-      "level": 1
-    },
-    {
-      "id": "examens",
-      "title": "2. Couple Échographie & Cinétique des β-hCG",
-      "level": 1
-    },
-    {
-      "id": "rupture",
-      "title": "3. Tableau d'Inondation Péritonéale (Rupture Cataclysmique)",
-      "level": 1
-    },
-    {
-      "id": "options",
-      "title": "4. Indications Thérapeutiques : Médical vs Chirurgical",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Localisation la plus fréquente : Ampullaire tubaire (> 80%). Facteurs de risque : Antécédent de GEU, Salpingite / IST (Chlamydia), tabagisme, stérilet, FIV.",
-    "Triade classique : Retard de règles (aménorrhée) + Métrorragies noirâtres peu abondantes (\"sépia\") + Douleurs pelviennes unilatérales.",
-    "Couple diagnostique d'or : Échographie pelvienne par voie endovaginale + dosage quantitatif des β-hCG plasmatiques.",
-    "Vacuité utérine à l'écho avec β-hCG > 1 500 - 2 000 UI/L (seuil de visibilité du sac intra-utérin) = GEU jusqu'à preuve du contraire.",
-    "Critères de Méthotrexate IM (dose unique 1 mg/kg ou 50 mg/m²) : Patiente asymptomatique, hémodynamique stable, β-hCG < 5000 UI/L, hématosalpinx < 35 mm, absence d'activité cardiaque embryonnaire."
-  ],
-  "htmlContent": "\n      <section id=\"triade\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique & Facteurs de Risque</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Toute femme en âge de procréer consultant pour des métrorragies et/ou des douleurs pelviennes a une GEU jusqu'à preuve du contraire, quel que soit son mode de contraception.\n        </p>\n      </section>\n\n      <section id=\"rupture\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Rupture Tubaire Cataclysmique</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 text-sm mb-1\">🚨 Choc Hémorragique & Inondation Péritonéale :</div>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n            Douleur syncopale en coup de poignard dans le bas-ventre avec irradiation scapulaire (signe de Laffont par irritation phrénique), pâleur cireuse, pouls filant et défense abdominale. Indication opératoire d'extrême urgence : coelioscopie ou laparotomie immédiate avec salpingectomie d'hémostase.\n          </p>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-08-27T09:00:00Z",
-  "updatedAt": "2026-09-04T15:30:00Z"
-},
-  {
-  "id": "cours_dermato_toxidermies",
-  "slug": "toxidermies-medicamenteuses-graves",
-  "title": "Les Toxidermies Médicamenteuses Graves : DRESS & Lyell",
-  "subtitle": "Signes cutanés et muqueux d'alerte, score SCORTEN, syndrome de Stevens-Johnson et prise en charge en réanimation",
-  "specialtyId": "dermato",
-  "specialtyName": "Dermatologie - Vénérologie",
-  "author": "Dr. S. Mansouri",
-  "authorTitle": "Service de Dermatologie Clinique & Vénérologie",
-  "description": "Reconnaître les urgences dermatologiques vitales d'origine iatrogène. Distinguer le DRESS syndrome (viscéral et éosinophilique) de la nécrolyse épidermique toxique (syndrome de Lyell avec décollement épidermique type grand brûlé).",
-  "coverImage": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "40 min",
-  "tags": [
-    "Toxidermie",
-    "DRESS",
-    "Lyell",
-    "Stevens-Johnson",
-    "SCORTEN",
-    "Signe de Nikolsky"
-  ],
-  "accessLevel": "PREMIUM",
-  "published": true,
-  "viewsCount": 2240,
-  "likesCount": 185,
-  "qcmCount": 6,
-  "tableOfContents": [
-    {
-      "id": "signes",
-      "title": "1. Signes d'Alerte d'une Toxidermie Grave",
-      "level": 1
-    },
-    {
-      "id": "dress",
-      "title": "2. DRESS Syndrome (Atteinte Systémique)",
-      "level": 1
-    },
-    {
-      "id": "lyell",
-      "title": "3. Stevens-Johnson & Syndrome de Lyell",
-      "level": 1
-    },
-    {
-      "id": "traitement",
-      "title": "4. Prise en Charge Immédiate & Éviction",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Signes cutanés d'alerte imposant l'arrêt du médicament : Signe de Nikolsky (décollement épidermique sous pression tangentielle), lésions purpuriques, atteinte muqueuse érosive, œdème facial majeur.",
-    "DRESS syndrome : Survenue tardive (2 à 8 semaines après introduction du médicament), hyperéosinophilie sanguine, polyadénopathies et atteintes viscérales graves (foie, rein, cœur).",
-    "Spectre SJS / Lyell : Décollement < 10% (SJS), 10 à 30% (forme intermédiaire), > 30% de la surface corporelle (Lyell). Risque infectieux et hydro-électrolytique identique à un grand brûlé.",
-    "Score SCORTEN : Calculé à J1 et J3 pour prédire la mortalité hospitalière.",
-    "Prise en charge d'urgence : Arrêt immédiat de TOUT médicament suspect, transfert en unité de soins intensifs dermatologiques ou centre des brûlés."
-  ],
-  "htmlContent": "\n      <section id=\"signes\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Signes d'Alerte d'une Toxidermie Grave</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Devant toute éruption fébrile médicamenteuse, rechercher les critères de gravité imposant l'arrêt immédiat des traitements imputables :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-1 text-navy-700 dark:text-navy-300\">\n          <li>Érosions muqueuses douloureuses (buccales, conjonctivales, génitales).</li>\n          <li>Signe de Nikolsky positif (l'épiderme glisse sous le doigt laissant un derme suintant).</li>\n          <li>Infiltration faciale majeure en \"tête de lion\".</li>\n          <li>Adénopathies diffuses et fièvre élevée &gt; 38,5°C persistante.</li>\n        </ul>\n      </section>\n    ",
-  "createdAt": "2026-08-28T16:00:00Z",
-  "updatedAt": "2026-09-04T16:00:00Z"
-},
-  {
-  "id": "cours_infectieux_paludisme",
-  "slug": "paludisme-grave-d-importation",
-  "title": "Le Paludisme Grave d'Importation & Sepsis",
-  "subtitle": "Diagnostic parasitologique en urgence, critères de gravité OMS et traitement salvateur par Artésunate intraveineux",
-  "specialtyId": "infectieux",
-  "specialtyName": "Infectiologie",
-  "author": "Pr. T. Guernane",
-  "authorTitle": "Service des Maladies Infectieuses & Tropicales - CHU El Hadi Flici (El Kettar)",
-  "description": "Toute fièvre au retour d'une zone d'endémie palustre (Afrique subsaharienne, Sud algérien) est un paludisme à Plasmodium falciparum jusqu'à preuve bactériologique du contraire. Connaître les 13 critères de gravité OMS et l'antipaludique de référence.",
-  "coverImage": "https://images.unsplash.com/photo-1583912267670-6575ad4736f8?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "Paludisme",
-    "Plasmodium falciparum",
-    "Artésunate IV",
-    "Goutte épaisse",
-    "Accès pernicieux",
-    "Sepsis"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 3910,
-  "likesCount": 330,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "urgence",
-      "title": "1. Urgence Diagnostique au Retour d'un Voyage",
-      "level": 1
-    },
-    {
-      "id": "oms",
-      "title": "2. Les Critères de Gravité OMS (Accès Pernicieux)",
-      "level": 1
-    },
-    {
-      "id": "frottis",
-      "title": "3. Frottis Sanguin, Goutte Épaisse & TDR",
-      "level": 1
-    },
-    {
-      "id": "artesunate",
-      "title": "4. Traitement d'Urgence : Artésunate IV vs Quinine",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Règle d'or absolue : Toute fièvre au retour d'un séjour en pays d'endémie est un paludisme à Plasmodium falciparum à éliminer en extrême urgence (< 2h).",
-    "Confirmation biologique sans délai : Frottis mince + Goutte épaisse (pour parasitémie) ou Test de Diagnostic Rapide (TDR antigénique HRP-2).",
-    "Critères de gravité OMS majeurs : Coma / convulsions (Neuropaludisme), détresse respiratoire / œdème pulmonaire, collapsus hémodynamique, ictère clinique + parasitémie, hémoglobinurie, acidose métabolique (pH < 7.35, lactates > 5 mmol/L), hypoglycémie (< 2.2 mmol/L), anémie sévère (Hb < 7 g/dL).",
-    "Traitement de référence du paludisme grave : Artésunate intraveineux (2.4 mg/kg à H0, H12, H24 puis 1x/jour) supérieur à la Quinine IV (moins de décès et pas d'hypoglycémie induite)."
-  ],
-  "htmlContent": "\n      <section id=\"urgence\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Urgence Diagnostique au Retour de Voyage</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le paludisme d'importation à <em>Plasmodium falciparum</em> peut basculer en accès pernicieux mortel en quelques heures. Aucun délai n'est tolérable pour la réalisation et le rendu du frottis-goutte épaisse.\n        </p>\n      </section>\n      <section id=\"artesunate\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Traitement Salvateur : Artésunate IV</h2>\n        <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n          <p class=\"text-sm font-semibold text-emerald-900 dark:text-emerald-200 mb-2\">Protocole International & Recommandations OMS :</p>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n            Artésunate IV 2,4 mg/kg à H0, H12, H24 puis une fois par jour jusqu'à relais oral par une combinaison thérapeutique à base d'artémisinine (CTA) complète de 3 jours. Monitorer l'hémolyse retardée post-artésunate à S2-S4.\n          </p>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-08-29T10:00:00Z",
-  "updatedAt": "2026-09-04T11:00:00Z"
-},
-  {
-  "id": "cours_hemato_anemies",
-  "slug": "diagnostic-d-une-anemie",
-  "title": "Démarche Diagnostique devant une Anémie de l'Adulte",
-  "subtitle": "Analyse du VGM et des réticulocytes, carence martiale, anémie inflammatoire et hémolyses aiguës",
-  "specialtyId": "hemato",
-  "specialtyName": "Hématologie Clinique",
-  "author": "Pr. N. Merabet",
-  "authorTitle": "Service d'Hématologie Clinique - CHU Mustapha",
-  "description": "Arbre décisionnel rigoureux face à une anémie : définir le seuil selon l'OMS, classer selon le volume globulaire moyen (VGM) et le taux de réticulocytes pour distinguer le mécanisme central de la régénération périphérique.",
-  "coverImage": "https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Fondamental",
-  "rang": "Rang A",
-  "estimatedDuration": "40 min",
-  "tags": [
-    "Anémie",
-    "VGM",
-    "Réticulocytes",
-    "Ferritine",
-    "Carence martiale",
-    "Hémolyse"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 3100,
-  "likesCount": 270,
-  "qcmCount": 7,
-  "tableOfContents": [
-    {
-      "id": "definition",
-      "title": "1. Définition selon les Seuils OMS",
-      "level": 1
-    },
-    {
-      "id": "arbre",
-      "title": "2. Arbre Décisionnel : VGM & Réticulocytes",
-      "level": 1
-    },
-    {
-      "id": "martiale",
-      "title": "3. Anémie par Carence Martiale vs Inflammatoire",
-      "level": 1
-    },
-    {
-      "id": "hemolyse",
-      "title": "4. Triade de l'Anémie Hémolytique",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Seuils OMS d'anémie : Hb < 13 g/dL chez l'homme, < 12 g/dL chez la femme, < 10,5 ou 11 g/dL chez la femme enceinte.",
-    "Deuxième étape incontournable : Taux de réticulocytes (valeur absolue). Si > 120 000 / mm³ = régénérative (hémorragie aiguë ou hémolyse). Si < 120 000 / mm³ = arégénérative (centrale ou carentielle).",
-    "Anémie microcytaire (VGM < 80 fL) : Doser la ferritine sérique. Ferritine basse = carence martiale (rechercher un saignement digestif ou gynécologique). Ferritine normale ou élevée = anémie inflammatoire ou thalassémie.",
-    "Triade biologique de l'anémie hémolytique : Hyperbilirubinémie libre (non conjuguée) + Haptoglobine effondrée + LDH élevées."
-  ],
-  "htmlContent": "\n      <section id=\"definition\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Définition selon les Seuils OMS</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'anémie est définie par une diminution de la masse d'hémoglobine circulante totale par rapport aux valeurs physiologiques de référence pour l'âge et le sexe.\n        </p>\n      </section>\n      <section id=\"hemolyse\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Triade Biologique de l'Hémolyse</h2>\n        <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n          <ul class=\"text-sm space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>Haptoglobine effondrée</strong> ou indosable (marqueur le plus sensible).</li>\n            <li>• <strong>Bilirubine libre (non conjuguée)</strong> augmentée (ictère à urines claires).</li>\n            <li>• <strong>LDH sériques</strong> très élevées (reflétant la lyse cellulaire).</li>\n          </ul>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-08-30T09:00:00Z",
-  "updatedAt": "2026-09-04T13:00:00Z"
-},
-  {
-  "id": "cours_rhumato_pr",
-  "slug": "polyarthrite-rhumatoide",
-  "title": "La Polyarthrite Rhumatoïde (PR) : Du Diagnostic au Traitement",
-  "subtitle": "Critères diagnostiques ACR/EULAR 2010, auto-anticorps anti-CCP, radiographies ostéo-articulaires et biothérapies ciblées",
-  "specialtyId": "rhumato",
-  "specialtyName": "Rhumatologie",
-  "author": "Pr. R. Slimani",
-  "authorTitle": "Service de Rhumatologie - CHU Bab El Oued",
-  "description": "Le rhumatisme inflammatoire chronique le plus fréquent. Détecter la synovite précoce pour préserver le capital articulaire : fenêtre d'opportunité thérapeutique et instauration du Méthotrexate.",
-  "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "Polyarthrite rhumatoïde",
-    "Anti-CCP",
-    "Facteur rhumatoïde",
-    "Méthotrexate",
-    "Synovite",
-    "Érosions osseuses"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 2890,
-  "likesCount": 240,
-  "qcmCount": 7,
-  "tableOfContents": [
-    {
-      "id": "clinique",
-      "title": "1. Présentation Clinique & Dérouillage Matinal",
-      "level": 1
-    },
-    {
-      "id": "criteres",
-      "title": "2. Critères de Classification ACR/EULAR 2010",
-      "level": 1
-    },
-    {
-      "id": "radio",
-      "title": "3. Imagerie : Radiographies des Mains et Pieds",
-      "level": 1
-    },
-    {
-      "id": "traitement",
-      "title": "4. Stratégie Thérapeutique (Treat to Target)",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Topographie évocatrice : Polyarthrite bilatérale, symétrique, distale, touchant les mains et les poignets (IPP, MCP) avec respect caractéristique des interphalangiennes distales (IPD).",
-    "Signe clé : Horaire inflammatoire des douleurs avec réveils nocturnes et dérouillage matinal > 30 à 45 minutes.",
-    "Auto-anticorps clés : Anticorps anti-peptides citrullinés (anti-CCP / ACPA) très spécifiques (> 95%) et plus précoces que le Facteur Rhumatoïde (FR).",
-    "Traitement de fond de 1ère intention (csDMARD) : Méthotrexate per os ou sous-cutané (15 à 25 mg/semaine) en prise unique hebdomadaire associée à l'acide folique à 48h."
-  ],
-  "htmlContent": "\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Présentation Clinique & Dérouillage Matinal</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La PR débute classiquement chez la femme d'âge moyen par une oligo ou polyarthrite bilatérale et symétrique prédominant aux mains et poignets. Le \"squeeze test\" (compression transversale des MCP et MTP) déclenche une douleur exquise caractéristique.\n        </p>\n      </section>\n    ",
-  "createdAt": "2026-08-31T08:00:00Z",
-  "updatedAt": "2026-09-04T14:00:00Z"
-},
-  {
-  "id": "cours_psy_troubles_humeur",
-  "slug": "troubles-de-l-humeur-et-risque-suicidaire",
-  "title": "Les Épisodes Dépressifs Majeurs & La Crise Suicidaire",
-  "subtitle": "Critères DSM-5, évaluation du potentiel suicidaire (modèle RUD), antidépresseurs ISRS et cadre médicolégal des soins sans consentement",
-  "specialtyId": "psy",
-  "specialtyName": "Psychiatrie",
-  "author": "Pr. S. Tedjini",
-  "authorTitle": "Service de Psychiatrie Universitaire - CHU Frantz Fanon",
-  "description": "Identifier l'épisode dépressif caractérisé, dépister le virage maniaque (trouble bipolaire) et évaluer immédiatement le potentiel suicidaire selon les axes Risque / Urgence / Dangerosité.",
-  "coverImage": "https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "Dépression",
-    "DSM-5",
-    "Suicide",
-    "ISRS",
-    "Trouble bipolaire",
-    "Hospitalisation sous contrainte"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 3500,
-  "likesCount": 310,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "dsm5",
-      "title": "1. Critères Diagnostiques DSM-5 de l'EDM",
-      "level": 1
-    },
-    {
-      "id": "rud",
-      "title": "2. Évaluation du Risque Suicidaire (Méthode RUD)",
-      "level": 1
-    },
-    {
-      "id": "therapeutique",
-      "title": "3. Prise en Charge Thérapeutique & Antidépresseurs",
-      "level": 1
-    },
-    {
-      "id": "legal",
-      "title": "4. Modalités Légales d'Hospitalisation",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Diagnostic positif d'EDM : Au moins 5 symptômes parmi 9 pendant au moins 2 semaines, dont obligatoirement soit l'humeur dépressive, soit l'anhédonie (perte d'intérêt/plaisir).",
-    "Évaluation systématique du RUD : Risque (facteurs de vulnérabilité), Urgence (scénario précis dans les 24-48h, intentionnalité ferme), Dangerosité (létalité et accessibilité du moyen).",
-    "Délai d'action des antidépresseurs (ISRS) : 2 à 4 semaines. Attention à la levée de l'inhibition psychomotrice avant l'amélioration de l'humeur (majoration transitoire du risque de passage à l'acte).",
-    "Règle absolue : Éliminer un trouble bipolaire avant de prescrire un antidépresseur en monothérapie (risque d'induire un virage maniaque)."
-  ],
-  "htmlContent": "\n      <section id=\"rud\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Évaluation du Risque Suicidaire (RUD)</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 mb-4\">\n          <p class=\"text-sm font-semibold text-rose-900 dark:text-rose-200 mb-2\">Aborder directement les idées suicidaires ne donne JAMAIS l'idée du suicide au patient !</p>\n          <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>R (Risque) :</strong> ATCD personnels de TS, isolement, précarité, maladie chronique.</li>\n            <li>• <strong>U (Urgence) :</strong> Degré de planification : scénario prêt, date fixée, adieux faits = URGENCE ÉLEVÉE.</li>\n            <li>• <strong>D (Dangerosité) :</strong> Arme à feu, médicaments stockés, accès à un pont/voie ferrée.</li>\n          </ul>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-08-31T14:00:00Z",
-  "updatedAt": "2026-09-04T12:00:00Z"
-},
-  {
-  "id": "cours_ophtalmo_gafa",
-  "slug": "glaucome-aigu-par-fermeture-de-l-angle",
-  "title": "Le Glaucome Aigu par Fermeture de l'Angle (GAFA)",
-  "subtitle": "Mécanisme de blocage pupillaire, œil rouge et douloureux, hypertonie majeure et acétazolamide IV",
-  "specialtyId": "ophtalmo",
-  "specialtyName": "Ophtalmologie",
-  "author": "Dr. Y. Oulhadj",
-  "authorTitle": "Service d'Ophtalmologie Médico-Chirurgicale",
-  "description": "L'urgence ophtalmologique douloureuse par excellence. Blocage mécanique de l'évacuation de l'humeur aqueuse provoquant une montée fulgurante de la pression intra-oculaire avec risque de cécité irréversible en quelques heures.",
-  "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "35 min",
-  "tags": [
-    "GAFA",
-    "Hypertonie oculaire",
-    "Mydriase aréactive",
-    "Diamox",
-    "Iridotomie laser",
-    "Œil rouge"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 2680,
-  "likesCount": 215,
-  "qcmCount": 6,
-  "tableOfContents": [
-    {
-      "id": "mecanisme",
-      "title": "1. Facteurs Favorisants & Blocage Pupillaire",
-      "level": 1
-    },
-    {
-      "id": "clinique",
-      "title": "2. Tableau Clinique & Signes Physiques",
-      "level": 1
-    },
-    {
-      "id": "urgence",
-      "title": "3. Traitement Médical Hypotonisant d'Urgence",
-      "level": 1
-    },
-    {
-      "id": "laser",
-      "title": "4. Iridotomie Périphérique au Laser YAG Bilatérale",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Terrain type : Femme âgée hypermétrope (œil court à chambre antérieure étroite). Facteur déclenchant : passage à l'obscurité, stress ou collyre/médicament mydriatique parasympatholytique.",
-    "Tableau clinique : Douleur oculaire violente péri-orbitaire, baisse brutale de l'acuité visuelle, halos colorés, céphalées avec nausées/vomissements.",
-    "Examen ophtalmologique : Œil rouge à prédominance péri-kératique, œdème cornéen (perte de transparence), semi-mydriase aréactive, chambre antérieure plate et globe oculaire \"dur comme une bille de bois\" au toucher.",
-    "Traitement médical immédiat : Acétazolamide (Diamox) IV 500 mg + réhydratation potassique + Mannitol 20% IV en perfusion rapide + collyres hypotonisants.",
-    "Geste curatif et préventif indispensable : Iridotomie périphérique au laser YAG de l'œil atteint ET DE L'ŒIL CONTRALATÉRAL de façon bilatérale systématique."
-  ],
-  "htmlContent": "\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tableau Clinique & Signes Physiques</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <p class=\"text-sm font-semibold text-rose-900 dark:text-rose-200 mb-2\">Signes physiques cardinaux à retenir pour le concours :</p>\n          <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n            <li>• <strong>Semi-mydriase aréactive</strong> unilatérale.</li>\n            <li>• <strong>Cercle péri-kératique</strong> violacé.</li>\n            <li>• <strong>Cornée trouble</strong> dépolie par œdème épithélial.</li>\n            <li>• Pression intra-oculaire &gt; 40 à 60 mmHg (Normale &le; 21 mmHg).</li>\n          </ul>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-01T08:00:00Z",
-  "updatedAt": "2026-09-04T15:00:00Z"
-},
-  {
-  "id": "cours_orl_epistaxis",
-  "slug": "epistaxis-grave-et-urgences-rhinologiques",
-  "title": "L'Épistaxis Grave & Dyspnées Laryngées Aiguës",
-  "subtitle": "Anatomie de la tache vasculaire de Kiesselbach, hémostase locale (tamponnement antérieur et postérieur) et surveillance hémodynamique",
-  "specialtyId": "orl",
-  "specialtyName": "O.R.L. & Chirurgie Cervico-Faciale",
-  "author": "Pr. M. Khelifa",
-  "authorTitle": "Service d'Oto-Rhino-Laryngologie - CHU Mustapha Bacha",
-  "description": "Saignement d'origine endonasale très fréquent mais pouvant engager le pronostic vital par spoliation sanguine aiguë. Maîtriser les étapes graduées de l'hémostase : compression bidigitale, méchage antérieur, sonde à double ballonnet et embolisation.",
-  "coverImage": "https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "35 min",
-  "tags": [
-    "Épistaxis",
-    "Méchage antérieur",
-    "Kiesselbach",
-    "Tamponnement postérieur",
-    "Choc hémorragique",
-    "ORL"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 2950,
-  "likesCount": 250,
-  "qcmCount": 6,
-  "tableOfContents": [
-    {
-      "id": "anatomie",
-      "title": "1. Rappels Anatomiques (Tache Vasculaire)",
-      "level": 1
-    },
-    {
-      "id": "gravite",
-      "title": "2. Critères de Gravité Immédiate",
-      "level": 1
-    },
-    {
-      "id": "hemostase",
-      "title": "3. Gestes d'Hémostase Gradués",
-      "level": 1
-    },
-    {
-      "id": "etiologies",
-      "title": "4. Étiologies : Poussée Hypertensive & Tumeurs",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Origine de 90% des épistaxis : Tache vasculaire de Kiesselbach (anastomose entre carotide interne et externe à la partie antéro-inférieure du septum nasal).",
-    "Premier geste réflexe simple : Mouchage doux pour évacuer les caillots + compression bidigitale ferme des ailes du nez pendant 10 minutes, tête penchée en avant.",
-    "En cas d'échec : Méchage antérieur bilatéral par mèches hémostatiques résorbables ou non résorbables (Merocel, Surgicel).",
-    "Épistaxis postérieure réfractaire : Tamponnement postérieur par sonde à double ballonnet ou embolisation artérielle hypersélective des branches maxillaires internes.",
-    "Rechercher impérativement une poussée hypertensive, un surdosage en anticoagulants (AVK/AOD) ou un cancer du cavum chez l'adulte."
-  ],
-  "htmlContent": "\n      <section id=\"hemostase\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Gestes d'Hémostase Gradués</h2>\n        <div class=\"space-y-3\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Palier 1 : Compression bidigitale</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Patient assis, tête penchée en avant (NE PAS pencher la tête en arrière pour ne pas déglutir le sang), mouchage préalable, compression 10 minutes montre en main.</p>\n          </div>\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white\">Palier 2 : Tamponnement antérieur</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Mèches imbibées de xylocaïne naphtazolinée ou mèches de Merocel lubrifiées, laissées en place 48 heures sous couverture antibiotique.</p>\n          </div>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-01T11:00:00Z",
-  "updatedAt": "2026-09-04T16:00:00Z"
-},
-  {
-  "id": "cours_urgences_acr",
-  "slug": "arret-cardio-respiratoire-et-reanimation",
-  "title": "L'Arrêt Cardio-Respiratoire (ACR) & Réanimation Cardio-Pulmonaire",
-  "subtitle": "Reconnaissance immédiate, chaîne de survie, rythme défibrillable vs non-défibrillable et algorithme ERC/AHA 2024",
-  "specialtyId": "urgences",
-  "specialtyName": "Urgences & Réanimation",
-  "author": "Dr. K. Hamadache",
-  "authorTitle": "Service d'Accueil des Urgences & SMUR",
-  "description": "L'extrême urgence médicale. Chaque minute perdue diminue la survie de 10%. Algorithme universel : compressions thoraciques continues de haute qualité, analyse du rythme et recherche des causes réversibles 4H / 4T.",
-  "coverImage": "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "ACR",
-    "RCP",
-    "Défibrillation",
-    "Adrénaline",
-    "Amiodarone",
-    "4H 4T"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 4500,
-  "likesCount": 420,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "chaine",
-      "title": "1. La Chaîne de Survie & Diagnostic de l'ACR",
-      "level": 1
-    },
-    {
-      "id": "rcp",
-      "title": "2. Réanimation Cardio-Pulmonaire de Haute Qualité",
-      "level": 1
-    },
-    {
-      "id": "rythmes",
-      "title": "3. Rythmes Défibrillables (FV/TV) vs Non-défibrillables (Asystolie/AESP)",
-      "level": 1
-    },
-    {
-      "id": "causes",
-      "title": "4. Causes Réversibles : La Règle des 4H / 4T",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Diagnostic instantané : Patient inconscient ne répondant pas + absence de respiration normale (respiration absente ou gasps agoniques) = DÉBUTER LA RCP SANS PERDRE DE TEMPS À CHERCHER LE POULS.",
-    "Massage cardiaque de haute qualité : Fréquence 100 à 120/min, profondeur 5 à 6 cm, décompression thoracique complète, interruption minimale (< 5 secondes). Ratio 30:2.",
-    "Rythmes défibrillables (FV et TV sans pouls) : Choc électrique externe précoce (150-200 J biphasique) suivi immédiatement de 2 minutes de RCP avant toute réévaluation. Adrénaline 1 mg après le 3e choc + Amiodarone 300 mg.",
-    "Rythmes non défibrillables (Asystolie et Dissociation Électromécanique / AESP) : Adrénaline 1 mg IV le plus tôt possible, PAS DE CHOC, chercher et traiter les causes 4H / 4T."
-  ],
-  "htmlContent": "\n      <section id=\"causes\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Causes Réversibles : 4H / 4T</h2>\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n          <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-800\">\n            <h4 class=\"font-bold text-indigo-900 dark:text-indigo-200 mb-2\">Les 4 \"H\"</h4>\n            <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n              <li>• <strong>H</strong>ypoxie</li>\n              <li>• <strong>H</strong>ypovolémie</li>\n              <li>• <strong>H</strong>ypo / Hyperkaliémie & troubles métaboliques</li>\n              <li>• <strong>H</strong>ypothermie</li>\n            </ul>\n          </div>\n          <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-rose-900 dark:text-rose-200 mb-2\">Les 4 \"T\"</h4>\n            <ul class=\"text-xs space-y-1 text-navy-700 dark:text-navy-300\">\n              <li>• Pneumothorax sous <strong>T</strong>ension</li>\n              <li>• <strong>T</strong>amponnade cardiaque</li>\n              <li>• <strong>T</strong>oxiques (surdosage médicamenteux)</li>\n              <li>• <strong>T</strong>hrombose (coronaire ou embolie pulmonaire massive)</li>\n            </ul>\n          </div>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-02T08:00:00Z",
-  "updatedAt": "2026-09-04T17:00:00Z"
-},
-  {
-  "id": "cours_chirurgie_appendicite",
-  "slug": "appendicite-aigue-et-peritonite-generalisee",
-  "title": "L'Appendicite Aiguë & Les Péritonites Aiguës Généralisées",
-  "subtitle": "Signes physiques péritonéaux (Blumberg, Rovsing), score d'Alvarado, imagerie (écho/TDM) et antibioprophylaxie peropératoire",
-  "specialtyId": "chirurgie",
-  "specialtyName": "Chirurgie Générale & Viscérale",
-  "author": "Pr. H. Bendib",
-  "authorTitle": "Clinique Chirurgicale Centrale - CHU Mustapha",
-  "description": "Urgence chirurgicale abdominale la plus fréquente. Diagnostic clinique guidé par les signes d'irritation péritonéale, confirmation radiologique par échographie chez l'enfant et scanner abdomino-pelvien injecté chez l'adulte.",
-  "coverImage": "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "40 min",
-  "tags": [
-    "Appendicite",
-    "Péritonite",
-    "Défense abdominale",
-    "McBurney",
-    "Laparoscopie",
-    "Chirurgie"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "viewsCount": 3870,
-  "likesCount": 340,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "semiologie",
-      "title": "1. Sémiologie Clinique (Point de McBurney)",
-      "level": 1
-    },
-    {
-      "id": "formes",
-      "title": "2. Formes Topographiques Trompeuses",
-      "level": 1
-    },
-    {
-      "id": "peritonite",
-      "title": "3. Péritonite Aiguë Généralisée (Le Ventre de Bois)",
-      "level": 1
-    },
-    {
-      "id": "chirurgie",
-      "title": "4. Prise en Charge Chirurgicale & Cœlioscopie",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Triade classique de Dieulafoy : Douleur spontanée de la FID + Défense musculaire localisée de la FID + Hyperesthésie cutanée.",
-    "Signes physiques caractéristiques : Signe de Blumberg (décompression douloureuse de la FID), signe de Rovsing (pression en FIG déclenchant la douleur en FID).",
-    "Formes topographiques à connaître absolument : Rétro-cæcale (douleur lombaire avec psoïtis), pelvienne (signes urinaires ou rectaux avec douleur au toucher rectal), sous-hépatique (simulant une cholécystite).",
-    "Péritonite généralisée : Contracture abdominale invincible, permanente, douloureuse (\"ventre de bois\") + disparition de la matité pré-hépatique si perforation d'organe creux (pneumopéritoine au scanner).",
-    "Traitement : Appendicectomie par cœlioscopie avec prélèvement bactériologique systématique et antibioprophylaxie ciblée."
-  ],
-  "htmlContent": "\n      <section id=\"peritonite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Péritonite Aiguë Généralisée</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <p class=\"text-sm font-semibold text-rose-900 dark:text-rose-200 mb-2\">Signe cardinal : La Contracture Abdominale</p>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed\">\n            Rigidité pariétale réflexe, involontaire, invincible, permanente et douloureuse (\"ventre de bois\"). Urgence chirurgicale absolue : réanimation hémodynamique, antibiothérapie probabiliste anti-BGN et anaérobies (Ceftriaxone + Métronidazole) et laparotomie / cœlioscopie de toilette péritonéale sans délai.\n          </p>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-02T12:00:00Z",
-  "updatedAt": "2026-09-04T18:00:00Z"
-},
-  {
-  "id": "cours_uro_colique_nephretique",
-  "slug": "colique-nephretique-aigue",
-  "title": "La Colique Néphrétique Aiguë (CNA) & Torsion Testiculaire",
-  "subtitle": "Mécanismes d'hyperpression pyélique, calcul urinaire, critères de gravité (fièvre, anurie) et urgence de la torsion du cordon spermatique",
-  "specialtyId": "uro",
-  "specialtyName": "Urologie",
-  "author": "Pr. A. Djellouli",
-  "authorTitle": "Service d'Urologie & Transplantation Rénale",
-  "description": "Douleur lombo-abdominale aiguë brutale par mise en tension brutale de la voie excétrice supérieure. Savoir dépister immédiatement la colique néphrétique compliquée (pyélonéphrite obstructive) et ne jamais passer à côté d'une torsion du testicule.",
-  "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "40 min",
-  "tags": [
-    "Colique néphrétique",
-    "Calcul rénal",
-    "AINS",
-    "Sonde JJ",
-    "Torsion testiculaire",
-    "Urgence urologique"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 3120,
-  "likesCount": 275,
-  "qcmCount": 7,
-  "tableOfContents": [
-    {
-      "id": "clinique",
-      "title": "1. Clinique de la Colique Néphrétique Simple",
-      "level": 1
-    },
-    {
-      "id": "gravite",
-      "title": "2. Les 3 Formes Compliquées Imposant l'Hospitalisation",
-      "level": 1
-    },
-    {
-      "id": "traitement",
-      "title": "3. Prise en Charge Antalgique (Rôle Pivot des AINS)",
-      "level": 1
-    },
-    {
-      "id": "torsion",
-      "title": "4. Torsion du Cordon Spermatique (La Règle des 6 Heures)",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Douleur unilatérale lombaire brutale irradiant vers les organes génitaux externes, sans position antalgique (\"colique frénétique\").",
-    "Les 3 formes compliquées justifiant une dérivation urgente des urines (sonde JJ ou néphrostomie) : 1) CNA fébrile (pyélonéphrite obstructive = choc septique), 2) CNA anurique (rein unique fonctionnel), 3) CNA hyperalgique rebelle aux morphiniques.",
-    "Traitement médical de la crise simple : AINS IV (Kétoprofène 100 mg) en 1ère intention (diminue le tonus du muscle lisse urétéral et l'œdème local) + restriction hydrique transitoire pendant la crise.",
-    "Torsion testiculaire : Grosse bourse douloureuse aiguë chez l'adolescent avec testicule ascensionné horizontalisé. EXPLORATION CHIRURGICALE EN URGENCE AVANT LA 6e HEURE SANS AUCUN EXAMEN RADIOLOGIQUE PRÉALABLE."
-  ],
-  "htmlContent": "\n      <section id=\"gravite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Les 3 Formes Compliquées d'Urgence</h2>\n        <div class=\"space-y-3\">\n          <div class=\"p-3 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-sm text-rose-900 dark:text-rose-200\">1. CNA Fébrile (Urgence Médico-Chirurgicale Absolue)</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Obstruction sur rein infecté. Dérivation urinaire en urgence par sonde double J sous anesthésie + hémocultures + antibiothérapie IV bactéricide.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n            <h4 class=\"font-bold text-sm text-amber-900 dark:text-amber-200\">2. CNA Anurique</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Obstruction sur rein unique anatomique ou fonctionnel, ou calculs bilatéraux simultanés. Risque d'insuffisance rénale anurique irréversible.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800\">\n            <h4 class=\"font-bold text-sm text-purple-900 dark:text-purple-200\">3. CNA Hyperalgique</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Douleur intolérable résistant au traitement morphinique IV bien conduit. Indication de décompression.</p>\n          </div>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-02T15:00:00Z",
-  "updatedAt": "2026-09-04T18:30:00Z"
-},
-  {
-  "id": "cours_ortho_fracture_ouverte",
-  "slug": "fractures-ouvertes-et-syndrome-des-loges",
-  "title": "Les Fractures Ouvertes de Jambe & Le Syndrome des Loges",
-  "subtitle": "Classification de Gustilo et Cauchoix-Duparc, antibioprophylaxie, parage chirurgical et urgence de l'aponévrotomie de décharge",
-  "specialtyId": "ortho",
-  "specialtyName": "Orthopédie & Traumatologie",
-  "author": "Pr. M. Yahiaoui",
-  "authorTitle": "Service de Traumatologie-Orthopédie - CHU Bab El Oued",
-  "description": "Traumatisme squelettique majeur avec communication directe entre le foyer de fracture et l'extérieur. Prévention du risque d'ostéite chronique et détection précoce du syndrome des loges ischémique.",
-  "coverImage": "https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "Fracture ouverte",
-    "Cauchoix-Duparc",
-    "Syndrome des loges",
-    "Fixateur externe",
-    "Aponévrotomie",
-    "Orthopédie"
-  ],
-  "accessLevel": "PRO",
-  "published": true,
-  "viewsCount": 2780,
-  "likesCount": 230,
-  "qcmCount": 6,
-  "tableOfContents": [
-    {
-      "id": "classification",
-      "title": "1. Classification de Cauchoix-Duparc & Gustilo",
-      "level": 1
-    },
-    {
-      "id": "urgence",
-      "title": "2. Prise en Charge Immédiate aux Urgences",
-      "level": 1
-    },
-    {
-      "id": "loges",
-      "title": "3. Le Syndrome des Loges (Urgence Fonctionnelle Absolue)",
-      "level": 1
-    },
-    {
-      "id": "chirurgie",
-      "title": "4. Principes de la Stabilisation Osseuse",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Classification de Cauchoix-Duparc : Type I (plaie punctiforme sans décollement suturable sans tension), Type II (délabrement cutané avec risque de nécrose secondaire), Type III (perte de substance cutanée non recouvrable d'emblée).",
-    "Aux urgences immédiates : Vérification vaccination antitétanique + antibioprophylaxie précoce (Céphalosporine 1G/2G ou Amoxicilline-Acide clavulanique) + pansement stérile protecteur (ne jamais réintroduire un fragment d'os extériorisé).",
-    "Syndrome des loges : Douleur disproportionnée insupportable résistant aux antalgiques majeurs, tension musculaire ligneuse à la palpation, douleur violente à l'étirement passif des orteils. Pouls distaux conservés au début !",
-    "Traitement du syndrome des loges : Aponévrotomie de décharge en extrême urgence de toutes les loges musculaires de la jambe pour éviter la nécrose musculaire et la néphropathie myoglobinurique (rhabdomyolyse)."
-  ],
-  "htmlContent": "\n      <section id=\"loges\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Le Syndrome des Loges</h2>\n        <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40\">\n          <div class=\"font-bold text-rose-800 dark:text-rose-300 mb-1\">🚨 PIÈGE MAJEUR AUX EXAMENS : La Présence des Pouls Distaux</div>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed\">\n            La présence des pouls pédieux ou tibiaux postérieurs <strong>n'élimine absolument pas</strong> un syndrome des loges ! La pression intramusculaire dépasse la pression de perfusion capillaire bien avant d'occlure les gros troncs artériels. Le signe d'alerte le plus précoce et le plus sensible est la <strong>douleur exquise à l'étirement passif des muscles de la loge atteinte</strong>. Traitement sans délai : Aponévrotomie de décharge cutanéo-aponévrotique large.\n          </p>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-03T09:00:00Z",
-  "updatedAt": "2026-09-04T19:00:00Z"
-},
-  {
-  "id": "cours_interne_lupus",
-  "slug": "lupus-erythemateux-systemique",
-  "title": "Le Lupus Érythémateux Systémique (LES) & Maladie de Horton",
-  "subtitle": "Critères ACR/EULAR 2019, dépistage de la néphropathie lupique, anticorps anti-ADN natif et hydroxychloroquine au long cours",
-  "specialtyId": "interne",
-  "specialtyName": "Médecine Interne",
-  "author": "Pr. Z. Aït Kaci",
-  "authorTitle": "Service de Médecine Interne & Immunologie Clinique - CHU Mustapha",
-  "description": "Archétype de la maladie auto-immune non spécifique d'organe touchant principalement la femme jeune. Savoir rechercher les atteintes viscérales engageant le pronostic vital (atteinte rénale, cardiaque et cérébrale) et prescrire la surveillance biologique.",
-  "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
-  "difficulty": "Incontournable",
-  "rang": "Rang A",
-  "estimatedDuration": "45 min",
-  "tags": [
-    "Lupus",
-    "AAN",
-    "Anti-ADN natif",
-    "Néphropathie lupique",
-    "Plaquenil",
-    "Médecine interne"
-  ],
-  "accessLevel": "PREMIUM",
-  "published": true,
-  "viewsCount": 2950,
-  "likesCount": 260,
-  "qcmCount": 8,
-  "tableOfContents": [
-    {
-      "id": "criteres",
-      "title": "1. Critères de Classification EULAR/ACR 2019",
-      "level": 1
-    },
-    {
-      "id": "clinique",
-      "title": "2. Manifestations Cutanées & Viscérales",
-      "level": 1
-    },
-    {
-      "id": "nephropathie",
-      "title": "3. La Néphropathie Lupique (La Biopsie Rénale)",
-      "level": 1
-    },
-    {
-      "id": "traitement",
-      "title": "4. Traitement de Fond : Rôle Pivot de l'Hydroxychloroquine",
-      "level": 1
-    }
-  ],
-  "summaryPoints": [
-    "Porte d'entrée obligatoire des critères EULAR/ACR 2019 : Présence d'Anticorps Anti-Nucléaires (AAN) à un titre &ge; 1/80 sur cellules HEp-2.",
-    "Auto-anticorps hautement spécifiques : Anticorps anti-ADN natif double brin (corrélés à l'activité de la maladie et au risque rénal) et anti-Sm.",
-    "Érythème en aile de papillon (vespertilio) du visage respectant les sillons naso-géniens, photosensibilité et alopécie diffuse.",
-    "Dépistage rénal systématique à chaque consultation : Recherche d'une protéinurie (bandelette et rapport P/C) et examen du sédiment urinaire (hématurie, cylindres). La ponction biopsie rénale (PBR) est indispensable en cas de protéinurie > 0.5 g/j.",
-    "Traitement fondamental de tout patient lupique sans exception : Hydroxychloroquine (Plaquenil) &le; 5 mg/kg/j (réduit les poussées, la mortalité et le risque thrombotique) avec surveillance ophtalmologique régulière."
-  ],
-  "htmlContent": "\n      <section id=\"criteres\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Critères EULAR/ACR 2019</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le diagnostic repose sur le critère d'entrée positif (AAN &ge; 1/80) associé à un score &ge; 10 points réparti entre les domaines cliniques (constitutionnel, hématologique, neuropsychiatrique, cutanéo-muqueux, séreux, musculo-squelettique, rénal) et immunologiques (anticorps anti-phospholipides, fractions du complément C3/C4 consommées, anti-ADN natif ou anti-Sm).\n        </p>\n      </section>\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. L'Hydroxychloroquine : Traitement de Base Indispensable</h2>\n        <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800\">\n          <p class=\"text-sm font-semibold text-emerald-900 dark:text-emerald-200 mb-2\">Recommandation Internationale de Niveau A :</p>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n            Tout patient atteint de LES doit recevoir de l'hydroxychloroquine (sauf contre-indication ophtalmologique absolue). Elle prévient les rechutes viscérales, diminue les complications cardiovasculaires et prolonge la survie globale.\n          </p>\n        </div>\n      </section>\n    ",
-  "createdAt": "2026-09-03T14:00:00Z",
-  "updatedAt": "2026-09-04T19:30:00Z"
-}
 ];

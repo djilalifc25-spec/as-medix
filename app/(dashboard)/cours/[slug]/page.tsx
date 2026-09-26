@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { createPortal } from 'react-dom';
@@ -31,23 +31,20 @@ function CourseDetailContent() {
   const [loading, setLoading] = useState(!course);
 
   useEffect(() => {
-    const local = INITIAL_COURSES.find(c => c.slug === slug);
-    if (local) {
-      setCourse(local);
-      setLoading(false);
-      return;
+    const initialFallback = INITIAL_COURSES.find(c => c.slug === slug || c.id === slug);
+    if (initialFallback) {
+      setCourse(initialFallback);
+    } else {
+      setLoading(true);
     }
 
-    setLoading(true);
-    fetch('/api/courses')
+    fetch(`/api/courses?slug=${encodeURIComponent(slug)}`)
       .then(r => r.json())
       .then(d => {
-        if (d.courses && Array.isArray(d.courses)) {
-          const found = d.courses.find((c: any) => c.slug === slug);
+        if (d.courses && Array.isArray(d.courses) && d.courses.length > 0) {
+          const found = d.courses.find((c: any) => c.slug === slug || c.id === slug) || d.courses[0];
           if (found) {
             setCourse(found);
-          } else {
-            setCourse(null);
           }
         }
       })
