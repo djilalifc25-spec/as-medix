@@ -713,9 +713,9 @@ class DatabaseStore {
   }
 
   // --- STATS PAR COURS, PAR SPÉCIALITÉ ET PAR SOURCE ---
-  public getUserQcmStats(userId?: string) {
+  public getUserQcmStats(userId?: string, customQcms?: QCM[]) {
     const attempts = userId ? this.getUserAttempts(userId) : this.data.qcmAttempts;
-    const allQcms = this.data.qcms;
+    const allQcms = customQcms || this.data.qcms;
 
     // Set of distinct QCM IDs user has attempted & correctly answered
     const doneQcmIdSet = new Set<string>();

@@ -122,7 +122,7 @@ export default function DashboardPage() {
   const pendingUpcoming = reminders.filter(r => r.status === 'pending' && new Date(r.scheduledFor).getTime() > Date.now());
 
   const totalTreated = userProgress.totalAnswered;
-  const totalBank = Math.max(userProgress.totalQcms, INITIAL_QCMS.length);
+  const totalBank = userProgress.totalQcms > 0 ? userProgress.totalQcms : INITIAL_QCMS.length;
   const percentCovered = totalBank > 0 ? Math.round((totalTreated / totalBank) * 100) : 0;
   const successRate = totalTreated > 0 ? Math.round((userProgress.totalCorrect / totalTreated) * 100) : 0;
   const questionsRemaining = Math.max(0, totalBank - totalTreated);
@@ -210,9 +210,9 @@ export default function DashboardPage() {
           {[
             {
               label: 'QCMs Traités',
-              value: totalTreated,
+              value: `${totalTreated} / ${totalBank}`,
               icon: CheckCircle2,
-              change: `${percentCovered}% de la banque`,
+              change: `${percentCovered}% de la banque (${totalTreated} fait${totalTreated > 1 ? 's' : ''})`,
               changeUp: true,
               color: '#5D5FEF',
               bg: '#EEF2FF',
@@ -239,7 +239,7 @@ export default function DashboardPage() {
               label: 'QCMs Restants',
               value: questionsRemaining,
               icon: Target,
-              change: `Sur ${totalBank} au total`,
+              change: `Sur ${totalBank} au total (${totalTreated}/${totalBank} faits)`,
               changeUp: questionsRemaining < totalBank / 2,
               color: '#EF4444',
               bg: '#FEF2F2',
