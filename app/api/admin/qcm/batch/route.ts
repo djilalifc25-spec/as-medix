@@ -16,21 +16,48 @@ async function syncQcmsToSupabase(qcms: QCM[]) {
         specialty_name: String(qcm.specialtyName || 'Cardiologie'),
         course_id: qcm.courseId ? String(qcm.courseId) : null,
         course_title: qcm.courseTitle ? String(qcm.courseTitle) : null,
-        rang: qcm.rang ? String(qcm.rang) : 'Rang A',
+        question: String(qcm.question || qcm.title || 'Question'),
         title: String(qcm.question || qcm.title || 'Question'),
         vignette: String(qcm.vignette || ''),
         options: Array.isArray(qcm.options) ? qcm.options : [],
         correct_answers: Array.isArray(qcm.correctAnswers) ? qcm.correctAnswers : [0],
         explanation: String(qcm.explanation || ''),
+        source: qcm.source ? String(qcm.source) : null,
+        faculty: qcm.faculty ? String(qcm.faculty) : 'TOUS',
+        rang: qcm.rang ? String(qcm.rang) : 'Rang A',
+        difficulty: qcm.difficulty ? String(qcm.difficulty) : 'Moyen',
+        type: qcm.type ? String(qcm.type) : 'SINGLE',
+        reference: qcm.reference ? String(qcm.reference) : null,
         year: qcm.year ? String(qcm.year) : null
       });
     });
 
     const payload = Array.from(map.values());
     if (payload.length > 0) {
-      const { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
-      if (error) {
-        console.error('[Supabase Batch Sync] QCM upsert error:', error);
+      let { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
+      if (error && error.message && error.message.includes('Could not find the column')) {
+        console.warn('[Supabase Batch Sync] Retrying with core schema columns due to missing SQL columns on Supabase:', error.message);
+        const corePayload = payload.map(item => ({
+          id: item.id,
+          specialty: item.specialty,
+          specialty_id: item.specialty_id,
+          specialty_name: item.specialty_name,
+          course_id: item.course_id,
+          course_title: item.course_title,
+          rang: item.rang,
+          title: item.title,
+          vignette: item.vignette,
+          options: item.options,
+          correct_answers: item.correct_answers,
+          explanation: item.explanation,
+          year: item.year
+        }));
+        const retryRes = await supabaseAdmin.from('qcms').upsert(corePayload, { onConflict: 'id' });
+        if (retryRes.error) {
+          console.error('[Supabase Batch Sync Retry Error]:', retryRes.error);
+        }
+      } else if (error) {
+        console.error('[Supabase Batch Sync Error]:', error);
       }
     }
   } catch (err) {
