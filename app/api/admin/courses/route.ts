@@ -43,48 +43,23 @@ async function syncCourseToSupabase(course: Course) {
   try {
     const payload = {
       id: String(course.id),
-      slug: String(course.slug || course.id),
-      title: String(course.title || 'Cours'),
-      subtitle: String(course.subtitle || ''),
       specialty: String(course.specialtyId || 'cardio'),
       specialty_id: String(course.specialtyId || 'cardio'),
       specialty_name: String(course.specialtyName || 'Cardiologie'),
-      year: course.year ? String(course.year) : null,
-      author: String(course.author || 'Faculté de Médecine'),
-      author_title: String(course.authorTitle || 'Professeurs Hospitalo-Universitaires'),
-      description: String(course.description || ''),
-      cover_image: String(course.coverImage || ''),
-      difficulty: String(course.difficulty || 'Incontournable'),
-      faculty: String(course.faculty || 'ORAN'),
-      source: String(course.source || 'Annales Examens'),
-      rang: String(course.rang || 'Rang A'),
+      title: String(course.title || 'Cours'),
+      subtitle: String(course.subtitle || ''),
       duration: String(course.estimatedDuration || '30 min'),
-      tags: Array.isArray(course.tags) ? course.tags : ['Médecine'],
-      access_level: String(course.accessLevel || 'FREE'),
-      published: Boolean(course.published),
-      views_count: Number(course.viewsCount || 0),
-      likes_count: Number(course.likesCount || 0),
-      qcm_count: Number(course.qcmCount || 5),
-      table_of_contents: Array.isArray(course.tableOfContents) ? course.tableOfContents : [],
+      difficulty: String(course.difficulty || 'Incontournable'),
+      rang: String(course.rang || 'Rang A'),
       html_content: String(course.htmlContent || ''),
+      year: course.year ? String(course.year) : null,
       updated_at: new Date().toISOString()
     };
-    let { error } = await supabaseAdmin.from('courses').upsert(payload, { onConflict: 'id' });
-    if (error && error.message && error.message.includes('Could not find the column')) {
-      const corePayload = {
-        id: payload.id,
-        title: payload.title,
-        subtitle: payload.subtitle,
-        specialty: payload.specialty,
-        specialty_name: payload.specialty_name,
-        faculty: payload.faculty,
-        duration: payload.duration,
-        difficulty: payload.difficulty,
-        rang: payload.rang,
-        html_content: payload.html_content,
-        updated_at: payload.updated_at
-      };
-      await supabaseAdmin.from('courses').upsert(corePayload, { onConflict: 'id' });
+    const { error } = await supabaseAdmin.from('courses').upsert(payload, { onConflict: 'id' });
+    if (error) {
+      console.error('[Supabase Sync] Course upsert error:', error.message);
+    } else {
+      console.log('[Supabase Sync] Course successfully upserted into Supabase:', course.id);
     }
   } catch (err) {
     console.error('[Supabase Sync] Course upsert exception:', err);
