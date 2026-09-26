@@ -25,6 +25,8 @@ export default function AdminQcmPage() {
   const [courseId, setCourseId] = useState('');
   const [faculty, setFaculty] = useState<'ORAN' | 'SIDI_BEL_ABBES' | 'TOUS'>('ORAN');
   const [source, setSource] = useState('');
+  const [parentSource, setParentSource] = useState('Externat');
+  const [subSource, setSubSource] = useState('');
   const [sourceOther, setSourceOther] = useState('');
   const [isDailyQcm, setIsDailyQcm] = useState(false);
   const [vignette, setVignette] = useState('');
@@ -516,18 +518,63 @@ export default function AdminQcmPage() {
 
               <div>
                 <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                  5. Source de l'épreuve :
+                  5. Source Parente & Sous-Source / Année d'Examen :
                 </label>
-                <select
-                  value={source}
-                  onChange={e => setSource(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-2xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
-                >
-                  <option value="">-- Choisir la source --</option>
-                  {scopeSources.map(s => (
-                    <option key={s} value={s}>📖 {s}</option>
-                  ))}
-                </select>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+                  <div>
+                    <span className="text-[10px] font-bold text-navy-400">A. Source Parente :</span>
+                    <select
+                      value={parentSource}
+                      onChange={e => {
+                        const p = e.target.value;
+                        setParentSource(p);
+                        const full = p && subSource ? `${p} - ${subSource}` : p;
+                        setSource(full);
+                      }}
+                      className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
+                    >
+                      <option value="Externat">Externat</option>
+                      <option value="SIAU">SIAU</option>
+                      <option value="Annales Résidanat">Annales Résidanat</option>
+                      <option value="QCM CNP">QCM CNP</option>
+                      <option value="Hypercours">Hypercours</option>
+                      {scopeSources.map(s => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-bold text-navy-400">B. Sous-Source / Session :</span>
+                    <input
+                      type="text"
+                      value={subSource}
+                      onChange={e => {
+                        const sub = e.target.value;
+                        setSubSource(sub);
+                        const full = parentSource && sub ? `${parentSource} - ${sub}` : (parentSource || sub);
+                        setSource(full);
+                      }}
+                      placeholder="ex: 2018/2019, Rattrapage 2021..."
+                      className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 text-xs font-bold text-navy-900 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-indigo-50/60 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800">
+                  <div className="text-[11px] font-bold text-indigo-900 dark:text-indigo-200 min-w-0 truncate">
+                    📌 Attribué : <span className="underline">{source || parentSource || 'Non définie'}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAddScopeSource}
+                    disabled={!source.trim() || addingSource}
+                    className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-[10px] font-bold shrink-0 transition-all shadow-xs"
+                  >
+                    {addingSource ? '...' : '+ Sauvegarder la Sous-Source dans la Base'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
