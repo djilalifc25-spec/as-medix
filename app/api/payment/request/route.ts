@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
+import { syncPaymentRequestsFromCloud, savePaymentRequestToCloud, updatePaymentRequestStatusInCloud } from '@/lib/db/paymentSync';
 
 export async function GET(req: Request) {
   try {
@@ -10,7 +11,8 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
     }
 
-    const requests = db.getPaymentRequests();
+    // Sync payment requests from Supabase Cloud
+    const requests = await syncPaymentRequestsFromCloud();
     return NextResponse.json({ success: true, requests });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
@@ -77,7 +79,10 @@ export async function POST(req: Request) {
       notes: notes || ''
     });
 
-    // 2. Save into Supabase payment_requests table
+    // 2. GUARANTEED PERSISTENCE IN SUPABASE CLOUD (password_resets table backup)
+    await savePaymentRequestToCloud(newRequest);
+
+    // 3. Best-effort save into Supabase payment_requests table
     try {
       await supabaseAdmin.from('payment_requests').insert({
         user_id: currentUser.id,
@@ -122,6 +127,8 @@ export async function PATCH(req: Request) {
       const ok = db.approvePaymentRequest(requestId, currentUser.id);
       if (!ok) return NextResponse.json({ error: 'Demande introuvable' }, { status: 404 });
 
+      await updatePaymentRequestStatusInCloud(requestId, 'APPROVED');
+
       const pr = db.getPaymentRequests().find(r => r.id === requestId);
       if (pr) {
         const plan = pr.requestedPlan || 'PRO';
@@ -163,6 +170,8 @@ export async function PATCH(req: Request) {
     } else if (action === 'reject') {
       const ok = db.rejectPaymentRequest(requestId);
       if (!ok) return NextResponse.json({ error: 'Demande introuvable' }, { status: 404 });
+
+      await updatePaymentRequestStatusInCloud(requestId, 'REJECTED');
 
       const pr = db.getPaymentRequests().find(r => r.id === requestId);
       if (pr) {

@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { syncUsersFromSupabase, updateUserInSupabaseCloud, deleteUserFromSupabaseCloud } from '@/lib/db/userSync';
+import { syncPaymentRequestsFromCloud } from '@/lib/db/paymentSync';
 import { User } from '@/types';
 
 export async function GET() {
@@ -11,8 +12,9 @@ export async function GET() {
     return NextResponse.json({ error: 'Accès non autorisé au panneau d\'administration' }, { status: 403 });
   }
 
-  // 1. Re-sync all registered users from Supabase Cloud
+  // 1. Re-sync all registered users & payment requests from Supabase Cloud
   await syncUsersFromSupabase();
+  const paymentRequests = await syncPaymentRequestsFromCloud();
 
   const localUsers = db.getUsers();
 

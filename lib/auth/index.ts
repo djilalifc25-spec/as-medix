@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { User, UserRole, PlanType } from '@/types';
 import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
+import { syncUsersFromSupabase } from '@/lib/db/userSync';
 
 const SESSION_COOKIE = 'asmedix_session';
 const DEMO_OVERRIDE_COOKIE = 'asmedix_demo_override';
@@ -59,7 +60,13 @@ export async function getAuthenticatedUser(): Promise<User | null> {
 
     let found = db.getUserById(userId);
 
-    // If not found in local DB memory, look up in Supabase profiles
+    // If not found in local DB memory, re-sync users from Supabase Cloud backup
+    if (!found) {
+      await syncUsersFromSupabase();
+      found = db.getUserById(userId);
+    }
+
+    // If still not found, check Supabase profiles
     if (!found) {
       try {
         const { data: profile } = await supabaseAdmin
