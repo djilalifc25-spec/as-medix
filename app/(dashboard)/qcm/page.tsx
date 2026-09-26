@@ -637,8 +637,8 @@ function QcmHubContent() {
 
                   <button
                     type="button"
-                    onClick={() => launchSession('TOUS')}
-                    className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs font-black shadow-soft flex items-center gap-2 shrink-0 transition-all"
+                    onClick={() => launchSession()}
+                    className="px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs font-black shadow-soft flex items-center gap-2 shrink-0 transition-all cursor-pointer"
                   >
                     <Play className="w-3.5 h-3.5 fill-white" />
                     <span>Lancer Session Plein Écran</span>

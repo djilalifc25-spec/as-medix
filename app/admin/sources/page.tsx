@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BookOpen, Plus, Trash2, CheckCircle2, Globe, Layers, ChevronDown, ChevronRight, School } from "lucide-react";
+import { BookOpen, Plus, Trash2, CheckCircle2, Globe, Layers, ChevronDown, ChevronRight, Search, Sparkles } from "lucide-react";
 import { ALL_SPECIALTIES } from "@/lib/db/seedData";
 import { INITIAL_COURSES } from "@/lib/db/seedCourses";
 import { getSpecialtyEmoji } from "@/lib/specialtyEmojis";
@@ -29,6 +29,7 @@ export default function AdminSourcesPage() {
   const [groups, setGroups] = useState<ScopeGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Faculty filter view: TOUS | ORAN | SIDI_BEL_ABBES
   const [facultyFilter, setFacultyFilter] = useState<FacultyType>("TOUS");
@@ -39,19 +40,23 @@ export default function AdminSourcesPage() {
   const [newSourceFaculty, setNewSourceFaculty] = useState<FacultyType>("TOUS");
   const [saving, setSaving] = useState(false);
 
+  // Quick 3-step wizard state
+  const [wizardFac, setWizardFac] = useState<FacultyType>("ORAN");
+  const [wizardSpec, setWizardSpec] = useState<string>("cardio");
+  const [wizardCourse, setWizardCourse] = useState<string>("");
+  const [wizardName, setWizardName] = useState<string>("");
+
   // Expand state per specialty
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({ cardio: true });
 
   // Load all scope groups
   const load = async () => {
     setLoading(true);
     try {
-      // 1. Fetch all scopes overview
       const allRes = await fetch("/api/admin/sources/all");
       const allData = await allRes.json();
       const allScopes: { key: string; specialty?: string; course?: string; faculty?: string; sources: string[] }[] = allData.scopes || [];
 
-      // Helper to collect sources for a specific scope
       const getSourcesFor = (spec?: string, crs?: string): SourceItem[] => {
         const list: SourceItem[] = [];
         for (const entry of allScopes) {
@@ -150,6 +155,36 @@ export default function AdminSourcesPage() {
     }
   };
 
+  // Quick 3-Step Wizard Addition
+  const handleWizardAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const name = wizardName.trim();
+    if (!name) return;
+    setSaving(true);
+
+    const body: Record<string, string> = { name };
+    if (wizardSpec) body.specialty = wizardSpec;
+    if (wizardCourse) body.course = wizardCourse;
+    if (wizardFac !== "TOUS") body.faculty = wizardFac;
+
+    try {
+      const res = await fetch("/api/admin/sources", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setWizardName("");
+        if (wizardSpec) setExpanded((p) => ({ ...p, [wizardSpec]: true }));
+        showMsg(`Source "${name}" ajoutée instantanément pour ${wizardFac === "TOUS" ? "Toutes Facultés" : wizardFac} !`);
+        load();
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const handleDelete = async (name: string, specialty?: string, course?: string, faculty?: string) => {
     const facLabel = faculty && faculty !== "TOUS" ? ` (${faculty})` : "";
     if (!confirm(`Supprimer "${name}"${facLabel} de ce scope ?`)) return;
@@ -167,14 +202,21 @@ export default function AdminSourcesPage() {
     load();
   };
 
-  // Filter sources according to selected faculty
   const filterSourcesList = (sources: SourceItem[]) => {
-    if (facultyFilter === "TOUS") return sources;
-    return sources.filter((s) => !s.faculty || s.faculty === "TOUS" || s.faculty === facultyFilter);
+    let list = sources;
+    if (facultyFilter !== "TOUS") {
+      list = list.filter((s) => !s.faculty || s.faculty === "TOUS" || s.faculty === facultyFilter);
+    }
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase();
+      list = list.filter((s) => s.name.toLowerCase().includes(term));
+    }
+    return list;
   };
 
   const globalGroup = groups.find((g) => g.key === "__global__");
   const specGroups = groups.filter((g) => g.scope === "specialty");
+  const wizardCourses = INITIAL_COURSES.filter((c) => c.specialtyId === wizardSpec);
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -191,7 +233,7 @@ export default function AdminSourcesPage() {
         </div>
 
         {/* Faculty View Switcher */}
-        <div className="inline-flex p-1 rounded-2xl bg-slate-100 dark:bg-navy-900 border border-slate-200/80 dark:border-navy-800 shadow-xs">
+        <div className="inline-flex p-1 rounded-2xl bg-slate-100 dark:bg-navy-900 border border-slate-200/80 dark:border-navy-800 shadow-xs shrink-0">
           <button
             onClick={() => setFacultyFilter("TOUS")}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
@@ -235,6 +277,101 @@ export default function AdminSourcesPage() {
         </div>
       )}
 
+      {/* ── 3-STEP QUICK ADD WIZARD (Faculté ➔ Module ➔ Cours) ── */}
+      <form onSubmit={handleWizardAdd} className="p-5 rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-lg space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 font-black text-sm">
+            <Sparkles className="w-4 h-4 text-amber-300" />
+            <span>Ajout Rapide de Source en 3 Étapes (Faculté ➔ Module ➔ Cours) :</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+          {/* Step 1: Faculté */}
+          <div>
+            <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">1. Faculté :</label>
+            <select
+              value={wizardFac}
+              onChange={(e) => setWizardFac(e.target.value as FacultyType)}
+              className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white font-bold text-xs"
+            >
+              <option value="ORAN" className="text-slate-900">🏛️ Oran</option>
+              <option value="SIDI_BEL_ABBES" className="text-slate-900">🏛️ Sidi Bel Abbès</option>
+              <option value="TOUS" className="text-slate-900">🌐 Commun (Toutes)</option>
+            </select>
+          </div>
+
+          {/* Step 2: Module */}
+          <div>
+            <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">2. Module / Spécialité :</label>
+            <select
+              value={wizardSpec}
+              onChange={(e) => {
+                setWizardSpec(e.target.value);
+                setWizardCourse("");
+              }}
+              className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white font-bold text-xs"
+            >
+              {ALL_SPECIALTIES.map((s) => (
+                <option key={s.id} value={s.id} className="text-slate-900">
+                  {getSpecialtyEmoji(s.id)} {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Step 3: Cours */}
+          <div>
+            <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">3. Mode / Cours :</label>
+            <select
+              value={wizardCourse}
+              onChange={(e) => setWizardCourse(e.target.value)}
+              className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white font-bold text-xs"
+            >
+              <option value="" className="text-slate-900">🌐 Tout le module</option>
+              {wizardCourses.map((c) => (
+                <option key={c.id} value={c.id} className="text-slate-900">
+                  📖 {c.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Source Name Input */}
+          <div>
+            <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">Nom de la source * :</label>
+            <div className="flex gap-1.5">
+              <input
+                type="text"
+                value={wizardName}
+                onChange={(e) => setWizardName(e.target.value)}
+                placeholder="Ex: Annales Oran 2024..."
+                className="w-full px-3 py-2 rounded-xl bg-white text-slate-900 font-bold text-xs placeholder:text-slate-400"
+              />
+              <button
+                type="submit"
+                disabled={saving || !wizardName.trim()}
+                className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shrink-0 disabled:opacity-40 cursor-pointer"
+              >
+                {saving ? "..." : "+ Ajouter"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      {/* ── INSTANT SEARCH FILTER BAR ── */}
+      <div className="relative">
+        <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Rechercher une source par nom (ex: 2024, Oran, SBA, Annales, Résidanat...)..."
+          className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-800 text-xs font-medium text-slate-900 dark:text-white"
+        />
+      </div>
+
       {loading ? (
         <div className="p-12 text-center text-slate-400 text-xs">Chargement des sources...</div>
       ) : (
@@ -260,7 +397,7 @@ export default function AdminSourcesPage() {
                     );
                     setNewSourceFaculty(facultyFilter);
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" /> Ajouter
                 </button>
@@ -273,7 +410,6 @@ export default function AdminSourcesPage() {
                     <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300">
                       Ajouter une source globale :
                     </span>
-                    {/* Faculty Target Pill */}
                     <div className="flex items-center gap-1 text-[10px]">
                       <button
                         type="button"
@@ -371,7 +507,7 @@ export default function AdminSourcesPage() {
                       )}
                       <button
                         onClick={() => handleDelete(src.name, undefined, undefined, src.faculty)}
-                        className="text-blue-400 hover:text-rose-600 ml-1"
+                        className="text-blue-400 hover:text-rose-600 ml-1 cursor-pointer"
                         title="Supprimer"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -400,7 +536,7 @@ export default function AdminSourcesPage() {
                 {/* Specialty Accordion Header */}
                 <button
                   onClick={() => setExpanded((p) => ({ ...p, [specId]: !p[specId] }))}
-                  className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-navy-800/50 transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-navy-800/50 transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-lg">{specGroup.emoji}</span>
@@ -442,7 +578,7 @@ export default function AdminSourcesPage() {
                             );
                             setNewSourceFaculty(facultyFilter);
                           }}
-                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold shadow-xs transition-all"
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold shadow-xs transition-all cursor-pointer"
                         >
                           <Plus className="w-3 h-3" /> Ajouter
                         </button>
@@ -540,7 +676,7 @@ export default function AdminSourcesPage() {
                             )}
                             <button
                               onClick={() => handleDelete(src.name, specId, undefined, src.faculty)}
-                              className="text-blue-400 hover:text-rose-600 ml-0.5"
+                              className="text-blue-400 hover:text-rose-600 ml-0.5 cursor-pointer"
                             >
                               <Trash2 className="w-2.5 h-2.5" />
                             </button>
@@ -580,7 +716,7 @@ export default function AdminSourcesPage() {
                                     );
                                     setNewSourceFaculty(facultyFilter);
                                   }}
-                                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold shrink-0 shadow-xs"
+                                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold shrink-0 shadow-xs cursor-pointer"
                                 >
                                   <Plus className="w-3 h-3" /> Ajouter
                                 </button>
@@ -639,13 +775,13 @@ export default function AdminSourcesPage() {
                                     <button
                                       onClick={handleAdd}
                                       disabled={saving}
-                                      className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold disabled:opacity-40"
+                                      className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold disabled:opacity-40 cursor-pointer"
                                     >
                                       {saving ? "..." : "✓"}
                                     </button>
                                     <button
                                       onClick={() => setActiveScope(null)}
-                                      className="px-2.5 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs"
+                                      className="px-2.5 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs cursor-pointer"
                                     >
                                       ✕
                                     </button>
@@ -678,7 +814,7 @@ export default function AdminSourcesPage() {
                                     )}
                                     <button
                                       onClick={() => handleDelete(src.name, specId, crsGroup.course, src.faculty)}
-                                      className="text-indigo-400 hover:text-rose-600 ml-0.5"
+                                      className="text-indigo-400 hover:text-rose-600 ml-0.5 cursor-pointer"
                                     >
                                       <Trash2 className="w-2.5 h-2.5" />
                                     </button>
