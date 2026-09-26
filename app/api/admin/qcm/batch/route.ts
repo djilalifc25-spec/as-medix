@@ -7,28 +7,26 @@ import { QCM } from '@/types';
 async function syncQcmsToSupabase(qcms: QCM[]) {
   try {
     const payload = qcms.map(qcm => ({
-      id: qcm.id,
-      specialty: qcm.specialtyId,
-      specialty_id: qcm.specialtyId,
-      specialty_name: qcm.specialtyName || 'Cardiologie',
-      course_id: qcm.courseId || null,
-      course_title: qcm.courseTitle || null,
-      faculty: qcm.faculty || 'ORAN',
-      source: qcm.source || 'Annales Examens',
-      title: qcm.question || qcm.title || 'Question',
-      vignette: qcm.vignette || '',
-      options: qcm.options || [],
-      correct_answers: qcm.correctAnswers || [0],
-      explanation: qcm.explanation || '',
-      rang: qcm.rang || 'Rang A',
-      year: qcm.year || null,
-      difficulty: qcm.difficulty || 'Moyen',
-      type: qcm.type || 'SINGLE',
-      reference: qcm.reference || "Faculté de Médecine d'Alger"
+      id: String(qcm.id),
+      specialty: String(qcm.specialtyId || 'cardio'),
+      specialty_id: String(qcm.specialtyId || 'cardio'),
+      specialty_name: String(qcm.specialtyName || 'Cardiologie'),
+      course_id: qcm.courseId ? String(qcm.courseId) : null,
+      course_title: qcm.courseTitle ? String(qcm.courseTitle) : null,
+      rang: qcm.rang ? String(qcm.rang) : 'Rang A',
+      title: String(qcm.question || qcm.title || 'Question'),
+      vignette: String(qcm.vignette || ''),
+      options: Array.isArray(qcm.options) ? qcm.options : [],
+      correct_answers: Array.isArray(qcm.correctAnswers) ? qcm.correctAnswers : [0],
+      explanation: String(qcm.explanation || ''),
+      year: qcm.year ? String(qcm.year) : null
     }));
-    await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
+    const { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
+    if (error) {
+      console.error('[Supabase Batch Sync] QCM upsert error:', error);
+    }
   } catch (err) {
-    console.error('[Supabase Batch Sync] QCM upsert error:', err);
+    console.error('[Supabase Batch Sync] QCM upsert exception:', err);
   }
 }
 
