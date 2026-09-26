@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-AS-MEDIX - Extracteur Local de QCMs (PDF, Google Drive, Web URL)
------------------------------------------------------------------
+AS-MEDIX - Extracteur Local de QCMs (PDF Texte, PDF Scanné OCR, Google Drive, Web URL)
+---------------------------------------------------------------------------------------
 Ce script extrait automatiquement les QCMs à partir :
-  1. D'un fichier PDF local sur votre PC
+  1. D'un fichier PDF texte ou d'un PDF SCANNÉ (via OCR automatique)
   2. D'un lien Google Drive (ex: https://drive.google.com/file/d/.../view)
-  3. D'une URL web directe vers un PDF
+  3. D'une URL web directe vers un PDF (ex: Weebly, Google, etc.)
 
 Il génère :
   - `qcms_extracted.json` : Fichier JSON formaté pour import direct sur le site AS-MEDIX
@@ -14,16 +14,21 @@ Il génère :
   - Option d'envoi automatique (téléversement) sur votre site AS-MEDIX !
 
 Dépendances requises (s'installent automatiquement si manquantes) :
-  pip install pypdf requests
+  pip install pymupdf pypdf requests rapidocr-onnxruntime pillow
 """
 
 import sys
 import os
 import re
 import json
-import urllib.parse
 
-# Auto install dependency helper
+# Enable UTF-8 encoding for Windows standard output
+if sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 def ensure_dependencies():
     missing = []
     try:
@@ -34,21 +39,30 @@ def ensure_dependencies():
         import requests
     except ImportError:
         missing.append("requests")
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        missing.append("pymupdf")
+    try:
+        import rapidocr_onnxruntime
+    except ImportError:
+        missing.append("rapidocr-onnxruntime")
+    try:
+        import PIL
+    except ImportError:
+        missing.append("pillow")
     
     if missing:
-        print(f"📦 Installation des dépendances manquantes : {', '.join(missing)}...")
+        print(f"📦 Installation des dépendances OCR/PDF manquantes : {', '.join(missing)}...")
         import subprocess
         subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
 
-# Enable UTF-8 encoding for Windows standard output
-if sys.stdout.encoding.lower() != 'utf-8':
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
+ensure_dependencies()
 
 import pypdf
+import fitz
 import requests
+from rapidocr_onnxruntime import RapidOCR
 
 def extract_google_drive_id(url_or_id):
     """ Extrait l'ID d'un fichier depuis un lien Google Drive """
@@ -99,27 +113,51 @@ def download_pdf_from_url(url, destination):
                     f.write(chunk)
         print(f"✅ Fichier téléchargé depuis l'URL -> {destination}")
 
-def extract_text_from_pdf(pdf_path):
-    """ Extrait le texte d'un fichier PDF avec pypdf """
-    reader = pypdf.PdfReader(pdf_path)
-    text = ""
-    for page in reader.pages:
-        extracted = page.extract_text()
-        if extracted:
-            text += extracted + "\n"
-    return text
+def extract_text_with_ocr_fallback(pdf_path):
+    """ Extrait le texte d'un PDF (méthode texte direct + fallback OCR pour PDF scannés) """
+    doc = fitz.open(pdf_path)
+    full_text = ""
+    scanned_pages_count = 0
+    
+    engine = None
+
+    for i, page in enumerate(doc):
+        page_text = page.get_text()
+        if page_text and len(page_text.strip()) > 30:
+            full_text += page_text + "\n"
+        else:
+            # Page scannée ! Utiliser l'OCR RapidOCR (neural network)
+            scanned_pages_count += 1
+            if engine is None:
+                print("🔍 PDF scanné détecté (Image). Lancement de l'OCR IA local...")
+                engine = RapidOCR()
+            
+            pix = page.get_pixmap(dpi=200)
+            img_bytes = pix.tobytes("png")
+            result, _ = engine(img_bytes)
+            if result:
+                ocr_lines = [line[1] for line in result]
+                full_text += "\n".join(ocr_lines) + "\n"
+
+    if scanned_pages_count > 0:
+        print(f"⚡ OCR effectué avec succès sur {scanned_pages_count} page(s) scannée(s) !")
+
+    return full_text
 
 def parse_qcms(raw_text):
-    """ Découpe le texte brut en objets QCMs structurés """
+    """ Découpe le texte brut (ou OCR) en objets QCMs structurés """
     lines = raw_text.splitlines()
     qcms = []
     
     current_qcm = None
     current_vignette = []
     
+    # Regex robustes pour détecter les numéros de QCMs (ex: 1-, 1., QCM 1, Q1, 1 :)
     q_pattern = re.compile(r'^(?:QCM|Q|Question)?\s*(\d+)[\s.:\)-]+(.*)', re.IGNORECASE)
-    opt_pattern = re.compile(r'^\s*([A-E])[\s.:\)-]+(.*)', re.IGNORECASE)
-    ans_pattern = re.compile(r'^(?:Réponse[s]?|Corrigé|Reponses?|Clef|Key)[\s:]*([A-E,\s]+)', re.IGNORECASE)
+    # Regex pour les options (ex: A-, a., A), a-, B.)
+    opt_pattern = re.compile(r'^\s*([A-Ea-e])[\s.:\)-]+(.*)', re.IGNORECASE)
+    # Regex pour les corrigés s'ils sont dans le texte
+    ans_pattern = re.compile(r'^(?:Réponse[s]?|Corrigé|Reponses?|Clef|Key)[\s:]*([A-Ea-e,\s]+)', re.IGNORECASE)
 
     for line in lines:
         stripped = line.strip()
@@ -135,7 +173,7 @@ def parse_qcms(raw_text):
                 qcms.append(current_qcm)
                 
             current_qcm = {
-                "id": f"qcm_py_{q_num}_{int(os.times().system)}",
+                "id": f"qcm_py_{q_num}_{int(os.times().system * 100)}",
                 "tempNum": q_num,
                 "question": f"QCM {q_num} : {q_title}" if q_title else f"QCM {q_num}",
                 "vignetteText": "\n".join(current_vignette).strip(),
@@ -165,21 +203,19 @@ def parse_qcms(raw_text):
                     opt['isCorrect'] = True
             continue
 
-        # Si pas encore de QCM démarré, accumuler comme vignette/cas clinique
+        # Accumuler texte de vignette ou question ou continuation d'option
         if not current_qcm:
             current_vignette.append(stripped)
         else:
-            # Continuer texte de la question ou explication
             if len(current_qcm['options']) == 0:
                 current_qcm['question'] += " " + stripped
             else:
-                # Ajouter au dernier choix si la ligne continue
                 current_qcm['options'][-1]['text'] += " " + stripped
 
     if current_qcm and current_qcm.get('options'):
         qcms.append(current_qcm)
 
-    # Compléter les correctAnswers pour l'API
+    # Compléter correctAnswers
     for q in qcms:
         correct_indices = [idx for idx, o in enumerate(q['options']) if o.get('isCorrect')]
         q['correctAnswers'] = correct_indices if correct_indices else [0]
@@ -195,8 +231,8 @@ def format_as_text_import(qcms):
             text_out.append(f"--- VIGNETTE ---\n{q['vignetteText']}\n----------------")
         text_out.append(f"{q['question']}")
         for opt in q['options']:
-            star = "*" if opt.get('isCorrect') else ""
-            text_out.append(f"{opt['letter']}. {opt['text']} {star}")
+            star = " *" if opt.get('isCorrect') else ""
+            text_out.append(f"{opt['letter']}. {opt['text']}{star}")
         correct_str = "".join([o['letter'] for o in q['options'] if o.get('isCorrect')])
         if correct_str:
             text_out.append(f"Réponse : {correct_str}")
@@ -226,10 +262,9 @@ def upload_to_as_medix(qcms, site_url="http://localhost:3000", admin_key="asmedi
 
 def main():
     print("=" * 70)
-    print(" 🏥 AS-MEDIX - EXTRACTEUR ET SYNCHRONISATEUR LOCAL DE QCMS")
+    print(" 🏥 AS-MEDIX - EXTRACTEUR ET SYNCHRONISATEUR LOCAL DE QCMS (AVEC OCR)")
     print("=" * 70)
 
-    # Choix de la source
     source_input = ""
     if len(sys.argv) > 1:
         source_input = sys.argv[1]
@@ -240,7 +275,6 @@ def main():
         print("❌ Aucune entrée fournie. Arrêt.")
         return
 
-    # Traitement selon la source
     temp_pdf = "temp_qcm_source.pdf"
     is_temp = False
 
@@ -256,8 +290,8 @@ def main():
         print(f"❌ Fichier non trouvé : {pdf_path}")
         return
 
-    print(f"\n📄 Extraction du texte depuis : {pdf_path}...")
-    raw_text = extract_text_from_pdf(pdf_path)
+    print(f"\n📄 Extraction du texte (avec OCR si scanné) depuis : {pdf_path}...")
+    raw_text = extract_text_with_ocr_fallback(pdf_path)
     print(f"✅ {len(raw_text)} caractères extraits du document.")
 
     qcms = parse_qcms(raw_text)

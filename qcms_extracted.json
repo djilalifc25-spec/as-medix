@@ -1,0 +1,531 @@
+[
+  {
+    "id": "qcm_py_1_4253",
+    "tempNum": "1",
+    "question": "QCM 1 : Les etiologies desavortements du premlor trlmostro do la grossesso:",
+    "vignetteText": "UNIVERSITEDJILALI LIABES\nFACULTE DE MEDECINE TALEB MORAD\nExamen de gynecologie-obstetrlque (rattrapagc) g*me annee\nle 04 Juillct 2023\nCocher la ou les reponses justes :",
+    "options": [
+      {
+        "letter": "A",
+        "text": " La beance cervico isthmique Les aberrations chromosomiques Les infectionsurinaires",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": " Lesmaladiesdebilitantes",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_2_4253",
+    "tempNum": "2",
+    "question": "QCM 2 Dans les moles hydatiformes : Lecuretage se faital'aide delapetitecurettemousse Lasurveillances'étalesur4mois",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "C",
+        "text": " Le taux des beta-HCG est tres éleve",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": " Le curetagesefaitsouscontroleechographique",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_10_4253",
+    "tempNum": "10",
+    "question": "QCM 10 : spermatozoides actifs par champs au grosslssement G400",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": "",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_5_4253",
+    "tempNum": "5",
+    "question": "QCM 5 : spermatozoides actifsparchamps au grossissement G400",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "C",
+        "text": " Pasdespermatozoidesaugrossissement G200 Spermatozoidesmobiles actifssousmicroscopeelectronique",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_4_4253",
+    "tempNum": "4",
+    "question": "QCM 4 Hysterosalpingographie est:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": " Demande devant une infertilite de plus de 1 an b Sefaitentrele8-emeet le10emeJourducyclemenstruel Sousanesthesiegenerale",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": " Demande devant une infertilite demoins de5mols 5 La contraception hormonale oestroprogestative: Debuterle 5-eme jour du cyclemenstruel Estprisesansinterruption",
+        "isCorrect": false
+      },
+      {
+        "letter": "C",
+        "text": " Estcontre indiqueencas d'uteruscicatriciel",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": " Debuter le 1erjour du premier cycle menstruel",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_6_4253",
+    "tempNum": "6",
+    "question": "QCM 6 Dans quelles situations vous administrer Ianti-D:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": " Femme derhesus negatif mari rhesusnegatifoperepour GEU",
+        "isCorrect": false
+      },
+      {
+        "letter": "B",
+        "text": " Femme de rhesus negatif mari rhesus positif accouche d'un enfant rhesus negatif test de Coomts direct positif Femme derhesus negatif mari derhesuspositifenfant mort ne derhesuspositiftestde Cooms direct negatif Femme de rhesus negatif qui avorte au ler trimestre sans curetage et mari rhesus post? La presentation du front: Est une presentation totalement deflechie Est une presentation dystocique L'enclavement est la complication la plus redoutable Le menton n'est jamais percu",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_11_4253",
+    "tempNum": "11",
+    "question": "QCM 11 : Dans la classification echographique des fibromes uterins: ales fibromes avec une composante intra-cavitaire sont de type 0, 1, 2",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": "lesfibromes pedicules sont detype 0 et 6. Lesfibromes intra-murauxsontdetype4et 5. L'echographie est suffisante pour faire le diagnostic des fibromes,leurstailles,leurs nombres et leurs localisations.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_12_4253",
+    "tempNum": "12",
+    "question": "QCM 12 : L'accouchement d'unepresentationde faceestcaracterisepar: Unedilatation trainantedu coluterin.",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": " Larupture delapochedes eaux avant laphase active dutravailestunbonsigne. Lasurveillancedutravailestobligatoireensalled'accouchement.",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": " Le diagnosticestposedesladilatation de3cm.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_13_4253",
+    "tempNum": "13",
+    "question": "QCM 13 : Dansl'hypertension arterielle: Leprobleme est lieaun defaut deplacentation et I'absence deremodelage vasculaire durant la periodeallantde14saa20sa. Ceproblemepeut etre detecteechographiquementparune diminution desresistancesau dopplerdesarteresuterines. L'ischemie placentaire est secondaire aumicro-thromboses,etelleresponsablede la liberation C dessubstancesvasoconstrictrices.",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "D",
+        "text": "La decouverte de I'HTA au premier trimestre impose l'interruption therapeutique de grossesse.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_14_4253",
+    "tempNum": "14",
+    "question": "QCM 14 : Dans la prise en charge de l'hypertension arterielle, la prise en charge repose sur: L'introductionse fait deslepremierpic tensionnel detecte a la consultation. a",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": " On commence toujours par un inhibiteur central (aldomet) sous reserve d'un bilan hepatique correct. Regime sans sel.",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "Lesulfatedemagnesiumestreservepourlessignesdepreeclampsie.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_15_4253",
+    "tempNum": "15",
+    "question": "QCM 15 : l'adenocarcinomeuterin: a C'estunprocessustumoraldontlepronosticestmauvaisparrapportausarcomeuterin.",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": " LediagnosticestconfirmealiRM. Le typehistologiquebien differencieestdemauvaispronostic. Letraitementestchirurgicalradicalchaquefoisquepossible.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_16_4253",
+    "tempNum": "16",
+    "question": "QCM 16 : Quel estl'examena demander devantun saignementgenital survenu chez unefemmeageede 55ans avecunepaississement de I'endometrea l'echographie:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": "IRM",
+        "isCorrect": false
+      },
+      {
+        "letter": "B",
+        "text": "Scanner 6 Hysteroscopie diagnostic Hysterosalpingographie.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_17_4253",
+    "tempNum": "17",
+    "question": "QCM 17 : Dans la situation d'incompatibilite: La femme est de rhesusnegatif/ fcetus derhesuspositif. L'anemie foetale arrive au troisieme stade du tableau d'anasarque foeto-placentaire. Le recours a la transfusion in utero est toujours systematique.",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "C",
+        "text": "",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "Lepronosticfcetal est toujours sombre et l'interruption de la grossesse toujours s'impose au premierstadedu tableaud'anasarquefcetoplacentaire.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_3_4253",
+    "tempNum": "3",
+    "question": "QCM 3 : Atteinted'unovaireoudesdeuxetatteintedel'uterusoudela trompe",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": "Les deux ovaires sont atteints, avec absence de rupture capsulaire Atteinte dunovaire oulesdeux,etextension aurestedupelvis C Atteinte d'un ovaire oules deux, avec absence d'extension aureste du pelvis",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_19_4253",
+    "tempNum": "19",
+    "question": "QCM 19 : Quelles sont lescauses ou I'on pourra retrouver a un test auprogestatif negatif : Unemenopauseprecoce",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": " Un syndrome des ovaires polykystique",
+        "isCorrect": false
+      },
+      {
+        "letter": "C",
+        "text": " Unesynechieuterine",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "Une hypoplasie ovarienne",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_20_4253",
+    "tempNum": "20",
+    "question": "QCM 20 : Le depistage du cancerdelovaire sefaitpar: Realiserle dosagede CA125touslesdeuxanschezlesfemmesmenopausees",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "B",
+        "text": " Realiserdesechographiespelvienneschaque anneeapartirde30ans",
+        "isCorrect": false
+      },
+      {
+        "letter": "C",
+        "text": " Iln'ya aucunmoyendedepistage ans",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_21_4253",
+    "tempNum": "21",
+    "question": "QCM 21 : DanslesvarietesOPiDdelapresentationdusommetonobservesouvent:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": "Une bosse sero-sanguine importante",
+        "isCorrect": false
+      },
+      {
+        "letter": "B",
+        "text": " Unengagementplusrapidedufaisdel'asynclitisme C Unedilatationtrainante Unerotationde 45°enavant -Parmi lesetiologies deI'hemorragiedu troisiemetrimestre,on note: Unplacentapraevia",
+        "isCorrect": false
+      },
+      {
+        "letter": "B",
+        "text": " Une rupture uterine Unemenace d'accouchementpremature",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": " Un hematomeretroplacentaire",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_23_4253",
+    "tempNum": "23",
+    "question": "QCM 23 : Lescontractionsdetravailsont: a Douloureuse,rythmees,involontairesettotales. Ellessontresponsablesdeladilatationducolet laformation delapoche deseaux. Ellessontpermanentessansuntempsderelachement.",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "D",
+        "text": "Elles surviennent juste au terme delagrossesse.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_24_4253",
+    "tempNum": "24",
+    "question": "QCM 24 : L'echographiedu1ertrimestre: Est uneéchographiededatation. Permet d'eliminer une grossesse extra uterine.",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "C",
+        "text": " Permet d'apprecierlavitalitedufcetus.",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "Determinele sexe du fcetus.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_26_4253",
+    "tempNum": "26",
+    "question": "QCM 26 : Lle placenta previa:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": "letouchervaginalestproscrit Peut-etrea Iorigined'unepresentationdystocique Lacesarienneestindiqueed'embleedevant unplacentapraevia",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "Peut secompliquer d'une hemorragie deladelivrance",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_27_4253",
+    "tempNum": "27",
+    "question": "QCM 27 : La rupture uterine en cas d'uterus sain:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": "On trouveunuterusdeformeensablier",
+        "isCorrect": false
+      },
+      {
+        "letter": "B",
+        "text": "L'anneau de BANDELest un anneau deretractation separentle segmentinferieuraminci du corpsuterinretracte tesbruitsducceur foetalsonttoujourspresents Le traitementrepose sur la chirurgieet lesmesures dereanimation",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_28_4253",
+    "tempNum": "28",
+    "question": "QCM 28 : Lamenaced'accouchementprematureest: Lapremierecausedemortaliteetdemorbiditeneonatale Estcaracteriseepar la survenue deContractionsuterinesrapprocheessansmodification cervicale",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "C",
+        "text": " La menace aboutiea unaccouchementprematureen 'absenced'untraitementmedical",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "le diagnosticestsurtoutclinique. ·Laruptureprematureedesmembranes: Est unfacteurderisquedendometritedupostepartum",
+        "isCorrect": false
+      },
+      {
+        "letter": "B",
+        "text": "La rupture est dite premature lorsqu'elle se rompt au cours du travail",
+        "isCorrect": false
+      },
+      {
+        "letter": "C",
+        "text": "L'ceufs'exposealinfectionsd'autantplusquele travail tarde",
+        "isCorrect": false
+      },
+      {
+        "letter": "D",
+        "text": "Ellepeutsecompliquerd'unechorioamniotite.",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  },
+  {
+    "id": "qcm_py_30_4253",
+    "tempNum": "30",
+    "question": "QCM 30 : ParmilescaracteristiquesdeIendometriose:",
+    "vignetteText": "",
+    "options": [
+      {
+        "letter": "A",
+        "text": " Presencedenodositebleuatreauniveaudel'uterusalexplorationccelioscopique Presenced'unliquidechocolatauniveaudelendometriome Lesadherencespelviennessonttresfrequentes ATcDd'endometriosedanslafamillepeutetreunfacteurderisque P Conige Type",
+        "isCorrect": false
+      }
+    ],
+    "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>",
+    "correctAnswers": [
+      0
+    ],
+    "type": "SINGLE"
+  }
+]
