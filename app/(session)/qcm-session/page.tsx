@@ -377,8 +377,35 @@ function SessionContent() {
     );
   }
 
+  // Touch swipe handling for mobile scrolling
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartX - touchEndX;
+
+    if (diffX > 60) {
+      if (hasValidated) handleNext();
+    } else if (diffX < -60 && currentIndex > 0) {
+      setCurrentIndex(i => i - 1);
+      setSelectedAnswers([]);
+      setHasValidated(false);
+      setShowVignetteDetails(false);
+    }
+    setTouchStartX(null);
+  };
+
   return (
-    <div className="min-h-[100dvh] h-[100dvh] flex flex-col bg-gradient-to-br from-navy-950 via-slate-900 to-indigo-950 overflow-hidden relative select-none">
+    <div 
+      className="min-h-[100dvh] h-[100dvh] flex flex-col bg-gradient-to-br from-navy-950 via-slate-900 to-indigo-950 overflow-hidden relative select-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
 
       {/* ── 1. COMPACT TOP STATS BAR ── */}
       <header className="shrink-0 bg-navy-950/90 backdrop-blur-xl border-b border-white/10 px-3 pb-2 sm:px-4 sm:pb-2.5 relative z-30" style={{ paddingTop: "max(0.625rem, env(safe-area-inset-top, 0px))" }}>
@@ -441,7 +468,29 @@ function SessionContent() {
             </div>
           </div>
 
-          {/* Progress Bar (Fills as user answers questions) */}
+          {/* Quick Horizontal Scrollable QCM Strip for Instant Jump */}
+          <div className="flex items-center gap-1.5 overflow-x-auto py-1 px-0.5 scrollbar-none max-w-4xl mx-auto">
+            {sessionQcms.map((_, idx) => {
+              const isAns = answersMap[idx];
+              let pillStyle = 'bg-white/10 text-white/70 hover:bg-white/20';
+              if (idx === currentIndex) pillStyle = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 scale-105 shadow-sm';
+              else if (isAns?.validated && isAns.correct) pillStyle = 'bg-emerald-500 text-white font-bold';
+              else if (isAns?.validated && !isAns.correct) pillStyle = 'bg-rose-500 text-white font-bold';
+
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleJump(idx)}
+                  className={`h-6 min-w-[28px] px-2 rounded-lg text-[10px] font-mono shrink-0 transition-all active:scale-95 cursor-pointer ${pillStyle}`}
+                >
+                  Q{idx + 1}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Progress Bar */}
           <ProgressBar current={answeredCount} total={totalCount} />
         </div>
 
