@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { User, UserRole, PlanType } from '@/types';
 import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
-import { syncUsersFromSupabase } from '@/lib/db/userSync';
+import { syncUsersFromSupabase, updateUserInSupabaseCloud } from '@/lib/db/userSync';
 import { checkAndEnforceLicenseExpiration } from '@/lib/subscription/license';
 
 const SESSION_COOKIE = 'asmedix_session';
@@ -110,6 +110,14 @@ export async function getAuthenticatedUser(): Promise<User | null> {
         return null;
       }
 
+      // STRICT SINGLE DEVICE SESSION ENFORCEMENT:
+      // If user has a different activeSessionId saved (from a newer login on another device),
+      // invalidate current device session immediately!
+      if (found.activeSessionId && found.activeSessionId !== sessionId) {
+        activeSessions.delete(sessionId);
+        return null;
+      }
+
       // Automatically enforce 1-year subscription license expiration
       const licenseCheck = await checkAndEnforceLicenseExpiration(found);
       found = licenseCheck.user;
@@ -154,6 +162,13 @@ export function createSession(user: User, userAgent?: string): string {
   const roleTag = `_ROLE_${user.role}`; // e.g. _ROLE_ADMIN, _ROLE_STUDENT
   const sessionId = `sess_b64_${b64Id}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}${roleTag}`;
 
+  // Purge any existing active session tokens for this user from memory cache
+  activeSessions.forEach((sData, sId) => {
+    if (sData.userId === user.id) {
+      activeSessions.delete(sId);
+    }
+  });
+
   activeSessions.set(sessionId, {
     userId: user.id,
     email: user.email,
@@ -161,11 +176,16 @@ export function createSession(user: User, userAgent?: string): string {
     plan: user.plan
   });
 
-  db.updateUser(user.id, {
+  const sessionUpdates = {
     activeSessionId: sessionId,
     lastActive: new Date().toISOString(),
     ...(userAgent ? { lastDevice: userAgent.slice(0, 80) } : {})
-  });
+  };
+
+  db.updateUser(user.id, sessionUpdates);
+  if (user.email) {
+    updateUserInSupabaseCloud(user.email, sessionUpdates).catch(() => {});
+  }
 
   return sessionId;
 }

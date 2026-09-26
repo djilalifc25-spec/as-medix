@@ -14,9 +14,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [deviceReasonNotice, setDeviceReasonNotice] = useState<string | null>(null);
 
-  // Check if already logged in to show status (without hijacking the page)
+  // Check if already logged in or if logged out due to single device restriction
   React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const reason = params.get('reason');
+      if (reason === 'another_device' || reason === 'session_expired') {
+        setDeviceReasonNotice('⚠️ Déconnexion Automatique : Votre compte s\'est connecté sur un autre appareil. Conformément au règlement d\'accès AS-MEDIX, un seul appareil peut être actif à la fois.');
+      }
+    }
+
     fetch('/api/auth/me')
       .then(r => r.json())
       .then(data => {
@@ -123,6 +132,13 @@ export default function LoginPage() {
                   Se déconnecter
                 </button>
               </div>
+            </div>
+          )}
+
+          {deviceReasonNotice && (
+            <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>{deviceReasonNotice}</span>
             </div>
           )}
 
