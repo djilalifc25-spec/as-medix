@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { createSession } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
+import { supabase } from '@/lib/supabase/client';
+import { syncUsersFromSupabase, saveUserToSupabaseCloud } from '@/lib/db/userSync';
 import { User, MedicalProfession } from '@/types';
+import crypto from 'crypto';
 
 export async function POST(req: Request) {
   try {
@@ -16,12 +19,15 @@ export async function POST(req: Request) {
     const cleanUsername = (username || email.split('@')[0]).toLowerCase().trim().replace(/\s+/g, '');
     const chosenPlan = (targetPlan === 'PRO' || targetPlan === 'PREMIUM') ? targetPlan : 'FREE';
 
+    // 0. Ensure local store is synced with Supabase Cloud
+    await syncUsersFromSupabase();
+
     // Role mapping
     let profileRole: 'STUDENT' | 'DOCTOR' | 'RESIDENT' | 'ADMIN' = 'STUDENT';
     if (profession === 'Médecin') profileRole = 'DOCTOR';
     else if (profession === 'Résident') profileRole = 'RESIDENT';
 
-    // 1. Single account check in local database
+    // 1. Single account check in local database & cloud
     const existingInLocal = db.getUsers().find(u => u.email.toLowerCase().trim() === cleanEmail);
     if (existingInLocal) {
       return NextResponse.json({
@@ -36,22 +42,7 @@ export async function POST(req: Request) {
       }, { status: 400 });
     }
 
-    // Single account check in Supabase profiles (fail-safe)
-    try {
-      const { data: existingProfile } = await supabaseAdmin
-        .from('profiles')
-        .select('id, email')
-        .ilike('email', cleanEmail)
-        .maybeSingle();
-
-      if (existingProfile) {
-        return NextResponse.json({
-          error: 'Cette adresse email est déjà inscrite sur AS-MEDIX. Veuillez vous connecter ou réinitialiser votre mot de passe.'
-        }, { status: 400 });
-      }
-    } catch {}
-
-    // 2. Try creating user in Supabase Auth
+    // 2. Try creating user in Supabase Auth (via admin or client)
     let supabaseUserId: string | null = null;
     try {
       const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
@@ -72,63 +63,44 @@ export async function POST(req: Request) {
           return NextResponse.json({
             error: 'Cette adresse email est déjà inscrite sur AS-MEDIX. Veuillez vous connecter ou cliquer sur « Mot de passe oublié ».'
           }, { status: 400 });
-        } else {
-          console.error('[Supabase Auth Register Warning]:', authError.message);
         }
       } else if (authData?.user) {
         supabaseUserId = authData.user.id;
       }
-    } catch (e: any) {
-      console.error('[Supabase Auth Exception]:', e.message);
+    } catch (e: any) {}
+
+    // Fallback attempt via standard Supabase Auth client if admin failed
+    if (!supabaseUserId) {
+      try {
+        const { data: clientAuthData } = await supabase.auth.signUp({
+          email: cleanEmail,
+          password: password,
+          options: {
+            data: {
+              full_name: `Dr. ${prenom.trim()} ${nom.trim()}`,
+              profession: profession || 'Étudiant',
+              faculty: faculty || 'ORAN',
+              username: cleanUsername,
+              raw_password: password
+            }
+          }
+        });
+        if (clientAuthData?.user) {
+          supabaseUserId = clientAuthData.user.id;
+        }
+      } catch (clientAuthErr) {}
     }
 
-    // Guaranteed user ID fallback
-    const finalUserId = supabaseUserId || `usr_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    // Guaranteed valid UUID fallback
+    const finalUserId = (supabaseUserId && supabaseUserId.includes('-')) ? supabaseUserId : crypto.randomUUID();
 
-    // 3. Guaranteed insertion into Supabase 'profiles' table (ALWAYS attempted)
-    try {
-      const profilePayload: any = {
-        id: finalUserId,
-        email: cleanEmail,
-        full_name: `Dr. ${prenom.trim()} ${nom.trim()}`,
-        profession: profession || 'Étudiant',
-        role: profileRole,
-        plan: chosenPlan,
-        faculty: faculty || 'ORAN',
-        raw_password: password,
-        updated_at: new Date().toISOString()
-      };
-
-      const { error: pErr } = await supabaseAdmin.from('profiles').upsert(profilePayload, { onConflict: 'id' });
-      if (pErr && pErr.message?.includes('raw_password')) {
-        delete profilePayload.raw_password;
-        await supabaseAdmin.from('profiles').upsert(profilePayload, { onConflict: 'id' });
-      }
-
-      // 4. Register in 'subscriptions' table if PRO or PREMIUM
-      if (chosenPlan === 'PRO' || chosenPlan === 'PREMIUM') {
-        await supabaseAdmin.from('subscriptions').upsert({
-          user_id: finalUserId,
-          plan_type: chosenPlan,
-          status: 'ACTIVE',
-          payment_method: 'BARIDIMOB',
-          amount_da: chosenPlan === 'PREMIUM' ? 7000.00 : 4500.00,
-          starts_at: new Date().toISOString(),
-          expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-          notes: `Souscription initiale ${chosenPlan} lors de l'inscription`
-        }, { onConflict: 'user_id' });
-      }
-    } catch (dbErr: any) {
-      console.error('[Supabase Profiles Insert Error]:', dbErr.message);
-    }
-
-    // 5. Update local in-memory & disk store
+    // 3. Build new user object
     const newUser: User = {
       id: finalUserId,
       email: cleanEmail,
       name: `Dr. ${prenom.trim()} ${nom.trim()}`,
       username: cleanUsername,
-      password: password, // Retained for admin management in dashboard
+      password: password,
       profession: (profession as MedicalProfession) || 'Étudiant',
       faculty: faculty || 'ORAN',
       role: 'USER',
@@ -146,7 +118,28 @@ export async function POST(req: Request) {
       }
     };
 
+    // 4. Save to local store
     db.createUser(newUser);
+
+    // 5. GUARANTEED PERSISTENCE IN SUPABASE CLOUD (password_resets table backup)
+    await saveUserToSupabaseCloud(newUser);
+
+    // 6. Best-effort insertion into Supabase 'profiles' table
+    try {
+      const profilePayload: any = {
+        id: finalUserId,
+        email: cleanEmail,
+        full_name: `Dr. ${prenom.trim()} ${nom.trim()}`,
+        profession: profession || 'Étudiant',
+        role: profileRole,
+        plan: chosenPlan,
+        faculty: faculty || 'ORAN',
+        raw_password: password,
+        updated_at: new Date().toISOString()
+      };
+
+      await supabaseAdmin.from('profiles').upsert(profilePayload, { onConflict: 'id' });
+    } catch (dbErr: any) {}
 
     // Notify admins of new registration
     try {

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { createSession } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
+import { syncUsersFromSupabase } from '@/lib/db/userSync';
 import { User } from '@/types';
 
 export async function POST(req: Request) {
@@ -14,6 +15,9 @@ export async function POST(req: Request) {
 
     const cleanId = identifier.toLowerCase().trim();
     const cleanIdNoSpaces = cleanId.replace(/\s+/g, '');
+
+    // Re-sync users from Supabase Cloud
+    await syncUsersFromSupabase();
 
     let user = db.getUsers().find(
       u => u.email.toLowerCase().trim() === cleanId ||

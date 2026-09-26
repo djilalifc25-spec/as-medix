@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
+import { syncUsersFromSupabase, updateUserInSupabaseCloud, deleteUserFromSupabaseCloud } from '@/lib/db/userSync';
 import { User } from '@/types';
 
 export async function GET() {
@@ -10,9 +11,12 @@ export async function GET() {
     return NextResponse.json({ error: 'Accès non autorisé au panneau d\'administration' }, { status: 403 });
   }
 
+  // 1. Re-sync all registered users from Supabase Cloud
+  await syncUsersFromSupabase();
+
   const localUsers = db.getUsers();
 
-  // Fetch real registered profiles and Auth metadata from Supabase Cloud
+  // 2. Fetch real registered profiles and Auth metadata from Supabase Cloud
   try {
     const authMap: Record<string, string> = {};
     try {
@@ -99,7 +103,10 @@ export async function POST(req: Request) {
       if (!newPassword || newPassword.length < 4) {
         return NextResponse.json({ error: 'Le mot de passe doit contenir au moins 4 caractères' }, { status: 400 });
       }
-      db.updateUser(id, { password: newPassword });
+      const updatedUser = db.updateUser(id, { password: newPassword });
+      if (updatedUser?.email) {
+        await updateUserInSupabaseCloud(updatedUser.email, { password: newPassword });
+      }
       try {
         await supabaseAdmin.auth.admin.updateUserById(id, {
           password: newPassword,
@@ -113,6 +120,10 @@ export async function POST(req: Request) {
     }
 
     if (action === 'delete') {
+      const targetUser = db.getUserById(id);
+      if (targetUser?.email) {
+        await deleteUserFromSupabaseCloud(targetUser.email);
+      }
       const deleted = db.deleteUser(id);
       // Delete from Supabase profiles & Auth
       try {
@@ -126,6 +137,9 @@ export async function POST(req: Request) {
 
     if (action === 'update') {
       const updated = db.updateUser(id, updates);
+      if (updated?.email) {
+        await updateUserInSupabaseCloud(updated.email, updates);
+      }
       // Update in Supabase profiles & subscriptions
       try {
         if (updates.plan) {
@@ -165,8 +179,13 @@ export async function POST(req: Request) {
       const approved = db.approvePaymentRequest(requestId, currentUser.id);
       const pr = db.getPaymentRequests().find(r => r.id === requestId);
       if (pr) {
+        const plan = pr.requestedPlan || 'PRO';
+        await updateUserInSupabaseCloud(pr.userEmail, { plan });
+        const userInDb = db.getUserByEmail(pr.userEmail);
+        if (userInDb) {
+          db.updateUser(userInDb.id, { plan });
+        }
         try {
-          const plan = pr.requestedPlan || 'PRO';
           const amount = plan === 'PREMIUM' ? 7000.00 : 4500.00;
           await supabaseAdmin.from('profiles').update({ plan }).eq('id', pr.userId);
           await supabaseAdmin.from('subscriptions').insert({
