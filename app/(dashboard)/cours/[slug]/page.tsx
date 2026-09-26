@@ -22,16 +22,44 @@ import { SpacedRepetitionModal } from '@/components/study/SpacedRepetitionModal'
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CourseNotesDrawer } from '@/components/study/CourseNotesDrawer';
 
+function normalizeSlug(str: string): string {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 function CourseDetailContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params.slug as string;
 
-  const [course, setCourse] = useState<Course | null>(() => INITIAL_COURSES.find(c => c.slug === slug) || null);
+  const [course, setCourse] = useState<Course | null>(() => {
+    const normTarget = normalizeSlug(slug);
+    return INITIAL_COURSES.find(c => 
+      c.id === slug || 
+      c.slug === slug || 
+      normalizeSlug(c.slug) === normTarget || 
+      normalizeSlug(c.id) === normTarget
+    ) || null;
+  });
   const [loading, setLoading] = useState(!course);
 
   useEffect(() => {
-    const initialFallback = INITIAL_COURSES.find(c => c.slug === slug || c.id === slug);
+    const normTarget = normalizeSlug(slug);
+    const decodedTarget = normalizeSlug(decodeURIComponent(slug));
+
+    const initialFallback = INITIAL_COURSES.find(c => 
+      c.id === slug || 
+      c.slug === slug || 
+      normalizeSlug(c.slug) === normTarget || 
+      normalizeSlug(c.slug) === decodedTarget ||
+      normalizeSlug(c.id) === normTarget
+    );
+
     if (initialFallback) {
       setCourse(initialFallback);
     } else {
@@ -42,10 +70,35 @@ function CourseDetailContent() {
       .then(r => r.json())
       .then(d => {
         if (d.courses && Array.isArray(d.courses) && d.courses.length > 0) {
-          const found = d.courses.find((c: any) => c.slug === slug || c.id === slug) || d.courses[0];
+          const found = d.courses.find((c: any) => 
+            c.id === slug || 
+            c.slug === slug || 
+            normalizeSlug(c.slug) === normTarget || 
+            normalizeSlug(c.slug) === decodedTarget ||
+            normalizeSlug(c.id) === normTarget ||
+            normalizeSlug(c.title).includes(normTarget)
+          ) || d.courses[0];
           if (found) {
             setCourse(found);
           }
+        } else {
+          // Retry fetching all courses if slug filter didn't match directly
+          fetch('/api/courses')
+            .then(r => r.json())
+            .then(allD => {
+              if (allD.courses && Array.isArray(allD.courses)) {
+                const foundFallback = allD.courses.find((c: any) =>
+                  c.id === slug ||
+                  c.slug === slug ||
+                  normalizeSlug(c.slug) === normTarget ||
+                  normalizeSlug(c.slug) === decodedTarget ||
+                  normalizeSlug(c.id) === normTarget ||
+                  normalizeSlug(c.title).includes(normTarget)
+                );
+                if (foundFallback) setCourse(foundFallback);
+              }
+            })
+            .catch(() => {});
         }
       })
       .catch(() => {})

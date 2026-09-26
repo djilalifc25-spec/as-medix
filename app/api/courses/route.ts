@@ -5,12 +5,22 @@ import { Course } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
+function normalizeSlug(str: string): string {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 function mapSupabaseRowToCourse(row: any): Course {
   const title = row.title || row.name || 'Cours';
-  const slug = row.slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const slug = row.slug || normalizeSlug(title) || String(row.id);
   return {
     id: String(row.id),
-    slug: row.slug || slug,
+    slug: slug,
     title: title,
     subtitle: row.subtitle || '',
     specialtyId: row.specialty_id || row.specialty || 'cardio',
@@ -74,7 +84,17 @@ export async function GET(req: NextRequest) {
     let courses = Array.from(coursesMap.values());
 
     if (slug) {
-      courses = courses.filter(c => c.slug === slug || c.id === slug);
+      const targetNorm = normalizeSlug(slug);
+      const decodedTarget = normalizeSlug(decodeURIComponent(slug));
+      courses = courses.filter(c => 
+        c.id === slug ||
+        c.slug === slug ||
+        normalizeSlug(c.slug) === targetNorm ||
+        normalizeSlug(c.slug) === decodedTarget ||
+        normalizeSlug(c.id) === targetNorm ||
+        normalizeSlug(c.title).includes(targetNorm) ||
+        normalizeSlug(c.title).includes(decodedTarget)
+      );
     }
     if (specialty) {
       courses = courses.filter(c => c.specialtyId === specialty);

@@ -3,7 +3,7 @@ import { Course } from '@/types';
 export const INITIAL_COURSES: Course[] = [
   {
     "id": "cours_neuro_behcet",
-    "slug": "maladie-de-behcet",
+    "slug": "la-maladie-de-behcet-neuro-behcet",
     "title": "La Maladie de Behçet & Neuro-Behçet",
     "subtitle": "Diagnostic positif (ICBD 2014), Neuro-Behçet parenchymateux vs vasculaire (TVC), génétique (HLA-B51) et stratégie thérapeutique",
     "specialtyId": "neuro",
@@ -84,7 +84,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_1790371084562",
-    "slug": "cours-1790371084562",
+    "slug": "introduction-aux-politiques-de-sante-publique",
     "title": "Introduction aux Politiques de Santé Publique",
     "subtitle": "Notions fondamentales de santé communautaire",
     "specialtyId": "sante-publique-epidemiologie",
@@ -167,7 +167,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_cardio_rm",
-    "slug": "le-r-tr-cissement-mitral-st-nose-mitrale",
+    "slug": "le-retrecissement-mitral-stenose-mitrale",
     "title": "Le Rétrécissement Mitral (Sténose Mitrale)",
     "subtitle": "",
     "specialtyId": "cardio",
@@ -204,7 +204,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_neuro_avc",
-    "slug": "l-accident-vasculaire-c-r-bral-avc-isch-mique-aigu",
+    "slug": "l-accident-vasculaire-cerebral-avc-ischemique-aigu",
     "title": "L'Accident Vasculaire Cérébral (AVC) Ischémique Aigu",
     "subtitle": "",
     "specialtyId": "neuro",
@@ -241,7 +241,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_cardio_ic",
-    "slug": "l-insuffisance-cardiaque-aigu-et-chronique",
+    "slug": "l-insuffisance-cardiaque-aigue-et-chronique",
     "title": "L'Insuffisance Cardiaque Aiguë et Chronique",
     "subtitle": "",
     "specialtyId": "cardio",
@@ -278,7 +278,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_pneumo_aag",
-    "slug": "la-crise-d-asthme-aigu-grave-aag",
+    "slug": "la-crise-d-asthme-aigue-grave-aag",
     "title": "La Crise d'Asthme Aiguë Grave (AAG)",
     "subtitle": "",
     "specialtyId": "pneumo",
@@ -315,7 +315,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_nephro_ira",
-    "slug": "l-insuffisance-r-nale-aigu-ira",
+    "slug": "l-insuffisance-renale-aigue-ira",
     "title": "L'Insuffisance Rénale Aiguë (IRA)",
     "subtitle": "",
     "specialtyId": "nephro",
@@ -352,7 +352,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_endocrino_acidocetose",
-    "slug": "l-acidoc-tose-diab-tique-complications-aigu-s",
+    "slug": "l-acidocetose-diabetique-complications-aigues",
     "title": "L'Acidocétose Diabétique & Complications Aiguës",
     "subtitle": "",
     "specialtyId": "endocrino",
@@ -389,7 +389,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_gastro_cirrhose",
-    "slug": "la-cirrhose-h-patique-d-compensation-ascitique",
+    "slug": "la-cirrhose-hepatique-decompensation-ascitique",
     "title": "La Cirrhose Hépatique & Décompensation Ascitique",
     "subtitle": "",
     "specialtyId": "gastro",
@@ -426,7 +426,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_pediatrie_deshydratation",
-    "slug": "la-d-shydratation-aigu-du-nourrisson-gastro-ent-rite",
+    "slug": "la-deshydratation-aigue-du-nourrisson-gastro-enterite",
     "title": "La Déshydratation Aiguë du Nourrisson & Gastro-entérite",
     "subtitle": "",
     "specialtyId": "pediatrie",
@@ -463,7 +463,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_gyneco_geu",
-    "slug": "la-grossesse-extra-ut-rine-geu-urgences-du-1er-trimestre",
+    "slug": "la-grossesse-extra-uterine-geu-urgences-du-1er-trimestre",
     "title": "La Grossesse Extra-Utérine (GEU) & Urgences du 1er Trimestre",
     "subtitle": "",
     "specialtyId": "gyneco",
@@ -500,7 +500,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_dermato_toxidermies",
-    "slug": "les-toxidermies-m-dicamenteuses-graves-dress-lyell",
+    "slug": "les-toxidermies-medicamenteuses-graves-dress-lyell",
     "title": "Les Toxidermies Médicamenteuses Graves : DRESS & Lyell",
     "subtitle": "",
     "specialtyId": "dermato",
@@ -573,7 +573,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_hemato_anemies",
-    "slug": "d-marche-diagnostique-devant-une-an-mie-de-l-adulte",
+    "slug": "demarche-diagnostique-devant-une-anemie-de-l-adulte",
     "title": "Démarche Diagnostique devant une Anémie de l'Adulte",
     "subtitle": "",
     "specialtyId": "hemato",
@@ -610,7 +610,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_rhumato_pr",
-    "slug": "la-polyarthrite-rhumato-de-pr-du-diagnostic-au-traitement",
+    "slug": "la-polyarthrite-rhumatoide-pr-du-diagnostic-au-traitement",
     "title": "La Polyarthrite Rhumatoïde (PR) : Du Diagnostic au Traitement",
     "subtitle": "",
     "specialtyId": "rhumato",
@@ -647,7 +647,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_psy_troubles_humeur",
-    "slug": "les-pisodes-d-pressifs-majeurs-la-crise-suicidaire",
+    "slug": "les-episodes-depressifs-majeurs-la-crise-suicidaire",
     "title": "Les Épisodes Dépressifs Majeurs & La Crise Suicidaire",
     "subtitle": "",
     "specialtyId": "psy",
@@ -721,7 +721,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_orl_epistaxis",
-    "slug": "l-pistaxis-grave-dyspn-es-laryng-es-aigu-s",
+    "slug": "l-epistaxis-grave-dyspnees-laryngees-aigues",
     "title": "L'Épistaxis Grave & Dyspnées Laryngées Aiguës",
     "subtitle": "",
     "specialtyId": "orl",
@@ -758,7 +758,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_urgences_acr",
-    "slug": "l-arr-t-cardio-respiratoire-acr-r-animation-cardio-pulmonaire",
+    "slug": "l-arret-cardio-respiratoire-acr-reanimation-cardio-pulmonaire",
     "title": "L'Arrêt Cardio-Respiratoire (ACR) & Réanimation Cardio-Pulmonaire",
     "subtitle": "",
     "specialtyId": "urgences",
@@ -795,7 +795,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_chirurgie_appendicite",
-    "slug": "l-appendicite-aigu-les-p-ritonites-aigu-s-g-n-ralis-es",
+    "slug": "l-appendicite-aigue-les-peritonites-aigues-generalisees",
     "title": "L'Appendicite Aiguë & Les Péritonites Aiguës Généralisées",
     "subtitle": "",
     "specialtyId": "chirurgie",
@@ -831,7 +831,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_uro_colique_nephretique",
-    "slug": "la-colique-n-phr-tique-aigu-cna-torsion-testiculaire",
+    "slug": "la-colique-nephretique-aigue-cna-torsion-testiculaire",
     "title": "La Colique Néphrétique Aiguë (CNA) & Torsion Testiculaire",
     "subtitle": "",
     "specialtyId": "uro",
@@ -903,7 +903,7 @@ export const INITIAL_COURSES: Course[] = [
   },
   {
     "id": "cours_interne_lupus",
-    "slug": "le-lupus-ryth-mateux-syst-mique-les-maladie-de-horton",
+    "slug": "le-lupus-erythemateux-systemique-les-maladie-de-horton",
     "title": "Le Lupus Érythémateux Systémique (LES) & Maladie de Horton",
     "subtitle": "",
     "specialtyId": "interne",
