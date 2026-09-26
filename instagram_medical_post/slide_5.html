@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      margin: 0;
+      padding: 0;
+      width: 1080px;
+      height: 1440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .card-shadow {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+    }
+  </style>
+</head>
+<body class="bg-slate-100">
+  <div class="w-[980px] h-[1340px] bg-white rounded-[36px] p-8 border border-slate-200/90 card-shadow flex flex-col justify-between relative overflow-hidden">
+    
+    <!-- CONTENU DYNAMIQUE -->
+    
+    <div class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center space-x-4">
+          <span class="text-3xl">⚠️</span>
+          <div>
+            <div class="text-xs font-extrabold tracking-widest text-teal-600 uppercase">PNEUMOLOGIE • P. 08-10</div>
+            <h1 class="text-2xl font-extrabold text-slate-900 leading-tight">Asthme Aigu Grave (AAG)</h1>
+          </div>
+        </div>
+        <div class="px-3.5 py-1.5 bg-rose-100 text-rose-800 font-bold text-sm rounded-xl">
+          Alerte Grave
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-rose-50 border border-rose-200 rounded-3xl p-6 space-y-5 flex-1 my-3 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center space-x-2 text-rose-900 font-extrabold text-xl uppercase tracking-wide mb-4">
+          <span class="text-2xl">⚠️</span>
+          <span>Critères d'Avis Spécialisé / Réanimation / Intubation</span>
+        </div>
+
+        <div class="bg-white border border-rose-200 rounded-2xl p-6 text-lg text-rose-950 leading-relaxed shadow-sm">
+          Signes d'épuisement respiratoire (respiration paradoxale, silence auscultatoire), troubles de la conscience (obnubilation, coma), collapsus hémodynamique, PaCO2 > 45 mmHg (Normo/Hypercapnie) ou acidose gazeuse (pH < 7.25).<br><br><strong>🚨 Transfert immédiat en Réanimation avec préparation à l'intubation trachéale sous séquence rapide !</strong>
+        </div>
+      </div>
+
+      <div class="bg-rose-600 text-white rounded-2xl p-5 font-bold text-lg text-center shadow-md">
+        🚨 Transfert médicalisé SMUR / USI / Réanimation immédiat !
+      </div>
+    </div>
+
+
+    <!-- FOOTER PERMANENT AS-MEDIX -->
+    <div class="pt-5 border-t border-slate-100 flex items-center justify-between text-slate-400 text-base font-bold mt-auto">
+      <div class="flex items-center space-x-3">
+        <span class="w-3.5 h-3.5 rounded-full bg-teal-500"></span>
+        <span class="text-teal-700 tracking-wide text-sm uppercase">AS-MEDIX • RÉSIDANAT 2027</span>
+      </div>
+      <span class="text-sm">asmedix.study</span>
+    </div>
+
+  </div>
+</body>
+</html>

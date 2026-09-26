@@ -1,0 +1,33 @@
+🩺 PNEUMOLOGIE / CARDIOLOGIE : Embolie Pulmonaire Aiguë (EP) 🚨
+Enregistre cette fiche essentielle pour tes révisions du Résidanat 2027 et tes gardes ! 📌
+
+Migration d’un thrombus veineux profond bloquant l’artère pulmonaire ou l’une de ses branches. Urgence vitale cardiorespiratoire.
+
+1️⃣ CLINIQUE :
+• Dyspnée aiguë sans freinage : D'apparition brutale, polypnée > 20/min, souvent isolée ou inexpliquée.
+• Douleur thoracique basithoracique : De type pleural, vivace, augmentée à l'inspiration profonde et à la toux.
+• Tachycardie constante : FC > 100 bpm, parfois angoisse, hémoptysie tardive (infarctus pulmonaire).
+• Signes de TVP associée : Gros mollet unilatéral chaud et douloureux, signe de Homans positif.
+• Score de Wells / Genève : Évaluation de la probabilité clinique (Faible, Intermédiaire, Forte).
+
+2️⃣ BILAN COMPLÉMENTAIRE :
+⚡ Angio-Scanner Thoracique (Examen de Référence) : Visualise le thrombus (encoche endoluminale).
+• D-Dimères : Réalisés si probabilité faible/intermédiaire (valeur prédictive négative).
+• ECG : Tachycardie sinusale, S1Q3 (Onde S en D1, Onde Q en D3), BDBR aigu.
+
+3️⃣ PRISE EN CHARGE IMMÉDIATE :
+• 1. Oxygénothérapie : Position demi-assise. O2 pour SpO2 > 92%.
+• 2. Anticoagulation curative immédiate : Enoxaparine (Lovenox) 100 UI/kg (1 mg/kg) SC 2x/jour ou Fondaparinux (Arixtra) 7.5 mg/jour.
+• 3. Si EP à Haut Risque (Choc / PAS < 90) : Thrombolyse IV par Altéplase (Actilyse) 100 mg sur 2 heures ou Bolus d'HNF.
+• 4. Analgésie : Paracétamol IV 1g si douleur pleurale intense.
+• 5. Repos au lit : Premier lever autorisé après mise en route de l'anticoagulation.
+
+4️⃣ ORDONNANCE TYPE DE SORTIE :
+🔹 Xarelto (Rivaroxaban 15 mg) (AOD) : 1 cp 2x/j pendant 21 jours puis 20 mg 1x/j • Durée 3 à 6 mois
+🔹 Eliquis (Apixaban 5 mg) (Alternative AOD) : 10 mg 2x/j pendant 7 jours puis 5 mg 2x/j
+🔹 Bas de contention classe 2 (Orthopédie) : Port quotidien bilatéral pendant au moins 6 mois
+🔹 Bilan de thrombophilie (Surveillance) : Si 1er épisode non provoqué avant 50 ans
+
+📲 Découvre toutes les fiches de révisions et QCMs sur asmedix.study !
+
+#Pneumologie #EmboliePulmonaire #EP #Cardiologie #Urgences #Residanat2027 #ASMedix #FichesMedecine

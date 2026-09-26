@@ -50,6 +50,87 @@
   ],
   "courses": [
     {
+      "id": "cours_neuro_behcet",
+      "slug": "maladie-de-behcet",
+      "title": "La Maladie de Behçet & Neuro-Behçet",
+      "subtitle": "Diagnostic positif (ICBD 2014), Neuro-Behçet parenchymateux vs vasculaire (TVC), génétique (HLA-B51) et stratégie thérapeutique",
+      "specialtyId": "neuro",
+      "specialtyName": "Neurologie",
+      "author": "Pr. A. Benmansour",
+      "authorTitle": "Chef de Service de Neurologie & Pathologies Auto-immunes - CHU Oran / CHU Sidi Bel Abbès",
+      "description": "Guide clinique complet conforme aux programmes officiels du Résidanat des facultés de Médecine d'Oran et de Sidi Bel Abbès (SBA) : vasculite systémique non ANCA-associée, aphtose bipolarisée, uvéite rétinienne, méningo-encéphalite du tronc cérébral, thromboses veineuses cérébrales, test de pathergie et protocoles de biothérapie (anti-TNF alpha).",
+      "coverImage": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "ORAN",
+      "rang": "Rang A",
+      "estimatedDuration": "45 min",
+      "createdAt": "2026-01-01",
+      "updatedAt": "2026-01-01",
+      "tags": [
+        "Maladie de Behçet",
+        "Neuro-Behçet",
+        "Aphtose Bipolarisée",
+        "HLA-B51",
+        "Test de Pathergie",
+        "Thrombose Veineuse Cérébrale",
+        "Colchicine",
+        "Infliximab",
+        "Oran",
+        "SBA"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 3120,
+      "likesCount": 385,
+      "qcmCount": 5,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Introduction, Épidémiologie & Génétique (HLA-B51)",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Triade Clinique : Mucosite Bipolarisée & Lésions Oculaires",
+          "level": 1
+        },
+        {
+          "id": "neuro-behcet",
+          "title": "3. Neuro-Behçet : Forme Parenchymateuse vs Vasculaire (TVC)",
+          "level": 1
+        },
+        {
+          "id": "vascularite",
+          "title": "4. Vascularite Systémique & Anévrysmes Pulmonaires",
+          "level": 1
+        },
+        {
+          "id": "diagnostic",
+          "title": "5. Diagnostic Positif, Test de Pathergie & Critères ICBD",
+          "level": 1
+        },
+        {
+          "id": "traitement",
+          "title": "6. Prise en Charge Thérapeutique & Protocoles EULAR",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "7. Points Clés Concours & Annales (Oran & Sidi Bel Abbès)",
+          "level": 1
+        }
+      ],
+      "summaryPoints": [
+        "Aphtose buccale récidivante (au moins 3 poussées en 12 mois) : Élément inaugural cardinal présent dans plus de 98% des cas.",
+        "Neuro-Behçet Parenchymateux (80%) : Méningo-encéphalite touchant préférentiellement le tronc cérébral (jonction bulbopontique) et les noyaux gris centraux (Hyperintensité T2/FLAIR à l'IRM).",
+        "Neuro-Behçet Vasculaire (20%) : Thrombose Veineuse Cérébrale (TVC des sinus duraux) se révélant par un syndrome d'hypertension intracrânienne (HTIC).",
+        "Biologie & Génétique : Négativité stricte des auto-anticorps (AAN négatifs, ANCA négatifs). Forte association avec le marqueur HLA-B51 (HLA-B5101).",
+        "Test de Pathergie : Papulo-pustule stérile apparaissant 24 à 48h après une piqûre intradermique à l'avant-bras (très spécifique de la maladie de Behçet).",
+        "Traitement de référence : Colchicine (1 à 2 mg/j) pour l'aphtose ; Bolus de Solumedrol (1g/j x 3-5j) + Cyclophosphamide ou Anti-TNF alpha (Infliximab/Adalimumab) pour les formes graves neurologiques et oculaires."
+      ],
+      "htmlContent": "\n      <section id=\"intro\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Introduction, Épidémiologie & Génétique (HLA-B51)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La <strong>Maladie de Behçet</strong> est une vasculite systémique chronique d'évolutivité par poussées-rémissions. Elle se caractérise anatomopathologiquement par une <strong>angéite péricapillaire et veineuse</strong> atteignant les vaisseaux de tous calibres (petits, moyens et gros vaisseaux artériels et veineux), sans nécrose ni ANCA.\n        </p>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Elle prédomine le long de la mythique <em>Route de la Soie</em> (du Bassin Méditerranéen jusqu'à l'Asie de l'Est). En Algérie (notamment dans les régions de l'Ouest : <strong>Oran, Sidi Bel Abbès, Tlemcen</strong>), sa prévalence est élevée, touchant avec prédilection l'adulte jeune (20 à 40 ans) avec un sex-ratio prédominant chez l'homme pour les formes neurologiques graves.\n        </p>\n\n        <div class=\"p-4 my-5 rounded-2xl border border-indigo-100 bg-indigo-50/60 dark:border-indigo-900/50 dark:bg-indigo-950/20\">\n          <div class=\"flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-bold mb-1\">\n            <span class=\"text-lg\">🧬</span> Marqueur Génétique Prépondérant : HLA-B51\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            L'allèle <strong>HLA-B51 (sous-type B*5101)</strong> est présent chez 50 à 80% des patients d'Afrique du Nord. Il constitue le facteur de susceptibilité génétique le plus puissant, bien qu'il ne soit pas indispensable au diagnostic positif. <strong>Biologie habituelle :</strong> Absence d'auto-anticorps (AAN -, ANCA -, FR -).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"clinique\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Triade Clinique : Mucosite Bipolarisée & Lésions Oculaires</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le diagnostic repose essentiellement sur l'examen clinique minutieux à la recherche de la triade d'Hulusi Behçet :\n        </p>\n\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-rose-500\"></span> 1. Aphtose Bipolarisée (Obligatoire)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• <strong>Aphtose buccale :</strong> Présente chez 98-100% des malades. Ulcérations douloureuses, à fond beurre frais, à bords emportés à la pièce, guérissant sans cicatrice en 10-14 jours. Au moins 3 poussées/an.</li>\n              <li>• <strong>Aphtose génitale :</strong> Très spécifique (95%). Ulcérations du scrotum/testicules chez l'homme, des grandes lèvres/vulve chez la femme. Laissent des <em>cicatrices atrophiques blanchâtres pathognomoniques</em>.</li>\n            </ul>\n          </div>\n          <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 shadow-soft\">\n            <h3 class=\"font-bold text-navy-900 dark:text-white mb-2 flex items-center gap-2\">\n              <span class=\"w-3 h-3 rounded-full bg-amber-500\"></span> 2. Atteinte Oculaire (Pronostic visuel)\n            </h3>\n            <ul class=\"space-y-2 text-sm text-navy-600 dark:text-navy-300\">\n              <li>• Touchant 50 à 70% des patients, bilatérale et menaçante.</li>\n              <li>• <strong>Uvéite antérieure aiguë à hypopyon</strong> (niveau de pus stérile dans la chambre antérieure).</li>\n              <li>• <strong>Uvéite postérieure & Vasculite rétinienne :</strong> Engaineur veineux, hyalite, œdème maculaire (risque de cécité irréversible).</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-5 rounded-2xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-700 mb-6\">\n          <h3 class=\"font-bold text-navy-900 dark:text-white mb-2\">3. Manifestations Cutanées</h3>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300 leading-relaxed\">\n            • <strong>Érythème noueux :</strong> Nouures dermothermiques douloureuses des membres inférieurs.<br>\n            • <strong>Pseudofolliculite superficielle / Pustules stériles :</strong> Pustules non centré par un poil sur le tronc et les membres.\n          </p>\n        </div>\n      </section>\n\n      <section id=\"neuro-behcet\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Neuro-Behçet : Forme Parenchymateuse vs Vasculaire (TVC)</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          L'atteinte du système nerveux central (<strong>Neuro-Behçet</strong>) survient dans 10 à 20% des cas, habituellement 3 à 5 ans après les aphtes. Elle conditionne le pronostic vital et fonctionnel. On distingue formellement deux phénotypes majeurs :\n        </p>\n\n        <div class=\"grid grid-cols-1 md:grid-cols-2 gap-5 mb-6\">\n          <!-- Forme Parenchymateuse -->\n          <div class=\"p-6 rounded-2xl bg-rose-50/70 border border-rose-200 dark:bg-rose-950/30 dark:border-rose-900/50 space-y-3\">\n            <div class=\"flex items-center justify-between\">\n              <span class=\"px-3 py-1 bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-200 font-black text-xs rounded-full uppercase\">Forme Parenchymateuse (~80%)</span>\n              <span class=\"text-xl\">🧠</span>\n            </div>\n            <h3 class=\"text-lg font-bold text-rose-950 dark:text-rose-100\">Méningo-Encéphalite du Tronc Cérébral</h3>\n            <ul class=\"text-sm text-rose-900 dark:text-rose-200 space-y-2 leading-relaxed\">\n              <li>• <strong>Siège préférentiel :</strong> Tronc cérébral (pédoncules cérébraux, protubérance), noyaux gris centraux et capsule interne.</li>\n              <li>• <strong>Tableau clinique :</strong> Syndrome pyramidal (hémiparésie), syndrome cérébelleux, ophtalmoplégie internucléaire, paralysie des nerfs crâniens (diplopie), troubles de l'humeur et détérioration cognitive.</li>\n              <li>• <strong>IRM Cérébrale (Clé) :</strong> Hyperintensités en T2 et FLAIR périventriculaires et sous-corticales avec aspect d'œdème inflammatoire (\"en tache de bougie\").</li>\n              <li>• <strong>Ponction Lumbal :</strong> Pléiocytose modérée (panachée PNN / Lymphocytes), hyperprotéinorachie.</li>\n            </ul>\n          </div>\n\n          <!-- Forme Vasculaire -->\n          <div class=\"p-6 rounded-2xl bg-amber-50/70 border border-amber-200 dark:bg-amber-950/30 dark:border-amber-900/50 space-y-3\">\n            <div class=\"flex items-center justify-between\">\n              <span class=\"px-3 py-1 bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-200 font-black text-xs rounded-full uppercase\">Forme Vasculaire / TVC (~20%)</span>\n              <span class=\"text-xl\">🩸</span>\n            </div>\n            <h3 class=\"text-lg font-bold text-amber-950 dark:text-amber-100\">Thrombose Veineuse Cérébrale (TVC)</h3>\n            <ul class=\"text-sm text-amber-900 dark:text-amber-200 space-y-2 leading-relaxed\">\n              <li>• <strong>Mécanisme :</strong> Thrombo-phlébite des sinus veineux duraux (sinus sagittal supérieur, sinus transverse, sinus latéral).</li>\n              <li>• <strong>Tableau clinique :</strong> Syndrome d'<strong>Hypertension Intracrânienne (HTIC)</strong> avec céphalées intenses progressives, œdème papillaire au fond d'œil, vomissements et diplopie par atteinte du VI.</li>\n              <li>• <strong>Angio-IRM Cérébrale (MRV) :</strong> Absence de flux (défaut de rehaussement) dans le sinus dural thrombosé (Signe du delta).</li>\n              <li>• <strong>Pronostic :</strong> Meilleur que la forme parenchymateuse sous anticoagulation et corticothérapie.</li>\n            </ul>\n          </div>\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200 dark:bg-purple-950/20 dark:border-purple-900/40 my-4\">\n          <div class=\"flex items-center gap-2 text-purple-700 dark:text-purple-300 font-bold mb-1\">\n            ⚠️ Piège Résidanat Oran / SBA : Forme Mixte\n          </div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Les formes parenchymateuses et non-parenchymateuses (TVC) s'excluent mutuellement chez un même patient dans plus de 90% des cas ! La survenue d'une TVC impose de rechercher d'autres thromboses périphériques (TVP des membres inférieurs).\n          </p>\n        </div>\n      </section>\n\n      <section id=\"vascularite\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Vascularite Systémique & Anévrysmes Pulmonaires</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          La maladie de Behçet est la seule vasculite capable de toucher les artères et les veines de toutes tailles :\n        </p>\n        <ul class=\"list-disc pl-6 space-y-3 text-navy-700 dark:text-navy-300 mb-4\">\n          <li><strong>Angio-Behçet Veineux (30%) :</strong> Thromboses veineuses profondes (TVP) récidivantes des membres inférieurs, phlébite de la veine cave inférieure (Syndrome de Budd-Chiari).</li>\n          <li><strong>Angio-Behçet Artériel (5%) :</strong> <strong>Anévrysmes de l'artère pulmonaire (AAP)</strong>. C'est la complication artérielle la plus redoutable ! Elle se manifeste par des <em>hémoptysies foudrayantes</em> par rupture anévrysmale.</li>\n          <li><strong>Atteinte Articulaire (50%) :</strong> Mono ou oligopléomorphe non érosive et non déformante (genoux, chevilles).</li>\n        </ul>\n      </section>\n\n      <section id=\"diagnostic\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">5. Diagnostic Positif, Test de Pathergie & Critères ICBD</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le test de pathergie évalue l'hyperréactivité cutanée non spécifique induite par micro-traumatisme.\n        </p>\n\n        <div class=\"p-4 my-4 rounded-xl border border-teal-200 bg-teal-50/50 dark:border-teal-900/50 dark:bg-teal-950/20\">\n          <div class=\"font-bold text-teal-800 dark:text-teal-300 mb-1\">📌 Protocole du Test de Pathergie (Pathergy Test)</div>\n          <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n            Inoculation d'une aiguille stérile de 20G en intradermique au niveau de la face antérieure de l'avant-bras. <strong>Lecture à 24-48 heures :</strong> Positif si apparition d'une papule ou pustule stérile d'au moins 2 mm de diamètre entourée d'un érythème.\n          </p>\n        </div>\n\n        <h3 class=\"text-lg font-bold text-navy-900 dark:text-white mb-3\">Critères Diagnostiques Internationaux (ICBD 2014) :</h3>\n        <div class=\"overflow-x-auto mb-6\">\n          <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden\">\n            <thead class=\"bg-slate-100 dark:bg-navy-800 text-xs font-bold uppercase text-navy-700 dark:text-navy-200\">\n              <tr>\n                <th class=\"p-3 border border-slate-200 dark:border-navy-700\">Critère Clinique ICBD</th>\n                <th class=\"p-3 border border-slate-200 dark:border-navy-700 text-center\">Score de Points</th>\n              </tr>\n            </thead>\n            <tbody class=\"text-sm text-navy-700 dark:text-navy-300 divide-y divide-slate-100 dark:divide-navy-800\">\n              <tr>\n                <td class=\"p-3 font-semibold\">Lésions Oculaires (Uvéite, vasculite rétinienne)</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Aphtose Génitale (Cicatrices scrotales/vulvaires)</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3 font-semibold\">Aphtose Buccale Récidivante</td>\n                <td class=\"p-3 font-bold text-center text-teal-600 dark:text-teal-400\">+ 2 Points</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Neurologiques (Neuro-Behçet)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Cutanées (Pseudofolliculite, Érythème noueux)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Manifestations Vasculaires (TVP, Anévrysmes, TVC)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n              <tr>\n                <td class=\"p-3\">Test de Pathergie Positif (Optionnel)</td>\n                <td class=\"p-3 font-bold text-center text-brand-600 dark:text-brand-400\">+ 1 Point</td>\n              </tr>\n            </tbody>\n          </table>\n        </div>\n        <p class=\"text-xs font-bold text-teal-700 dark:text-teal-400 bg-teal-50 dark:bg-teal-950/40 p-3 rounded-xl border border-teal-200\">\n          🎯 Règle de Validation : Un score total &ge; 4 Points confirme le diagnostic positif de la maladie de Behçet !\n        </p>\n      </section>\n\n      <section id=\"traitement\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">6. Prise en Charge Thérapeutique & Protocoles EULAR</h2>\n        <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n          Le traitement est adapté à l'organe le plus sévèrement atteint :\n        </p>\n\n        <div class=\"space-y-4\">\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">💊 1. Atteinte Mucocutanée (Aphtose)</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • <strong>Colchicine :</strong> 1 à 2 mg/jour per os en première intention.<br>\n              • Bains de bouche corticoïdes / Dermo-corticoïdes locaux.\n            </p>\n          </div>\n\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">🧠 2. Traitement du Neuro-Behçet Parenchymateux</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • <strong>Bolus de Méthylprednisolone (Solumedrol) :</strong> 1g/jour en IVD sur 3 à 5 jours consécutifs.<br>\n              • Relais par <strong>Prednisolone per os :</strong> 1 mg/kg/jour avec dégression lente sur plusieurs mois.<br>\n              • <strong>Immunosuppresseur de fond :</strong> Azathioprine (Imurel 2.5 mg/kg/j) ou Cyclophosphamide (Endoxan bolus mensuel).<br>\n              • <strong>Formes réfractaires / sévères :</strong> Biothérapie par <strong>Anti-TNF alpha</strong> (Infliximab 5 mg/kg ou Adalimumab).\n            </p>\n          </div>\n\n          <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n            <h4 class=\"font-bold text-navy-900 dark:text-white mb-1\">🩸 3. Traitement de la Thrombose Veineuse Cérébrale (TVC)</h4>\n            <p class=\"text-sm text-navy-600 dark:text-navy-300\">\n              • Corticothérapie à forte dose + <strong>Anticoagulation curative</strong> par Héparine puis AOD/AVK.\n            </p>\n          </div>\n        </div>\n      </section>\n\n      <section id=\"points-cles\" class=\"mb-10\">\n        <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">7. Points Clés & Pièges aux Examens (Annales Oran & SBA)</h2>\n        <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-3\">\n          <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-base\">📌 TOUJOURS RETENIR POUR LE CONCOURS :</div>\n          <ul class=\"text-sm text-indigo-950 dark:text-indigo-200 space-y-2 leading-relaxed\">\n            <li>✅ L'aphtose buccale est le signe inaugural obligatoire présent chez > 98% des sujets.</li>\n            <li>✅ L'atteinte du tronc cérébral à l'IRM (hyperintensité T2) définit la forme parenchymateuse classique du Neuro-Behçet.</li>\n            <li>✅ Le test de Pathergie se lit à 24-48 heures.</li>\n            <li>✅ Il n'y a pas d'auto-anticorps spécifiques (AAN et ANCA sont négatifs).</li>\n            <li>✅ L'anévrysme de l'artère pulmonaire est la cause la plus fréquente de décès par hémoptysie cataclysmique.</li>\n          </ul>\n        </div>\n      </section>\n  "
+    },
+    {
       "id": "cours_1790371084562",
       "slug": "cours-1790371084562",
       "title": "Introduction aux Politiques de Santé Publique",
@@ -1597,6 +1678,164 @@
     }
   ],
   "qcms": [
+    {
+      "id": "qcm_behcet_oran_3",
+      "title": "Test de Pathergie et critères diagnostiques ICBD",
+      "specialtyId": "neuro",
+      "specialtyName": "Neurologie",
+      "courseId": "cours_neuro_behcet",
+      "courseTitle": "La Maladie de Behçet & Neuro-Behçet",
+      "faculty": "ORAN",
+      "rang": "Rang A",
+      "difficulty": "Facile",
+      "type": "SINGLE",
+      "vignette": "Vous réalisez un test de pathergie chez un patient suspect de maladie de Behçet en piquant la peau de l'avant-bras avec une aiguille stérile de 20G.",
+      "question": "À quel moment devez-vous effectuer la lecture et quel est le résultat définissant la positivité du test ?",
+      "options": [
+        {
+          "id": "opt_1",
+          "letter": "A",
+          "text": "Lecture à 15 minutes : Érythème urécarien > 10 mm"
+        },
+        {
+          "id": "opt_2",
+          "letter": "B",
+          "text": "Lecture à 24-48 heures : Apparition d'une papule ou pustule stérile ≥ 2 mm"
+        },
+        {
+          "id": "opt_3",
+          "letter": "C",
+          "text": "Lecture à 72 heures : Induration indurée > 15 mm"
+        },
+        {
+          "id": "opt_4",
+          "letter": "D",
+          "text": "Lecture immédiata : Phénomène d'Arthus hémorragique"
+        },
+        {
+          "id": "opt_5",
+          "letter": "E",
+          "text": "Lecture à J7 : Ulcération nécrotique > 5 mm"
+        }
+      ],
+      "correctAnswers": [
+        1
+      ],
+      "explanation": "Le test de pathergie est positif lorsqu'une papule dermo-épidermique ou une pustule stérile d'au moins 2 mm de diamètre apparaît 24 à 48 heures après une piqûre intradermique stérile.",
+      "reference": "Critères Internationaux ICBD 2014 & Annales Oran",
+      "tags": [
+        "Test de Pathergie",
+        "ICBD",
+        "Oran"
+      ],
+      "accessLevel": "FREE"
+    },
+    {
+      "id": "qcm_behcet_sba_2",
+      "title": "Caractéristiques de la forme vasculaire du Neuro-Behçet",
+      "specialtyId": "neuro",
+      "specialtyName": "Neurologie",
+      "courseId": "cours_neuro_behcet",
+      "courseTitle": "La Maladie de Behçet & Neuro-Behçet",
+      "faculty": "SIDI_BEL_ABBES",
+      "rang": "Rang A",
+      "difficulty": "Moyen",
+      "type": "SINGLE",
+      "vignette": "Un patient de 32 ans connu pour une maladie de Behçet consulte aux urgences du CHU de Sidi Bel Abbès pour des céphalées intenses de survenue progressive avec vomissements et flou visuel. Le fond d'œil met en évidence un œdème papillaire bilatéral.",
+      "question": "Quel est le diagnostic le plus probable concernant cette atteinte neurologique non parenchymateuse ?",
+      "options": [
+        {
+          "id": "opt_1",
+          "letter": "A",
+          "text": "Méningite purulente à pneumocoque"
+        },
+        {
+          "id": "opt_2",
+          "letter": "B",
+          "text": "Thrombose veineuse cérébrale (TVC) du sinus dural"
+        },
+        {
+          "id": "opt_3",
+          "letter": "C",
+          "text": "Hémorragie méningée par rupture anévrysmale"
+        },
+        {
+          "id": "opt_4",
+          "letter": "D",
+          "text": "Abcès cérébral staphylococcique"
+        },
+        {
+          "id": "opt_5",
+          "letter": "E",
+          "text": "Encéphalite herpétique du lobe temporal"
+        }
+      ],
+      "correctAnswers": [
+        1
+      ],
+      "explanation": "La forme non-parenchymateuse (vasculaire) du Neuro-Behçet correspond à la Thrombose Veineuse Cérébrale (TVC) des sinus duraux (sinus sagittal supérieur ou sinus latéral). Elle se révèle par un tableau d'Hypertension Intracrânienne (HTIC) avec céphalées, œdème papillaire et diplopie.",
+      "reference": "Annales Résidanat Sidi Bel Abbès - Neurologie & Urgences",
+      "tags": [
+        "Neuro-Behçet",
+        "Thrombose Veineuse Cérébrale",
+        "SBA",
+        "HTIC"
+      ],
+      "accessLevel": "FREE"
+    },
+    {
+      "id": "qcm_behcet_oran_1",
+      "title": "Diagnostic positif et manifestations du Neuro-Behçet",
+      "specialtyId": "neuro",
+      "specialtyName": "Neurologie",
+      "courseId": "cours_neuro_behcet",
+      "courseTitle": "La Maladie de Behçet & Neuro-Behçet",
+      "faculty": "ORAN",
+      "rang": "Rang A",
+      "difficulty": "Moyen",
+      "type": "SINGLE",
+      "vignette": "Un homme de 28 ans originaire d'Oran consulte pour une aphtose buccale et génitale récidivante évoluant depuis 2 ans, associée à la survenue récente d'une hémiparésie droite et d'une diplopie. L'IRM cérébrale montre une plage d'hyperintensité T2/FLAIR au niveau du pédoncule cérébral gauche.",
+      "question": "Quel est l'examen complémentaire ou le marqueur génétique le plus fortement associé à cette affection ?",
+      "options": [
+        {
+          "id": "opt_1",
+          "letter": "A",
+          "text": "Présence des anticorps anti-DNA natifs"
+        },
+        {
+          "id": "opt_2",
+          "letter": "B",
+          "text": "Présence des ANCA de type c-ANCA"
+        },
+        {
+          "id": "opt_3",
+          "letter": "C",
+          "text": "Présence de l'antigène HLA-B51"
+        },
+        {
+          "id": "opt_4",
+          "letter": "D",
+          "text": "Présence des anticorps anti-aquaporine 4"
+        },
+        {
+          "id": "opt_5",
+          "letter": "E",
+          "text": "Présence de bandes oligoclonales exclusives dans le LCR"
+        }
+      ],
+      "correctAnswers": [
+        2
+      ],
+      "explanation": "La maladie de Behçet est fortement associée à l'allèle HLA-B51 (B*5101) présent chez 50 à 80% des patients méditerranéens. Il n'y a pas d'auto-anticorps spécifiques (AAN et ANCA sont négatifs).",
+      "reference": "Annales Résidanat Faculté de Médecine d'Oran - Neurologie",
+      "tags": [
+        "Behçet",
+        "Neuro-Behçet",
+        "HLA-B51",
+        "Oran"
+      ],
+      "accessLevel": "FREE"
+    },
     {
       "id": "qcm_tb_1",
       "title": "Diagnostic bactériologique de la Tuberculose Pulmonaire",

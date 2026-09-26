@@ -2,6 +2,164 @@ import { QCM } from '@/types';
 
 export const INITIAL_QCMS: QCM[] = [
   {
+  "id": "qcm_behcet_oran_1",
+  "title": "Diagnostic positif et manifestations du Neuro-Behçet",
+  "specialtyId": "neuro",
+  "specialtyName": "Neurologie",
+  "courseId": "cours_neuro_behcet",
+  "courseTitle": "La Maladie de Behçet & Neuro-Behçet",
+  "faculty": "ORAN",
+  "rang": "Rang A",
+  "difficulty": "Moyen",
+  "type": "SINGLE",
+  "vignette": "Un homme de 28 ans originaire d'Oran consulte pour une aphtose buccale et génitale récidivante évoluant depuis 2 ans, associée à la survenue récente d'une hémiparésie droite et d'une diplopie. L'IRM cérébrale montre une plage d'hyperintensité T2/FLAIR au niveau du pédoncule cérébral gauche.",
+  "question": "Quel est l'examen complémentaire ou le marqueur génétique le plus fortement associé à cette affection ?",
+  "options": [
+    {
+      "id": "opt_1",
+      "letter": "A",
+      "text": "Présence des anticorps anti-DNA natifs"
+    },
+    {
+      "id": "opt_2",
+      "letter": "B",
+      "text": "Présence des ANCA de type c-ANCA"
+    },
+    {
+      "id": "opt_3",
+      "letter": "C",
+      "text": "Présence de l'antigène HLA-B51"
+    },
+    {
+      "id": "opt_4",
+      "letter": "D",
+      "text": "Présence des anticorps anti-aquaporine 4"
+    },
+    {
+      "id": "opt_5",
+      "letter": "E",
+      "text": "Présence de bandes oligoclonales exclusives dans le LCR"
+    }
+  ],
+  "correctAnswers": [
+    2
+  ],
+  "explanation": "La maladie de Behçet est fortement associée à l'allèle HLA-B51 (B*5101) présent chez 50 à 80% des patients méditerranéens. Il n'y a pas d'auto-anticorps spécifiques (AAN et ANCA sont négatifs).",
+  "reference": "Annales Résidanat Faculté de Médecine d'Oran - Neurologie",
+  "tags": [
+    "Behçet",
+    "Neuro-Behçet",
+    "HLA-B51",
+    "Oran"
+  ],
+  "accessLevel": "FREE"
+},
+  {
+  "id": "qcm_behcet_sba_2",
+  "title": "Caractéristiques de la forme vasculaire du Neuro-Behçet",
+  "specialtyId": "neuro",
+  "specialtyName": "Neurologie",
+  "courseId": "cours_neuro_behcet",
+  "courseTitle": "La Maladie de Behçet & Neuro-Behçet",
+  "faculty": "SIDI_BEL_ABBES",
+  "rang": "Rang A",
+  "difficulty": "Moyen",
+  "type": "SINGLE",
+  "vignette": "Un patient de 32 ans connu pour une maladie de Behçet consulte aux urgences du CHU de Sidi Bel Abbès pour des céphalées intenses de survenue progressive avec vomissements et flou visuel. Le fond d'œil met en évidence un œdème papillaire bilatéral.",
+  "question": "Quel est le diagnostic le plus probable concernant cette atteinte neurologique non parenchymateuse ?",
+  "options": [
+    {
+      "id": "opt_1",
+      "letter": "A",
+      "text": "Méningite purulente à pneumocoque"
+    },
+    {
+      "id": "opt_2",
+      "letter": "B",
+      "text": "Thrombose veineuse cérébrale (TVC) du sinus dural"
+    },
+    {
+      "id": "opt_3",
+      "letter": "C",
+      "text": "Hémorragie méningée par rupture anévrysmale"
+    },
+    {
+      "id": "opt_4",
+      "letter": "D",
+      "text": "Abcès cérébral staphylococcique"
+    },
+    {
+      "id": "opt_5",
+      "letter": "E",
+      "text": "Encéphalite herpétique du lobe temporal"
+    }
+  ],
+  "correctAnswers": [
+    1
+  ],
+  "explanation": "La forme non-parenchymateuse (vasculaire) du Neuro-Behçet correspond à la Thrombose Veineuse Cérébrale (TVC) des sinus duraux (sinus sagittal supérieur ou sinus latéral). Elle se révèle par un tableau d'Hypertension Intracrânienne (HTIC) avec céphalées, œdème papillaire et diplopie.",
+  "reference": "Annales Résidanat Sidi Bel Abbès - Neurologie & Urgences",
+  "tags": [
+    "Neuro-Behçet",
+    "Thrombose Veineuse Cérébrale",
+    "SBA",
+    "HTIC"
+  ],
+  "accessLevel": "FREE"
+},
+  {
+  "id": "qcm_behcet_oran_3",
+  "title": "Test de Pathergie et critères diagnostiques ICBD",
+  "specialtyId": "neuro",
+  "specialtyName": "Neurologie",
+  "courseId": "cours_neuro_behcet",
+  "courseTitle": "La Maladie de Behçet & Neuro-Behçet",
+  "faculty": "ORAN",
+  "rang": "Rang A",
+  "difficulty": "Facile",
+  "type": "SINGLE",
+  "vignette": "Vous réalisez un test de pathergie chez un patient suspect de maladie de Behçet en piquant la peau de l'avant-bras avec une aiguille stérile de 20G.",
+  "question": "À quel moment devez-vous effectuer la lecture et quel est le résultat définissant la positivité du test ?",
+  "options": [
+    {
+      "id": "opt_1",
+      "letter": "A",
+      "text": "Lecture à 15 minutes : Érythème urécarien > 10 mm"
+    },
+    {
+      "id": "opt_2",
+      "letter": "B",
+      "text": "Lecture à 24-48 heures : Apparition d'une papule ou pustule stérile ≥ 2 mm"
+    },
+    {
+      "id": "opt_3",
+      "letter": "C",
+      "text": "Lecture à 72 heures : Induration indurée > 15 mm"
+    },
+    {
+      "id": "opt_4",
+      "letter": "D",
+      "text": "Lecture immédiata : Phénomène d'Arthus hémorragique"
+    },
+    {
+      "id": "opt_5",
+      "letter": "E",
+      "text": "Lecture à J7 : Ulcération nécrotique > 5 mm"
+    }
+  ],
+  "correctAnswers": [
+    1
+  ],
+  "explanation": "Le test de pathergie est positif lorsqu'une papule dermo-épidermique ou une pustule stérile d'au moins 2 mm de diamètre apparaît 24 à 48 heures après une piqûre intradermique stérile.",
+  "reference": "Critères Internationaux ICBD 2014 & Annales Oran",
+  "tags": [
+    "Test de Pathergie",
+    "ICBD",
+    "Oran"
+  ],
+  "accessLevel": "FREE"
+},
+  {
     id: 'qcm_tb_1',
     title: 'Diagnostic bactériologique de la Tuberculose Pulmonaire',
     specialtyId: 'pneumo',
