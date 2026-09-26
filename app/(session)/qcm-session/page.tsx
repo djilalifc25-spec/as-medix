@@ -54,10 +54,10 @@ function QuestionNavigator({
   let incorrectCount = 0;
 
   if (isResultsRevealed) {
-    qcms.forEach((q, i) => {
+    (qcms || []).forEach((q, i) => {
       const selected = userAnswersMap[i] || [];
       if (selected.length > 0) {
-        const isCorrect = selected.length === q.correctAnswers.length && selected.every((a: number) => q.correctAnswers.includes(a));
+        const isCorrect = q && Array.isArray(q.correctAnswers) && selected.length === q.correctAnswers.length && selected.every((a: number) => q.correctAnswers.includes(a));
         if (isCorrect) correctCount++;
         else incorrectCount++;
       }
@@ -105,13 +105,13 @@ function QuestionNavigator({
           const selected = userAnswersMap[i] || [];
           const isAnswered = selected.length > 0;
           const isFlagged = flaggedQuestionsMap[i];
-          const q = qcms[i];
+          const q = (qcms || [])[i];
 
           let cls = 'bg-white/10 text-white/60 hover:bg-white/20';
           if (i === current) {
             cls = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 shadow-md';
           } else if (isResultsRevealed && isAnswered) {
-            const isCorrect = selected.length === q?.correctAnswers?.length && selected.every((a: number) => q.correctAnswers.includes(a));
+            const isCorrect = q && Array.isArray(q.correctAnswers) && selected.length === q.correctAnswers.length && selected.every((a: number) => q.correctAnswers.includes(a));
             cls = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
           } else if (isAnswered) {
             cls = 'bg-indigo-600 text-indigo-100 font-bold border border-indigo-400/40';
@@ -271,12 +271,12 @@ function SessionContent() {
 
   const sessionQcms = useMemo(() => {
     if (qcmId) {
-      const target = allQcms.filter(q => q.id === qcmId);
+      const target = allQcms.filter(q => q && q.id === qcmId);
       if (target.length > 0) return target;
     }
     if (remindersOnly) {
       const targetIds = userReminders.map(r => r.targetId);
-      const flagged = allQcms.filter(q => targetIds.includes(q.id));
+      const flagged = allQcms.filter(q => q && targetIds.includes(q.id));
       if (flagged.length > 0) return flagged;
     }
     const selectedSourcesList = source === 'TOUS' || !source
@@ -284,8 +284,15 @@ function SessionContent() {
       : source.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
 
     return allQcms.filter(q => {
-      const matchSpec = !specialty || q.specialtyId === specialty;
-      const matchCourse = !course || q.courseId === course;
+      if (!q) return false;
+      const qSpec = q.specialtyId || '';
+      const qSpecName = q.specialtyName || '';
+      const matchSpec = !specialty || qSpec.toLowerCase() === specialty.toLowerCase() || qSpecName.toLowerCase() === specialty.toLowerCase();
+      
+      const qCourse = q.courseId || '';
+      const qCourseTitle = q.courseTitle || '';
+      const matchCourse = !course || qCourse.toLowerCase() === course.toLowerCase() || qCourseTitle.toLowerCase() === course.toLowerCase();
+      
       const matchFaculty = faculty === 'TOUS' || !q.faculty || (q.faculty as string) === 'TOUS' || (q.faculty as string) === faculty;
       const matchSource = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => (q.source as string).toLowerCase().includes(s));
       return matchSpec && matchCourse && matchFaculty && matchSource;
@@ -308,6 +315,7 @@ function SessionContent() {
   const finalScore = useMemo(() => {
     let scoreAcc = 0;
     sessionQcms.forEach((q, idx) => {
+      if (!q || !Array.isArray(q.correctAnswers)) return;
       const selected = userAnswersMap[idx] || [];
       if (selected.length === q.correctAnswers.length && selected.every(a => q.correctAnswers.includes(a))) {
         scoreAcc += 1;
@@ -324,7 +332,7 @@ function SessionContent() {
       const currentArr = prev[currentIndex] || [];
       let updatedArr: number[];
 
-      if (qcm.type === 'SINGLE') {
+      if (qcm?.type === 'SINGLE') {
         updatedArr = currentArr.includes(optIdx) ? [] : [optIdx];
       } else {
         updatedArr = currentArr.includes(optIdx)
@@ -385,6 +393,7 @@ function SessionContent() {
     setValidatedImmediateMap(prev => ({ ...prev, [currentIndex]: true }));
 
     const isCorrect =
+      Array.isArray(qcm.correctAnswers) &&
       currentSelectedOptions.length === qcm.correctAnswers.length &&
       currentSelectedOptions.every(a => qcm.correctAnswers.includes(a));
 
@@ -640,15 +649,15 @@ function SessionContent() {
           <div className="flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/30 uppercase tracking-wider">
-                {qcm.type === 'MULTIPLE' ? 'Choix Multiple' : 'Choix Simple'}
+                {qcm?.type === 'MULTIPLE' ? 'Choix Multiple' : 'Choix Simple'}
               </span>
-              {(qcm.faculty as string) === 'ORAN' && (
+              {(qcm?.faculty as string) === 'ORAN' && (
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">Oran</span>
               )}
-              {(qcm.faculty as string) === 'SIDI_BEL_ABBES' && (
+              {(qcm?.faculty as string) === 'SIDI_BEL_ABBES' && (
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-400/20 text-indigo-300 border border-indigo-400/30">SBA</span>
               )}
-              {qcm.source && (
+              {qcm?.source && (
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-400/20 text-purple-300 border border-purple-400/30 truncate max-w-[140px]">
                   {qcm.source as string}
                 </span>
@@ -697,7 +706,7 @@ function SessionContent() {
           </div>
 
           {/* Vignette Clinique */}
-          {(qcm.vignetteHtml || qcm.vignette) && (
+          {(qcm?.vignetteHtml || qcm?.vignette) && (
             <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 border border-white/10 text-xs">
               <div className="flex items-center justify-between text-[10px] font-bold text-indigo-300 uppercase tracking-wider mb-1">
                 <span className="flex items-center gap-1">
@@ -724,15 +733,16 @@ function SessionContent() {
 
           {/* Question Text */}
           <h2 className="text-xs sm:text-base font-black text-white leading-snug">
-            {qcm.question}
+            {qcm?.question || 'Question QCM'}
           </h2>
 
           {/* 5 Options with Elimination (❌ Rayure) */}
           <div className="space-y-1.5 sm:space-y-2">
-            {qcm.options.map((opt, idx) => {
+            {(qcm?.options || []).map((opt, idx) => {
+              if (!opt) return null;
               const isSelected = currentSelectedOptions.includes(idx);
               const isEliminated = currentEliminatedOptions.includes(idx);
-              const isCorrect = qcm.correctAnswers.includes(idx);
+              const isCorrect = Array.isArray(qcm?.correctAnswers) && qcm.correctAnswers.includes(idx);
 
               let base = 'border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 active:scale-[0.99] cursor-pointer';
               let ltr = 'bg-white/10 text-white/70';
@@ -757,18 +767,18 @@ function SessionContent() {
 
               return (
                 <div
-                  key={opt.id}
+                  key={opt.id || `opt_${idx}`}
                   onClick={() => toggleOption(idx)}
                   className={`relative group flex items-center gap-2.5 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition-all duration-150 ${base}`}
                 >
                   {/* Letter badge */}
                   <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-all ${ltr}`}>
-                    {opt.letter}
+                    {opt.letter || String.fromCharCode(65 + idx)}
                   </span>
 
                   {/* Option Text */}
                   <span className={`text-xs sm:text-sm flex-1 leading-snug font-medium ${isEliminated ? 'line-through decoration-rose-400/60' : ''}`}>
-                    {opt.text}
+                    {opt.text || ''}
                   </span>
 
                   {/* Action Right: Rayure (❌) and Status Check */}
@@ -838,13 +848,13 @@ function SessionContent() {
               </div>
 
               <div className="text-xs text-white/85 leading-relaxed">
-                {qcm.explanationHtml ? (
+                {qcm?.explanationHtml ? (
                   <div dangerouslySetInnerHTML={{ __html: qcm.explanationHtml as string }} />
                 ) : (
-                  <p>{qcm.explanation}</p>
+                  <p>{qcm?.explanation || 'Pas d\'explication fournie.'}</p>
                 )}
               </div>
-              {qcm.reference && (
+              {qcm?.reference && (
                 <div className="text-[10px] text-emerald-400/80 pt-1 border-t border-emerald-500/20 flex items-center gap-1">
                   <Flag className="w-3 h-3" />
                   <span>Réf : {qcm.reference as string}</span>

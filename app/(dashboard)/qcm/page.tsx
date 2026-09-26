@@ -254,10 +254,13 @@ function QcmHubContent() {
 
   // Filtered QCMs based on specialty, selected course, faculty, and source
   const currentQcms = allQcms.filter(q => {
-    const matchSpec = q.specialtyId === selectedSpecId;
-    const matchCourse = !selectedCourseId || q.courseId === selectedCourseId;
-    const matchFaculty = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
-    const matchSource = selectedSource === 'TOUS' || !q.source || q.source.toLowerCase().includes(selectedSource.toLowerCase());
+    if (!q) return false;
+    const qSpec = q.specialtyId || '';
+    const matchSpec = qSpec.toLowerCase() === selectedSpecId.toLowerCase();
+    const qCourse = q.courseId || '';
+    const matchCourse = !selectedCourseId || qCourse.toLowerCase() === selectedCourseId.toLowerCase();
+    const matchFaculty = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || (q.faculty as string).toLowerCase() === selectedFaculty.toLowerCase();
+    const matchSource = selectedSource === 'TOUS' || !q.source || (q.source as string).toLowerCase().includes(selectedSource.toLowerCase());
     return matchSpec && matchCourse && matchFaculty && matchSource;
   });
 
@@ -286,7 +289,7 @@ function QcmHubContent() {
   };
 
   const toggleOption = (idx: number) => {
-    if (hasValidated) return;
+    if (hasValidated || !activeQcm) return;
     if (activeQcm.type === 'SINGLE') {
       setSelectedAnswers([idx]);
     } else {
@@ -299,11 +302,12 @@ function QcmHubContent() {
   };
 
   const handleValidate = () => {
-    if (selectedAnswers.length === 0) return;
+    if (selectedAnswers.length === 0 || !activeQcm) return;
     setHasValidated(true);
 
     // Check if answers match exactly
     const isCorrect =
+      Array.isArray(activeQcm.correctAnswers) &&
       selectedAnswers.length === activeQcm.correctAnswers.length &&
       selectedAnswers.every(ans => activeQcm.correctAnswers.includes(ans));
 
@@ -846,41 +850,41 @@ function QcmHubContent() {
             <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-navy-100 dark:border-navy-800">
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
-                  {activeQcm.specialtyName}
+                  {activeQcm?.specialtyName || activeSpecialty.name}
                 </span>
-                {activeQcm.faculty === 'ORAN' && (
+                {activeQcm?.faculty === 'ORAN' && (
                   <span className="px-2.5 py-1 rounded-full text-xs font-black bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                     🏛️ Oran
                   </span>
                 )}
-                {activeQcm.faculty === 'SIDI_BEL_ABBES' && (
+                {activeQcm?.faculty === 'SIDI_BEL_ABBES' && (
                   <span className="px-2.5 py-1 rounded-full text-xs font-black bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
                     🏛️ Sidi Bel Abbès
                   </span>
                 )}
-                {activeQcm.source && (
+                {activeQcm?.source && (
                   <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
                     📖 Source : {activeQcm.source}
                   </span>
                 )}
-                {activeQcm.courseTitle && (
+                {activeQcm?.courseTitle && (
                   <span className="text-xs font-medium text-navy-500">
                     Cours : <strong>{activeQcm.courseTitle}</strong>
                   </span>
                 )}
               </div>
               <span className="text-xs font-bold text-navy-500">
-                {activeQcm.type === 'MULTIPLE' ? '☑️ Choix Multiple' : '🔘 Choix Simple'}
+                {activeQcm?.type === 'MULTIPLE' ? '☑️ Choix Multiple' : '🔘 Choix Simple'}
               </span>
             </div>
 
             {/* Vignette */}
-            {activeQcm.vignetteHtml ? (
+            {activeQcm?.vignetteHtml ? (
               <div
                 className="p-5 rounded-2xl bg-navy-50 dark:bg-navy-800/60 border border-navy-100 dark:border-navy-700 text-xs sm:text-sm text-navy-800 dark:text-navy-200 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: activeQcm.vignetteHtml }}
               />
-            ) : activeQcm.vignette ? (
+            ) : activeQcm?.vignette ? (
               <div className="p-5 rounded-2xl bg-navy-50 dark:bg-navy-800/60 border border-navy-100 dark:border-navy-700 text-xs sm:text-sm text-navy-800 dark:text-navy-200 leading-relaxed italic">
                 "{activeQcm.vignette}"
               </div>
@@ -888,14 +892,15 @@ function QcmHubContent() {
 
             {/* Question */}
             <h3 className="text-base sm:text-lg font-bold text-navy-950 dark:text-white">
-              {activeQcm.question}
+              {activeQcm?.question || ''}
             </h3>
 
             {/* Options List */}
             <div className="space-y-2">
-              {activeQcm.options.map((opt, idx) => {
+              {(activeQcm?.options || []).map((opt, idx) => {
+                if (!opt) return null;
                 const isSelected = selectedAnswers.includes(idx);
-                const isCorrect = activeQcm.correctAnswers.includes(idx);
+                const isCorrect = Array.isArray(activeQcm?.correctAnswers) && activeQcm.correctAnswers.includes(idx);
 
                 let optClass = 'border-navy-200 dark:border-navy-700 hover:border-brand-400 bg-white dark:bg-navy-900 text-navy-800 dark:text-navy-200';
                 if (hasValidated) {
@@ -910,7 +915,7 @@ function QcmHubContent() {
 
                 return (
                   <div
-                    key={opt.id}
+                    key={opt.id || `opt_${idx}`}
                     onClick={() => toggleOption(idx)}
                     className={`py-2.5 px-3.5 sm:py-3 sm:px-4 rounded-xl sm:rounded-2xl border cursor-pointer transition-all flex items-center justify-between gap-3 text-xs sm:text-sm active:scale-[0.99] ${optClass}`}
                   >
@@ -924,9 +929,9 @@ function QcmHubContent() {
                           ? 'bg-brand-600 text-white'
                           : 'bg-navy-100 dark:bg-navy-800 text-navy-700 dark:text-navy-300'
                       }`}>
-                        {opt.letter}
+                        {opt.letter || String.fromCharCode(65 + idx)}
                       </span>
-                      <span className="leading-snug">{opt.text}</span>
+                      <span className="leading-snug">{opt.text || ''}</span>
                     </div>
 
                     {hasValidated && isCorrect && (
@@ -967,15 +972,17 @@ function QcmHubContent() {
                     <span>Justification Médicale & Physiopathologique :</span>
                   </div>
                   <div className="text-xs sm:text-sm text-navy-800 dark:text-navy-200 leading-relaxed">
-                    {activeQcm.explanationHtml ? (
+                    {activeQcm?.explanationHtml ? (
                       <div dangerouslySetInnerHTML={{ __html: activeQcm.explanationHtml }} />
                     ) : (
-                      <p>{activeQcm.explanation}</p>
+                      <p>{activeQcm?.explanation || 'Pas d\'explication fournie.'}</p>
                     )}
                   </div>
-                  <div className="text-[11px] text-emerald-800 dark:text-emerald-400 font-semibold pt-1 border-t border-emerald-100 dark:border-emerald-800/40">
-                    Source officielle : {activeQcm.reference}
-                  </div>
+                  {activeQcm?.reference && (
+                    <div className="text-[11px] text-emerald-800 dark:text-emerald-400 font-semibold pt-1 border-t border-emerald-100 dark:border-emerald-800/40">
+                      Source officielle : {activeQcm.reference}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
