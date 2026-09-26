@@ -1,0 +1,3002 @@
+import { CATProtocol } from '@/types';
+
+export const INITIAL_CAT: CATProtocol[] = [
+  {
+    "id": "cat_p1-hta",
+    "slug": "poussee-hypertensive-urgence-hypertensive",
+    "title": "Poussée Hypertensive & Urgence Hypertensive",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie",
+    "category": "Cardiologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "PAS ≥ 180 mmHg et/ou PAD ≥ 110 mmHg. Différencier HTA sévère isolée de l'Urgence Hypertensive avec souffrance viscérale.",
+    "synopsis": "PAS ≥ 180 mmHg et/ou PAD ≥ 110 mmHg. Différencier HTA sévère isolée de l'Urgence Hypertensive avec souffrance viscérale.",
+    "page": "p. 1-2",
+    "evaluationInitiale": [
+      "HTA Sévère sans souffrance viscérale : Pression artérielle élevée isolée (céphalée mineure, stress). Objectif : TA ≤ 140/90 mmHg progressivement. Traitement ambulatoire.",
+      "Urgence Hypertensive : Avec souffrance viscérale immédiate à éliminer en urgence : AVC (déficit neurologique focal, aphasie, diplopie, paralysie faciale)",
+      "Dissection Aortique (douleur rétro-sternale déchirante migratrice vers le dos, souffle aortique diastolique)",
+      "OAP (dyspnée aiguë, orthopnée, râles crépitants en marée montante)",
+      "IDM (douleur constrictive irradiant vers l'épaule gauche/mâchoire, sueurs, sus-décalage ST)",
+      "Rétinopathie hypertensive / Éclampsie chez la femme enceinte"
+    ],
+    "signesDeGravite": [
+      "Suspicion d'OAP, AVC, IDM ou dissection aortique : Évacuation SAMU / Réanimation en urgence absolue après conditionnement."
+    ],
+    "diagnosticCritères": [
+      "PAS ≥ 180 mmHg et/ou PAD ≥ 110 mmHg. Différencier HTA sévère isolée de l'Urgence Hypertensive avec souffrance viscérale."
+    ],
+    "examensComplementaires": [
+      "FNS, Glycémie à jeun, Urée, Créatinine, Ionogramme sanguin complet, Bilan lipidique (CT, HDL, LDL, TG), Uricémie, Chimie des urines (Labstix : protéinurie, hématurie). ECG 12 dérivations systématique."
+    ],
+    "conduiteImmediate": [
+      "Rassurer impérativement le patient au calme (repos 15-30 min)",
+      "Prise de la TA aux 2 bras + Dextro + Recherche d'étiologie (stress, arrêt de traitement)",
+      "Oxygénothérapie 3-4 L/min si dyspnée ou SpO2",
+      "Pose d'une voie veineuse périphérique (VVP) de bon calibre",
+      "Si HTA isolée : Capoten (Captopril) 25 mg ou 50 mg per os (ou sublingual). Si anxiété majeure : Valium (Diazépam) 10 mg en IM + 1 amp Primperan si nausées.",
+      "Contrôle de la TA à 30 min. Si non baisse : 2ème comprimé de Captopril.",
+      "Si Urgence Hypertensive ou échec per os : Loxen (Nicardipine) 1 ampoule diluée dans du Sérum Glucosé 5% (SG 5%) en perfusion lente / SAP ou 1-2 cc titrés toutes les 15-30 min jusqu'à baisse tensionnelle contrôlée (ne pas chuter > 20% d'emblée)."
+    ],
+    "traitementSpecifique": [
+      "Captopril per os / SL : 25 mg d'emblée. Ne pas dépasser 50-75 mg en aigu. Loxen IV : Dilution 10 mg dans 100 cc SG5%. Débit initial 10-15 mg/h puis entretien 2 à 4 mg/h au PSE. Règle d'or : Réduire la TA de 20 à 25% max les premières heures pour préserver la perfusion cérébrale (sauf dissection aortique où PAS"
+    ],
+    "orientation": "Suspicion d'OAP, AVC, IDM ou dissection aortique : Évacuation SAMU / Réanimation en urgence absolue après conditionnement.",
+    "redFlags": [
+      "Suspicion d'OAP, AVC, IDM ou dissection aortique : Évacuation SAMU / Réanimation en urgence absolue après conditionnement."
+    ],
+    "alertes": "Suspicion d'OAP, AVC, IDM ou dissection aortique : Évacuation SAMU / Réanimation en urgence absolue après conditionnement.",
+    "clinicalPearls": [
+      "Rassurer le patient, arrêt du tabac, régularité des prises médicamenteuses, pas d'arrêt brutal du traitement.",
+      "Carnet 'CAT Abu Imad' (p. 1-2)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Rassurer impérativement le patient au calme (repos 15-30 min)</li>\n            <li>Prise de la TA aux 2 bras + Dextro + Recherche d'étiologie (stress, arrêt de traitement)</li>\n            <li>Oxygénothérapie 3-4 L/min si dyspnée ou SpO2 < 95%</li>\n            <li>Pose d'une voie veineuse périphérique (VVP) de bon calibre</li>\n            <li>Si HTA isolée : <strong>Capoten (Captopril)</strong> 25 mg ou 50 mg per os (ou sublingual). Si anxiété majeure : <strong>Valium (Diazépam)</strong> 10 mg en IM + 1 amp Primperan si nausées.</li>\n            <li>Contrôle de la TA à 30 min. Si non baisse : 2ème comprimé de Captopril.</li>\n            <li>Si Urgence Hypertensive ou échec per os : <strong>Loxen (Nicardipine)</strong> 1 ampoule diluée dans du Sérum Glucosé 5% (SG 5%) en perfusion lente / SAP ou 1-2 cc titrés toutes les 15-30 min jusqu'à baisse tensionnelle contrôlée (ne pas chuter > 20% d'emblée).</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>HTA Sévère sans souffrance viscérale :</strong> Pression artérielle élevée isolée (céphalée mineure, stress). Objectif : TA ≤ 140/90 mmHg progressivement. Traitement ambulatoire.</li>\n            <li><strong>Urgence Hypertensive :</strong> Avec souffrance viscérale immédiate à éliminer en urgence :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>AVC (déficit neurologique focal, aphasie, diplopie, paralysie faciale)</li>\n                <li>Dissection Aortique (douleur rétro-sternale déchirante migratrice vers le dos, souffle aortique diastolique)</li>\n                <li>OAP (dyspnée aiguë, orthopnée, râles crépitants en marée montante)</li>\n                <li>IDM (douleur constrictive irradiant vers l'épaule gauche/mâchoire, sueurs, sus-décalage ST)</li>\n                <li>Rétinopathie hypertensive / Éclampsie chez la femme enceinte</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Rassurer impérativement le patient au calme (repos 15-30 min)</li>\n            <li>Prise de la TA aux 2 bras + Dextro + Recherche d'étiologie (stress, arrêt de traitement)</li>\n            <li>Oxygénothérapie 3-4 L/min si dyspnée ou SpO2 < 95%</li>\n            <li>Pose d'une voie veineuse périphérique (VVP) de bon calibre</li>\n            <li>Si HTA isolée : <strong>Capoten (Captopril)</strong> 25 mg ou 50 mg per os (ou sublingual). Si anxiété majeure : <strong>Valium (Diazépam)</strong> 10 mg en IM + 1 amp Primperan si nausées.</li>\n            <li>Contrôle de la TA à 30 min. Si non baisse : 2ème comprimé de Captopril.</li>\n            <li>Si Urgence Hypertensive ou échec per os : <strong>Loxen (Nicardipine)</strong> 1 ampoule diluée dans du Sérum Glucosé 5% (SG 5%) en perfusion lente / SAP ou 1-2 cc titrés toutes les 15-30 min jusqu'à baisse tensionnelle contrôlée (ne pas chuter > 20% d'emblée).</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Captopril per os / SL :</strong> 25 mg d'emblée. Ne pas dépasser 50-75 mg en aigu.</p>\n            <p><strong>Loxen IV :</strong> Dilution 10 mg dans 100 cc SG5%. Débit initial 10-15 mg/h puis entretien 2 à 4 mg/h au PSE.</p>\n            <p><strong>Règle d'or :</strong> Réduire la TA de 20 à 25% max les premières heures pour préserver la perfusion cérébrale (sauf dissection aortique où PAS < 120 mmHg rapidement requise).</p>\n          </div>",
+    "bilanHtml": "FNS, Glycémie à jeun, Urée, Créatinine, Ionogramme sanguin complet, Bilan lipidique (CT, HDL, LDL, TG), Uricémie, Chimie des urines (Labstix : protéinurie, hématurie). ECG 12 dérivations systématique.",
+    "ordonnance": [
+      {
+        "drug": "Amlor (Amlodipine)",
+        "dose": "5 mg",
+        "poso": "1 comprimé par jour le matin à heure fixe",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Régime hyposodé",
+        "dose": "1/2 sel",
+        "poso": "Limiter sel de cuisine, conserves et charcuteries",
+        "qty": "En continu"
+      },
+      {
+        "drug": "Profil Tensionnel",
+        "dose": "Automesure",
+        "poso": "3 mesures le matin et 3 le soir pendant 7 jours sur carnet",
+        "qty": "1 carnet"
+      },
+      {
+        "drug": "Avis Cardiologue",
+        "dose": "Consultation",
+        "poso": "Avec les résultats du bilan biologique et ECG",
+        "qty": "Sous 8 jours"
+      }
+    ],
+    "conseils": "Rassurer le patient, arrêt du tabac, régularité des prises médicamenteuses, pas d'arrêt brutal du traitement.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.572Z"
+  },
+  {
+    "id": "cat_p3-avc",
+    "slug": "accident-vasculaire-cerebral-avc",
+    "title": "Accident Vasculaire Cérébral (AVC)",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Déficit neurologique focal brutal (Aphasie, hémiplégie, paralysie faciale). Scanner cérébral en extrême urgence (80% ischémique, 20% hémorragique).",
+    "synopsis": "Déficit neurologique focal brutal (Aphasie, hémiplégie, paralysie faciale). Scanner cérébral en extrême urgence (80% ischémique, 20% hémorragique).",
+    "page": "p. 3-5",
+    "evaluationInitiale": [
+      "Troubles neurologiques d'apparition soudaine : Aphasie ou dysarthrie, céphalée intense brutale, flou visuel / hémianopsie",
+      "Paralysie faciale (centrale ou périphérique), hémiplégie ou hémiparésie, perte d'urine",
+      "Possibles crises convulsives inaugurales",
+      "Score de Glasgow, asymétrie pupillaire"
+    ],
+    "signesDeGravite": [
+      "Aggravation du Glasgow, anisocorie, convulsions récidivantes, détresse respiratoire : Transfert en Neurochirurgie ou Réanimation."
+    ],
+    "diagnosticCritères": [
+      "Déficit neurologique focal brutal (Aphasie, hémiplégie, paralysie faciale). Scanner cérébral en extrême urgence (80% ischémique, 20% hémorragique)."
+    ],
+    "examensComplementaires": [
+      "TDM Cérébral sans injection en urgence : 20% hyperdensité (AVC hémorragique) / 80% hypodensité (AVC ischémique précoce ou scanner normal les 24-48 premières heures à recontrôler). FNS, Hémostase complète (TP, TCA, INR), Glycémie, Ionogramme (Na+, K+), Urée, Créat."
+    ],
+    "conduiteImmediate": [
+      "Conditionnement : Position demi-assise à 30°, liberté des voies aériennes, O2 thérapie 3 L/min (si SpO2",
+      "Pose VVP solide (garde-veine SSI 0.9%). ATTENTION : Le Sérum Glucosé (SG 5%) est STRICTEMENT CONTRE-INDIQUÉ (risque d'aggravation de l'œdème cérébral)",
+      "Dextro immédiat (éliminer hypoglycémie mimant un AVC)",
+      "Règle tensionnelle capitale : NE PAS BAISSER LA TENSION AVANT LE SCANNER ! Sauf si TA extrême > 220/120 mmHg. Si > 220/120 mmHg : 1 cc Loxen dilué dans SG5% très prudent.",
+      "ECG immédiat (éliminer IDM ou FA emboligène)",
+      "Évacuation rapide vers centre avec TDM Cérébrale (Délai de thrombolyse si ischémique"
+    ],
+    "traitementSpecifique": [
+      "Œdème cérébral / Engagement : Mannitol 20% 100 cc toutes les 8h (sous surveillance ionique et osmolarité). Réhydratation : Sérum Salé Isotonique (SSI 0.9%) 1.5 L/24h (1 flacon de Perfalgan toutes les 8h si fièvre > 38°C). Contrôle glycémique strict : Si glycémie > 2 g/L : Insuline ordinaire 5 à 10 UI SC / heure pour maintenir glycémie Nursing : Pas d'alimentation orale pendant 24-48h (risque de fausse route). Sonde gastrique + sonde vésicale si coma/incontinence. Matelas anti-escarres. Correction ionique : Si hypoNa ou hypoK : KCL 2 à 3 g/jour dans SSI."
+    ],
+    "orientation": "Aggravation du Glasgow, anisocorie, convulsions récidivantes, détresse respiratoire : Transfert en Neurochirurgie ou Réanimation.",
+    "redFlags": [
+      "Aggravation du Glasgow, anisocorie, convulsions récidivantes, détresse respiratoire : Transfert en Neurochirurgie ou Réanimation."
+    ],
+    "alertes": "Aggravation du Glasgow, anisocorie, convulsions récidivantes, détresse respiratoire : Transfert en Neurochirurgie ou Réanimation.",
+    "clinicalPearls": [
+      "Surveillance horaire des constantes (FR, FC, SpO2, TA, Dextro, conscience).",
+      "Carnet 'CAT Abu Imad' (p. 3-5)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Conditionnement : Position demi-assise à 30°, liberté des voies aériennes, O2 thérapie 3 L/min (si SpO2 < 95%)</li>\n            <li>Pose VVP solide (garde-veine SSI 0.9%). <strong>ATTENTION : Le Sérum Glucosé (SG 5%) est STRICTEMENT CONTRE-INDIQUÉ</strong> (risque d'aggravation de l'œdème cérébral)</li>\n            <li>Dextro immédiat (éliminer hypoglycémie mimant un AVC)</li>\n            <li><strong>Règle tensionnelle capitale :</strong> NE PAS BAISSER LA TENSION AVANT LE SCANNER ! Sauf si TA extrême > 220/120 mmHg. Si > 220/120 mmHg : 1 cc Loxen dilué dans SG5% très prudent.</li>\n            <li>ECG immédiat (éliminer IDM ou FA emboligène)</li>\n            <li>Évacuation rapide vers centre avec TDM Cérébrale (Délai de thrombolyse si ischémique < 4h30)</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Troubles neurologiques d'apparition soudaine : Aphasie ou dysarthrie, céphalée intense brutale, flou visuel / hémianopsie</li>\n            <li>Paralysie faciale (centrale ou périphérique), hémiplégie ou hémiparésie, perte d'urine</li>\n            <li>Possibles crises convulsives inaugurales</li>\n            <li>Score de Glasgow, asymétrie pupillaire</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Conditionnement : Position demi-assise à 30°, liberté des voies aériennes, O2 thérapie 3 L/min (si SpO2 < 95%)</li>\n            <li>Pose VVP solide (garde-veine SSI 0.9%). <strong>ATTENTION : Le Sérum Glucosé (SG 5%) est STRICTEMENT CONTRE-INDIQUÉ</strong> (risque d'aggravation de l'œdème cérébral)</li>\n            <li>Dextro immédiat (éliminer hypoglycémie mimant un AVC)</li>\n            <li><strong>Règle tensionnelle capitale :</strong> NE PAS BAISSER LA TENSION AVANT LE SCANNER ! Sauf si TA extrême > 220/120 mmHg. Si > 220/120 mmHg : 1 cc Loxen dilué dans SG5% très prudent.</li>\n            <li>ECG immédiat (éliminer IDM ou FA emboligène)</li>\n            <li>Évacuation rapide vers centre avec TDM Cérébrale (Délai de thrombolyse si ischémique < 4h30)</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Œdème cérébral / Engagement :</strong> Mannitol 20% 100 cc toutes les 8h (sous surveillance ionique et osmolarité).</p>\n            <p><strong>Réhydratation :</strong> Sérum Salé Isotonique (SSI 0.9%) 1.5 L/24h (1 flacon de Perfalgan toutes les 8h si fièvre > 38°C).</p>\n            <p><strong>Contrôle glycémique strict :</strong> Si glycémie > 2 g/L : Insuline ordinaire 5 à 10 UI SC / heure pour maintenir glycémie < 1.8 g/L.</p>\n            <p><strong>Nursing :</strong> Pas d'alimentation orale pendant 24-48h (risque de fausse route). Sonde gastrique + sonde vésicale si coma/incontinence. Matelas anti-escarres.</p>\n            <p><strong>Correction ionique :</strong> Si hypoNa ou hypoK : KCL 2 à 3 g/jour dans SSI.</p>\n          </div>",
+    "bilanHtml": "TDM Cérébral sans injection en urgence : 20% hyperdensité (AVC hémorragique) / 80% hypodensité (AVC ischémique précoce ou scanner normal les 24-48 premières heures à recontrôler). FNS, Hémostase complète (TP, TCA, INR), Glycémie, Ionogramme (Na+, K+), Urée, Créat.",
+    "ordonnance": [
+      {
+        "drug": "Somazina (Citicoline)",
+        "dose": "500 mg IVL",
+        "poso": "1 ampoule par jour en IV lente",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Sérum Salé Isotonique 0.9%",
+        "dose": "500 cc",
+        "poso": "3 flacons par 24h au débit de 40 gouttes/min",
+        "qty": "3 poches"
+      },
+      {
+        "drug": "Prévention surinfection nosocomiale",
+        "dose": "Céfotaxime 1g ou Augmentin 1g",
+        "poso": "1g toutes les 12h IV si signe infectieux pulmonaire ou urinaire",
+        "qty": "Hospitalisation"
+      },
+      {
+        "drug": "Consultation Spécialisée",
+        "dose": "Neurologie + Kinésithérapie",
+        "poso": "Kinésithérapie motrice passive dès J2 puis active",
+        "qty": "Dès stabilisation"
+      }
+    ],
+    "conseils": "Surveillance horaire des constantes (FR, FC, SpO2, TA, Dextro, conscience).",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.583Z"
+  },
+  {
+    "id": "cat_p6-oap",
+    "slug": "deme-aigu-du-poumon-oap-cardiogenique",
+    "title": "Œdème Aigu du Poumon (OAP Cardiogénique)",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie",
+    "category": "Cardiologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Détresse respiratoire aiguë brutale, polypnée, râles crépitants bilatéraux en 'marée montante', toux avec expectorations blanches spumeuses 'saumonées'.",
+    "synopsis": "Détresse respiratoire aiguë brutale, polypnée, râles crépitants bilatéraux en 'marée montante', toux avec expectorations blanches spumeuses 'saumonées'.",
+    "page": "p. 6-7",
+    "evaluationInitiale": [
+      "Dyspnée aiguë majeure, orthopnée (impossibilité de s'allonger), polypnée > 30/min, cyanose, sueurs profuses",
+      "Toux quinteuse ramenant une mousse blanche ou rosée saumonée",
+      "Auscultation : Râles crépitants bilatéraux symétriques ascendants (bruits de marée montante) +/- sibilants ('asthme cardiaque')",
+      "Terrain : Antécédent d'HTA sévère, cardiopathie ischémique ou valvulaire"
+    ],
+    "signesDeGravite": [
+      "Non-réponse aux diurétiques, état de choc, troubles du rythme graves : Appel et transfert immédiat en USIC / Réanimation."
+    ],
+    "diagnosticCritères": [
+      "Détresse respiratoire aiguë brutale, polypnée, râles crépitants bilatéraux en 'marée montante', toux avec expectorations blanches spumeuses 'saumonées'."
+    ],
+    "examensComplementaires": [
+      "ECG 12 dérivations immédiat (recherche IDM déclenchant, trouble du rythme). Radiographie du thorax de face au lit (syndrome alvéolo-interstitiel péri-hilaire en ailes de papillon, cardiomégalie). Gaz du sang, FNS, Troponine, Urée, Créatinine, Ionogramme, BNP/NT-proBNP."
+    ],
+    "conduiteImmediate": [
+      "Installation immédiate : Position assise stricte, jambes pendantes au bord du lit (réduit le retour veineux)",
+      "Oxygénothérapie à fort débit : 8 à 10 L/min au masque à haute concentration (viser SpO2 > 92%)",
+      "Pose VVP avec garde-veine",
+      "Diurétique de l'anse : Lasilix (Furosémide) 40 mg en IV direct d'emblée. Si TA élevée, réinjecter 40 à 80 mg après 20 min selon la réponse diurétique.",
+      "Dérivés Nitrés (si PAS > 100 mmHg) : Risordan 2 mg IVD ou Lénitral 1 à 2 mg IVD / per os sublingual (diminue la précharge).",
+      "Si HTA associée sévère : Loxen injectable titré au pousse-seringue."
+    ],
+    "traitementSpecifique": [
+      "Lasilix (Furosémide) : 40 à 80 mg IVD, renouvelable après 20-30 min jusqu'à 120-160 mg/24h. Dérivé Nitré : Risordan injectable 2 à 4 mg/h en continu ou spray sublingual en attendant la voie veineuse. En cas de choc cardiogénique (PAS CONTRE-INDICATION aux dérivés nitrés ! Recours aux inotropes positifs : Dobutrex (Dobutamine) 5 à 15 µg/kg/min en réanimation."
+    ],
+    "orientation": "Non-réponse aux diurétiques, état de choc, troubles du rythme graves : Appel et transfert immédiat en USIC / Réanimation.",
+    "redFlags": [
+      "Non-réponse aux diurétiques, état de choc, troubles du rythme graves : Appel et transfert immédiat en USIC / Réanimation."
+    ],
+    "alertes": "Non-réponse aux diurétiques, état de choc, troubles du rythme graves : Appel et transfert immédiat en USIC / Réanimation.",
+    "clinicalPearls": [
+      "Pesée quotidienne le matin à jeun. Consulter en urgence si prise de poids rapide de plus de 2 kg en 48h.",
+      "Carnet 'CAT Abu Imad' (p. 6-7)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Installation immédiate :</strong> Position assise stricte, jambes pendantes au bord du lit (réduit le retour veineux)</li>\n            <li><strong>Oxygénothérapie à fort débit :</strong> 8 à 10 L/min au masque à haute concentration (viser SpO2 > 92%)</li>\n            <li>Pose VVP avec garde-veine</li>\n            <li><strong>Diurétique de l'anse :</strong> Lasilix (Furosémide) 40 mg en IV direct d'emblée. Si TA élevée, réinjecter 40 à 80 mg après 20 min selon la réponse diurétique.</li>\n            <li><strong>Dérivés Nitrés (si PAS > 100 mmHg) :</strong> Risordan 2 mg IVD ou Lénitral 1 à 2 mg IVD / per os sublingual (diminue la précharge).</li>\n            <li>Si HTA associée sévère : Loxen injectable titré au pousse-seringue.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Dyspnée aiguë majeure, orthopnée (impossibilité de s'allonger), polypnée > 30/min, cyanose, sueurs profuses</li>\n            <li>Toux quinteuse ramenant une mousse blanche ou rosée saumonée</li>\n            <li>Auscultation : Râles crépitants bilatéraux symétriques ascendants (bruits de marée montante) +/- sibilants ('asthme cardiaque')</li>\n            <li>Terrain : Antécédent d'HTA sévère, cardiopathie ischémique ou valvulaire</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Installation immédiate :</strong> Position assise stricte, jambes pendantes au bord du lit (réduit le retour veineux)</li>\n            <li><strong>Oxygénothérapie à fort débit :</strong> 8 à 10 L/min au masque à haute concentration (viser SpO2 > 92%)</li>\n            <li>Pose VVP avec garde-veine</li>\n            <li><strong>Diurétique de l'anse :</strong> Lasilix (Furosémide) 40 mg en IV direct d'emblée. Si TA élevée, réinjecter 40 à 80 mg après 20 min selon la réponse diurétique.</li>\n            <li><strong>Dérivés Nitrés (si PAS > 100 mmHg) :</strong> Risordan 2 mg IVD ou Lénitral 1 à 2 mg IVD / per os sublingual (diminue la précharge).</li>\n            <li>Si HTA associée sévère : Loxen injectable titré au pousse-seringue.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Lasilix (Furosémide) :</strong> 40 à 80 mg IVD, renouvelable après 20-30 min jusqu'à 120-160 mg/24h.</p>\n            <p><strong>Dérivé Nitré :</strong> Risordan injectable 2 à 4 mg/h en continu ou spray sublingual en attendant la voie veineuse.</p>\n            <p><strong>En cas de choc cardiogénique (PAS < 90 mmHg) :</strong> CONTRE-INDICATION aux dérivés nitrés ! Recours aux inotropes positifs : Dobutrex (Dobutamine) 5 à 15 µg/kg/min en réanimation.</p>\n          </div>",
+    "bilanHtml": "ECG 12 dérivations immédiat (recherche IDM déclenchant, trouble du rythme). Radiographie du thorax de face au lit (syndrome alvéolo-interstitiel péri-hilaire en ailes de papillon, cardiomégalie). Gaz du sang, FNS, Troponine, Urée, Créatinine, Ionogramme, BNP/NT-proBNP.",
+    "ordonnance": [
+      {
+        "drug": "Lasilix (Furosémide)",
+        "dose": "40 mg",
+        "poso": "1 cp le matin à jeun",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Kardegic (Aspirine)",
+        "dose": "75 mg",
+        "poso": "1 sachet par jour à midi",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "IEC / ARA2 (selon avis cardio)",
+        "dose": "Faible dose",
+        "poso": "Introduction progressive à distance de la phase aiguë",
+        "qty": "Sur avis"
+      },
+      {
+        "drug": "Régime hyposodé strict",
+        "dose": "-",
+        "poso": "Contrôle strict du poids et des œdèmes des membres inférieurs",
+        "qty": "Quotidien"
+      }
+    ],
+    "conseils": "Pesée quotidienne le matin à jeun. Consulter en urgence si prise de poids rapide de plus de 2 kg en 48h.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.583Z"
+  },
+  {
+    "id": "cat_p8-idm",
+    "slug": "infarctus-du-myocarde-idm-sca-st",
+    "title": "Infarctus du Myocarde (IDM / SCA ST+)",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie",
+    "category": "Cardiologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Douleur rétro-sternale constrictive violente, angoissante, irradiant à la mâchoire et au bras gauche, résistante à la Trinitrine. ECG en moins de 10 min.",
+    "synopsis": "Douleur rétro-sternale constrictive violente, angoissante, irradiant à la mâchoire et au bras gauche, résistante à la Trinitrine. ECG en moins de 10 min.",
+    "page": "p. 8",
+    "evaluationInitiale": [
+      "Douleur thoracique constrictive, 'en étau', brûlure rétrosternale irradiant vers l'épaule gauche, mâchoire ou poignets",
+      "Durée > 20-30 minutes, non calmée par le repos ni la Trinitrine sublinguale",
+      "Signes d'accompagnement végétatifs : Pâleur, sueurs profuses, angoisse majeure de mort imminente, nausées/vomissements",
+      "Parfois forme atypique chez le diabétique ou la personne âgée (simple malaise, épigastralgie isolée)"
+    ],
+    "signesDeGravite": [
+      "Tout sus-décalage persistant du ST impose une désobstruction coronaire urgente en cardiologie interventionnelle (délai idéal < 120 min)."
+    ],
+    "diagnosticCritères": [
+      "Douleur rétro-sternale constrictive violente, angoissante, irradiant à la mâchoire et au bras gauche, résistante à la Trinitrine. ECG en moins de 10 min."
+    ],
+    "examensComplementaires": [
+      "ECG répété à 20 min. Troponine I ou T ultrasensible (ne doit PAS retarder la revascularisation), FNS, TP, TCA, Glycémie, Créatinine, Ionogramme."
+    ],
+    "conduiteImmediate": [
+      "Repos strict au lit, interdiction totale de se lever",
+      "Oxygénothérapie si SpO2",
+      "Pose VVP de gros calibre (garde-veine SSI ou SG5%)",
+      "ECG 12 dérivations immédiat dans les 10 min : Rechercher un sus-décalage du segment ST ≥ 1 mm (ou 2 mm en précordiales) dans au moins 2 dérivations contiguës avec image en miroir. Répéter l'ECG toutes les 15-20 min si doute.",
+      "Traitement de la douleur : Perfalgan 1g IV. Si échec : Chlorhydrate de Morphine 2 à 3 mg IV titrée toutes les 5 à 10 min.",
+      "Antiagrégants plaquettaires de charge : Aspirine (Aspegic) : 250 mg à 300 mg en IV direct (ou à croquer)",
+      "Plavix (Clopidogrel) : Dose de charge 300 mg à 600 mg per os en une seule prise",
+      "Anticoagulation efficace : Lovenox (Énoxaparine) 30 mg (0.3 cc) IVD bolus puis 1 mg/kg (100 UI/kg) en SC.",
+      "Appel SAMU / Transport médicalisé vers salle de coronarographie d'urgence (angioplastie primaire ou thrombolyse)."
+    ],
+    "traitementSpecifique": [
+      "Aspirine : 250 - 300 mg IVD bolus. Plavix : 4 à 8 comprimés de 75 mg en prise unique. Lovenox : 30 mg IV bolus suivi de 1 mg/kg SC toutes les 12 heures. Morphine : Ampoule de 10 mg diluée dans 10 cc de SSI (1 mg/cc), injecter 2 à 3 cc toutes les 5 à 10 min jusqu'à sédation de la douleur."
+    ],
+    "orientation": "Tout sus-décalage persistant du ST impose une désobstruction coronaire urgente en cardiologie interventionnelle (délai idéal < 120 min).",
+    "redFlags": [
+      "Tout sus-décalage persistant du ST impose une désobstruction coronaire urgente en cardiologie interventionnelle (délai idéal < 120 min)."
+    ],
+    "alertes": "Tout sus-décalage persistant du ST impose une désobstruction coronaire urgente en cardiologie interventionnelle (délai idéal < 120 min).",
+    "clinicalPearls": [
+      "Surveillance scope continue du rythme cardiaque (risque de fibrillation ventriculaire précoce).",
+      "Carnet 'CAT Abu Imad' (p. 8)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos strict au lit, interdiction totale de se lever</li>\n            <li>Oxygénothérapie si SpO2 < 90% (viser 92-96%)</li>\n            <li>Pose VVP de gros calibre (garde-veine SSI ou SG5%)</li>\n            <li><strong>ECG 12 dérivations immédiat dans les 10 min :</strong> Rechercher un sus-décalage du segment ST ≥ 1 mm (ou 2 mm en précordiales) dans au moins 2 dérivations contiguës avec image en miroir. Répéter l'ECG toutes les 15-20 min si doute.</li>\n            <li><strong>Traitement de la douleur :</strong> Perfalgan 1g IV. Si échec : Chlorhydrate de Morphine 2 à 3 mg IV titrée toutes les 5 à 10 min.</li>\n            <li><strong>Antiagrégants plaquettaires de charge :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Aspirine (Aspegic) : 250 mg à 300 mg en IV direct (ou à croquer)</li>\n                <li>Plavix (Clopidogrel) : Dose de charge 300 mg à 600 mg per os en une seule prise</li>\n              </ul>\n            </li>\n            <li><strong>Anticoagulation efficace :</strong> Lovenox (Énoxaparine) 30 mg (0.3 cc) IVD bolus puis 1 mg/kg (100 UI/kg) en SC.</li>\n            <li>Appel SAMU / Transport médicalisé vers salle de coronarographie d'urgence (angioplastie primaire ou thrombolyse).</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur thoracique constrictive, 'en étau', brûlure rétrosternale irradiant vers l'épaule gauche, mâchoire ou poignets</li>\n            <li>Durée > 20-30 minutes, non calmée par le repos ni la Trinitrine sublinguale</li>\n            <li>Signes d'accompagnement végétatifs : Pâleur, sueurs profuses, angoisse majeure de mort imminente, nausées/vomissements</li>\n            <li>Parfois forme atypique chez le diabétique ou la personne âgée (simple malaise, épigastralgie isolée)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos strict au lit, interdiction totale de se lever</li>\n            <li>Oxygénothérapie si SpO2 < 90% (viser 92-96%)</li>\n            <li>Pose VVP de gros calibre (garde-veine SSI ou SG5%)</li>\n            <li><strong>ECG 12 dérivations immédiat dans les 10 min :</strong> Rechercher un sus-décalage du segment ST ≥ 1 mm (ou 2 mm en précordiales) dans au moins 2 dérivations contiguës avec image en miroir. Répéter l'ECG toutes les 15-20 min si doute.</li>\n            <li><strong>Traitement de la douleur :</strong> Perfalgan 1g IV. Si échec : Chlorhydrate de Morphine 2 à 3 mg IV titrée toutes les 5 à 10 min.</li>\n            <li><strong>Antiagrégants plaquettaires de charge :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Aspirine (Aspegic) : 250 mg à 300 mg en IV direct (ou à croquer)</li>\n                <li>Plavix (Clopidogrel) : Dose de charge 300 mg à 600 mg per os en une seule prise</li>\n              </ul>\n            </li>\n            <li><strong>Anticoagulation efficace :</strong> Lovenox (Énoxaparine) 30 mg (0.3 cc) IVD bolus puis 1 mg/kg (100 UI/kg) en SC.</li>\n            <li>Appel SAMU / Transport médicalisé vers salle de coronarographie d'urgence (angioplastie primaire ou thrombolyse).</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Aspirine :</strong> 250 - 300 mg IVD bolus.</p>\n            <p><strong>Plavix :</strong> 4 à 8 comprimés de 75 mg en prise unique.</p>\n            <p><strong>Lovenox :</strong> 30 mg IV bolus suivi de 1 mg/kg SC toutes les 12 heures.</p>\n            <p><strong>Morphine :</strong> Ampoule de 10 mg diluée dans 10 cc de SSI (1 mg/cc), injecter 2 à 3 cc toutes les 5 à 10 min jusqu'à sédation de la douleur.</p>\n          </div>",
+    "bilanHtml": "ECG répété à 20 min. Troponine I ou T ultrasensible (ne doit PAS retarder la revascularisation), FNS, TP, TCA, Glycémie, Créatinine, Ionogramme.",
+    "ordonnance": [
+      {
+        "drug": "Kardegic (Aspirine)",
+        "dose": "100 mg",
+        "poso": "1 sachet par jour au milieu du repas",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Plavix (Clopidogrel)",
+        "dose": "75 mg",
+        "poso": "1 comprimé par jour à heure fixe",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Atorvastatine (Tahor)",
+        "dose": "80 mg",
+        "poso": "1 comprimé le soir",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Bêtabloquant / IEC",
+        "dose": "Selon prescription USIC",
+        "poso": "Adapté à la fraction d'éjection et la TA",
+        "qty": "Selon cardio"
+      }
+    ],
+    "conseils": "Surveillance scope continue du rythme cardiaque (risque de fibrillation ventriculaire précoce).",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p9-coma",
+    "slug": "coma-non-traumatique-hypoglycemie",
+    "title": "Coma Non Traumatique & Hypoglycémie",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Perte de conscience prolongée. PLS, Dextro immédiat. Si hypoglycémie : resucrage IV d'urgence au Sérum Glucosé à 30%.",
+    "synopsis": "Perte de conscience prolongée. PLS, Dextro immédiat. Si hypoglycémie : resucrage IV d'urgence au Sérum Glucosé à 30%.",
+    "page": "p. 9-10",
+    "evaluationInitiale": [
+      "Trouble de conscience, altération du score de Glasgow (",
+      "Signes d'Hypoglycémie : Sueurs abondantes, tachycardie, pâleur, tremblements, faim douloureuse, asthénie brutale, céphalées, agitation, signes de localisation neurologique réversibles",
+      "Rechercher signes de focalisation (Avis neuro si présent), éliminer traumatisme crânien",
+      "Glycémie capillaire"
+    ],
+    "signesDeGravite": [
+      "Coma persistant malgré normalisation glycémique : Scanner cérébral d'urgence et avis Réanimation / Neurologie."
+    ],
+    "diagnosticCritères": [
+      "Perte de conscience prolongée. PLS, Dextro immédiat. Si hypoglycémie : resucrage IV d'urgence au Sérum Glucosé à 30%."
+    ],
+    "examensComplementaires": [
+      "Glycémie capillaire répétée toutes les 15-20 min. Bilan sanguin : FNS, Glycémie veineuse, Ionogramme sanguin, Urée, Créatinine, CPK, Transaminases (ASAT, ALAT). Si suspicion d'intoxication au CO : dosage HbCO + O2 8-10 L/min."
+    ],
+    "conduiteImmediate": [
+      "Position Latérale de Sécurité (PLS), liberté des voies respiratoires",
+      "Oxygénothérapie au masque si nécessaire",
+      "Prise immédiate de Dextro au doigt + VVP",
+      "Si patient conscient : Donner en urgence une boisson sucrée (3 à 4 morceaux de sucre ou jus de fruit) + féculents lents.",
+      "Si patient inconscient / comateux : Injection IV Directe immédiate de Sérum Glucosé à 30% (SG 30%) : 50 cc en IVD",
+      "Puis relais par perfusion continue de 1 flacon de Sérum Glucosé 10% (SG 10%) 500 cc en 1h",
+      "Puis entretien : 1 flacon SG 5% sur 8h",
+      "Si voie veineuse impossible ou patient très agité : Glucagon 1 mg à 2 mg en IM ou SC (Attention : inefficace si dénutrition ou éthylisme chronique).",
+      "Si coma toxique / éthylique : Adjonction de Vitamine B1 (Thiamine 100 mg IV) avant resucrage massif.",
+      "Dès restauration de la conscience : Alimentation orale riche en glucides complexes pour éviter la récidive."
+    ],
+    "traitementSpecifique": [
+      "SG 30% : 50 cc (2 à 3 ampoules) en IV direct lente. Relais perfusion : 500 cc SG 10% sur 1 à 2h puis SG 5%. HHC (Hémisuccinate d'hydrocortisone) : 100 à 200 mg en IV si coma réfractaire ou suspicion d'insuffisance surrénalienne aiguë."
+    ],
+    "orientation": "Coma persistant malgré normalisation glycémique : Scanner cérébral d'urgence et avis Réanimation / Neurologie.",
+    "redFlags": [
+      "Coma persistant malgré normalisation glycémique : Scanner cérébral d'urgence et avis Réanimation / Neurologie."
+    ],
+    "alertes": "Coma persistant malgré normalisation glycémique : Scanner cérébral d'urgence et avis Réanimation / Neurologie.",
+    "clinicalPearls": [
+      "Toujours avoir 3 morceaux de sucre sur soi. Ne jamais sauter de repas après injection d'insuline.",
+      "Carnet 'CAT Abu Imad' (p. 9-10)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Position Latérale de Sécurité (PLS), liberté des voies respiratoires</li>\n            <li>Oxygénothérapie au masque si nécessaire</li>\n            <li>Prise immédiate de Dextro au doigt + VVP</li>\n            <li><strong>Si patient conscient :</strong> Donner en urgence une boisson sucrée (3 à 4 morceaux de sucre ou jus de fruit) + féculents lents.</li>\n            <li><strong>Si patient inconscient / comateux :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Injection IV Directe immédiate de <strong>Sérum Glucosé à 30% (SG 30%) : 50 cc en IVD</strong></li>\n                <li>Puis relais par perfusion continue de 1 flacon de <strong>Sérum Glucosé 10% (SG 10%) 500 cc en 1h</strong></li>\n                <li>Puis entretien : 1 flacon SG 5% sur 8h</li>\n              </ul>\n            </li>\n            <li>Si voie veineuse impossible ou patient très agité : <strong>Glucagon 1 mg à 2 mg en IM ou SC</strong> (Attention : inefficace si dénutrition ou éthylisme chronique).</li>\n            <li>Si coma toxique / éthylique : Adjonction de Vitamine B1 (Thiamine 100 mg IV) avant resucrage massif.</li>\n            <li>Dès restauration de la conscience : Alimentation orale riche en glucides complexes pour éviter la récidive.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Trouble de conscience, altération du score de Glasgow (< 8 = coma grave)</li>\n            <li><strong>Signes d'Hypoglycémie :</strong> Sueurs abondantes, tachycardie, pâleur, tremblements, faim douloureuse, asthénie brutale, céphalées, agitation, signes de localisation neurologique réversibles</li>\n            <li>Rechercher signes de focalisation (Avis neuro si présent), éliminer traumatisme crânien</li>\n            <li>Glycémie capillaire < 0.60 g/L (ou < 2.8 mmol/L)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Position Latérale de Sécurité (PLS), liberté des voies respiratoires</li>\n            <li>Oxygénothérapie au masque si nécessaire</li>\n            <li>Prise immédiate de Dextro au doigt + VVP</li>\n            <li><strong>Si patient conscient :</strong> Donner en urgence une boisson sucrée (3 à 4 morceaux de sucre ou jus de fruit) + féculents lents.</li>\n            <li><strong>Si patient inconscient / comateux :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Injection IV Directe immédiate de <strong>Sérum Glucosé à 30% (SG 30%) : 50 cc en IVD</strong></li>\n                <li>Puis relais par perfusion continue de 1 flacon de <strong>Sérum Glucosé 10% (SG 10%) 500 cc en 1h</strong></li>\n                <li>Puis entretien : 1 flacon SG 5% sur 8h</li>\n              </ul>\n            </li>\n            <li>Si voie veineuse impossible ou patient très agité : <strong>Glucagon 1 mg à 2 mg en IM ou SC</strong> (Attention : inefficace si dénutrition ou éthylisme chronique).</li>\n            <li>Si coma toxique / éthylique : Adjonction de Vitamine B1 (Thiamine 100 mg IV) avant resucrage massif.</li>\n            <li>Dès restauration de la conscience : Alimentation orale riche en glucides complexes pour éviter la récidive.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>SG 30% :</strong> 50 cc (2 à 3 ampoules) en IV direct lente.</p>\n            <p><strong>Relais perfusion :</strong> 500 cc SG 10% sur 1 à 2h puis SG 5%.</p>\n            <p><strong>HHC (Hémisuccinate d'hydrocortisone) :</strong> 100 à 200 mg en IV si coma réfractaire ou suspicion d'insuffisance surrénalienne aiguë.</p>\n          </div>",
+    "bilanHtml": "Glycémie capillaire répétée toutes les 15-20 min. Bilan sanguin : FNS, Glycémie veineuse, Ionogramme sanguin, Urée, Créatinine, CPK, Transaminases (ASAT, ALAT). Si suspicion d'intoxication au CO : dosage HbCO + O2 8-10 L/min.",
+    "ordonnance": [
+      {
+        "drug": "Surveillance glycémique",
+        "dose": "Lecteur Dextro",
+        "poso": "Mesures avant chaque repas et au coucher",
+        "qty": "1 appareil"
+      },
+      {
+        "drug": "Glucagon injectable (Glucagen Kit)",
+        "dose": "1 mg",
+        "poso": "À conserver au frigo, injection IM par entourage si coma",
+        "qty": "1 kit"
+      },
+      {
+        "drug": "Réévaluation antidiabétique",
+        "dose": "Consultation",
+        "poso": "Ajuster doses d'insuline ou sulfamides hypoglycémiants",
+        "qty": "Sous 48h"
+      }
+    ],
+    "conseils": "Toujours avoir 3 morceaux de sucre sur soi. Ne jamais sauter de repas après injection d'insuline.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p11-hyperglycemie",
+    "slug": "hyperglycemie-aigue-cetose-diabetique",
+    "title": "Hyperglycémie Aiguë & Cétose Diabétique",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Décompensation diabétique avec glycémie > 2.5 g/L et présence de corps cétoniques au Labstix (CC +). Réhydratation et insulinothérapie sous contrôle.",
+    "synopsis": "Décompensation diabétique avec glycémie > 2.5 g/L et présence de corps cétoniques au Labstix (CC +). Réhydratation et insulinothérapie sous contrôle.",
+    "page": "p. 11-12",
+    "evaluationInitiale": [
+      "Polyuro-polydipsie intense, bouche sèche, asthénie majeure, amaigrissement rapide",
+      "Déshydratation globale (pli cutané, hypotension, tachycardie)",
+      "Rechercher facteur déclenchant : Infection intercurrente (pulmonaire, urinaire, pied diabétique), infarctus, arrêt intempestif de l'insuline",
+      "Labstix urinaire systématique : Recherche de Cétonurie (CC +) et Glycosurie (+++)"
+    ],
+    "signesDeGravite": [
+      "Acidocétose sévère avec polypnée de Kussmaul, obnubilation ou kaliémie < 3.3 mmol/L : Hospitalisation immédiate en Réanimation."
+    ],
+    "diagnosticCritères": [
+      "Décompensation diabétique avec glycémie > 2.5 g/L et présence de corps cétoniques au Labstix (CC +). Réhydratation et insulinothérapie sous contrôle."
+    ],
+    "examensComplementaires": [
+      "Labstix urinaire horaire, Glycémie veineuse, FNS, Ionogramme sanguin complet (K+, Na+), Urée, Créatinine, CRP, ECBU, Radiographie pulmonaire."
+    ],
+    "conduiteImmediate": [
+      "Test urinaire Labstix immédiat (Glycémie + Corps Cétoniques)",
+      "Pose VVP et réhydratation active : Sérum Salé Isotonique (SSI 0.9%) : 1.5 L dans les 2 premières heures (boire de l'eau si conscient)",
+      "Insulinothérapie à action rapide (Actrapid / Insuline Ordinaire) : 10 UI en SC ou 0.1 UI/kg/h",
+      "Recherche systématique du foyer infectieux : Auscultation pulmonaire, ECBU, cliché du thorax (TLT)",
+      "ECG : Vérifier l'absence d'hypokaliémie (onde T aplatie) avant de majorer l'insuline",
+      "Surveillance de la glycémie capillaire toutes les 30 à 60 minutes",
+      "Critères de sortie / Libération : Disparition impérative des corps cétoniques (CC négatif) et glycémie contrôlée"
+    ],
+    "traitementSpecifique": [
+      "Insuline ordinaire : 10 UI SC toutes les heures selon cycle dextro. Si patient instable ou CC > (+++) persistant : Mettre en route une seringue électrique d'insuline (0.1 UI/kg/h) et demander un avis Réanimation / Diabétologie."
+    ],
+    "orientation": "Acidocétose sévère avec polypnée de Kussmaul, obnubilation ou kaliémie < 3.3 mmol/L : Hospitalisation immédiate en Réanimation.",
+    "redFlags": [
+      "Acidocétose sévère avec polypnée de Kussmaul, obnubilation ou kaliémie < 3.3 mmol/L : Hospitalisation immédiate en Réanimation."
+    ],
+    "alertes": "Acidocétose sévère avec polypnée de Kussmaul, obnubilation ou kaliémie < 3.3 mmol/L : Hospitalisation immédiate en Réanimation.",
+    "clinicalPearls": [
+      "Boire abondamment de l'eau alcaline, ne jamais interrompre l'insuline même en cas de vomissements sans avis médical.",
+      "Carnet 'CAT Abu Imad' (p. 11-12)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Test urinaire Labstix immédiat (Glycémie + Corps Cétoniques)</li>\n            <li>Pose VVP et réhydratation active : <strong>Sérum Salé Isotonique (SSI 0.9%) : 1.5 L dans les 2 premières heures</strong> (boire de l'eau si conscient)</li>\n            <li><strong>Insulinothérapie à action rapide (Actrapid / Insuline Ordinaire) :</strong> 10 UI en SC ou 0.1 UI/kg/h</li>\n            <li>Recherche systématique du foyer infectieux : Auscultation pulmonaire, ECBU, cliché du thorax (TLT)</li>\n            <li>ECG : Vérifier l'absence d'hypokaliémie (onde T aplatie) avant de majorer l'insuline</li>\n            <li>Surveillance de la glycémie capillaire toutes les 30 à 60 minutes</li>\n            <li><strong>Critères de sortie / Libération :</strong> Disparition impérative des corps cétoniques (CC négatif) et glycémie contrôlée < 2 g/L. Ne JAMAIS libérer un patient avec CC(+) !</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Polyuro-polydipsie intense, bouche sèche, asthénie majeure, amaigrissement rapide</li>\n            <li>Déshydratation globale (pli cutané, hypotension, tachycardie)</li>\n            <li>Rechercher facteur déclenchant : Infection intercurrente (pulmonaire, urinaire, pied diabétique), infarctus, arrêt intempestif de l'insuline</li>\n            <li>Labstix urinaire systématique : Recherche de Cétonurie (CC +) et Glycosurie (+++)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Test urinaire Labstix immédiat (Glycémie + Corps Cétoniques)</li>\n            <li>Pose VVP et réhydratation active : <strong>Sérum Salé Isotonique (SSI 0.9%) : 1.5 L dans les 2 premières heures</strong> (boire de l'eau si conscient)</li>\n            <li><strong>Insulinothérapie à action rapide (Actrapid / Insuline Ordinaire) :</strong> 10 UI en SC ou 0.1 UI/kg/h</li>\n            <li>Recherche systématique du foyer infectieux : Auscultation pulmonaire, ECBU, cliché du thorax (TLT)</li>\n            <li>ECG : Vérifier l'absence d'hypokaliémie (onde T aplatie) avant de majorer l'insuline</li>\n            <li>Surveillance de la glycémie capillaire toutes les 30 à 60 minutes</li>\n            <li><strong>Critères de sortie / Libération :</strong> Disparition impérative des corps cétoniques (CC négatif) et glycémie contrôlée < 2 g/L. Ne JAMAIS libérer un patient avec CC(+) !</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Insuline ordinaire :</strong> 10 UI SC toutes les heures selon cycle dextro.</p>\n            <p><strong>Si patient instable ou CC > (+++) persistant :</strong> Mettre en route une seringue électrique d'insuline (0.1 UI/kg/h) et demander un avis Réanimation / Diabétologie.</p>\n          </div>",
+    "bilanHtml": "Labstix urinaire horaire, Glycémie veineuse, FNS, Ionogramme sanguin complet (K+, Na+), Urée, Créatinine, CRP, ECBU, Radiographie pulmonaire.",
+    "ordonnance": [
+      {
+        "drug": "Insuline NPH ou Rapide",
+        "dose": "Selon schéma",
+        "poso": "Reprise rigoureuse des injections selon carnet",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Antibiotique si infection prouvée",
+        "dose": "Adapté",
+        "poso": "Augmentin 1g 3x/j si foyer respiratoire/ORL",
+        "qty": "7 jours"
+      },
+      {
+        "drug": "Contrôle Glycémie & Labstix",
+        "dose": "-",
+        "poso": "Surveillance pluriquotidienne jusqu'à normalisation",
+        "qty": "Bandelettes"
+      }
+    ],
+    "conseils": "Boire abondamment de l'eau alcaline, ne jamais interrompre l'insuline même en cas de vomissements sans avis médical.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p13-acidocetose",
+    "slug": "acidocetose-diabetique-severe",
+    "title": "Acidocétose Diabétique Sévère",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Urgence métabolique vitale : Hyperglycémie > 3 g/L + Cétose majeure (+++) + Acidose métabolique (respiration de Kussmaul, haleine acétonique).",
+    "synopsis": "Urgence métabolique vitale : Hyperglycémie > 3 g/L + Cétose majeure (+++) + Acidose métabolique (respiration de Kussmaul, haleine acétonique).",
+    "page": "p. 13-15",
+    "evaluationInitiale": [
+      "Syndrome d'hyperglycémie : Polyurie majeure, soif inextinguible, fatigue extrême",
+      "Signes de cétose : Douleurs abdominales aiguës pseudo-chirurgicales, nausées, vomissements, odeur acétonique de pomme reinette de l'haleine",
+      "Signes d'acidose : Polypnée ample et profonde de Kussmaul, hypotension, hypothermie",
+      "Déshydratation mixte intracellulaire et extracellulaire intense, troubles de la conscience"
+    ],
+    "signesDeGravite": [
+      "pH < 7.0, Kaliémie > 6.5 ou < 3.0 mmol/L, coma profond, état de choc : Transfert immédiat en Réanimation médicale."
+    ],
+    "diagnosticCritères": [
+      "Urgence métabolique vitale : Hyperglycémie > 3 g/L + Cétose majeure (+++) + Acidose métabolique (respiration de Kussmaul, haleine acétonique)."
+    ],
+    "examensComplementaires": [
+      "Gazométrie artérielle (pH, HCO3-, trou anionique), FNS, Glycémie toutes les heures, Ionogramme complet toutes les 2h (K+, Na+), Urée, Créatinine, CRP, ECG répété (recherche onde T pointue d'hyperkaliémie ou onde U d'hypokaliémie), ECBU, Rx thorax."
+    ],
+    "conduiteImmediate": [
+      "Conditionnement d'urgence : 2 VVP de gros calibre, monitoring cardio-tensionnel, SpO2, Dextro",
+      "Protocole de Réhydratation Hydro-électrolytique (6 à 8 Litres en 24h) : 0 à 1 heure : 1 L de SSI 0.9% (2 flacons de 500 cc en 1h)",
+      "1 à 2 heures : 1 L de SSI 0.9% en 1 heure",
+      "2 à 4 heures : 1 L de SSI 0.9% en 2 heures (avec 1.5 g à 2 g de KCl par litre dès que diurèse constatée et K+",
+      "4 à 8 heures : 1 L toutes les 4 heures",
+      "Dès que la Glycémie atteint 2.5 g/L : Passer impérativement au Sérum Glucosé 5% (SG 5%) enrichi en NaCl (2g) et KCl (1.5g) pour éviter l'hypoglycémie et l'œdème cérébral tout en continuant l'insuline.",
+      "Insulinothérapie IV continue : Insuline ordinaire (Actrapid) à la seringue électrique à la dose de 0.1 UI/kg/heure .",
+      "Apport de Potassium (KCl) : Jamais en IV direct ! Toujours dilué dans les poches de perfusion après vérification de l'ECG et de la diurèse."
+    ],
+    "traitementSpecifique": [
+      "Ajustement du Potassium selon le potassium sanguin (K+) : - Si K+ - Si K+ entre 3.3 et 5.0 mmol/L : Ajouter 1.5 à 2 g de KCl par litre de perfusion. - Si K+ > 5.5 mmol/L : Pas de KCl dans les solutés, surveillance ECG étroite. Objectif glycémique : Décroissance lente de 0.5 à 0.7 g/L par heure. Ne pas faire chuter la glycémie trop vite (risque d'œdème cérébral osmotique)."
+    ],
+    "orientation": "pH < 7.0, Kaliémie > 6.5 ou < 3.0 mmol/L, coma profond, état de choc : Transfert immédiat en Réanimation médicale.",
+    "redFlags": [
+      "pH < 7.0, Kaliémie > 6.5 ou < 3.0 mmol/L, coma profond, état de choc : Transfert immédiat en Réanimation médicale."
+    ],
+    "alertes": "pH < 7.0, Kaliémie > 6.5 ou < 3.0 mmol/L, coma profond, état de choc : Transfert immédiat en Réanimation médicale.",
+    "clinicalPearls": [
+      "Surveillance de la diurèse horaire par sonde urinaire si nécessaire.",
+      "Carnet 'CAT Abu Imad' (p. 13-15)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Conditionnement d'urgence : 2 VVP de gros calibre, monitoring cardio-tensionnel, SpO2, Dextro</li>\n            <li><strong>Protocole de Réhydratation Hydro-électrolytique (6 à 8 Litres en 24h) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>0 à 1 heure : 1 L de SSI 0.9% (2 flacons de 500 cc en 1h)</li>\n                <li>1 à 2 heures : 1 L de SSI 0.9% en 1 heure</li>\n                <li>2 à 4 heures : 1 L de SSI 0.9% en 2 heures (avec 1.5 g à 2 g de KCl par litre dès que diurèse constatée et K+ < 5 mmol/L)</li>\n                <li>4 à 8 heures : 1 L toutes les 4 heures</li>\n                <li>Dès que la Glycémie atteint 2.5 g/L : <strong>Passer impérativement au Sérum Glucosé 5% (SG 5%)</strong> enrichi en NaCl (2g) et KCl (1.5g) pour éviter l'hypoglycémie et l'œdème cérébral tout en continuant l'insuline.</li>\n              </ul>\n            </li>\n            <li><strong>Insulinothérapie IV continue :</strong> Insuline ordinaire (Actrapid) à la seringue électrique à la dose de <strong>0.1 UI/kg/heure</strong>.</li>\n            <li>Apport de Potassium (KCl) : Jamais en IV direct ! Toujours dilué dans les poches de perfusion après vérification de l'ECG et de la diurèse.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Syndrome d'hyperglycémie : Polyurie majeure, soif inextinguible, fatigue extrême</li>\n            <li>Signes de cétose : Douleurs abdominales aiguës pseudo-chirurgicales, nausées, vomissements, odeur acétonique de pomme reinette de l'haleine</li>\n            <li>Signes d'acidose : Polypnée ample et profonde de Kussmaul, hypotension, hypothermie</li>\n            <li>Déshydratation mixte intracellulaire et extracellulaire intense, troubles de la conscience</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Conditionnement d'urgence : 2 VVP de gros calibre, monitoring cardio-tensionnel, SpO2, Dextro</li>\n            <li><strong>Protocole de Réhydratation Hydro-électrolytique (6 à 8 Litres en 24h) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>0 à 1 heure : 1 L de SSI 0.9% (2 flacons de 500 cc en 1h)</li>\n                <li>1 à 2 heures : 1 L de SSI 0.9% en 1 heure</li>\n                <li>2 à 4 heures : 1 L de SSI 0.9% en 2 heures (avec 1.5 g à 2 g de KCl par litre dès que diurèse constatée et K+ < 5 mmol/L)</li>\n                <li>4 à 8 heures : 1 L toutes les 4 heures</li>\n                <li>Dès que la Glycémie atteint 2.5 g/L : <strong>Passer impérativement au Sérum Glucosé 5% (SG 5%)</strong> enrichi en NaCl (2g) et KCl (1.5g) pour éviter l'hypoglycémie et l'œdème cérébral tout en continuant l'insuline.</li>\n              </ul>\n            </li>\n            <li><strong>Insulinothérapie IV continue :</strong> Insuline ordinaire (Actrapid) à la seringue électrique à la dose de <strong>0.1 UI/kg/heure</strong>.</li>\n            <li>Apport de Potassium (KCl) : Jamais en IV direct ! Toujours dilué dans les poches de perfusion après vérification de l'ECG et de la diurèse.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Ajustement du Potassium selon le potassium sanguin (K+) :</strong></p>\n            <p>- Si K+ < 3.3 mmol/L : Suspendre l'insuline et perfuser 3 à 4 g de KCl / L jusqu'à correction.</p>\n            <p>- Si K+ entre 3.3 et 5.0 mmol/L : Ajouter 1.5 à 2 g de KCl par litre de perfusion.</p>\n            <p>- Si K+ > 5.5 mmol/L : Pas de KCl dans les solutés, surveillance ECG étroite.</p>\n            <p><strong>Objectif glycémique :</strong> Décroissance lente de 0.5 à 0.7 g/L par heure. Ne pas faire chuter la glycémie trop vite (risque d'œdème cérébral osmotique).</p>\n          </div>",
+    "bilanHtml": "Gazométrie artérielle (pH, HCO3-, trou anionique), FNS, Glycémie toutes les heures, Ionogramme complet toutes les 2h (K+, Na+), Urée, Créatinine, CRP, ECG répété (recherche onde T pointue d'hyperkaliémie ou onde U d'hypokaliémie), ECBU, Rx thorax.",
+    "ordonnance": [
+      {
+        "drug": "Prise en charge hospitalière continue",
+        "dose": "USI / Réa",
+        "poso": "Maintien perfusion et SAP insuline jusqu'à négativation de la cétonurie",
+        "qty": "Hospitalisation"
+      },
+      {
+        "drug": "Relais sous-cutané",
+        "dose": "Insuline mixte",
+        "poso": "Introduction du schéma basal-bolus 30 min avant arrêt de la SAP",
+        "qty": "Sur prescription réa"
+      },
+      {
+        "drug": "Bilan étiologique complet",
+        "dose": "-",
+        "poso": "Traitement antibiotique ciblé si foyer infectieux identifié",
+        "qty": "Adapté"
+      }
+    ],
+    "conseils": "Surveillance de la diurèse horaire par sonde urinaire si nécessaire.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p16-convulsions-ped",
+    "slug": "convulsions-de-l-enfant-etat-de-mal",
+    "title": "Convulsions de l'Enfant & État de Mal",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "category": "Pédiatrie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Crise convulsive fébrile ou apyrétique chez l'enfant. Maintien des voies aériennes, Valium intra-rectal (0.5 mg/kg), antipyrétiques.",
+    "synopsis": "Crise convulsive fébrile ou apyrétique chez l'enfant. Maintien des voies aériennes, Valium intra-rectal (0.5 mg/kg), antipyrétiques.",
+    "page": "p. 16-17",
+    "evaluationInitiale": [
+      "Mouvements tonico-cloniques involontaires généralisés ou localisés, révulsion oculaire, perte de contact, cyanose péri-buccale",
+      "Enregistrement de la durée de la crise (urgence si > 5 minutes)",
+      "Mesure de la température corporelle (distinguer convulsion fébrile simple de convulsion apyrétique ou complexe)",
+      "Dextro immédiat (éliminer hypoglycémie convulsive)"
+    ],
+    "signesDeGravite": [
+      "Crise > 10-15 minutes, déficit moteur post-critique persistant, altération de la conscience prolongée, signes méningés : Appel SAMU / Transfert Réanimation pédiatrique."
+    ],
+    "diagnosticCritères": [
+      "Crise convulsive fébrile ou apyrétique chez l'enfant. Maintien des voies aériennes, Valium intra-rectal (0.5 mg/kg), antipyrétiques."
+    ],
+    "examensComplementaires": [
+      "Si convulsion fébrile simple chez enfant > 1 an : Examen ORL/pulmonaire complet, FNS, CRP, bandelette urinaire (ECBU). Si crise inaugurale sans fièvre ou crise fébrile complexe (durée > 15 min, déficit post-critique, < 9 mois) : Ponction Lombaire (PL), Scanner cérébral / IRM, Ionogramme (Ca2+, Mg2+, glycémie), EEG différé."
+    ],
+    "conduiteImmediate": [
+      "Position Latérale de Sécurité (PLS), libérer les voies aériennes, oxygénothérapie au masque à 3-6 L/min",
+      "Valium (Diazépam) en Intra-Rectal (IR) : 0.5 mg/kg à l'aide d'une seringue sans aiguille ou canule rectale",
+      "Attendre 5 minutes. Si pas d'arrêt de la crise après 5 min : 2ème dose de Valium 0.5 mg/kg en IR (Dose max cumulée : 10 mg)",
+      "Si persistance de la convulsion après 15-20 min (État de mal convulsif) : Poser VVP en urgence",
+      "Gardénal (Phénobarbital) : 15 à 20 mg/kg dilué dans 50-100 cc de SSI 0.9% en perfusion IV lente sur 20 à 30 minutes",
+      "Surveillance respiratoire stricte (risque de dépression respiratoire post-barbiturique)",
+      "Si convulsion fébrile : Déshabiller l'enfant, vessie de glace / moyens physiques, Paracétamol 15 mg/kg IV ou suppositoire."
+    ],
+    "traitementSpecifique": [
+      "Valium IR : 0.5 mg/kg direct dans le rectum. Ex: Enfant de 10 kg = 5 mg (1/2 ampoule de 10mg). Gardénal IV : 20 mg/kg en perfusion IVL sur 30 min. Matériel de ventilation prêt à proximité. Attention : Chez le nouveau-né, le Valium est contre-indiqué en première intention -> Privilégier Phénobarbital d'emblée."
+    ],
+    "orientation": "Crise > 10-15 minutes, déficit moteur post-critique persistant, altération de la conscience prolongée, signes méningés : Appel SAMU / Transfert Réanimation pédiatrique.",
+    "redFlags": [
+      "Crise > 10-15 minutes, déficit moteur post-critique persistant, altération de la conscience prolongée, signes méningés : Appel SAMU / Transfert Réanimation pédiatrique."
+    ],
+    "alertes": "Crise > 10-15 minutes, déficit moteur post-critique persistant, altération de la conscience prolongée, signes méningés : Appel SAMU / Transfert Réanimation pédiatrique.",
+    "clinicalPearls": [
+      "Apprendre aux parents la conduite à tenir en cas de récidive fébrile : antipyrétiques précoces, hydratation, pas d'objets dans la bouche.",
+      "Carnet 'CAT Abu Imad' (p. 16-17)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Position Latérale de Sécurité (PLS), libérer les voies aériennes, oxygénothérapie au masque à 3-6 L/min</li>\n            <li><strong>Valium (Diazépam) en Intra-Rectal (IR) : 0.5 mg/kg</strong> à l'aide d'une seringue sans aiguille ou canule rectale</li>\n            <li>Attendre 5 minutes. <strong>Si pas d'arrêt de la crise après 5 min :</strong> 2ème dose de Valium 0.5 mg/kg en IR (Dose max cumulée : 10 mg)</li>\n            <li><strong>Si persistance de la convulsion après 15-20 min (État de mal convulsif) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Poser VVP en urgence</li>\n                <li><strong>Gardénal (Phénobarbital) : 15 à 20 mg/kg</strong> dilué dans 50-100 cc de SSI 0.9% en perfusion IV lente sur 20 à 30 minutes</li>\n                <li>Surveillance respiratoire stricte (risque de dépression respiratoire post-barbiturique)</li>\n              </ul>\n            </li>\n            <li>Si convulsion fébrile : Déshabiller l'enfant, vessie de glace / moyens physiques, Paracétamol 15 mg/kg IV ou suppositoire.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Mouvements tonico-cloniques involontaires généralisés ou localisés, révulsion oculaire, perte de contact, cyanose péri-buccale</li>\n            <li>Enregistrement de la durée de la crise (urgence si > 5 minutes)</li>\n            <li>Mesure de la température corporelle (distinguer convulsion fébrile simple de convulsion apyrétique ou complexe)</li>\n            <li>Dextro immédiat (éliminer hypoglycémie convulsive)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Position Latérale de Sécurité (PLS), libérer les voies aériennes, oxygénothérapie au masque à 3-6 L/min</li>\n            <li><strong>Valium (Diazépam) en Intra-Rectal (IR) : 0.5 mg/kg</strong> à l'aide d'une seringue sans aiguille ou canule rectale</li>\n            <li>Attendre 5 minutes. <strong>Si pas d'arrêt de la crise après 5 min :</strong> 2ème dose de Valium 0.5 mg/kg en IR (Dose max cumulée : 10 mg)</li>\n            <li><strong>Si persistance de la convulsion après 15-20 min (État de mal convulsif) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Poser VVP en urgence</li>\n                <li><strong>Gardénal (Phénobarbital) : 15 à 20 mg/kg</strong> dilué dans 50-100 cc de SSI 0.9% en perfusion IV lente sur 20 à 30 minutes</li>\n                <li>Surveillance respiratoire stricte (risque de dépression respiratoire post-barbiturique)</li>\n              </ul>\n            </li>\n            <li>Si convulsion fébrile : Déshabiller l'enfant, vessie de glace / moyens physiques, Paracétamol 15 mg/kg IV ou suppositoire.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Valium IR :</strong> 0.5 mg/kg direct dans le rectum. Ex: Enfant de 10 kg = 5 mg (1/2 ampoule de 10mg).</p>\n            <p><strong>Gardénal IV :</strong> 20 mg/kg en perfusion IVL sur 30 min. Matériel de ventilation prêt à proximité.</p>\n            <p><strong>Attention :</strong> Chez le nouveau-né, le Valium est contre-indiqué en première intention -> Privilégier Phénobarbital d'emblée.</p>\n          </div>",
+    "bilanHtml": "Si convulsion fébrile simple chez enfant > 1 an : Examen ORL/pulmonaire complet, FNS, CRP, bandelette urinaire (ECBU). Si crise inaugurale sans fièvre ou crise fébrile complexe (durée > 15 min, déficit post-critique, < 9 mois) : Ponction Lombaire (PL), Scanner cérébral / IRM, Ionogramme (Ca2+, Mg2+, glycémie), EEG différé.",
+    "ordonnance": [
+      {
+        "drug": "Dépakine (Valproate de sodium)",
+        "dose": "Si avis neuropédiatrique",
+        "poso": "20 à 30 mg/kg/j en cas d'épilepsie confirmée",
+        "qty": "Flacon"
+      },
+      {
+        "drug": "Paracétamol sirop",
+        "dose": "15 mg/kg/prise",
+        "poso": "1 dose-poids toutes les 6 heures en cas de fièvre",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Valium injectable (pour voie rectale à domicile)",
+        "dose": "10 mg",
+        "poso": "1 ampoule avec canule rectale en cas de crise > 3 minutes",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Apprendre aux parents la conduite à tenir en cas de récidive fébrile : antipyrétiques précoces, hydratation, pas d'objets dans la bouche.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p18-deshydratation-ped",
+    "slug": "deshydratation-aigue-du-nourrisson",
+    "title": "Déshydratation Aiguë du Nourrisson",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "category": "Pédiatrie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Évaluation du pourcentage de perte de poids. Prise en charge orale par SRO (légère/modérée) ou réhydratation IV rapide au SSI (sévère/choc).",
+    "synopsis": "Évaluation du pourcentage de perte de poids. Prise en charge orale par SRO (légère/modérée) ou réhydratation IV rapide au SSI (sévère/choc).",
+    "page": "p. 18-20",
+    "evaluationInitiale": [
+      "Classification clinique de la déshydratation : Yeux légèrement cernés, fontanelle discrètement déprimée, soif.",
+      "5 à 8% (Modérée) : Yeux cernés + Fontanelle antérieure affaissée + Pli cutané paresseux, muqueuses sèches.",
+      "≥ 10% (Sévère) : Pli cutané persistant + Fontanelle très déprimée + Yeux très cernés + Allongement du TRC (> 3 secondes), pouls filant, extrémités froides, oligurie/anurie.",
+      "≥ 15% (Choc hypovolémique) : Troubles de conscience (coma, somnolence), collapsus circulatoire, convulsions métaboliques.",
+      "Calcul exact du pourcentage de perte : [ (Poids antérieur - Poids actuel) / Poids antérieur ] x 100"
+    ],
+    "signesDeGravite": [
+      "Oligurie persistante, collapsus résistant à 40 cc/kg de remplissage, convulsions ou troubles métaboliques : Réanimation pédiatrique immédiate."
+    ],
+    "diagnosticCritères": [
+      "Évaluation du pourcentage de perte de poids. Prise en charge orale par SRO (légère/modérée) ou réhydratation IV rapide au SSI (sévère/choc)."
+    ],
+    "examensComplementaires": [
+      "Ionogramme sanguin complet (Na+, K+, Cl-), Glycémie, Urée, Créatinine, FNS, Chimie des urines. Si fièvre : ajouter 10 cc/kg pour chaque degré au-dessus de 38°C."
+    ],
+    "conduiteImmediate": [
+      "Déshydratation Légère ( Solutés de Réhydratation Orale (SRO) à volonté, 50 cc/kg en 4 heures par petites gorgées régulières à la cuillère. Si amélioration -> retour à domicile.",
+      "Déshydratation Modérée (5 à 10%) : SRO 100 cc/kg en 4 heures. En cas de vomissements répétés : Pose de sonde gastrique en gavage continu ou passage en IV.",
+      "Déshydratation Sévère (≥ 10%) / État de Choc : URGENCE VITALE IV : H0 - 30 min (Remplissage de choc) : 20 cc/kg de Sérum Salé Isotonique (SSI 0.9%) en IV direct rapide sur 30 min (ex: pour 5 kg = 100 cc en 30 min). Si pas de reprise tensionnelle, renouveler une fois.",
+      "H0.5 - 2h : 30 cc/kg de SSI 0.9% en 2 heures.",
+      "Vérification de la reprise de diurèse : Si l'enfant n'a pas uriné après réhydratation initiale -> perfuser 10 cc/kg de SSI sur 1h +/- Lasilix 1 mg/kg après s'être assuré de l'absence d'obstacle. Si anurie persistante malgré Lasilix -> Avis Réa / Néphro (Insuffisance rénale aiguë).",
+      "H2 - 6h (Entretien des pertes) : 50 cc/kg de Soluté de Réhydratation (ou SSI / SG 5% avec électrolytes).",
+      "H6 - 12h : 50 cc/kg au débit calculé (gouttes/min = Volume / (Temps en h x 3))."
+    ],
+    "traitementSpecifique": [
+      "Ration de base de maintenance (Règle d'Holliday-Segar) : - Moins de 10 kg : 100 cc/kg/24h - 10 à 20 kg : 1000 cc + 50 cc/kg pour chaque kg au-dessus de 10 kg - Plus de 20 kg : 1500 cc + 20 cc/kg pour chaque kg au-dessus de 20 kg Correction Hyponatrémie sévère (Na+ Supplémentation lente en SSI 10 cc/kg sur 1h."
+    ],
+    "orientation": "Oligurie persistante, collapsus résistant à 40 cc/kg de remplissage, convulsions ou troubles métaboliques : Réanimation pédiatrique immédiate.",
+    "redFlags": [
+      "Oligurie persistante, collapsus résistant à 40 cc/kg de remplissage, convulsions ou troubles métaboliques : Réanimation pédiatrique immédiate."
+    ],
+    "alertes": "Oligurie persistante, collapsus résistant à 40 cc/kg de remplissage, convulsions ou troubles métaboliques : Réanimation pédiatrique immédiate.",
+    "clinicalPearls": [
+      "Donner le SRO très frais à la cuillère à café toutes les 2-3 minutes pour éviter de provoquer des vomissements.",
+      "Carnet 'CAT Abu Imad' (p. 18-20)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Déshydratation Légère (< 5%) :</strong> Solutés de Réhydratation Orale (SRO) à volonté, 50 cc/kg en 4 heures par petites gorgées régulières à la cuillère. Si amélioration -> retour à domicile.</li>\n            <li><strong>Déshydratation Modérée (5 à 10%) :</strong> SRO 100 cc/kg en 4 heures. En cas de vomissements répétés : Pose de sonde gastrique en gavage continu ou passage en IV.</li>\n            <li><strong>Déshydratation Sévère (≥ 10%) / État de Choc : URGENCE VITALE IV :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>H0 - 30 min (Remplissage de choc) : 20 cc/kg de Sérum Salé Isotonique (SSI 0.9%) en IV direct rapide sur 30 min</strong> (ex: pour 5 kg = 100 cc en 30 min). Si pas de reprise tensionnelle, renouveler une fois.</li>\n                <li><strong>H0.5 - 2h : 30 cc/kg de SSI 0.9% en 2 heures.</strong></li>\n                <li><strong>Vérification de la reprise de diurèse :</strong> Si l'enfant n'a pas uriné après réhydratation initiale -> perfuser 10 cc/kg de SSI sur 1h +/- Lasilix 1 mg/kg après s'être assuré de l'absence d'obstacle. Si anurie persistante malgré Lasilix -> Avis Réa / Néphro (Insuffisance rénale aiguë).</li>\n                <li><strong>H2 - 6h (Entretien des pertes) : 50 cc/kg</strong> de Soluté de Réhydratation (ou SSI / SG 5% avec électrolytes).</li>\n                <li><strong>H6 - 12h : 50 cc/kg</strong> au débit calculé (gouttes/min = Volume / (Temps en h x 3)).</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Classification clinique de la déshydratation :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li><strong>< 5% (Légère) :</strong> Yeux légèrement cernés, fontanelle discrètement déprimée, soif.</li>\n                <li><strong>5 à 8% (Modérée) :</strong> Yeux cernés + Fontanelle antérieure affaissée + Pli cutané paresseux, muqueuses sèches.</li>\n                <li><strong>≥ 10% (Sévère) :</strong> Pli cutané persistant + Fontanelle très déprimée + Yeux très cernés + Allongement du TRC (> 3 secondes), pouls filant, extrémités froides, oligurie/anurie.</li>\n                <li><strong>≥ 15% (Choc hypovolémique) :</strong> Troubles de conscience (coma, somnolence), collapsus circulatoire, convulsions métaboliques.</li>\n              </ul>\n            </li>\n            <li>Calcul exact du pourcentage de perte : [ (Poids antérieur - Poids actuel) / Poids antérieur ] x 100</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Déshydratation Légère (< 5%) :</strong> Solutés de Réhydratation Orale (SRO) à volonté, 50 cc/kg en 4 heures par petites gorgées régulières à la cuillère. Si amélioration -> retour à domicile.</li>\n            <li><strong>Déshydratation Modérée (5 à 10%) :</strong> SRO 100 cc/kg en 4 heures. En cas de vomissements répétés : Pose de sonde gastrique en gavage continu ou passage en IV.</li>\n            <li><strong>Déshydratation Sévère (≥ 10%) / État de Choc : URGENCE VITALE IV :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>H0 - 30 min (Remplissage de choc) : 20 cc/kg de Sérum Salé Isotonique (SSI 0.9%) en IV direct rapide sur 30 min</strong> (ex: pour 5 kg = 100 cc en 30 min). Si pas de reprise tensionnelle, renouveler une fois.</li>\n                <li><strong>H0.5 - 2h : 30 cc/kg de SSI 0.9% en 2 heures.</strong></li>\n                <li><strong>Vérification de la reprise de diurèse :</strong> Si l'enfant n'a pas uriné après réhydratation initiale -> perfuser 10 cc/kg de SSI sur 1h +/- Lasilix 1 mg/kg après s'être assuré de l'absence d'obstacle. Si anurie persistante malgré Lasilix -> Avis Réa / Néphro (Insuffisance rénale aiguë).</li>\n                <li><strong>H2 - 6h (Entretien des pertes) : 50 cc/kg</strong> de Soluté de Réhydratation (ou SSI / SG 5% avec électrolytes).</li>\n                <li><strong>H6 - 12h : 50 cc/kg</strong> au débit calculé (gouttes/min = Volume / (Temps en h x 3)).</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Ration de base de maintenance (Règle d'Holliday-Segar) :</strong></p>\n            <p>- Moins de 10 kg : 100 cc/kg/24h</p>\n            <p>- 10 à 20 kg : 1000 cc + 50 cc/kg pour chaque kg au-dessus de 10 kg</p>\n            <p>- Plus de 20 kg : 1500 cc + 20 cc/kg pour chaque kg au-dessus de 20 kg</p>\n            <p><strong>Correction Hyponatrémie sévère (Na+ < 120 mmol/L) :</strong> Supplémentation lente en SSI 10 cc/kg sur 1h.</p>\n          </div>",
+    "bilanHtml": "Ionogramme sanguin complet (Na+, K+, Cl-), Glycémie, Urée, Créatinine, FNS, Chimie des urines. Si fièvre : ajouter 10 cc/kg pour chaque degré au-dessus de 38°C.",
+    "ordonnance": [
+      {
+        "drug": "SRO (Soluté de Réhydratation Orale)",
+        "dose": "Sachets",
+        "poso": "1 sachet dilué dans exactement 1 Litre d'eau minérale, à faire boire à volonté",
+        "qty": "5 sachets"
+      },
+      {
+        "drug": "Tiorfan nourrisson / enfant",
+        "dose": "Selon poids",
+        "poso": "1 sachet 3 fois par jour au début des repas",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Poursuite de l'allaitement maternel",
+        "dose": "-",
+        "poso": "Sans interruption entre les prises de SRO",
+        "qty": "Continu"
+      }
+    ],
+    "conseils": "Donner le SRO très frais à la cuillère à café toutes les 2-3 minutes pour éviter de provoquer des vomissements.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p21-fievre-ped",
+    "slug": "fievre-aigue-a-40-c-chez-l-enfant",
+    "title": "Fièvre Aiguë à 40°C chez l'Enfant",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "category": "Pédiatrie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Fièvre élevée ≥ 39-40°C. Prévention du risque convulsif, antipyrétiques en alternance, recherche systématique du foyer infectieux.",
+    "synopsis": "Fièvre élevée ≥ 39-40°C. Prévention du risque convulsif, antipyrétiques en alternance, recherche systématique du foyer infectieux.",
+    "page": "p. 21",
+    "evaluationInitiale": [
+      "Température rectale ou axillaire ≥ 39-40°C chez le nourrisson ou l'enfant",
+      "Recherche de signes de mauvaise tolérance : Moiteur, marbrures, tachycardie, gémissements, somnolence, irritabilité",
+      "Recherche étiologique exhaustive : Examen pharyngé (angine), tympans (otite moyenne aiguë), auscultation pulmonaire, examen cutané (purpura fulminans à éliminer d'emblée !), palpation abdominale et orifices herniaires"
+    ],
+    "signesDeGravite": [
+      "Apparition de taches purpuriques ne s'effaçant pas à la vitropression (Urgence vitale = Purpura Fulminans -> Rocephine 100 mg/kg IM/IV immédiate et SAMU), hypotonie, refus de boire."
+    ],
+    "diagnosticCritères": [
+      "Fièvre élevée ≥ 39-40°C. Prévention du risque convulsif, antipyrétiques en alternance, recherche systématique du foyer infectieux."
+    ],
+    "examensComplementaires": [
+      "FNS, CRP, Procalcitonine, Bandelette urinaire + ECBU, Radiographie du thorax de face. Si fièvre inexpliquée, enfant somnolent ou bombement de la fontanelle : Ponction lombaire (PL) après avis pédiatrique."
+    ],
+    "conduiteImmediate": [
+      "Moyens physiques immédiats : Déshabiller l'enfant (laisser en body/couche), pièce aérée à 19-20°C, faire boire régulièrement de l'eau fraîche, compresses humides tièdes sur le front et l'aine.",
+      "Traitement Médicamenteux de 1ère intention : Paracétamol (Dose de charge) : 20 à 25 mg/kg en suppositoire ou 15 mg/kg per os / IVL",
+      "Si échec après 1h à 2h ou fièvre réfractaire persistante > 39.5°C : Discuter l'alternance avec un AINS si hydratation correcte (ex: Aspégic 10 mg/kg ou Ibuprofène 10 mg/kg) ou Perfalgan IV 15 mg/kg si hospitalisé.",
+      "Chez le nourrisson de moins de 1 mois : Toute fièvre ≥ 38°C impose une hospitalisation pédiatrique d'office pour bilan bactériologique complet (risque d'infection materno-fœtale tardive ou méningite néonatale).",
+      "Paracétamol chez nourrisson"
+    ],
+    "traitementSpecifique": [
+      "Paracétamol : 15 mg/kg/prise toutes les 6 heures (Dose max : 60 mg/kg/jour). Règle d'or : Ne jamais associer deux AINS ensemble. Contre-indication formelle des AINS en cas de varicelle ou de suspicion de pneumonie compliquée / déshydratation."
+    ],
+    "orientation": "Apparition de taches purpuriques ne s'effaçant pas à la vitropression (Urgence vitale = Purpura Fulminans -> Rocephine 100 mg/kg IM/IV immédiate et SAMU), hypotonie, refus de boire.",
+    "redFlags": [
+      "Apparition de taches purpuriques ne s'effaçant pas à la vitropression (Urgence vitale = Purpura Fulminans -> Rocephine 100 mg/kg IM/IV immédiate et SAMU), hypotonie, refus de boire."
+    ],
+    "alertes": "Apparition de taches purpuriques ne s'effaçant pas à la vitropression (Urgence vitale = Purpura Fulminans -> Rocephine 100 mg/kg IM/IV immédiate et SAMU), hypotonie, refus de boire.",
+    "clinicalPearls": [
+      "Surveiller le comportement de l'enfant une fois la fièvre baissée : reprise du sourire et du jeu rassure sur la bénignité.",
+      "Carnet 'CAT Abu Imad' (p. 21)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Moyens physiques immédiats :</strong> Déshabiller l'enfant (laisser en body/couche), pièce aérée à 19-20°C, faire boire régulièrement de l'eau fraîche, compresses humides tièdes sur le front et l'aine.</li>\n            <li><strong>Traitement Médicamenteux de 1ère intention :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Paracétamol (Dose de charge) : 20 à 25 mg/kg en suppositoire ou 15 mg/kg per os / IVL</strong></li>\n                <li>Si échec après 1h à 2h ou fièvre réfractaire persistante > 39.5°C : Discuter l'alternance avec un AINS si hydratation correcte (ex: Aspégic 10 mg/kg ou Ibuprofène 10 mg/kg) ou Perfalgan IV 15 mg/kg si hospitalisé.</li>\n              </ul>\n            </li>\n            <li><strong>Chez le nourrisson de moins de 1 mois :</strong> Toute fièvre ≥ 38°C impose une hospitalisation pédiatrique d'office pour bilan bactériologique complet (risque d'infection materno-fœtale tardive ou méningite néonatale).</li>\n            <li>Paracétamol chez nourrisson < 1 mois : dose réduite à 10 - 12.5 mg/kg/prise.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Température rectale ou axillaire ≥ 39-40°C chez le nourrisson ou l'enfant</li>\n            <li>Recherche de signes de mauvaise tolérance : Moiteur, marbrures, tachycardie, gémissements, somnolence, irritabilité</li>\n            <li>Recherche étiologique exhaustive : Examen pharyngé (angine), tympans (otite moyenne aiguë), auscultation pulmonaire, examen cutané (purpura fulminans à éliminer d'emblée !), palpation abdominale et orifices herniaires</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Moyens physiques immédiats :</strong> Déshabiller l'enfant (laisser en body/couche), pièce aérée à 19-20°C, faire boire régulièrement de l'eau fraîche, compresses humides tièdes sur le front et l'aine.</li>\n            <li><strong>Traitement Médicamenteux de 1ère intention :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Paracétamol (Dose de charge) : 20 à 25 mg/kg en suppositoire ou 15 mg/kg per os / IVL</strong></li>\n                <li>Si échec après 1h à 2h ou fièvre réfractaire persistante > 39.5°C : Discuter l'alternance avec un AINS si hydratation correcte (ex: Aspégic 10 mg/kg ou Ibuprofène 10 mg/kg) ou Perfalgan IV 15 mg/kg si hospitalisé.</li>\n              </ul>\n            </li>\n            <li><strong>Chez le nourrisson de moins de 1 mois :</strong> Toute fièvre ≥ 38°C impose une hospitalisation pédiatrique d'office pour bilan bactériologique complet (risque d'infection materno-fœtale tardive ou méningite néonatale).</li>\n            <li>Paracétamol chez nourrisson < 1 mois : dose réduite à 10 - 12.5 mg/kg/prise.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Paracétamol :</strong> 15 mg/kg/prise toutes les 6 heures (Dose max : 60 mg/kg/jour).</p>\n            <p><strong>Règle d'or :</strong> Ne jamais associer deux AINS ensemble. Contre-indication formelle des AINS en cas de varicelle ou de suspicion de pneumonie compliquée / déshydratation.</p>\n          </div>",
+    "bilanHtml": "FNS, CRP, Procalcitonine, Bandelette urinaire + ECBU, Radiographie du thorax de face. Si fièvre inexpliquée, enfant somnolent ou bombement de la fontanelle : Ponction lombaire (PL) après avis pédiatrique.",
+    "ordonnance": [
+      {
+        "drug": "Paracétamol sirop (Doliprane)",
+        "dose": "15 mg/kg/prise",
+        "poso": "1 dose-kilo à administrer toutes les 6 heures (4 fois par jour max)",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Sérum Physiologique nasal",
+        "dose": "Dosettes",
+        "poso": "Désobstruction rhinopharyngée avant chaque repas",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "SRO",
+        "dose": "1 sachet",
+        "poso": "Proposer de petites gorgées d'eau fraîche fréquemment",
+        "qty": "Au besoin"
+      }
+    ],
+    "conseils": "Surveiller le comportement de l'enfant une fois la fièvre baissée : reprise du sourire et du jeu rassure sur la bénignité.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.584Z"
+  },
+  {
+    "id": "cat_p22-asthme-crise",
+    "slug": "crise-d-asthme-aigue-asthme-severe",
+    "title": "Crise d'Asthme Aiguë & Asthme Sévère",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Pneumologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Dyspnée expiratoire sifflante, bradypnée ou tachypnée, tirage intercostal. Nébulisations répétées de Bêta-2 mimétiques + Corticoïdes IV.",
+    "synopsis": "Dyspnée expiratoire sifflante, bradypnée ou tachypnée, tirage intercostal. Nébulisations répétées de Bêta-2 mimétiques + Corticoïdes IV.",
+    "page": "p. 22-24",
+    "evaluationInitiale": [
+      "Dyspnée aiguë avec freinage expiratoire, sifflements audibles à distance, toux sèche quinteuse",
+      "Signes de gravité (Asthme Aigu Grave - AAG) : Impossibilité de parler ou de compter jusqu'à 10, difficulté à tousser",
+      "Tirage intercostal et sus-sternal majeur, respiration paradoxale",
+      "Silence auscultatoire bilatéral (absence complète de murmure vésiculaire = menace d'arrêt respiratoire)",
+      "Cyanose, sueurs, tachycardie > 120/min ou bradycardie pré-terminale, SpO2"
+    ],
+    "signesDeGravite": [
+      "Silence auscultatoire, bradycardie, sueurs avec épuisement, PaCO2 normale ou élevée en crise : Appel SAMU Réanimation immédiat."
+    ],
+    "diagnosticCritères": [
+      "Dyspnée expiratoire sifflante, bradypnée ou tachypnée, tirage intercostal. Nébulisations répétées de Bêta-2 mimétiques + Corticoïdes IV."
+    ],
+    "examensComplementaires": [
+      "Gazométrie artérielle (hypercapnie et acidose = signe d'épuisement gravissime), Radiographie du thorax de face (rechercher pneumothorax compressif ou pneumopathie déclenchante), FNS, CRP."
+    ],
+    "conduiteImmediate": [
+      "Position assise stricte, oxygénothérapie à fort débit (viser SpO2 94-98%)",
+      "Séance 1 de Nébulisation (aérosol 6 L/min d'O2 pendant 10-15 min) : Salbutamol (Astalin) : 1 cc (5 mg chez adulte) ou 0.03 cc/kg chez l'enfant",
+      "+ Sérum Salé Isotonique (SSI 0.9%) : 3 à 4 cc",
+      "+ Corticothérapie parentérale d'emblée : Solumédrol 40 à 80 mg en IVD (ou 1 à 2 mg/kg chez l'enfant) ou HHC 200 mg IV",
+      "Si pas d'amélioration après 20 minutes : Réaliser la 2ème séance de nébulisation identique.",
+      "Si pas d'amélioration après 40 minutes : Réaliser la 3ème séance de nébulisation en associant un anticholinergique : Atrovent (Ipratropium) 0.5 mg dans la nébulisation.",
+      "Si crise sévère réfractaire après 3 séances : Sulfate de Magnésium (MgSO4) : 1 à 2 g dilué dans 100 cc SG5% en perfusion IV sur 20 min",
+      "Salbutamol en perfusion IV continue (ou sous-cutanée de secours si arrêt imminent)",
+      "Appel Réanimation / Pneumologie d'urgence pour intubation ou VNI"
+    ],
+    "traitementSpecifique": [
+      "Nébulisation Adulte : Salbutamol 5 mg (1 unidose ou 1cc solution injectable) + 3 cc SSI sous débit O2 6 à 8 L/min. Nébulisation Enfant : 0.03 à 0.05 cc/kg de Salbutamol solution pour nébuliseur (dose minimale 0.3 cc) complété à 4 cc de SSI. Corticothérapie IV : Solumédrol 1 à 2 mg/kg/j ou Dexaméthasone 0.5 mg/kg."
+    ],
+    "orientation": "Silence auscultatoire, bradycardie, sueurs avec épuisement, PaCO2 normale ou élevée en crise : Appel SAMU Réanimation immédiat.",
+    "redFlags": [
+      "Silence auscultatoire, bradycardie, sueurs avec épuisement, PaCO2 normale ou élevée en crise : Appel SAMU Réanimation immédiat."
+    ],
+    "alertes": "Silence auscultatoire, bradycardie, sueurs avec épuisement, PaCO2 normale ou élevée en crise : Appel SAMU Réanimation immédiat.",
+    "clinicalPearls": [
+      "Bien rincer la bouche après les sprays corticoïdes, technique d'inhalation avec chambre d'inhalation expliquée aux parents.",
+      "Carnet 'CAT Abu Imad' (p. 22-24)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Position assise stricte, oxygénothérapie à fort débit (viser SpO2 94-98%)</li>\n            <li><strong>Séance 1 de Nébulisation (aérosol 6 L/min d'O2 pendant 10-15 min) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Salbutamol (Astalin) : 1 cc (5 mg chez adulte) ou 0.03 cc/kg chez l'enfant</li>\n                <li>+ Sérum Salé Isotonique (SSI 0.9%) : 3 à 4 cc</li>\n                <li>+ Corticothérapie parentérale d'emblée : <strong>Solumédrol 40 à 80 mg en IVD</strong> (ou 1 à 2 mg/kg chez l'enfant) ou HHC 200 mg IV</li>\n              </ul>\n            </li>\n            <li><strong>Si pas d'amélioration après 20 minutes :</strong> Réaliser la <strong>2ème séance de nébulisation</strong> identique.</li>\n            <li><strong>Si pas d'amélioration après 40 minutes :</strong> Réaliser la <strong>3ème séance de nébulisation</strong> en associant un anticholinergique : <strong>Atrovent (Ipratropium) 0.5 mg</strong> dans la nébulisation.</li>\n            <li><strong>Si crise sévère réfractaire après 3 séances :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Sulfate de Magnésium (MgSO4) :</strong> 1 à 2 g dilué dans 100 cc SG5% en perfusion IV sur 20 min</li>\n                <li>Salbutamol en perfusion IV continue (ou sous-cutanée de secours si arrêt imminent)</li>\n                <li>Appel Réanimation / Pneumologie d'urgence pour intubation ou VNI</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Dyspnée aiguë avec freinage expiratoire, sifflements audibles à distance, toux sèche quinteuse</li>\n            <li>Signes de gravité (Asthme Aigu Grave - AAG) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Impossibilité de parler ou de compter jusqu'à 10, difficulté à tousser</li>\n                <li>Tirage intercostal et sus-sternal majeur, respiration paradoxale</li>\n                <li>Silence auscultatoire bilatéral (absence complète de murmure vésiculaire = menace d'arrêt respiratoire)</li>\n                <li>Cyanose, sueurs, tachycardie > 120/min ou bradycardie pré-terminale, SpO2 < 90%</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Position assise stricte, oxygénothérapie à fort débit (viser SpO2 94-98%)</li>\n            <li><strong>Séance 1 de Nébulisation (aérosol 6 L/min d'O2 pendant 10-15 min) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Salbutamol (Astalin) : 1 cc (5 mg chez adulte) ou 0.03 cc/kg chez l'enfant</li>\n                <li>+ Sérum Salé Isotonique (SSI 0.9%) : 3 à 4 cc</li>\n                <li>+ Corticothérapie parentérale d'emblée : <strong>Solumédrol 40 à 80 mg en IVD</strong> (ou 1 à 2 mg/kg chez l'enfant) ou HHC 200 mg IV</li>\n              </ul>\n            </li>\n            <li><strong>Si pas d'amélioration après 20 minutes :</strong> Réaliser la <strong>2ème séance de nébulisation</strong> identique.</li>\n            <li><strong>Si pas d'amélioration après 40 minutes :</strong> Réaliser la <strong>3ème séance de nébulisation</strong> en associant un anticholinergique : <strong>Atrovent (Ipratropium) 0.5 mg</strong> dans la nébulisation.</li>\n            <li><strong>Si crise sévère réfractaire après 3 séances :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Sulfate de Magnésium (MgSO4) :</strong> 1 à 2 g dilué dans 100 cc SG5% en perfusion IV sur 20 min</li>\n                <li>Salbutamol en perfusion IV continue (ou sous-cutanée de secours si arrêt imminent)</li>\n                <li>Appel Réanimation / Pneumologie d'urgence pour intubation ou VNI</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Nébulisation Adulte :</strong> Salbutamol 5 mg (1 unidose ou 1cc solution injectable) + 3 cc SSI sous débit O2 6 à 8 L/min.</p>\n            <p><strong>Nébulisation Enfant :</strong> 0.03 à 0.05 cc/kg de Salbutamol solution pour nébuliseur (dose minimale 0.3 cc) complété à 4 cc de SSI.</p>\n            <p><strong>Corticothérapie IV :</strong> Solumédrol 1 à 2 mg/kg/j ou Dexaméthasone 0.5 mg/kg.</p>\n          </div>",
+    "bilanHtml": "Gazométrie artérielle (hypercapnie et acidose = signe d'épuisement gravissime), Radiographie du thorax de face (rechercher pneumothorax compressif ou pneumopathie déclenchante), FNS, CRP.",
+    "ordonnance": [
+      {
+        "drug": "Ventoline Spray 100 µg",
+        "dose": "Inhalateur",
+        "poso": "2 à 4 bouffées toutes les 4 à 6 heures (avec chambre d'inhalation si enfant)",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Solupred (Prednisolone)",
+        "dose": "Comprimés 20 mg",
+        "poso": "1 mg/kg/jour le matin pendant 5 jours sans sevrage progressif",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Augmentin 1g (si surinfection)",
+        "dose": "1g",
+        "poso": "1 comprimé 2 à 3 fois par jour si expectorations purulentes et fièvre",
+        "qty": "7 jours"
+      }
+    ],
+    "conseils": "Bien rincer la bouche après les sprays corticoïdes, technique d'inhalation avec chambre d'inhalation expliquée aux parents.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p25-bronchiolite",
+    "slug": "bronchiolite-aigue-du-nourrisson",
+    "title": "Bronchiolite Aiguë du Nourrisson",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "category": "Pédiatrie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Premier épisode de gêne respiratoire obstructive chez l'enfant < 2 ans, râles sibilants et sous-crépitants après épisode de rhinopharyngite.",
+    "synopsis": "Premier épisode de gêne respiratoire obstructive chez l'enfant < 2 ans, râles sibilants et sous-crépitants après épisode de rhinopharyngite.",
+    "page": "p. 25-27",
+    "evaluationInitiale": [
+      "Nourrisson de moins de 2 ans, précédé 2 à 3 jours auparavant d'un rhume ou rhinopharyngite",
+      "Toux quinteuse sèche puis grasse, dyspnée avec polypnée et freinage expiratoire",
+      "Auscultation : Râles sibilants expiratoires bilatéraux et râles sous-crépitants 'bruit de velcro'",
+      "Signes de lutte : Tirage intercostal, entonnoir sous-xiphoïdien, battement des ailes du nez, balancement thoraco-abdominal",
+      "Difficultés alimentaires majeures : Boit moins de la moitié de ses biberons habituels, vomissements post-tussifs"
+    ],
+    "signesDeGravite": [
+      "Cyanose, pauses respiratoires, geignement expiratoire, épuisement ou refus total de boire : Transfert pédiatrique d'urgence."
+    ],
+    "diagnosticCritères": [
+      "Premier épisode de gêne respiratoire obstructive chez l'enfant < 2 ans, râles sibilants et sous-crépitants après épisode de rhinopharyngite."
+    ],
+    "examensComplementaires": [
+      "Radiographie du thorax de face (systématique si forme atypique, asymétrie auscultatoire ou suspicion de atélectasie/surinfection bactérienne). FNS, CRP, Gaz du sang si détresse sévère."
+    ],
+    "conduiteImmediate": [
+      "Prise en charge de première intention : Désobstruction Rhinopharyngée (DRP) minutieuse au sérum physiologique avant chaque tétée / repas. Couchage sur le dos avec proclive 30°.",
+      "Fractionner l'alimentation (biberons plus petits et plus fréquents).",
+      "Si gêne expiratoire importante / sifflements : 1 séance test de nébulisation : Salbutamol (Astalin) 0.03 cc/kg + 3 cc SSI sous O2 pendant 15 min",
+      "Si amélioration clinique probante -> Poursuivre le traitement ambulatoire",
+      "Si absence d'amélioration après 2ème séance : Inutile d'insister sur les bronchodilatateurs (la composante œdémateuse prédomine chez le nourrisson)",
+      "Corticothérapie parentérale réservée aux formes avec composante dyspnéique majeure : Célestène gouttes (Bétaméthasone) 10 à 20 gouttes/kg le matin ou Solumédrol 1 à 2 mg/kg IM/IV.",
+      "Critères formels d'Hospitalisation : Nourrisson"
+    ],
+    "traitementSpecifique": [
+      "Nébulisation : Salbutamol 0.03 cc/kg (Ex: Enfant 10 kg = 0.3 cc) dans 3 cc SSI. Si surinfection bactérienne prouvée (fièvre > 38.5°C persistante + foyer radiologique) : Claforan (Céfotaxime) 100 mg/kg/j en 4 injections IV ou Augmentin 80 mg/kg/j. Kinésithérapie respiratoire : Plus recommandée en systématique en phase aiguë (risque d'épuisement), indiquée seulement en phase d'encombrement bronchique."
+    ],
+    "orientation": "Cyanose, pauses respiratoires, geignement expiratoire, épuisement ou refus total de boire : Transfert pédiatrique d'urgence.",
+    "redFlags": [
+      "Cyanose, pauses respiratoires, geignement expiratoire, épuisement ou refus total de boire : Transfert pédiatrique d'urgence."
+    ],
+    "alertes": "Cyanose, pauses respiratoires, geignement expiratoire, épuisement ou refus total de boire : Transfert pédiatrique d'urgence.",
+    "clinicalPearls": [
+      "Aérer la chambre, environnement sans tabac absolu, ne pas surcouvrir le bébé.",
+      "Carnet 'CAT Abu Imad' (p. 25-27)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Prise en charge de première intention :</strong> Désobstruction Rhinopharyngée (DRP) minutieuse au sérum physiologique avant chaque tétée / repas. Couchage sur le dos avec proclive 30°.</li>\n            <li>Fractionner l'alimentation (biberons plus petits et plus fréquents).</li>\n            <li><strong>Si gêne expiratoire importante / sifflements :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>1 séance test de nébulisation : Salbutamol (Astalin) 0.03 cc/kg + 3 cc SSI sous O2 pendant 15 min</li>\n                <li>Si amélioration clinique probante -> Poursuivre le traitement ambulatoire</li>\n                <li>Si absence d'amélioration après 2ème séance : Inutile d'insister sur les bronchodilatateurs (la composante œdémateuse prédomine chez le nourrisson)</li>\n              </ul>\n            </li>\n            <li><strong>Corticothérapie parentérale réservée aux formes avec composante dyspnéique majeure :</strong> Célestène gouttes (Bétaméthasone) 10 à 20 gouttes/kg le matin ou Solumédrol 1 à 2 mg/kg IM/IV.</li>\n            <li><strong>Critères formels d'Hospitalisation :</strong> Nourrisson < 3 mois, prématurité, cardiopathie congénitale sous-jacente, SpO2 < 92%, prise alimentaire < 50% des rations sur 3 biberons consécutifs, apnées constatées ou tirage sévère.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Nourrisson de moins de 2 ans, précédé 2 à 3 jours auparavant d'un rhume ou rhinopharyngite</li>\n            <li>Toux quinteuse sèche puis grasse, dyspnée avec polypnée et freinage expiratoire</li>\n            <li>Auscultation : Râles sibilants expiratoires bilatéraux et râles sous-crépitants 'bruit de velcro'</li>\n            <li>Signes de lutte : Tirage intercostal, entonnoir sous-xiphoïdien, battement des ailes du nez, balancement thoraco-abdominal</li>\n            <li>Difficultés alimentaires majeures : Boit moins de la moitié de ses biberons habituels, vomissements post-tussifs</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Prise en charge de première intention :</strong> Désobstruction Rhinopharyngée (DRP) minutieuse au sérum physiologique avant chaque tétée / repas. Couchage sur le dos avec proclive 30°.</li>\n            <li>Fractionner l'alimentation (biberons plus petits et plus fréquents).</li>\n            <li><strong>Si gêne expiratoire importante / sifflements :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>1 séance test de nébulisation : Salbutamol (Astalin) 0.03 cc/kg + 3 cc SSI sous O2 pendant 15 min</li>\n                <li>Si amélioration clinique probante -> Poursuivre le traitement ambulatoire</li>\n                <li>Si absence d'amélioration après 2ème séance : Inutile d'insister sur les bronchodilatateurs (la composante œdémateuse prédomine chez le nourrisson)</li>\n              </ul>\n            </li>\n            <li><strong>Corticothérapie parentérale réservée aux formes avec composante dyspnéique majeure :</strong> Célestène gouttes (Bétaméthasone) 10 à 20 gouttes/kg le matin ou Solumédrol 1 à 2 mg/kg IM/IV.</li>\n            <li><strong>Critères formels d'Hospitalisation :</strong> Nourrisson < 3 mois, prématurité, cardiopathie congénitale sous-jacente, SpO2 < 92%, prise alimentaire < 50% des rations sur 3 biberons consécutifs, apnées constatées ou tirage sévère.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Nébulisation :</strong> Salbutamol 0.03 cc/kg (Ex: Enfant 10 kg = 0.3 cc) dans 3 cc SSI.</p>\n            <p><strong>Si surinfection bactérienne prouvée (fièvre > 38.5°C persistante + foyer radiologique) :</strong> Claforan (Céfotaxime) 100 mg/kg/j en 4 injections IV ou Augmentin 80 mg/kg/j.</p>\n            <p><strong>Kinésithérapie respiratoire :</strong> Plus recommandée en systématique en phase aiguë (risque d'épuisement), indiquée seulement en phase d'encombrement bronchique.</p>\n          </div>",
+    "bilanHtml": "Radiographie du thorax de face (systématique si forme atypique, asymétrie auscultatoire ou suspicion de atélectasie/surinfection bactérienne). FNS, CRP, Gaz du sang si détresse sévère.",
+    "ordonnance": [
+      {
+        "drug": "Sérum Physiologique stérile",
+        "dose": "Dosettes 5 ml",
+        "poso": "Lavage de nez vigoureux au sérum physiologique avant chaque repas (6-8 fois/j)",
+        "qty": "4 boîtes"
+      },
+      {
+        "drug": "Salbutamol sirop ou spray",
+        "dose": "Spray 100 µg",
+        "poso": "2 bouffées avec chambre d'inhalation Babyhaler 3 fois par jour si sibilants",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Célestène gouttes (si prescrit)",
+        "dose": "0.05%",
+        "poso": "10 gouttes/kg le matin pendant 3 jours",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Paracétamol sirop",
+        "dose": "15 mg/kg/prise",
+        "poso": "1 dose toutes les 6 heures en cas de fièvre",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Aérer la chambre, environnement sans tabac absolu, ne pas surcouvrir le bébé.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p28-laryngite-striduleuse",
+    "slug": "laryngite-aigue-sous-glottique-faux-croup",
+    "title": "Laryngite Aiguë Sous-Glottique (Faux Croup)",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "category": "Pédiatrie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Dyspnée inspiratoire aiguë, bradypnée avec stridor et toux rauque aboyante nocturne chez le petit enfant. Corticothérapie et aérosol d'Adrénaline.",
+    "synopsis": "Dyspnée inspiratoire aiguë, bradypnée avec stridor et toux rauque aboyante nocturne chez le petit enfant. Corticothérapie et aérosol d'Adrénaline.",
+    "page": "p. 28",
+    "evaluationInitiale": [
+      "Survenue brutale souvent en pleine nuit chez un enfant de 6 mois à 4 ans",
+      "Dyspnée à prédominance inspiratoire avec bradypnée",
+      "Toux caractéristique rauque, métallique, aboyante ('chant du coq')",
+      "Voix cassée ou éteinte, stridor inspiratoire aigu, tirage sus-sternal et sus-claviculaire",
+      "Recherche impérative de signes de gravité : Cyanose, agitation extrême, disparition du stridor avec polypnée superficielle (signe d'asphyxie imminente)",
+      "Diagnostic différentiel éliminé : Épiglottite aiguë (enfant assis penché en avant, bavant, bouche ouverte, hyperthermie majeure toxique -> NE JAMAIS ALLONGER, PAS D'ABAISE-LANGUE)."
+    ],
+    "signesDeGravite": [
+      "Stridor persistant au repos après 2 aérosols, tirage sévère, cyanose, hypersialorrhée avec refus d'avaler : Évacuation SAMU en urgence."
+    ],
+    "diagnosticCritères": [
+      "Dyspnée inspiratoire aiguë, bradypnée avec stridor et toux rauque aboyante nocturne chez le petit enfant. Corticothérapie et aérosol d'Adrénaline."
+    ],
+    "examensComplementaires": [
+      "Généralement purement clinique. Radiographie du cou de profil en cas de doute sur corps étranger ou épiglottite."
+    ],
+    "conduiteImmediate": [
+      "Rassurer l'enfant et les parents (les pleurs et l'agitation majorent l'œdème laryngé)",
+      "Position demi-assise dans les bras des parents, environnement humide tiède (vapeur d'eau dans la salle de bain)",
+      "Corticothérapie par voie générale (Traitement clé) : Dexaméthasone injectable par voie IM ou orale : 0.6 mg/kg en dose unique (Dose maximale : 12 mg)",
+      "Ou Célestène gouttes : 40 gouttes/kg en prise unique per os",
+      "Ou Solupred (Prednisolone) : 2 mg/kg per os",
+      "Si détresse respiratoire modérée à sévère (stridor de repos ou tirage marqué) : Nébulisation d'Adrénaline : 1 cc d'Adrénaline 1 mg/ml (1 mg) + 2 cc Dexaméthasone (ou 3 cc de SSI) sous masque avec O2 à 6 L/min pendant 10-15 min",
+      "Effet spectaculaire en 15-30 minutes, mais risque d'effet rebond : surveillance minimale de 2 à 4 heures obligatoire."
+    ],
+    "traitementSpecifique": [
+      "Dexaméthasone : 0.6 mg/kg IM ou per os (ou Solumédrol 2 mg/kg IM). Nébulisation d'Adrénaline : 1 mg chez l'enfant"
+    ],
+    "orientation": "Stridor persistant au repos après 2 aérosols, tirage sévère, cyanose, hypersialorrhée avec refus d'avaler : Évacuation SAMU en urgence.",
+    "redFlags": [
+      "Stridor persistant au repos après 2 aérosols, tirage sévère, cyanose, hypersialorrhée avec refus d'avaler : Évacuation SAMU en urgence."
+    ],
+    "alertes": "Stridor persistant au repos après 2 aérosols, tirage sévère, cyanose, hypersialorrhée avec refus d'avaler : Évacuation SAMU en urgence.",
+    "clinicalPearls": [
+      "Humidifier l'air de la chambre, éviter le tabagisme passif.",
+      "Carnet 'CAT Abu Imad' (p. 28)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Rassurer l'enfant et les parents (les pleurs et l'agitation majorent l'œdème laryngé)</li>\n            <li>Position demi-assise dans les bras des parents, environnement humide tiède (vapeur d'eau dans la salle de bain)</li>\n            <li><strong>Corticothérapie par voie générale (Traitement clé) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Dexaméthasone injectable par voie IM ou orale : 0.6 mg/kg en dose unique</strong> (Dose maximale : 12 mg)</li>\n                <li>Ou Célestène gouttes : 40 gouttes/kg en prise unique per os</li>\n                <li>Ou Solupred (Prednisolone) : 2 mg/kg per os</li>\n              </ul>\n            </li>\n            <li><strong>Si détresse respiratoire modérée à sévère (stridor de repos ou tirage marqué) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Nébulisation d'Adrénaline :</strong> 1 cc d'Adrénaline 1 mg/ml (1 mg) + 2 cc Dexaméthasone (ou 3 cc de SSI) sous masque avec O2 à 6 L/min pendant 10-15 min</li>\n                <li>Effet spectaculaire en 15-30 minutes, mais risque d'effet rebond : surveillance minimale de 2 à 4 heures obligatoire.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Survenue brutale souvent en pleine nuit chez un enfant de 6 mois à 4 ans</li>\n            <li>Dyspnée à prédominance inspiratoire avec bradypnée</li>\n            <li>Toux caractéristique rauque, métallique, aboyante ('chant du coq')</li>\n            <li>Voix cassée ou éteinte, stridor inspiratoire aigu, tirage sus-sternal et sus-claviculaire</li>\n            <li>Recherche impérative de signes de gravité : Cyanose, agitation extrême, disparition du stridor avec polypnée superficielle (signe d'asphyxie imminente)</li>\n            <li><strong>Diagnostic différentiel éliminé :</strong> Épiglottite aiguë (enfant assis penché en avant, bavant, bouche ouverte, hyperthermie majeure toxique -> NE JAMAIS ALLONGER, PAS D'ABAISE-LANGUE).</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Rassurer l'enfant et les parents (les pleurs et l'agitation majorent l'œdème laryngé)</li>\n            <li>Position demi-assise dans les bras des parents, environnement humide tiède (vapeur d'eau dans la salle de bain)</li>\n            <li><strong>Corticothérapie par voie générale (Traitement clé) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Dexaméthasone injectable par voie IM ou orale : 0.6 mg/kg en dose unique</strong> (Dose maximale : 12 mg)</li>\n                <li>Ou Célestène gouttes : 40 gouttes/kg en prise unique per os</li>\n                <li>Ou Solupred (Prednisolone) : 2 mg/kg per os</li>\n              </ul>\n            </li>\n            <li><strong>Si détresse respiratoire modérée à sévère (stridor de repos ou tirage marqué) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Nébulisation d'Adrénaline :</strong> 1 cc d'Adrénaline 1 mg/ml (1 mg) + 2 cc Dexaméthasone (ou 3 cc de SSI) sous masque avec O2 à 6 L/min pendant 10-15 min</li>\n                <li>Effet spectaculaire en 15-30 minutes, mais risque d'effet rebond : surveillance minimale de 2 à 4 heures obligatoire.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Dexaméthasone :</strong> 0.6 mg/kg IM ou per os (ou Solumédrol 2 mg/kg IM).</p>\n            <p><strong>Nébulisation d'Adrénaline :</strong> 1 mg chez l'enfant < 2 ans, jusqu'à 2-3 mg chez le grand enfant, dilué dans SSI pour un volume total de 4 cc.</p>\n          </div>",
+    "bilanHtml": "Généralement purement clinique. Radiographie du cou de profil en cas de doute sur corps étranger ou épiglottite.",
+    "ordonnance": [
+      {
+        "drug": "Célestène gouttes 0.05%",
+        "dose": "Gouttes buvables",
+        "poso": "40 à 60 gouttes/kg le matin pendant 3 jours",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Paracétamol sirop",
+        "dose": "15 mg/kg",
+        "poso": "1 dose toutes les 6 heures en cas de fièvre ou douleur",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Augmentin nourrisson (si surinfection)",
+        "dose": "80 mg/kg/j",
+        "poso": "1 dose-kilo 2 à 3 fois par jour pendant 7 jours si fièvre > 39°C",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Humidifier l'air de la chambre, éviter le tabagisme passif.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p29-sinusite",
+    "slug": "sinusite-aigue-maxillaire-frontale",
+    "title": "Sinusite Aiguë Maxillaire & Frontale",
+    "specialtyId": "orl",
+    "specialtyName": "O.R.L. & Chirurgie Cervico-Faciale",
+    "category": "ORL",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Obstruction nasale unilatérale, rhinorrhée purulente, céphalée sous-orbitaire ou frontale pulsatile augmentée à l'antéflexion de la tête.",
+    "synopsis": "Obstruction nasale unilatérale, rhinorrhée purulente, céphalée sous-orbitaire ou frontale pulsatile augmentée à l'antéflexion de la tête.",
+    "page": "p. 29",
+    "evaluationInitiale": [
+      "Douleur faciale unilatérale, battante, exacerbée quand le patient penche la tête en avant",
+      "Rhinorrhée purulente ou muco-purulente antérieure et postérieure (jetage postérieur)",
+      "Obstruction nasale, hyposmie, sensation de pesanteur sous-orbitaire",
+      "Points sinusiens douloureux à la pression digitale (sinus maxillaire ou sus-orbitaire frontal)",
+      "Recherche de complications orbitaires ou méningées (œdème palpébral, diplopie, méningisme)"
+    ],
+    "signesDeGravite": [
+      "Œdème palpébral, rougeur oculaire, exophtalmie, paralysie oculomotrice ou troubles visuels : Urgence ORL / Ophtalmo absolue (risque de cellulite orbitaire / thrombophlébite du sinus caverneux)."
+    ],
+    "diagnosticCritères": [
+      "Obstruction nasale unilatérale, rhinorrhée purulente, céphalée sous-orbitaire ou frontale pulsatile augmentée à l'antéflexion de la tête."
+    ],
+    "examensComplementaires": [
+      "Forme classique : pas d'imagerie. Si échec thérapeutique, suspicion de sinusite frontale/sphénoïdale ou signes d'extension : TDM des sinus (ou radiographie Blondeau)."
+    ],
+    "conduiteImmediate": [
+      "Soulagement immédiat de la douleur hyperalgique aux urgences : Perfalgan 1g en perfusion IV sur 15 min",
+      "Ou Clofenal / Voltaren (Diclofénac) 75 mg en IM",
+      "Si céphalée violente intolérable : Temgesic 1/2 ampoule SC ou association Paracétamol + Valium 1/2 amp IM pour relaxer.",
+      "Décongestion nasale locale au sérum hypertonique ou lavages salés répétés",
+      "Antibiothérapie par voie orale d'emblée si critères de sinusite maxillaire bactérienne bloquée ou sinusite frontale."
+    ],
+    "traitementSpecifique": [
+      "Antibiothérapie de référence : Augmentin (Amoxicilline + Acide clavulanique) 1g 2 à 3 fois par jour pendant 7 à 10 jours. Alternative allergie pénicilline : Céfuroxime ou Pristinamycine ou Fluoroquinolone respiratoire."
+    ],
+    "orientation": "Œdème palpébral, rougeur oculaire, exophtalmie, paralysie oculomotrice ou troubles visuels : Urgence ORL / Ophtalmo absolue (risque de cellulite orbitaire / thrombophlébite du sinus caverneux).",
+    "redFlags": [
+      "Œdème palpébral, rougeur oculaire, exophtalmie, paralysie oculomotrice ou troubles visuels : Urgence ORL / Ophtalmo absolue (risque de cellulite orbitaire / thrombophlébite du sinus caverneux)."
+    ],
+    "alertes": "Œdème palpébral, rougeur oculaire, exophtalmie, paralysie oculomotrice ou troubles visuels : Urgence ORL / Ophtalmo absolue (risque de cellulite orbitaire / thrombophlébite du sinus caverneux).",
+    "clinicalPearls": [
+      "Bien se moucher narine par narine, ne pas fumer, humidifier les pièces.",
+      "Carnet 'CAT Abu Imad' (p. 29)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Soulagement immédiat de la douleur hyperalgique aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Perfalgan 1g en perfusion IV sur 15 min</li>\n                <li>Ou Clofenal / Voltaren (Diclofénac) 75 mg en IM</li>\n                <li>Si céphalée violente intolérable : Temgesic 1/2 ampoule SC ou association Paracétamol + Valium 1/2 amp IM pour relaxer.</li>\n              </ul>\n            </li>\n            <li>Décongestion nasale locale au sérum hypertonique ou lavages salés répétés</li>\n            <li>Antibiothérapie par voie orale d'emblée si critères de sinusite maxillaire bactérienne bloquée ou sinusite frontale.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur faciale unilatérale, battante, exacerbée quand le patient penche la tête en avant</li>\n            <li>Rhinorrhée purulente ou muco-purulente antérieure et postérieure (jetage postérieur)</li>\n            <li>Obstruction nasale, hyposmie, sensation de pesanteur sous-orbitaire</li>\n            <li>Points sinusiens douloureux à la pression digitale (sinus maxillaire ou sus-orbitaire frontal)</li>\n            <li>Recherche de complications orbitaires ou méningées (œdème palpébral, diplopie, méningisme)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Soulagement immédiat de la douleur hyperalgique aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Perfalgan 1g en perfusion IV sur 15 min</li>\n                <li>Ou Clofenal / Voltaren (Diclofénac) 75 mg en IM</li>\n                <li>Si céphalée violente intolérable : Temgesic 1/2 ampoule SC ou association Paracétamol + Valium 1/2 amp IM pour relaxer.</li>\n              </ul>\n            </li>\n            <li>Décongestion nasale locale au sérum hypertonique ou lavages salés répétés</li>\n            <li>Antibiothérapie par voie orale d'emblée si critères de sinusite maxillaire bactérienne bloquée ou sinusite frontale.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Antibiothérapie de référence :</strong> Augmentin (Amoxicilline + Acide clavulanique) 1g 2 à 3 fois par jour pendant 7 à 10 jours.</p>\n            <p><strong>Alternative allergie pénicilline :</strong> Céfuroxime ou Pristinamycine ou Fluoroquinolone respiratoire.</p>\n          </div>",
+    "bilanHtml": "Forme classique : pas d'imagerie. Si échec thérapeutique, suspicion de sinusite frontale/sphénoïdale ou signes d'extension : TDM des sinus (ou radiographie Blondeau).",
+    "ordonnance": [
+      {
+        "drug": "Augmentin comprimés",
+        "dose": "1 g",
+        "poso": "1 comprimé 2 à 3 fois par jour au début des repas",
+        "qty": "10 jours"
+      },
+      {
+        "drug": "Nifluril gélules ou gouttes",
+        "dose": "AINS",
+        "poso": "1 gélule 2 fois par jour au milieu des repas pendant 4 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Proton (Oméprazole)",
+        "dose": "20 mg",
+        "poso": "1 gélule le matin pour protection gastrique sous AINS",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Eau de mer stérile (Stérimar/Physiomer)",
+        "dose": "Spray nasal",
+        "poso": "3 pulvérisations par narine 4 fois par jour après mouchage",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Bien se moucher narine par narine, ne pas fumer, humidifier les pièces.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p30-angine",
+    "slug": "angines-aigues-rouge-blanche-raa",
+    "title": "Angines Aiguës (Rouge, Blanche & RAA)",
+    "specialtyId": "orl",
+    "specialtyName": "O.R.L. & Chirurgie Cervico-Faciale",
+    "category": "ORL",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Odynophagie aiguë, amygdales érythémateuses ou pultacées, adénopathies sous-angulo-maxillaires. Différencier virale (90%) et streptococcique (TDM/Extencilline si RAA).",
+    "synopsis": "Odynophagie aiguë, amygdales érythémateuses ou pultacées, adénopathies sous-angulo-maxillaires. Différencier virale (90%) et streptococcique (TDM/Extencilline si RAA).",
+    "page": "p. 30-33",
+    "evaluationInitiale": [
+      "Douleur pharyngée spontanée et à la déglutition (odynophagie), otalgie réflexe",
+      "Fièvre élevée (38.5 - 40°C), frissons, céphalées, asthénie",
+      "Chez l'enfant : Possibles douleurs abdominales et vomissements associés trompeurs",
+      "Examen de gorge : Angine érythémateuse (rouge) : Amygdales et piliers tuméfiés, rouge vif.",
+      "Angine érythémato-pultacée (blanche) : Enduit blanchâtre ou jaunissant non adhérent punctiforme sur les amygdales.",
+      "Adénopathies cervicales satellites douloureuses sous-maxillaires."
+    ],
+    "signesDeGravite": [
+      "Trismus (impossibilité d'ouvrir la bouche), voix de 'patate chaude', déviation de la luette : Évacuation ORL d'urgence (Phlegmon péri-amygdalien à drainer)."
+    ],
+    "diagnosticCritères": [
+      "Odynophagie aiguë, amygdales érythémateuses ou pultacées, adénopathies sous-angulo-maxillaires. Différencier virale (90%) et streptococcique (TDM/Extencilline si RAA)."
+    ],
+    "examensComplementaires": [
+      "TDR streptococcique si disponible. Si angines à répétition : Prélèvement de gorge, dosage ASLO, VS, CRP, FNS."
+    ],
+    "conduiteImmediate": [
+      "Évaluation clinique (Score de Mac Isaac ou Test de Diagnostic Rapide - TDR Streptocoque) : 90% des angines sont d'origine VIRALE -> Antibiothérapie inutile et déconseillée (simple traitement symptomatique antalgique/antipyrétique).",
+      "Angine streptococcique confirmée (ou forte suspicion enfant > 3 ans avec fièvre élevée sans toux) : Traitement par Amoxicilline 50 mg/kg/j pendant 6 jours.",
+      "Si intolérance digestive / vomissements chez l'enfant : Clamoxyl (Amox) suspension buvable 250 ou 500 mg",
+      "+ Motilium (Dompéridone) 15 min avant les prises",
+      "+ Paracétamol suppositoire",
+      "Prévention du Rhumatisme Articulaire Aigu (RAA) : Si angines streptococciques à répétition ou antécédent personnel/familial de RAA avec titre ASLO élevé > 200 UI/ml :",
+      "Extencilline (Benzathine benzylpénicilline) : 0.6 M UI ( 30 kg) en 1 injection IM profonde stricte tous les 21 jours.",
+      "Attention : Injection impérativement réalisée en milieu médical avec seringue d'Adrénaline et solumédrol prêts (risque de choc anaphylactique)."
+    ],
+    "traitementSpecifique": [
+      "Enfant (Amoxicilline) : 50 mg/kg/j en 2 prises par jour pendant 6 jours. Adulte (Amoxicilline) : 1 g matin et soir pendant 6 jours (ou Augmentin 1g 2x/j si angine récidivante ou échec). Allergie pénicilline : Josacine (Josamycine) 50 mg/kg/j ou Zithromax (Azithromycine) 20 mg/kg/j pendant 3 jours ou Rovamycine."
+    ],
+    "orientation": "Trismus (impossibilité d'ouvrir la bouche), voix de 'patate chaude', déviation de la luette : Évacuation ORL d'urgence (Phlegmon péri-amygdalien à drainer).",
+    "redFlags": [
+      "Trismus (impossibilité d'ouvrir la bouche), voix de 'patate chaude', déviation de la luette : Évacuation ORL d'urgence (Phlegmon péri-amygdalien à drainer)."
+    ],
+    "alertes": "Trismus (impossibilité d'ouvrir la bouche), voix de 'patate chaude', déviation de la luette : Évacuation ORL d'urgence (Phlegmon péri-amygdalien à drainer).",
+    "clinicalPearls": [
+      "Bien hydrater le patient avec des boissons fraîches ou tièdes, alimentation semi-liquide.",
+      "Carnet 'CAT Abu Imad' (p. 30-33)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Évaluation clinique (Score de Mac Isaac ou Test de Diagnostic Rapide - TDR Streptocoque) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>90% des angines sont d'origine VIRALE -> Antibiothérapie inutile et déconseillée (simple traitement symptomatique antalgique/antipyrétique).</li>\n                <li>Angine streptococcique confirmée (ou forte suspicion enfant > 3 ans avec fièvre élevée sans toux) : Traitement par <strong>Amoxicilline 50 mg/kg/j</strong> pendant 6 jours.</li>\n              </ul>\n            </li>\n            <li><strong>Si intolérance digestive / vomissements chez l'enfant :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Clamoxyl (Amox) suspension buvable 250 ou 500 mg</li>\n                <li>+ Motilium (Dompéridone) 15 min avant les prises</li>\n                <li>+ Paracétamol suppositoire</li>\n              </ul>\n            </li>\n            <li><strong>Prévention du Rhumatisme Articulaire Aigu (RAA) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Si angines streptococciques à répétition ou antécédent personnel/familial de RAA avec titre ASLO élevé > 200 UI/ml :</li>\n                <li><strong>Extencilline (Benzathine benzylpénicilline) :</strong> 0.6 M UI (< 30 kg) ou 1.2 M UI (> 30 kg) en 1 injection IM profonde stricte tous les 21 jours.</li>\n                <li>Attention : Injection impérativement réalisée en milieu médical avec seringue d'Adrénaline et solumédrol prêts (risque de choc anaphylactique).</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur pharyngée spontanée et à la déglutition (odynophagie), otalgie réflexe</li>\n            <li>Fièvre élevée (38.5 - 40°C), frissons, céphalées, asthénie</li>\n            <li>Chez l'enfant : Possibles douleurs abdominales et vomissements associés trompeurs</li>\n            <li>Examen de gorge :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li><strong>Angine érythémateuse (rouge) :</strong> Amygdales et piliers tuméfiés, rouge vif.</li>\n                <li><strong>Angine érythémato-pultacée (blanche) :</strong> Enduit blanchâtre ou jaunissant non adhérent punctiforme sur les amygdales.</li>\n                <li>Adénopathies cervicales satellites douloureuses sous-maxillaires.</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Évaluation clinique (Score de Mac Isaac ou Test de Diagnostic Rapide - TDR Streptocoque) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>90% des angines sont d'origine VIRALE -> Antibiothérapie inutile et déconseillée (simple traitement symptomatique antalgique/antipyrétique).</li>\n                <li>Angine streptococcique confirmée (ou forte suspicion enfant > 3 ans avec fièvre élevée sans toux) : Traitement par <strong>Amoxicilline 50 mg/kg/j</strong> pendant 6 jours.</li>\n              </ul>\n            </li>\n            <li><strong>Si intolérance digestive / vomissements chez l'enfant :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Clamoxyl (Amox) suspension buvable 250 ou 500 mg</li>\n                <li>+ Motilium (Dompéridone) 15 min avant les prises</li>\n                <li>+ Paracétamol suppositoire</li>\n              </ul>\n            </li>\n            <li><strong>Prévention du Rhumatisme Articulaire Aigu (RAA) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Si angines streptococciques à répétition ou antécédent personnel/familial de RAA avec titre ASLO élevé > 200 UI/ml :</li>\n                <li><strong>Extencilline (Benzathine benzylpénicilline) :</strong> 0.6 M UI (< 30 kg) ou 1.2 M UI (> 30 kg) en 1 injection IM profonde stricte tous les 21 jours.</li>\n                <li>Attention : Injection impérativement réalisée en milieu médical avec seringue d'Adrénaline et solumédrol prêts (risque de choc anaphylactique).</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Enfant (Amoxicilline) :</strong> 50 mg/kg/j en 2 prises par jour pendant 6 jours.</p>\n            <p><strong>Adulte (Amoxicilline) :</strong> 1 g matin et soir pendant 6 jours (ou Augmentin 1g 2x/j si angine récidivante ou échec).</p>\n            <p><strong>Allergie pénicilline :</strong> Josacine (Josamycine) 50 mg/kg/j ou Zithromax (Azithromycine) 20 mg/kg/j pendant 3 jours ou Rovamycine.</p>\n          </div>",
+    "bilanHtml": "TDR streptococcique si disponible. Si angines à répétition : Prélèvement de gorge, dosage ASLO, VS, CRP, FNS.",
+    "ordonnance": [
+      {
+        "drug": "Clamoxyl (Amoxicilline)",
+        "dose": "1g (Adulte) ou 500mg (Enfant)",
+        "poso": "1 comprimé matin et soir pendant 6 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Doliprane (Paracétamol)",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 heures si douleur/fièvre",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Maxilase sirop ou comprimés",
+        "dose": "Alpha-amylase",
+        "poso": "1 cuillère à soupe ou 1 comprimé 3 fois par jour",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Hexaspray / Collutoire",
+        "dose": "Pulvérisation",
+        "poso": "2 pulvérisations dans le fond de la gorge 3 fois par jour",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Bien hydrater le patient avec des boissons fraîches ou tièdes, alimentation semi-liquide.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p34-covid",
+    "slug": "infection-a-covid-19-detresse-respiratoire",
+    "title": "Infection à Covid-19 & Détresse Respiratoire",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Pneumologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Syndrome grippal épidémique, toux, anosmie/agueusie. Surveillance SpO2 (alerte si < 92-94%), protocole corticoïdes et anticoagulation préventive.",
+    "synopsis": "Syndrome grippal épidémique, toux, anosmie/agueusie. Surveillance SpO2 (alerte si < 92-94%), protocole corticoïdes et anticoagulation préventive.",
+    "page": "p. 34-36",
+    "evaluationInitiale": [
+      "Fièvre, toux sèche quinteuse, asthénie intense, courbatures musculaires généralisées",
+      "Signes hautement évocateurs : Anosmie brutale (perte d'odorat) et agueusie (perte du goût) sans obstruction nasale",
+      "Signes respiratoires de gravité à surveiller (J7 à J10) : Dyspnée d'effort puis de repos, polypnée > 24/min, tirage",
+      "Mesure systématique de la SpO2 au repos et après test de marche de 6 minutes"
+    ],
+    "signesDeGravite": [
+      "SpO2 < 90% sous 6L d'O2, cyanose, polypnée > 30/min, défaillance hémodynamique : Transfert SAMU en Réanimation pour VNI / Intubation."
+    ],
+    "diagnosticCritères": [
+      "Syndrome grippal épidémique, toux, anosmie/agueusie. Surveillance SpO2 (alerte si < 92-94%), protocole corticoïdes et anticoagulation préventive."
+    ],
+    "examensComplementaires": [
+      "SpO2 répétée, TDM Thoracique sans injection (recherche d'opacités en verre dépoli sous-pleurales bilatérales, pourcentages d'atteinte pulmonaire), FNS (lymphopénie), CRP, D-Dimères (si élevés > 1000 ng/ml -> éliminer embolie pulmonaire par Angio-TDM), Ferritine, Ionogramme, Créat."
+    ],
+    "conduiteImmediate": [
+      "Test antigénique rapide immédiat ou RT-PCR nasopharyngée",
+      "Forme légère sans facteur de risque (SpO2 > 95%) : Traitement ambulatoire symptomatique, repos strict, hydratation, vitamines. Pas de corticoïdes en phase précoce virale !",
+      "Forme modérée à sévère avec désaturation (SpO2 65 ans, HTA, diabète, obésité) : Oxygénothérapie au masque ou lunettes : Titrée pour maintenir SpO2 entre 92% et 96%",
+      "Corticothérapie par voie générale : Dexaméthasone 6 mg/j en IV/oral ou Solumédrol 40 à 80 mg/j pendant 7 à 10 jours",
+      "Anticoagulation préventive ou intermédiaire : Lovenox 0.4 cc (4000 UI) à 0.6 cc (6000 UI) SC / jour selon IMC (> 30 kg/m2 = 0.6 cc)",
+      "Antibiothérapie si suspicion de surinfection bactérienne pulmonaire (CRP > 50 mg/L) : Augmentin 1g 3x/j ou Claforan 1g 3x/j + Zithromax 500 mg J1 puis 250 mg J2-J5."
+    ],
+    "traitementSpecifique": [
+      "Dexaméthasone : 6 mg par jour en 1 prise le matin pendant 7 à 10 jours (réservé aux patients requérant de l'O2). Lovenox prophylactique : 4000 UI SC/24h si IMC Zithromax (Azithromycine) : 500 mg à J1 (2 comprimés de 250 mg) puis 250 mg/j pendant 4 jours."
+    ],
+    "orientation": "SpO2 < 90% sous 6L d'O2, cyanose, polypnée > 30/min, défaillance hémodynamique : Transfert SAMU en Réanimation pour VNI / Intubation.",
+    "redFlags": [
+      "SpO2 < 90% sous 6L d'O2, cyanose, polypnée > 30/min, défaillance hémodynamique : Transfert SAMU en Réanimation pour VNI / Intubation."
+    ],
+    "alertes": "SpO2 < 90% sous 6L d'O2, cyanose, polypnée > 30/min, défaillance hémodynamique : Transfert SAMU en Réanimation pour VNI / Intubation.",
+    "clinicalPearls": [
+      "Isolement pendant 7 jours, aération quotidienne du domicile, port du masque.",
+      "Carnet 'CAT Abu Imad' (p. 34-36)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Test antigénique rapide immédiat ou RT-PCR nasopharyngée</li>\n            <li><strong>Forme légère sans facteur de risque (SpO2 > 95%) :</strong> Traitement ambulatoire symptomatique, repos strict, hydratation, vitamines. Pas de corticoïdes en phase précoce virale !</li>\n            <li><strong>Forme modérée à sévère avec désaturation (SpO2 < 92%) ou terrain à risque (Âge > 65 ans, HTA, diabète, obésité) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Oxygénothérapie au masque ou lunettes : Titrée pour maintenir SpO2 entre 92% et 96%</li>\n                <li><strong>Corticothérapie par voie générale :</strong> Dexaméthasone 6 mg/j en IV/oral ou Solumédrol 40 à 80 mg/j pendant 7 à 10 jours</li>\n                <li><strong>Anticoagulation préventive ou intermédiaire :</strong> Lovenox 0.4 cc (4000 UI) à 0.6 cc (6000 UI) SC / jour selon IMC (> 30 kg/m2 = 0.6 cc)</li>\n                <li>Antibiothérapie si suspicion de surinfection bactérienne pulmonaire (CRP > 50 mg/L) : Augmentin 1g 3x/j ou Claforan 1g 3x/j + Zithromax 500 mg J1 puis 250 mg J2-J5.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Fièvre, toux sèche quinteuse, asthénie intense, courbatures musculaires généralisées</li>\n            <li>Signes hautement évocateurs : Anosmie brutale (perte d'odorat) et agueusie (perte du goût) sans obstruction nasale</li>\n            <li>Signes respiratoires de gravité à surveiller (J7 à J10) : Dyspnée d'effort puis de repos, polypnée > 24/min, tirage</li>\n            <li>Mesure systématique de la SpO2 au repos et après test de marche de 6 minutes</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Test antigénique rapide immédiat ou RT-PCR nasopharyngée</li>\n            <li><strong>Forme légère sans facteur de risque (SpO2 > 95%) :</strong> Traitement ambulatoire symptomatique, repos strict, hydratation, vitamines. Pas de corticoïdes en phase précoce virale !</li>\n            <li><strong>Forme modérée à sévère avec désaturation (SpO2 < 92%) ou terrain à risque (Âge > 65 ans, HTA, diabète, obésité) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Oxygénothérapie au masque ou lunettes : Titrée pour maintenir SpO2 entre 92% et 96%</li>\n                <li><strong>Corticothérapie par voie générale :</strong> Dexaméthasone 6 mg/j en IV/oral ou Solumédrol 40 à 80 mg/j pendant 7 à 10 jours</li>\n                <li><strong>Anticoagulation préventive ou intermédiaire :</strong> Lovenox 0.4 cc (4000 UI) à 0.6 cc (6000 UI) SC / jour selon IMC (> 30 kg/m2 = 0.6 cc)</li>\n                <li>Antibiothérapie si suspicion de surinfection bactérienne pulmonaire (CRP > 50 mg/L) : Augmentin 1g 3x/j ou Claforan 1g 3x/j + Zithromax 500 mg J1 puis 250 mg J2-J5.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Dexaméthasone :</strong> 6 mg par jour en 1 prise le matin pendant 7 à 10 jours (réservé aux patients requérant de l'O2).</p>\n            <p><strong>Lovenox prophylactique :</strong> 4000 UI SC/24h si IMC < 30 ; 6000 UI SC/24h si IMC ≥ 30 pendant 10 à 14 jours.</p>\n            <p><strong>Zithromax (Azithromycine) :</strong> 500 mg à J1 (2 comprimés de 250 mg) puis 250 mg/j pendant 4 jours.</p>\n          </div>",
+    "bilanHtml": "SpO2 répétée, TDM Thoracique sans injection (recherche d'opacités en verre dépoli sous-pleurales bilatérales, pourcentages d'atteinte pulmonaire), FNS (lymphopénie), CRP, D-Dimères (si élevés > 1000 ng/ml -> éliminer embolie pulmonaire par Angio-TDM), Ferritine, Ionogramme, Créat.",
+    "ordonnance": [
+      {
+        "drug": "Augmentin comprimés",
+        "dose": "1g",
+        "poso": "1 comprimé 2 à 3 fois par jour si toux productive/fièvre",
+        "qty": "10 jours"
+      },
+      {
+        "drug": "Zithromax (Azithromycine)",
+        "dose": "250 mg",
+        "poso": "2 cp le 1er jour puis 1 cp/j pendant 4 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Vitamine C comprimés",
+        "dose": "500 mg ou 1000 mg",
+        "poso": "1 comprimé à croquer le matin",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Zinc gélules",
+        "dose": "10 mg à 15 mg",
+        "poso": "1 gélule le matin",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Vitamine D ampoule buvable",
+        "dose": "200 000 UI",
+        "poso": "1 ampoule dose unique d'emblée",
+        "qty": "1 ampoule"
+      },
+      {
+        "drug": "Doliprane 1g",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 heures en cas de fièvre (éviter les AINS)",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Isolement pendant 7 jours, aération quotidienne du domicile, port du masque.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p37-diarrhee-aigue",
+    "slug": "diarrhee-aigue-aqueuse-gastro-enterite",
+    "title": "Diarrhée Aiguë Aqueuse & Gastro-Entérite",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Gastro-entérologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Émission fréquente de selles liquides sans glaires ni sang. Priorité absolue à la réhydratation orale (SRO) et pansements digestifs.",
+    "synopsis": "Émission fréquente de selles liquides sans glaires ni sang. Priorité absolue à la réhydratation orale (SRO) et pansements digestifs.",
+    "page": "p. 37",
+    "evaluationInitiale": [
+      "Augmentation brutale de la fréquence des selles (> 3 selles liquides par jour), durée",
+      "Douleurs abdominales diffuses à type de coliques et crampes péri-ombilicales",
+      "Nausées, vomissements modérés associés, fébricule ou apyrexie",
+      "Recherche de déshydratation : Pli cutané, soif, sécheresse des lèvres, hypotension orthostatique",
+      "Antécédent de repas suspect ou contage familial"
+    ],
+    "signesDeGravite": [
+      "Apparition de sang ou de glaires dans les selles, fièvre > 39°C, vomissements incoercibles empêchant toute réhydratation, signes de choc hypovolémique."
+    ],
+    "diagnosticCritères": [
+      "Émission fréquente de selles liquides sans glaires ni sang. Priorité absolue à la réhydratation orale (SRO) et pansements digestifs."
+    ],
+    "examensComplementaires": [
+      "Inutile en phase aiguë si absence de signe de gravité. Si persistance > 48h ou retour de zone d'endémie : Coproculture et examen parasitologique des selles (EPS)."
+    ],
+    "conduiteImmediate": [
+      "Réhydratation immédiate : Boire abondamment des solutés de réhydratation (SRO), eau de riz, tisanes salées sucrées, bouillons de légumes",
+      "Chez l'enfant : 1 sachet de SRO dans 1 litre d'eau, administré à volonté (50 à 100 cc/kg/24h)",
+      "Protecteurs & Pansements intestinaux : Smecta (Diosmectite) : Enfant",
+      "Enfant 2 à 6 ans : 1 sachet 2 fois par jour",
+      "Grand enfant et adulte : 1 sachet 3 fois par jour dilué dans un verre d'eau",
+      "Si persistance de la diarrhée liquidienne abondante : Tiorfan (Racécadotril) : 10 mg (nourrisson) ou 30 mg (enfant) ou 100 mg (adulte) 3 fois par jour au début des repas",
+      "Antibiothérapie formellement INUTILE dans les diarrhées aqueuses simples."
+    ],
+    "traitementSpecifique": [
+      "Régime diététique antidiarrhéique : Riz bien cuit, eau de cuisson du riz, carottes cuites, bananes mûres, pommes cuites, éviter produits laitiers et légumes verts pendant 48 heures."
+    ],
+    "orientation": "Apparition de sang ou de glaires dans les selles, fièvre > 39°C, vomissements incoercibles empêchant toute réhydratation, signes de choc hypovolémique.",
+    "redFlags": [
+      "Apparition de sang ou de glaires dans les selles, fièvre > 39°C, vomissements incoercibles empêchant toute réhydratation, signes de choc hypovolémique."
+    ],
+    "alertes": "Apparition de sang ou de glaires dans les selles, fièvre > 39°C, vomissements incoercibles empêchant toute réhydratation, signes de choc hypovolémique.",
+    "clinicalPearls": [
+      "Lavage soigneux des mains avant chaque repas et après chaque passage aux toilettes.",
+      "Carnet 'CAT Abu Imad' (p. 37)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Réhydratation immédiate :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Boire abondamment des solutés de réhydratation (SRO), eau de riz, tisanes salées sucrées, bouillons de légumes</li>\n                <li>Chez l'enfant : 1 sachet de SRO dans 1 litre d'eau, administré à volonté (50 à 100 cc/kg/24h)</li>\n              </ul>\n            </li>\n            <li><strong>Protecteurs & Pansements intestinaux :</strong> Smecta (Diosmectite) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Enfant < 1 an : 1/2 sachet 2 fois par jour</li>\n                <li>Enfant 2 à 6 ans : 1 sachet 2 fois par jour</li>\n                <li>Grand enfant et adulte : 1 sachet 3 fois par jour dilué dans un verre d'eau</li>\n              </ul>\n            </li>\n            <li><strong>Si persistance de la diarrhée liquidienne abondante :</strong> Tiorfan (Racécadotril) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>10 mg (nourrisson) ou 30 mg (enfant) ou 100 mg (adulte) 3 fois par jour au début des repas</li>\n              </ul>\n            </li>\n            <li>Antibiothérapie formellement INUTILE dans les diarrhées aqueuses simples.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Augmentation brutale de la fréquence des selles (> 3 selles liquides par jour), durée < 7 jours</li>\n            <li>Douleurs abdominales diffuses à type de coliques et crampes péri-ombilicales</li>\n            <li>Nausées, vomissements modérés associés, fébricule ou apyrexie</li>\n            <li>Recherche de déshydratation : Pli cutané, soif, sécheresse des lèvres, hypotension orthostatique</li>\n            <li>Antécédent de repas suspect ou contage familial</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Réhydratation immédiate :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Boire abondamment des solutés de réhydratation (SRO), eau de riz, tisanes salées sucrées, bouillons de légumes</li>\n                <li>Chez l'enfant : 1 sachet de SRO dans 1 litre d'eau, administré à volonté (50 à 100 cc/kg/24h)</li>\n              </ul>\n            </li>\n            <li><strong>Protecteurs & Pansements intestinaux :</strong> Smecta (Diosmectite) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Enfant < 1 an : 1/2 sachet 2 fois par jour</li>\n                <li>Enfant 2 à 6 ans : 1 sachet 2 fois par jour</li>\n                <li>Grand enfant et adulte : 1 sachet 3 fois par jour dilué dans un verre d'eau</li>\n              </ul>\n            </li>\n            <li><strong>Si persistance de la diarrhée liquidienne abondante :</strong> Tiorfan (Racécadotril) :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>10 mg (nourrisson) ou 30 mg (enfant) ou 100 mg (adulte) 3 fois par jour au début des repas</li>\n              </ul>\n            </li>\n            <li>Antibiothérapie formellement INUTILE dans les diarrhées aqueuses simples.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Régime diététique antidiarrhéique :</strong> Riz bien cuit, eau de cuisson du riz, carottes cuites, bananes mûres, pommes cuites, éviter produits laitiers et légumes verts pendant 48 heures.</p>\n          </div>",
+    "bilanHtml": "Inutile en phase aiguë si absence de signe de gravité. Si persistance > 48h ou retour de zone d'endémie : Coproculture et examen parasitologique des selles (EPS).",
+    "ordonnance": [
+      {
+        "drug": "Smecta sachets (Diosmectite)",
+        "dose": "3 g",
+        "poso": "1 sachet 3 fois par jour à distance des autres médicaments",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Tiorfan (Racécadotril)",
+        "dose": "100 mg (Adulte)",
+        "poso": "1 gélule 3 fois par jour au début des repas",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "SRO sachets",
+        "dose": "Poudre",
+        "poso": "1 sachet dans 1L d'eau, boire à volonté à chaque selle liquide",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Spasfon comprimés",
+        "dose": "80 mg",
+        "poso": "2 comprimés 3 fois par jour en cas de spasmes abdominaux",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Lavage soigneux des mains avant chaque repas et après chaque passage aux toilettes.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p38-diarrhee-glairo-sanglante",
+    "slug": "diarrhee-glairo-sanglante-syndrome-dysenterique",
+    "title": "Diarrhée Glairo-Sanglante & Syndrome Dysentérique",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Gastro-entérologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Selles afécales mucopurulentes et sanguinolentes, épreintes, ténesme, fièvre élevée. Suspicion d'amibiase invasive ou shigellose bactérienne.",
+    "synopsis": "Selles afécales mucopurulentes et sanguinolentes, épreintes, ténesme, fièvre élevée. Suspicion d'amibiase invasive ou shigellose bactérienne.",
+    "page": "p. 38",
+    "evaluationInitiale": [
+      "Syndrome dysentérique typique : Selles glairo-sanglantes 'crachats dysentériques', épreintes (douleurs coliques expulsives), ténesme anal douloureux et faux besoins répétés",
+      "Fièvre élevée (38.5 - 40°C), frissons, altération de l'état général, déshydratation rapide",
+      "Douleur intense à la palpation du cadre colique (spasme de la fosse iliaque gauche)",
+      "Attention : Smecta et les ralentisseurs du transit (Imodium / Lopéramide) sont STRICTEMENT CONTRE-INDIQUÉS (risque de colectasie et mégacôlon toxique)."
+    ],
+    "signesDeGravite": [
+      "Météorisme abdominal aigu avec disparition des bruits intestinaux (Mégacôlon toxique), défense abdominale généralisée (perforation colique) : Avis Chirurgical et Réanimation immédiat."
+    ],
+    "diagnosticCritères": [
+      "Selles afécales mucopurulentes et sanguinolentes, épreintes, ténesme, fièvre élevée. Suspicion d'amibiase invasive ou shigellose bactérienne."
+    ],
+    "examensComplementaires": [
+      "Coproculture avec antibiogramme, Examen parasitologique direct des selles à l'état frais (recherche d'amibes hématophages Entamoeba histolytica), FNS (hyperleucocytose), CRP, Ionogramme, Urée, Créatinine."
+    ],
+    "conduiteImmediate": [
+      "Conditionnement : Réhydratation orale par SRO immédiate ou VVP avec soluté salé isotonique si vomissements associés",
+      "Double Antibiothérapie et Antiparasitaire d'urgence : Métronidazole (Flagyl) : 500 mg per os 3 fois par jour chez l'adulte (ou 30 à 40 mg/kg/j en 3 prises chez l'enfant) pendant 7 à 10 jours (traite l'amibiase colique aiguë).",
+      "Antibiotique antibactérien ciblant les entérobactéries invasives (Shigella, Salmonella) : Bactrim (Cotrimoxazole) 800/160 : 1 cp 2 fois par jour chez l'adulte (ou sirop pédiatrique 30 mg/kg/j)",
+      "Ou Ciprofloxacine 500 mg : 1 cp 2 fois par jour chez l'adulte",
+      "Ou Ampicilline 100 mg/kg/j ou Céfotaxime chez l'enfant en milieu hospitalier",
+      "Antalgiques / Antipyrétiques : Perfalgan 1g IV ou Paracétamol per os (éviter absolument les AINS qui aggravent les lésions coliques)."
+    ],
+    "traitementSpecifique": [
+      "Flagyl (Métronidazole) : Adulte : 500 mg 3 fois par jour. Enfant : 30 à 40 mg/kg/j répartis en 3 prises au milieu des repas pendant 7 à 10 jours. Bactrim : 1 comprimé Fort matin et soir pendant 5 jours."
+    ],
+    "orientation": "Météorisme abdominal aigu avec disparition des bruits intestinaux (Mégacôlon toxique), défense abdominale généralisée (perforation colique) : Avis Chirurgical et Réanimation immédiat.",
+    "redFlags": [
+      "Météorisme abdominal aigu avec disparition des bruits intestinaux (Mégacôlon toxique), défense abdominale généralisée (perforation colique) : Avis Chirurgical et Réanimation immédiat."
+    ],
+    "alertes": "Météorisme abdominal aigu avec disparition des bruits intestinaux (Mégacôlon toxique), défense abdominale généralisée (perforation colique) : Avis Chirurgical et Réanimation immédiat.",
+    "clinicalPearls": [
+      "Ne jamais consommer d'alcool avec le Flagyl (effet antabuse violent). Traiter l'entourage si contamination amibienne suspectée.",
+      "Carnet 'CAT Abu Imad' (p. 38)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Conditionnement : Réhydratation orale par SRO immédiate ou VVP avec soluté salé isotonique si vomissements associés</li>\n            <li><strong>Double Antibiothérapie et Antiparasitaire d'urgence :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Métronidazole (Flagyl) :</strong> 500 mg per os 3 fois par jour chez l'adulte (ou 30 à 40 mg/kg/j en 3 prises chez l'enfant) pendant 7 à 10 jours (traite l'amibiase colique aiguë).</li>\n                <li><strong>Antibiotique antibactérien ciblant les entérobactéries invasives (Shigella, Salmonella) :</strong>\n                  <ul class=\"list-square pl-5 space-y-0.5 text-xs\">\n                    <li>Bactrim (Cotrimoxazole) 800/160 : 1 cp 2 fois par jour chez l'adulte (ou sirop pédiatrique 30 mg/kg/j)</li>\n                    <li>Ou Ciprofloxacine 500 mg : 1 cp 2 fois par jour chez l'adulte</li>\n                    <li>Ou Ampicilline 100 mg/kg/j ou Céfotaxime chez l'enfant en milieu hospitalier</li>\n                  </ul>\n                </li>\n              </ul>\n            </li>\n            <li>Antalgiques / Antipyrétiques : Perfalgan 1g IV ou Paracétamol per os (éviter absolument les AINS qui aggravent les lésions coliques).</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Syndrome dysentérique typique : Selles glairo-sanglantes 'crachats dysentériques', épreintes (douleurs coliques expulsives), ténesme anal douloureux et faux besoins répétés</li>\n            <li>Fièvre élevée (38.5 - 40°C), frissons, altération de l'état général, déshydratation rapide</li>\n            <li>Douleur intense à la palpation du cadre colique (spasme de la fosse iliaque gauche)</li>\n            <li>Attention : <strong>Smecta et les ralentisseurs du transit (Imodium / Lopéramide) sont STRICTEMENT CONTRE-INDIQUÉS</strong> (risque de colectasie et mégacôlon toxique).</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Conditionnement : Réhydratation orale par SRO immédiate ou VVP avec soluté salé isotonique si vomissements associés</li>\n            <li><strong>Double Antibiothérapie et Antiparasitaire d'urgence :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Métronidazole (Flagyl) :</strong> 500 mg per os 3 fois par jour chez l'adulte (ou 30 à 40 mg/kg/j en 3 prises chez l'enfant) pendant 7 à 10 jours (traite l'amibiase colique aiguë).</li>\n                <li><strong>Antibiotique antibactérien ciblant les entérobactéries invasives (Shigella, Salmonella) :</strong>\n                  <ul class=\"list-square pl-5 space-y-0.5 text-xs\">\n                    <li>Bactrim (Cotrimoxazole) 800/160 : 1 cp 2 fois par jour chez l'adulte (ou sirop pédiatrique 30 mg/kg/j)</li>\n                    <li>Ou Ciprofloxacine 500 mg : 1 cp 2 fois par jour chez l'adulte</li>\n                    <li>Ou Ampicilline 100 mg/kg/j ou Céfotaxime chez l'enfant en milieu hospitalier</li>\n                  </ul>\n                </li>\n              </ul>\n            </li>\n            <li>Antalgiques / Antipyrétiques : Perfalgan 1g IV ou Paracétamol per os (éviter absolument les AINS qui aggravent les lésions coliques).</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Flagyl (Métronidazole) :</strong> Adulte : 500 mg 3 fois par jour. Enfant : 30 à 40 mg/kg/j répartis en 3 prises au milieu des repas pendant 7 à 10 jours.</p>\n            <p><strong>Bactrim :</strong> 1 comprimé Fort matin et soir pendant 5 jours.</p>\n          </div>",
+    "bilanHtml": "Coproculture avec antibiogramme, Examen parasitologique direct des selles à l'état frais (recherche d'amibes hématophages Entamoeba histolytica), FNS (hyperleucocytose), CRP, Ionogramme, Urée, Créatinine.",
+    "ordonnance": [
+      {
+        "drug": "Flagyl (Métronidazole)",
+        "dose": "500 mg",
+        "poso": "1 comprimé 3 fois par jour au milieu des repas pendant 7 à 10 jours",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Bactrim Forte (Cotrimoxazole)",
+        "dose": "800/160 mg",
+        "poso": "1 comprimé matin et soir pendant 5 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "SRO sachets",
+        "dose": "1 sachet dans 1L d'eau",
+        "poso": "Boire abondamment par petites gorgées",
+        "qty": "3 boîtes"
+      },
+      {
+        "drug": "Doliprane comprimés",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6h si fièvre",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Ne jamais consommer d'alcool avec le Flagyl (effet antabuse violent). Traiter l'entourage si contamination amibienne suspectée.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p39-epistaxis",
+    "slug": "epistaxis-chez-l-enfant-adulte",
+    "title": "Épistaxis chez l'Enfant & Adulte",
+    "specialtyId": "orl",
+    "specialtyName": "O.R.L. & Chirurgie Cervico-Faciale",
+    "category": "ORL",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Hémorragie extériorisée par les fosses nasales, le plus souvent d'origine bénigne (tache vasculaire de Kiesselbach) ou hypertensive.",
+    "synopsis": "Hémorragie extériorisée par les fosses nasales, le plus souvent d'origine bénigne (tache vasculaire de Kiesselbach) ou hypertensive.",
+    "page": "p. 39",
+    "evaluationInitiale": [
+      "Saignement extériorisé par une ou les deux narines et/ou déglutition de sang dans le pharynx",
+      "Évaluer le retentissement : Pâleur, tachycardie, hypotension (épistaxis grave spoliatrice)",
+      "Mesure immédiate de la tension artérielle (l'épistaxis est fréquemment inaugurale d'une poussée hypertensive sévère)",
+      "Circonstances déclenchantes : Grattage nasal chez l'enfant, traumatisme, éternuements, prise d'anticoagulants ou d'aspirine"
+    ],
+    "signesDeGravite": [
+      "Épistaxis postérieure incoercible ne cédant pas au méchage antérieur, déglobulisation avec choc : Tamponnement postérieur et transfert ORL d'urgence."
+    ],
+    "diagnosticCritères": [
+      "Hémorragie extériorisée par les fosses nasales, le plus souvent d'origine bénigne (tache vasculaire de Kiesselbach) ou hypertensive."
+    ],
+    "examensComplementaires": [
+      "Si saignement abondant, récidivant ou sous traitement anticoagulant : FNS avec numération des plaquettes, Bilan de coagulation complet (TP, TCA, INR)."
+    ],
+    "conduiteImmediate": [
+      "Rassurer le patient. Posture capitale : Assis, tête légèrement penchée en avant (NE PAS PENCHER LA TÊTE EN ARRIÈRE pour éviter l'inhalation et la déglutition du sang).",
+      "Faire moucher doucement le patient pour évacuer les caillots obstructing la cavité nasale.",
+      "Compression bidigitale manuelle continue : Serrer fermement les deux ailes du nez pendant 10 minutes montre en main sans relâcher.",
+      "Si échec après 10 min : Méchage nasal antérieur : Introduire une mèche hémostatique résorbable (Surgicel, Merocel ou mèche grasse imbibée d'Hémocaprol / adrénaline)",
+      "Ou application locale de pommade hémostatique (HEC pommade)",
+      "Traitement hémostatique d'appoint : Dicynone (Étamsylate) 1/2 à 1 ampoule en IV ou IM.",
+      "Si HTA associée : Contrôler impérativement la pression artérielle."
+    ],
+    "traitementSpecifique": [
+      "Dicynone (Étamsylate) : 250 à 500 mg en IM ou IV directe lente. Méchage : Laisser la mèche non résorbable en place 24 à 48 heures avant ablation douce."
+    ],
+    "orientation": "Épistaxis postérieure incoercible ne cédant pas au méchage antérieur, déglobulisation avec choc : Tamponnement postérieur et transfert ORL d'urgence.",
+    "redFlags": [
+      "Épistaxis postérieure incoercible ne cédant pas au méchage antérieur, déglobulisation avec choc : Tamponnement postérieur et transfert ORL d'urgence."
+    ],
+    "alertes": "Épistaxis postérieure incoercible ne cédant pas au méchage antérieur, déglobulisation avec choc : Tamponnement postérieur et transfert ORL d'urgence.",
+    "clinicalPearls": [
+      "Éviter les efforts à glotte fermée, ne pas se gratter le nez, bannir les AINS et aspirine en automédication.",
+      "Carnet 'CAT Abu Imad' (p. 39)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Rassurer le patient. <strong>Posture capitale :</strong> Assis, tête légèrement penchée en avant (NE PAS PENCHER LA TÊTE EN ARRIÈRE pour éviter l'inhalation et la déglutition du sang).</li>\n            <li>Faire moucher doucement le patient pour évacuer les caillots obstructing la cavité nasale.</li>\n            <li><strong>Compression bidigitale manuelle continue :</strong> Serrer fermement les deux ailes du nez pendant 10 minutes montre en main sans relâcher.</li>\n            <li><strong>Si échec après 10 min : Méchage nasal antérieur :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Introduire une mèche hémostatique résorbable (Surgicel, Merocel ou mèche grasse imbibée d'Hémocaprol / adrénaline)</li>\n                <li>Ou application locale de pommade hémostatique (HEC pommade)</li>\n              </ul>\n            </li>\n            <li><strong>Traitement hémostatique d'appoint :</strong> Dicynone (Étamsylate) 1/2 à 1 ampoule en IV ou IM.</li>\n            <li>Si HTA associée : Contrôler impérativement la pression artérielle.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Saignement extériorisé par une ou les deux narines et/ou déglutition de sang dans le pharynx</li>\n            <li>Évaluer le retentissement : Pâleur, tachycardie, hypotension (épistaxis grave spoliatrice)</li>\n            <li>Mesure immédiate de la tension artérielle (l'épistaxis est fréquemment inaugurale d'une poussée hypertensive sévère)</li>\n            <li>Circonstances déclenchantes : Grattage nasal chez l'enfant, traumatisme, éternuements, prise d'anticoagulants ou d'aspirine</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Rassurer le patient. <strong>Posture capitale :</strong> Assis, tête légèrement penchée en avant (NE PAS PENCHER LA TÊTE EN ARRIÈRE pour éviter l'inhalation et la déglutition du sang).</li>\n            <li>Faire moucher doucement le patient pour évacuer les caillots obstructing la cavité nasale.</li>\n            <li><strong>Compression bidigitale manuelle continue :</strong> Serrer fermement les deux ailes du nez pendant 10 minutes montre en main sans relâcher.</li>\n            <li><strong>Si échec après 10 min : Méchage nasal antérieur :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Introduire une mèche hémostatique résorbable (Surgicel, Merocel ou mèche grasse imbibée d'Hémocaprol / adrénaline)</li>\n                <li>Ou application locale de pommade hémostatique (HEC pommade)</li>\n              </ul>\n            </li>\n            <li><strong>Traitement hémostatique d'appoint :</strong> Dicynone (Étamsylate) 1/2 à 1 ampoule en IV ou IM.</li>\n            <li>Si HTA associée : Contrôler impérativement la pression artérielle.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Dicynone (Étamsylate) :</strong> 250 à 500 mg en IM ou IV directe lente.</p>\n            <p><strong>Méchage :</strong> Laisser la mèche non résorbable en place 24 à 48 heures avant ablation douce.</p>\n          </div>",
+    "bilanHtml": "Si saignement abondant, récidivant ou sous traitement anticoagulant : FNS avec numération des plaquettes, Bilan de coagulation complet (TP, TCA, INR).",
+    "ordonnance": [
+      {
+        "drug": "HEC pommade nasale",
+        "dose": "Tube",
+        "poso": "1 application 2 fois par jour dans la narine avec un coton-tige pendant 7 jours",
+        "qty": "1 tube"
+      },
+      {
+        "drug": "Dicynone comprimés",
+        "dose": "500 mg",
+        "poso": "1 comprimé 2 à 3 fois par jour pendant 5 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Sérum Physiologique spray",
+        "dose": "Spray nasal",
+        "poso": "Humidification douce des muqueuses sans grattage",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Éviter les efforts à glotte fermée, ne pas se gratter le nez, bannir les AINS et aspirine en automédication.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.585Z"
+  },
+  {
+    "id": "cat_p40-urticaire",
+    "slug": "urticaire-aigue-risque-d-deme-de-quincke",
+    "title": "Urticaire Aiguë & Risque d'Œdème de Quincke",
+    "specialtyId": "dermato",
+    "specialtyName": "Dermatologie - Vénérologie",
+    "category": "Dermatologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Papules œdémateuses érythémateuses prurigineuses migratrices et fugaces. Dépister immédiatement l'œdème de Quincke pharyngo-laryngé.",
+    "synopsis": "Papules œdémateuses érythémateuses prurigineuses migratrices et fugaces. Dépister immédiatement l'œdème de Quincke pharyngo-laryngé.",
+    "page": "p. 40, 55",
+    "evaluationInitiale": [
+      "Lésions cutanées : Plaques érythémato-œdémateuses à contours nets, rosées ou blanches, prurit intense ('cuisson d'ortie')",
+      "Caractère fugace (chaque plaque disparaît en moins de 24h sans laisser de cicatrice) et migrateur",
+      "Recherche capitale de signes d'extension profonde (Angio-œdème / Œdème de Quincke) : Gonflement du visage, des lèvres, des paupières, de la luette ou de la langue",
+      "Modification de la voix (dysphonie, voix étouffée), dyspnée laryngée inspiratoire, sensation d'étouffement pharyngé",
+      "Malaise, hypotension, tachycardie (Anaphylaxie de grade 3/4)"
+    ],
+    "signesDeGravite": [
+      "Gêne pharyngée, sensation de gorge qui serre, stridor : Injection immédiate d'Adrénaline et appel du SAMU / Réanimation."
+    ],
+    "diagnosticCritères": [
+      "Papules œdémateuses érythémateuses prurigineuses migratrices et fugaces. Dépister immédiatement l'œdème de Quincke pharyngo-laryngé."
+    ],
+    "examensComplementaires": [
+      "Inutile pour une crise d'urticaire aiguë isolée. Interrogatoire policier sur l'allergène déclenchant : Aliment nouveau (fruits de mer, fraises, arachides), piqûre d'hyménoptère, médicament récent (antibiotique, AINS)."
+    ],
+    "conduiteImmediate": [
+      "Forme cutanée pure sans signe d'angio-œdème : Antihistaminique H1 de 2ème génération par voie orale : Telfast (Fexofénadine) 180 mg : 1 à 2 cp par jour ou Zyrtec (Cétirizine) 10 mg",
+      "Si poussée très prurigineuse et étendue : Corticoïde IVL d'emblée : Solumédrol 40 mg en IVD ou IM + Phénergan 1 ampoule IM le soir",
+      "En cas d'Œdème de Quincke / Atteinte des muqueuses respiratoires : URGENCE VITALE ABSOLUE : Position assise, oxygénothérapie 8-10 L/min, VVP",
+      "Adrénaline en IM immédiate (Face antérolatérale de la cuisse) : 0.3 mg à 0.5 mg chez l'adulte (0.01 mg/kg chez l'enfant). À répéter après 5-10 min si persistance.",
+      "Solumédrol 80 mg à 120 mg IVD (ou HHC 200 à 400 mg IVD)",
+      "Nébulisation d'Adrénaline 1 mg + 3 cc SSI si œdème laryngé obstructif."
+    ],
+    "traitementSpecifique": [
+      "Adrénaline IM (Anaphylaxie) : Adulte : 0.5 mg (0.5 cc solution à 1/1000). Enfant : 0.01 mg/kg IM. Antihistaminiques pédiatriques : Primalan sirop ou Zyrtec gouttes (10 gouttes le soir dès 2 ans)."
+    ],
+    "orientation": "Gêne pharyngée, sensation de gorge qui serre, stridor : Injection immédiate d'Adrénaline et appel du SAMU / Réanimation.",
+    "redFlags": [
+      "Gêne pharyngée, sensation de gorge qui serre, stridor : Injection immédiate d'Adrénaline et appel du SAMU / Réanimation."
+    ],
+    "alertes": "Gêne pharyngée, sensation de gorge qui serre, stridor : Injection immédiate d'Adrénaline et appel du SAMU / Réanimation.",
+    "clinicalPearls": [
+      "Éviction stricte et définitive du produit suspect en attendant consultation allergologique.",
+      "Carnet 'CAT Abu Imad' (p. 40, 55)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Forme cutanée pure sans signe d'angio-œdème :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Antihistaminique H1 de 2ème génération par voie orale : <strong>Telfast (Fexofénadine) 180 mg : 1 à 2 cp par jour</strong> ou Zyrtec (Cétirizine) 10 mg</li>\n                <li>Si poussée très prurigineuse et étendue : Corticoïde IVL d'emblée : <strong>Solumédrol 40 mg en IVD</strong> ou IM + Phénergan 1 ampoule IM le soir</li>\n              </ul>\n            </li>\n            <li><strong>En cas d'Œdème de Quincke / Atteinte des muqueuses respiratoires : URGENCE VITALE ABSOLUE :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Position assise, oxygénothérapie 8-10 L/min, VVP</li>\n                <li><strong>Adrénaline en IM immédiate (Face antérolatérale de la cuisse) : 0.3 mg à 0.5 mg chez l'adulte</strong> (0.01 mg/kg chez l'enfant). À répéter après 5-10 min si persistance.</li>\n                <li>Solumédrol 80 mg à 120 mg IVD (ou HHC 200 à 400 mg IVD)</li>\n                <li>Nébulisation d'Adrénaline 1 mg + 3 cc SSI si œdème laryngé obstructif.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Lésions cutanées : Plaques érythémato-œdémateuses à contours nets, rosées ou blanches, prurit intense ('cuisson d'ortie')</li>\n            <li>Caractère fugace (chaque plaque disparaît en moins de 24h sans laisser de cicatrice) et migrateur</li>\n            <li><strong>Recherche capitale de signes d'extension profonde (Angio-œdème / Œdème de Quincke) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Gonflement du visage, des lèvres, des paupières, de la luette ou de la langue</li>\n                <li>Modification de la voix (dysphonie, voix étouffée), dyspnée laryngée inspiratoire, sensation d'étouffement pharyngé</li>\n                <li>Malaise, hypotension, tachycardie (Anaphylaxie de grade 3/4)</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Forme cutanée pure sans signe d'angio-œdème :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Antihistaminique H1 de 2ème génération par voie orale : <strong>Telfast (Fexofénadine) 180 mg : 1 à 2 cp par jour</strong> ou Zyrtec (Cétirizine) 10 mg</li>\n                <li>Si poussée très prurigineuse et étendue : Corticoïde IVL d'emblée : <strong>Solumédrol 40 mg en IVD</strong> ou IM + Phénergan 1 ampoule IM le soir</li>\n              </ul>\n            </li>\n            <li><strong>En cas d'Œdème de Quincke / Atteinte des muqueuses respiratoires : URGENCE VITALE ABSOLUE :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Position assise, oxygénothérapie 8-10 L/min, VVP</li>\n                <li><strong>Adrénaline en IM immédiate (Face antérolatérale de la cuisse) : 0.3 mg à 0.5 mg chez l'adulte</strong> (0.01 mg/kg chez l'enfant). À répéter après 5-10 min si persistance.</li>\n                <li>Solumédrol 80 mg à 120 mg IVD (ou HHC 200 à 400 mg IVD)</li>\n                <li>Nébulisation d'Adrénaline 1 mg + 3 cc SSI si œdème laryngé obstructif.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Adrénaline IM (Anaphylaxie) :</strong> Adulte : 0.5 mg (0.5 cc solution à 1/1000). Enfant : 0.01 mg/kg IM.</p>\n            <p><strong>Antihistaminiques pédiatriques :</strong> Primalan sirop ou Zyrtec gouttes (10 gouttes le soir dès 2 ans).</p>\n          </div>",
+    "bilanHtml": "Inutile pour une crise d'urticaire aiguë isolée. Interrogatoire policier sur l'allergène déclenchant : Aliment nouveau (fruits de mer, fraises, arachides), piqûre d'hyménoptère, médicament récent (antibiotique, AINS).",
+    "ordonnance": [
+      {
+        "drug": "Telfast (Fexofénadine)",
+        "dose": "180 mg",
+        "poso": "1 comprimé par jour le soir pendant 10 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Solupred (Prednisolone)",
+        "dose": "20 mg",
+        "poso": "2 comprimés le matin pendant 5 jours si urticaire étendue",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Totinal / Primalan (sirop enfant)",
+        "dose": "Enfant",
+        "poso": "1 cuillère à café le soir au coucher",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Éviction stricte et définitive du produit suspect en attendant consultation allergologique.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.589Z"
+  },
+  {
+    "id": "cat_p41-zona",
+    "slug": "zona-intercostal-ophtalmique",
+    "title": "Zona Intercostal & Ophtalmique",
+    "specialtyId": "dermato",
+    "specialtyName": "Dermatologie - Vénérologie",
+    "category": "Dermatologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Réactivation du virus Varicelle-Zona. Éruption vésiculeuse unilatérale métamérique en bande sur fond érythémateux, douleurs neuropathiques intenses.",
+    "synopsis": "Réactivation du virus Varicelle-Zona. Éruption vésiculeuse unilatérale métamérique en bande sur fond érythémateux, douleurs neuropathiques intenses.",
+    "page": "p. 41",
+    "evaluationInitiale": [
+      "Douleurs préalables à type de brûlures intenses, décharges électriques ou élancements dans un territoire radiculaire unilatéral",
+      "Apparition 2 à 3 jours après de vésicules claires groupées en 'grappes de raisin' ou en bouquet sur une base érythémateuse",
+      "Topographie métamérique strictement unilatérale ne franchissant jamais la ligne médiane (le plus souvent intercostal ou dorso-lombaire)",
+      "Zona Ophtalmique (Urgence) : Atteinte de la branche V1 du nerf trijumeau, éruption sur l'aile du nez (signe de Hutchinson) -> risque de kératite et nécrose cornéenne."
+    ],
+    "signesDeGravite": [
+      "Atteinte de la cornée (Zona ophtalmique), zona généralisé chez un immunodéprimé : Hospitalisation pour Aciclovir en perfusion IVL continue."
+    ],
+    "diagnosticCritères": [
+      "Réactivation du virus Varicelle-Zona. Éruption vésiculeuse unilatérale métamérique en bande sur fond érythémateux, douleurs neuropathiques intenses."
+    ],
+    "examensComplementaires": [
+      "Diagnostic clinique. Bilan rénal (créatininémie) avant adaptation posologique de l'aciclovir."
+    ],
+    "conduiteImmediate": [
+      "Soins locaux : Désinfection quotidienne à l'éosine aqueuse ou chlorhexidine aqueuse (éviter les crèmes occlusives et poudres qui favorisent la surinfection)",
+      "Traitement antiviral spécifique par voie générale (idéalement débuté dans les 72 premières heures) : Aciclovir (Zovirax) comprimés : 800 mg 5 fois par jour (espacées de 4 heures avec interruption nocturne) pendant 7 à 10 jours",
+      "Ou Valaciclovir 1000 mg 3 fois par jour pendant 7 jours",
+      "Prise en charge précoce des douleurs neuropathiques : Antalgiques de palier 2 : Paracétamol codéiné ou Tramadol 50 mg 2 à 3 fois par jour",
+      "Antalgiques des douleurs neuropathiques : Tégrétol (Carbamazépine) 200 mg 1/2 à 1 cp 2x/j ou Lyrica (Prégabaline) 75 à 150 mg le soir",
+      "Complément neurotrope : Vitamines B1-B6 (Neurovit) 1 cp 2 fois par jour",
+      "Si Zona Ophtalmique : Avis ophtalmologique d'urgence avec lampe à fente."
+    ],
+    "traitementSpecifique": [
+      "Aciclovir per os : 800 mg 5 fois par jour (Dose journalière totale : 4000 mg) pendant 7 à 10 jours avec hydratation abondante. En cas de kératite associée : Aciclovir pommade ophtalmique 5 applications par jour."
+    ],
+    "orientation": "Atteinte de la cornée (Zona ophtalmique), zona généralisé chez un immunodéprimé : Hospitalisation pour Aciclovir en perfusion IVL continue.",
+    "redFlags": [
+      "Atteinte de la cornée (Zona ophtalmique), zona généralisé chez un immunodéprimé : Hospitalisation pour Aciclovir en perfusion IVL continue."
+    ],
+    "alertes": "Atteinte de la cornée (Zona ophtalmique), zona généralisé chez un immunodéprimé : Hospitalisation pour Aciclovir en perfusion IVL continue.",
+    "clinicalPearls": [
+      "Boire au moins 2 litres d'eau par jour pour prévenir la précipitation tubulaire rénale de l'aciclovir.",
+      "Carnet 'CAT Abu Imad' (p. 41)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Soins locaux : Désinfection quotidienne à l'éosine aqueuse ou chlorhexidine aqueuse (éviter les crèmes occlusives et poudres qui favorisent la surinfection)</li>\n            <li><strong>Traitement antiviral spécifique par voie générale (idéalement débuté dans les 72 premières heures) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Aciclovir (Zovirax) comprimés : 800 mg 5 fois par jour</strong> (espacées de 4 heures avec interruption nocturne) pendant 7 à 10 jours</li>\n                <li>Ou Valaciclovir 1000 mg 3 fois par jour pendant 7 jours</li>\n              </ul>\n            </li>\n            <li><strong>Prise en charge précoce des douleurs neuropathiques :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Antalgiques de palier 2 : Paracétamol codéiné ou Tramadol 50 mg 2 à 3 fois par jour</li>\n                <li>Antalgiques des douleurs neuropathiques : <strong>Tégrétol (Carbamazépine) 200 mg</strong> 1/2 à 1 cp 2x/j ou <strong>Lyrica (Prégabaline) 75 à 150 mg</strong> le soir</li>\n                <li>Complément neurotrope : Vitamines B1-B6 (Neurovit) 1 cp 2 fois par jour</li>\n              </ul>\n            </li>\n            <li>Si Zona Ophtalmique : Avis ophtalmologique d'urgence avec lampe à fente.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleurs préalables à type de brûlures intenses, décharges électriques ou élancements dans un territoire radiculaire unilatéral</li>\n            <li>Apparition 2 à 3 jours après de vésicules claires groupées en 'grappes de raisin' ou en bouquet sur une base érythémateuse</li>\n            <li>Topographie métamérique strictement unilatérale ne franchissant jamais la ligne médiane (le plus souvent intercostal ou dorso-lombaire)</li>\n            <li><strong>Zona Ophtalmique (Urgence) :</strong> Atteinte de la branche V1 du nerf trijumeau, éruption sur l'aile du nez (signe de Hutchinson) -> risque de kératite et nécrose cornéenne.</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Soins locaux : Désinfection quotidienne à l'éosine aqueuse ou chlorhexidine aqueuse (éviter les crèmes occlusives et poudres qui favorisent la surinfection)</li>\n            <li><strong>Traitement antiviral spécifique par voie générale (idéalement débuté dans les 72 premières heures) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Aciclovir (Zovirax) comprimés : 800 mg 5 fois par jour</strong> (espacées de 4 heures avec interruption nocturne) pendant 7 à 10 jours</li>\n                <li>Ou Valaciclovir 1000 mg 3 fois par jour pendant 7 jours</li>\n              </ul>\n            </li>\n            <li><strong>Prise en charge précoce des douleurs neuropathiques :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Antalgiques de palier 2 : Paracétamol codéiné ou Tramadol 50 mg 2 à 3 fois par jour</li>\n                <li>Antalgiques des douleurs neuropathiques : <strong>Tégrétol (Carbamazépine) 200 mg</strong> 1/2 à 1 cp 2x/j ou <strong>Lyrica (Prégabaline) 75 à 150 mg</strong> le soir</li>\n                <li>Complément neurotrope : Vitamines B1-B6 (Neurovit) 1 cp 2 fois par jour</li>\n              </ul>\n            </li>\n            <li>Si Zona Ophtalmique : Avis ophtalmologique d'urgence avec lampe à fente.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Aciclovir per os :</strong> 800 mg 5 fois par jour (Dose journalière totale : 4000 mg) pendant 7 à 10 jours avec hydratation abondante.</p>\n            <p><strong>En cas de kératite associée :</strong> Aciclovir pommade ophtalmique 5 applications par jour.</p>\n          </div>",
+    "bilanHtml": "Diagnostic clinique. Bilan rénal (créatininémie) avant adaptation posologique de l'aciclovir.",
+    "ordonnance": [
+      {
+        "drug": "Aciclovir comprimés",
+        "dose": "800 mg",
+        "poso": "1 comprimé 5 fois par jour (toutes les 4h, arrêt la nuit) pendant 7 à 10 jours",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Éosine aqueuse à 2%",
+        "dose": "Flacon",
+        "poso": "1 application 2 fois par jour sur les vésicules au coton",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Tramadol comprimés",
+        "dose": "50 mg",
+        "poso": "1 comprimé 2 à 3 fois par jour en cas de brûlures intenses",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Lyrica (Prégabaline) ou Tégrétol",
+        "dose": "75 mg",
+        "poso": "1 gélule le soir au coucher contre les douleurs neuropathiques",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Neurovit (Vitamine B1-B6)",
+        "dose": "Comprimés",
+        "poso": "1 comprimé 2 fois par jour",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Boire au moins 2 litres d'eau par jour pour prévenir la précipitation tubulaire rénale de l'aciclovir.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.589Z"
+  },
+  {
+    "id": "cat_p44-colique-nephretique",
+    "slug": "colique-nephretique-aigue-cn",
+    "title": "Colique Néphrétique Aiguë (CN)",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "category": "Urologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Douleur lombaire unilatérale violente sans position antalgique, irradiant vers les OGE. AINS en première intention.",
+    "synopsis": "Douleur lombaire unilatérale violente sans position antalgique, irradiant vers les OGE. AINS en première intention.",
+    "page": "p. 44",
+    "evaluationInitiale": [
+      "Douleur lombaire brutale unilatérale, atroce, 'coup de poignard', sans position antalgique, patient très agité 'tourment néphrétique'",
+      "Irradiation descendante caractéristique vers le flanc, la fosse iliaque, l'aine et les organes génitaux externes (testicule ou grande lèvre)",
+      "Signes urinaires associés : Pollakiurie, impériosité, brûlures mictionnelles, hématurie microscopique ou macroscopique",
+      "Signes digestifs réflexes : Nausées, vomissements, iléus réflexe par irritation péritonéale postérieure",
+      "Recherche impérative de fièvre (prendre la température !) et palpation des fosses lombaires (ébranlement lombaire très douloureux)"
+    ],
+    "signesDeGravite": [
+      "Fièvre > 38.5°C ou frissons associés (Urgence vitale urologique = Dérivation des urines en urgence par sonde JJ ou néphrostomie)."
+    ],
+    "diagnosticCritères": [
+      "Douleur lombaire unilatérale violente sans position antalgique, irradiant vers les OGE. AINS en première intention."
+    ],
+    "examensComplementaires": [
+      "Labstix urinaire + ECBU. Échographie abdomino-rénale et pelvienne (recherche dilatation des cavités pyélo-calicielles et visualisation du calcul) + ASP ou Scanner abdomino-pelvien sans injection basse dose (gold standard). Bilan rénal : Créatinine, Urée, Ionogramme."
+    ],
+    "conduiteImmediate": [
+      "Règle capitale d'hydratation : RESTRICTION HYDRIQUE STRICTE pendant la phase douloureuse aiguë (ne pas faire boire le patient, pour éviter d'augmenter la pression en amont du calcul).",
+      "Bandelette urinaire (Labstix) : Recherche d'hématurie et de leucocytes/nitrites (éliminer pyélonéphrite).",
+      "Traitement Antalgique et Anti-inflammatoire de 1ère intention (Majeur) : Diclofénac (Voltaren / Clofenal) : 75 mg en IM profonde d'emblée (ou Kétoprofène 100 mg IVL dans 100 cc SSI en 20 min). L'AINS réduit la filtration rénale et l'œdème urétéral local.",
+      "Antispasmodique associé : Spasfon 2 ampoules IVD",
+      "Si échec après 30-45 minutes : Perfusion de Perfalgan 1g IV",
+      "Si CN Hyperalgique réfractaire : Morphine ou dérivé morphinique : Temgesic (Buprénorphine) 1/2 à 1 ampoule en SC ou Titration en Morphine IV."
+    ],
+    "traitementSpecifique": [
+      "AINS injectable : Diclofénac 75 mg IM ou Profénid 100 mg IVL. Spasfon injectable : 1 à 2 ampoules en IV direct. Avis Urologique en URGENCE ABSOLUE si : Colique néphrétique fébrile (T° ≥ 38.5°C = Pyonéphrose sur obstacle), rein unique anatomique ou fonctionnel, anurie complète, ou CN hyperalgique réfractaire aux morphiniques."
+    ],
+    "orientation": "Fièvre > 38.5°C ou frissons associés (Urgence vitale urologique = Dérivation des urines en urgence par sonde JJ ou néphrostomie).",
+    "redFlags": [
+      "Fièvre > 38.5°C ou frissons associés (Urgence vitale urologique = Dérivation des urines en urgence par sonde JJ ou néphrostomie)."
+    ],
+    "alertes": "Fièvre > 38.5°C ou frissons associés (Urgence vitale urologique = Dérivation des urines en urgence par sonde JJ ou néphrostomie).",
+    "clinicalPearls": [
+      "Boire abondamment (2 à 3 litres d'eau/jour) SEULEMENT après disparition complète de la crise douloureuse.",
+      "Carnet 'CAT Abu Imad' (p. 44)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Règle capitale d'hydratation : RESTRICTION HYDRIQUE STRICTE</strong> pendant la phase douloureuse aiguë (ne pas faire boire le patient, pour éviter d'augmenter la pression en amont du calcul).</li>\n            <li>Bandelette urinaire (Labstix) : Recherche d'hématurie et de leucocytes/nitrites (éliminer pyélonéphrite).</li>\n            <li><strong>Traitement Antalgique et Anti-inflammatoire de 1ère intention (Majeur) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Diclofénac (Voltaren / Clofenal) : 75 mg en IM profonde d'emblée</strong> (ou Kétoprofène 100 mg IVL dans 100 cc SSI en 20 min). L'AINS réduit la filtration rénale et l'œdème urétéral local.</li>\n                <li>Antispasmodique associé : Spasfon 2 ampoules IVD</li>\n                <li>Si échec après 30-45 minutes : Perfusion de <strong>Perfalgan 1g IV</strong></li>\n              </ul>\n            </li>\n            <li><strong>Si CN Hyperalgique réfractaire :</strong> Morphine ou dérivé morphinique : Temgesic (Buprénorphine) 1/2 à 1 ampoule en SC ou Titration en Morphine IV.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur lombaire brutale unilatérale, atroce, 'coup de poignard', sans position antalgique, patient très agité 'tourment néphrétique'</li>\n            <li>Irradiation descendante caractéristique vers le flanc, la fosse iliaque, l'aine et les organes génitaux externes (testicule ou grande lèvre)</li>\n            <li>Signes urinaires associés : Pollakiurie, impériosité, brûlures mictionnelles, hématurie microscopique ou macroscopique</li>\n            <li>Signes digestifs réflexes : Nausées, vomissements, iléus réflexe par irritation péritonéale postérieure</li>\n            <li>Recherche impérative de fièvre (prendre la température !) et palpation des fosses lombaires (ébranlement lombaire très douloureux)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Règle capitale d'hydratation : RESTRICTION HYDRIQUE STRICTE</strong> pendant la phase douloureuse aiguë (ne pas faire boire le patient, pour éviter d'augmenter la pression en amont du calcul).</li>\n            <li>Bandelette urinaire (Labstix) : Recherche d'hématurie et de leucocytes/nitrites (éliminer pyélonéphrite).</li>\n            <li><strong>Traitement Antalgique et Anti-inflammatoire de 1ère intention (Majeur) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Diclofénac (Voltaren / Clofenal) : 75 mg en IM profonde d'emblée</strong> (ou Kétoprofène 100 mg IVL dans 100 cc SSI en 20 min). L'AINS réduit la filtration rénale et l'œdème urétéral local.</li>\n                <li>Antispasmodique associé : Spasfon 2 ampoules IVD</li>\n                <li>Si échec après 30-45 minutes : Perfusion de <strong>Perfalgan 1g IV</strong></li>\n              </ul>\n            </li>\n            <li><strong>Si CN Hyperalgique réfractaire :</strong> Morphine ou dérivé morphinique : Temgesic (Buprénorphine) 1/2 à 1 ampoule en SC ou Titration en Morphine IV.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>AINS injectable :</strong> Diclofénac 75 mg IM ou Profénid 100 mg IVL.</p>\n            <p><strong>Spasfon injectable :</strong> 1 à 2 ampoules en IV direct.</p>\n            <p><strong>Avis Urologique en URGENCE ABSOLUE si :</strong> Colique néphrétique fébrile (T° ≥ 38.5°C = Pyonéphrose sur obstacle), rein unique anatomique ou fonctionnel, anurie complète, ou CN hyperalgique réfractaire aux morphiniques.</p>\n          </div>",
+    "bilanHtml": "Labstix urinaire + ECBU. Échographie abdomino-rénale et pelvienne (recherche dilatation des cavités pyélo-calicielles et visualisation du calcul) + ASP ou Scanner abdomino-pelvien sans injection basse dose (gold standard). Bilan rénal : Créatinine, Urée, Ionogramme.",
+    "ordonnance": [
+      {
+        "drug": "Clofenal (Diclofénac) ou Feldène",
+        "dose": "50 mg",
+        "poso": "1 comprimé 2 à 3 fois par jour au milieu des repas pendant 5 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Spasfon Lyoc ou comprimés",
+        "dose": "80 mg",
+        "poso": "2 comprimés 3 fois par jour en cas de spasmes",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Proton (Oméprazole)",
+        "dose": "20 mg",
+        "poso": "1 gélule le matin pendant la durée de l'AINS",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Filtrage des urines",
+        "dose": "-",
+        "poso": "Filtrer les urines sur filtre à café pour recueillir le calcul et analyse spectrophotométrique",
+        "qty": "Quotidien"
+      }
+    ],
+    "conseils": "Boire abondamment (2 à 3 litres d'eau/jour) SEULEMENT après disparition complète de la crise douloureuse.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.589Z"
+  },
+  {
+    "id": "cat_p45-colique-hepatique",
+    "slug": "colique-hepatique-cholecystite-aigue",
+    "title": "Colique Hépatique & Cholecystite Aiguë",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Gastro-entérologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Douleur brutale de l'hypochondre droit irradiant vers l'omoplate droite, survenant après un repas gras. Différencier colique hépatique simple et cholecystite fébrile.",
+    "synopsis": "Douleur brutale de l'hypochondre droit irradiant vers l'omoplate droite, survenant après un repas gras. Différencier colique hépatique simple et cholecystite fébrile.",
+    "page": "p. 45-46",
+    "evaluationInitiale": [
+      "Douleur brutale, vive, bloquant l'inspiration profonde (signe de Murphy clinique positif)",
+      "Siège : Épigastre ou Hypochondre droit, avec irradiation caractéristique vers l'omoplate droite et le dos",
+      "Survenue typique après un repas riche en graisses ou copieux",
+      "Nausées et vomissements bilieux associés fréquents",
+      "Différenciation capitale des 3 stades biliaires : Colique Hépatique simple : Douleur transitoire",
+      "Cholecystite Aiguë : Douleur persistante > 6 heures + Fièvre (38-39°C) + Défense de l'hypochondre droit.",
+      "Angiocholite Aiguë (Triade de Charcot) : Douleur puis Fièvre avec frissons puis Ictère (jaunisse) dans les 24-48h -> Urgence chirurgicale extrême !"
+    ],
+    "signesDeGravite": [
+      "Douleur + Fièvre + Ictère (Angiocholite aiguë) ou péritonite biliaire : Transfert immédiat en Chirurgie viscérale / Réanimation."
+    ],
+    "diagnosticCritères": [
+      "Douleur brutale de l'hypochondre droit irradiant vers l'omoplate droite, survenant après un repas gras. Différencier colique hépatique simple et cholecystite fébrile."
+    ],
+    "examensComplementaires": [
+      "Échographie hépato-biliaire en urgence (épaississement de la paroi vésiculaire > 4 mm, aspect feuilleté en double contour, calculs biliaires enclavés, dilatation de la voie biliaire principale). Bilan sanguin : FNS (hyperleucocytose à PNN), CRP, Bilan hépatique complet (Bilirubine totale, directe, ASAT, ALAT, PAL, GGT), Lipasémie (éliminer pancréatite aiguë biliaire associée)."
+    ],
+    "conduiteImmediate": [
+      "Mise au repos digestif (à jeun strict)",
+      "Oxygénothérapie si besoin, pose d'une VVP de bon calibre",
+      "Soulagement de la douleur en urgence : Spasfon (Phloroglucinol) : 1 à 2 ampoules en IV direct ou dilué dans 100 cc SSI sur 15 min",
+      "+ Perfalgan (Paracétamol) 1g en perfusion IV sur 15 min",
+      "Si vomissements répétés : Primpéran (Métoclopramide) 1 ampoule IV ou Vogalène",
+      "Si signes de Cholecystite ou Angiocholite (Fièvre / Ictère) : Perfusion continue : SSI 0.9% 1500 cc + SG 5% 1500 cc sur 24h avec électrolytes (NaCl 3g + KCl 2g)",
+      "Double Antibiothérapie IV d'emblée à diffusion biliaire : Ciprofloxacine 200 à 400 mg IV toutes les 12h ou Céfotaxime 1g IV 3x/j ou Augmentin 1g IV 3x/j",
+      "+ Flagyl (Métronidazole) 500 mg IV toutes les 8h ou 12h",
+      "Avis Chirurgical d'URGENCE pour cholecystectomie ou désobstruction biliaire."
+    ],
+    "traitementSpecifique": [
+      "Spasfon : 1 à 2 ampoules IVD, renouvelable après 30 min si spasmes persistants. Antibiothérapie triple si sepsis biliaire sévère : Rocephine 2g/j + Flagyl 500mg x 3/j + Amikacine 15 mg/kg."
+    ],
+    "orientation": "Douleur + Fièvre + Ictère (Angiocholite aiguë) ou péritonite biliaire : Transfert immédiat en Chirurgie viscérale / Réanimation.",
+    "redFlags": [
+      "Douleur + Fièvre + Ictère (Angiocholite aiguë) ou péritonite biliaire : Transfert immédiat en Chirurgie viscérale / Réanimation."
+    ],
+    "alertes": "Douleur + Fièvre + Ictère (Angiocholite aiguë) ou péritonite biliaire : Transfert immédiat en Chirurgie viscérale / Réanimation.",
+    "clinicalPearls": [
+      "Régime pauvre en graisses, éviter les aliments frits, sauces grasses, chocolats et œufs.",
+      "Carnet 'CAT Abu Imad' (p. 45-46)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Mise au repos digestif (à jeun strict)</li>\n            <li>Oxygénothérapie si besoin, pose d'une VVP de bon calibre</li>\n            <li><strong>Soulagement de la douleur en urgence :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Spasfon (Phloroglucinol) : 1 à 2 ampoules en IV direct</strong> ou dilué dans 100 cc SSI sur 15 min</li>\n                <li>+ Perfalgan (Paracétamol) 1g en perfusion IV sur 15 min</li>\n                <li>Si vomissements répétés : Primpéran (Métoclopramide) 1 ampoule IV ou Vogalène</li>\n              </ul>\n            </li>\n            <li><strong>Si signes de Cholecystite ou Angiocholite (Fièvre / Ictère) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Perfusion continue : SSI 0.9% 1500 cc + SG 5% 1500 cc sur 24h avec électrolytes (NaCl 3g + KCl 2g)</li>\n                <li><strong>Double Antibiothérapie IV d'emblée à diffusion biliaire :</strong>\n                  <ul class=\"list-square pl-5 space-y-0.5 text-xs\">\n                    <li>Ciprofloxacine 200 à 400 mg IV toutes les 12h ou Céfotaxime 1g IV 3x/j ou Augmentin 1g IV 3x/j</li>\n                    <li>+ Flagyl (Métronidazole) 500 mg IV toutes les 8h ou 12h</li>\n                  </ul>\n                </li>\n                <li>Avis Chirurgical d'URGENCE pour cholecystectomie ou désobstruction biliaire.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur brutale, vive, bloquant l'inspiration profonde (signe de Murphy clinique positif)</li>\n            <li>Siège : Épigastre ou Hypochondre droit, avec irradiation caractéristique vers l'omoplate droite et le dos</li>\n            <li>Survenue typique après un repas riche en graisses ou copieux</li>\n            <li>Nausées et vomissements bilieux associés fréquents</li>\n            <li><strong>Différenciation capitale des 3 stades biliaires :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li><strong>Colique Hépatique simple :</strong> Douleur transitoire < 6 heures, apyrétique, Labstix normal, pas d'ictère.</li>\n                <li><strong>Cholecystite Aiguë :</strong> Douleur persistante > 6 heures + Fièvre (38-39°C) + Défense de l'hypochondre droit.</li>\n                <li><strong>Angiocholite Aiguë (Triade de Charcot) :</strong> Douleur puis Fièvre avec frissons puis Ictère (jaunisse) dans les 24-48h -> Urgence chirurgicale extrême !</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Mise au repos digestif (à jeun strict)</li>\n            <li>Oxygénothérapie si besoin, pose d'une VVP de bon calibre</li>\n            <li><strong>Soulagement de la douleur en urgence :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Spasfon (Phloroglucinol) : 1 à 2 ampoules en IV direct</strong> ou dilué dans 100 cc SSI sur 15 min</li>\n                <li>+ Perfalgan (Paracétamol) 1g en perfusion IV sur 15 min</li>\n                <li>Si vomissements répétés : Primpéran (Métoclopramide) 1 ampoule IV ou Vogalène</li>\n              </ul>\n            </li>\n            <li><strong>Si signes de Cholecystite ou Angiocholite (Fièvre / Ictère) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Perfusion continue : SSI 0.9% 1500 cc + SG 5% 1500 cc sur 24h avec électrolytes (NaCl 3g + KCl 2g)</li>\n                <li><strong>Double Antibiothérapie IV d'emblée à diffusion biliaire :</strong>\n                  <ul class=\"list-square pl-5 space-y-0.5 text-xs\">\n                    <li>Ciprofloxacine 200 à 400 mg IV toutes les 12h ou Céfotaxime 1g IV 3x/j ou Augmentin 1g IV 3x/j</li>\n                    <li>+ Flagyl (Métronidazole) 500 mg IV toutes les 8h ou 12h</li>\n                  </ul>\n                </li>\n                <li>Avis Chirurgical d'URGENCE pour cholecystectomie ou désobstruction biliaire.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Spasfon :</strong> 1 à 2 ampoules IVD, renouvelable après 30 min si spasmes persistants.</p>\n            <p><strong>Antibiothérapie triple si sepsis biliaire sévère :</strong> Rocephine 2g/j + Flagyl 500mg x 3/j + Amikacine 15 mg/kg.</p>\n          </div>",
+    "bilanHtml": "Échographie hépato-biliaire en urgence (épaississement de la paroi vésiculaire > 4 mm, aspect feuilleté en double contour, calculs biliaires enclavés, dilatation de la voie biliaire principale). Bilan sanguin : FNS (hyperleucocytose à PNN), CRP, Bilan hépatique complet (Bilirubine totale, directe, ASAT, ALAT, PAL, GGT), Lipasémie (éliminer pancréatite aiguë biliaire associée).",
+    "ordonnance": [
+      {
+        "drug": "Spasfon Lyoc",
+        "dose": "80 mg",
+        "poso": "2 comprimés 3 fois par jour au moment des douleurs",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Débridat ou Duspatalin",
+        "dose": "200 mg",
+        "poso": "1 gélule 2 fois par jour avant les repas",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Motilium (Dompéridone)",
+        "dose": "10 mg",
+        "poso": "1 comprimé 15 minutes avant le repas si nausées",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Consultation Chirurgie viscérale",
+        "dose": "Bilan complet",
+        "poso": "Pour programmation cholecystectomie à froid si colique simple",
+        "qty": "Sous 15 jours"
+      }
+    ],
+    "conseils": "Régime pauvre en graisses, éviter les aliments frits, sauces grasses, chocolats et œufs.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.589Z"
+  },
+  {
+    "id": "cat_p47-hemorroides",
+    "slug": "crise-hemorroidaire-aigue-thrombose",
+    "title": "Crise Hémorroïdaire Aiguë & Thrombose",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Gastro-entérologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Douleur anale aiguë pulsatile, rectorragies sang rouge brossé, tuméfaction périanale bleutée douloureuse (thrombose).",
+    "synopsis": "Douleur anale aiguë pulsatile, rectorragies sang rouge brossé, tuméfaction périanale bleutée douloureuse (thrombose).",
+    "page": "p. 47-48",
+    "evaluationInitiale": [
+      "Douleur anale vive, exacerbée par la défécation, la position assise et la marche",
+      "Sensation de pesanteur anale, prurit, brûlures défécatoires",
+      "Rectorragies de sang rouge vif frais entourant les selles ou essuyé sur le papier toilette",
+      "Examen de la marge anale : Crise inflammatoire simple : Prolapsus hémorroïdaire congestif œdémateux réductible ou non.",
+      "Thrombose hémorroïdaire externe : Nodule bleuâtre sous-cutané périnéal induré, exquisément douloureux à la palpation."
+    ],
+    "signesDeGravite": [
+      "Nécrose muqueuse extensive périanale, rectorragies abondantes avec anémie, suppuration avec fièvre (abcès de marge anale à drainer chirurgicalement)."
+    ],
+    "diagnosticCritères": [
+      "Douleur anale aiguë pulsatile, rectorragies sang rouge brossé, tuméfaction périanale bleutée douloureuse (thrombose)."
+    ],
+    "examensComplementaires": [
+      "Examen de la marge anale sous bon éclairage. Toucher rectal après sédation de la douleur aiguë. Anuscopie / rectoscopie à distance pour éliminer une pathologie colorectale sus-jacente."
+    ],
+    "conduiteImmediate": [
+      "Soulagement de la crise hyperalgique aux urgences : Voltaren (Diclofénac) 75 mg en IM profonde d'emblée",
+      "+ Spasfon 1 ampoule en IVD ou IM",
+      "+ Perfalgan 1g en perfusion IV sur 15 min",
+      "Si thrombose hémorroïdaire externe très douloureuse Incision / excision chirurgicale sous anesthésie locale par médecin habitué (soulagement immédiat après évacuation du caillot).",
+      "Bains de siège tièdes antiseptiques (eau bouillie avec Permanganate de potassium ou Dakin) après chaque selle.",
+      "Régulation impérative du transit intestinal (lutter contre la constipation sans provoquer de diarrhée irritante)."
+    ],
+    "traitementSpecifique": [
+      "Veinotoniques à forte dose (Dose d'attaque pendant 4 à 7 jours) : Daflon 500 mg : 6 comprimés par jour (2 cp matin, midi et soir) pendant 4 jours, puis 4 comprimés par jour pendant 3 jours, puis entretien 2 cp/j. Application topique locale : Pommade à base de corticoïde et anesthésique local (Titanoréïne à la lidocaïne)."
+    ],
+    "orientation": "Nécrose muqueuse extensive périanale, rectorragies abondantes avec anémie, suppuration avec fièvre (abcès de marge anale à drainer chirurgicalement).",
+    "redFlags": [
+      "Nécrose muqueuse extensive périanale, rectorragies abondantes avec anémie, suppuration avec fièvre (abcès de marge anale à drainer chirurgicalement)."
+    ],
+    "alertes": "Nécrose muqueuse extensive périanale, rectorragies abondantes avec anémie, suppuration avec fièvre (abcès de marge anale à drainer chirurgicalement).",
+    "clinicalPearls": [
+      "Régime riche en fibres végétales (fruits, légumes, son), boire 1.5 à 2 L d'eau par jour, ne pas prolonger le temps passé assis sur les toilettes.",
+      "Carnet 'CAT Abu Imad' (p. 47-48)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Soulagement de la crise hyperalgique aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Voltaren (Diclofénac) 75 mg en IM profonde d'emblée</li>\n                <li>+ Spasfon 1 ampoule en IVD ou IM</li>\n                <li>+ Perfalgan 1g en perfusion IV sur 15 min</li>\n              </ul>\n            </li>\n            <li><strong>Si thrombose hémorroïdaire externe très douloureuse < 48-72h :</strong> Incision / excision chirurgicale sous anesthésie locale par médecin habitué (soulagement immédiat après évacuation du caillot).</li>\n            <li>Bains de siège tièdes antiseptiques (eau bouillie avec Permanganate de potassium ou Dakin) après chaque selle.</li>\n            <li>Régulation impérative du transit intestinal (lutter contre la constipation sans provoquer de diarrhée irritante).</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur anale vive, exacerbée par la défécation, la position assise et la marche</li>\n            <li>Sensation de pesanteur anale, prurit, brûlures défécatoires</li>\n            <li>Rectorragies de sang rouge vif frais entourant les selles ou essuyé sur le papier toilette</li>\n            <li>Examen de la marge anale :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li><strong>Crise inflammatoire simple :</strong> Prolapsus hémorroïdaire congestif œdémateux réductible ou non.</li>\n                <li><strong>Thrombose hémorroïdaire externe :</strong> Nodule bleuâtre sous-cutané périnéal induré, exquisément douloureux à la palpation.</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Soulagement de la crise hyperalgique aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Voltaren (Diclofénac) 75 mg en IM profonde d'emblée</li>\n                <li>+ Spasfon 1 ampoule en IVD ou IM</li>\n                <li>+ Perfalgan 1g en perfusion IV sur 15 min</li>\n              </ul>\n            </li>\n            <li><strong>Si thrombose hémorroïdaire externe très douloureuse < 48-72h :</strong> Incision / excision chirurgicale sous anesthésie locale par médecin habitué (soulagement immédiat après évacuation du caillot).</li>\n            <li>Bains de siège tièdes antiseptiques (eau bouillie avec Permanganate de potassium ou Dakin) après chaque selle.</li>\n            <li>Régulation impérative du transit intestinal (lutter contre la constipation sans provoquer de diarrhée irritante).</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Veinotoniques à forte dose (Dose d'attaque pendant 4 à 7 jours) :</strong> Daflon 500 mg : 6 comprimés par jour (2 cp matin, midi et soir) pendant 4 jours, puis 4 comprimés par jour pendant 3 jours, puis entretien 2 cp/j.</p>\n            <p><strong>Application topique locale :</strong> Pommade à base de corticoïde et anesthésique local (Titanoréïne à la lidocaïne).</p>\n          </div>",
+    "bilanHtml": "Examen de la marge anale sous bon éclairage. Toucher rectal après sédation de la douleur aiguë. Anuscopie / rectoscopie à distance pour éliminer une pathologie colorectale sus-jacente.",
+    "ordonnance": [
+      {
+        "drug": "Daflon (Flavonoïdes)",
+        "dose": "500 mg",
+        "poso": "2 comprimés 3 fois par jour pendant 4 jours, puis 2 cp 2 fois par jour",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Titanoréïne à la Lidocaïne",
+        "dose": "Crème & Suppos",
+        "poso": "1 application locale matin et soir + 1 suppositoire le soir après la selle",
+        "qty": "1 boîte de ch."
+      },
+      {
+        "drug": "Permanganate de Potassium",
+        "dose": "Comprimés pour bain",
+        "poso": "1 comprimé dilué dans une cuvette d'eau tiède pour bain de siège 10 min",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Duphalac (Lactulose) ou Forlax",
+        "dose": "Sachets",
+        "poso": "1 sachet 2 fois par jour au cours des repas pour ramollir les selles",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Clofenal ou Diclofenac",
+        "dose": "50 mg",
+        "poso": "1 comprimé 2 fois par jour au milieu des repas pendant 5 jours",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Régime riche en fibres végétales (fruits, légumes, son), boire 1.5 à 2 L d'eau par jour, ne pas prolonger le temps passé assis sur les toilettes.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p49-infection-urinaire",
+    "slug": "infection-urinaire-cystite-pyelonephrite",
+    "title": "Infection Urinaire : Cystite & Pyélonéphrite",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "category": "Urologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Brûlures mictionnelles, pollakiurie, pyurie. Dépister immédiatement l'atteinte parenchymateuse rénale fébrile (Pyélonéphrite aiguë).",
+    "synopsis": "Brûlures mictionnelles, pollakiurie, pyurie. Dépister immédiatement l'atteinte parenchymateuse rénale fébrile (Pyélonéphrite aiguë).",
+    "page": "p. 49-51",
+    "evaluationInitiale": [
+      "Cystite Aiguë Simple chez la femme : Brûlures lors de la miction, impériosité mictionnelle, pollakiurie diurne et nocturne, urines troubles et malodorantes, absence de fièvre, absence de douleur lombaire.",
+      "Infection Urinaire Masculine (Prostatite) : Toujours considérée comme compliquée (dysurie, jet faible, fièvre, toucher rectal très douloureux).",
+      "Pyélonéphrite Aiguë (PNA) : Signes urinaires + Fièvre élevée > 38.5°C avec frissons + Douleur lombaire unilatérale vive irradiant vers l'aine.",
+      "Bandelette urinaire (Labstix) : Leucocytes positifs (pyurie) et/ou Nitrites positifs (bactériurie)."
+    ],
+    "signesDeGravite": [
+      "Fièvre > 38.5°C, frissons, vomissements, sepsis sévère, rétention aiguë d'urines : Hospitalisation pour antibiothérapie IV (Ceftriaxone + Amikacine)."
+    ],
+    "diagnosticCritères": [
+      "Brûlures mictionnelles, pollakiurie, pyurie. Dépister immédiatement l'atteinte parenchymateuse rénale fébrile (Pyélonéphrite aiguë)."
+    ],
+    "examensComplementaires": [
+      "ECBU avec antibiogramme (systématique sauf cystite simple de la femme jeune). Si suspicion de PNA ou prostatite : Échographie rénale et prostatique, FNS, CRP, Créatininémie, Hémocultures si fièvre."
+    ],
+    "conduiteImmediate": [
+      "Bandelette urinaire immédiate (Leucocytes / Nitrites / Sang). Si positif chez homme, femme enceinte ou enfant -> ECBU systématique avant traitement.",
+      "Cystite aiguë simple de la femme non enceinte : Traitement minute monodose : Monuril / Uricare (Fosfomycine-trométamol) 3 g en sachet unique le soir au coucher",
+      "Ou Norfloxacine 400 mg 1 cp 2x/j pendant 3 jours",
+      "Infection urinaire de l'homme : Traitement d'au moins 14 à 21 jours par Fluoroquinolone (Ciprofloxacine 500 mg 2x/j) ou Bactrim Fort 1 cp 2x/j.",
+      "Femme enceinte : Amoxicilline 1g 3x/j ou Augmentin 1g 2x/j ou Céfixime (Oroken) après ECBU. Éviter fluoroquinolones et aminosides !",
+      "Enfant : Échographie rénale systématique dès le premier épisode chez le garçon ou au deuxième chez la fille pour éliminer un reflux vésico-urétéral."
+    ],
+    "traitementSpecifique": [
+      "Fosfomycine 3g : 1 sachet en prise unique à distance des repas (le soir après vidange de la vessie). Ciprofloxacine : 500 mg matin et soir au milieu des repas pendant 7 jours (cystite à risque) à 14 jours (prostatite/PNA)."
+    ],
+    "orientation": "Fièvre > 38.5°C, frissons, vomissements, sepsis sévère, rétention aiguë d'urines : Hospitalisation pour antibiothérapie IV (Ceftriaxone + Amikacine).",
+    "redFlags": [
+      "Fièvre > 38.5°C, frissons, vomissements, sepsis sévère, rétention aiguë d'urines : Hospitalisation pour antibiothérapie IV (Ceftriaxone + Amikacine)."
+    ],
+    "alertes": "Fièvre > 38.5°C, frissons, vomissements, sepsis sévère, rétention aiguë d'urines : Hospitalisation pour antibiothérapie IV (Ceftriaxone + Amikacine).",
+    "clinicalPearls": [
+      "Boire au moins 2 litres d'eau par jour, miction après les rapports sexuels, ne pas se retenir d'uriner.",
+      "Carnet 'CAT Abu Imad' (p. 49-51)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Bandelette urinaire immédiate (Leucocytes / Nitrites / Sang). Si positif chez homme, femme enceinte ou enfant -> ECBU systématique avant traitement.</li>\n            <li><strong>Cystite aiguë simple de la femme non enceinte :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Traitement minute monodose : <strong>Monuril / Uricare (Fosfomycine-trométamol) 3 g en sachet unique le soir au coucher</strong></li>\n                <li>Ou Norfloxacine 400 mg 1 cp 2x/j pendant 3 jours</li>\n              </ul>\n            </li>\n            <li><strong>Infection urinaire de l'homme :</strong> Traitement d'au moins 14 à 21 jours par Fluoroquinolone (Ciprofloxacine 500 mg 2x/j) ou Bactrim Fort 1 cp 2x/j.</li>\n            <li><strong>Femme enceinte :</strong> Amoxicilline 1g 3x/j ou Augmentin 1g 2x/j ou Céfixime (Oroken) après ECBU. Éviter fluoroquinolones et aminosides !</li>\n            <li><strong>Enfant :</strong> Échographie rénale systématique dès le premier épisode chez le garçon ou au deuxième chez la fille pour éliminer un reflux vésico-urétéral.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Cystite Aiguë Simple chez la femme :</strong> Brûlures lors de la miction, impériosité mictionnelle, pollakiurie diurne et nocturne, urines troubles et malodorantes, absence de fièvre, absence de douleur lombaire.</li>\n            <li><strong>Infection Urinaire Masculine (Prostatite) :</strong> Toujours considérée comme compliquée (dysurie, jet faible, fièvre, toucher rectal très douloureux).</li>\n            <li><strong>Pyélonéphrite Aiguë (PNA) :</strong> Signes urinaires + Fièvre élevée > 38.5°C avec frissons + Douleur lombaire unilatérale vive irradiant vers l'aine.</li>\n            <li>Bandelette urinaire (Labstix) : Leucocytes positifs (pyurie) et/ou Nitrites positifs (bactériurie).</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Bandelette urinaire immédiate (Leucocytes / Nitrites / Sang). Si positif chez homme, femme enceinte ou enfant -> ECBU systématique avant traitement.</li>\n            <li><strong>Cystite aiguë simple de la femme non enceinte :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Traitement minute monodose : <strong>Monuril / Uricare (Fosfomycine-trométamol) 3 g en sachet unique le soir au coucher</strong></li>\n                <li>Ou Norfloxacine 400 mg 1 cp 2x/j pendant 3 jours</li>\n              </ul>\n            </li>\n            <li><strong>Infection urinaire de l'homme :</strong> Traitement d'au moins 14 à 21 jours par Fluoroquinolone (Ciprofloxacine 500 mg 2x/j) ou Bactrim Fort 1 cp 2x/j.</li>\n            <li><strong>Femme enceinte :</strong> Amoxicilline 1g 3x/j ou Augmentin 1g 2x/j ou Céfixime (Oroken) après ECBU. Éviter fluoroquinolones et aminosides !</li>\n            <li><strong>Enfant :</strong> Échographie rénale systématique dès le premier épisode chez le garçon ou au deuxième chez la fille pour éliminer un reflux vésico-urétéral.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Fosfomycine 3g :</strong> 1 sachet en prise unique à distance des repas (le soir après vidange de la vessie).</p>\n            <p><strong>Ciprofloxacine :</strong> 500 mg matin et soir au milieu des repas pendant 7 jours (cystite à risque) à 14 jours (prostatite/PNA).</p>\n          </div>",
+    "bilanHtml": "ECBU avec antibiogramme (systématique sauf cystite simple de la femme jeune). Si suspicion de PNA ou prostatite : Échographie rénale et prostatique, FNS, CRP, Créatininémie, Hémocultures si fièvre.",
+    "ordonnance": [
+      {
+        "drug": "Uricare (Fosfomycine)",
+        "dose": "3 g",
+        "poso": "1 sachet en prise unique le soir au coucher dans un demi-verre d'eau",
+        "qty": "1 sachet"
+      },
+      {
+        "drug": "Spasfon comprimés",
+        "dose": "80 mg",
+        "poso": "2 comprimés 3 fois par jour en cas de spasmes vésicaux",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Doliprane (Paracétamol)",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 heures si brûlures douloureuses",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Boire au moins 2 litres d'eau par jour, miction après les rapports sexuels, ne pas se retenir d'uriner.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p52-morsures",
+    "slug": "morsures-d-animaux-piqures-de-scorpions",
+    "title": "Morsures d'Animaux & Piqûres de Scorpions",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie",
+    "category": "Infectiologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Risque rabique, tétanique et surinfection polymicrobienne (Pasteurella). Nettoyage abondant, protocole VAR/SAR et antibiothérapie préventive.",
+    "synopsis": "Risque rabique, tétanique et surinfection polymicrobienne (Pasteurella). Nettoyage abondant, protocole VAR/SAR et antibiothérapie préventive.",
+    "page": "p. 52-53",
+    "evaluationInitiale": [
+      "Morsure par animal (Chien, chat, animal errant ou sauvage) : Catégorie 1 : Contact simple ou léchage sur peau saine -> Pas de risque.",
+      "Catégorie 2 : Mordillement, griffure sans saignement -> Risque modéré (Vaccin antirabique VAR).",
+      "Catégorie 3 : Morsure transdermique avec saignement, léchage sur muqueuse ou plaie récente, morsure par animal enragé/sauvage -> Risque MAJEUR (VAR + Sérum antirabique SAR).",
+      "Piqûre de Scorpion : Douleur locale aiguë fulgurante, engourdissement, signes d'envenimation systémique (sueurs, tachycardie, priapisme, vomissements, œdème pulmonaire)."
+    ],
+    "signesDeGravite": [
+      "Signes d'envenimation scorpionique sévère (détresse respiratoire, hypotension, bradycardie) : Transfert SAMU en Réanimation pour sérum antiscorpionique et réanimation."
+    ],
+    "diagnosticCritères": [
+      "Risque rabique, tétanique et surinfection polymicrobienne (Pasteurella). Nettoyage abondant, protocole VAR/SAR et antibiothérapie préventive."
+    ],
+    "examensComplementaires": [
+      "Si morsure délabrante ou infectée : Prélèvement bactériologique, radiographie à la recherche d'une lésion osseuse ou dent d'animal cassée, FNS, CRP."
+    ],
+    "conduiteImmediate": [
+      "Gestes locaux immédiats capitaux (Morsure) : Laver abondamment à grande eau et au savon de Marseille pendant 15 minutes montre en main",
+      "Rincer puis désinfecter à la Bétadine ou Dakin",
+      "NE PAS SUTURER LA PLAIE (ou rapprochement très lâche si plaie délabrante après infiltration de sérum) pour éviter d'enclaver les bactéries anaérobies.",
+      "Prévention du Tétanos : Vérification du statut vaccinal. Si non à jour : Vaccin antitétanique (VAT) + Sérum antitétanique (SAT) 250 UI IM.",
+      "Prévention de la Rage (Protocole de l'Institut Pasteur) : Vaccin Antirabique (VAR) : J0, J3, J7, J14, J28 en SC sous-ombilicale ou IM deltoïde",
+      "Sérum Antirabique (SAR) si morsure grave catégorie 3 : Infiltrer la moitié de la dose autour de la plaie et le reste en IM",
+      "Mise en observation vétérinaire de l'animal mordeur pendant 15 jours si accessible (J0, J7, J14).",
+      "Antibiothérapie prophylactique systématique (Pasteurella / anaérobies) : Augmentin 1g 3x/j (adulte) ou 80 mg/kg/j (enfant) pendant 10 jours.",
+      "Piqûre de Scorpion : Oxygénothérapie 10-15 min, Solumédrol 40 mg IVD, surveillance clinique stricte pendant 4 heures."
+    ],
+    "traitementSpecifique": [
+      "Augmentin prophylaxie : Débuter dans les 6 premières heures post-morsure : 1g toutes les 8h per os pendant 7 à 10 jours. VAR femme enceinte : La grossesse ne constitue en aucun cas une contre-indication au vaccin antirabique (la rage déclarée est constamment mortelle)."
+    ],
+    "orientation": "Signes d'envenimation scorpionique sévère (détresse respiratoire, hypotension, bradycardie) : Transfert SAMU en Réanimation pour sérum antiscorpionique et réanimation.",
+    "redFlags": [
+      "Signes d'envenimation scorpionique sévère (détresse respiratoire, hypotension, bradycardie) : Transfert SAMU en Réanimation pour sérum antiscorpionique et réanimation."
+    ],
+    "alertes": "Signes d'envenimation scorpionique sévère (détresse respiratoire, hypotension, bradycardie) : Transfert SAMU en Réanimation pour sérum antiscorpionique et réanimation.",
+    "clinicalPearls": [
+      "Ne jamais tenter d'inciser, de sucer la plaie ou d'appliquer de garrot.",
+      "Carnet 'CAT Abu Imad' (p. 52-53)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Gestes locaux immédiats capitaux (Morsure) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Laver abondamment à grande eau et au savon de Marseille pendant 15 minutes montre en main</li>\n                <li>Rincer puis désinfecter à la Bétadine ou Dakin</li>\n                <li><strong>NE PAS SUTURER LA PLAIE</strong> (ou rapprochement très lâche si plaie délabrante après infiltration de sérum) pour éviter d'enclaver les bactéries anaérobies.</li>\n              </ul>\n            </li>\n            <li><strong>Prévention du Tétanos :</strong> Vérification du statut vaccinal. Si non à jour : Vaccin antitétanique (VAT) + Sérum antitétanique (SAT) 250 UI IM.</li>\n            <li><strong>Prévention de la Rage (Protocole de l'Institut Pasteur) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Vaccin Antirabique (VAR) : J0, J3, J7, J14, J28 en SC sous-ombilicale ou IM deltoïde</li>\n                <li>Sérum Antirabique (SAR) si morsure grave catégorie 3 : Infiltrer la moitié de la dose autour de la plaie et le reste en IM</li>\n                <li>Mise en observation vétérinaire de l'animal mordeur pendant 15 jours si accessible (J0, J7, J14).</li>\n              </ul>\n            </li>\n            <li><strong>Antibiothérapie prophylactique systématique (Pasteurella / anaérobies) :</strong> Augmentin 1g 3x/j (adulte) ou 80 mg/kg/j (enfant) pendant 10 jours.</li>\n            <li><strong>Piqûre de Scorpion :</strong> Oxygénothérapie 10-15 min, Solumédrol 40 mg IVD, surveillance clinique stricte pendant 4 heures.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Morsure par animal (Chien, chat, animal errant ou sauvage) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Catégorie 1 : Contact simple ou léchage sur peau saine -> Pas de risque.</li>\n                <li>Catégorie 2 : Mordillement, griffure sans saignement -> Risque modéré (Vaccin antirabique VAR).</li>\n                <li>Catégorie 3 : Morsure transdermique avec saignement, léchage sur muqueuse ou plaie récente, morsure par animal enragé/sauvage -> Risque MAJEUR (VAR + Sérum antirabique SAR).</li>\n              </ul>\n            </li>\n            <li><strong>Piqûre de Scorpion :</strong> Douleur locale aiguë fulgurante, engourdissement, signes d'envenimation systémique (sueurs, tachycardie, priapisme, vomissements, œdème pulmonaire).</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Gestes locaux immédiats capitaux (Morsure) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Laver abondamment à grande eau et au savon de Marseille pendant 15 minutes montre en main</li>\n                <li>Rincer puis désinfecter à la Bétadine ou Dakin</li>\n                <li><strong>NE PAS SUTURER LA PLAIE</strong> (ou rapprochement très lâche si plaie délabrante après infiltration de sérum) pour éviter d'enclaver les bactéries anaérobies.</li>\n              </ul>\n            </li>\n            <li><strong>Prévention du Tétanos :</strong> Vérification du statut vaccinal. Si non à jour : Vaccin antitétanique (VAT) + Sérum antitétanique (SAT) 250 UI IM.</li>\n            <li><strong>Prévention de la Rage (Protocole de l'Institut Pasteur) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Vaccin Antirabique (VAR) : J0, J3, J7, J14, J28 en SC sous-ombilicale ou IM deltoïde</li>\n                <li>Sérum Antirabique (SAR) si morsure grave catégorie 3 : Infiltrer la moitié de la dose autour de la plaie et le reste en IM</li>\n                <li>Mise en observation vétérinaire de l'animal mordeur pendant 15 jours si accessible (J0, J7, J14).</li>\n              </ul>\n            </li>\n            <li><strong>Antibiothérapie prophylactique systématique (Pasteurella / anaérobies) :</strong> Augmentin 1g 3x/j (adulte) ou 80 mg/kg/j (enfant) pendant 10 jours.</li>\n            <li><strong>Piqûre de Scorpion :</strong> Oxygénothérapie 10-15 min, Solumédrol 40 mg IVD, surveillance clinique stricte pendant 4 heures.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Augmentin prophylaxie :</strong> Débuter dans les 6 premières heures post-morsure : 1g toutes les 8h per os pendant 7 à 10 jours.</p>\n            <p><strong>VAR femme enceinte :</strong> La grossesse ne constitue en aucun cas une contre-indication au vaccin antirabique (la rage déclarée est constamment mortelle).</p>\n          </div>",
+    "bilanHtml": "Si morsure délabrante ou infectée : Prélèvement bactériologique, radiographie à la recherche d'une lésion osseuse ou dent d'animal cassée, FNS, CRP.",
+    "ordonnance": [
+      {
+        "drug": "Augmentin comprimés",
+        "dose": "1 g",
+        "poso": "1 comprimé 3 fois par jour au début des repas pendant 10 jours",
+        "qty": "3 boîtes"
+      },
+      {
+        "drug": "Doliprane (Paracétamol)",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 heures si douleur",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Bétadine dermique",
+        "dose": "Flacon jaune",
+        "poso": "Nettoyage antiseptique biquotidien sans pansement occlusif",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Carnet de vaccination antirabique",
+        "dose": "Institut Pasteur",
+        "poso": "Respect strict des rendez-vous J0, J3, J7, J14, J28",
+        "qty": "Protocole"
+      }
+    ],
+    "conseils": "Ne jamais tenter d'inciser, de sucer la plaie ou d'appliquer de garrot.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p58-lumbago",
+    "slug": "lumbago-aigu-lomboradiculalgie-sciatique-cruralgie",
+    "title": "Lumbago Aigu & Lomboradiculalgie (Sciatique / Cruralgie)",
+    "specialtyId": "rhumato",
+    "specialtyName": "Rhumatologie",
+    "category": "Rhumatologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Rachialgie lombaire aiguë après effort ou faux mouvement. Dépister immédiatement les signes de souffrance neurologique (syndrome de la queue de cheval).",
+    "synopsis": "Rachialgie lombaire aiguë après effort ou faux mouvement. Dépister immédiatement les signes de souffrance neurologique (syndrome de la queue de cheval).",
+    "page": "p. 58-62",
+    "evaluationInitiale": [
+      "Lumbago aigu : Douleur violente en 'barre' dans le bas du dos après port de charge ou faux mouvement, contracture douloureuse réflexe paravertébrale, impotence fonctionnelle aiguë.",
+      "Lombosciatique / Lombocruralgie : Douleur lombaire irradiant le long du membre inférieur dépassant le genou : Sciatique L5 : Face postéro-latérale de la cuisse, face latérale de la jambe, dos du pied et gros orteil.",
+      "Sciatique S1 : Face postérieure de la cuisse et du mollet, talon, plante du pied et 5ème orteil (abolition réflexe achilléen).",
+      "Cruralgie L4 : Face antérieure de la cuisse et du genou (abolition réflexe rotulien).",
+      "Drapeaux Rouges Neurologiques : Sciatique paralysante : Déficit moteur ≤ 3 (impossibilité de marcher sur les pointes ou talons)",
+      "Syndrome de la queue de cheval : Troubles sphinctériens (rétention d'urine ou incontinence), anesthésie en selle."
+    ],
+    "signesDeGravite": [
+      "Perte de sensibilité au niveau du périnée (anessthesie en selle), fuites urinaires, paralysie du pied : Urgence Neurochirurgicale absolue."
+    ],
+    "diagnosticCritères": [
+      "Rachialgie lombaire aiguë après effort ou faux mouvement. Dépister immédiatement les signes de souffrance neurologique (syndrome de la queue de cheval)."
+    ],
+    "examensComplementaires": [
+      "Lumbago simple < 4 semaines : Aucune radiographie requise. Si sciatique déficitaire, syndrome de la queue de cheval ou résistance > 6-8 semaines : IRM Lombaire (ou TDM) en urgence."
+    ],
+    "conduiteImmediate": [
+      "Repos au lit en position antalgique de relaxation (psoas relâché avec coussin sous les genoux), mais reprise de la marche douce dès que possible (pas d'alitement prolongé).",
+      "Soulagement immédiat de la douleur aiguë aux urgences : Voltaren (Diclofénac) 75 mg en IM profonde (ou Profénid 100 mg IM)",
+      "Si contre-indication aux AINS : Perfalgan 1g en perfusion IVL sur 15 min",
+      "+ Myorelaxant : Mydocalm (Tolpérisone) 150 mg ou Miorel",
+      "Si Lombosciatique hyperalgique résistante : Corticothérapie courte par voie générale : Solumédrol 40 à 60 mg en IM pendant 3 à 5 jours",
+      "Ou Palier 2 : Tramadol + Paracétamol ou Buvidol 75 mg",
+      "Neurotrope : Vitamines B1-B6 (Neurovit) 1 cp 2x/j"
+    ],
+    "traitementSpecifique": [
+      "Diclofénac : 75 mg IM puis relais per os 50 mg 2 à 3 fois par jour au milieu des repas pendant 5 à 7 jours max. Protection gastrique obligatoire sous AINS : Oméprazole 20 mg le matin."
+    ],
+    "orientation": "Perte de sensibilité au niveau du périnée (anessthesie en selle), fuites urinaires, paralysie du pied : Urgence Neurochirurgicale absolue.",
+    "redFlags": [
+      "Perte de sensibilité au niveau du périnée (anessthesie en selle), fuites urinaires, paralysie du pied : Urgence Neurochirurgicale absolue."
+    ],
+    "alertes": "Perte de sensibilité au niveau du périnée (anessthesie en selle), fuites urinaires, paralysie du pied : Urgence Neurochirurgicale absolue.",
+    "clinicalPearls": [
+      "Éviter le repos strict prolongé au lit au-delà de 48h, port de ceinture de soutien lombaire lors des trajets en voiture.",
+      "Carnet 'CAT Abu Imad' (p. 58-62)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos au lit en position antalgique de relaxation (psoas relâché avec coussin sous les genoux), mais reprise de la marche douce dès que possible (pas d'alitement prolongé).</li>\n            <li><strong>Soulagement immédiat de la douleur aiguë aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Voltaren (Diclofénac) 75 mg en IM profonde (ou Profénid 100 mg IM)</li>\n                <li>Si contre-indication aux AINS : Perfalgan 1g en perfusion IVL sur 15 min</li>\n                <li>+ Myorelaxant : Mydocalm (Tolpérisone) 150 mg ou Miorel</li>\n              </ul>\n            </li>\n            <li><strong>Si Lombosciatique hyperalgique résistante :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Corticothérapie courte par voie générale : Solumédrol 40 à 60 mg en IM pendant 3 à 5 jours</li>\n                <li>Ou Palier 2 : Tramadol + Paracétamol ou Buvidol 75 mg</li>\n                <li>Neurotrope : Vitamines B1-B6 (Neurovit) 1 cp 2x/j</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Lumbago aigu :</strong> Douleur violente en 'barre' dans le bas du dos après port de charge ou faux mouvement, contracture douloureuse réflexe paravertébrale, impotence fonctionnelle aiguë.</li>\n            <li><strong>Lombosciatique / Lombocruralgie :</strong> Douleur lombaire irradiant le long du membre inférieur dépassant le genou :\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Sciatique L5 : Face postéro-latérale de la cuisse, face latérale de la jambe, dos du pied et gros orteil.</li>\n                <li>Sciatique S1 : Face postérieure de la cuisse et du mollet, talon, plante du pied et 5ème orteil (abolition réflexe achilléen).</li>\n                <li>Cruralgie L4 : Face antérieure de la cuisse et du genou (abolition réflexe rotulien).</li>\n              </ul>\n            </li>\n            <li><strong>Drapeaux Rouges Neurologiques :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Sciatique paralysante : Déficit moteur ≤ 3 (impossibilité de marcher sur les pointes ou talons)</li>\n                <li>Syndrome de la queue de cheval : Troubles sphinctériens (rétention d'urine ou incontinence), anesthésie en selle.</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos au lit en position antalgique de relaxation (psoas relâché avec coussin sous les genoux), mais reprise de la marche douce dès que possible (pas d'alitement prolongé).</li>\n            <li><strong>Soulagement immédiat de la douleur aiguë aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Voltaren (Diclofénac) 75 mg en IM profonde (ou Profénid 100 mg IM)</li>\n                <li>Si contre-indication aux AINS : Perfalgan 1g en perfusion IVL sur 15 min</li>\n                <li>+ Myorelaxant : Mydocalm (Tolpérisone) 150 mg ou Miorel</li>\n              </ul>\n            </li>\n            <li><strong>Si Lombosciatique hyperalgique résistante :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Corticothérapie courte par voie générale : Solumédrol 40 à 60 mg en IM pendant 3 à 5 jours</li>\n                <li>Ou Palier 2 : Tramadol + Paracétamol ou Buvidol 75 mg</li>\n                <li>Neurotrope : Vitamines B1-B6 (Neurovit) 1 cp 2x/j</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Diclofénac :</strong> 75 mg IM puis relais per os 50 mg 2 à 3 fois par jour au milieu des repas pendant 5 à 7 jours max.</p>\n            <p><strong>Protection gastrique obligatoire sous AINS :</strong> Oméprazole 20 mg le matin.</p>\n          </div>",
+    "bilanHtml": "Lumbago simple < 4 semaines : Aucune radiographie requise. Si sciatique déficitaire, syndrome de la queue de cheval ou résistance > 6-8 semaines : IRM Lombaire (ou TDM) en urgence.",
+    "ordonnance": [
+      {
+        "drug": "Rapidus (Diclofénac) ou Buvidol",
+        "dose": "50 mg à 75 mg",
+        "poso": "1 comprimé 2 fois par jour au milieu des repas pendant 5 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Doliprane (Paracétamol)",
+        "dose": "1000 mg",
+        "poso": "1 comprimé 3 fois par jour",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Mydocalm (Tolpérisone)",
+        "dose": "150 mg",
+        "poso": "1 comprimé le soir au coucher pendant 5 à 7 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Kéfentech patch ou Voltaren emulgel",
+        "dose": "Patchs",
+        "poso": "1 application locale sur la région lombaire 2 fois par jour",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Proton (Oméprazole)",
+        "dose": "20 mg",
+        "poso": "1 gélule le matin pour protection gastrique",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Éviter le repos strict prolongé au lit au-delà de 48h, port de ceinture de soutien lombaire lors des trajets en voiture.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p63-migraine",
+    "slug": "crise-de-migraine-aigue-cephalees",
+    "title": "Crise de Migraine Aiguë & Céphalées",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Céphalée unilatérale pulsatile récurrente, aggravée par l'effort, photo-phonophobie, nausées. Anti-inflammatoires et triptans spécifiques.",
+    "synopsis": "Céphalée unilatérale pulsatile récurrente, aggravée par l'effort, photo-phonophobie, nausées. Anti-inflammatoires et triptans spécifiques.",
+    "page": "p. 63-64",
+    "evaluationInitiale": [
+      "Céphalée évoluant par crises durant de 4 à 72 heures sans traitement",
+      "Caractère unilatéral prédominant, douleur pulsatile ('comme un cœur qui bat dans la tempe')",
+      "Intensité modérée à sévère entravant les activités de la vie courante, aggravée par la toux, la marche ou les montées d'escaliers",
+      "Signes associés caractéristiques : Nausées et/ou vomissements, intolérance absolue à la lumière (photophobie) et aux bruits (phonophobie)",
+      "Recherche d'Aura préalable (visuelle : scotome scintillant, lignes brisées ; ou sensitive unilatérale réversible en moins de 60 min)"
+    ],
+    "signesDeGravite": [
+      "Céphalée brutale explosive maximale en moins de 1 minute, raideur de nuque, fièvre ou déficit neurologique persistant : Scanner cérébral d'urgence."
+    ],
+    "diagnosticCritères": [
+      "Céphalée unilatérale pulsatile récurrente, aggravée par l'effort, photo-phonophobie, nausées. Anti-inflammatoires et triptans spécifiques."
+    ],
+    "examensComplementaires": [
+      "Examen neurologique complet et fond d'œil normaux. Imagerie cérébrale (IRM/TDM) UNIQUEMENT si céphalée brutale 'en coup de tonnerre' (éliminer hémorragie sous-arachnoïdienne), anomalie neurologique ou modification récente du profil des crises."
+    ],
+    "conduiteImmediate": [
+      "Isoler le patient au calme dans une pièce sombre, fraîche et silencieuse",
+      "Soulagement de la crise aiguë aux urgences : Primpéran (Métoclopramide) 1 ampoule IM ou 1/2 ampoule en IV lente diluée (lutte contre la gastroparésie et potentialise les antalgiques)",
+      "+ Aspégic injectable 1000 mg (1 g) en IVD lente",
+      "Ou Voltaren (Diclofénac) 75 mg en IM",
+      "Ou Perfalgan 1g en perfusion IV sur 15 min",
+      "Traitement de crise spécifique ambulatoire : AINS précoce d'emblée : Kétoprofène (Toprec) 100 mg ou Ibuprofène 400 mg",
+      "Si échec après 2h : Triptan spécifique (Relpax / Élétriptan 40 mg ou Zomig 2.5 mg) : 1 comprimé d'emblée à renouveler après 2h si besoin (max 2 cp/24h)",
+      "Traitement de fond (si crises fréquentes > 3 à 4 par mois) : Bêtabloquant (Propranolol) ou Laroxyl (Amitriptyline) gouttes le soir ou Séglor."
+    ],
+    "traitementSpecifique": [
+      "Règle d'or de la migraine : Prendre le traitement de crise LE PLUS TÔT POSSIBLE dès le début de la phase céphalique. Contre-indication des Triptans : Antécédent d'IDM, AVC, cardiopathie ischémique ou HTA non contrôlée."
+    ],
+    "orientation": "Céphalée brutale explosive maximale en moins de 1 minute, raideur de nuque, fièvre ou déficit neurologique persistant : Scanner cérébral d'urgence.",
+    "redFlags": [
+      "Céphalée brutale explosive maximale en moins de 1 minute, raideur de nuque, fièvre ou déficit neurologique persistant : Scanner cérébral d'urgence."
+    ],
+    "alertes": "Céphalée brutale explosive maximale en moins de 1 minute, raideur de nuque, fièvre ou déficit neurologique persistant : Scanner cérébral d'urgence.",
+    "clinicalPearls": [
+      "Tenir un calendrier des migraines pour identifier les facteurs déclenchants (manque de sommeil, stress, chocolat, jeûne).",
+      "Carnet 'CAT Abu Imad' (p. 63-64)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Isoler le patient au calme dans une pièce sombre, fraîche et silencieuse</li>\n            <li><strong>Soulagement de la crise aiguë aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Primpéran (Métoclopramide) 1 ampoule IM ou 1/2 ampoule en IV lente diluée (lutte contre la gastroparésie et potentialise les antalgiques)</li>\n                <li>+ Aspégic injectable 1000 mg (1 g) en IVD lente</li>\n                <li>Ou Voltaren (Diclofénac) 75 mg en IM</li>\n                <li>Ou Perfalgan 1g en perfusion IV sur 15 min</li>\n              </ul>\n            </li>\n            <li><strong>Traitement de crise spécifique ambulatoire :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>AINS précoce d'emblée : Kétoprofène (Toprec) 100 mg ou Ibuprofène 400 mg</li>\n                <li>Si échec après 2h : <strong>Triptan spécifique (Relpax / Élétriptan 40 mg ou Zomig 2.5 mg)</strong> : 1 comprimé d'emblée à renouveler après 2h si besoin (max 2 cp/24h)</li>\n              </ul>\n            </li>\n            <li><strong>Traitement de fond (si crises fréquentes > 3 à 4 par mois) :</strong> Bêtabloquant (Propranolol) ou Laroxyl (Amitriptyline) gouttes le soir ou Séglor.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Céphalée évoluant par crises durant de 4 à 72 heures sans traitement</li>\n            <li>Caractère unilatéral prédominant, douleur pulsatile ('comme un cœur qui bat dans la tempe')</li>\n            <li>Intensité modérée à sévère entravant les activités de la vie courante, aggravée par la toux, la marche ou les montées d'escaliers</li>\n            <li>Signes associés caractéristiques : Nausées et/ou vomissements, intolérance absolue à la lumière (photophobie) et aux bruits (phonophobie)</li>\n            <li>Recherche d'Aura préalable (visuelle : scotome scintillant, lignes brisées ; ou sensitive unilatérale réversible en moins de 60 min)</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Isoler le patient au calme dans une pièce sombre, fraîche et silencieuse</li>\n            <li><strong>Soulagement de la crise aiguë aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Primpéran (Métoclopramide) 1 ampoule IM ou 1/2 ampoule en IV lente diluée (lutte contre la gastroparésie et potentialise les antalgiques)</li>\n                <li>+ Aspégic injectable 1000 mg (1 g) en IVD lente</li>\n                <li>Ou Voltaren (Diclofénac) 75 mg en IM</li>\n                <li>Ou Perfalgan 1g en perfusion IV sur 15 min</li>\n              </ul>\n            </li>\n            <li><strong>Traitement de crise spécifique ambulatoire :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>AINS précoce d'emblée : Kétoprofène (Toprec) 100 mg ou Ibuprofène 400 mg</li>\n                <li>Si échec après 2h : <strong>Triptan spécifique (Relpax / Élétriptan 40 mg ou Zomig 2.5 mg)</strong> : 1 comprimé d'emblée à renouveler après 2h si besoin (max 2 cp/24h)</li>\n              </ul>\n            </li>\n            <li><strong>Traitement de fond (si crises fréquentes > 3 à 4 par mois) :</strong> Bêtabloquant (Propranolol) ou Laroxyl (Amitriptyline) gouttes le soir ou Séglor.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Règle d'or de la migraine :</strong> Prendre le traitement de crise LE PLUS TÔT POSSIBLE dès le début de la phase céphalique.</p>\n            <p><strong>Contre-indication des Triptans :</strong> Antécédent d'IDM, AVC, cardiopathie ischémique ou HTA non contrôlée.</p>\n          </div>",
+    "bilanHtml": "Examen neurologique complet et fond d'œil normaux. Imagerie cérébrale (IRM/TDM) UNIQUEMENT si céphalée brutale 'en coup de tonnerre' (éliminer hémorragie sous-arachnoïdienne), anomalie neurologique ou modification récente du profil des crises.",
+    "ordonnance": [
+      {
+        "drug": "Aspégic sachet ou Ibuprofène",
+        "dose": "1000 mg",
+        "poso": "1 sachet dès le début de la crise au fond d'un verre d'eau",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Primpéran comprimés",
+        "dose": "10 mg",
+        "poso": "1 comprimé 15 minutes avant l'antalgique si nausées",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Relpax (Élétriptan)",
+        "dose": "40 mg",
+        "poso": "1 comprimé à la demande si échec de l'AINS après 2h",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Laroxyl gouttes (si fond)",
+        "dose": "40 mg/ml",
+        "poso": "3 à 5 gouttes le soir au coucher en traitement de fond progressif",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Tenir un calendrier des migraines pour identifier les facteurs déclenchants (manque de sommeil, stress, chocolat, jeûne).",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p65-paralysie-faciale",
+    "slug": "paralysie-faciale-peripherique-a-frigore",
+    "title": "Paralysie Faciale Périphérique (a frigore)",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Asymétrie faciale complète touchant le haut et le bas du visage, signe de Charles Bell. Protection oculaire capitale et corticothérapie précoce.",
+    "synopsis": "Asymétrie faciale complète touchant le haut et le bas du visage, signe de Charles Bell. Protection oculaire capitale et corticothérapie précoce.",
+    "page": "p. 65-66",
+    "evaluationInitiale": [
+      "Asymétrie faciale brutale avec effacement des rides du front et du pli nasogénien du côté atteint",
+      "Déviation de la commissure buccale vers le côté sain lors du sourire",
+      "Différenciation capitale Centrale vs Périphérique : Paralysie Faciale Centrale (AVC) : Touche UNIQUEMENT la partie inférieure du visage. L'occlusion palpébrale est conservée, le front peut être plissé !",
+      "Paralysie Faciale Périphérique (Nerf VII) : Touche TOUT le visage (haut et bas). Impossibilité de fermer l'œil (lagophtalmie), globe oculaire se dirigeant en haut et en dehors lors de la tentative d'occlusion (Signe de Charles Bell).",
+      "Signes associés : Hyperacousie douloureuse, perte du goût sur les 2/3 antérieurs de la langue, douleurs rétro-auriculaires."
+    ],
+    "signesDeGravite": [
+      "Fièvre élevée associée, atteinte d'autres nerfs crâniens, déficit moteur des membres : Scanner cérébral d'urgence et avis Neurologique."
+    ],
+    "diagnosticCritères": [
+      "Asymétrie faciale complète touchant le haut et le bas du visage, signe de Charles Bell. Protection oculaire capitale et corticothérapie précoce."
+    ],
+    "examensComplementaires": [
+      "Examen otoscopique systématique (éliminer vésicules de la zone de Ramsay-Hunt dans le conduit auditif = Zona du VII requérant un antiviral). Si doute sur cause centrale ou traumatique : TDM cérébral ou IRM."
+    ],
+    "conduiteImmediate": [
+      "Éliminer formellement un AVC ou un traumatisme du rocher",
+      "Corticothérapie par voie générale d'emblée à forte dose (URGENT dans les premières 48-72h) : Solumédrol 40 à 60 mg en IV direct ou IM d'emblée",
+      "Puis relais par Solupred (Prednisolone) per os : 1 mg/kg/jour le matin pendant 7 à 10 jours, puis décroissance progressive",
+      "PROTECTION OCULAIRE ABSOLUE ET SYSTÉMATIQUE (Risque d'ulcère et de cécité cornéenne par absence de clignement) : Collyre antiseptique et larmes artificielles (Dacryosérum, Siccaflex, Lacrifluid) : instillation 4 à 6 fois par jour",
+      "Pommade ophtalmique cicatrisante à la vitamine A le soir au coucher",
+      "Fermeture occlusive de la paupière la nuit avec un pansement stérile adhésif type Opticlude",
+      "Vitamines neurotropes B1-B6 (Neurovit) en cure de 1 mois",
+      "Kinésithérapie et rééducation faciale passive précoce devant un miroir."
+    ],
+    "traitementSpecifique": [
+      "Corticothérapie : Prednisolone 1 mg/kg/j pendant 8 jours, puis diminution de 20 mg tous les 3 jours. Si Zona du ganglion géniculé associé : Ajouter Valaciclovir 1000 mg 3x/j pendant 7 jours."
+    ],
+    "orientation": "Fièvre élevée associée, atteinte d'autres nerfs crâniens, déficit moteur des membres : Scanner cérébral d'urgence et avis Neurologique.",
+    "redFlags": [
+      "Fièvre élevée associée, atteinte d'autres nerfs crâniens, déficit moteur des membres : Scanner cérébral d'urgence et avis Neurologique."
+    ],
+    "alertes": "Fièvre élevée associée, atteinte d'autres nerfs crâniens, déficit moteur des membres : Scanner cérébral d'urgence et avis Neurologique.",
+    "clinicalPearls": [
+      "Masser doucement les muscles du visage, faire des exercices d'expression (gonfler les joues, sourire) devant un miroir.",
+      "Carnet 'CAT Abu Imad' (p. 65-66)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Éliminer formellement un AVC ou un traumatisme du rocher</li>\n            <li><strong>Corticothérapie par voie générale d'emblée à forte dose (URGENT dans les premières 48-72h) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Solumédrol 40 à 60 mg en IV direct ou IM d'emblée</li>\n                <li>Puis relais par <strong>Solupred (Prednisolone) per os : 1 mg/kg/jour</strong> le matin pendant 7 à 10 jours, puis décroissance progressive</li>\n              </ul>\n            </li>\n            <li><strong>PROTECTION OCULAIRE ABSOLUE ET SYSTÉMATIQUE (Risque d'ulcère et de cécité cornéenne par absence de clignement) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Collyre antiseptique et larmes artificielles (Dacryosérum, Siccaflex, Lacrifluid) : instillation 4 à 6 fois par jour</li>\n                <li>Pommade ophtalmique cicatrisante à la vitamine A le soir au coucher</li>\n                <li>Fermeture occlusive de la paupière la nuit avec un pansement stérile adhésif type Opticlude</li>\n              </ul>\n            </li>\n            <li>Vitamines neurotropes B1-B6 (Neurovit) en cure de 1 mois</li>\n            <li>Kinésithérapie et rééducation faciale passive précoce devant un miroir.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Asymétrie faciale brutale avec effacement des rides du front et du pli nasogénien du côté atteint</li>\n            <li>Déviation de la commissure buccale vers le côté sain lors du sourire</li>\n            <li><strong>Différenciation capitale Centrale vs Périphérique :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Paralysie Faciale Centrale (AVC) :</strong> Touche UNIQUEMENT la partie inférieure du visage. L'occlusion palpébrale est conservée, le front peut être plissé !</li>\n                <li><strong>Paralysie Faciale Périphérique (Nerf VII) :</strong> Touche TOUT le visage (haut et bas). Impossibilité de fermer l'œil (lagophtalmie), globe oculaire se dirigeant en haut et en dehors lors de la tentative d'occlusion (Signe de Charles Bell).</li>\n              </ul>\n            </li>\n            <li>Signes associés : Hyperacousie douloureuse, perte du goût sur les 2/3 antérieurs de la langue, douleurs rétro-auriculaires.</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Éliminer formellement un AVC ou un traumatisme du rocher</li>\n            <li><strong>Corticothérapie par voie générale d'emblée à forte dose (URGENT dans les premières 48-72h) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Solumédrol 40 à 60 mg en IV direct ou IM d'emblée</li>\n                <li>Puis relais par <strong>Solupred (Prednisolone) per os : 1 mg/kg/jour</strong> le matin pendant 7 à 10 jours, puis décroissance progressive</li>\n              </ul>\n            </li>\n            <li><strong>PROTECTION OCULAIRE ABSOLUE ET SYSTÉMATIQUE (Risque d'ulcère et de cécité cornéenne par absence de clignement) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Collyre antiseptique et larmes artificielles (Dacryosérum, Siccaflex, Lacrifluid) : instillation 4 à 6 fois par jour</li>\n                <li>Pommade ophtalmique cicatrisante à la vitamine A le soir au coucher</li>\n                <li>Fermeture occlusive de la paupière la nuit avec un pansement stérile adhésif type Opticlude</li>\n              </ul>\n            </li>\n            <li>Vitamines neurotropes B1-B6 (Neurovit) en cure de 1 mois</li>\n            <li>Kinésithérapie et rééducation faciale passive précoce devant un miroir.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Corticothérapie :</strong> Prednisolone 1 mg/kg/j pendant 8 jours, puis diminution de 20 mg tous les 3 jours.</p>\n            <p><strong>Si Zona du ganglion géniculé associé :</strong> Ajouter Valaciclovir 1000 mg 3x/j pendant 7 jours.</p>\n          </div>",
+    "bilanHtml": "Examen otoscopique systématique (éliminer vésicules de la zone de Ramsay-Hunt dans le conduit auditif = Zona du VII requérant un antiviral). Si doute sur cause centrale ou traumatique : TDM cérébral ou IRM.",
+    "ordonnance": [
+      {
+        "drug": "Solupred (Prednisolone)",
+        "dose": "20 mg",
+        "poso": "3 comprimés le matin au petit-déjeuner pendant 8 jours puis sevrage",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Siccaflex ou Lacrifluid",
+        "dose": "Gel ophtalmique",
+        "poso": "1 goutte dans l'œil paralysé 4 à 6 fois par jour",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Vitamine A ophtalmique",
+        "dose": "Pommade",
+        "poso": "1 application dans le cul-de-sac conjonctival le soir au coucher",
+        "qty": "1 tube"
+      },
+      {
+        "drug": "Pansements oculaires Occlusifs",
+        "dose": "Stériles",
+        "poso": "Fermeture systématique de l'œil chaque nuit sans faute",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Neurovit (Vitamine B1-B6)",
+        "dose": "Comprimés",
+        "poso": "1 comprimé 2 fois par jour pendant 1 mois",
+        "qty": "2 boîtes"
+      }
+    ],
+    "conseils": "Masser doucement les muscles du visage, faire des exercices d'expression (gonfler les joues, sourire) devant un miroir.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p67-vertiges",
+    "slug": "vertiges-aigus-nystagmus",
+    "title": "Vertiges Aigus & Nystagmus",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neurologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Sensation rotatoire des objets ou instabilité, nausées et vomissements intenses. Distinguer vertige périphérique ORL et vertige central neurologique.",
+    "synopsis": "Sensation rotatoire des objets ou instabilité, nausées et vomissements intenses. Distinguer vertige périphérique ORL et vertige central neurologique.",
+    "page": "p. 67",
+    "evaluationInitiale": [
+      "Grande illusion rotatoire de l'environnement, impression de manège ou de chute imminente",
+      "Syndrome vagal majeur associé : Pâleur, sueurs froides, nausées, vomissements incoercibles",
+      "Recherche capitale du nystagmus et des signes de centralité (Score HINTS) : Vertige Périphérique (VPPB, Névrite vestibulaire) : Nystagmus horizontal ou horizonto-rotatoire unidirectionnel (ne change pas de sens avec le regard), harmonieux, sans aucun signe neurologique focal.",
+      "Vertige Central (AVC du tronc cérébral ou cérébelleux) : Nystagmus pur vertical ou multidirectionnel changeant de sens, dysmétrie cérébelleuse, céphalée postérieure, asymétrie faciale."
+    ],
+    "signesDeGravite": [
+      "Vertige d'apparition brutale avec céphalée occipitale vive, ataxie à la marche, diplopie ou syndrome de Claude Bernard-Horner : Urgence Neurovasculaire absolue."
+    ],
+    "diagnosticCritères": [
+      "Sensation rotatoire des objets ou instabilité, nausées et vomissements intenses. Distinguer vertige périphérique ORL et vertige central neurologique."
+    ],
+    "examensComplementaires": [
+      "Si signes neurologiques focaux, terrain vasculaire à risque ou nystagmus atypique : IRM Cérébrale de la fosse postérieure en extrême urgence (éliminer infarctus cérébelleux). Bilan sanguin : FNS, Glycémie, Ionogramme, Urée, Créat, Bilan lipidique, ECG."
+    ],
+    "conduiteImmediate": [
+      "Repos strict au lit au calme complet, yeux fermés, interdiction de se lever (risque de chute)",
+      "Prise des constantes complètes : TA, Pouls, Dextro, T°, Auscultation cardio-vasculaire",
+      "Traitement antivertigineux et antiémétique d'urgence aux urgences : Tanganil (Acétylleucine) : 1 ampoule de 500 mg en IV direct lente (peut être renouvelée après 2h)",
+      "+ Primpéran (Métoclopramide) 1 ampoule IV lente ou IM pour stopper les vomissements",
+      "Si déshydratation par vomissements : Perfusion de 500 cc SSI 0.9%",
+      "Si Vertige Paroxystique Positionnel Bénin (VPPB) confirmé (déclenché aux changements de position de la tête) : Réalisation de la manœuvre libératrice de Sémont ou d'Epley."
+    ],
+    "traitementSpecifique": [
+      "Tanganil IV : 500 mg (1 ampoule) en IVD lente, relais per os 3 à 4 comprimés par jour pendant 7 à 10 jours. Bétaserc (Bétahistine) : 24 mg 2 fois par jour au cours des repas (indiqué dans le syndrome de Ménière)."
+    ],
+    "orientation": "Vertige d'apparition brutale avec céphalée occipitale vive, ataxie à la marche, diplopie ou syndrome de Claude Bernard-Horner : Urgence Neurovasculaire absolue.",
+    "redFlags": [
+      "Vertige d'apparition brutale avec céphalée occipitale vive, ataxie à la marche, diplopie ou syndrome de Claude Bernard-Horner : Urgence Neurovasculaire absolue."
+    ],
+    "alertes": "Vertige d'apparition brutale avec céphalée occipitale vive, ataxie à la marche, diplopie ou syndrome de Claude Bernard-Horner : Urgence Neurovasculaire absolue.",
+    "clinicalPearls": [
+      "Éviter les mouvements brusques de la tête et les levers rapides du lit.",
+      "Carnet 'CAT Abu Imad' (p. 67)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos strict au lit au calme complet, yeux fermés, interdiction de se lever (risque de chute)</li>\n            <li>Prise des constantes complètes : TA, Pouls, Dextro, T°, Auscultation cardio-vasculaire</li>\n            <li><strong>Traitement antivertigineux et antiémétique d'urgence aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Tanganil (Acétylleucine) : 1 ampoule de 500 mg en IV direct lente</strong> (peut être renouvelée après 2h)</li>\n                <li>+ Primpéran (Métoclopramide) 1 ampoule IV lente ou IM pour stopper les vomissements</li>\n                <li>Si déshydratation par vomissements : Perfusion de 500 cc SSI 0.9%</li>\n              </ul>\n            </li>\n            <li>Si Vertige Paroxystique Positionnel Bénin (VPPB) confirmé (déclenché aux changements de position de la tête) : Réalisation de la manœuvre libératrice de Sémont ou d'Epley.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Grande illusion rotatoire de l'environnement, impression de manège ou de chute imminente</li>\n            <li>Syndrome vagal majeur associé : Pâleur, sueurs froides, nausées, vomissements incoercibles</li>\n            <li><strong>Recherche capitale du nystagmus et des signes de centralité (Score HINTS) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li><strong>Vertige Périphérique (VPPB, Névrite vestibulaire) :</strong> Nystagmus horizontal ou horizonto-rotatoire unidirectionnel (ne change pas de sens avec le regard), harmonieux, sans aucun signe neurologique focal.</li>\n                <li><strong>Vertige Central (AVC du tronc cérébral ou cérébelleux) :</strong> Nystagmus pur vertical ou multidirectionnel changeant de sens, dysmétrie cérébelleuse, céphalée postérieure, asymétrie faciale.</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos strict au lit au calme complet, yeux fermés, interdiction de se lever (risque de chute)</li>\n            <li>Prise des constantes complètes : TA, Pouls, Dextro, T°, Auscultation cardio-vasculaire</li>\n            <li><strong>Traitement antivertigineux et antiémétique d'urgence aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Tanganil (Acétylleucine) : 1 ampoule de 500 mg en IV direct lente</strong> (peut être renouvelée après 2h)</li>\n                <li>+ Primpéran (Métoclopramide) 1 ampoule IV lente ou IM pour stopper les vomissements</li>\n                <li>Si déshydratation par vomissements : Perfusion de 500 cc SSI 0.9%</li>\n              </ul>\n            </li>\n            <li>Si Vertige Paroxystique Positionnel Bénin (VPPB) confirmé (déclenché aux changements de position de la tête) : Réalisation de la manœuvre libératrice de Sémont ou d'Epley.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Tanganil IV :</strong> 500 mg (1 ampoule) en IVD lente, relais per os 3 à 4 comprimés par jour pendant 7 à 10 jours.</p>\n            <p><strong>Bétaserc (Bétahistine) :</strong> 24 mg 2 fois par jour au cours des repas (indiqué dans le syndrome de Ménière).</p>\n          </div>",
+    "bilanHtml": "Si signes neurologiques focaux, terrain vasculaire à risque ou nystagmus atypique : IRM Cérébrale de la fosse postérieure en extrême urgence (éliminer infarctus cérébelleux). Bilan sanguin : FNS, Glycémie, Ionogramme, Urée, Créat, Bilan lipidique, ECG.",
+    "ordonnance": [
+      {
+        "drug": "Tanganil (Acétylleucine)",
+        "dose": "500 mg",
+        "poso": "2 comprimés le matin et 2 comprimés le soir au cours des repas pendant 8 jours",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Primpéran ou Motilium",
+        "dose": "10 mg",
+        "poso": "1 comprimé 15 minutes avant le repas si nausées",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Bétaserc (Bétahistine)",
+        "dose": "24 mg",
+        "poso": "1 comprimé matin et soir au milieu des repas pendant 1 mois",
+        "qty": "2 boîtes"
+      }
+    ],
+    "conseils": "Éviter les mouvements brusques de la tête et les levers rapides du lit.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p68-ophtalmo-infections",
+    "slug": "infections-oculaires-conjonctivite-orgelet-chalazion",
+    "title": "Infections Oculaires : Conjonctivite, Orgelet & Chalazion",
+    "specialtyId": "ophtalmo",
+    "specialtyName": "Ophtalmologie",
+    "category": "Ophtalmologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Œil rouge douloureux ou sécrétant. Diagnostic différentiel rigoureux entre conjonctivite, obstruction glandulaire (chalazion) et infection aiguë (orgelet).",
+    "synopsis": "Œil rouge douloureux ou sécrétant. Diagnostic différentiel rigoureux entre conjonctivite, obstruction glandulaire (chalazion) et infection aiguë (orgelet).",
+    "page": "p. 68-69",
+    "evaluationInitiale": [
+      "Conjonctivite Bactérienne : Œil rouge indolore (ou simple sensation de sable), sécrétions purulentes épaisses collant les paupières au réveil, pas de baisse d'acuité visuelle.",
+      "Conjonctivite Virale ou Allergique : Sécrétions claires aqueuses, larmoiement, prurit intense bilatéral, œdème palpébral.",
+      "Orgelet : Furoncle centré sur un cil (glande de Zeis/Moll), tuméfaction rouge inflammatoire très douloureuse du bord libre de la paupière avec pointe de pus externe.",
+      "Chalazion : Granulome inflammatoire d'une glande de Meibomius au cœur du tarse palpébral, nodule induré enchâssé dans la paupière, indolore ou peu douloureux sans pointe de pus sur le bord libre."
+    ],
+    "signesDeGravite": [
+      "Douleur oculaire intense, photophobie majeure avec halos colorés, baisse d'acuité visuelle : Urgence Ophtalmologique immédiate."
+    ],
+    "diagnosticCritères": [
+      "Œil rouge douloureux ou sécrétant. Diagnostic différentiel rigoureux entre conjonctivite, obstruction glandulaire (chalazion) et infection aiguë (orgelet)."
+    ],
+    "examensComplementaires": [
+      "Examen à la lampe à fente si baisse d'acuité visuelle, douleur profonde ou photophobie (éliminer kératite herpétique ou glaucome aigu)."
+    ],
+    "conduiteImmediate": [
+      "Hygiène oculaire stricte : Lavage des yeux au sérum physiologique ou Dacryosérum plusieurs fois par jour avec compresses stériles différentes pour chaque œil.",
+      "Conjonctivite bactérienne : Collyre antibiotique à large spectre : Rifamycine ou Tobramycine (Tobrex) ou Fucithalmic : 1 goutte 4 à 6 fois par jour pendant 7 jours",
+      "Pommade ophtalmique antibiotique le soir au coucher",
+      "Orgelet externe : Compresses d'eau chaude appliquées 10 min 3x/j pour favoriser le drainage + Pommade antibiotique (Fucidine ou Tobrex). Incision / ponction à l'aiguille stérile si collection mûre.",
+      "Chalazion : Massage palpébral chaud vertical + Pommade corticoïde et antibiotique locale (Cidermex ou Maxidrol pommade) pendant 7 jours.",
+      "RÈGLE D'OR OPHTALMOLOGIQUE : JAMAIS DE COLLYRE CORTICOÏDE sans examen préalable à la fluorescéine (risque d'aggravation fulgurante et de perforation sur herpès cornéen !)."
+    ],
+    "traitementSpecifique": [
+      "Collyre antiseptique : 1 instillation 3 à 4 fois par jour. Chalazion résistant après 1 mois : Incision et curetage chirurgical sous anesthésie locale par ophtalmologue."
+    ],
+    "orientation": "Douleur oculaire intense, photophobie majeure avec halos colorés, baisse d'acuité visuelle : Urgence Ophtalmologique immédiate.",
+    "redFlags": [
+      "Douleur oculaire intense, photophobie majeure avec halos colorés, baisse d'acuité visuelle : Urgence Ophtalmologique immédiate."
+    ],
+    "alertes": "Douleur oculaire intense, photophobie majeure avec halos colorés, baisse d'acuité visuelle : Urgence Ophtalmologique immédiate.",
+    "clinicalPearls": [
+      "Interdiction totale du port de lentilles de contact pendant toute la durée du traitement.",
+      "Carnet 'CAT Abu Imad' (p. 68-69)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Hygiène oculaire stricte : Lavage des yeux au sérum physiologique ou Dacryosérum plusieurs fois par jour avec compresses stériles différentes pour chaque œil.</li>\n            <li><strong>Conjonctivite bactérienne :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Collyre antibiotique à large spectre : Rifamycine ou Tobramycine (Tobrex) ou Fucithalmic : 1 goutte 4 à 6 fois par jour pendant 7 jours</li>\n                <li>Pommade ophtalmique antibiotique le soir au coucher</li>\n              </ul>\n            </li>\n            <li><strong>Orgelet externe :</strong> Compresses d'eau chaude appliquées 10 min 3x/j pour favoriser le drainage + Pommade antibiotique (Fucidine ou Tobrex). Incision / ponction à l'aiguille stérile si collection mûre.</li>\n            <li><strong>Chalazion :</strong> Massage palpébral chaud vertical + Pommade corticoïde et antibiotique locale (Cidermex ou Maxidrol pommade) pendant 7 jours.</li>\n            <li><strong>RÈGLE D'OR OPHTALMOLOGIQUE : JAMAIS DE COLLYRE CORTICOÏDE sans examen préalable à la fluorescéine</strong> (risque d'aggravation fulgurante et de perforation sur herpès cornéen !).</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Conjonctivite Bactérienne :</strong> Œil rouge indolore (ou simple sensation de sable), sécrétions purulentes épaisses collant les paupières au réveil, pas de baisse d'acuité visuelle.</li>\n            <li><strong>Conjonctivite Virale ou Allergique :</strong> Sécrétions claires aqueuses, larmoiement, prurit intense bilatéral, œdème palpébral.</li>\n            <li><strong>Orgelet :</strong> Furoncle centré sur un cil (glande de Zeis/Moll), tuméfaction rouge inflammatoire très douloureuse du bord libre de la paupière avec pointe de pus externe.</li>\n            <li><strong>Chalazion :</strong> Granulome inflammatoire d'une glande de Meibomius au cœur du tarse palpébral, nodule induré enchâssé dans la paupière, indolore ou peu douloureux sans pointe de pus sur le bord libre.</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Hygiène oculaire stricte : Lavage des yeux au sérum physiologique ou Dacryosérum plusieurs fois par jour avec compresses stériles différentes pour chaque œil.</li>\n            <li><strong>Conjonctivite bactérienne :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Collyre antibiotique à large spectre : Rifamycine ou Tobramycine (Tobrex) ou Fucithalmic : 1 goutte 4 à 6 fois par jour pendant 7 jours</li>\n                <li>Pommade ophtalmique antibiotique le soir au coucher</li>\n              </ul>\n            </li>\n            <li><strong>Orgelet externe :</strong> Compresses d'eau chaude appliquées 10 min 3x/j pour favoriser le drainage + Pommade antibiotique (Fucidine ou Tobrex). Incision / ponction à l'aiguille stérile si collection mûre.</li>\n            <li><strong>Chalazion :</strong> Massage palpébral chaud vertical + Pommade corticoïde et antibiotique locale (Cidermex ou Maxidrol pommade) pendant 7 jours.</li>\n            <li><strong>RÈGLE D'OR OPHTALMOLOGIQUE : JAMAIS DE COLLYRE CORTICOÏDE sans examen préalable à la fluorescéine</strong> (risque d'aggravation fulgurante et de perforation sur herpès cornéen !).</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Collyre antiseptique :</strong> 1 instillation 3 à 4 fois par jour.</p>\n            <p><strong>Chalazion résistant après 1 mois :</strong> Incision et curetage chirurgical sous anesthésie locale par ophtalmologue.</p>\n          </div>",
+    "bilanHtml": "Examen à la lampe à fente si baisse d'acuité visuelle, douleur profonde ou photophobie (éliminer kératite herpétique ou glaucome aigu).",
+    "ordonnance": [
+      {
+        "drug": "Tobrex ou Rifamycine collyre",
+        "dose": "Flacon",
+        "poso": "1 goutte dans chaque œil 4 fois par jour pendant 7 jours",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Dacryosérum",
+        "dose": "Dosettes",
+        "poso": "Lavage oculaire abondant avant chaque instillation de collyre",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Cidermex ou Chibro-Cadron pommade",
+        "dose": "Tube ophtalmique",
+        "poso": "1 application locale sur la paupière le soir pendant 7 jours (chalazion)",
+        "qty": "1 tube"
+      }
+    ],
+    "conseils": "Interdiction totale du port de lentilles de contact pendant toute la durée du traitement.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p70-traumatologie",
+    "slug": "fractures-frequentes-clavicule-humerus-avant-bras",
+    "title": "Fractures Fréquentes : Clavicule, Humérus & Avant-Bras",
+    "specialtyId": "ortho",
+    "specialtyName": "Orthopédie - Traumatologie",
+    "category": "Traumatologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Impuissance fonctionnelle totale après choc. Analgésie immédiate, recherche de complications neuro-vasculaires et cutanées, immobilisation plâtrée ou chirurgicale.",
+    "synopsis": "Impuissance fonctionnelle totale après choc. Analgésie immédiate, recherche de complications neuro-vasculaires et cutanées, immobilisation plâtrée ou chirurgicale.",
+    "page": "p. 70-72",
+    "evaluationInitiale": [
+      "Douleur vive exquise localisée, impotence fonctionnelle absolue du membre lésé, œdème et déformation anatomique visible",
+      "Examen neuro-vasculaire distal obligatoire avant et après toute manipulation : Palpation des pouls distaux (radial, ulnaire) et temps de recoloration cutanée (éliminer ischémie par compression vasculaire)",
+      "Sensibilité et motricité des doigts : Nerf radial (extension du poignet et des doigts), Nerf médian (pince pouce-index), Nerf ulnaire (écartement des doigts)",
+      "Vérification méticuleuse de l'état cutané : Rechercher une ouverture cutanée (fracture ouverte = urgence chirurgicale infectieuse)"
+    ],
+    "signesDeGravite": [
+      "Fracture ouverte (même punctiforme), disparition des pouls distaux, anesthésie des extrémités : Appel Orthopédie en urgence opératoire."
+    ],
+    "diagnosticCritères": [
+      "Impuissance fonctionnelle totale après choc. Analgésie immédiate, recherche de complications neuro-vasculaires et cutanées, immobilisation plâtrée ou chirurgicale."
+    ],
+    "examensComplementaires": [
+      "Radiographie osseuse face et profil de l'os concerné + articulations sus et sous-jacentes. Si fracture déplacée ou luxation associée : Bilan préopératoire complet (FNS, TP/TCA, Groupe Rhésus, ECG, Cs anesthésie)."
+    ],
+    "conduiteImmediate": [
+      "Soulagement immédiat de la douleur aux urgences : Perfusion de Perfalgan 1g IV sur 15 min",
+      "+/- Ampoule de Voltaren 75 mg en IM",
+      "Si douleur intolérable : Titration de Morphine IV ou Nubain",
+      "Immobilisation d'attente immédiate sans chercher à réduire à vif : Attelle d'avant-bras ou écharpe coude au corps",
+      "Radiographie osseuse standard de face et de profil prenant les 2 articulations sous et sus-jacentes.",
+      "Conduite spécifique selon la fracture : Fracture de Clavicule : Bandage en anneaux / Bandage en 8 maintenant les épaules en arrière pendant 3 à 5 semaines.",
+      "Fracture de l'Humérus non déplacée : Gilet orthopédique coude au corps type Dujarrier ou attelle plâtrée BABP.",
+      "Fracture de l'Avant-Bras : Attelle Brachio-Antébrachiale Plâtrée (BABP) en position neutre puis avis orthopédique pour réduction ou ostéosynthèse."
+    ],
+    "traitementSpecifique": [
+      "Surveillance du plâtre : Dépister le syndrome des loges (douleur intolérable sous plâtre, doigts froids, œdème cyanosé, paresthésies) -> Fendre le plâtre immédiatement !"
+    ],
+    "orientation": "Fracture ouverte (même punctiforme), disparition des pouls distaux, anesthésie des extrémités : Appel Orthopédie en urgence opératoire.",
+    "redFlags": [
+      "Fracture ouverte (même punctiforme), disparition des pouls distaux, anesthésie des extrémités : Appel Orthopédie en urgence opératoire."
+    ],
+    "alertes": "Fracture ouverte (même punctiforme), disparition des pouls distaux, anesthésie des extrémités : Appel Orthopédie en urgence opératoire.",
+    "clinicalPearls": [
+      "Surélever le membre plâtré lors des premiers jours pour résorber l'œdème. Ne jamais introduire d'objet sous le plâtre pour se gratter.",
+      "Carnet 'CAT Abu Imad' (p. 70-72)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Soulagement immédiat de la douleur aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Perfusion de Perfalgan 1g IV sur 15 min</li>\n                <li>+/- Ampoule de Voltaren 75 mg en IM</li>\n                <li>Si douleur intolérable : Titration de Morphine IV ou Nubain</li>\n              </ul>\n            </li>\n            <li>Immobilisation d'attente immédiate sans chercher à réduire à vif : Attelle d'avant-bras ou écharpe coude au corps</li>\n            <li>Radiographie osseuse standard de face et de profil prenant les 2 articulations sous et sus-jacentes.</li>\n            <li><strong>Conduite spécifique selon la fracture :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li><strong>Fracture de Clavicule :</strong> Bandage en anneaux / Bandage en 8 maintenant les épaules en arrière pendant 3 à 5 semaines.</li>\n                <li><strong>Fracture de l'Humérus non déplacée :</strong> Gilet orthopédique coude au corps type Dujarrier ou attelle plâtrée BABP.</li>\n                <li><strong>Fracture de l'Avant-Bras :</strong> Attelle Brachio-Antébrachiale Plâtrée (BABP) en position neutre puis avis orthopédique pour réduction ou ostéosynthèse.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Douleur vive exquise localisée, impotence fonctionnelle absolue du membre lésé, œdème et déformation anatomique visible</li>\n            <li><strong>Examen neuro-vasculaire distal obligatoire avant et après toute manipulation :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Palpation des pouls distaux (radial, ulnaire) et temps de recoloration cutanée (éliminer ischémie par compression vasculaire)</li>\n                <li>Sensibilité et motricité des doigts : Nerf radial (extension du poignet et des doigts), Nerf médian (pince pouce-index), Nerf ulnaire (écartement des doigts)</li>\n                <li>Vérification méticuleuse de l'état cutané : Rechercher une ouverture cutanée (fracture ouverte = urgence chirurgicale infectieuse)</li>\n              </ul>\n            </li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Soulagement immédiat de la douleur aux urgences :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Perfusion de Perfalgan 1g IV sur 15 min</li>\n                <li>+/- Ampoule de Voltaren 75 mg en IM</li>\n                <li>Si douleur intolérable : Titration de Morphine IV ou Nubain</li>\n              </ul>\n            </li>\n            <li>Immobilisation d'attente immédiate sans chercher à réduire à vif : Attelle d'avant-bras ou écharpe coude au corps</li>\n            <li>Radiographie osseuse standard de face et de profil prenant les 2 articulations sous et sus-jacentes.</li>\n            <li><strong>Conduite spécifique selon la fracture :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li><strong>Fracture de Clavicule :</strong> Bandage en anneaux / Bandage en 8 maintenant les épaules en arrière pendant 3 à 5 semaines.</li>\n                <li><strong>Fracture de l'Humérus non déplacée :</strong> Gilet orthopédique coude au corps type Dujarrier ou attelle plâtrée BABP.</li>\n                <li><strong>Fracture de l'Avant-Bras :</strong> Attelle Brachio-Antébrachiale Plâtrée (BABP) en position neutre puis avis orthopédique pour réduction ou ostéosynthèse.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Surveillance du plâtre :</strong> Dépister le syndrome des loges (douleur intolérable sous plâtre, doigts froids, œdème cyanosé, paresthésies) -> Fendre le plâtre immédiatement !</p>\n          </div>",
+    "bilanHtml": "Radiographie osseuse face et profil de l'os concerné + articulations sus et sous-jacentes. Si fracture déplacée ou luxation associée : Bilan préopératoire complet (FNS, TP/TCA, Groupe Rhésus, ECG, Cs anesthésie).",
+    "ordonnance": [
+      {
+        "drug": "Doliprane (Paracétamol)",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 heures en systématique",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Profénid ou Diclofénac",
+        "dose": "100 mg",
+        "poso": "1 comprimé 2 fois par jour pendant 5 jours si pas de contre-indication",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Lovenox 0.4 cc (si membre inférieur)",
+        "dose": "4000 UI SC",
+        "poso": "1 injection par jour si immobilisation complète du membre inférieur",
+        "qty": "Selon plâtre"
+      },
+      {
+        "drug": "Consultation Orthopédique",
+        "dose": "-",
+        "poso": "Radiographie de contrôle sous plâtre à J8, J15 et J45",
+        "qty": "Suivi"
+      }
+    ],
+    "conseils": "Surélever le membre plâtré lors des premiers jours pour résorber l'œdème. Ne jamais introduire d'objet sous le plâtre pour se gratter.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p73-grippe",
+    "slug": "syndrome-grippal-aigu-rhino-bronchite",
+    "title": "Syndrome Grippal Aigu & Rhino-Bronchite",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Pneumologie",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Fièvre brutale à 39-40°C en 'V' grippal, frissons, myalgies intenses diffuses, céphalées, toux sèche. Traitement symptomatique bien conduit.",
+    "synopsis": "Fièvre brutale à 39-40°C en 'V' grippal, frissons, myalgies intenses diffuses, céphalées, toux sèche. Traitement symptomatique bien conduit.",
+    "page": "p. 73-75",
+    "evaluationInitiale": [
+      "Début brutal 'en coup de tonnerre' par une fièvre élevée à 39-40°C avec frissons intenses et tachycardie",
+      "Syndrome algique franc : Courbatures musculaires généralisées (myalgies des membres et du dos), céphalées frontales vives, arthralgies diffuses",
+      "Signes catarrhaux respiratoires : Toux sèche quinteuse douloureuse rétro-sternale, brûlures pharyngées, rhinorrhée claire",
+      "Asthénie majeure prostrante ('battu comme plâtre')"
+    ],
+    "signesDeGravite": [
+      "Apparition d'une dyspnée avec polypnée > 25/min, désaturation SpO2 < 94%, crachats sanglants ou confusion : Pneumonie grippale grave requérant hospitalisation."
+    ],
+    "diagnosticCritères": [
+      "Fièvre brutale à 39-40°C en 'V' grippal, frissons, myalgies intenses diffuses, céphalées, toux sèche. Traitement symptomatique bien conduit."
+    ],
+    "examensComplementaires": [
+      "Clinique. Si persistance de la fièvre au-delà de 5 jours ou réascension thermique secondaire après rémission initiale ('V' grippal) avec expectorations purulentes : Radiographie du thorax de face et FNS/CRP (rechercher pneumopathie bactérienne de surinfection)."
+    ],
+    "conduiteImmediate": [
+      "Repos complet au lit en chambre aérée, arrêt temporaire de travail si nécessaire",
+      "Hydratation abondante : Boire au moins 2 à 2.5 litres d'eau, tisanes chaudes au miel, bouillons salés",
+      "Traitement antipyrétique et antalgique bien conduit : Paracétamol (Doliprane / Efferalgan) 1g toutes les 6 heures (max 4g/j)",
+      "Ou association pseudoéphédrine / paracétamol (Humex, Dolirhume) : 1 cp jour le matin et midi, 1 cp nuit le soir (uniquement si absence d'HTA ou cardiopathie)",
+      "Vitamine C à forte dose : 1 à 2 g par jour pour stimuler le tonus",
+      "Décongestion nasale au spray d'eau de mer hypertonique + nébuliseur nasal antiseptique",
+      "ANTIBIOTHÉRAPIE STRICTEMENT INUTILE dans la grippe virale simple non compliquée."
+    ],
+    "traitementSpecifique": [
+      "Si toux sèche épuisante : Sirop antitussif (Euphytose, Débrancyl ou Déterval) pendant 5 jours (proscrit si toux grasse productive !). Si surinfection bactérienne bronchique avérée : Amoxicilline 1g 3 fois par jour ou Augmentin pendant 7 jours."
+    ],
+    "orientation": "Apparition d'une dyspnée avec polypnée > 25/min, désaturation SpO2 < 94%, crachats sanglants ou confusion : Pneumonie grippale grave requérant hospitalisation.",
+    "redFlags": [
+      "Apparition d'une dyspnée avec polypnée > 25/min, désaturation SpO2 < 94%, crachats sanglants ou confusion : Pneumonie grippale grave requérant hospitalisation."
+    ],
+    "alertes": "Apparition d'une dyspnée avec polypnée > 25/min, désaturation SpO2 < 94%, crachats sanglants ou confusion : Pneumonie grippale grave requérant hospitalisation.",
+    "clinicalPearls": [
+      "Vaccination antigrippale annuelle fortement recommandée à l'automne pour les sujets fragiles et personnes âgées.",
+      "Carnet 'CAT Abu Imad' (p. 73-75)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos complet au lit en chambre aérée, arrêt temporaire de travail si nécessaire</li>\n            <li>Hydratation abondante : Boire au moins 2 à 2.5 litres d'eau, tisanes chaudes au miel, bouillons salés</li>\n            <li><strong>Traitement antipyrétique et antalgique bien conduit :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Paracétamol (Doliprane / Efferalgan) 1g toutes les 6 heures (max 4g/j)</li>\n                <li>Ou association pseudoéphédrine / paracétamol (Humex, Dolirhume) : 1 cp jour le matin et midi, 1 cp nuit le soir (uniquement si absence d'HTA ou cardiopathie)</li>\n                <li>Vitamine C à forte dose : 1 à 2 g par jour pour stimuler le tonus</li>\n              </ul>\n            </li>\n            <li>Décongestion nasale au spray d'eau de mer hypertonique + nébuliseur nasal antiseptique</li>\n            <li><strong>ANTIBIOTHÉRAPIE STRICTEMENT INUTILE</strong> dans la grippe virale simple non compliquée.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Début brutal 'en coup de tonnerre' par une fièvre élevée à 39-40°C avec frissons intenses et tachycardie</li>\n            <li>Syndrome algique franc : Courbatures musculaires généralisées (myalgies des membres et du dos), céphalées frontales vives, arthralgies diffuses</li>\n            <li>Signes catarrhaux respiratoires : Toux sèche quinteuse douloureuse rétro-sternale, brûlures pharyngées, rhinorrhée claire</li>\n            <li>Asthénie majeure prostrante ('battu comme plâtre')</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Repos complet au lit en chambre aérée, arrêt temporaire de travail si nécessaire</li>\n            <li>Hydratation abondante : Boire au moins 2 à 2.5 litres d'eau, tisanes chaudes au miel, bouillons salés</li>\n            <li><strong>Traitement antipyrétique et antalgique bien conduit :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Paracétamol (Doliprane / Efferalgan) 1g toutes les 6 heures (max 4g/j)</li>\n                <li>Ou association pseudoéphédrine / paracétamol (Humex, Dolirhume) : 1 cp jour le matin et midi, 1 cp nuit le soir (uniquement si absence d'HTA ou cardiopathie)</li>\n                <li>Vitamine C à forte dose : 1 à 2 g par jour pour stimuler le tonus</li>\n              </ul>\n            </li>\n            <li>Décongestion nasale au spray d'eau de mer hypertonique + nébuliseur nasal antiseptique</li>\n            <li><strong>ANTIBIOTHÉRAPIE STRICTEMENT INUTILE</strong> dans la grippe virale simple non compliquée.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Si toux sèche épuisante :</strong> Sirop antitussif (Euphytose, Débrancyl ou Déterval) pendant 5 jours (proscrit si toux grasse productive !).</p>\n            <p><strong>Si surinfection bactérienne bronchique avérée :</strong> Amoxicilline 1g 3 fois par jour ou Augmentin pendant 7 jours.</p>\n          </div>",
+    "bilanHtml": "Clinique. Si persistance de la fièvre au-delà de 5 jours ou réascension thermique secondaire après rémission initiale ('V' grippal) avec expectorations purulentes : Radiographie du thorax de face et FNS/CRP (rechercher pneumopathie bactérienne de surinfection).",
+    "ordonnance": [
+      {
+        "drug": "Efferalgan ou Doliprane",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 à 8 heures pendant les jours fébriles",
+        "qty": "2 boîtes"
+      },
+      {
+        "drug": "Humex ou Doli-Rhume",
+        "dose": "Jour & Nuit",
+        "poso": "1 comprimé blanc le matin et le midi, 1 comprimé bleu le soir au coucher",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Vitamine C UPSA",
+        "dose": "1000 mg",
+        "poso": "1 comprimé effervescent le matin au petit-déjeuner pendant 10 jours",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Sargénor Vitamine C",
+        "dose": "Ampoules buvables",
+        "poso": "1 ampoule matin et midi dans un verre d'eau",
+        "qty": "1 boîte"
+      },
+      {
+        "drug": "Eau de mer stérile (Stérimar)",
+        "dose": "Spray",
+        "poso": "3 pulvérisations nasales par jour",
+        "qty": "1 flacon"
+      }
+    ],
+    "conseils": "Vaccination antigrippale annuelle fortement recommandée à l'automne pour les sujets fragiles et personnes âgées.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p76-appendicite",
+    "slug": "syndromes-abdominaux-aigus-appendicite-occlusion-pancreatite",
+    "title": "Syndromes Abdominaux Aigus : Appendicite, Occlusion & Pancréatite",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Gastro-entérologie",
+    "severity": "red",
+    "urgencyLevel": "Urgence Vitale",
+    "summary": "Douleurs abdominales aiguës chirurgicales. Reconnaître l'appendicite en FID, l'occlusion sur arrêt des matières et des gaz, et la pancréatite aiguë.",
+    "synopsis": "Douleurs abdominales aiguës chirurgicales. Reconnaître l'appendicite en FID, l'occlusion sur arrêt des matières et des gaz, et la pancréatite aiguë.",
+    "page": "p. 76, 81-82",
+    "evaluationInitiale": [
+      "Appendicite Aiguë : Douleur débutant à l'épigastre puis se fixant en Fosse Iliaque Droite (FID), fébricule à 38°C, nausées/vomissements, langue saburrale. Examen : Douleur provoquée au point de McBurney, signe de Rovsing (+), défense pariétale de la FID, douleur au toucher rectal.",
+      "Syndrome Occlusif : Triade cardinale : Douleur abdominale paroxystique + Vomissements précoces bilieux ou fécaloïdes + Arrêt total des matières et des gaz + Météorisme abdominal tympanique.",
+      "Pancréatite Aiguë : Douleur épigastrique transfixiante majeure 'en coup de poignard' irradiant vers le dos, position penchée en avant 'en chien de fusil', vomissements incoercibles."
+    ],
+    "signesDeGravite": [
+      "Ventre de bois rigide douloureux à la décompression (Péritonite aiguë généralisée), état de choc septique : Bloc opératoire d'extrême urgence."
+    ],
+    "diagnosticCritères": [
+      "Douleurs abdominales aiguës chirurgicales. Reconnaître l'appendicite en FID, l'occlusion sur arrêt des matières et des gaz, et la pancréatite aiguë."
+    ],
+    "examensComplementaires": [
+      "FNS (hyperleucocytose à polynucléaires neutrophiles), CRP, Bilan préopératoire complet (TP, TCA, Groupe/Rhésus, RAI), Lipasémie (si > 3x la normale = pancréatite aiguë), Ionogramme, Urée, Créatinine. Imagerie : Échographie abdominale et pelvienne (appendice épaissi > 6 mm non compressible) ou TDM abdomino-pelvien injecté (gold standard occlusions/pancréatite)."
+    ],
+    "conduiteImmediate": [
+      "Règle fondamentale : MISE À JEUN STRICTE ABSOLUE (interdiction formelle de boire et manger en attendant l'avis chirurgical).",
+      "Pose VVP de bon calibre avec réhydratation hydro-électrolytique : SSI 0.9% 1500 cc + SG 5% 1000 cc par 24h avec électrolytes.",
+      "Si occlusion ou vomissements répétés : Pose d'une sonde naso-gastrique (SNG) en aspiration douce pour décomprimer l'estomac.",
+      "Antalgiques d'attente : Perfalgan 1g IV + Spasfon 2 ampoules IV (ne pas administrer de morphine à l'aveugle avant l'examen du chirurgien).",
+      "Antibiothérapie intraveineuse préopératoire (si appendicite/péritonite suspectée) : Augmentin 1g IV toutes les 8h + Flagyl 500 mg IV toutes les 8h.",
+      "Appel immédiat du Chirurgien viscéral de garde pour transfert au bloc opératoire."
+    ],
+    "traitementSpecifique": [
+      "Appendicite aiguë : Urgence chirurgicale pour appendicectomie par cœlioscopie. Pancréatite aiguë : Prise en charge médicale : Réhydratation massive précoce par Ringer Lactate, analgésie multimodale, surveillance score de Ranson ou Balthazar."
+    ],
+    "orientation": "Ventre de bois rigide douloureux à la décompression (Péritonite aiguë généralisée), état de choc septique : Bloc opératoire d'extrême urgence.",
+    "redFlags": [
+      "Ventre de bois rigide douloureux à la décompression (Péritonite aiguë généralisée), état de choc septique : Bloc opératoire d'extrême urgence."
+    ],
+    "alertes": "Ventre de bois rigide douloureux à la décompression (Péritonite aiguë généralisée), état de choc septique : Bloc opératoire d'extrême urgence.",
+    "clinicalPearls": [
+      "Ne jamais administrer de laxatifs ni de lavements devant une douleur abdominale aiguë non étiquetée.",
+      "Carnet 'CAT Abu Imad' (p. 76, 81-82)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Règle fondamentale : MISE À JEUN STRICTE ABSOLUE</strong> (interdiction formelle de boire et manger en attendant l'avis chirurgical).</li>\n            <li>Pose VVP de bon calibre avec réhydratation hydro-électrolytique : SSI 0.9% 1500 cc + SG 5% 1000 cc par 24h avec électrolytes.</li>\n            <li>Si occlusion ou vomissements répétés : Pose d'une sonde naso-gastrique (SNG) en aspiration douce pour décomprimer l'estomac.</li>\n            <li><strong>Antalgiques d'attente :</strong> Perfalgan 1g IV + Spasfon 2 ampoules IV (ne pas administrer de morphine à l'aveugle avant l'examen du chirurgien).</li>\n            <li><strong>Antibiothérapie intraveineuse préopératoire (si appendicite/péritonite suspectée) :</strong> Augmentin 1g IV toutes les 8h + Flagyl 500 mg IV toutes les 8h.</li>\n            <li>Appel immédiat du Chirurgien viscéral de garde pour transfert au bloc opératoire.</li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Appendicite Aiguë :</strong> Douleur débutant à l'épigastre puis se fixant en Fosse Iliaque Droite (FID), fébricule à 38°C, nausées/vomissements, langue saburrale. Examen : Douleur provoquée au point de McBurney, signe de Rovsing (+), défense pariétale de la FID, douleur au toucher rectal.</li>\n            <li><strong>Syndrome Occlusif :</strong> Triade cardinale : Douleur abdominale paroxystique + Vomissements précoces bilieux ou fécaloïdes + Arrêt total des matières et des gaz + Météorisme abdominal tympanique.</li>\n            <li><strong>Pancréatite Aiguë :</strong> Douleur épigastrique transfixiante majeure 'en coup de poignard' irradiant vers le dos, position penchée en avant 'en chien de fusil', vomissements incoercibles.</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Règle fondamentale : MISE À JEUN STRICTE ABSOLUE</strong> (interdiction formelle de boire et manger en attendant l'avis chirurgical).</li>\n            <li>Pose VVP de bon calibre avec réhydratation hydro-électrolytique : SSI 0.9% 1500 cc + SG 5% 1000 cc par 24h avec électrolytes.</li>\n            <li>Si occlusion ou vomissements répétés : Pose d'une sonde naso-gastrique (SNG) en aspiration douce pour décomprimer l'estomac.</li>\n            <li><strong>Antalgiques d'attente :</strong> Perfalgan 1g IV + Spasfon 2 ampoules IV (ne pas administrer de morphine à l'aveugle avant l'examen du chirurgien).</li>\n            <li><strong>Antibiothérapie intraveineuse préopératoire (si appendicite/péritonite suspectée) :</strong> Augmentin 1g IV toutes les 8h + Flagyl 500 mg IV toutes les 8h.</li>\n            <li>Appel immédiat du Chirurgien viscéral de garde pour transfert au bloc opératoire.</li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Appendicite aiguë :</strong> Urgence chirurgicale pour appendicectomie par cœlioscopie.</p>\n            <p><strong>Pancréatite aiguë :</strong> Prise en charge médicale : Réhydratation massive précoce par Ringer Lactate, analgésie multimodale, surveillance score de Ranson ou Balthazar.</p>\n          </div>",
+    "bilanHtml": "FNS (hyperleucocytose à polynucléaires neutrophiles), CRP, Bilan préopératoire complet (TP, TCA, Groupe/Rhésus, RAI), Lipasémie (si > 3x la normale = pancréatite aiguë), Ionogramme, Urée, Créatinine. Imagerie : Échographie abdominale et pelvienne (appendice épaissi > 6 mm non compressible) ou TDM abdomino-pelvien injecté (gold standard occlusions/pancréatite).",
+    "ordonnance": [
+      {
+        "drug": "Hospitalisation en Chirurgie Viscérale",
+        "dose": "Urgence",
+        "poso": "Mise à jeun, perfusion, bilan préopératoire immédiat",
+        "qty": "Hospitalisation"
+      },
+      {
+        "drug": "Augmentin injectable",
+        "dose": "1 g",
+        "poso": "1 injection IV toutes les 8h en périopératoire",
+        "qty": "Selon bloc"
+      },
+      {
+        "drug": "Perfalgan perfusion",
+        "dose": "1000 mg",
+        "poso": "1 flacon IV toutes les 6 heures",
+        "qty": "Selon bloc"
+      }
+    ],
+    "conseils": "Ne jamais administrer de laxatifs ni de lavements devant une douleur abdominale aiguë non étiquetée.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.590Z"
+  },
+  {
+    "id": "cat_p83-leishmaniose",
+    "slug": "leishmaniose-cutanee-clou-de-biskra",
+    "title": "Leishmaniose Cutanée (Clou de Biskra)",
+    "specialtyId": "dermato",
+    "specialtyName": "Dermatologie - Vénérologie",
+    "category": "Dermatologie",
+    "severity": "amber",
+    "urgencyLevel": "Urgence Relative",
+    "summary": "Lésion ulcéro-croûteuse indolore sur les zones découvertes après piqûre de phlébotome en zone d'endémie. Traitement par Glucantime intra-lésionnel ou IM.",
+    "synopsis": "Lésion ulcéro-croûteuse indolore sur les zones découvertes après piqûre de phlébotome en zone d'endémie. Traitement par Glucantime intra-lésionnel ou IM.",
+    "page": "p. 83-84",
+    "evaluationInitiale": [
+      "Notion de séjour en zone d'endémie (zones arides, Sud/Hauts plateaux) et piqûre nocturne de phlébotome",
+      "Lésion cutanée siégeant préférentiellement sur les parties découvertes exposées (visage, avant-bras, jambes)",
+      "Début par une papule érythémateuse ferme indolore s'élargissant progressivement pour former un nodule",
+      "Évolution vers une ulcération centrale recouverte d'une croûte adhérente épaisse très caractéristique ('Clou de Biskra')",
+      "Indolore en l'absence de surinfection bactérienne, absence de prurit, adénopathies satellites rares"
+    ],
+    "signesDeGravite": [
+      "Arythmie cardiaque, modification du segment ST ou QT > 0.44s à l'ECG, élévation des enzymes hépatiques ou créatinine : Arrêt immédiat du traitement."
+    ],
+    "diagnosticCritères": [
+      "Lésion ulcéro-croûteuse indolore sur les zones découvertes après piqûre de phlébotome en zone d'endémie. Traitement par Glucantime intra-lésionnel ou IM."
+    ],
+    "examensComplementaires": [
+      "Frottis cutané au vaccinostyle / biopsie (examen parasitologique direct), ECG préalable obligatoire (vérifier le QT) répété au milieu du traitement, Bilan rénal (créatinine, urée), Bilan hépatique (transaminases, bilirubine), FNS, Lipasémie."
+    ],
+    "conduiteImmediate": [
+      "Confirmation diagnostique impérative par frottis de la lésion au laboratoire (mise en évidence des corps de Leishman)",
+      "Lésion unique ou peu nombreuse ( Glucantime en infiltrations intra-lésionnelles directes : 1 à 2 cc infiltrés à la base de la lésion jusqu'à blanchiment cutané, 2 fois par semaine pendant 4 à 6 semaines.",
+      "Lésions multiples (> 4-5) ou étendues au visage / articulations : Glucantime par voie Générale IM : Dose quotidienne adulte : 1 ampoule (5 ml) à 2 ampoules IM profonde par jour pendant 15 à 20 jours consécutifs.",
+      "Chez l'enfant : Dose calculée selon le poids (20 mg/kg/j d'antimoniate de méglumine) avec escalade progressive les premiers jours : J1 = 1/4 dose, J2 = 1/2 dose, J3 = 3/4 dose, J4 = pleine dose jusqu'à J15.",
+      "CONTRE-INDICATIONS FORMELLES DU GLUCANTIME : Insuffisance rénale, insuffisance hépatique, cardiopathie sévère (risque d'allongement de l'espace QT et torsade de pointes), grossesse."
+    ],
+    "traitementSpecifique": [
+      "Glucantime IM Enfant : Escalade de dose sur 4 jours puis cure complète de 15 jours consécutifs. Surveillance sous Glucantime IM : Suspendre immédiatement le traitement si apparition de toux, arthralgies, éruption fébrile (stibio-intolérance) ou allongement du QT à l'ECG (stibio-intoxication)."
+    ],
+    "orientation": "Arythmie cardiaque, modification du segment ST ou QT > 0.44s à l'ECG, élévation des enzymes hépatiques ou créatinine : Arrêt immédiat du traitement.",
+    "redFlags": [
+      "Arythmie cardiaque, modification du segment ST ou QT > 0.44s à l'ECG, élévation des enzymes hépatiques ou créatinine : Arrêt immédiat du traitement."
+    ],
+    "alertes": "Arythmie cardiaque, modification du segment ST ou QT > 0.44s à l'ECG, élévation des enzymes hépatiques ou créatinine : Arrêt immédiat du traitement.",
+    "clinicalPearls": [
+      "Protection contre les piqûres de phlébotomes : moustiquaires imprégnées à mailles très fines (< 1 mm), répulsifs cutanés le soir.",
+      "Carnet 'CAT Abu Imad' (p. 83-84)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Confirmation diagnostique impérative par frottis de la lésion au laboratoire (mise en évidence des corps de Leishman)</li>\n            <li><strong>Lésion unique ou peu nombreuse (< 3-4 lésions) non péri-articulaire et non péri-orificielle :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Glucantime en infiltrations intra-lésionnelles directes :</strong> 1 à 2 cc infiltrés à la base de la lésion jusqu'à blanchiment cutané, 2 fois par semaine pendant 4 à 6 semaines.</li>\n              </ul>\n            </li>\n            <li><strong>Lésions multiples (> 4-5) ou étendues au visage / articulations : Glucantime par voie Générale IM :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Dose quotidienne adulte : 1 ampoule (5 ml) à 2 ampoules IM profonde par jour pendant 15 à 20 jours consécutifs.</li>\n                <li>Chez l'enfant : Dose calculée selon le poids (20 mg/kg/j d'antimoniate de méglumine) avec escalade progressive les premiers jours : J1 = 1/4 dose, J2 = 1/2 dose, J3 = 3/4 dose, J4 = pleine dose jusqu'à J15.</li>\n                <li><strong>CONTRE-INDICATIONS FORMELLES DU GLUCANTIME :</strong> Insuffisance rénale, insuffisance hépatique, cardiopathie sévère (risque d'allongement de l'espace QT et torsade de pointes), grossesse.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li>Notion de séjour en zone d'endémie (zones arides, Sud/Hauts plateaux) et piqûre nocturne de phlébotome</li>\n            <li>Lésion cutanée siégeant préférentiellement sur les parties découvertes exposées (visage, avant-bras, jambes)</li>\n            <li>Début par une papule érythémateuse ferme indolore s'élargissant progressivement pour former un nodule</li>\n            <li>Évolution vers une ulcération centrale recouverte d'une croûte adhérente épaisse très caractéristique ('Clou de Biskra')</li>\n            <li>Indolore en l'absence de surinfection bactérienne, absence de prurit, adénopathies satellites rares</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li>Confirmation diagnostique impérative par frottis de la lésion au laboratoire (mise en évidence des corps de Leishman)</li>\n            <li><strong>Lésion unique ou peu nombreuse (< 3-4 lésions) non péri-articulaire et non péri-orificielle :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li><strong>Glucantime en infiltrations intra-lésionnelles directes :</strong> 1 à 2 cc infiltrés à la base de la lésion jusqu'à blanchiment cutané, 2 fois par semaine pendant 4 à 6 semaines.</li>\n              </ul>\n            </li>\n            <li><strong>Lésions multiples (> 4-5) ou étendues au visage / articulations : Glucantime par voie Générale IM :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-rose-600 dark:text-rose-400\">\n                <li>Dose quotidienne adulte : 1 ampoule (5 ml) à 2 ampoules IM profonde par jour pendant 15 à 20 jours consécutifs.</li>\n                <li>Chez l'enfant : Dose calculée selon le poids (20 mg/kg/j d'antimoniate de méglumine) avec escalade progressive les premiers jours : J1 = 1/4 dose, J2 = 1/2 dose, J3 = 3/4 dose, J4 = pleine dose jusqu'à J15.</li>\n                <li><strong>CONTRE-INDICATIONS FORMELLES DU GLUCANTIME :</strong> Insuffisance rénale, insuffisance hépatique, cardiopathie sévère (risque d'allongement de l'espace QT et torsade de pointes), grossesse.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Glucantime IM Enfant :</strong> Escalade de dose sur 4 jours puis cure complète de 15 jours consécutifs.</p>\n            <p><strong>Surveillance sous Glucantime IM :</strong> Suspendre immédiatement le traitement si apparition de toux, arthralgies, éruption fébrile (stibio-intolérance) ou allongement du QT à l'ECG (stibio-intoxication).</p>\n          </div>",
+    "bilanHtml": "Frottis cutané au vaccinostyle / biopsie (examen parasitologique direct), ECG préalable obligatoire (vérifier le QT) répété au milieu du traitement, Bilan rénal (créatinine, urée), Bilan hépatique (transaminases, bilirubine), FNS, Lipasémie.",
+    "ordonnance": [
+      {
+        "drug": "Glucantime ampoules injectables",
+        "dose": "1.5 g / 5 ml",
+        "poso": "Infiltration intra-lésionnelle de 1 à 2 ml 2 fois par semaine pendant 4 semaines",
+        "qty": "8 ampoules"
+      },
+      {
+        "drug": "Désinfection locale (Dakin / Bétadine)",
+        "dose": "Flacon",
+        "poso": "Nettoyage biquotidien des croûtes à la compresse stérile",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Fucidine crème (si surinfection)",
+        "dose": "Tube 2%",
+        "poso": "1 application 2 fois par jour sur la lésion",
+        "qty": "1 tube"
+      },
+      {
+        "drug": "Surveillance ECG & Bilan rénal",
+        "dose": "-",
+        "poso": "Contrôle à J0 et J10 de la cure",
+        "qty": "Bilan"
+      }
+    ],
+    "conseils": "Protection contre les piqûres de phlébotomes : moustiquaires imprégnées à mailles très fines (< 1 mm), répulsifs cutanés le soir.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.591Z"
+  },
+  {
+    "id": "cat_p85-orl-dermato-courante",
+    "slug": "bouchon-de-cerumen-otite-externe-herpes-circine",
+    "title": "Bouchon de Cérumen, Otite Externe & Herpès Circiné",
+    "specialtyId": "orl",
+    "specialtyName": "O.R.L. & Chirurgie Cervico-Faciale",
+    "category": "ORL",
+    "severity": "emerald",
+    "urgencyLevel": "Prise en charge réglée",
+    "summary": "Pathologies courantes de consultation : surdité brutale après baignade (bouchon), otalgie à la traction du pavillon (otite externe), macule annulaire squameuse (dermatophytie).",
+    "synopsis": "Pathologies courantes de consultation : surdité brutale après baignade (bouchon), otalgie à la traction du pavillon (otite externe), macule annulaire squameuse (dermatophytie).",
+    "page": "p. 85",
+    "evaluationInitiale": [
+      "Bouchon de Cérumen : Baisse d'acuité auditive brutale unilatérale survenant typiquement après une douche ou baignade (gonflement du cérumen), sensation d'oreille pleine, acouphènes discrets. Otoscopie : Masse jaune brunâtre à noire obstruant complètement le conduit auditif externe.",
+      "Otite Externe Aiguë : Otalgie intense aiguë, sensation de brûlure, exacerbée de manière exquise par la traction du pavillon de l'oreille ou la pression sur le tragus (signe du tragus positif), conduit auditif érythémateux et sténosé par l'œdème.",
+      "Herpès Circiné (Dermatophytie de la peau glabre) : Lésion cutanée arrondie annulaire centrifuge avec bordure érythémato-squameuse active vésiculeuse et centre clair en voie de guérison, très prurigineuse."
+    ],
+    "signesDeGravite": [
+      "Douleur insomniante avec paralysie faciale chez le sujet diabétique ou âgé (Otite externe maligne à Pseudomonas) : Hospitalisation ORL d'urgence."
+    ],
+    "diagnosticCritères": [
+      "Pathologies courantes de consultation : surdité brutale après baignade (bouchon), otalgie à la traction du pavillon (otite externe), macule annulaire squameuse (dermatophytie)."
+    ],
+    "examensComplementaires": [
+      "Examen otoscopique des deux oreilles. Si otite externe nécrosante chez le diabétique : Urgence absolue vers l'ORL pour scanner du rocher et antibiothérapie anti-pyocyanique IV."
+    ],
+    "conduiteImmediate": [
+      "Bouchon de Cérumen : Instillation préalable de gouttes céruménolytiques (Cérulyse ou solution bicarbonate) : 3 à 4 gouttes 3 fois par jour pendant 3 jours pour ramollir le bouchon",
+      "Puis lavage d'oreille doux à la seringue avec de l'eau tiède à 37°C dirigée vers la paroi postéro-supérieure du conduit (CONTRE-INDIQUÉ FORMELLEMENT si antécédent de perforation tympanique !).",
+      "Otite Externe Aiguë : Collyre auriculaire antibiotique et anti-inflammatoire : Otofa ou Oflocet auriculaire ou Polydexa : 3 à 4 gouttes 3 fois par jour pendant 7 jours",
+      "Antalgique per os : Doliprane 1g 3 fois par jour ou AINS si douleur vive.",
+      "Herpès Circiné (Mycose cutanée) : Antifongique topique local : Kétoconazole ou Éconazole crème : 1 à 2 applications par jour en débordant de 2 cm sur la peau saine pendant 2 à 3 semaines."
+    ],
+    "traitementSpecifique": [
+      "Cérulyse : Ne jamais forcer lors du lavage d'oreille. Si résistance, orienter vers l'ORL pour extraction sous microscope. Dermatophytie : Poursuivre le traitement topique au moins 1 semaine après disparition complète des lésions."
+    ],
+    "orientation": "Douleur insomniante avec paralysie faciale chez le sujet diabétique ou âgé (Otite externe maligne à Pseudomonas) : Hospitalisation ORL d'urgence.",
+    "redFlags": [
+      "Douleur insomniante avec paralysie faciale chez le sujet diabétique ou âgé (Otite externe maligne à Pseudomonas) : Hospitalisation ORL d'urgence."
+    ],
+    "alertes": "Douleur insomniante avec paralysie faciale chez le sujet diabétique ou âgé (Otite externe maligne à Pseudomonas) : Hospitalisation ORL d'urgence.",
+    "clinicalPearls": [
+      "Ne jamais introduire de cotons-tiges dans le conduit auditif externe. Bien sécher les oreilles après la baignade.",
+      "Carnet 'CAT Abu Imad' (p. 85)"
+    ],
+    "conduiteHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Bouchon de Cérumen :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Instillation préalable de gouttes céruménolytiques (Cérulyse ou solution bicarbonate) : 3 à 4 gouttes 3 fois par jour pendant 3 jours pour ramollir le bouchon</li>\n                <li>Puis lavage d'oreille doux à la seringue avec de l'eau tiède à 37°C dirigée vers la paroi postéro-supérieure du conduit (CONTRE-INDIQUÉ FORMELLEMENT si antécédent de perforation tympanique !).</li>\n              </ul>\n            </li>\n            <li><strong>Otite Externe Aiguë :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Collyre auriculaire antibiotique et anti-inflammatoire : <strong>Otofa ou Oflocet auriculaire ou Polydexa</strong> : 3 à 4 gouttes 3 fois par jour pendant 7 jours</li>\n                <li>Antalgique per os : Doliprane 1g 3 fois par jour ou AINS si douleur vive.</li>\n              </ul>\n            </li>\n            <li><strong>Herpès Circiné (Mycose cutanée) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Antifongique topique local : <strong>Kétoconazole ou Éconazole crème</strong> : 1 à 2 applications par jour en débordant de 2 cm sur la peau saine pendant 2 à 3 semaines.</li>\n              </ul>\n            </li>\n          </ol>",
+    "cliniqueHtml": "\n          <ul class=\"list-disc pl-4 space-y-1\">\n            <li><strong>Bouchon de Cérumen :</strong> Baisse d'acuité auditive brutale unilatérale survenant typiquement après une douche ou baignade (gonflement du cérumen), sensation d'oreille pleine, acouphènes discrets. Otoscopie : Masse jaune brunâtre à noire obstruant complètement le conduit auditif externe.</li>\n            <li><strong>Otite Externe Aiguë :</strong> Otalgie intense aiguë, sensation de brûlure, exacerbée de manière exquise par la traction du pavillon de l'oreille ou la pression sur le tragus (signe du tragus positif), conduit auditif érythémateux et sténosé par l'œdème.</li>\n            <li><strong>Herpès Circiné (Dermatophytie de la peau glabre) :</strong> Lésion cutanée arrondie annulaire centrifuge avec bordure érythémato-squameuse active vésiculeuse et centre clair en voie de guérison, très prurigineuse.</li>\n          </ul>",
+    "urgenceHtml": "\n          <ol class=\"list-decimal pl-5 space-y-1.5 font-medium\">\n            <li><strong>Bouchon de Cérumen :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Instillation préalable de gouttes céruménolytiques (Cérulyse ou solution bicarbonate) : 3 à 4 gouttes 3 fois par jour pendant 3 jours pour ramollir le bouchon</li>\n                <li>Puis lavage d'oreille doux à la seringue avec de l'eau tiède à 37°C dirigée vers la paroi postéro-supérieure du conduit (CONTRE-INDIQUÉ FORMELLEMENT si antécédent de perforation tympanique !).</li>\n              </ul>\n            </li>\n            <li><strong>Otite Externe Aiguë :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs text-cyan-700 dark:text-cyan-300\">\n                <li>Collyre auriculaire antibiotique et anti-inflammatoire : <strong>Otofa ou Oflocet auriculaire ou Polydexa</strong> : 3 à 4 gouttes 3 fois par jour pendant 7 jours</li>\n                <li>Antalgique per os : Doliprane 1g 3 fois par jour ou AINS si douleur vive.</li>\n              </ul>\n            </li>\n            <li><strong>Herpès Circiné (Mycose cutanée) :</strong>\n              <ul class=\"list-circle pl-5 mt-1 space-y-0.5 text-xs\">\n                <li>Antifongique topique local : <strong>Kétoconazole ou Éconazole crème</strong> : 1 à 2 applications par jour en débordant de 2 cm sur la peau saine pendant 2 à 3 semaines.</li>\n              </ul>\n            </li>\n          </ol>",
+    "protocoleHtml": "\n          <div class=\"space-y-1\">\n            <p><strong>Cérulyse :</strong> Ne jamais forcer lors du lavage d'oreille. Si résistance, orienter vers l'ORL pour extraction sous microscope.</p>\n            <p><strong>Dermatophytie :</strong> Poursuivre le traitement topique au moins 1 semaine après disparition complète des lésions.</p>\n          </div>",
+    "bilanHtml": "Examen otoscopique des deux oreilles. Si otite externe nécrosante chez le diabétique : Urgence absolue vers l'ORL pour scanner du rocher et antibiothérapie anti-pyocyanique IV.",
+    "ordonnance": [
+      {
+        "drug": "Cérulyse gouttes auriculaires",
+        "dose": "Flacon",
+        "poso": "3 gouttes 3 fois par jour dans l'oreille pendant 3 jours avant extraction",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Oflocet ou Otofa auriculaire",
+        "dose": "Gouttes",
+        "poso": "4 gouttes dans l'oreille malade matin et soir pendant 7 jours (otite externe)",
+        "qty": "1 flacon"
+      },
+      {
+        "drug": "Kétoconazole ou Lamisil crème",
+        "dose": "Tube 1%",
+        "poso": "1 application 2 fois par jour sur la lésion squameuse pendant 21 jours",
+        "qty": "1 tube"
+      },
+      {
+        "drug": "Doliprane (Paracétamol)",
+        "dose": "1000 mg",
+        "poso": "1 comprimé toutes les 6 heures si douleur auriculaire",
+        "qty": "1 boîte"
+      }
+    ],
+    "conseils": "Ne jamais introduire de cotons-tiges dans le conduit auditif externe. Bien sécher les oreilles après la baignade.",
+    "accessLevel": "FREE",
+    "published": true,
+    "updatedAt": "2026-09-25T15:30:59.591Z"
+  }
+];

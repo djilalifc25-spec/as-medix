@@ -1,0 +1,86 @@
+{
+  "name": "AS MEDIX - Excellence Médicale & Résidanat",
+  "short_name": "AS MEDIX",
+  "description": "Plateforme médicale d'excellence en Algérie. Banque QCM, ECG interactifs et Mode Garde H24 disponible hors-ligne.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay"
+  ],
+  "orientation": "portrait-primary",
+  "background_color": "#070b14",
+  "theme_color": "#0284c7",
+  "lang": "fr-DZ",
+  "categories": [
+    "medical",
+    "education",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mode Garde H24 (Offline)",
+      "short_name": "Garde H24",
+      "description": "Accès direct aux protocoles d'urgence et calculateurs hors-ligne",
+      "url": "/garde",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Banque QCM",
+      "short_name": "QCM",
+      "description": "S'entraîner aux questions du Résidanat",
+      "url": "/qcm",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Interprétation ECG",
+      "short_name": "ECG",
+      "description": "Tracés et cas cliniques rythmologiques",
+      "url": "/ecg",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
