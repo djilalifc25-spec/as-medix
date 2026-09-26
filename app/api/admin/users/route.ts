@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { syncUsersFromSupabase, updateUserInSupabaseCloud, deleteUserFromSupabaseCloud } from '@/lib/db/userSync';
 import { syncPaymentRequestsFromCloud, updatePaymentRequestStatusInCloud, deletePaymentRequestFromCloud } from '@/lib/db/paymentSync';
+import { generateLicenseKey, calculateSubscriptionPeriod } from '@/lib/subscription/license';
 import { User } from '@/types';
 
 export async function GET() {
@@ -138,21 +139,35 @@ export async function POST(req: Request) {
     }
 
     if (action === 'update') {
-      const updated = db.updateUser(id, updates);
+      const existingUser = db.getUserById(id);
+      let planUpdates = { ...updates };
+      if (updates.plan && (updates.plan === 'PRO' || updates.plan === 'PREMIUM')) {
+        const period = calculateSubscriptionPeriod();
+        const licenseKey = existingUser?.licenseKey || generateLicenseKey(updates.plan, id);
+        planUpdates = {
+          ...planUpdates,
+          licenseKey,
+          subscriptionStartedAt: period.startedAt,
+          subscriptionExpiresAt: period.expiresAt
+        };
+      }
+
+      const updated = db.updateUser(id, planUpdates);
       if (updated?.email) {
-        await updateUserInSupabaseCloud(updated.email, updates);
+        await updateUserInSupabaseCloud(updated.email, planUpdates);
       }
       // Update in Supabase profiles & subscriptions
       try {
         if (updates.plan) {
           await supabaseAdmin.from('profiles').update({ plan: updates.plan }).eq('id', id);
           if (updates.plan === 'PRO' || updates.plan === 'PREMIUM') {
+            const period = calculateSubscriptionPeriod();
             await supabaseAdmin.from('subscriptions').upsert({
               user_id: id,
               plan_type: updates.plan,
               status: 'ACTIVE',
               amount_da: updates.plan === 'PREMIUM' ? 7000.00 : 4500.00,
-              expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+              expires_at: period.expiresAt,
               notes: 'Plan mis à jour manuellement par l\'administrateur'
             }, { onConflict: 'user_id' });
 
@@ -162,11 +177,11 @@ export async function POST(req: Request) {
               id: `notif_upg_${Date.now()}_${id.slice(0, 6)}`,
               userId: id,
               title: `🎉 Votre compte est désormais ${planBadge} !`,
-              message: `Félicitations Docteur ! Votre accès complet ${updates.plan} a été activé par l'administration. Tous les QCM, fiches et annales sont débloqués.`,
+              message: `Félicitations Docteur ! Votre accès complet ${updates.plan} (Licence 1 An) a été activé par l'administration. Tous les QCM, fiches et annales sont débloqués.`,
               date: new Date().toISOString(),
               type: 'system',
               read: false,
-              linkUrl: '/dashboard'
+              linkUrl: '/profil'
             });
           }
         }
@@ -185,11 +200,23 @@ export async function POST(req: Request) {
       const pr = db.getPaymentRequests().find(r => r.id === targetReqId);
       if (pr) {
         const plan = pr.requestedPlan || 'PRO';
-        await updateUserInSupabaseCloud(pr.userEmail, { plan });
+        const period = calculateSubscriptionPeriod();
         const userInDb = db.getUserByEmail(pr.userEmail);
+        const targetUserId = userInDb?.id || pr.userId;
+        const licenseKey = userInDb?.licenseKey || generateLicenseKey(plan, targetUserId);
+
+        const planPayload = {
+          plan,
+          licenseKey,
+          subscriptionStartedAt: period.startedAt,
+          subscriptionExpiresAt: period.expiresAt
+        };
+
+        await updateUserInSupabaseCloud(pr.userEmail, planPayload);
         if (userInDb) {
-          db.updateUser(userInDb.id, { plan });
+          db.updateUser(userInDb.id, planPayload);
         }
+
         try {
           const amount = plan === 'PREMIUM' ? 7000.00 : 4500.00;
           await supabaseAdmin.from('profiles').update({ plan }).eq('id', pr.userId);
@@ -199,8 +226,8 @@ export async function POST(req: Request) {
             status: 'ACTIVE',
             amount_da: amount,
             transaction_id: pr.transactionRef || null,
-            expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-            notes: `Paiement validé par admin ${currentUser.id}`
+            expires_at: period.expiresAt,
+            notes: `Paiement validé par admin ${currentUser.id} - Licence 1 An (${licenseKey})`
           });
 
           // In-app notification for the student
@@ -208,12 +235,12 @@ export async function POST(req: Request) {
           db.addNotification({
             id: `notif_pay_${Date.now()}_${pr.userId.slice(0, 6)}`,
             userId: pr.userId,
-            title: `🎉 Paiement Validé - Forfait ${planBadge} Débloqué !`,
-            message: `Votre versement a été vérifié et validé par l'administration. Votre forfait ${plan} est activé pour 1 an. Bon travail !`,
+            title: `🎉 Paiement Validé - Forfait ${planBadge} (Licence 1 An) !`,
+            message: `Votre versement a été vérifié et validé par l'administration. Votre licence ${plan} (${licenseKey}) est activée pour 1 an. Bon travail !`,
             date: new Date().toISOString(),
             type: 'system',
             read: false,
-            linkUrl: '/dashboard'
+            linkUrl: '/profil'
           });
         } catch (sbErr) {
           console.error('[Supabase Payment Approval Error]:', sbErr);

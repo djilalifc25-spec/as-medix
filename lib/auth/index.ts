@@ -3,6 +3,7 @@ import { User, UserRole, PlanType } from '@/types';
 import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { syncUsersFromSupabase } from '@/lib/db/userSync';
+import { checkAndEnforceLicenseExpiration } from '@/lib/subscription/license';
 
 const SESSION_COOKIE = 'asmedix_session';
 const DEMO_OVERRIDE_COOKIE = 'asmedix_demo_override';
@@ -108,6 +109,10 @@ export async function getAuthenticatedUser(): Promise<User | null> {
       if (found.status === 'suspended') {
         return null;
       }
+
+      // Automatically enforce 1-year subscription license expiration
+      const licenseCheck = await checkAndEnforceLicenseExpiration(found);
+      found = licenseCheck.user;
 
       // Re-populate activeSessions cache
       activeSessions.set(sessionId, {

@@ -43,14 +43,61 @@ export default function ProgressionPage() {
     fetch('/api/qcm/attempt')
       .then(r => r.json())
       .then(d => {
-        if (d.success) {
+        if (d && d.success) {
           const done = Array.isArray(d.doneQcmIds) ? d.doneQcmIds.length : 0;
           const correct = Array.isArray(d.correctQcmIds) ? d.correctQcmIds.length : 0;
           const avg = done > 0 ? Math.round((correct / done) * 100) : 0;
+          
+          // Build real weak points & strong points per specialty from user stats
+          const realWeak: Array<{ specialtyName: string; topic: string; successRate: number; recommendedQcmCount: number }> = [];
+          const realStrong: Array<{ specialtyName: string; successRate: number }> = [];
+
+          if (d.statsBySpecialty && d.specialties) {
+            d.specialties.forEach((spec: any) => {
+              const specStat = d.statsBySpecialty[spec.id];
+              if (specStat && specStat.doneQcms > 0) {
+                const rate = Math.round((specStat.correctQcms / specStat.doneQcms) * 100);
+                if (rate < 60) {
+                  realWeak.push({
+                    specialtyName: spec.name,
+                    topic: `${spec.name} - Entraînement Ciblé`,
+                    successRate: rate,
+                    recommendedQcmCount: specStat.totalQcms || 10
+                  });
+                } else if (rate >= 75) {
+                  realStrong.push({
+                    specialtyName: spec.name,
+                    successRate: rate
+                  });
+                }
+              }
+            });
+          }
+
+          // Build real recent activity history from user attempts
+          const realHistory: any[] = [];
+          if (Array.isArray(d.userAttempts) && d.userAttempts.length > 0) {
+            d.userAttempts.slice(-5).reverse().forEach((att: any, idx: number) => {
+              realHistory.push({
+                id: att.id || `act-${idx}`,
+                title: `Session QCM #${att.qcmId || idx + 1}`,
+                specialty: 'Spécialité Médicale',
+                score: `${att.scorePercentage || (att.isCorrect ? 100 : 0)}%`,
+                isPassed: att.isCorrect || (att.scorePercentage >= 60),
+                timeAgo: att.attemptedAt ? new Date(att.attemptedAt).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 'Récemment',
+                duration: `${Math.max(1, Math.round((att.timeSpentSeconds || 60) / 60))} min`,
+                type: 'QCM'
+              });
+            });
+          }
+
           setStats(prev => ({
             ...prev,
             totalQcmAnswered: Math.max(prev.totalQcmAnswered, done),
-            averageQcmScore: avg
+            averageQcmScore: avg,
+            ...(realWeak.length > 0 ? { dynamicWeak: realWeak } : {}),
+            ...(realStrong.length > 0 ? { dynamicStrong: realStrong } : {}),
+            ...(realHistory.length > 0 ? { dynamicHistory: realHistory } : {})
           }));
         }
       })
@@ -64,7 +111,7 @@ export default function ProgressionPage() {
     averageQcmScore: stats.averageQcmScore,
     currentStreakDays: stats.currentStreakDays,
     totalHoursStudied: stats.totalHoursStudied,
-    weakPoints: [
+    weakPoints: (stats as any).dynamicWeak || [
       {
         specialtyName: 'Cardiologie',
         topic: 'Valvulopathies & Écho-Doppler',
@@ -79,12 +126,12 @@ export default function ProgressionPage() {
       },
       {
         specialtyName: 'Neurologie',
-        topic: 'AVC & Scores dimagerie neurovasculaire',
+        topic: 'AVC & Scores d\'imagerie neurovasculaire',
         successRate: 55,
         recommendedQcmCount: 10
       }
     ],
-    strongPoints: [
+    strongPoints: (stats as any).dynamicStrong || [
       { specialtyName: 'Pédiatrie', successRate: 91 },
       { specialtyName: 'Pneumologie', successRate: 88 },
       { specialtyName: 'Endocrinologie', successRate: 85 },
@@ -92,7 +139,7 @@ export default function ProgressionPage() {
     ]
   };
 
-  const recentActivityHistory = [
+  const recentActivityHistory = (stats as any).dynamicHistory || [
     {
       id: 'act-1',
       title: 'QCM Entraînement - Syndrome Coronarien Aigu',
@@ -112,36 +159,6 @@ export default function ProgressionPage() {
       timeAgo: 'Il y a 2 heures',
       duration: '22 min',
       type: 'Lecture de Cours'
-    },
-    {
-      id: 'act-3',
-      title: 'Fiche Flash : Protocole OAP Flash & Diurétiques',
-      specialty: 'Cardiologie',
-      score: 'Validée',
-      isPassed: true,
-      timeAgo: 'Hier à 19:40',
-      duration: '5 min',
-      type: 'Fiche Flash'
-    },
-    {
-      id: 'act-4',
-      title: 'QCM - Méningites Purulentes de l\'Enfant',
-      specialty: 'Pédiatrie',
-      score: '92%',
-      isPassed: true,
-      timeAgo: 'Hier à 16:15',
-      duration: '18 min',
-      type: 'QCM'
-    },
-    {
-      id: 'act-5',
-      title: 'QCM - Acidocétose Diabétique & Prise en Charge',
-      specialty: 'Endocrinologie',
-      score: '58%',
-      isPassed: false,
-      timeAgo: 'Il y a 2 jours',
-      duration: '15 min',
-      type: 'QCM'
     }
   ];
 
@@ -207,7 +224,7 @@ export default function ProgressionPage() {
             <h2 className="text-base font-bold text-navy-900 dark:text-white">Points à Renforcer Prioritaires</h2>
           </div>
           <div className="space-y-3">
-            {progression.weakPoints.map((wp, idx) => (
+            {progression.weakPoints.map((wp: any, idx: number) => (
               <div key={idx} className="p-3.5 rounded-xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/30 flex items-center justify-between">
                 <div>
                   <div className="text-xs font-bold text-navy-900 dark:text-white">{wp.topic}</div>
@@ -217,7 +234,7 @@ export default function ProgressionPage() {
                   href="/qcm"
                   className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors"
                 >
-                  S\'entraîner
+                  S'entraîner
                 </Link>
               </div>
             ))}
@@ -230,7 +247,7 @@ export default function ProgressionPage() {
             <h2 className="text-base font-bold text-navy-900 dark:text-white">Points Forts & Maîtrise Élevée</h2>
           </div>
           <div className="space-y-3">
-            {progression.strongPoints.map((sp, idx) => (
+            {progression.strongPoints.map((sp: any, idx: number) => (
               <div key={idx} className="p-3.5 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-900/30 flex items-center justify-between">
                 <div>
                   <div className="text-xs font-bold text-navy-900 dark:text-white">{sp.specialtyName}</div>
@@ -247,13 +264,13 @@ export default function ProgressionPage() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <History className="w-5 h-5 text-teal-600" />
-            <h2 className="text-base font-bold text-navy-900 dark:text-white">Historique Réel d\'Activité Récente</h2>
+            <h2 className="text-base font-bold text-navy-900 dark:text-white">Historique Réel d'Activité Récente</h2>
           </div>
           <span className="text-xs text-navy-400">5 dernières sessions</span>
         </div>
 
         <div className="divide-y divide-navy-100 dark:divide-navy-800">
-          {recentActivityHistory.map((item) => (
+          {recentActivityHistory.map((item: any) => (
             <div key={item.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex items-center gap-3">
                 <div className={'w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ' + (

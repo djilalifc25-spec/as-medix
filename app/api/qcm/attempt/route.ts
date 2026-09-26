@@ -18,7 +18,15 @@ export async function GET(req: NextRequest) {
       : (currentUser?.id || 'usr_demo_free');
 
     const stats = db.getUserQcmStats(effectiveUserId);
-    return NextResponse.json({ success: true, ...stats, userId: effectiveUserId });
+    const userAttempts = db.getUserAttempts(effectiveUserId);
+    const specialties = db.getSpecialties();
+    return NextResponse.json({
+      success: true,
+      ...stats,
+      userAttempts,
+      specialties,
+      userId: effectiveUserId
+    });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }

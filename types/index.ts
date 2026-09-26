@@ -31,10 +31,12 @@ export interface User {
   status: 'active' | 'suspended' | 'pending';
   activeSessionId?: string;
   lastDevice?: string;
-  avatarUrl?: string;
   phone?: string;
   createdAt: string;
   lastActive: string;
+  licenseKey?: string;
+  subscriptionStartedAt?: string;
+  subscriptionExpiresAt?: string;
   usage: {
     coursesViewedMonth: number;
     qcmsAnsweredMonth: number;

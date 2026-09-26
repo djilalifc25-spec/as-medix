@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { syncPaymentRequestsFromCloud, savePaymentRequestToCloud, updatePaymentRequestStatusInCloud, deletePaymentRequestFromCloud } from '@/lib/db/paymentSync';
+import { generateLicenseKey, calculateSubscriptionPeriod } from '@/lib/subscription/license';
 
 export async function GET(req: Request) {
   try {
@@ -133,6 +134,20 @@ export async function PATCH(req: Request) {
       if (pr) {
         const plan = pr.requestedPlan || 'PRO';
         const amount = plan === 'PREMIUM' ? 7000.00 : 4500.00;
+        const period = calculateSubscriptionPeriod();
+        const userInDb = db.getUserByEmail(pr.userEmail) || db.getUserById(pr.userId);
+        const licenseKey = userInDb?.licenseKey || generateLicenseKey(plan, pr.userId);
+
+        const planPayload = {
+          plan,
+          licenseKey,
+          subscriptionStartedAt: period.startedAt,
+          subscriptionExpiresAt: period.expiresAt
+        };
+
+        if (userInDb) {
+          db.updateUser(userInDb.id, planPayload);
+        }
 
         // Upgrade in Supabase Profiles & Subscriptions in real time!
         try {
@@ -144,8 +159,8 @@ export async function PATCH(req: Request) {
             payment_method: pr.paymentMethod?.toUpperCase() || 'BARIDIMOB',
             transaction_id: pr.transactionRef || null,
             amount_da: amount,
-            expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-            notes: `Validé par admin ${currentUser.name}`
+            expires_at: period.expiresAt,
+            notes: `Validé par admin ${currentUser.name} - Licence 1 An (${licenseKey})`
           });
           await supabaseAdmin.from('payment_requests').update({ status: 'APPROVED' }).eq('transaction_id', pr.transactionRef);
         } catch (sbErr) {
@@ -157,12 +172,12 @@ export async function PATCH(req: Request) {
         db.addNotification({
           id: `notif_pay_${Date.now()}_${pr.userId.slice(0, 6)}`,
           userId: pr.userId,
-          title: `🎉 Paiement Validé - Forfait ${planBadge} Débloqué !`,
-          message: `Votre versement a été vérifié et validé par l'administration. Votre forfait ${plan} est activé pour 1 an. Bon travail !`,
+          title: `🎉 Paiement Validé - Forfait ${planBadge} (Licence 1 An) !`,
+          message: `Votre versement a été vérifié et validé par l'administration. Votre licence ${plan} (${licenseKey}) est activée pour 1 an. Bon travail !`,
           date: new Date().toISOString(),
           type: 'system',
           read: false,
-          linkUrl: '/dashboard'
+          linkUrl: '/profil'
         });
       }
 
