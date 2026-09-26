@@ -46,6 +46,42 @@ export default function AdminSourcesPage() {
   const [wizardCourse, setWizardCourse] = useState<string>("");
   const [wizardName, setWizardName] = useState<string>("");
 
+  // Batch Exam Years Generator
+  const [startYearGen, setStartYearGen] = useState<number>(2017);
+  const [endYearGen, setEndYearGen] = useState<number>(2025);
+  const [isBatchYearMode, setIsBatchYearMode] = useState<boolean>(false);
+
+  const handleBatchGenerateYears = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const parentName = wizardName.trim() || 'Externat';
+    setSaving(true);
+    let addedCount = 0;
+
+    try {
+      for (let yr = startYearGen; yr < endYearGen; yr++) {
+        const subName = `${parentName} - ${yr}/${yr + 1}`;
+        const body: Record<string, string> = { name: subName };
+        if (wizardSpec) body.specialty = wizardSpec;
+        if (wizardCourse) body.course = wizardCourse;
+        if (wizardFac !== "TOUS") body.faculty = wizardFac;
+
+        const res = await fetch("/api/admin/sources", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        if (data.success) addedCount++;
+      }
+
+      showMsg(`🎉 ${addedCount} sessions d'examens générées avec succès pour "${parentName}" (${startYearGen} à ${endYearGen}) !`);
+      setWizardName("");
+      load();
+    } finally {
+      setSaving(false);
+    }
+  };
+
   // Expand state per specialty
   const [expanded, setExpanded] = useState<Record<string, boolean>>({ cardio: true });
 
@@ -279,10 +315,27 @@ export default function AdminSourcesPage() {
 
       {/* ── 3-STEP QUICK ADD WIZARD (Faculté ➔ Module ➔ Cours) ── */}
       <form onSubmit={handleWizardAdd} className="p-5 rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-lg space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2 font-black text-sm">
             <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>Ajout Rapide de Source en 3 Étapes (Faculté ➔ Module ➔ Cours) :</span>
+            <span>Ajout Rapide de Sources & Sessions d'Examens (Faculté ➔ Module ➔ Cours) :</span>
+          </div>
+
+          <div className="flex items-center gap-1 bg-white/20 p-1 rounded-xl text-xs font-bold">
+            <button
+              type="button"
+              onClick={() => setIsBatchYearMode(false)}
+              className={`px-3 py-1 rounded-lg transition-all ${!isBatchYearMode ? 'bg-white text-slate-900 font-black' : 'text-white/80 hover:text-white'}`}
+            >
+              Source Unique
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsBatchYearMode(true)}
+              className={`px-3 py-1 rounded-lg transition-all ${isBatchYearMode ? 'bg-amber-400 text-slate-950 font-black' : 'text-white/80 hover:text-white'}`}
+            >
+              ⚡ Générateur d'Années (2017-2025)
+            </button>
           </div>
         </div>
 
@@ -337,26 +390,68 @@ export default function AdminSourcesPage() {
             </select>
           </div>
 
-          {/* Source Name Input */}
-          <div>
-            <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">Nom de la source * :</label>
-            <div className="flex gap-1.5">
-              <input
-                type="text"
-                value={wizardName}
-                onChange={(e) => setWizardName(e.target.value)}
-                placeholder="Ex: Annales Oran 2024..."
-                className="w-full px-3 py-2 rounded-xl bg-white text-slate-900 font-bold text-xs placeholder:text-slate-400"
-              />
-              <button
-                type="submit"
-                disabled={saving || !wizardName.trim()}
-                className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shrink-0 disabled:opacity-40 cursor-pointer"
-              >
-                {saving ? "..." : "+ Ajouter"}
-              </button>
+          {/* Source Name Input or Batch Range */}
+          {!isBatchYearMode ? (
+            <div>
+              <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">Nom de la source * :</label>
+              <div className="flex gap-1.5">
+                <input
+                  type="text"
+                  value={wizardName}
+                  onChange={(e) => setWizardName(e.target.value)}
+                  placeholder="Ex: Externat, SIAU..."
+                  className="w-full px-3 py-2 rounded-xl bg-white text-slate-900 font-bold text-xs placeholder:text-slate-400"
+                />
+                <button
+                  type="submit"
+                  disabled={saving || !wizardName.trim()}
+                  className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shrink-0 disabled:opacity-40 cursor-pointer"
+                >
+                  {saving ? "..." : "+ Ajouter"}
+                </button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div>
+              <label className="block text-[10px] font-bold uppercase text-white/80 mb-1">Source Parente & Années :</label>
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="text"
+                  value={wizardName}
+                  onChange={(e) => setWizardName(e.target.value)}
+                  placeholder="Externat"
+                  className="w-1/2 px-2.5 py-2 rounded-xl bg-white text-slate-900 font-bold text-xs placeholder:text-slate-400"
+                />
+                <select
+                  value={startYearGen}
+                  onChange={e => setStartYearGen(Number(e.target.value))}
+                  className="w-1/4 px-1.5 py-2 rounded-xl bg-white/20 text-white font-bold text-[11px]"
+                >
+                  {[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022].map(y => (
+                    <option key={y} value={y} className="text-slate-900">{y}</option>
+                  ))}
+                </select>
+                <span className="text-xs font-bold">à</span>
+                <select
+                  value={endYearGen}
+                  onChange={e => setEndYearGen(Number(e.target.value))}
+                  className="w-1/4 px-1.5 py-2 rounded-xl bg-white/20 text-white font-bold text-[11px]"
+                >
+                  {[2021, 2022, 2023, 2024, 2025, 2026].map(y => (
+                    <option key={y} value={y} className="text-slate-900">{y}</option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={handleBatchGenerateYears}
+                  disabled={saving}
+                  className="px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shrink-0 disabled:opacity-40 cursor-pointer"
+                >
+                  {saving ? "..." : "⚡ Générer"}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </form>
 
