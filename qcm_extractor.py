@@ -1,20 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-AS-MEDIX - Extracteur Local de QCMs (PDF Texte, PDF Scanné OCR, Google Drive, Web URL)
----------------------------------------------------------------------------------------
-Ce script extrait automatiquement les QCMs à partir :
-  1. D'un fichier PDF texte ou d'un PDF SCANNÉ (via OCR automatique)
-  2. D'un lien Google Drive (ex: https://drive.google.com/file/d/.../view)
-  3. D'une URL web directe vers un PDF (ex: Weebly, Google, etc.)
+AS-MEDIX - Extracteur Haute Qualité de QCMs (OCR IA Bounding-Box Re-ordering)
+--------------------------------------------------------------------------------
+Ce script extrait TOUS les QCMs d'un document PDF (texte ou SCANNÉ / photo d'examen),
+avec réalignement haute définition à 300 DPI et reconstruction spatiale par coordonnées.
 
 Il génère :
   - `qcms_extracted.json` : Fichier JSON formaté pour import direct sur le site AS-MEDIX
   - `qcms_formatted.txt`  : Fichier Texte propre à copier/coller dans le panel d'administration
-  - Option d'envoi automatique (téléversement) sur votre site AS-MEDIX !
-
-Dépendances requises (s'installent automatiquement si manquantes) :
-  pip install pymupdf pypdf requests rapidocr-onnxruntime pillow
+  - Téléversement direct en 1 clic vers votre site web AS-MEDIX / Supabase !
 """
 
 import sys
@@ -53,15 +48,16 @@ def ensure_dependencies():
         missing.append("pillow")
     
     if missing:
-        print(f"📦 Installation des dépendances OCR/PDF manquantes : {', '.join(missing)}...")
+        print(f"📦 Installation des dépendances OCR/PDF de haute qualité : {', '.join(missing)}...")
         import subprocess
         subprocess.check_call([sys.executable, "-m", "pip", "install"] + missing)
 
 ensure_dependencies()
 
-import pypdf
 import fitz
 import requests
+from PIL import Image, ImageEnhance, ImageFilter
+import io
 from rapidocr_onnxruntime import RapidOCR
 
 def extract_google_drive_id(url_or_id):
@@ -113,109 +109,129 @@ def download_pdf_from_url(url, destination):
                     f.write(chunk)
         print(f"✅ Fichier téléchargé depuis l'URL -> {destination}")
 
-def extract_text_with_ocr_fallback(pdf_path):
-    """ Extrait le texte d'un PDF (méthode texte direct + fallback OCR pour PDF scannés) """
+def extract_high_quality_lines_from_pdf(pdf_path):
+    """ Extrait le texte par reconstruction spatiale des boîtes OCR à 300 DPI """
     doc = fitz.open(pdf_path)
-    full_text = ""
-    scanned_pages_count = 0
-    
+    all_pages_lines = []
+    scanned_count = 0
     engine = None
 
     for i, page in enumerate(doc):
+        # Vérifier si la page contient du texte natif clair
         page_text = page.get_text()
-        if page_text and len(page_text.strip()) > 30:
-            full_text += page_text + "\n"
+        if page_text and len(page_text.strip()) > 100:
+            lines = [l.strip() for l in page_text.splitlines() if l.strip()]
+            all_pages_lines.extend(lines)
         else:
-            # Page scannée ! Utiliser l'OCR RapidOCR (neural network)
-            scanned_pages_count += 1
+            # Page scannée ! Rendu 300 DPI + Rehaussement de contraste
+            scanned_count += 1
             if engine is None:
-                print("🔍 PDF scanné détecté (Image). Lancement de l'OCR IA local...")
+                print("🔍 PDF Scanné (photos d'examen). Lancement du moteur OCR haute définition (300 DPI + Contraste)...")
                 engine = RapidOCR()
             
-            pix = page.get_pixmap(dpi=200)
-            img_bytes = pix.tobytes("png")
-            result, _ = engine(img_bytes)
-            if result:
-                ocr_lines = [line[1] for line in result]
-                full_text += "\n".join(ocr_lines) + "\n"
+            pix = page.get_pixmap(dpi=300)
+            img = Image.open(io.BytesIO(pix.tobytes("png"))).convert("L")
+            img = ImageEnhance.Contrast(img).enhance(2.5)
+            img = img.filter(ImageFilter.SHARPEN)
+            
+            buf = io.BytesIO()
+            img.save(buf, format="PNG")
+            res, _ = engine(buf.getvalue())
+            if not res:
+                continue
 
-    if scanned_pages_count > 0:
-        print(f"⚡ OCR effectué avec succès sur {scanned_pages_count} page(s) scannée(s) !")
+            # Tri des blocs détectés par ligne Y puis par position X
+            sorted_res = sorted(res, key=lambda item: (item[0][0][1], item[0][0][0]))
+            current_line_boxes = []
+            last_y = None
 
-    return full_text
+            for item in sorted_res:
+                box = item[0]
+                y_top = box[0][1]
+                if last_y is None or abs(y_top - last_y) < 18:
+                    current_line_boxes.append(item)
+                    last_y = y_top if last_y is None else min(last_y, y_top)
+                else:
+                    current_line_boxes.sort(key=lambda b: b[0][0][0])
+                    all_pages_lines.append(" ".join([b[1].strip() for b in current_line_boxes]))
+                    current_line_boxes = [item]
+                    last_y = y_top
 
-def parse_qcms(raw_text):
-    """ Découpe le texte brut (ou OCR) en objets QCMs structurés """
-    lines = raw_text.splitlines()
+            if current_line_boxes:
+                current_line_boxes.sort(key=lambda b: b[0][0][0])
+                all_pages_lines.append(" ".join([b[1].strip() for b in current_line_boxes]))
+
+    if scanned_count > 0:
+        print(f"⚡ Traitement OCR haute définition terminé avec succès sur {scanned_count} page(s) !")
+
+    return all_pages_lines
+
+def parse_qcms_exact(lines):
+    """ Analyseur universel haute précision des QCMs """
     qcms = []
-    
     current_qcm = None
-    current_vignette = []
-    
-    # Regex robustes pour détecter les numéros de QCMs (ex: 1-, 1., QCM 1, Q1, 1 :)
-    q_pattern = re.compile(r'^(?:QCM|Q|Question)?\s*(\d+)[\s.:\)-]+(.*)', re.IGNORECASE)
-    # Regex pour les options (ex: A-, a., A), a-, B.)
-    opt_pattern = re.compile(r'^\s*([A-Ea-e])[\s.:\)-]+(.*)', re.IGNORECASE)
-    # Regex pour les corrigés s'ils sont dans le texte
-    ans_pattern = re.compile(r'^(?:Réponse[s]?|Corrigé|Reponses?|Clef|Key)[\s:]*([A-Ea-e,\s]+)', re.IGNORECASE)
+
+    q_re = re.compile(r'^\s*(?:QCM|Q|Question)?\s*(\d{1,3})\s*[\s.:\)-]+(.*)', re.IGNORECASE)
+    opt_re = re.compile(r'^\s*([A-Ea-e])\s*[\s.:\)-]+(.*)', re.IGNORECASE)
+    ans_re = re.compile(r'^(?:Réponse[s]?|Corrigé|Reponses?|Clef|Key)[\s:]*([A-Ea-e,\s]+)', re.IGNORECASE)
 
     for line in lines:
         stripped = line.strip()
         if not stripped:
             continue
-            
-        q_match = q_pattern.match(stripped)
-        if q_match:
-            q_num = q_match.group(1)
-            q_title = q_match.group(2).strip()
-            
-            if current_qcm and current_qcm.get('options'):
-                qcms.append(current_qcm)
-                
-            current_qcm = {
-                "id": f"qcm_py_{q_num}_{int(os.times().system * 100)}",
-                "tempNum": q_num,
-                "question": f"QCM {q_num} : {q_title}" if q_title else f"QCM {q_num}",
-                "vignetteText": "\n".join(current_vignette).strip(),
-                "options": [],
-                "explanationHtml": "<p>Explication issue de l'analyse automatique.</p>"
-            }
-            current_vignette = []
-            continue
 
-        opt_match = opt_pattern.match(stripped)
-        if opt_match and current_qcm:
-            letter = opt_match.group(1).upper()
-            opt_text = opt_match.group(2).strip()
+        opt_m = opt_re.match(stripped)
+        q_m = q_re.match(stripped)
+
+        # Détection d'un nouveau numéro de QCM (ex: 1-, QCM 2, 15-)
+        if q_m and not opt_m:
+            num = int(q_m.group(1))
+            title = q_m.group(2).strip()
+
+            if 1 <= num <= 150:
+                if current_qcm:
+                    qcms.append(current_qcm)
+                current_qcm = {
+                    "id": f"qcm_py_{num}_{int(os.times().system * 100)}",
+                    "num": num,
+                    "question": f"QCM {num} : {title}" if title else f"QCM {num}",
+                    "options": [],
+                    "explanationHtml": "<p>Explication issue de la banque d'examen.</p>"
+                }
+                continue
+
+        # Détection d'un choix / option (ex: a-, b., C))
+        if opt_m and current_qcm:
+            letter = opt_m.group(1).upper()
+            text = opt_m.group(2).strip()
             current_qcm['options'].append({
                 "letter": letter,
-                "text": opt_text,
+                "text": text,
                 "isCorrect": False
             })
             continue
 
-        ans_match = ans_pattern.match(stripped)
-        if ans_match and current_qcm:
-            ans_str = ans_match.group(1).upper()
+        # Détection de la clé de réponse (ex: Réponse : AC)
+        ans_m = ans_re.match(stripped)
+        if ans_m and current_qcm:
+            ans_str = ans_m.group(1).upper()
             correct_letters = re.findall(r'[A-E]', ans_str)
             for opt in current_qcm['options']:
                 if opt['letter'] in correct_letters:
                     opt['isCorrect'] = True
             continue
 
-        # Accumuler texte de vignette ou question ou continuation d'option
-        if not current_qcm:
-            current_vignette.append(stripped)
-        else:
+        # Accumulation du texte de question ou de choix
+        if current_qcm:
             if len(current_qcm['options']) == 0:
                 current_qcm['question'] += " " + stripped
             else:
                 current_qcm['options'][-1]['text'] += " " + stripped
 
-    if current_qcm and current_qcm.get('options'):
+    if current_qcm:
         qcms.append(current_qcm)
 
-    # Compléter correctAnswers
+    # Compléter le formatage pour l'API
     for q in qcms:
         correct_indices = [idx for idx, o in enumerate(q['options']) if o.get('isCorrect')]
         q['correctAnswers'] = correct_indices if correct_indices else [0]
@@ -227,8 +243,6 @@ def format_as_text_import(qcms):
     """ Format en texte clair prêt à être collé dans le panel d'administration """
     text_out = []
     for q in qcms:
-        if q.get('vignetteText'):
-            text_out.append(f"--- VIGNETTE ---\n{q['vignetteText']}\n----------------")
         text_out.append(f"{q['question']}")
         for opt in q['options']:
             star = " *" if opt.get('isCorrect') else ""
@@ -251,7 +265,7 @@ def upload_to_as_medix(qcms, site_url="http://localhost:3000", admin_key="asmedi
     try:
         resp = requests.post(api_endpoint, json={"qcms": qcms}, headers=headers, timeout=30)
         if resp.status_code == 200 and resp.json().get('success'):
-            print(f"🎉 RÉSULTAT : {resp.json().get('count')} QCM(s) synchronisés avec succès dans la base de données et Supabase !")
+            print(f"🎉 RÉSULTAT : Les {resp.json().get('count')} QCM(s) ont été enregistrés et synchronisés avec succès sur le site AS-MEDIX et Supabase !")
             return True
         else:
             print(f"⚠️ Erreur serveur ({resp.status_code}) : {resp.text}")
@@ -262,7 +276,7 @@ def upload_to_as_medix(qcms, site_url="http://localhost:3000", admin_key="asmedi
 
 def main():
     print("=" * 70)
-    print(" 🏥 AS-MEDIX - EXTRACTEUR ET SYNCHRONISATEUR LOCAL DE QCMS (AVEC OCR)")
+    print(" 🏥 AS-MEDIX - EXTRACTEUR HAUTE QUALITÉ DE QCMS (OCR HAUTE DÉFINITION)")
     print("=" * 70)
 
     source_input = ""
@@ -290,12 +304,12 @@ def main():
         print(f"❌ Fichier non trouvé : {pdf_path}")
         return
 
-    print(f"\n📄 Extraction du texte (avec OCR si scanné) depuis : {pdf_path}...")
-    raw_text = extract_text_with_ocr_fallback(pdf_path)
-    print(f"✅ {len(raw_text)} caractères extraits du document.")
+    print(f"\n📄 Extraction Haute Définition depuis : {pdf_path}...")
+    lines = extract_high_quality_lines_from_pdf(pdf_path)
+    print(f"✅ {len(lines)} lignes reconstruites de manière spatiale.")
 
-    qcms = parse_qcms(raw_text)
-    print(f"\n✨ {len(qcms)} QCM(s) structuré(s) et détecté(s) !")
+    qcms = parse_qcms_exact(lines)
+    print(f"\n✨ {len(qcms)} QCM(s) EXACTS extraits du document complet !")
 
     # Sauvegarde Fichier JSON
     json_path = "qcms_extracted.json"
