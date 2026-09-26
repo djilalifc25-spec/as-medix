@@ -21,12 +21,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     const saved = localStorage.getItem('asmedix_theme') as Theme;
-    if (saved === 'dark' || saved === 'light') {
-      setThemeState(saved);
-      document.documentElement.classList.toggle('dark', saved === 'dark');
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (saved === 'dark') {
       setThemeState('dark');
       document.documentElement.classList.add('dark');
+    } else {
+      setThemeState('light');
+      document.documentElement.classList.remove('dark');
     }
   }, []);
 
