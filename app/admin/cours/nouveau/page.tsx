@@ -46,6 +46,7 @@ function CourseEditorContent() {
 
   // Editor Display Mode: 'code' | 'split' | 'preview'
   const [viewMode, setViewMode] = useState<'code' | 'split' | 'preview'>('split');
+  const [convertMode, setConvertMode] = useState<'THEME' | 'RAW'>('THEME');
   const [uploadingFile, setUploadingFile] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const coverFileInputRef = useRef<HTMLInputElement>(null);
@@ -231,8 +232,10 @@ function CourseEditorContent() {
     setSuccessNotice(null);
     setErrorMessage(null);
 
-    const formattedHtml = autoFormatCourseHtml(htmlContent);
-    setHtmlContent(formattedHtml);
+    const finalHtml = convertMode === 'THEME' ? autoFormatCourseHtml(htmlContent) : htmlContent;
+    if (convertMode === 'THEME') {
+      setHtmlContent(finalHtml);
+    }
 
     const spec = specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId);
     const computedSlug = currentSlug || title
@@ -263,7 +266,7 @@ function CourseEditorContent() {
         accessLevel,
         tags,
         published: publishNow,
-        htmlContent: formattedHtml,
+        htmlContent: finalHtml,
       };
 
       if (isEditMode) {
@@ -710,18 +713,56 @@ function CourseEditorContent() {
               </div>
             </div>
 
+            {/* Theme Conversion Choice Selector Bar */}
+            <div className="pt-2 border-t border-navy-100 dark:border-navy-800 flex items-center justify-between gap-2 flex-wrap text-xs">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-bold text-navy-700 dark:text-navy-300 text-[11px]">
+                  🎨 Rendu & Intégration Code :
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setConvertMode('THEME')}
+                  className={`px-3 py-1 rounded-lg font-bold text-[11px] transition-all flex items-center gap-1.5 ${
+                    convertMode === 'THEME'
+                      ? 'bg-brand-600 text-white shadow-sm'
+                      : 'bg-navy-50 dark:bg-navy-800 text-navy-600 dark:text-navy-300 border border-navy-200 dark:border-navy-700 hover:text-navy-950 dark:hover:text-white'
+                  }`}
+                  title="Applique automatiquement le thème AS MEDIX sur les balises brutes sans altérer le texte"
+                >
+                  <Sparkles className="w-3 h-3 text-amber-300" />
+                  <span>✨ Thème Officiel (Auto-Format 0 Perte)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setConvertMode('RAW')}
+                  className={`px-3 py-1 rounded-lg font-bold text-[11px] transition-all flex items-center gap-1.5 ${
+                    convertMode === 'RAW'
+                      ? 'bg-navy-900 text-white dark:bg-white dark:text-navy-900 shadow-sm'
+                      : 'bg-navy-50 dark:bg-navy-800 text-navy-600 dark:text-navy-300 border border-navy-200 dark:border-navy-700 hover:text-navy-950 dark:hover:text-white'
+                  }`}
+                  title="Conserve le code HTML/CSS brut exactement tel quel sans aucune modification"
+                >
+                  <Code className="w-3 h-3" />
+                  <span>📄 Code HTML/CSS Brut D'origine</span>
+                </button>
+              </div>
+
+              {convertMode === 'THEME' && (
+                <button
+                  type="button"
+                  onClick={handleAutoFormat}
+                  className="px-2.5 py-1 rounded-lg text-[11px] font-black bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white shadow-xs flex items-center gap-1 transition-all"
+                  title="Convertir immédiatement le code actuel vers le thème officiel sans supprimer ni ajouter d'information"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                  <span>Convertir Maintenant</span>
+                </button>
+              )}
+            </div>
+
             {/* Quick Insertion Toolbar */}
             <div className="pt-2 border-t border-navy-100 dark:border-navy-800 flex items-center gap-1.5 flex-wrap">
-              <button
-                type="button"
-                onClick={handleAutoFormat}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-black bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm flex items-center gap-1 transition-all mr-1"
-                title="Convertir n'importe quel code HTML brut au design officiel AS MEDIX sans supprimer aucune information"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-                <span>✨ Auto-Design HTML (0 Perte)</span>
-              </button>
-
               <span className="text-[10px] font-bold text-navy-400 uppercase mr-1">Insérer :</span>
               
               <button
