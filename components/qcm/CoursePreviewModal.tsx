@@ -58,25 +58,25 @@ export function CoursePreviewModal({
     const callouts: ExtractedCallout[] = [];
     const html = course.htmlContent;
 
-    // Helper regex parser for class names
-    const regex = /<div\s+class=["']([^"']*)["'][^>]*>([\s\S]*?)<\/div>/gi;
+    // Helper regex parser for class names and raw text keywords
+    const regex = /<(div|blockquote|p)\s*([^>]*)>([\s\S]*?)<\/\1>/gi;
     let match: RegExpExecArray | null;
 
     while ((match = regex.exec(html)) !== null) {
-      const cls = match[1].toLowerCase();
-      const rawText = match[2].replace(/<[^>]*>?/gm, '').trim();
+      const attrs = match[2].toLowerCase();
+      const rawText = match[3].replace(/<[^>]*>?/gm, '').trim();
 
-      if (!rawText) continue;
+      if (!rawText || rawText.length < 5) continue;
 
-      if (cls.includes('piege') || cls.includes('warning')) {
+      if (attrs.includes('piege') || attrs.includes('warning') || rawText.includes('⚠️') || rawText.toLowerCase().includes('piège')) {
         callouts.push({ type: 'piege', title: '⚠️ Piège de Concours & Diagnostic Différentiel', content: rawText });
-      } else if (cls.includes('urgence') || cls.includes('danger')) {
+      } else if (attrs.includes('urgence') || attrs.includes('danger') || rawText.includes('🚨') || rawText.toLowerCase().includes('urgence')) {
         callouts.push({ type: 'urgence', title: '🚨 Urgence Médicale H24', content: rawText });
-      } else if (cls.includes('traitement')) {
+      } else if (attrs.includes('traitement') || rawText.includes('💊') || rawText.toLowerCase().includes('traitement')) {
         callouts.push({ type: 'traitement', title: '💊 Stratégie Thérapeutique', content: rawText });
-      } else if (cls.includes('rappel')) {
+      } else if (attrs.includes('rappel') || rawText.includes('📌') || rawText.toLowerCase().includes('rappel')) {
         callouts.push({ type: 'rappel', title: '📌 Rappel Anatomoclinique', content: rawText });
-      } else if (cls.includes('note') || cls.includes('point-cle')) {
+      } else if (attrs.includes('note') || attrs.includes('point-cle') || rawText.includes('💡') || rawText.includes('⭐') || rawText.toLowerCase().includes('perle')) {
         callouts.push({ type: 'note', title: '💡 Note de Synthèse', content: rawText });
       }
     }

@@ -624,3 +624,69 @@ body.modal-open .mobile-bottom-nav { bottom:-120px !important; opacity:0 !import
   font-style: italic !important;
 }
 
+/* ── AUTOMATIC PRESENTATION FORMATTING FOR RAW UNSTYLED HTML ── */
+.prose table {
+  width: 100% !important;
+  margin: 1.5rem 0 !important;
+  border-collapse: collapse !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+.dark .prose table {
+  border-color: rgba(51, 65, 85, 0.8) !important;
+}
+
+.prose th {
+  padding: 0.75rem 1rem !important;
+  background-color: rgba(241, 245, 249, 0.9) !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #0F172A !important;
+}
+.dark .prose th {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+
+.prose td {
+  padding: 0.75rem 1rem !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #334155 !important;
+}
+.dark .prose td {
+  border-color: #334155 !important;
+  color: #CBD5E1 !important;
+}
+
+.prose img {
+  border-radius: 16px !important;
+  max-width: 100% !important;
+  margin: 1.5rem auto !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+}
+
+.prose details {
+  background-color: rgba(248, 250, 252, 0.8) !important;
+  padding: 1rem 1.25rem !important;
+  border-radius: 16px !important;
+  border: 1px solid #E2E8F0 !important;
+  margin: 1.5rem 0 !important;
+}
+.dark .prose details {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  border-color: #334155 !important;
+}
+
+.prose summary {
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  color: #5D5FEF !important;
+}
+.dark .prose summary {
+  color: #818CF8 !important;
+}
+
+

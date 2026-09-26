@@ -11,6 +11,7 @@ import {
   Columns, ExternalLink, Loader2, CheckCircle2, FileText, PlusCircle,
   Stethoscope, ShieldAlert, Pill, Table, List, BookmarkCheck, Upload, Image as ImageIcon, School
 } from 'lucide-react';
+import { autoFormatCourseHtml } from '@/lib/autoHtmlFormatter';
 
 function CourseEditorContent() {
   const router = useRouter();
@@ -214,6 +215,12 @@ function CourseEditorContent() {
     }, 50);
   };
 
+  const handleAutoFormat = () => {
+    const formatted = autoFormatCourseHtml(htmlContent);
+    setHtmlContent(formatted);
+    setSuccessNotice("✨ Code HTML mis en forme automatiquement avec le design AS MEDIX (0 perte de texte) !");
+  };
+
   const handleSave = async (publishNow: boolean) => {
     if (!title.trim()) {
       alert('Veuillez renseigner le titre du cours.');
@@ -223,6 +230,9 @@ function CourseEditorContent() {
     setSaving(true);
     setSuccessNotice(null);
     setErrorMessage(null);
+
+    const formattedHtml = autoFormatCourseHtml(htmlContent);
+    setHtmlContent(formattedHtml);
 
     const spec = specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId);
     const computedSlug = currentSlug || title
@@ -253,7 +263,7 @@ function CourseEditorContent() {
         accessLevel,
         tags,
         published: publishNow,
-        htmlContent,
+        htmlContent: formattedHtml,
       };
 
       if (isEditMode) {
@@ -702,6 +712,16 @@ function CourseEditorContent() {
 
             {/* Quick Insertion Toolbar */}
             <div className="pt-2 border-t border-navy-100 dark:border-navy-800 flex items-center gap-1.5 flex-wrap">
+              <button
+                type="button"
+                onClick={handleAutoFormat}
+                className="px-2.5 py-1 rounded-lg text-[11px] font-black bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm flex items-center gap-1 transition-all mr-1"
+                title="Convertir n'importe quel code HTML brut au design officiel AS MEDIX sans supprimer aucune information"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                <span>✨ Auto-Design HTML (0 Perte)</span>
+              </button>
+
               <span className="text-[10px] font-bold text-navy-400 uppercase mr-1">Insérer :</span>
               
               <button
