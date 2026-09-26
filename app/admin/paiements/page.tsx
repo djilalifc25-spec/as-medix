@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   CreditCard, CheckCircle2, XCircle, Clock, Search, Filter, ShieldCheck,
-  Building2, Smartphone, DollarSign, UserCheck, RefreshCw, AlertCircle, Sparkles
+  Building2, Smartphone, DollarSign, UserCheck, RefreshCw, AlertCircle, Sparkles, Trash2
 } from 'lucide-react';
 import { PaymentRequest } from '@/types';
 
@@ -33,7 +33,8 @@ export default function AdminPaymentsPage() {
     fetchPayments();
   }, []);
 
-  const handleAction = async (requestId: string, action: 'approve' | 'reject') => {
+  const handleAction = async (requestId: string, action: 'approve' | 'reject' | 'delete') => {
+    if (action === 'delete' && !confirm('Supprimer définitivement cette demande de versement ?')) return;
     setProcessingId(requestId);
     try {
       const res = await fetch('/api/payment/request', {
@@ -45,7 +46,7 @@ export default function AdminPaymentsPage() {
       if (data.success) {
         fetchPayments();
       } else {
-        alert(data.error || 'Erreur lors de la validation.');
+        alert(data.error || 'Erreur lors de l\'opération.');
       }
     } catch (err) {
       console.error('Error handling payment action:', err);
@@ -254,26 +255,37 @@ export default function AdminPaymentsPage() {
                 </div>
 
                 {/* Actions */}
-                {req.status === 'PENDING' && (
-                  <div className="flex items-center gap-3 shrink-0">
-                    <button
-                      disabled={processingId === req.id}
-                      onClick={() => handleAction(req.id, 'reject')}
-                      className="px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 transition cursor-pointer"
-                    >
-                      Rejeter
-                    </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  {req.status === 'PENDING' && (
+                    <>
+                      <button
+                        disabled={processingId === req.id}
+                        onClick={() => handleAction(req.id, 'reject')}
+                        className="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 transition cursor-pointer"
+                      >
+                        Rejeter
+                      </button>
 
-                    <button
-                      disabled={processingId === req.id}
-                      onClick={() => handleAction(req.id, 'approve')}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition cursor-pointer"
-                    >
-                      <ShieldCheck className="w-4 h-4" />
-                      <span>Approuver & Activer {req.requestedPlan}</span>
-                    </button>
-                  </div>
-                )}
+                      <button
+                        disabled={processingId === req.id}
+                        onClick={() => handleAction(req.id, 'approve')}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition cursor-pointer"
+                      >
+                        <ShieldCheck className="w-4 h-4" />
+                        <span>Approuver & Activer {req.requestedPlan}</span>
+                      </button>
+                    </>
+                  )}
+
+                  <button
+                    disabled={processingId === req.id}
+                    onClick={() => handleAction(req.id, 'delete')}
+                    className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition cursor-pointer"
+                    title="Supprimer la demande"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           ))

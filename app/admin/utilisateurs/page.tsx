@@ -55,6 +55,16 @@ export default function AdminUsersPage() {
     fetchUsersAndPayments();
   };
 
+  const handleDeletePayment = async (requestId: string) => {
+    if (!confirm('Voulez-vous vraiment supprimer définitivement cette demande de paiement ?')) return;
+    await fetch('/api/admin/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete_payment', requestId })
+    });
+    fetchUsersAndPayments();
+  };
+
   const handleUpdatePlan = async (id: string, newPlan: PlanType) => {
     await fetch('/api/admin/users', {
       method: 'POST',
@@ -201,6 +211,15 @@ export default function AdminUsersPage() {
                   >
                     <XCircle className="w-4 h-4 inline mr-1" />
                     <span>Refuser</span>
+                  </button>
+
+                  <button
+                    onClick={() => handleDeletePayment(req.id)}
+                    className="px-3 py-2 rounded-xl text-xs font-bold text-slate-500 hover:text-rose-700 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-colors"
+                    title="Supprimer la demande"
+                  >
+                    <Trash2 className="w-4 h-4 inline mr-1" />
+                    <span>Supprimer</span>
                   </button>
                 </div>
               </div>

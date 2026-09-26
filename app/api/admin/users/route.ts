@@ -3,7 +3,7 @@ import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { syncUsersFromSupabase, updateUserInSupabaseCloud, deleteUserFromSupabaseCloud } from '@/lib/db/userSync';
-import { syncPaymentRequestsFromCloud } from '@/lib/db/paymentSync';
+import { syncPaymentRequestsFromCloud, updatePaymentRequestStatusInCloud, deletePaymentRequestFromCloud } from '@/lib/db/paymentSync';
 import { User } from '@/types';
 
 export async function GET() {
@@ -178,8 +178,11 @@ export async function POST(req: Request) {
 
     // MANUALLY AUTHORIZE PREMIUM ACCESS FOR STUDENT BY ADMIN
     if (action === 'approve_payment') {
-      const approved = db.approvePaymentRequest(requestId, currentUser.id);
-      const pr = db.getPaymentRequests().find(r => r.id === requestId);
+      const targetReqId = requestId || id;
+      const approved = db.approvePaymentRequest(targetReqId, currentUser.id);
+      await updatePaymentRequestStatusInCloud(targetReqId, 'APPROVED');
+
+      const pr = db.getPaymentRequests().find(r => r.id === targetReqId);
       if (pr) {
         const plan = pr.requestedPlan || 'PRO';
         await updateUserInSupabaseCloud(pr.userEmail, { plan });
@@ -220,8 +223,11 @@ export async function POST(req: Request) {
     }
 
     if (action === 'reject_payment') {
-      const rejected = db.rejectPaymentRequest(requestId);
-      const pr = db.getPaymentRequests().find(r => r.id === requestId);
+      const targetReqId = requestId || id;
+      const rejected = db.rejectPaymentRequest(targetReqId);
+      await updatePaymentRequestStatusInCloud(targetReqId, 'REJECTED');
+
+      const pr = db.getPaymentRequests().find(r => r.id === targetReqId);
       if (pr) {
         db.addNotification({
           id: `notif_rej_${Date.now()}_${pr.userId.slice(0, 6)}`,
@@ -235,6 +241,13 @@ export async function POST(req: Request) {
         });
       }
       return NextResponse.json({ success: rejected });
+    }
+
+    if (action === 'delete_payment') {
+      const targetReqId = requestId || id;
+      db.deletePaymentRequest(targetReqId);
+      await deletePaymentRequestFromCloud(targetReqId);
+      return NextResponse.json({ success: true, message: 'Demande de paiement supprimée avec succès.' });
     }
 
     return NextResponse.json({ error: 'Action non reconnue' }, { status: 400 });

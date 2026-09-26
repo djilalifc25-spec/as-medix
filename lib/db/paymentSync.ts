@@ -80,3 +80,29 @@ export async function updatePaymentRequestStatusInCloud(requestId: string, statu
     console.error('[updatePaymentRequestStatusInCloud Error]:', err?.message || err);
   }
 }
+
+export async function deletePaymentRequestFromCloud(requestId: string): Promise<void> {
+  try {
+    const { data: rows } = await supabase
+      .from('password_resets')
+      .select('*')
+      .eq('code', 'PAYMENT_REQUEST_SYNC_V1')
+      .eq('used', false);
+
+    if (rows && rows.length > 0) {
+      for (const row of rows) {
+        try {
+          const current: PaymentRequest = JSON.parse(row.token);
+          if (current.id === requestId || current.transactionRef === requestId) {
+            await supabase
+              .from('password_resets')
+              .update({ used: true })
+              .eq('id', row.id);
+          }
+        } catch {}
+      }
+    }
+  } catch (err: any) {
+    console.error('[deletePaymentRequestFromCloud Error]:', err?.message || err);
+  }
+}

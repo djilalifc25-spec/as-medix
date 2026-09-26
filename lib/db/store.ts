@@ -1068,6 +1068,17 @@ class DatabaseStore {
     return true;
   }
 
+  public deletePaymentRequest(requestId: string): boolean {
+    if (!this.data.paymentRequests) return false;
+    const prev = this.data.paymentRequests.length;
+    this.data.paymentRequests = this.data.paymentRequests.filter(r => r.id !== requestId && r.transactionRef !== requestId);
+    if (this.data.paymentRequests.length !== prev) {
+      this.save();
+      return true;
+    }
+    return false;
+  }
+
   // --- USER MESSAGES & ADMIN INBOX ---
   public getUserMessages(): UserMessage[] {
     return this.data.userMessages || [];

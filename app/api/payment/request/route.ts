@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
-import { syncPaymentRequestsFromCloud, savePaymentRequestToCloud, updatePaymentRequestStatusInCloud } from '@/lib/db/paymentSync';
+import { syncPaymentRequestsFromCloud, savePaymentRequestToCloud, updatePaymentRequestStatusInCloud, deletePaymentRequestFromCloud } from '@/lib/db/paymentSync';
 
 export async function GET(req: Request) {
   try {
@@ -192,6 +192,16 @@ export async function PATCH(req: Request) {
       }
 
       return NextResponse.json({ success: true, message: 'Demande rejetée.' });
+    } else if (action === 'delete') {
+      const pr = db.getPaymentRequests().find(r => r.id === requestId);
+      db.deletePaymentRequest(requestId);
+      await deletePaymentRequestFromCloud(requestId);
+      if (pr?.transactionRef) {
+        try {
+          await supabaseAdmin.from('payment_requests').delete().eq('transaction_id', pr.transactionRef);
+        } catch (_) {}
+      }
+      return NextResponse.json({ success: true, message: 'Demande supprimée avec succès.' });
     }
 
     return NextResponse.json({ error: 'Action invalide' }, { status: 400 });
