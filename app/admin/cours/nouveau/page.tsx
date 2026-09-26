@@ -650,8 +650,8 @@ function CourseEditorContent() {
 
         {/* Right Column: Content Editor & Real-Time Preview (8 cols) */}
         <div className="lg:col-span-8 space-y-4">
-          {/* View Mode Bar + Medical Snippets */}
-          <div className="p-3 rounded-2xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft space-y-3">
+          {/* View Mode Bar + Medical Snippets (Sticky Toolbar) */}
+          <div className="sticky top-14 z-30 p-3 rounded-2xl bg-white/95 dark:bg-navy-900/95 backdrop-blur-md border border-navy-100 dark:border-navy-800 shadow-md space-y-3 transition-all">
             <div className="flex items-center justify-between flex-wrap gap-2">
               {/* Mode Toggles */}
               <div className="flex items-center gap-1.5 p-1 rounded-xl bg-navy-100/70 dark:bg-navy-800 border border-navy-200 dark:border-navy-800">
@@ -696,7 +696,7 @@ function CourseEditorContent() {
               </div>
 
               <div className="text-[11px] text-navy-400 font-medium">
-                {viewMode === 'split' ? '⚡ Prévisualisation instantanée à droite' : 'HTML Médical standard'}
+                {viewMode === 'split' ? '⚡ Toolbar Fixée • Aperçu instantané à droite' : '⚡ Toolbar Fixée au Défilement'}
               </div>
             </div>
 
@@ -722,26 +722,66 @@ function CourseEditorContent() {
 
               <button
                 type="button"
-                onClick={() => insertSnippet('\n<div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4">\n  💡 <strong>Perle Clinique :</strong> Point clé essentiel pour le concours ECNi/Résidanat.\n</div>\n')}
+                onClick={() => insertSnippet('\n<div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4">\n  💡 <strong>Note / Perle Clinique :</strong> Règle sémiologique ou mnémotechnique essentielle.\n</div>\n')}
                 className="px-2 py-1 rounded-lg text-[11px] font-bold bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800"
               >
-                💡 Perle Clinique
+                💡 Note / Perle
               </button>
 
               <button
                 type="button"
-                onClick={() => insertSnippet('\n<div class="p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4">\n  🚨 <strong>Alerte Urgence :</strong> Signes de gravité vitale nécessitant une prise en charge urgente.\n</div>\n')}
+                onClick={() => insertSnippet('\n<div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4">\n  📌 <strong>Rappel :</strong> Rappel physiopathologique ou prérequis de 3ème année.\n</div>\n')}
+                className="px-2 py-1 rounded-lg text-[11px] font-bold bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+              >
+                📌 Rappel
+              </button>
+
+              <button
+                type="button"
+                onClick={() => insertSnippet('\n<div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4">\n  ⚠️ <strong>Piège Concours :</strong> Attention à la confusion fréquente dans les propositions QCM !\n</div>\n')}
+                className="px-2 py-1 rounded-lg text-[11px] font-bold bg-orange-50 hover:bg-orange-100 dark:bg-orange-950/40 text-orange-800 dark:text-orange-300 border border-orange-200 dark:border-orange-800"
+              >
+                ⚠️ Piège
+              </button>
+
+              <button
+                type="button"
+                onClick={() => insertSnippet('\n<div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4">\n  🚨 <strong>Alerte Urgence :</strong> Signes de gravité nécessitant une conduite à tenir immédiate.\n</div>\n')}
                 className="px-2 py-1 rounded-lg text-[11px] font-bold bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800"
               >
-                🚨 Alerte Rouge
+                🚨 Urgence
               </button>
 
               <button
                 type="button"
-                onClick={() => insertSnippet('\n<div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4">\n  💊 <strong>Traitement :</strong> Posologie et molécules de première intention.\n</div>\n')}
+                onClick={() => insertSnippet('\n<div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4">\n  💊 <strong>Traitement :</strong> Posologies, contre-indications et durée du traitement.\n</div>\n')}
                 className="px-2 py-1 rounded-lg text-[11px] font-bold bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
               >
                 💊 Traitement
+              </button>
+
+              <button
+                type="button"
+                onClick={() => insertSnippet('\n<div class="point-cle p-4 rounded-2xl bg-sky-50/70 border border-sky-200 dark:bg-sky-950/30 text-xs sm:text-sm text-sky-900 dark:text-sky-200 my-4">\n  ⭐ <strong>Point Clé :</strong> Synthèse incontournable du chapitre.\n</div>\n')}
+                className="px-2 py-1 rounded-lg text-[11px] font-bold bg-sky-50 hover:bg-sky-100 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
+              >
+                ⭐ Point Clé
+              </button>
+
+              <button
+                type="button"
+                onClick={() => insertSnippet('\n<button onclick="if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen()}" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 my-4">\n  🖥️ Basculer en Plein Écran\n</button>\n')}
+                className="px-2 py-1 rounded-lg text-[11px] font-bold bg-brand-50 hover:bg-brand-100 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800"
+              >
+                🖥️ Bouton Plein Écran
+              </button>
+
+              <button
+                type="button"
+                onClick={() => insertSnippet('\n<div class="qcm-interactive-card p-5 my-6 rounded-2xl bg-navy-900 text-white border border-navy-700 shadow-lg">\n  <div class="flex items-center justify-between mb-3">\n    <span class="text-xs font-black uppercase tracking-wider text-amber-400">❓ QCM Entraînement #1</span>\n    <span class="text-[10px] font-bold bg-navy-800 px-2 py-0.5 rounded text-navy-300">Externat Oran</span>\n  </div>\n  <p class="font-bold text-sm text-white mb-4">Quel est le traitement de première intention du syndrome coronaire aigu avec sus-décalage du segment ST à H2 ?</p>\n  <div class="space-y-2 text-xs mb-4">\n    <label class="flex items-center gap-3 p-2.5 rounded-xl bg-navy-800/80 border border-navy-700 hover:bg-navy-750 cursor-pointer transition-all">\n      <input type="checkbox" class="w-4 h-4 rounded text-brand-500" />\n      <span>A. Angioplastie coronaire transluminale primaire</span>\n    </label>\n    <label class="flex items-center gap-3 p-2.5 rounded-xl bg-navy-800/80 border border-navy-700 hover:bg-navy-750 cursor-pointer transition-all">\n      <input type="checkbox" class="w-4 h-4 rounded text-brand-500" />\n      <span>B. Fibrinolyse IV aux urgences</span>\n    </label>\n    <label class="flex items-center gap-3 p-2.5 rounded-xl bg-navy-800/80 border border-navy-700 hover:bg-navy-750 cursor-pointer transition-all">\n      <input type="checkbox" class="w-4 h-4 rounded text-brand-500" />\n      <span>C. Traitement médical seul par Aspirine + Clopidogrel</span>\n    </label>\n  </div>\n  <details class="text-xs bg-navy-950 p-3 rounded-xl border border-navy-800 text-emerald-400">\n    <summary class="font-bold cursor-pointer hover:underline text-white">Voir la réponse & explication</summary>\n    <p class="mt-2 text-navy-200"><strong>Réponse exacte : A.</strong> L\'angioplastie primaire est le traitement de choix si réalisable dans les 120 minutes suivant le premier contact médical.</p>\n  </details>\n</div>\n')}
+                className="px-2 py-1 rounded-lg text-[11px] font-bold bg-purple-50 hover:bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800"
+              >
+                ❓ QCM Intégré
               </button>
 
               <button
