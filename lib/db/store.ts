@@ -994,8 +994,16 @@ class DatabaseStore {
     return generated;
   }
 
-  // --- PAYMENT REQUESTS & ADMIN APPROVALS ---
   public getPaymentRequests(): PaymentRequest[] {
+    try {
+      if (fsModule && pathModule && DB_FILE_PATH && fsModule.existsSync(DB_FILE_PATH)) {
+        const fileContent = fsModule.readFileSync(DB_FILE_PATH, 'utf-8');
+        const parsed = JSON.parse(fileContent);
+        if (parsed.paymentRequests && Array.isArray(parsed.paymentRequests)) {
+          this.data.paymentRequests = parsed.paymentRequests;
+        }
+      }
+    } catch {}
     return this.data.paymentRequests || [];
   }
 
