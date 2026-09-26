@@ -6,24 +6,32 @@ import { QCM } from '@/types';
 
 async function syncQcmsToSupabase(qcms: QCM[]) {
   try {
-    const payload = qcms.map(qcm => ({
-      id: String(qcm.id),
-      specialty: String(qcm.specialtyId || 'cardio'),
-      specialty_id: String(qcm.specialtyId || 'cardio'),
-      specialty_name: String(qcm.specialtyName || 'Cardiologie'),
-      course_id: qcm.courseId ? String(qcm.courseId) : null,
-      course_title: qcm.courseTitle ? String(qcm.courseTitle) : null,
-      rang: qcm.rang ? String(qcm.rang) : 'Rang A',
-      title: String(qcm.question || qcm.title || 'Question'),
-      vignette: String(qcm.vignette || ''),
-      options: Array.isArray(qcm.options) ? qcm.options : [],
-      correct_answers: Array.isArray(qcm.correctAnswers) ? qcm.correctAnswers : [0],
-      explanation: String(qcm.explanation || ''),
-      year: qcm.year ? String(qcm.year) : null
-    }));
-    const { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
-    if (error) {
-      console.error('[Supabase Batch Sync] QCM upsert error:', error);
+    const map = new Map<string, any>();
+    qcms.forEach((qcm, index) => {
+      const safeId = String(qcm.id || `qcm_${Date.now()}_${index}_${Math.random().toString(36).substring(2, 6)}`);
+      map.set(safeId, {
+        id: safeId,
+        specialty: String(qcm.specialtyId || 'cardio'),
+        specialty_id: String(qcm.specialtyId || 'cardio'),
+        specialty_name: String(qcm.specialtyName || 'Cardiologie'),
+        course_id: qcm.courseId ? String(qcm.courseId) : null,
+        course_title: qcm.courseTitle ? String(qcm.courseTitle) : null,
+        rang: qcm.rang ? String(qcm.rang) : 'Rang A',
+        title: String(qcm.question || qcm.title || 'Question'),
+        vignette: String(qcm.vignette || ''),
+        options: Array.isArray(qcm.options) ? qcm.options : [],
+        correct_answers: Array.isArray(qcm.correctAnswers) ? qcm.correctAnswers : [0],
+        explanation: String(qcm.explanation || ''),
+        year: qcm.year ? String(qcm.year) : null
+      });
+    });
+
+    const payload = Array.from(map.values());
+    if (payload.length > 0) {
+      const { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
+      if (error) {
+        console.error('[Supabase Batch Sync] QCM upsert error:', error);
+      }
     }
   } catch (err) {
     console.error('[Supabase Batch Sync] QCM upsert exception:', err);

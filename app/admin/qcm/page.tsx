@@ -353,21 +353,71 @@ export default function AdminQcmPage() {
     }
   };
 
-  // Batch import all parsed QCMs
+  // Batch import all parsed QCMs (Single atomic batch request)
   const handleImportAllParsedQcms = async () => {
     if (parsedQcms.length === 0) return;
     setBatchSaving(true);
-    let count = 0;
+    setSuccessMsg('');
 
-    for (const item of [...parsedQcms]) {
-      try {
-        await handleImportSingleParsedQcm(item);
-        count++;
-      } catch (_) {}
+    try {
+      const qcmsToImport = parsedQcms.map(qcmItem => {
+        const itemSpecId = qcmItem.specialtyId || specialtyId;
+        const spec = specialtiesList.find(s => s.id === itemSpecId) || ALL_SPECIALTIES.find(s => s.id === itemSpecId);
+        const itemCourseId = qcmItem.courseId || courseId;
+        const crs = courses.find(c => c.id === itemCourseId);
+        const finalGlobalSource = source === '__other__' ? sourceOther : source;
+        const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
+        const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
+
+        const correctAnswers = qcmItem.options
+          .map((opt, idx) => opt.isCorrect ? idx : -1)
+          .filter(idx => idx !== -1);
+
+        return {
+          id: qcmItem.id || `qcm_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+          title: qcmItem.question.length > 80 ? qcmItem.question.substring(0, 80) + '...' : qcmItem.question,
+          year: itemYear,
+          specialtyId: itemSpecId,
+          specialtyName: spec ? spec.name : 'Cardiologie',
+          courseId: itemCourseId || undefined,
+          courseTitle: crs ? crs.title : undefined,
+          faculty: faculty || 'ORAN',
+          source: itemSource,
+          rang: 'Rang A',
+          difficulty: 'Moyen',
+          type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
+          vignette: qcmItem.vignetteText || '',
+          question: qcmItem.question,
+          options: qcmItem.options.map((opt, idx) => ({
+            id: `opt_${idx + 1}`,
+            letter: opt.letter,
+            text: opt.text
+          })),
+          correctAnswers: correctAnswers.length > 0 ? correctAnswers : [0],
+          explanation: qcmItem.explanationHtml || '<p>Explication clinique conforme.</p>',
+          reference: reference || "Faculté de Médecine d'Alger",
+        };
+      });
+
+      const res = await fetch('/api/admin/qcm/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ qcms: qcmsToImport })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setQcms(prev => [...(data.qcms || qcmsToImport), ...prev]);
+        setParsedQcms([]);
+        setSuccessMsg(`🚀 ${qcmsToImport.length} QCM(s) importés avec succès et sauvegardés définitivement dans Supabase !`);
+      } else {
+        alert(data.error || 'Erreur lors de l\'importation en lot.');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Erreur réseau lors de l\'importation.');
+    } finally {
+      setBatchSaving(false);
     }
-
-    setBatchSaving(false);
-    setSuccessMsg(`🚀 ${count} QCM(s) importés avec succès dans la Banque QCM et synchronisés avec Supabase !`);
   };
 
   // Modify option inside parsed QCM
