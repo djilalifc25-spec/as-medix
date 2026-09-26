@@ -16,6 +16,9 @@ export default function AdminQcmPage() {
   const [specialtiesList, setSpecialtiesList] = useState<Specialty[]>(ALL_SPECIALTIES);
   const [selectedSpecialtyFilter, setSelectedSpecialtyFilter] = useState<string>('all');
   const [selectedYearFilter, setSelectedYearFilter] = useState<string>('all');
+  const [selectedCourseFilter, setSelectedCourseFilter] = useState<string>('all');
+  const [selectedSourceFilter, setSelectedSourceFilter] = useState<string>('all');
+  const [searchQueryFilter, setSearchQueryFilter] = useState<string>('');
   const [showAddForm, setShowAddForm] = useState(false);
 
   // Form states (Manual mode)
@@ -444,14 +447,50 @@ export default function AdminQcmPage() {
   };
 
   const filteredCourses = courses.filter(c => c.specialtyId === specialtyId);
+  const filteredCoursesForFilter = selectedSpecialtyFilter !== 'all'
+    ? courses.filter(c => c.specialtyId === selectedSpecialtyFilter)
+    : courses;
+
+  const availableSources = Array.from(new Set([
+    ...scopeSources,
+    ...qcms.map(q => q.source?.trim()).filter(Boolean) as string[]
+  ]));
+
   const filteredQcms = qcms.filter(q => {
-    const matchYear = selectedYearFilter === 'all'
-      ? true
-      : selectedYearFilter === 'none'
-        ? !q.year
-        : q.year === Number(selectedYearFilter);
+    // 1. Determine effective year (from q.year or specialty.year)
+    const specObj = specialtiesList.find(s => s.id === q.specialtyId);
+    const effectiveYear = (q.year !== undefined && q.year !== null && (q.year as any) !== '')
+      ? Number(q.year)
+      : specObj?.year;
+
+    let matchYear = true;
+    if (selectedYearFilter !== 'all') {
+      if (selectedYearFilter === 'none') {
+        matchYear = !effectiveYear;
+      } else {
+        matchYear = Number(effectiveYear) === Number(selectedYearFilter);
+      }
+    }
+
+    // 2. Specialty / Module matching
     const matchSpec = selectedSpecialtyFilter === 'all' || q.specialtyId === selectedSpecialtyFilter;
-    return matchYear && matchSpec;
+
+    // 3. Course matching
+    const matchCourse = selectedCourseFilter === 'all' || q.courseId === selectedCourseFilter;
+
+    // 4. Source / Sous-source matching
+    const matchSource = selectedSourceFilter === 'all'
+      || (q.source && q.source.toLowerCase().includes(selectedSourceFilter.toLowerCase()));
+
+    // 5. Search query matching
+    const query = searchQueryFilter.trim().toLowerCase();
+    const matchQuery = !query
+      || (q.question && q.question.toLowerCase().includes(query))
+      || (q.title && q.title.toLowerCase().includes(query))
+      || (q.source && q.source.toLowerCase().includes(query))
+      || (q.courseTitle && q.courseTitle.toLowerCase().includes(query));
+
+    return matchYear && matchSpec && matchCourse && matchSource && matchQuery;
   });
 
   return (
@@ -1148,78 +1187,188 @@ export default function AdminQcmPage() {
       )}
 
       {/* Filter Bar for Existing QCM Bank */}
-      <div className="apple-card p-4 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3 flex-wrap text-xs font-bold">
-          <span className="flex items-center gap-1.5 text-navy-700 dark:text-navy-300">
+      <div className="apple-card p-5 space-y-4">
+        <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-navy-100 dark:border-navy-800">
+          <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-brand-600" />
-            Filtres Banque :
+            <span className="text-sm font-black text-navy-950 dark:text-white">
+              Filtres Multicritères Banque QCM :
+            </span>
+          </div>
+          <span className="text-xs font-bold text-brand-600 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
+            {filteredQcms.length} QCM(s) trouvé(s) sur {qcms.length}
           </span>
-
-          <select
-            value={selectedYearFilter}
-            onChange={e => setSelectedYearFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white"
-          >
-            <option value="all">Toutes les années</option>
-            {MEDICAL_YEARS.map(y => (
-              <option key={y.year} value={y.year}>{y.name}</option>
-            ))}
-          </select>
-
-          <select
-            value={selectedSpecialtyFilter}
-            onChange={e => setSelectedSpecialtyFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white"
-          >
-            <option value="all">Toutes les spécialités</option>
-            {specialtiesList.map(s => (
-              <option key={s.id} value={s.id}>{s.name}</option>
-            ))}
-          </select>
         </div>
 
-        <div className="text-xs font-bold text-navy-500">
-          {filteredQcms.length} QCM(s) en Banque
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs font-bold">
+          {/* 1. Year filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
+              🎓 Année d'Études :
+            </label>
+            <select
+              value={selectedYearFilter}
+              onChange={e => {
+                setSelectedYearFilter(e.target.value);
+                setSelectedSpecialtyFilter('all');
+                setSelectedCourseFilter('all');
+              }}
+              className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white font-bold"
+            >
+              <option value="all">🌐 Toutes les Années</option>
+              {MEDICAL_YEARS.map(y => (
+                <option key={y.year} value={y.year}>{y.name} ({y.cycle})</option>
+              ))}
+              <option value="none">🌐 Transversal / Sans année</option>
+            </select>
+          </div>
+
+          {/* 2. Specialty filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
+              🩺 Module / Spécialité :
+            </label>
+            <select
+              value={selectedSpecialtyFilter}
+              onChange={e => {
+                setSelectedSpecialtyFilter(e.target.value);
+                setSelectedCourseFilter('all');
+              }}
+              className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white font-bold"
+            >
+              <option value="all">🩺 Tous les Modules</option>
+              {specialtiesList
+                .filter(s => selectedYearFilter === 'all' || selectedYearFilter === 'none' || !s.year || s.year === Number(selectedYearFilter))
+                .map(s => (
+                  <option key={s.id} value={s.id}>{getSpecialtyEmoji(s.id)} {s.name}</option>
+                ))}
+            </select>
+          </div>
+
+          {/* 3. Course filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
+              📖 Cours Spécifique :
+            </label>
+            <select
+              value={selectedCourseFilter}
+              onChange={e => setSelectedCourseFilter(e.target.value)}
+              className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white font-bold"
+            >
+              <option value="all">📖 Tous les Cours</option>
+              {filteredCoursesForFilter.map(c => (
+                <option key={c.id} value={c.id}>{c.title}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* 4. Source & Sous-Source filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
+              📌 Source / Sous-Source :
+            </label>
+            <select
+              value={selectedSourceFilter}
+              onChange={e => setSelectedSourceFilter(e.target.value)}
+              className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white font-bold"
+            >
+              <option value="all">📌 Toutes les Sources</option>
+              {availableSources.map(src => (
+                <option key={src} value={src}>{src}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* 5. Keyword Search filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
+              🔍 Recherche Mot-Clé :
+            </label>
+            <input
+              type="text"
+              value={searchQueryFilter}
+              onChange={e => setSearchQueryFilter(e.target.value)}
+              placeholder="ex: Behçet, 2021, Oran..."
+              className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white font-bold placeholder:font-normal"
+            />
+          </div>
         </div>
       </div>
 
       {/* List of Existing QCMs */}
       <div className="space-y-4">
-        {filteredQcms.map((qcm) => (
-          <div key={qcm.id} className="apple-card p-6 space-y-4">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <span className="px-2.5 py-0.5 rounded-lg text-xs font-black bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 border border-brand-200/50">
-                    {getSpecialtyEmoji(qcm.specialtyId)} {qcm.specialtyName || qcm.specialtyId}
-                  </span>
-                  {qcm.courseTitle && (
-                    <span className="px-2 py-0.5 rounded-lg text-[11px] font-bold bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300">
-                      📖 {qcm.courseTitle}
-                    </span>
-                  )}
-                  <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300 border border-amber-200/50">
-                    🏛️ {qcm.faculty === 'ORAN' ? 'Faculté Oran' : qcm.faculty === 'SIDI_BEL_ABBES' ? 'Faculté SBA' : 'Toutes Facultés'}
-                  </span>
-                  {qcm.source && (
-                    <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                      📖 {qcm.source}
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-base font-bold text-navy-950 dark:text-white">
-                  {qcm.title}
-                </h3>
-              </div>
+        {filteredQcms.length === 0 ? (
+          <div className="apple-card p-12 text-center space-y-3 text-navy-500 dark:text-navy-400">
+            <div className="text-3xl">🔍</div>
+            <p className="font-bold text-sm">Aucun QCM ne correspond à vos filtres actuels.</p>
+            <p className="text-xs">Essayez de réinitialiser la sélection d'Année, de Spécialité ou de Source.</p>
+            <button
+              onClick={() => {
+                setSelectedYearFilter('all');
+                setSelectedSpecialtyFilter('all');
+                setSelectedCourseFilter('all');
+                setSelectedSourceFilter('all');
+                setSearchQueryFilter('');
+              }}
+              className="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold transition-all shadow-sm"
+            >
+              🔄 Réinitialiser Tous les Filtres
+            </button>
+          </div>
+        ) : (
+          filteredQcms.map((qcm) => {
+            const specObj = specialtiesList.find(s => s.id === qcm.specialtyId);
+            const effectiveYr = (qcm.year !== undefined && qcm.year !== null && (qcm.year as any) !== '')
+              ? Number(qcm.year)
+              : specObj?.year;
 
-              <button
-                onClick={() => handleDelete(qcm.id)}
-                className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
-                title="Supprimer ce QCM"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
+            const yearLabel = effectiveYr
+              ? MEDICAL_YEARS.find(y => y.year === effectiveYr)?.name || `${effectiveYr}e Année`
+              : 'Transversal';
+
+            return (
+              <div key={qcm.id} className="apple-card p-6 space-y-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                      <span className="px-2.5 py-0.5 rounded-lg text-xs font-black bg-brand-500/10 text-brand-600 dark:bg-brand-950 dark:text-brand-300 border border-brand-500/20 flex items-center gap-1">
+                        <span>🎓</span>
+                        <span>{yearLabel}</span>
+                      </span>
+
+                      <span className="px-2.5 py-0.5 rounded-lg text-xs font-black bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 border border-brand-200/50">
+                        {getSpecialtyEmoji(qcm.specialtyId)} {qcm.specialtyName || qcm.specialtyId}
+                      </span>
+
+                      {qcm.courseTitle && (
+                        <span className="px-2 py-0.5 rounded-lg text-[11px] font-bold bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300">
+                          📖 {qcm.courseTitle}
+                        </span>
+                      )}
+
+                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300 border border-amber-200/50">
+                        🏛️ {qcm.faculty === 'ORAN' ? 'Faculté Oran' : qcm.faculty === 'SIDI_BEL_ABBES' ? 'Faculté SBA' : 'Toutes Facultés'}
+                      </span>
+
+                      {qcm.source && (
+                        <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200/50">
+                          📌 {qcm.source}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-base font-bold text-navy-950 dark:text-white">
+                      {qcm.title}
+                    </h3>
+                  </div>
+
+                  <button
+                    onClick={() => handleDelete(qcm.id)}
+                    className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0"
+                    title="Supprimer ce QCM"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
 
             <p className="text-sm font-semibold text-navy-800 dark:text-navy-200">
               {qcm.question}
@@ -1260,8 +1409,10 @@ export default function AdminQcmPage() {
               </details>
             )}
           </div>
-        ))}
-      </div>
-    </div>
-  );
+        );
+      })
+    )}
+  </div>
+</div>
+);
 }

@@ -152,6 +152,7 @@ function CompletionScreen({
   course,
   source,
   onRestart,
+  onReviewPrevious,
   onExit,
 }: {
   score: number;
@@ -160,9 +161,12 @@ function CompletionScreen({
   course: string;
   source: string;
   onRestart: () => void;
+  onReviewPrevious?: () => void;
   onExit: () => void;
 }) {
-  const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+  const safeTotal = total > 0 ? total : 1;
+  const safeScore = Math.max(0, Math.min(score || 0, safeTotal));
+  const pct = Math.round((safeScore / safeTotal) * 100);
   const grade = pct >= 80 ? 'Excellent !' : pct >= 60 ? 'Bien !' : pct >= 40 ? 'Passable' : 'À retravailler';
   const gradeColor = pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-amber-400' : pct >= 40 ? 'text-orange-400' : 'text-rose-400';
   const barColor = pct >= 80 ? 'bg-emerald-500' : pct >= 60 ? 'bg-amber-500' : pct >= 40 ? 'bg-orange-500' : 'bg-rose-500';
@@ -173,17 +177,24 @@ function CompletionScreen({
     }
   }, [pct]);
 
+  const handleQuitFullScreenAndExit = () => {
+    if (typeof document !== 'undefined' && document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+    onExit();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-navy-950 via-slate-900 to-indigo-950 flex items-center justify-center p-4">
       <div className="max-w-lg w-full space-y-5 text-center">
-        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mx-auto shadow-2xl shadow-amber-500/30">
-          <Award className="w-12 h-12 text-white" />
+        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mx-auto shadow-2xl shadow-amber-500/30">
+          <Award className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
         </div>
         <div className="space-y-1.5">
-          <div className={`text-5xl font-black ${gradeColor}`}>{pct}%</div>
-          <div className={`text-lg font-bold ${gradeColor}`}>{grade}</div>
+          <div className={`text-4xl sm:text-5xl font-black ${gradeColor}`}>{pct}%</div>
+          <div className={`text-base sm:text-lg font-bold ${gradeColor}`}>{grade}</div>
           <div className="text-xs sm:text-sm text-white/70">
-            <strong>{score}</strong> bonne{score > 1 ? 's' : ''} réponse{score > 1 ? 's' : ''} sur <strong>{total}</strong> questions
+            <strong>{safeScore}</strong> bonne{safeScore > 1 ? 's' : ''} réponse{safeScore > 1 ? 's' : ''} sur <strong>{total}</strong> questions
           </div>
         </div>
 
@@ -197,19 +208,31 @@ function CompletionScreen({
           <div className={`h-full rounded-full transition-all duration-1000 ease-out ${barColor}`} style={{ width: `${pct}%` }} />
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2">
+          {onReviewPrevious && (
+            <button
+              onClick={onReviewPrevious}
+              className="w-full px-4 py-3 rounded-2xl bg-indigo-600/80 hover:bg-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer border border-indigo-400/30"
+              title="Revenir et consulter les questions/réponses précédentes"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Revoir QCM Précédent</span>
+            </button>
+          )}
+
           <button
             onClick={onRestart}
-            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all border border-white/10 cursor-pointer"
+            className="w-full px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all border border-white/10 cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Recommencer l'épreuve</span>
+            <span>Recommencer</span>
           </button>
+
           <button
-            onClick={onExit}
-            className="w-full sm:w-auto px-8 py-3 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs transition-all shadow-lg cursor-pointer"
+            onClick={handleQuitFullScreenAndExit}
+            className="w-full px-4 py-3 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs transition-all shadow-lg cursor-pointer"
           >
-            Retour au Hub QCM
+            Quitter Plein Écran / Hub
           </button>
         </div>
       </div>
@@ -488,7 +511,13 @@ function SessionContent() {
       <CompletionScreen
         score={finalScore} total={sessionQcms.length}
         specialty={specialtyName} course={courseName} source={source}
-        onRestart={handleRestart} onExit={() => router.push('/qcm')}
+        onRestart={handleRestart}
+        onReviewPrevious={() => {
+          setCompleted(false);
+          setIsResultsRevealed(true);
+          setCurrentIndex(Math.max(0, sessionQcms.length - 1));
+        }}
+        onExit={() => router.push('/qcm')}
       />
     );
   }
