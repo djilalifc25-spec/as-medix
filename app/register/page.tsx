@@ -137,9 +137,11 @@ function RegisterForm() {
     setError('');
 
     try {
+      const buffer = await file.arrayBuffer();
+      const safeBlob = new Blob([buffer], { type: file.type || 'image/jpeg' });
       const safeName = (file.name || 'receipt').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9_.-]/g, "_");
       const formData = new FormData();
-      formData.append('file', file, safeName);
+      formData.append('file', safeBlob, safeName);
       formData.append('folder', 'receipts');
 
       const res = await fetch('/api/payment/upload', {
@@ -173,9 +175,11 @@ function RegisterForm() {
     if (!activeReceiptUrl && selectedFile) {
       setUploadingReceipt(true);
       try {
+        const buffer = await selectedFile.arrayBuffer();
+        const safeBlob = new Blob([buffer], { type: selectedFile.type || 'image/jpeg' });
         const safeName = (selectedFile.name || 'receipt').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9_.-]/g, "_");
         const formData = new FormData();
-        formData.append('file', selectedFile, safeName);
+        formData.append('file', safeBlob, safeName);
         formData.append('folder', 'receipts');
         const res = await fetch('/api/payment/upload', {
           method: 'POST',

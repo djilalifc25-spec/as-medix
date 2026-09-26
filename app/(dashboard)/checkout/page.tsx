@@ -62,9 +62,11 @@ function CheckoutContent() {
     setErrorMessage(null);
 
     try {
+      const buffer = await file.arrayBuffer();
+      const safeBlob = new Blob([buffer], { type: file.type || 'image/jpeg' });
       const safeName = (file.name || 'receipt').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9_.-]/g, "_");
       const formData = new FormData();
-      formData.append('file', file, safeName);
+      formData.append('file', safeBlob, safeName);
       formData.append('folder', 'receipts');
 
       const res = await fetch('/api/payment/upload', {

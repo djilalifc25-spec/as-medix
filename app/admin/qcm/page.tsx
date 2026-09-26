@@ -215,16 +215,25 @@ export default function AdminQcmPage() {
 
     try {
       if (pdfFile || answerKeyFile) {
-        const getSafeFilename = (f: File) => {
-          return (f.name || 'file.pdf')
+        const createSafeBlob = async (f: File, defaultExt = 'pdf') => {
+          const buffer = await f.arrayBuffer();
+          const type = f.type || (defaultExt === 'pdf' ? 'application/pdf' : 'text/plain');
+          const safeName = (f.name || `file.${defaultExt}`)
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
             .replace(/[^a-zA-Z0-9_.-]/g, "_");
+          return { blob: new Blob([buffer], { type }), filename: safeName };
         };
 
         const formData = new FormData();
-        if (pdfFile) formData.append('pdfFile', pdfFile, getSafeFilename(pdfFile));
-        if (answerKeyFile) formData.append('answerKeyFile', answerKeyFile, getSafeFilename(answerKeyFile));
+        if (pdfFile) {
+          const { blob, filename } = await createSafeBlob(pdfFile, 'pdf');
+          formData.append('pdfFile', blob, filename);
+        }
+        if (answerKeyFile) {
+          const { blob, filename } = await createSafeBlob(answerKeyFile, 'txt');
+          formData.append('answerKeyFile', blob, filename);
+        }
         if (pastedAnswerKeyText) formData.append('answerKeyText', pastedAnswerKeyText);
 
         const res = await fetch('/api/admin/qcm/parse-pdf', {
