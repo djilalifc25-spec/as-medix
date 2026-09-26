@@ -14,7 +14,8 @@ export async function POST(req: NextRequest) {
 
     if (pdfFile) {
       const buffer = Buffer.from(await pdfFile.arrayBuffer());
-      if (pdfFile.name.endsWith('.pdf')) {
+      const isPdf = pdfFile.type.includes('pdf') || pdfFile.name.toLowerCase().endsWith('.pdf');
+      if (isPdf) {
         const parsedPdf = await pdfParse(buffer);
         extractedPdfText = parsedPdf.text || '';
       } else {
@@ -25,7 +26,8 @@ export async function POST(req: NextRequest) {
 
     if (answerKeyFile) {
       const answerBuffer = Buffer.from(await answerKeyFile.arrayBuffer());
-      if (answerKeyFile.name.endsWith('.pdf')) {
+      const isAnswerPdf = answerKeyFile.type.includes('pdf') || answerKeyFile.name.toLowerCase().endsWith('.pdf');
+      if (isAnswerPdf) {
         const parsedKeyPdf = await pdfParse(answerBuffer);
         extractedAnswerKeyText += '\n' + (parsedKeyPdf.text || '');
       } else {

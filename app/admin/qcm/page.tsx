@@ -215,9 +215,16 @@ export default function AdminQcmPage() {
 
     try {
       if (pdfFile || answerKeyFile) {
+        const getSafeFilename = (f: File) => {
+          return (f.name || 'file.pdf')
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9_.-]/g, "_");
+        };
+
         const formData = new FormData();
-        if (pdfFile) formData.append('pdfFile', pdfFile);
-        if (answerKeyFile) formData.append('answerKeyFile', answerKeyFile);
+        if (pdfFile) formData.append('pdfFile', pdfFile, getSafeFilename(pdfFile));
+        if (answerKeyFile) formData.append('answerKeyFile', answerKeyFile, getSafeFilename(answerKeyFile));
         if (pastedAnswerKeyText) formData.append('answerKeyText', pastedAnswerKeyText);
 
         const res = await fetch('/api/admin/qcm/parse-pdf', {

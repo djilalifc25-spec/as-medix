@@ -60,8 +60,9 @@ function CourseEditorContent() {
     setErrorMessage(null);
 
     try {
+      const safeName = (file.name || 'file').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9_.-]/g, "_");
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', file, safeName);
       formData.append('folder', target === 'cover' ? 'covers' : 'attachments');
 
       const res = await fetch('/api/admin/upload', {
