@@ -58,19 +58,25 @@ export async function updatePaymentRequestStatusInCloud(requestId: string, statu
     const { data: rows } = await supabase
       .from('password_resets')
       .select('*')
-      .eq('code', 'PAYMENT_REQUEST_SYNC_V1')
-      .eq('used', false);
+      .eq('code', 'PAYMENT_REQUEST_SYNC_V1');
 
     if (rows && rows.length > 0) {
       for (const row of rows) {
         try {
           const current: PaymentRequest = JSON.parse(row.token);
-          if (current.id === requestId || current.transactionRef === requestId) {
+          const isMatch = 
+            current.id === requestId || 
+            current.transactionRef === requestId || 
+            (current.userEmail && current.userEmail.toLowerCase() === requestId.toLowerCase()) ||
+            (current.userId && current.userId === requestId);
+
+          if (isMatch) {
             current.status = status;
             if (status === 'APPROVED') current.approvedAt = new Date().toISOString();
+            // Mark used=true so it is removed from PENDING sync queue
             await supabase
               .from('password_resets')
-              .update({ token: JSON.stringify(current) })
+              .update({ token: JSON.stringify(current), used: true })
               .eq('id', row.id);
           }
         } catch {}
@@ -86,17 +92,22 @@ export async function deletePaymentRequestFromCloud(requestId: string): Promise<
     const { data: rows } = await supabase
       .from('password_resets')
       .select('*')
-      .eq('code', 'PAYMENT_REQUEST_SYNC_V1')
-      .eq('used', false);
+      .eq('code', 'PAYMENT_REQUEST_SYNC_V1');
 
     if (rows && rows.length > 0) {
       for (const row of rows) {
         try {
           const current: PaymentRequest = JSON.parse(row.token);
-          if (current.id === requestId || current.transactionRef === requestId) {
+          const isMatch = 
+            current.id === requestId || 
+            current.transactionRef === requestId || 
+            (current.userEmail && current.userEmail.toLowerCase() === requestId.toLowerCase()) ||
+            (current.userId && current.userId === requestId);
+
+          if (isMatch) {
             await supabase
               .from('password_resets')
-              .update({ used: true })
+              .delete()
               .eq('id', row.id);
           }
         } catch {}

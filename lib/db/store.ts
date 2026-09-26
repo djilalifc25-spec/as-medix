@@ -1029,14 +1029,19 @@ class DatabaseStore {
 
   public approvePaymentRequest(requestId: string, adminId: string): boolean {
     if (!this.data.paymentRequests) return false;
-    const req = this.data.paymentRequests.find(r => r.id === requestId);
+    const req = this.data.paymentRequests.find(r => 
+      r.id === requestId || 
+      r.transactionRef === requestId || 
+      (r.userEmail && r.userEmail.toLowerCase() === requestId.toLowerCase()) ||
+      (r.userId && r.userId === requestId)
+    );
     if (!req) return false;
 
     req.status = 'APPROVED';
     req.approvedAt = new Date().toISOString();
 
     // Unlock the requested plan for the student!
-    const user = this.getUserById(req.userId);
+    const user = this.getUserById(req.userId) || this.getUserByEmail(req.userEmail);
     if (user) {
       this.updateUser(user.id, {
         plan: req.requestedPlan,
@@ -1050,7 +1055,7 @@ class DatabaseStore {
         date: new Date().toISOString(),
         type: 'system',
         read: false,
-        linkUrl: '/dashboard'
+        linkUrl: '/profil'
       });
     }
 
@@ -1060,7 +1065,12 @@ class DatabaseStore {
 
   public rejectPaymentRequest(requestId: string): boolean {
     if (!this.data.paymentRequests) return false;
-    const req = this.data.paymentRequests.find(r => r.id === requestId);
+    const req = this.data.paymentRequests.find(r => 
+      r.id === requestId || 
+      r.transactionRef === requestId || 
+      (r.userEmail && r.userEmail.toLowerCase() === requestId.toLowerCase()) ||
+      (r.userId && r.userId === requestId)
+    );
     if (!req) return false;
 
     req.status = 'REJECTED';
@@ -1071,7 +1081,12 @@ class DatabaseStore {
   public deletePaymentRequest(requestId: string): boolean {
     if (!this.data.paymentRequests) return false;
     const prev = this.data.paymentRequests.length;
-    this.data.paymentRequests = this.data.paymentRequests.filter(r => r.id !== requestId && r.transactionRef !== requestId);
+    this.data.paymentRequests = this.data.paymentRequests.filter(r => 
+      r.id !== requestId && 
+      r.transactionRef !== requestId && 
+      (!r.userEmail || r.userEmail.toLowerCase() !== requestId.toLowerCase()) &&
+      (!r.userId || r.userId !== requestId)
+    );
     if (this.data.paymentRequests.length !== prev) {
       this.save();
       return true;
