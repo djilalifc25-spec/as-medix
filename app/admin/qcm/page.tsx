@@ -3,8 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { ALL_SPECIALTIES } from '@/lib/db/seedData';
 import { QCM, Course, Specialty, MEDICAL_YEARS } from '@/types';
-import { Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, School } from 'lucide-react';
+import {
+  Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, School,
+  FileText, Upload, FileCode, Check, Edit3, Layers, Loader2, ChevronDown, ChevronUp, AlertCircle
+} from 'lucide-react';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
+import { ParsedQcmItem, parseQcmDocument } from '@/lib/qcmParser';
 
 export default function AdminQcmPage() {
   const [qcms, setQcms] = useState<QCM[]>([]);
@@ -14,7 +18,7 @@ export default function AdminQcmPage() {
   const [selectedYearFilter, setSelectedYearFilter] = useState<string>('all');
   const [showAddForm, setShowAddForm] = useState(false);
 
-  // Form states
+  // Form states (Manual mode)
   const [title, setTitle] = useState('');
   const [year, setYear] = useState<number | ''>(4);
   const [specialtyId, setSpecialtyId] = useState('cardio');
@@ -24,7 +28,6 @@ export default function AdminQcmPage() {
   const [sourceOther, setSourceOther] = useState('');
   const [isDailyQcm, setIsDailyQcm] = useState(false);
   const [vignette, setVignette] = useState('');
-  const [vignetteHtml, setVignetteHtml] = useState('<p class="font-medium text-navy-800 dark:text-navy-200">Patient de 58 ans consultant pour...</p>');
   const [question, setQuestion] = useState('');
   const [optA, setOptA] = useState('');
   const [optB, setOptB] = useState('');
@@ -46,6 +49,17 @@ export default function AdminQcmPage() {
   const [newSourceInput, setNewSourceInput] = useState('');
   const [addingSource, setAddingSource] = useState(false);
 
+  // Batch QCM Import States
+  const [qcmInputMode, setQcmInputMode] = useState<'MANUAL' | 'BATCH_IMPORT'>('MANUAL');
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [answerKeyFile, setAnswerKeyFile] = useState<File | null>(null);
+  const [pastedQcmText, setPastedQcmText] = useState('');
+  const [pastedAnswerKeyText, setPastedAnswerKeyText] = useState('');
+  const [parsingPdf, setParsingPdf] = useState(false);
+  const [parsedQcms, setParsedQcms] = useState<ParsedQcmItem[]>([]);
+  const [editingQcmId, setEditingQcmId] = useState<string | null>(null);
+  const [batchSaving, setBatchSaving] = useState(false);
+
   // Fetch scoped sources whenever specialty, course or faculty changes
   const fetchScopeSources = async (spec: string, crs: string, fac?: string) => {
     const params = new URLSearchParams();
@@ -56,7 +70,6 @@ export default function AdminQcmPage() {
     const data = await res.json();
     if (data.sources) {
       setScopeSources(data.sources);
-      // Auto-select first if nothing selected
       setSource(prev => (prev && data.sources.includes(prev)) ? prev : (data.sources[0] || ''));
     }
   };
@@ -66,12 +79,10 @@ export default function AdminQcmPage() {
     fetchScopeSources(specialtyId, courseId, faculty);
   }, []); // eslint-disable-line
 
-  // Reload sources when specialty, course or faculty changes
   useEffect(() => {
     fetchScopeSources(specialtyId, courseId, faculty);
   }, [specialtyId, courseId, faculty]); // eslint-disable-line
 
-  // Inline add source for current scope
   const handleAddScopeSource = async () => {
     const name = newSourceInput.trim();
     if (!name) return;
@@ -94,7 +105,6 @@ export default function AdminQcmPage() {
     setAddingSource(false);
   };
 
-
   const fetchData = async () => {
     try {
       const [qcmRes, crsRes, specRes] = await Promise.all([
@@ -112,6 +122,7 @@ export default function AdminQcmPage() {
     }
   };
 
+  // Create single manual QCM
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !question) {
@@ -150,21 +161,18 @@ export default function AdminQcmPage() {
       specialtyName: spec ? spec.name : 'Cardiologie',
       courseId: courseId || undefined,
       courseTitle: crs ? crs.title : undefined,
-      faculty,
-      source: finalSource,
+      faculty: faculty || 'ORAN',
+      source: finalSource || 'Annales Examens',
       rang: 'Rang A',
       difficulty: 'Moyen',
       type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
-      vignette: vignette || 'Vignette clinique',
-      vignetteHtml,
+      vignette: vignette || '',
       question,
       options,
       correctAnswers,
-      explanation: explanationHtml.replace(/<[^>]*>?/gm, ''),
-      explanationHtml,
+      explanation: explanationHtml,
       reference,
-      tags: [spec?.shortName || 'QCM'],
-      accessLevel: 'FREE'
+      isDailyQcm,
     };
 
     const res = await fetch('/api/admin/qcm', {
@@ -172,30 +180,167 @@ export default function AdminQcmPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newQcmPayload)
     });
-    const data = await res.json();
 
-    if (data.success) {
-      setSuccessMsg('QCM en code HTML ajouté avec succès !');
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('asmedix-qcm-updated'));
-      }
-      setShowAddForm(false);
+    const data = await res.json();
+    if (data.success && data.qcm) {
+      setQcms([data.qcm, ...qcms]);
+      setSuccessMsg(`✅ QCM "${data.qcm.title}" ajouté et synchronisé avec Supabase !`);
       setTitle('');
       setQuestion('');
       setOptA(''); setOptB(''); setOptC(''); setOptD(''); setOptE('');
       setCorrectA(false); setCorrectB(false); setCorrectC(false); setCorrectD(false); setCorrectE(false);
-      fetchData();
-      setTimeout(() => setSuccessMsg(''), 4000);
+      setShowAddForm(false);
+    } else {
+      alert(data.error || 'Erreur lors de la création');
     }
   };
 
+  // Delete QCM
   const handleDelete = async (id: string) => {
-    if (!confirm('Supprimer définitivement ce QCM ?')) return;
-    await fetch(`/api/admin/qcm?id=${id}`, { method: 'DELETE' });
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('asmedix-qcm-updated'));
+    if (!confirm('Voulez-vous vraiment supprimer ce QCM ?')) return;
+    const res = await fetch(`/api/admin/qcm?id=${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    if (data.success) {
+      setQcms(qcms.filter(q => q.id !== id));
+      setSuccessMsg('QCM supprimé avec succès.');
     }
-    fetchData();
+  };
+
+  // Trigger parsing of PDF or text files
+  const handleParsePdfOrText = async () => {
+    setParsingPdf(true);
+    setSuccessMsg('');
+
+    try {
+      if (pdfFile || answerKeyFile) {
+        const formData = new FormData();
+        if (pdfFile) formData.append('pdfFile', pdfFile);
+        if (answerKeyFile) formData.append('answerKeyFile', answerKeyFile);
+        if (pastedAnswerKeyText) formData.append('answerKeyText', pastedAnswerKeyText);
+
+        const res = await fetch('/api/admin/qcm/parse-pdf', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          throw new Error(data.error || 'Erreur lors de l\'analyse du fichier');
+        }
+
+        if (data.qcms && Array.isArray(data.qcms) && data.qcms.length > 0) {
+          setParsedQcms(data.qcms);
+          setSuccessMsg(`🎉 ${data.qcms.length} QCM(s) extraits avec succès ! Previsualisez et modifiez-les ci-dessous avant validation.`);
+        } else {
+          alert('Aucun QCM n\'a pu être extrait. Assurez-vous que le fichier contient des numéros de QCM (ex: QCM 1, 1., Q1).');
+        }
+      } else if (pastedQcmText.trim()) {
+        const qcms = parseQcmDocument(pastedQcmText, pastedAnswerKeyText);
+        if (qcms.length > 0) {
+          setParsedQcms(qcms);
+          setSuccessMsg(`🎉 ${qcms.length} QCM(s) extraits du texte collé !`);
+        } else {
+          alert('Aucun QCM détecté dans le texte. Utilisez des structures comme "QCM 1 : ... A. ... B. ...".');
+        }
+      } else {
+        alert('Veuillez sélectionner un fichier PDF/Texte ou coller le texte d\'un examen.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || 'Erreur lors du traitement du fichier.');
+    } finally {
+      setParsingPdf(false);
+    }
+  };
+
+  // Single QCM import from batch review
+  const handleImportSingleParsedQcm = async (qcmItem: ParsedQcmItem) => {
+    const spec = specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId);
+    const crs = courses.find(c => c.id === courseId);
+    const finalSource = source === '__other__' ? sourceOther : source;
+
+    const correctAnswers = qcmItem.options
+      .map((opt, idx) => opt.isCorrect ? idx : -1)
+      .filter(idx => idx !== -1);
+
+    const payload = {
+      title: qcmItem.question.length > 80 ? qcmItem.question.substring(0, 80) + '...' : qcmItem.question,
+      year: year !== '' ? Number(year) : undefined,
+      specialtyId,
+      specialtyName: spec ? spec.name : 'Cardiologie',
+      courseId: courseId || undefined,
+      courseTitle: crs ? crs.title : undefined,
+      faculty: faculty || 'ORAN',
+      source: finalSource || 'Annales Examens',
+      rang: 'Rang A',
+      difficulty: 'Moyen',
+      type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
+      vignette: qcmItem.vignetteText || '',
+      question: qcmItem.question,
+      options: qcmItem.options.map((opt, idx) => ({
+        id: `opt_${idx + 1}`,
+        letter: opt.letter,
+        text: opt.text
+      })),
+      correctAnswers: correctAnswers.length > 0 ? correctAnswers : [0],
+      explanation: qcmItem.explanationHtml || '<p>Explication clinique conforme.</p>',
+      reference: reference || "Faculté de Médecine d'Alger",
+    };
+
+    const res = await fetch('/api/admin/qcm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (data.success && data.qcm) {
+      setQcms(prev => [data.qcm, ...prev]);
+      setParsedQcms(prev => prev.filter(q => q.id !== qcmItem.id));
+      setSuccessMsg(`✅ QCM #${qcmItem.tempNum} importé avec succès dans la Banque de QCM !`);
+    } else {
+      alert(data.error || 'Erreur lors de l\'importation du QCM.');
+    }
+  };
+
+  // Batch import all parsed QCMs
+  const handleImportAllParsedQcms = async () => {
+    if (parsedQcms.length === 0) return;
+    setBatchSaving(true);
+    let count = 0;
+
+    for (const item of [...parsedQcms]) {
+      try {
+        await handleImportSingleParsedQcm(item);
+        count++;
+      } catch (_) {}
+    }
+
+    setBatchSaving(false);
+    setSuccessMsg(`🚀 ${count} QCM(s) importés avec succès dans la Banque QCM et synchronisés avec Supabase !`);
+  };
+
+  // Modify option inside parsed QCM
+  const updateParsedQcmOptionText = (qcmId: string, optIdx: number, text: string) => {
+    setParsedQcms(prev => prev.map(q => {
+      if (q.id === qcmId) {
+        const nextOpts = [...q.options];
+        nextOpts[optIdx] = { ...nextOpts[optIdx], text };
+        return { ...q, options: nextOpts };
+      }
+      return q;
+    }));
+  };
+
+  const toggleParsedQcmCorrect = (qcmId: string, optIdx: number) => {
+    setParsedQcms(prev => prev.map(q => {
+      if (q.id === qcmId) {
+        const nextOpts = [...q.options];
+        nextOpts[optIdx] = { ...nextOpts[optIdx], isCorrect: !nextOpts[optIdx].isCorrect };
+        return { ...q, options: nextOpts };
+      }
+      return q;
+    }));
   };
 
   const filteredCourses = courses.filter(c => c.specialtyId === specialtyId);
@@ -215,14 +360,14 @@ export default function AdminQcmPage() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-black text-navy-950 dark:text-white">
-              Banque QCM & QCM du Jour
+              Banque QCM & Importer des Épreuves
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-brand-500/10 text-brand-600 border border-brand-500/20">
-              HTML Engine
+              PDF & Annexe Scanner
             </span>
           </div>
           <p className="text-xs sm:text-sm text-navy-500 mt-1">
-            Ajoutez des QCMs rédigés directement en HTML avec explications physiopathologiques.
+            Ajoutez des QCMs manuellement ou importez-les directement par PDF avec grille de réponses numérotées.
           </p>
         </div>
 
@@ -231,132 +376,84 @@ export default function AdminQcmPage() {
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition-all active:scale-95"
         >
           <Plus className="w-4 h-4" />
-          <span>{showAddForm ? 'Fermer' : 'Ajouter un QCM en HTML'}</span>
+          <span>{showAddForm ? 'Fermer le Panneau' : 'Ajouter / Importer des QCMs'}</span>
         </button>
       </div>
 
       {successMsg && (
-        <div className="p-4 rounded-2xl bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-2 text-xs font-bold">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+        <div className="p-4 rounded-2xl bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-2 text-xs font-bold shadow-sm">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{successMsg}</span>
         </div>
       )}
 
-      {/* Add QCM in HTML Form */}
+      {/* Main Creation & Import Container */}
       {showAddForm && (
-        <form onSubmit={handleCreate} className="apple-card p-6 sm:p-8 space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-navy-100 dark:border-navy-800">
+        <div className="apple-card p-6 sm:p-8 space-y-6">
+          {/* Input Mode Selector Bar */}
+          <div className="flex items-center justify-between pb-4 border-b border-navy-100 dark:border-navy-800 flex-wrap gap-3">
             <h2 className="text-base font-bold text-navy-900 dark:text-white flex items-center gap-2">
-              <Code className="w-5 h-5 text-brand-600" />
-              <span>Nouveau QCM Médical (Éditeur HTML)</span>
+              <Brain className="w-5 h-5 text-brand-600" />
+              <span>Mode de Saisie & d'Importation QCM</span>
             </h2>
-            <div className="flex items-center gap-2 bg-navy-100 dark:bg-navy-800 p-1 rounded-xl text-xs font-bold">
+
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-navy-100 dark:bg-navy-800 text-xs font-bold">
               <button
                 type="button"
-                onClick={() => setActiveTab('html')}
-                className={`px-3 py-1 rounded-lg ${activeTab === 'html' ? 'bg-white dark:bg-navy-900 text-brand-600 shadow-sm' : 'text-navy-500'}`}
+                onClick={() => setQcmInputMode('MANUAL')}
+                className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${
+                  qcmInputMode === 'MANUAL'
+                    ? 'bg-white dark:bg-navy-900 text-brand-600 shadow-sm'
+                    : 'text-navy-500 hover:text-navy-900 dark:hover:text-white'
+                }`}
               >
-                Code HTML
+                <Code className="w-4 h-4" />
+                <span>✏️ Création Manuelle HTML (1 par 1)</span>
               </button>
+
               <button
                 type="button"
-                onClick={() => setActiveTab('preview')}
-                className={`px-3 py-1 rounded-lg ${activeTab === 'preview' ? 'bg-white dark:bg-navy-900 text-brand-600 shadow-sm' : 'text-navy-500'}`}
+                onClick={() => setQcmInputMode('BATCH_IMPORT')}
+                className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${
+                  qcmInputMode === 'BATCH_IMPORT'
+                    ? 'bg-brand-600 text-white shadow-sm'
+                    : 'text-navy-500 hover:text-navy-900 dark:hover:text-white'
+                }`}
               >
-                Aperçu Direct
+                <Upload className="w-4 h-4" />
+                <span>⚡ Importer Fichier PDF / Annexe Corrigé</span>
               </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                Faculté Cible * :
-              </label>
-              <select
-                value={faculty}
-                onChange={e => setFaculty(e.target.value as any)}
-                className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-amber-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
-              >
-                <option value="ORAN">🏛️ Oran (Oran 1 - Chalabi)</option>
-                <option value="SIDI_BEL_ABBES">🏛️ Sidi Bel Abbès (Djillali Liabès)</option>
-                <option value="TOUS">🌐 Toutes Facultés / Tronc Commun</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                Source de l'épreuve / Livre * :
-              </label>
-              {/* Scope badge shows which level sources come from */}
-              <div className="flex items-center gap-1.5 mb-2 text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold flex-wrap">
-                <span>📌 Sources pour :</span>
-                <span className="px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-800">
-                  {courseId
-                    ? `${ALL_SPECIALTIES.find(s => s.id === specialtyId)?.shortName || specialtyId} › Cours spécifique`
-                    : ALL_SPECIALTIES.find(s => s.id === specialtyId)?.name || specialtyId}
-                </span>
-                {faculty && faculty !== 'TOUS' && (
-                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-black tracking-wide border ${
-                    faculty === 'ORAN'
-                      ? 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950/60 dark:text-amber-300'
-                      : 'bg-teal-100 text-teal-800 border-teal-300 dark:bg-teal-950/60 dark:text-teal-300'
-                  }`}>
-                    {faculty === 'ORAN' ? 'ORAN' : 'SBA'}
-                  </span>
-                )}
-              </div>
-              <select
-                value={source}
-                onChange={e => setSource(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-2xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
-              >
-                <option value="">-- Choisir la source --</option>
-                {scopeSources.map(s => (
-                  <option key={s} value={s}>📖 {s}</option>
-                ))}
-              </select>
-              {/* Inline add new source for this scope */}
-              <div className="flex items-center gap-2 mt-2">
-                <input
-                  type="text"
-                  value={newSourceInput}
-                  onChange={e => setNewSourceInput(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddScopeSource(); } }}
-                  placeholder={`Ajouter une source pour ${courseId ? 'ce cours' : 'cette spécialité'}...`}
-                  className="flex-1 px-3 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 text-xs placeholder-navy-400"
-                />
-                <button
-                  type="button"
-                  onClick={handleAddScopeSource}
-                  disabled={!newSourceInput.trim() || addingSource}
-                  className="px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-xs font-bold"
-                >
-                  {addingSource ? '...' : '+ Ajouter'}
-                </button>
-              </div>
-              <p className="text-[10px] text-navy-400 mt-1">
-                La source sera enregistrée pour cette spécialité/cours et disponible dans la sidebar.
-              </p>
-            </div>
-          </div>
-
-          {/* 3-Step Selection: Année -> Spécialité / Module -> Mode (Totalité du Module vs Par Cours) */}
-          <div className="space-y-3 p-4 rounded-2xl bg-slate-50 dark:bg-navy-900/50 border border-slate-200 dark:border-navy-800">
+          {/* Scope selection for both modes (Faculté, Source, Année, Spécialité, Cours) */}
+          <div className="space-y-4 p-5 rounded-2xl bg-slate-50 dark:bg-navy-900/50 border border-slate-200 dark:border-navy-800">
             <div className="text-xs font-black text-navy-900 dark:text-white uppercase tracking-wider flex items-center justify-between">
-              <span>Rattachement du QCM (Totalité du Module ou Par Cours)</span>
+              <span>🎯 Attributs Cibles des QCMs Imprimés</span>
               <span className="text-[10px] text-brand-600 font-bold bg-brand-500/10 px-2 py-0.5 rounded-full border border-brand-500/20">
-                {courseId ? 'Rattaché à un cours' : 'Rattaché à la totalité du module'}
+                {courseId ? 'Rattaché au Cours' : 'Rattaché au Module'}
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1 flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-brand-600 dark:text-brand-400">
-                    <School className="w-3.5 h-3.5" />
-                    1. Année d'Études :
-                  </span>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  1. Faculté :
+                </label>
+                <select
+                  value={faculty}
+                  onChange={e => setFaculty(e.target.value as any)}
+                  className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-amber-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
+                >
+                  <option value="ORAN">🏛️ Oran (Oran 1 - Chalabi)</option>
+                  <option value="SIDI_BEL_ABBES">🏛️ Sidi Bel Abbès (Djillali Liabès)</option>
+                  <option value="TOUS">🌐 Toutes Facultés / Tronc Commun</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  2. Année d'Études :
                 </label>
                 <select
                   value={year}
@@ -370,9 +467,9 @@ export default function AdminQcmPage() {
                       setCourseId('');
                     }
                   }}
-                  className="w-full px-4 py-2.5 rounded-2xl border-2 border-brand-500/40 bg-brand-50/50 dark:bg-brand-950/20 text-xs font-black text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2.5 rounded-2xl border border-brand-500/40 bg-brand-50/50 dark:bg-brand-950/20 text-xs font-black text-navy-900 dark:text-white"
                 >
-                  <option value="">🌐 Sans année spécifique / Transversal</option>
+                  <option value="">🌐 Transversal / Toutes années</option>
                   {MEDICAL_YEARS.map(y => (
                     <option key={y.year} value={y.year}>🎓 {y.name} ({y.cycle})</option>
                   ))}
@@ -381,7 +478,7 @@ export default function AdminQcmPage() {
 
               <div>
                 <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                  2. Module / Spécialité * :
+                  3. Module / Spécialité :
                 </label>
                 <select
                   value={specialtyId}
@@ -391,315 +488,546 @@ export default function AdminQcmPage() {
                   }}
                   className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold"
                 >
-                  {specialtiesList.filter(s => !year || s.year === year || !s.year).length === 0 ? (
-                    <option value="" disabled>Aucun module disponible</option>
-                  ) : (
-                    specialtiesList
-                      .filter(s => !year || s.year === year || !s.year)
-                      .map(s => (
-                        <option key={s.id} value={s.id}>{getSpecialtyEmoji(s.id)} {s.name} {s.year ? `(${s.year}A)` : '(Transversal)'}</option>
-                      ))
-                  )}
+                  {specialtiesList
+                    .filter(s => !year || s.year === year || !s.year)
+                    .map(s => (
+                      <option key={s.id} value={s.id}>{getSpecialtyEmoji(s.id)} {s.name}</option>
+                    ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  4. Cours spécifique (Optionnel) :
+                </label>
+                <select
+                  value={courseId}
+                  onChange={e => setCourseId(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold"
+                >
+                  <option value="">📚 Aucun (Appliquer à la totalité du module)</option>
+                  {filteredCourses.map(c => (
+                    <option key={c.id} value={c.id}>📖 {c.title}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                  3. Mode de Rattachement :
+                  5. Source de l'épreuve :
                 </label>
-                <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700">
-                  <button
-                    type="button"
-                    onClick={() => setCourseId('')}
-                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all ${
-                      !courseId
-                        ? 'bg-brand-600 text-white shadow-xs font-black'
-                        : 'text-navy-600 dark:text-navy-400 hover:text-navy-900'
-                    }`}
-                  >
-                    🌐 Totalité Module
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!courseId && filteredCourses[0]) {
-                        setCourseId(filteredCourses[0].id);
-                      }
-                    }}
-                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all ${
-                      courseId
-                        ? 'bg-indigo-600 text-white shadow-xs font-black'
-                        : 'text-navy-600 dark:text-navy-400 hover:text-navy-900'
-                    }`}
-                  >
-                    📖 Par Cours
-                  </button>
+                <select
+                  value={source}
+                  onChange={e => setSource(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-2xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
+                >
+                  <option value="">-- Choisir la source --</option>
+                  {scopeSources.map(s => (
+                    <option key={s} value={s}>📖 {s}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* MODE 2: BATCH PDF / TEXT IMPORT SYSTEM */}
+          {qcmInputMode === 'BATCH_IMPORT' && (
+            <div className="space-y-6 pt-2">
+              <div className="p-4 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
+                <p className="font-bold flex items-center gap-1.5 text-sm">
+                  <Sparkles className="w-4 h-4 text-indigo-600" />
+                  <span>Scanner de Fichiers PDF & Annexe de Réponses Numérotées</span>
+                </p>
+                <p>
+                  Sélectionnez votre fichier d'examen PDF (ou texte) ainsi que le fichier annexe des corrigés numérotés (`1. A, C | 2. B...`). Le scanner extrait et prévisualise QCM par QCM avant enregistrement !
+                </p>
+              </div>
+
+              {/* Upload Boxes */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* PDF QCM Upload */}
+                <div className="p-5 rounded-3xl bg-white dark:bg-navy-900 border-2 border-dashed border-brand-300 dark:border-brand-700 text-center space-y-3 hover:border-brand-500 transition-all">
+                  <div className="w-10 h-10 mx-auto rounded-2xl bg-brand-50 dark:bg-brand-950 flex items-center justify-center text-brand-600">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-navy-900 dark:text-white">
+                      1. Fichier principal des QCMs (PDF / `.txt`)
+                    </p>
+                    <p className="text-[10px] text-navy-400">Glissez-déposez le PDF de l'épreuve d'examen</p>
+                  </div>
+                  <input
+                    type="file"
+                    accept=".pdf,.txt"
+                    onChange={e => setPdfFile(e.target.files?.[0] || null)}
+                    className="block w-full text-xs text-navy-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
+                  />
+                  {pdfFile && (
+                    <p className="text-[11px] font-bold text-emerald-600">📄 Chargé : {pdfFile.name}</p>
+                  )}
                 </div>
 
-                {courseId ? (
-                  <select
-                    value={courseId}
-                    onChange={e => setCourseId(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50/50 dark:bg-navy-800 text-xs font-semibold mt-2"
-                  >
-                    {filteredCourses.map(c => (
-                      <option key={c.id} value={c.id}>{c.title}</option>
-                    ))}
-                  </select>
-                ) : (
-                  <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold mt-2">
-                    ✓ Ce QCM sera disponible dans la totalité du module ({ALL_SPECIALTIES.find(s => s.id === specialtyId)?.name})
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-              Titre / Thème du QCM :
-            </label>
-            <input
-              type="text"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              placeholder="Ex : Stratégie thérapeutique du Choc Cardiogénique"
-              className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white/70 dark:bg-navy-800 text-xs font-bold"
-            />
-          </div>
-
-          {/* Vignette HTML */}
-          <div>
-            <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-              Vignette Clinique (Code HTML autorisé) :
-            </label>
-            {activeTab === 'html' ? (
-              <textarea
-                value={vignetteHtml}
-                onChange={e => setVignetteHtml(e.target.value)}
-                rows={3}
-                placeholder="<p>Énoncé clinique avec balises <strong>, <em>, etc...</p>"
-                className="w-full font-mono text-xs px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white/70 dark:bg-navy-800"
-              />
-            ) : (
-              <div
-                className="p-4 rounded-2xl bg-navy-50/80 dark:bg-navy-800 border border-navy-200 dark:border-navy-700 text-xs leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: vignetteHtml }}
-              />
-            )}
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-              Question formulée :
-            </label>
-            <input
-              type="text"
-              value={question}
-              onChange={e => setQuestion(e.target.value)}
-              placeholder="Ex : Quelle mesure doit être mise en œuvre en extrême urgence ?"
-              className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white/70 dark:bg-navy-800 text-xs font-bold"
-            />
-          </div>
-
-          {/* Options A - E */}
-          <div className="space-y-3">
-            <span className="text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
-              Propositions & Réponses Exactes :
-            </span>
-            {[
-              { letter: 'A', val: optA, setVal: setOptA, corr: correctA, setCorr: setCorrectA },
-              { letter: 'B', val: optB, setVal: setOptB, corr: correctB, setCorr: setCorrectB },
-              { letter: 'C', val: optC, setVal: setOptC, corr: correctC, setCorr: setCorrectC },
-              { letter: 'D', val: optD, setVal: setOptD, corr: correctD, setCorr: setCorrectD },
-              { letter: 'E', val: optE, setVal: setOptE, corr: correctE, setCorr: setCorrectE }
-            ].map(item => (
-              <div key={item.letter} className="flex items-center gap-3">
-                <label className="flex items-center gap-2 cursor-pointer shrink-0">
+                {/* Answer Key Upload */}
+                <div className="p-5 rounded-3xl bg-white dark:bg-navy-900 border-2 border-dashed border-amber-300 dark:border-amber-700 text-center space-y-3 hover:border-amber-500 transition-all">
+                  <div className="w-10 h-10 mx-auto rounded-2xl bg-amber-50 dark:bg-amber-950 flex items-center justify-center text-amber-600">
+                    <CheckCircle2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-navy-900 dark:text-white">
+                      2. Fichier Annexe des Réponses Numérotées (PDF / `.txt`)
+                    </p>
+                    <p className="text-[10px] text-navy-400">Contient les numéros et propositions exactes (ex: 1. A, C)</p>
+                  </div>
                   <input
-                    type="checkbox"
-                    checked={item.corr}
-                    onChange={e => item.setCorr(e.target.checked)}
-                    className="w-4 h-4 rounded text-brand-600 focus:ring-brand-500"
+                    type="file"
+                    accept=".pdf,.txt"
+                    onChange={e => setAnswerKeyFile(e.target.files?.[0] || null)}
+                    className="block w-full text-xs text-navy-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
                   />
-                  <span className={`w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center ${
-                    item.corr ? 'bg-emerald-600 text-white' : 'bg-navy-100 text-navy-600 dark:bg-navy-800 dark:text-navy-300'
-                  }`}>
-                    {item.letter}
-                  </span>
+                  {answerKeyFile && (
+                    <p className="text-[11px] font-bold text-emerald-600">🔑 Chargé : {answerKeyFile.name}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Alternative Paste Text Areas */}
+              <details className="text-xs bg-navy-50/60 dark:bg-navy-950 p-4 rounded-2xl border border-navy-200 dark:border-navy-800">
+                <summary className="font-bold text-navy-900 dark:text-white cursor-pointer hover:underline flex items-center gap-2">
+                  <Code className="w-4 h-4 text-brand-600" />
+                  <span>Ou Coller directement le Texte des QCMs & Corrigés</span>
+                </summary>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                  <div>
+                    <label className="block font-bold text-navy-700 dark:text-navy-300 mb-1">
+                      Texte brut des QCMs :
+                    </label>
+                    <textarea
+                      value={pastedQcmText}
+                      onChange={e => setPastedQcmText(e.target.value)}
+                      rows={6}
+                      placeholder="QCM 1 : Concernant le syndrome coronaire...\nA. L'angioplastie est de 1ère intention\nB. L'ECG est normal"
+                      className="w-full p-3 font-mono text-xs rounded-xl border border-navy-200 dark:border-navy-800 bg-white dark:bg-navy-900"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-navy-700 dark:text-navy-300 mb-1">
+                      Grille de Réponses Numérotées :
+                    </label>
+                    <textarea
+                      value={pastedAnswerKeyText}
+                      onChange={e => setPastedAnswerKeyText(e.target.value)}
+                      rows={6}
+                      placeholder="1. A, C\n2. B\n3. A, D, E\n4. C"
+                      className="w-full p-3 font-mono text-xs rounded-xl border border-navy-200 dark:border-navy-800 bg-white dark:bg-navy-900"
+                    />
+                  </div>
+                </div>
+              </details>
+
+              {/* Action Button */}
+              <div className="flex justify-end pt-2">
+                <button
+                  type="button"
+                  onClick={handleParsePdfOrText}
+                  disabled={parsingPdf}
+                  className="px-6 py-3 rounded-2xl text-xs font-black bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
+                >
+                  {parsingPdf ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-white" />
+                      <span>Analyse et Extraction en Cours...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 text-amber-300" />
+                      <span>⚡ Scanner et Extraire les QCMs</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Parsed QCMs Preview List */}
+              {parsedQcms.length > 0 && (
+                <div className="space-y-4 pt-4 border-t border-navy-100 dark:border-navy-800">
+                  <div className="flex items-center justify-between flex-wrap gap-3 pb-2">
+                    <div>
+                      <h3 className="text-base font-black text-navy-950 dark:text-white flex items-center gap-2">
+                        <span>📋 QCMs Extraits Prêts à Valider ({parsedQcms.length})</span>
+                      </h3>
+                      <p className="text-xs text-navy-500">
+                        Vérifiez ou modifiez les propositions QCM par QCM avant l'importation finale.
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleImportAllParsedQcms}
+                      disabled={batchSaving}
+                      className="px-5 py-2.5 rounded-2xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {batchSaving ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Enregistrement du Lot...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span>🚀 Importer Tous les {parsedQcms.length} QCMs Validés</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* List of Parsed QCM Cards */}
+                  <div className="space-y-3">
+                    {parsedQcms.map((qcmItem, qIdx) => {
+                      const isEditing = editingQcmId === qcmItem.id;
+
+                      return (
+                        <div key={qcmItem.id} className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-sm space-y-3">
+                          <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-navy-100 dark:border-navy-800">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2.5 py-1 rounded-xl text-xs font-black bg-brand-100 text-brand-800 dark:bg-brand-950/60 dark:text-brand-300">
+                                QCM #{qcmItem.tempNum}
+                              </span>
+
+                              {qcmItem.isVerified ? (
+                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center gap-1">
+                                  <Check className="w-3 h-3 text-emerald-600" />
+                                  <span>Réponse détectée</span>
+                                </span>
+                              ) : (
+                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-300 dark:border-amber-800 flex items-center gap-1">
+                                  <AlertCircle className="w-3 h-3 text-amber-600" />
+                                  <span>À vérifier</span>
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => setEditingQcmId(isEditing ? null : qcmItem.id)}
+                                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-navy-100 dark:bg-navy-800 text-navy-700 dark:text-navy-300 hover:bg-navy-200 transition-all flex items-center gap-1"
+                              >
+                                <Edit3 className="w-3.5 h-3.5" />
+                                <span>{isEditing ? 'Masquer l\'Édition' : 'Modifier'}</span>
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => handleImportSingleParsedQcm(qcmItem)}
+                                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-all flex items-center gap-1 shadow-xs"
+                              >
+                                <Plus className="w-3.5 h-3.5" />
+                                <span>Importer ce QCM</span>
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Editable Question Text & Options */}
+                          {isEditing ? (
+                            <div className="space-y-3 pt-2 bg-navy-50/50 dark:bg-navy-950/40 p-4 rounded-xl border border-navy-200 dark:border-navy-800">
+                              <div>
+                                <label className="block text-[11px] font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                                  Énoncé de la question :
+                                </label>
+                                <input
+                                  type="text"
+                                  value={qcmItem.question}
+                                  onChange={e => {
+                                    const val = e.target.value;
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, question: val } : q));
+                                  }}
+                                  className="w-full px-3 py-2 text-xs font-bold rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
+                                />
+                              </div>
+
+                              <div className="space-y-2">
+                                <label className="block text-[11px] font-bold uppercase text-navy-700 dark:text-navy-300">
+                                  Propositions & Réponses Exactes :
+                                </label>
+                                {qcmItem.options.map((opt, oIdx) => (
+                                  <div key={oIdx} className="flex items-center gap-2">
+                                    <label className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 text-xs font-bold cursor-pointer">
+                                      <input
+                                        type="checkbox"
+                                        checked={opt.isCorrect}
+                                        onChange={() => toggleParsedQcmCorrect(qcmItem.id, oIdx)}
+                                        className="w-4 h-4 text-brand-600 rounded"
+                                      />
+                                      <span>{opt.letter}.</span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={opt.text}
+                                      onChange={e => updateParsedQcmOptionText(qcmItem.id, oIdx, e.target.value)}
+                                      className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            /* Live Interactive Read-Only Preview */
+                            <div className="space-y-2">
+                              <p className="font-bold text-sm text-navy-950 dark:text-white">
+                                {qcmItem.question}
+                              </p>
+
+                              <div className="grid grid-cols-1 gap-1.5 text-xs">
+                                {qcmItem.options.map((opt, oIdx) => (
+                                  <div
+                                    key={oIdx}
+                                    className={`p-2 rounded-xl border flex items-center justify-between gap-2 ${
+                                      opt.isCorrect
+                                        ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
+                                        : 'bg-navy-50/50 dark:bg-navy-950/30 border-navy-200/60 dark:border-navy-800 text-navy-700 dark:text-navy-300'
+                                    }`}
+                                  >
+                                    <span><strong>{opt.letter}.</strong> {opt.text}</span>
+                                    {opt.isCorrect && (
+                                      <span className="text-[10px] uppercase tracking-wider font-black px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+                                        Exacte
+                                      </span>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* MODE 1: MANUAL HTML QCM EDITOR FORM */}
+          {qcmInputMode === 'MANUAL' && (
+            <form onSubmit={handleCreate} className="space-y-6 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                    Titre du QCM * :
+                  </label>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    placeholder="ex: Traitement du SCA ST+"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                    Énoncé / Question * :
+                  </label>
+                  <input
+                    type="text"
+                    value={question}
+                    onChange={e => setQuestion(e.target.value)}
+                    placeholder="Quel est le traitement de choix ?"
+                    className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold"
+                  />
+                </div>
+              </div>
+
+              {/* Options & Correct checkboxes */}
+              <div className="space-y-3">
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
+                  Propositions & Cocher la/les réponse(s) exacte(s) * :
                 </label>
-                <input
-                  type="text"
-                  value={item.val}
-                  onChange={e => item.setVal(e.target.value)}
-                  placeholder={`Texte de la proposition ${item.letter}`}
-                  className="flex-1 px-4 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white/70 dark:bg-navy-800 text-xs"
+
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-1.5 p-2 rounded-xl bg-navy-100 dark:bg-navy-800 font-bold cursor-pointer">
+                      <input type="checkbox" checked={correctA} onChange={e => setCorrectA(e.target.checked)} className="w-4 h-4 text-brand-600 rounded" />
+                      <span>Option A</span>
+                    </label>
+                    <input type="text" value={optA} onChange={e => setOptA(e.target.value)} placeholder="Proposition A" className="flex-1 px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800" />
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-1.5 p-2 rounded-xl bg-navy-100 dark:bg-navy-800 font-bold cursor-pointer">
+                      <input type="checkbox" checked={correctB} onChange={e => setCorrectB(e.target.checked)} className="w-4 h-4 text-brand-600 rounded" />
+                      <span>Option B</span>
+                    </label>
+                    <input type="text" value={optB} onChange={e => setOptB(e.target.value)} placeholder="Proposition B" className="flex-1 px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800" />
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-1.5 p-2 rounded-xl bg-navy-100 dark:bg-navy-800 font-bold cursor-pointer">
+                      <input type="checkbox" checked={correctC} onChange={e => setCorrectC(e.target.checked)} className="w-4 h-4 text-brand-600 rounded" />
+                      <span>Option C</span>
+                    </label>
+                    <input type="text" value={optC} onChange={e => setOptC(e.target.value)} placeholder="Proposition C" className="flex-1 px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800" />
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-1.5 p-2 rounded-xl bg-navy-100 dark:bg-navy-800 font-bold cursor-pointer">
+                      <input type="checkbox" checked={correctD} onChange={e => setCorrectD(e.target.checked)} className="w-4 h-4 text-brand-600 rounded" />
+                      <span>Option D</span>
+                    </label>
+                    <input type="text" value={optD} onChange={e => setOptD(e.target.value)} placeholder="Proposition D" className="flex-1 px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800" />
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-1.5 p-2 rounded-xl bg-navy-100 dark:bg-navy-800 font-bold cursor-pointer">
+                      <input type="checkbox" checked={correctE} onChange={e => setCorrectE(e.target.checked)} className="w-4 h-4 text-brand-600 rounded" />
+                      <span>Option E</span>
+                    </label>
+                    <input type="text" value={optE} onChange={e => setOptE(e.target.value)} placeholder="Proposition E" className="flex-1 px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800" />
+                  </div>
+                </div>
+              </div>
+
+              {/* HTML Explanation */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  Explication Physiopathologique (Code HTML) :
+                </label>
+                <textarea
+                  value={explanationHtml}
+                  onChange={e => setExplanationHtml(e.target.value)}
+                  rows={4}
+                  className="w-full p-4 font-mono text-xs rounded-2xl border border-navy-200 dark:border-navy-800 bg-white dark:bg-navy-900"
                 />
               </div>
-            ))}
-          </div>
 
-          {/* Explanation HTML */}
-          <div>
-            <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-              Justification Médicale & Physiopathologique (Code HTML complet) :
-            </label>
-            {activeTab === 'html' ? (
-              <textarea
-                value={explanationHtml}
-                onChange={e => setExplanationHtml(e.target.value)}
-                rows={4}
-                className="w-full font-mono text-xs px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white/70 dark:bg-navy-800"
-              />
-            ) : (
-              <div
-                className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900 text-xs leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: explanationHtml }}
-              />
-            )}
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-              Référence Universitaire :
-            </label>
-            <input
-              type="text"
-              value={reference}
-              onChange={e => setReference(e.target.value)}
-              placeholder="Ex : Faculté de Médecine d'Alger - Résidanat 2024"
-              className="w-full px-4 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white/70 dark:bg-navy-800 text-xs"
-            />
-          </div>
-
-          <div className="pt-2 flex justify-end gap-3">
-            <button
-              type="button"
-              onClick={() => setShowAddForm(false)}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold text-navy-600 hover:bg-navy-100 dark:text-navy-300"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2.5 rounded-xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-soft"
-            >
-              Enregistrer le QCM HTML
-            </button>
-          </div>
-        </form>
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="submit"
+                  className="px-6 py-3 rounded-2xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-md transition-all"
+                >
+                  ➕ Enregistrer et Synchroniser le QCM
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       )}
 
-      {/* Year Filter Pills */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        <button
-          onClick={() => setSelectedYearFilter('all')}
-          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 ${
-            selectedYearFilter === 'all'
-              ? 'bg-[#5D5FEF] text-white shadow-xs'
-              : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
-          }`}
-        >
-          Toutes les Années ({qcms.length})
-        </button>
-        {MEDICAL_YEARS.map(y => {
-          const yrCount = qcms.filter(q => q.year === y.year).length;
-          return (
-            <button
-              key={y.year}
-              onClick={() => {
-                setSelectedYearFilter(selectedYearFilter === String(y.year) ? 'all' : String(y.year));
-              }}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 ${
-                selectedYearFilter === String(y.year)
-                  ? 'bg-[#5D5FEF] text-white shadow-xs'
-                  : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
-              }`}
-            >
-              <School className="w-3 h-3" />
-              <span>{y.name}</span>
-              {yrCount > 0 && <span className="text-[10px] opacity-75 font-mono">({yrCount})</span>}
-            </button>
-          );
-        })}
-        {/* Sans Année */}
-        <button
-          onClick={() => setSelectedYearFilter(selectedYearFilter === 'none' ? 'all' : 'none')}
-          className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 ${
-            selectedYearFilter === 'none'
-              ? 'bg-[#5D5FEF] text-white shadow-xs'
-              : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
-          }`}
-        >
-          <span>🌐 Sans Année</span>
-          {qcms.filter(q => !q.year).length > 0 && (
-            <span className="text-[10px] opacity-75 font-mono">({qcms.filter(q => !q.year).length})</span>
-          )}
-        </button>
-      </div>
+      {/* Filter Bar for Existing QCM Bank */}
+      <div className="apple-card p-4 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3 flex-wrap text-xs font-bold">
+          <span className="flex items-center gap-1.5 text-navy-700 dark:text-navy-300">
+            <Filter className="w-4 h-4 text-brand-600" />
+            Filtres Banque :
+          </span>
 
-      {/* Specialty Filter Pills */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        <button
-          onClick={() => setSelectedSpecialtyFilter('all')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all shrink-0 ${
-            selectedSpecialtyFilter === 'all'
-              ? 'apple-badge-purple'
-              : 'apple-pill text-navy-600 dark:text-navy-300'
-          }`}
-        >
-          Tous les modules
-        </button>
-        {(selectedYearFilter === 'all'
-          ? specialtiesList
-          : selectedYearFilter === 'none'
-            ? specialtiesList.filter(s => !s.year)
-            : specialtiesList.filter(s => s.year === Number(selectedYearFilter))
-        ).map(s => (
-          <button
-            key={s.id}
-            onClick={() => setSelectedSpecialtyFilter(selectedSpecialtyFilter === s.id ? 'all' : s.id)}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shrink-0 transition-all ${
-              selectedSpecialtyFilter === s.id
-                ? 'apple-badge-purple'
-                : 'apple-pill text-navy-600 dark:text-navy-300'
-            }`}
+          <select
+            value={selectedYearFilter}
+            onChange={e => setSelectedYearFilter(e.target.value)}
+            className="px-3 py-1.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white"
           >
-            <span>{getSpecialtyEmoji(s.id)}</span>
-            <span>{s.shortName}</span>
-          </button>
-        ))}
+            <option value="all">Toutes les années</option>
+            {MEDICAL_YEARS.map(y => (
+              <option key={y.year} value={y.year}>{y.name}</option>
+            ))}
+          </select>
+
+          <select
+            value={selectedSpecialtyFilter}
+            onChange={e => setSelectedSpecialtyFilter(e.target.value)}
+            className="px-3 py-1.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white"
+          >
+            <option value="all">Toutes les spécialités</option>
+            {specialtiesList.map(s => (
+              <option key={s.id} value={s.id}>{s.name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="text-xs font-bold text-navy-500">
+          {filteredQcms.length} QCM(s) en Banque
+        </div>
       </div>
 
-      {/* QCM List */}
-      <div className="space-y-3">
-        {filteredQcms.map(q => (
-          <div key={q.id} className="apple-card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1 flex-1">
-              <div className="flex items-center gap-2">
-                <span className="text-base">{getSpecialtyEmoji(q.specialtyId)}</span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-brand-50 text-brand-700 dark:bg-brand-950/50 dark:text-brand-300">
-                  {q.specialtyName}
-                </span>
-                {q.courseTitle && (
-                  <span className="text-xs text-navy-400 truncate max-w-xs">
-                    • {q.courseTitle}
+      {/* List of Existing QCMs */}
+      <div className="space-y-4">
+        {filteredQcms.map((qcm) => (
+          <div key={qcm.id} className="apple-card p-6 space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="px-2.5 py-0.5 rounded-lg text-xs font-black bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 border border-brand-200/50">
+                    {getSpecialtyEmoji(qcm.specialtyId)} {qcm.specialtyName || qcm.specialtyId}
                   </span>
-                )}
+                  {qcm.courseTitle && (
+                    <span className="px-2 py-0.5 rounded-lg text-[11px] font-bold bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300">
+                      📖 {qcm.courseTitle}
+                    </span>
+                  )}
+                  <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300 border border-amber-200/50">
+                    🏛️ {qcm.faculty === 'ORAN' ? 'Faculté Oran' : qcm.faculty === 'SIDI_BEL_ABBES' ? 'Faculté SBA' : 'Toutes Facultés'}
+                  </span>
+                  {qcm.source && (
+                    <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                      📖 {qcm.source}
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-base font-bold text-navy-950 dark:text-white">
+                  {qcm.title}
+                </h3>
               </div>
-              <h3 className="text-sm font-bold text-navy-900 dark:text-white">{q.title}</h3>
-              <p className="text-xs text-navy-500 line-clamp-1">{q.question}</p>
-            </div>
 
-            <div className="flex items-center gap-2 self-end sm:self-center">
               <button
-                onClick={() => handleDelete(q.id)}
-                className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
-                title="Supprimer"
+                onClick={() => handleDelete(qcm.id)}
+                className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                title="Supprimer ce QCM"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
+
+            <p className="text-sm font-semibold text-navy-800 dark:text-navy-200">
+              {qcm.question}
+            </p>
+
+            <div className="grid grid-cols-1 gap-2 text-xs">
+              {qcm.options.map((opt, idx) => {
+                const isCorrect = qcm.correctAnswers?.includes(idx);
+                return (
+                  <div
+                    key={opt.id || idx}
+                    className={`p-3 rounded-xl border flex items-center justify-between ${
+                      isCorrect
+                        ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
+                        : 'bg-navy-50/50 dark:bg-navy-900/40 border-navy-200/60 dark:border-navy-800 text-navy-700 dark:text-navy-300'
+                    }`}
+                  >
+                    <span><strong>{opt.letter || String.fromCharCode(65 + idx)}.</strong> {opt.text}</span>
+                    {isCorrect && (
+                      <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+                        Exacte
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {qcm.explanation && (
+              <details className="text-xs bg-navy-50/60 dark:bg-navy-950 p-4 rounded-xl border border-navy-200 dark:border-navy-800">
+                <summary className="font-bold text-brand-600 dark:text-brand-400 cursor-pointer hover:underline">
+                  Voir l'explication physiopathologique
+                </summary>
+                <div
+                  className="mt-2 text-navy-700 dark:text-navy-300 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: qcm.explanation }}
+                />
+              </details>
+            )}
           </div>
         ))}
       </div>
