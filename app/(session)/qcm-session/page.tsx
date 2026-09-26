@@ -505,7 +505,7 @@ function SessionContent() {
 
   return (
     <div
-      className="min-h-[100dvh] h-[100dvh] flex flex-col bg-gradient-to-br from-navy-950 via-slate-900 to-indigo-950 overflow-hidden relative select-none"
+      className="min-h-[100dvh] sm:h-[100dvh] flex flex-col bg-gradient-to-br from-navy-950 via-slate-900 to-indigo-950 overflow-y-auto sm:overflow-hidden relative select-none"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -778,7 +778,7 @@ function SessionContent() {
                         type="button"
                         onClick={(e) => toggleEliminateOption(e, idx)}
                         className={`p-1 rounded-md text-[11px] font-bold transition-all hover:bg-rose-500/20 ${
-                          isEliminated ? 'text-rose-400 bg-rose-500/20 opacity-100' : 'text-white/20 hover:text-white/60 opacity-0 group-hover:opacity-100'
+                          isEliminated ? 'text-rose-400 bg-rose-500/20 opacity-100' : 'text-white/50 hover:text-white opacity-70 sm:opacity-0 sm:group-hover:opacity-100'
                         }`}
                         title="Rayer / Éliminer cette option"
                       >

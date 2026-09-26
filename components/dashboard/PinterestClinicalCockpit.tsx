@@ -269,10 +269,10 @@ export const PinterestClinicalCockpit: React.FC = () => {
         </div>
 
         {/* Pill Navigation Bar */}
-        <div className="inline-flex items-center bg-[#EAEDF2] dark:bg-white/5 p-1.5 rounded-full border border-slate-200/60 dark:border-white/10 shadow-inner">
+        <div className="inline-flex items-center bg-[#EAEDF2] dark:bg-white/5 p-1 sm:p-1.5 rounded-full border border-slate-200/60 dark:border-white/10 shadow-inner max-w-full overflow-x-auto scrollbar-none">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+            className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all duration-300 shrink-0 ${
               activeTab === 'overview'
                 ? 'bg-gradient-to-r from-[#5D5FEF] to-[#4848DE] text-white shadow-md shadow-[#5D5FEF]/30 scale-[1.02]'
                 : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -282,7 +282,7 @@ export const PinterestClinicalCockpit: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('prescription')}
-            className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+            className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all duration-300 shrink-0 ${
               activeTab === 'prescription'
                 ? 'bg-gradient-to-r from-[#5D5FEF] to-[#4848DE] text-white shadow-md shadow-[#5D5FEF]/30 scale-[1.02]'
                 : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -292,7 +292,7 @@ export const PinterestClinicalCockpit: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('reports')}
-            className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+            className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all duration-300 shrink-0 ${
               activeTab === 'reports'
                 ? 'bg-gradient-to-r from-[#5D5FEF] to-[#4848DE] text-white shadow-md shadow-[#5D5FEF]/30 scale-[1.02]'
                 : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -302,7 +302,7 @@ export const PinterestClinicalCockpit: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('appointment')}
-            className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+            className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all duration-300 shrink-0 ${
               activeTab === 'appointment'
                 ? 'bg-gradient-to-r from-[#5D5FEF] to-[#4848DE] text-white shadow-md shadow-[#5D5FEF]/30 scale-[1.02]'
                 : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -420,12 +420,12 @@ export const PinterestClinicalCockpit: React.FC = () => {
             DIAGNOSIS
           </div>
 
-          <div className="relative bg-[#FFFFFF] dark:bg-[#151926] rounded-[32px] p-6 sm:p-8 border border-slate-200/60 dark:border-white/5 shadow-[0_4px_25px_-2px_rgba(0,0,0,0.03)] min-h-[420px] flex items-center justify-center overflow-hidden">
+          <div className="relative bg-[#FFFFFF] dark:bg-[#151926] rounded-[32px] p-4 sm:p-8 border border-slate-200/60 dark:border-white/5 shadow-[0_4px_25px_-2px_rgba(0,0,0,0.03)] min-h-[360px] sm:min-h-[420px] flex flex-col lg:flex-row items-center justify-center gap-4 overflow-hidden">
             
             <div className="absolute inset-0 bg-gradient-to-tr from-slate-100/60 via-transparent to-[#5D5FEF]/5 pointer-events-none" />
 
             {/* Central Organ Image */}
-            <div className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 my-4 flex items-center justify-center">
+            <div className="relative z-10 w-56 h-56 sm:w-80 sm:h-80 my-2 sm:my-4 flex items-center justify-center shrink-0">
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-xl border border-slate-200/50 dark:border-white/10 group">
                 <Image
                   src={data.organImagePath}
@@ -443,8 +443,8 @@ export const PinterestClinicalCockpit: React.FC = () => {
               </div>
             </div>
 
-            {/* Secondary Diagnosis Badge (Top Right) */}
-            <div className="absolute top-6 right-4 sm:right-8 z-20 max-w-[260px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/70 dark:border-white/15 p-3.5 sm:p-4 rounded-2xl shadow-xl">
+            {/* Secondary Diagnosis Badge (Mobile Stacked / Desktop Floating Top Right) */}
+            <div className="w-full lg:w-auto lg:absolute lg:top-6 lg:right-8 z-20 max-w-full lg:max-w-[260px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/70 dark:border-white/15 p-3.5 sm:p-4 rounded-2xl shadow-xl">
               <div className="flex items-center gap-2 mb-1">
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -459,8 +459,8 @@ export const PinterestClinicalCockpit: React.FC = () => {
               </p>
             </div>
 
-            {/* Primary Diagnosis Badge (Bottom Right) */}
-            <div className="absolute bottom-6 right-4 sm:right-8 z-20 max-w-[280px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/70 dark:border-white/15 p-3.5 sm:p-4 rounded-2xl shadow-xl">
+            {/* Primary Diagnosis Badge (Mobile Stacked / Desktop Floating Bottom Right) */}
+            <div className="w-full lg:w-auto lg:absolute lg:bottom-6 lg:right-8 z-20 max-w-full lg:max-w-[280px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/70 dark:border-white/15 p-3.5 sm:p-4 rounded-2xl shadow-xl">
               <div className="flex items-center gap-2 mb-1">
                 <span className="w-2 h-2 rounded-full bg-[#5D5FEF] animate-pulse" />
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#5D5FEF] dark:text-[#818cf8]">
