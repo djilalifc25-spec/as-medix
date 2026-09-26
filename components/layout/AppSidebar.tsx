@@ -1590,7 +1590,7 @@ export const AppSidebar: React.FC = () => {
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-xs font-bold text-slate-800 dark:text-white truncate">AS MEDIX Pro</div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">Concours Résidanat 2026</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">Concours Résidanat 2027</div>
             </div>
           </div>
         </div>

@@ -119,7 +119,7 @@ export default function ProfilePage() {
               {isPremium ? (
                 <>👑 Accès VIP PREMIUM Illimité</>
               ) : isPro ? (
-                <>⭐ Forfait PRO Concours Résidanat 2026</>
+                <>⭐ Forfait PRO Concours Résidanat 2027</>
               ) : (
                 <>🚀 Compte Démo Gratuite</>
               )}

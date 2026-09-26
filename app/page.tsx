@@ -310,7 +310,7 @@ export default function LandingPage() {
                 <div className="flex items-center justify-between">
                   <div className="text-xs font-black text-slate-900 flex items-center gap-1.5">
                     <span>�Y".</span>
-                    <span>Session, 2026</span>
+                    <span>Session, 2027</span>
                   </div>
                   <span className="text-[9px] font-bold text-blue-600 px-2 py-0.5 rounded-full bg-blue-50">Actif</span>
                 </div>
@@ -751,7 +751,7 @@ export default function LandingPage() {
           </div>
 
           <div className="text-[10px] text-slate-400 dark:text-slate-500">
-            © 2026 asmedix. Tous droits réservés.
+            © 2027 AS MEDIX .dz. Tous droits réservés.
           </div>
         </div>
       </footer>

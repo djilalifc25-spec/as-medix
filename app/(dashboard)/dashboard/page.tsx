@@ -40,7 +40,7 @@ export default function DashboardPage() {
   const [daysToExam, setDaysToExam] = useState<number>(21);
 
   useEffect(() => {
-    const examDate = new Date('2026-10-15T08:00:00');
+    const examDate = new Date('2027-10-15T08:00:00');
     const now = new Date();
     const diffDays = Math.ceil((examDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
     setDaysToExam(Math.max(0, diffDays));
@@ -160,7 +160,7 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2">
                 <span className="badge" style={{ background:'rgba(255,255,255,0.15)', color:'#fff', borderColor:'rgba(255,255,255,0.2)' }}>
                   <Sparkles className="w-3 h-3" />
-                  Résidanat 2026 • Algérie
+                  Résidanat 2027 • Algérie
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
@@ -199,7 +199,7 @@ export default function DashboardPage() {
               </div>
               <div className="hidden sm:block w-full border-t border-white/10 my-2" />
               <div className="text-center">
-                <div className="text-[10px] text-white/50">Octobre 2026</div>
+                <div className="text-[10px] text-white/50">Octobre 2027</div>
               </div>
             </div>
           </div>
