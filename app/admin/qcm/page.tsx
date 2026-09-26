@@ -241,9 +241,16 @@ export default function AdminQcmPage() {
           body: formData,
         });
 
-        const data = await res.json();
+        const rawText = await res.text();
+        let data: any = {};
+        try {
+          data = JSON.parse(rawText);
+        } catch (jsonErr) {
+          throw new Error('Le serveur a renvoyé une réponse HTML au lieu de JSON (ex: Fichier PDF trop volumineux pour le serveur Vercel ou erreur 500). Utilisez le script Python local `qcm_extractor.py` pour traiter les gros fichiers PDF.');
+        }
+
         if (!res.ok || data.error) {
-          throw new Error(data.error || 'Erreur lors de l\'analyse du fichier');
+          throw new Error(data.error || `Erreur serveur (${res.status}) lors de l'analyse du fichier`);
         }
 
         if (data.qcms && Array.isArray(data.qcms) && data.qcms.length > 0) {
