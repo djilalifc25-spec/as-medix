@@ -263,6 +263,7 @@ function CourseDetailContent() {
   const scrollToSection = (sectionId: string) => {
     setShowTocMobile(false);
     setIsTocModalOpen(false);
+    setShowFullscreenNav(true);
     setActiveSection(sectionId);
 
     const el = document.getElementById(sectionId);
@@ -293,11 +294,41 @@ function CourseDetailContent() {
   }, [activeToc]);
 
   const [isFullscreen, setIsFullscreen] = useState(true);
+  const [showFullscreenNav, setShowFullscreenNav] = useState(true);
   const [showTocMobile, setShowTocMobile] = useState(false);
   const [isTocModalOpen, setIsTocModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [activeSearchQuery, setActiveSearchQuery] = useState('');
   const [targetMatchIndex, setTargetMatchIndex] = useState<number | undefined>(undefined);
+
+  // Auto-hide top bar when scrolling down, reveal when scrolling up in fullscreen mode
+  useEffect(() => {
+    if (!isFullscreen) return;
+
+    let lastScrollY = 0;
+    const container = document.getElementById('asmedix-fullscreen-cours');
+    if (!container) return;
+
+    const handleFullscreenScroll = () => {
+      const currentScrollY = container.scrollTop;
+
+      // Always show at very top (< 30px)
+      if (currentScrollY <= 30) {
+        setShowFullscreenNav(true);
+      } else if (currentScrollY > lastScrollY + 6) {
+        // Scrolling DOWN -> hide top bar
+        setShowFullscreenNav(false);
+      } else if (currentScrollY < lastScrollY - 6) {
+        // Scrolling UP -> show top bar
+        setShowFullscreenNav(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    container.addEventListener('scroll', handleFullscreenScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleFullscreenScroll);
+  }, [isFullscreen]);
 
   const handleSelectSearchMatch = (match: SearchMatchResult) => {
     setActiveSearchQuery(match.matchedText);
@@ -524,9 +555,11 @@ function CourseDetailContent() {
             overflowX: 'hidden'
           }}
         >
-          {/* Sticky Fullscreen Top Navigation Bar */}
+          {/* Sticky Fullscreen Top Navigation Bar (Auto-hides on scroll down, reveals on scroll up) */}
           <div 
-            className="sticky top-0 z-[1000] shrink-0 w-full max-w-full px-2.5 sm:px-8 py-2 sm:py-3 bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-navy-100 dark:border-navy-800 shadow-md flex items-center justify-between gap-1.5 sm:gap-3 overflow-hidden box-border"
+            className={`sticky top-0 z-[1000] shrink-0 w-full max-w-full px-2.5 sm:px-8 py-2 sm:py-3 bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-navy-100 dark:border-navy-800 shadow-md flex items-center justify-between gap-1.5 sm:gap-3 overflow-hidden box-border transition-all duration-300 ease-in-out ${
+              showFullscreenNav ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+            }`}
             style={{
               paddingTop: 'max(0.6rem, env(safe-area-inset-top, 0px))',
               paddingLeft: 'max(0.6rem, env(safe-area-inset-left, 0px))',
