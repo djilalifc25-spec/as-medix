@@ -295,39 +295,40 @@ function CourseDetailContent() {
 
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [showFullscreenNav, setShowFullscreenNav] = useState(true);
+  const lastScrollYRef = React.useRef(0);
   const [showTocMobile, setShowTocMobile] = useState(false);
   const [isTocModalOpen, setIsTocModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [activeSearchQuery, setActiveSearchQuery] = useState('');
   const [targetMatchIndex, setTargetMatchIndex] = useState<number | undefined>(undefined);
 
-  // Auto-hide top bar when scrolling down, reveal when scrolling up in fullscreen mode
+  // Auto-hide top bar when scrolling down, reveal when scrolling up in fullscreen mode (with capture listener)
   useEffect(() => {
     if (!isFullscreen) return;
 
-    let lastScrollY = 0;
-    const container = document.getElementById('asmedix-fullscreen-cours');
-    if (!container) return;
+    const handleScrollEvent = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const isFullscreenContainer = target && (target.id === 'asmedix-fullscreen-cours' || target.closest?.('#asmedix-fullscreen-cours'));
+      
+      const currentScrollY = isFullscreenContainer && target.scrollTop !== undefined 
+        ? target.scrollTop 
+        : (window.scrollY || document.documentElement.scrollTop || 0);
 
-    const handleFullscreenScroll = () => {
-      const currentScrollY = container.scrollTop;
-
-      // Always show at very top (< 30px)
       if (currentScrollY <= 30) {
         setShowFullscreenNav(true);
-      } else if (currentScrollY > lastScrollY + 6) {
+      } else if (currentScrollY > lastScrollYRef.current + 5) {
         // Scrolling DOWN -> hide top bar
         setShowFullscreenNav(false);
-      } else if (currentScrollY < lastScrollY - 6) {
+      } else if (currentScrollY < lastScrollYRef.current - 5) {
         // Scrolling UP -> show top bar
         setShowFullscreenNav(true);
       }
 
-      lastScrollY = currentScrollY;
+      lastScrollYRef.current = currentScrollY;
     };
 
-    container.addEventListener('scroll', handleFullscreenScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleFullscreenScroll);
+    window.addEventListener('scroll', handleScrollEvent, true);
+    return () => window.removeEventListener('scroll', handleScrollEvent, true);
   }, [isFullscreen]);
 
   const handleSelectSearchMatch = (match: SearchMatchResult) => {
@@ -571,6 +572,17 @@ function CourseDetailContent() {
       {isFullscreen && mounted && createPortal(
         <div 
           id="asmedix-fullscreen-cours"
+          onScroll={(e) => {
+            const currentScrollY = e.currentTarget.scrollTop;
+            if (currentScrollY <= 30) {
+              setShowFullscreenNav(true);
+            } else if (currentScrollY > lastScrollYRef.current + 5) {
+              setShowFullscreenNav(false);
+            } else if (currentScrollY < lastScrollYRef.current - 5) {
+              setShowFullscreenNav(true);
+            }
+            lastScrollYRef.current = currentScrollY;
+          }}
           className="fixed inset-0 z-[999999] w-full max-w-full h-[100dvh] bg-[#f8f9ff] dark:bg-navy-950 overflow-y-auto overflow-x-hidden touch-pan-y overscroll-y-contain flex flex-col animate-in fade-in zoom-in-95 duration-200 selection:bg-brand-500/20"
           style={{
             minHeight: '100dvh',
