@@ -9,7 +9,8 @@ import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
 import {
   ArrowLeft, Code, Eye, Save, Globe, Check, Sparkles, AlertCircle,
   Columns, ExternalLink, Loader2, CheckCircle2, FileText, PlusCircle,
-  Stethoscope, ShieldAlert, Pill, Table, List, BookmarkCheck, Upload, Image as ImageIcon, School
+  Stethoscope, ShieldAlert, Pill, Table, List, BookmarkCheck, Upload, Image as ImageIcon, School,
+  Bot, Wand2, Cpu, Key, X
 } from 'lucide-react';
 import { autoFormatCourseHtml, extractMetadataFromHtml } from '@/lib/autoHtmlFormatter';
 
@@ -51,6 +52,73 @@ function CourseEditorContent() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const coverFileInputRef = useRef<HTMLInputElement>(null);
   const contentFileInputRef = useRef<HTMLInputElement>(null);
+
+  // OpenRouter AI Modal State
+  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [openRouterKey, setOpenRouterKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('asmedix_openrouter_key') || '';
+    }
+    return '';
+  });
+  const [selectedAiModel, setSelectedAiModel] = useState('google/gemini-2.5-flash');
+  const [aiRawInput, setAiRawInput] = useState('');
+  const [aiProcessing, setAiProcessing] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+
+  const handleOpenAiModal = () => {
+    if (!aiRawInput.trim()) {
+      setAiRawInput(htmlContent);
+    }
+    setAiModalOpen(true);
+  };
+
+  const handleRunOpenRouterAi = async () => {
+    if (!aiRawInput.trim()) {
+      setAiError('Veuillez coller le texte ou le code HTML brut du cours à analyser.');
+      return;
+    }
+
+    setAiProcessing(true);
+    setAiError(null);
+
+    if (openRouterKey.trim() && typeof window !== 'undefined') {
+      localStorage.setItem('asmedix_openrouter_key', openRouterKey.trim());
+    }
+
+    try {
+      const spec = specialtiesList.find(s => s.id === specialtyId);
+      const res = await fetch('/api/admin/ai/format-course', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: aiRawInput,
+          apiKey: openRouterKey.trim(),
+          model: selectedAiModel,
+          specialty: spec?.name || 'Médecine',
+          year: year !== '' ? Number(year) : undefined
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success || !data.result) {
+        throw new Error(data.error || 'Erreur lors de l\'analyse par l\'IA OpenRouter');
+      }
+
+      const resObj = data.result;
+      if (resObj.title) setTitle(resObj.title);
+      if (resObj.subtitle) setSubtitle(resObj.subtitle);
+      if (resObj.description) setDescription(resObj.description);
+      if (resObj.htmlContent) setHtmlContent(resObj.htmlContent);
+
+      setSuccessNotice("🚀 Cours intégralement structuré et formaté au design AS-MEDIX par l'IA OpenRouter ! (Titre, sous-titre, description et HTML générés)");
+      setAiModalOpen(false);
+    } catch (err: any) {
+      setAiError(err.message || 'Erreur d\'exécution OpenRouter AI');
+    } finally {
+      setAiProcessing(false);
+    }
+  };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, target: 'cover' | 'content') => {
     const file = e.target.files?.[0];
@@ -385,6 +453,16 @@ function CourseEditorContent() {
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={handleOpenAiModal}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white shadow-soft transition-all cursor-pointer"
+            title="Ouvrir l'Assistant IA OpenRouter pour formater et extraire le cours"
+          >
+            <Bot className="w-4 h-4 text-purple-200 animate-bounce" />
+            <span>🤖 Assistant IA OpenRouter</span>
+          </button>
+
           {currentSlug && (
             <Link
               href={`/cours/${currentSlug}`}
@@ -1033,6 +1111,125 @@ function CourseEditorContent() {
           )}
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* OPENROUTER AI ASSISTANT MODAL */}
+      {/* ========================================================================= */}
+      {aiModalOpen && (
+        <div className="fixed inset-0 z-50 bg-navy-950/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-navy-900 border border-navy-200 dark:border-navy-700 rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-navy-100 dark:border-navy-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-2xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-300 flex items-center justify-center shadow-xs">
+                  <Bot className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-navy-950 dark:text-white flex items-center gap-2">
+                    Assistant IA OpenRouter
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">Intelligent 2.5</span>
+                  </h3>
+                  <p className="text-xs text-navy-500">
+                    Extrait le Titre, Sous-titre, Description, Points Clés & HTML AS-MEDIX en 1 clic.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAiModalOpen(false)}
+                className="p-1.5 rounded-xl text-navy-400 hover:text-navy-700 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800 transition-all"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {aiError && (
+              <div className="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-xs text-rose-800 dark:text-rose-200 flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
+                <span>{aiError}</span>
+              </div>
+            )}
+
+            {/* Settings Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
+                  <Key className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Clé API OpenRouter</span>
+                </label>
+                <input
+                  type="password"
+                  value={openRouterKey}
+                  onChange={e => setOpenRouterKey(e.target.value)}
+                  placeholder="sk-or-v1-..."
+                  className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                />
+                <p className="text-[10px] text-navy-400 mt-1">Sauvegardée localement sur votre navigateur.</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
+                  <Cpu className="w-3.5 h-3.5 text-purple-500" />
+                  <span>Modèle IA OpenRouter</span>
+                </label>
+                <select
+                  value={selectedAiModel}
+                  onChange={e => setSelectedAiModel(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                >
+                  <option value="google/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
+                  <option value="anthropic/claude-3.5-haiku">🧠 Claude 3.5 Haiku (Haute Précision)</option>
+                  <option value="openai/gpt-4o-mini">🚀 GPT-4o Mini (OpenAI)</option>
+                  <option value="deepseek/deepseek-r1">🔬 DeepSeek R1 (Raisonnement)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Raw Content Input */}
+            <div>
+              <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1">
+                Collez le texte brut du PDF, cours scanné ou code HTML brut :
+              </label>
+              <textarea
+                rows={8}
+                value={aiRawInput}
+                onChange={e => setAiRawInput(e.target.value)}
+                placeholder="Collez ici n'importe quel cours médical brut ou extrait PDF..."
+                className="w-full font-mono text-xs text-navy-900 dark:text-navy-100 bg-navy-50/70 dark:bg-navy-950 p-3 rounded-2xl border border-navy-200 dark:border-navy-800 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
+              />
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-navy-100 dark:border-navy-800">
+              <button
+                type="button"
+                onClick={() => setAiModalOpen(false)}
+                disabled={aiProcessing}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-navy-600 dark:text-navy-300 hover:bg-navy-100 dark:hover:bg-navy-800"
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                onClick={handleRunOpenRouterAi}
+                disabled={aiProcessing}
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white font-black text-xs shadow-md transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {aiProcessing ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <span>Analyse & Formatage IA en cours...</span>
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="w-4 h-4 text-purple-200" />
+                    <span>🚀 Analyser & Formater avec l'IA OpenRouter</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
