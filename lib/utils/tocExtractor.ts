@@ -16,10 +16,13 @@ export function processCourseToc(
     return { processedHtml: '', toc: rawToc ? rawToc.map((t, idx) => ({ id: t.id || `sec-${idx + 1}`, title: t.title, level: t.level || 1 })) : [] };
   }
 
-  // Strip legacy quick-nav-bar div elements if present
+  // Strip legacy quick-nav-bar, outils boxes, and fast-access toolbars
   let cleanedInput = htmlContent
     .replace(/<div[^>]*class="[^"]*quick-nav-bar[^"]*"[^>]*>[\s\S]*?<\/div>\s*<\/div>/gi, '')
-    .replace(/<div[^>]*class="[^"]*quick-nav-bar[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
+    .replace(/<div[^>]*class="[^"]*quick-nav-bar[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '')
+    .replace(/<div[^>]*class="[^"]*(?:outils|quick-nav|floating-tools|tools-bar)[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '')
+    .replace(/<div[^>]*>(?:\s*<[^>]+>)*\s*🧠\s*OUTILS\s*:[\s\S]*?<\/div>/gi, '')
+    .replace(/<div[^>]*>(?:\s*<[^>]+>)*\s*⚡\s*Accès Rapide\s*:[\s\S]*?<\/div>/gi, '');
 
   const generatedToc: TocItem[] = [];
   let secIndex = 0;

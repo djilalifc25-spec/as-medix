@@ -131,24 +131,6 @@ export function autoFormatCourseHtml(rawHtml: string): FormattedCourseResult {
     '<img class="rounded-2xl max-w-full mx-auto shadow-md border border-navy-200 dark:border-navy-700 my-4" $1>'
   );
 
-  const quickNavBar = `<div class="quick-nav-bar p-3.5 mb-8 rounded-2xl bg-gradient-to-r from-navy-900 via-brand-950 to-navy-900 text-white border border-navy-700 shadow-md flex items-center justify-between flex-wrap gap-2 not-prose">
-  <div class="flex items-center gap-1.5 text-xs font-bold flex-wrap">
-    <span class="text-amber-400 mr-1 font-black">⚡ Accès Rapide :</span>
-    <button onclick="document.querySelector('.rappel')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 text-[11px] font-bold transition-all cursor-pointer">📌 Rappels</button>
-    <button onclick="document.querySelector('.note')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-500/40 text-[11px] font-bold transition-all cursor-pointer">💡 Perles</button>
-    <button onclick="document.querySelector('.piege')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 text-orange-200 border border-orange-500/40 text-[11px] font-bold transition-all cursor-pointer">⚠️ Pièges</button>
-    <button onclick="document.querySelector('.urgence')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/40 text-[11px] font-bold transition-all cursor-pointer">🚨 Urgences</button>
-    <button onclick="document.querySelector('.traitement')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-500/40 text-[11px] font-bold transition-all cursor-pointer">💊 Traitement</button>
-  </div>
-  <button onclick="if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen()}" class="px-3 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-black shadow-xs transition-all flex items-center gap-1 cursor-pointer">
-    🖥️ Plein Écran
-  </button>
-</div>`;
-
-  if (!formatted.includes('quick-nav-bar')) {
-    formatted = quickNavBar + '\n' + formatted;
-  }
-
   if (toc.length === 0) {
     toc = [
       { id: 'sec-1', title: '1. Introduction & Généralités', level: 1 },
