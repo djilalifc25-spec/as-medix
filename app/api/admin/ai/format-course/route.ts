@@ -8,8 +8,20 @@ export const dynamic = 'force-dynamic';
 function transformPdfUrl(url: string): string {
   let clean = url.trim();
 
-  // Handle Google Drive share links: drive.google.com/file/d/FILE_ID/view... -> drive.google.com/uc?export=download&id=FILE_ID
-  const driveFileMatch = clean.match(/drive\.google\.com\/file\/d\/([^\/]+)/i);
+  // Handle Google Presentation / Slides links: docs.google.com/presentation/d/ID/edit... -> docs.google.com/presentation/d/ID/export/pdf
+  const presentationMatch = clean.match(/docs\.google\.com\/presentation\/d\/([a-zA-Z0-9_-]+)/i);
+  if (presentationMatch && presentationMatch[1]) {
+    return `https://docs.google.com/presentation/d/${presentationMatch[1]}/export/pdf`;
+  }
+
+  // Handle Google Docs links: docs.google.com/document/d/ID/edit... -> docs.google.com/document/d/ID/export?format=pdf
+  const docMatch = clean.match(/docs\.google\.com\/document\/d\/([a-zA-Z0-9_-]+)/i);
+  if (docMatch && docMatch[1]) {
+    return `https://docs.google.com/document/d/${docMatch[1]}/export?format=pdf`;
+  }
+
+  // Handle Google Drive file share links: drive.google.com/file/d/FILE_ID/view... -> drive.google.com/uc?export=download&id=FILE_ID
+  const driveFileMatch = clean.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i);
   if (driveFileMatch && driveFileMatch[1]) {
     return `https://drive.google.com/uc?export=download&confirm=no_antivirus&id=${driveFileMatch[1]}`;
   }
