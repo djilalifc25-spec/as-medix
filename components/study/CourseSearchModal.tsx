@@ -23,6 +23,14 @@ interface CourseSearchModalProps {
   onSelectMatch: (match: SearchMatchResult) => void;
 }
 
+function normalizeStr(str: string): string {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
 export const CourseSearchModal: React.FC<CourseSearchModalProps> = ({
   isOpen,
   onClose,
@@ -58,11 +66,12 @@ export const CourseSearchModal: React.FC<CourseSearchModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Extract matches from htmlContent
+  // Extract matches from htmlContent with accent-normalized searching
   const matches = useMemo<SearchMatchResult[]>(() => {
-    const q = query.trim();
-    if (!q || q.length < 2 || !htmlContent) return [];
+    const qRaw = query.trim();
+    if (!qRaw || qRaw.length < 2 || !htmlContent) return [];
 
+    const normQ = normalizeStr(qRaw);
     const results: SearchMatchResult[] = [];
     
     if (typeof window === 'undefined') return results;
@@ -75,59 +84,52 @@ export const CourseSearchModal: React.FC<CourseSearchModalProps> = ({
     let currentSectionTitle = courseTitle || 'Contenu du cours';
     let matchCounter = 0;
 
-    const traverse = (node: Node) => {
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        const el = node as HTMLElement;
-        const tagName = el.tagName.toLowerCase();
-        
-        if (tagName === 'h1' || tagName === 'h2' || tagName === 'h3' || tagName === 'h4') {
-          const headingText = el.textContent?.trim();
-          if (headingText) {
-            currentSectionTitle = headingText;
-          }
-        }
+    const blocks = container.querySelectorAll('h1, h2, h3, h4, p, li, td, th, blockquote, div');
 
-        // Do not traverse into script or style tags
-        if (tagName === 'script' || tagName === 'style') return;
+    blocks.forEach((el) => {
+      const tagName = el.tagName.toLowerCase();
 
-        for (let i = 0; i < el.childNodes.length; i++) {
-          traverse(el.childNodes[i]);
-        }
-      } else if (node.nodeType === Node.TEXT_NODE) {
-        const text = node.textContent || '';
-        if (!text.trim()) return;
-
-        const lowerText = text.toLowerCase();
-        const lowerQ = q.toLowerCase();
-        let pos = lowerText.indexOf(lowerQ);
-
-        while (pos !== -1 && results.length < 100) {
-          matchCounter++;
-          const matchId = `asmedix-search-match-${matchCounter}`;
-
-          const startSnippet = Math.max(0, pos - 45);
-          const endSnippet = Math.min(text.length, pos + q.length + 55);
-
-          const snippetBefore = (startSnippet > 0 ? '...' : '') + text.substring(startSnippet, pos);
-          const matchedText = text.substring(pos, pos + q.length);
-          const snippetAfter = text.substring(pos + q.length, endSnippet) + (endSnippet < text.length ? '...' : '');
-
-          results.push({
-            id: matchId,
-            sectionTitle: currentSectionTitle,
-            snippetBefore,
-            matchedText,
-            snippetAfter,
-            fullSnippet: snippetBefore + matchedText + snippetAfter,
-            occurrenceIndex: matchCounter
-          });
-
-          pos = lowerText.indexOf(lowerQ, pos + lowerQ.length);
-        }
+      if (['h1', 'h2', 'h3', 'h4'].includes(tagName)) {
+        const text = el.textContent?.trim();
+        if (text) currentSectionTitle = text;
       }
-    };
 
-    traverse(container);
+      // Skip container divs that hold other block elements to prevent duplicated snippets
+      if (tagName === 'div' && el.querySelector('p, li, td, th, blockquote, h1, h2, h3, h4')) {
+        return;
+      }
+
+      const text = el.textContent?.trim() || '';
+      if (!text || text.length < 2) return;
+
+      const normText = normalizeStr(text);
+      let pos = normText.indexOf(normQ);
+
+      while (pos !== -1 && results.length < 100) {
+        matchCounter++;
+        const matchId = `asmedix-search-match-${matchCounter}`;
+
+        const startSnippet = Math.max(0, pos - 40);
+        const endSnippet = Math.min(text.length, pos + normQ.length + 50);
+
+        const snippetBefore = (startSnippet > 0 ? '...' : '') + text.substring(startSnippet, pos);
+        const matchedText = text.substring(pos, pos + normQ.length);
+        const snippetAfter = text.substring(pos + normQ.length, endSnippet) + (endSnippet < text.length ? '...' : '');
+
+        results.push({
+          id: matchId,
+          sectionTitle: currentSectionTitle,
+          snippetBefore,
+          matchedText: matchedText || qRaw,
+          snippetAfter,
+          fullSnippet: snippetBefore + (matchedText || qRaw) + snippetAfter,
+          occurrenceIndex: matchCounter
+        });
+
+        pos = normText.indexOf(normQ, pos + normQ.length);
+      }
+    });
+
     return results;
   }, [htmlContent, query, courseTitle]);
 

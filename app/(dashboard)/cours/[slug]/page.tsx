@@ -107,6 +107,18 @@ function matchesCourse(c: Course | any, slugOrId: string): boolean {
   return false;
 }
 
+function makeAccentInsensitivePattern(str: string): string {
+  if (!str) return '';
+  const escaped = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return escaped
+    .replace(/a/gi, '[aàáâãäåAÀÁÂÃÄÅ]')
+    .replace(/c/gi, '[cçCÇ]')
+    .replace(/e/gi, '[eèéêëEÈÉÊË]')
+    .replace(/i/gi, '[iìíîïIÌÍÎÏ]')
+    .replace(/o/gi, '[oòóôõöOÒÓÔÕÖ]')
+    .replace(/u/gi, '[uùúûüUÙÚÛÜ]');
+}
+
 function applyUserHighlightsToHtml(
   html: string,
   courseHighlights: SavedHighlight[],
@@ -116,12 +128,12 @@ function applyUserHighlightsToHtml(
   if (!html) return '';
   let cleaned = html.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
 
-  // Apply search query highlights if active
+  // Apply search query highlights if active (with accent insensitivity)
   if (searchQuery && searchQuery.trim().length >= 2) {
-    const escaped = searchQuery.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = makeAccentInsensitivePattern(searchQuery.trim());
     let matchIdx = 0;
     try {
-      const regex = new RegExp(`(?<!<[^>]*)${escaped}(?![^<]*>)`, 'gi');
+      const regex = new RegExp(`(?<!<[^>]*)${pattern}(?![^<]*>)`, 'gi');
       cleaned = cleaned.replace(regex, (matchText) => {
         matchIdx++;
         const isTarget = targetMatchIndex ? matchIdx === targetMatchIndex : false;
