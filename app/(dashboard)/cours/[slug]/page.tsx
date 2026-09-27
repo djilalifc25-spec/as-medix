@@ -478,14 +478,25 @@ function CourseDetailContent() {
 
   const enterFullscreen = () => {
     setIsFullscreen(true);
-    // Graceful native attempt for desktop browsers
+    setShowFullscreenNav(true);
     try {
-      if (document.documentElement && document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
+      const target = document.getElementById('asmedix-fullscreen-cours') || document.documentElement;
+      if (target && target.requestFullscreen) {
+        target.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+      } else if ((target as any).webkitRequestFullscreen) {
+        (target as any).webkitRequestFullscreen();
+      } else if ((target as any).msRequestFullscreen) {
+        (target as any).msRequestFullscreen();
       }
-    } catch (e) {
-      // Ignored for mobile Safari
-    }
+    } catch (_) {}
+
+    // Match meta theme-color with immersive background
+    try {
+      let meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) {
+        meta.setAttribute('content', document.documentElement.classList.contains('dark') ? '#080c14' : '#f8f9ff');
+      }
+    } catch (_) {}
   };
 
   const exitFullscreen = () => {
@@ -494,10 +505,10 @@ function CourseDetailContent() {
     try {
       if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
       }
-    } catch (e) {
-      // Ignored
-    }
+    } catch (_) {}
   };
 
   const toggleFullscreen = () => {
@@ -515,6 +526,19 @@ function CourseDetailContent() {
       document.body.style.overflow = 'hidden';
       document.body.classList.add('fullscreen-mode', 'modal-open');
       window.dispatchEvent(new Event('modal-state-change'));
+
+      // Attempt native OS status bar hide
+      const timer = setTimeout(() => {
+        try {
+          const target = document.getElementById('asmedix-fullscreen-cours') || document.documentElement;
+          if (target && target.requestFullscreen) {
+            target.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+          } else if ((target as any).webkitRequestFullscreen) {
+            (target as any).webkitRequestFullscreen();
+          }
+        } catch (_) {}
+      }, 150);
+      return () => clearTimeout(timer);
     }
   }, [slug, searchParams]);
 
