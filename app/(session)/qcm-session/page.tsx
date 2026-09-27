@@ -18,6 +18,7 @@ import { matchQcmToSource } from '@/lib/sourceUtils';
 // Helper for strict grading
 function isAnswerCorrect(selected: number[], correctAnswers?: number[]) {
   if (!Array.isArray(correctAnswers) || correctAnswers.length === 0) return false;
+  if (!Array.isArray(selected)) return false;
   if (correctAnswers.length === 1 && selected.length > 1) {
     return false;
   }

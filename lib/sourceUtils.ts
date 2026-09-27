@@ -35,31 +35,39 @@ export function matchQcmToSource(q: any, s: string): boolean {
   if (!q || !s) return false;
   if (s === 'TOUS' || s === 'all') return true;
 
-  const qSrcLower = (q.source || '').toLowerCase().trim();
-  const sLower = s.toLowerCase().trim();
+  const qSrcLower = String(q.source || '').toLowerCase().trim();
+  const sLower = String(s).toLowerCase().trim();
 
-  // If sub-source epreuve specified (e.g. "externat - emd 2017")
+  // Fast exact match on source
+  if (qSrcLower === sLower) return true;
+
+  const tagsStr = Array.isArray(q.tags) ? q.tags.join(' ') : String(q.tags || '');
+  const fullQcmText = `${qSrcLower} ${String(q.reference || '')} ${String(q.vignette || '')} ${String(q.question || '')} ${String(q.title || '')} ${tagsStr}`.toLowerCase();
+
+  // 1. Direct match on full text or q.source
+  if (fullQcmText.includes(sLower)) return true;
+
+  // 2. If sub-source epreuve specified (e.g. "externat - session 2021" or "externat - emd 2017")
   if (sLower.includes(' - ')) {
     const parts = sLower.split(' - ');
     const parentTerm = parts[0].trim();
     const subTerm = parts.slice(1).join(' - ').trim();
 
-    // 1. Exact equality on q.source
-    if (qSrcLower === sLower) return true;
-
-    // 2. Parent source matches AND subTerm matches reference/vignette/question/title/tags
-    const matchParent = qSrcLower === parentTerm || qSrcLower.includes(parentTerm);
-    if (matchParent) {
-      const qText = `${q.source || ''} ${q.reference || ''} ${q.vignette || ''} ${q.question || ''} ${q.title || ''} ${(q.tags || []).join(' ')}`.toLowerCase();
-      if (qText.includes(subTerm)) {
-        return true;
-      }
+    // Check if parent matches source/text AND subTerm matches full text
+    const matchParent = !parentTerm || qSrcLower === parentTerm || qSrcLower.includes(parentTerm) || fullQcmText.includes(parentTerm);
+    if (matchParent && fullQcmText.includes(subTerm)) {
+      return true;
     }
     return false;
   }
 
-  // Standalone source name (e.g. "externat")
-  return qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
+  // 3. Standalone source name (e.g. "externat" or "session 2021")
+  return (
+    qSrcLower === sLower ||
+    qSrcLower.startsWith(sLower + ' - ') ||
+    qSrcLower.includes(sLower) ||
+    fullQcmText.includes(sLower)
+  );
 }
 
 export function extractEpreuvesForFolder(qcms: any[], folderName: string, availableSources: string[] = []): string[] {
@@ -73,7 +81,7 @@ export function extractEpreuvesForFolder(qcms: any[], folderName: string, availa
   });
 
   allSourceStrings.forEach(s => {
-    const sLower = s.toLowerCase().trim();
+    const sLower = String(s || '').toLowerCase().trim();
     if (sLower.startsWith(folderLower + ' - ') || sLower.startsWith(folderLower + ' / ') || sLower.startsWith(folderLower + ' (')) {
       epreuvesSet.add(s);
     }
@@ -84,9 +92,11 @@ export function extractEpreuvesForFolder(qcms: any[], folderName: string, availa
 
   (qcms || []).forEach(q => {
     if (!q) return;
-    const qSrcLower = (q.source || '').toLowerCase().trim();
-    if (qSrcLower === folderLower || qSrcLower.includes(folderLower)) {
-      const textToScan = `${q.reference || ''} ${q.vignette || ''} ${q.question || ''} ${q.title || ''} ${(q.tags || []).join(' ')}`;
+    const qSrcLower = String(q.source || '').toLowerCase().trim();
+    const tagsStr = Array.isArray(q.tags) ? q.tags.join(' ') : String(q.tags || '');
+    const textToScan = `${qSrcLower} ${String(q.reference || '')} ${String(q.vignette || '')} ${String(q.question || '')} ${String(q.title || '')} ${tagsStr}`;
+
+    if (qSrcLower === folderLower || qSrcLower.includes(folderLower) || textToScan.toLowerCase().includes(folderLower)) {
       const matches = textToScan.match(epreuveRegex);
       if (matches) {
         matches.forEach(m => {
