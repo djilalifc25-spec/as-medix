@@ -72,10 +72,27 @@
   --shadow-card: 0 1px 3px 0 rgba(0,0,0,0.3), 0 4px 20px -4px rgba(0,0,0,0.4);
 }
 
-html {
+html,
+body {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  touch-action: pan-y !important;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
+}
+
+body.fullscreen-mode {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  touch-action: pan-y !important;
+}
+
+#asmedix-fullscreen-cours {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  touch-action: pan-y !important;
+  overscroll-behavior-x: none !important;
 }
 
 body {

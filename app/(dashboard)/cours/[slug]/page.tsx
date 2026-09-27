@@ -516,23 +516,25 @@ function CourseDetailContent() {
       {isFullscreen && mounted && createPortal(
         <div 
           id="asmedix-fullscreen-cours"
-          className="fixed inset-0 z-[999999] w-screen h-[100dvh] bg-[#f8f9ff] dark:bg-navy-950 overflow-y-auto overscroll-contain flex flex-col animate-in fade-in zoom-in-95 duration-200 selection:bg-brand-500/20"
+          className="fixed inset-0 z-[999999] w-full max-w-full h-[100dvh] bg-[#f8f9ff] dark:bg-navy-950 overflow-y-auto overflow-x-hidden touch-pan-y overscroll-y-contain flex flex-col animate-in fade-in zoom-in-95 duration-200 selection:bg-brand-500/20"
           style={{
             minHeight: '100dvh',
             height: '100dvh',
+            maxWidth: '100vw',
+            overflowX: 'hidden'
           }}
         >
           {/* Sticky Fullscreen Top Navigation Bar */}
           <div 
-            className="sticky top-0 z-50 px-3 sm:px-8 py-2.5 sm:py-3 bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-navy-100 dark:border-navy-800 shadow-sm flex items-center justify-between gap-2 sm:gap-3"
+            className="sticky top-0 z-50 w-full max-w-full px-2.5 sm:px-8 py-2 sm:py-3 bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-navy-100 dark:border-navy-800 shadow-sm flex items-center justify-between gap-1.5 sm:gap-3 overflow-hidden box-border"
             style={{
-              paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0px))',
-              paddingLeft: 'max(0.75rem, env(safe-area-inset-left, 0px))',
-              paddingRight: 'max(0.75rem, env(safe-area-inset-right, 0px))',
+              paddingTop: 'max(0.6rem, env(safe-area-inset-top, 0px))',
+              paddingLeft: 'max(0.6rem, env(safe-area-inset-left, 0px))',
+              paddingRight: 'max(0.6rem, env(safe-area-inset-right, 0px))',
             }}
           >
             {/* Left info */}
-            <div className="flex items-center gap-2 min-w-0 flex-1">
+            <div className="flex items-center gap-1.5 min-w-0 flex-1 overflow-hidden">
               <span className="text-lg sm:text-xl shrink-0">{getSpecialtyEmoji(course.specialtyId)}</span>
               <div className="min-w-0 flex-1">
                 <span className="text-[9px] sm:text-[10px] font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider block truncate">
@@ -546,6 +548,23 @@ function CourseDetailContent() {
 
             {/* Controls */}
             <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              {/* Sommaire Modal Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsTocModalOpen(true);
+                }}
+                className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-700 hover:to-brand-700 text-white text-xs font-black flex items-center gap-1 shadow-md active:scale-95 transition-all cursor-pointer shrink-0"
+                title="Ouvrir le Sommaire Interactif du Cours"
+              >
+                <List className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Sommaire</span>
+                {activeToc.length > 0 && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-mono">{activeToc.length}</span>
+                )}
+              </button>
+
               {/* Rechercher dans le cours Button */}
               <button
                 type="button"
@@ -558,23 +577,6 @@ function CourseDetailContent() {
               >
                 <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
                 <span className="hidden sm:inline text-[11px]">Rechercher</span>
-              </button>
-
-              {/* Sommaire Modal Button */}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsTocModalOpen(true);
-                }}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-700 hover:to-brand-700 text-white text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer shrink-0"
-                title="Ouvrir le Sommaire Interactif du Cours"
-              >
-                <List className="w-3.5 h-3.5" />
-                <span>Sommaire</span>
-                {activeToc.length > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-mono">{activeToc.length}</span>
-                )}
               </button>
 
               {/* Spaced Repetition / Epingler button */}
@@ -622,17 +624,6 @@ function CourseDetailContent() {
                 <span className="hidden sm:inline text-[11px]">Rappel</span>
               </button>
 
-              {/* Mobile TOC button */}
-              <button
-                type="button"
-                onClick={() => setShowTocMobile(!showTocMobile)}
-                className="lg:hidden p-1.5 sm:p-2 rounded-xl bg-navy-50 dark:bg-navy-800 text-navy-700 dark:text-navy-300 hover:text-brand-600 active:scale-95 transition-all"
-                title="Sommaire"
-                aria-label="Sommaire du cours"
-              >
-                <List className="w-4 h-4" />
-              </button>
-
               {/* Font Size Selector */}
               <div className="hidden md:flex items-center border border-navy-200 dark:border-navy-700 rounded-xl overflow-hidden bg-white dark:bg-navy-900 shadow-xs">
                 <button
@@ -667,53 +658,16 @@ function CourseDetailContent() {
               {/* Prominent Exit Fullscreen Button */}
               <button
                 onClick={exitFullscreen}
-                className="apple-badge-purple px-2.5 sm:px-3.5 py-1.5 text-xs font-bold flex items-center gap-1 shadow-sm active:scale-95 transition-all shrink-0"
+                className="p-1.5 sm:px-3.5 sm:py-1.5 rounded-xl apple-badge-purple text-xs font-bold flex items-center gap-1 shadow-sm active:scale-95 transition-all shrink-0"
                 title="Quitter le mode plein écran"
               >
                 <Minimize2 className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Quitter plein écran</span>
-                <span className="sm:hidden">Fermer</span>
+                <span className="hidden sm:inline">Quitter</span>
               </button>
             </div>
           </div>
 
-          {/* Mobile TOC Drawer in Fullscreen */}
-          {showTocMobile && (
-            <div 
-              className="lg:hidden fixed inset-x-0 z-40 bg-white/95 dark:bg-navy-900/95 backdrop-blur-xl border-b border-navy-200 dark:border-navy-800 p-4 shadow-xl space-y-2 max-h-[60vh] overflow-y-auto animate-in slide-in-from-top-2 duration-150"
-              style={{
-                top: 'calc(3.25rem + max(0.75rem, env(safe-area-inset-top, 0px)))'
-              }}
-            >
-              <div className="flex items-center justify-between pb-1 border-b border-navy-100 dark:border-navy-800">
-                <span className="text-[11px] font-black uppercase text-navy-400">Sections du cours :</span>
-                <button
-                  onClick={() => setShowTocMobile(false)}
-                  className="p-1 text-navy-400 hover:text-navy-700 dark:hover:text-white"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-              {activeToc.map((item, idx) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => scrollToSection(item.id)}
-                  className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between ${
-                    activeSection === item.id
-                      ? 'bg-brand-600 text-white shadow-xs'
-                      : 'text-navy-800 dark:text-navy-200 hover:bg-brand-50 dark:hover:bg-navy-800'
-                  }`}
-                >
-                  <span className="truncate flex-1">
-                    <span className="opacity-75 mr-1.5">{idx + 1}.</span>
-                    <span>{item.title}</span>
-                  </span>
-                  <ChevronRight className="w-3.5 h-3.5 opacity-60 shrink-0" />
-                </button>
-              ))}
-            </div>
-          )}
+
 
           {/* Fullscreen Reading Body */}
           <div 
