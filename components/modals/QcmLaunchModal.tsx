@@ -47,6 +47,7 @@ export function QcmLaunchModal({
   const [selectedCourseId, setSelectedCourseId] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFolder, setActiveFolder] = useState<string | null>(null);
+  const [selectedFolderSubSources, setSelectedFolderSubSources] = useState<string[]>([]);
   const [isClosing, setIsClosing] = useState(false);
 
   const [allCourses, setAllCourses] = useState(INITIAL_COURSES);
@@ -242,6 +243,16 @@ export function QcmLaunchModal({
       updated = ['TOUS'];
     }
     setSelectedSources(updated);
+  };
+
+  const toggleFolderSubSourceSelection = (subSrc: string) => {
+    setSelectedFolderSubSources(prev => {
+      if (prev.includes(subSrc)) {
+        return prev.filter(s => s !== subSrc);
+      } else {
+        return [...prev, subSrc];
+      }
+    });
   };
 
   // Launch Fullscreen Session
@@ -778,13 +789,34 @@ export function QcmLaunchModal({
                     </div>
                   </div>
 
-                  <div>
-                    <h3 className="text-sm font-black text-white">
-                      Sélectionnez une épreuve d'examen dans {activeFolder}
-                    </h3>
-                    <p className="text-xs text-white/60 mt-0.5">
-                      Chaque épreuve s'ouvre de manière totalement isolée (ex: EMD 2017 ouvre uniquement l'EMD 2017).
-                    </p>
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <h3 className="text-sm font-black text-white">
+                        Sélectionnez les épreuves de {activeFolder}
+                      </h3>
+                      <p className="text-xs text-white/60 mt-0.5">
+                        Cochez une ou plusieurs épreuves (ex: 2017, 2018) pour filtrer votre session sans tout fusionner.
+                      </p>
+                    </div>
+
+                    {(groupedSources.parentMap[activeFolder] || []).length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const allSubs = groupedSources.parentMap[activeFolder] || [];
+                          if (selectedFolderSubSources.length === allSubs.length) {
+                            setSelectedFolderSubSources([]);
+                          } else {
+                            setSelectedFolderSubSources([...allSubs]);
+                          }
+                        }}
+                        className="text-[11px] font-bold text-sky-300 hover:text-sky-200 px-2.5 py-1 rounded-lg bg-sky-500/20 border border-sky-400/30 shrink-0 cursor-pointer"
+                      >
+                        {selectedFolderSubSources.length === (groupedSources.parentMap[activeFolder] || []).length
+                          ? 'Tout désélectionner'
+                          : 'Tout sélectionner'}
+                      </button>
+                    )}
                   </div>
 
                   {/* List of Epreuves inside activeFolder */}
@@ -792,11 +824,11 @@ export function QcmLaunchModal({
                     {/* Option 1: Toutes les épreuves du dossier */}
                     <div
                       onClick={() => launchFullscreen(activeFolder)}
-                      className="p-4 rounded-2xl bg-indigo-600/20 border border-indigo-400/40 hover:bg-indigo-600/30 transition-all text-left flex items-center justify-between gap-3 cursor-pointer group active:scale-[0.99]"
+                      className="p-3.5 rounded-2xl bg-indigo-600/20 border border-indigo-400/40 hover:bg-indigo-600/30 transition-all text-left flex items-center justify-between gap-3 cursor-pointer group active:scale-[0.99]"
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-500/30 text-indigo-300 flex items-center justify-center shrink-0">
-                          <Layers className="w-5 h-5" />
+                        <div className="w-9 h-9 rounded-xl bg-indigo-500/30 text-indigo-300 flex items-center justify-center shrink-0">
+                          <Layers className="w-4 h-4" />
                         </div>
                         <div className="min-w-0 flex-1">
                           <span className="text-xs font-black text-white group-hover:text-indigo-200 block">
@@ -814,14 +846,14 @@ export function QcmLaunchModal({
                           e.stopPropagation();
                           launchFullscreen(activeFolder);
                         }}
-                        className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shrink-0"
+                        className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shrink-0 cursor-pointer"
                       >
                         <Play className="w-3.5 h-3.5 fill-white" />
                         <span>Lancer Tout</span>
                       </button>
                     </div>
 
-                    {/* Option 2: Individual Isolated Epreuves */}
+                    {/* Option 2: Individual / Multi-Selectable Isolated Epreuves */}
                     {((groupedSources.parentMap[activeFolder] || []).length === 0) ? (
                       <div className="p-6 text-center text-xs text-white/50 bg-white/5 rounded-2xl border border-white/10">
                         Toutes les questions de cette source appartiennent à l'épreuve principale {activeFolder}.
@@ -831,28 +863,41 @@ export function QcmLaunchModal({
                         const subQCount = countQcms(selectedCourseId, subSrc);
                         const subDoneCount = countDoneQcms(selectedCourseId, subSrc);
                         const labelName = subSrc.includes(' - ') ? subSrc.split(' - ').slice(1).join(' - ') : subSrc;
+                        const isSubSelected = selectedFolderSubSources.includes(subSrc);
 
                         return (
                           <div
                             key={subSrc}
-                            onClick={() => launchFullscreen(subSrc)}
-                            className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/12 hover:border-sky-400/50 transition-all text-left flex items-center justify-between gap-3 cursor-pointer group active:scale-[0.99] shadow-xs"
+                            onClick={() => toggleFolderSubSourceSelection(subSrc)}
+                            className={`p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between gap-3 cursor-pointer group active:scale-[0.99] shadow-xs ${
+                              isSubSelected
+                                ? 'bg-sky-500/25 border-sky-400 text-white shadow-md'
+                                : 'bg-white/5 hover:bg-white/10 border-white/12 text-white/80'
+                            }`}
                           >
                             <div className="flex items-center gap-3 min-w-0 flex-1">
-                              <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center justify-center shrink-0">
+                              {/* Checkbox */}
+                              <div className={`w-5 h-5 rounded-lg border flex items-center justify-center text-xs font-bold shrink-0 transition-colors ${
+                                isSubSelected ? 'bg-sky-500 border-sky-400 text-white' : 'border-white/30 bg-white/5'
+                              }`}>
+                                {isSubSelected && '✓'}
+                              </div>
+
+                              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center justify-center shrink-0">
                                 <FileText className="w-4 h-4" />
                               </div>
+
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2">
                                   <span className="text-xs font-black text-white group-hover:text-sky-300 transition-colors truncate">
-                                    Épreuve Isolée : {labelName}
+                                    {labelName}
                                   </span>
                                   <span className="px-2 py-0.2 rounded-md text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
                                     Isolé
                                   </span>
                                 </div>
                                 <div className="text-[10px] text-white/50 truncate mt-0.5">
-                                  Source exacte: « {subSrc} » • {subQCount} QCMs
+                                  Source: « {subSrc} » • {subQCount} QCMs
                                   {subDoneCount > 0 ? ` • ${subDoneCount} fait` : ''}
                                 </div>
                               </div>
@@ -864,16 +909,31 @@ export function QcmLaunchModal({
                                 e.stopPropagation();
                                 launchFullscreen(subSrc);
                               }}
-                              className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shrink-0"
+                              className="px-3 py-1.5 rounded-xl bg-sky-600/80 hover:bg-sky-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shrink-0 cursor-pointer"
+                              title={`Lancer uniquement ${labelName}`}
                             >
                               <Play className="w-3 h-3 fill-white" />
-                              <span>Ouvrir {labelName}</span>
+                              <span>Ouvrir</span>
                             </button>
                           </div>
                         );
                       })
                     )}
                   </div>
+
+                  {/* Multi-year primary launch button */}
+                  {selectedFolderSubSources.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => launchFullscreen(selectedFolderSubSources.join(','))}
+                      className="w-full py-3.5 rounded-2xl text-xs sm:text-sm font-black text-white shadow-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer mt-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 border border-sky-400/30 animate-in fade-in"
+                    >
+                      <Play className="w-4 h-4 fill-white" />
+                      <span>
+                        Lancer la session ({selectedFolderSubSources.length} épreuve{selectedFolderSubSources.length > 1 ? 's' : ''} sélectionnée{selectedFolderSubSources.length > 1 ? 's' : ''})
+                      </span>
+                    </button>
+                  )}
                 </div>
               )}
 
