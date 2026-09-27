@@ -189,46 +189,47 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
 
       const data = await res.json();
       if (data.success && data.reminder) {
-        // Trigger Mobile Notification Bar push via Service Worker Registration & Web Notification
         const notifTitle = `⏰ Rappel AS-MEDIX Programmé !`;
         const notifBody = `${currentTagObj?.label || '⚠️ Piège'} sur "${targetTitle}". Prévu pour ${targetDate.toLocaleDateString('fr-FR')} à ${targetDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}.`;
         const targetUrl = targetType === 'cours' ? `/cours/${targetId}` : `/qcm-session?qcmId=${targetId}`;
 
-        if (typeof window !== 'undefined') {
-          const options: any = {
-            body: notifBody,
-            icon: '/icons/icon-192x192.png',
-            badge: '/icons/icon-72x72.png',
-            vibrate: [200, 100, 200, 100, 200],
-            data: { url: targetUrl },
-            tag: 'asmedix-study-reminder',
-            renotify: true
-          };
-
-          // 1. Try Service Worker Registration (Pushes directly to Mobile OS Notification Bar)
-          if ('serviceWorker' in navigator) {
-            try {
-              const reg = await navigator.serviceWorker.ready;
-              if (reg && 'showNotification' in reg) {
-                await reg.showNotification(notifTitle, options);
-              }
-            } catch (_) {
-              // 2. Fallback to standard window Notification
-              if ('Notification' in window && Notification.permission === 'granted') {
-                try {
-                  new Notification(notifTitle, options);
-                } catch (e) {}
-              }
-            }
-          } else if ('Notification' in window && Notification.permission === 'granted') {
-            try {
-              new Notification(notifTitle, options);
-            } catch (e) {}
-          }
-        }
-
+        // 1. Dispatch custom event immediately so top navbar bell updates without delay
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new Event('asmedix-notification-added'));
+        }
+
+        // 2. Trigger OS / Mobile Push Notification in background (non-blocking)
+        if (typeof window !== 'undefined') {
+          setTimeout(async () => {
+            try {
+              const options: any = {
+                body: notifBody,
+                icon: '/icons/icon-192x192.png',
+                badge: '/icons/icon-72x72.png',
+                vibrate: [200, 100, 200, 100, 200],
+                data: { url: targetUrl },
+                tag: 'asmedix-study-reminder',
+                renotify: true
+              };
+
+              if ('serviceWorker' in navigator) {
+                try {
+                  const reg = await Promise.race([
+                    navigator.serviceWorker.ready,
+                    new Promise((_, reject) => setTimeout(() => reject('timeout'), 800))
+                  ]) as ServiceWorkerRegistration;
+                  if (reg && 'showNotification' in reg) {
+                    await reg.showNotification(notifTitle, options);
+                    return;
+                  }
+                } catch (_) {}
+              }
+
+              if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(notifTitle, options);
+              }
+            } catch (_) {}
+          }, 10);
         }
 
         if (onSaved) onSaved(data.reminder);
