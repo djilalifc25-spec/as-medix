@@ -96,9 +96,11 @@ function CourseEditorContent() {
           { value: 'gemini-2.0-flash', label: '🚀 Gemini 2.0 Flash (Next-Gen Rapide)' },
           { value: 'gemini-2.0-flash-lite', label: '⚡ Gemini 2.0 Flash Lite (Ultra Léger)' },
           { value: 'gemini-2.0-pro-exp-02-05', label: '🔬 Gemini 2.0 Pro Experimental' },
-          { value: 'gemini-1.5-pro', label: '📚 Gemini 1.5 Pro (Contexte Géant 2M Tokens)' },
-          { value: 'gemini-1.5-flash', label: '🚀 Gemini 1.5 Flash (Standard)' },
-          { value: 'gemini-1.5-flash-8b', label: '⚡ Gemini 1.5 Flash 8B (Léger)' },
+          { value: 'gemini-1.5-flash-latest', label: '⚡ Gemini 1.5 Flash Latest (Recommandé 1.5)' },
+          { value: 'gemini-1.5-pro-latest', label: '📚 Gemini 1.5 Pro Latest (Contexte 2M Tokens)' },
+          { value: 'gemini-1.5-flash', label: '🚀 Gemini 1.5 Flash' },
+          { value: 'gemini-1.5-pro', label: '📄 Gemini 1.5 Pro' },
+          { value: 'gemini-1.5-flash-8b', label: '⚡ Gemini 1.5 Flash 8B' },
         ]
       };
     } else if (cleanKey.startsWith('sk-or-v1-')) {
@@ -1624,8 +1626,10 @@ ${textContent.substring(0, 90000)}`;
                       <option value="gemini-2.0-flash">🚀 Gemini 2.0 Flash (Next-Gen Rapide)</option>
                       <option value="gemini-2.0-flash-lite">⚡ Gemini 2.0 Flash Lite (Ultra Léger)</option>
                       <option value="gemini-2.0-pro-exp-02-05">🔬 Gemini 2.0 Pro Experimental</option>
-                      <option value="gemini-1.5-pro">📚 Gemini 1.5 Pro (Contexte Géant 2M Tokens)</option>
-                      <option value="gemini-1.5-flash">🚀 Gemini 1.5 Flash (Standard)</option>
+                      <option value="gemini-1.5-flash-latest">⚡ Gemini 1.5 Flash Latest (Recommandé 1.5)</option>
+                      <option value="gemini-1.5-pro-latest">📚 Gemini 1.5 Pro Latest (Contexte 2M Tokens)</option>
+                      <option value="gemini-1.5-flash">🚀 Gemini 1.5 Flash</option>
+                      <option value="gemini-1.5-pro">📄 Gemini 1.5 Pro</option>
                       <option value="gemini-1.5-flash-8b">⚡ Gemini 1.5 Flash 8B (Léger)</option>
                     </select>
                   </div>

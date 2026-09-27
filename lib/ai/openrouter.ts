@@ -62,32 +62,55 @@ export async function callGoogleAIStudio(
     payload.generationConfig.responseMimeType = 'application/json';
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey.trim()}`;
+  let cleanModel = (config.model || DEFAULT_GOOGLE_MODEL).replace(/^models\//i, '').trim();
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
+  const modelCandidates = [
+    cleanModel,
+    cleanModel.endsWith('-latest') ? cleanModel : `${cleanModel}-latest`,
+    'gemini-2.5-flash',
+    'gemini-2.0-flash',
+    'gemini-1.5-flash-latest',
+    'gemini-1.5-flash'
+  ];
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    let errMessage = `Erreur Google AI Studio (${response.status})`;
-    try {
-      const errJson = JSON.parse(errorText);
-      if (errJson.error?.message) errMessage = errJson.error.message;
-    } catch (_) {}
-    throw new Error(errMessage);
+  const uniqueModels = Array.from(new Set(modelCandidates));
+  let lastErr: Error | null = null;
+
+  for (const modelToTry of uniqueModels) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelToTry}:generateContent?key=${apiKey.trim()}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      let errMessage = `Erreur Google AI Studio (${response.status})`;
+      try {
+        const errJson = JSON.parse(errorText);
+        if (errJson.error?.message) errMessage = errJson.error.message;
+      } catch (_) {}
+
+      if (response.status === 404 || errMessage.includes('not found') || errMessage.includes('not supported')) {
+        lastErr = new Error(errMessage);
+        continue;
+      }
+      throw new Error(errMessage);
+    }
+
+    const data = await response.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!reply) {
+      throw new Error('Aucune réponse générée par Google AI Studio.');
+    }
+
+    return reply;
   }
 
-  const data = await response.json();
-  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!reply) {
-    throw new Error('Aucune réponse générée par Google AI Studio.');
-  }
-
-  return reply;
+  throw lastErr || new Error(`Le modèle ${cleanModel} n'est pas disponible sur Google AI Studio.`);
 }
 
 /**
