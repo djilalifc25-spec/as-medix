@@ -189,14 +189,42 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
 
       const data = await res.json();
       if (data.success && data.reminder) {
-        // Trigger browser notification if permission granted
-        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-          try {
-            new Notification(`⏰ Rappel AS-MEDIX Programmé !`, {
-              body: `${currentTagObj?.label || '⚠️ Piège'} sur "${targetTitle}". Prévu pour ${targetDate.toLocaleDateString('fr-FR')} à ${targetDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}.`,
-              icon: '/icons/icon-192x192.png'
-            });
-          } catch (_) {}
+        // Trigger Mobile Notification Bar push via Service Worker Registration & Web Notification
+        const notifTitle = `⏰ Rappel AS-MEDIX Programmé !`;
+        const notifBody = `${currentTagObj?.label || '⚠️ Piège'} sur "${targetTitle}". Prévu pour ${targetDate.toLocaleDateString('fr-FR')} à ${targetDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}.`;
+        const targetUrl = targetType === 'cours' ? `/cours/${targetId}` : `/qcm-session?qcmId=${targetId}`;
+
+        if (typeof window !== 'undefined') {
+          const options: any = {
+            body: notifBody,
+            icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-72x72.png',
+            vibrate: [200, 100, 200, 100, 200],
+            data: { url: targetUrl },
+            tag: 'asmedix-study-reminder',
+            renotify: true
+          };
+
+          // 1. Try Service Worker Registration (Pushes directly to Mobile OS Notification Bar)
+          if ('serviceWorker' in navigator) {
+            try {
+              const reg = await navigator.serviceWorker.ready;
+              if (reg && 'showNotification' in reg) {
+                await reg.showNotification(notifTitle, options);
+              }
+            } catch (_) {
+              // 2. Fallback to standard window Notification
+              if ('Notification' in window && Notification.permission === 'granted') {
+                try {
+                  new Notification(notifTitle, options);
+                } catch (e) {}
+              }
+            }
+          } else if ('Notification' in window && Notification.permission === 'granted') {
+            try {
+              new Notification(notifTitle, options);
+            } catch (e) {}
+          }
         }
 
         if (onSaved) onSaved(data.reminder);
