@@ -6,10 +6,11 @@ import { QCM, Course, Specialty, MEDICAL_YEARS } from '@/types';
 import {
   Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, School,
   FileText, Upload, FileCode, Check, Edit3, Layers, Loader2, ChevronDown, ChevronUp, AlertCircle,
-  Link as LinkIcon, Globe, X, Key
+  Link as LinkIcon, Globe, X, Key, ArrowUp, ArrowDown, ArrowUpDown, PlusCircle, FolderTree, ChevronRight,
+  Copy, Sliders, CornerDownRight
 } from 'lucide-react';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
-import { ParsedQcmItem, parseQcmDocument } from '@/lib/qcmParser';
+import { ParsedQcmItem, parseQcmDocument, parseAnswerKey } from '@/lib/qcmParser';
 
 export default function AdminQcmPage() {
   const [qcms, setQcms] = useState<QCM[]>([]);
@@ -78,6 +79,12 @@ export default function AdminQcmPage() {
   const [aiRawInput, setAiRawInput] = useState('');
   const [examTitleInput, setExamTitleInput] = useState('');
   const [aiExtracting, setAiExtracting] = useState(false);
+
+  // Standalone Answer Key Drawer state for parsed QCMs
+  const [quickAnswerKeyText, setQuickAnswerKeyText] = useState('');
+  const [showQuickAnswerKey, setShowQuickAnswerKey] = useState(false);
+  const [showSourceSidebar, setShowSourceSidebar] = useState(false);
+  const [swapInputs, setSwapInputs] = useState<Record<string, string>>({});
 
   // Fetch scoped sources whenever specialty, course or faculty changes
   const fetchScopeSources = async (spec: string, crs: string, fac?: string) => {
@@ -549,6 +556,150 @@ export default function AdminQcmPage() {
     }));
   };
 
+  // Move parsed QCM up or down
+  const moveParsedQcm = (fromIndex: number, toIndex: number) => {
+    if (toIndex < 0 || toIndex >= parsedQcms.length) return;
+    const updated = [...parsedQcms];
+    const [movedItem] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, movedItem);
+    const renumbered = updated.map((q, idx) => ({ ...q, tempNum: idx + 1 }));
+    setParsedQcms(renumbered);
+  };
+
+  // Swap position of QCM from index `fromIndex` to `targetNum`
+  const swapParsedQcmNumber = (fromIndex: number, newTargetNum: number) => {
+    const targetIndex = newTargetNum - 1;
+    if (targetIndex < 0 || targetIndex >= parsedQcms.length || targetIndex === fromIndex) return;
+    const updated = [...parsedQcms];
+    const temp = updated[fromIndex];
+    updated[fromIndex] = updated[targetIndex];
+    updated[targetIndex] = temp;
+    const renumbered = updated.map((q, idx) => ({ ...q, tempNum: idx + 1 }));
+    setParsedQcms(renumbered);
+  };
+
+  // Insert a new blank QCM item at specific index
+  const insertParsedQcmAt = (index: number) => {
+    const newQcm: ParsedQcmItem = {
+      id: `custom_qcm_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      tempNum: index + 1,
+      title: `Question ${index + 1}`,
+      vignetteText: '',
+      question: 'Nouvelle question insérée...',
+      options: [
+        { letter: 'A', text: 'Proposition A', isCorrect: true },
+        { letter: 'B', text: 'Proposition B', isCorrect: false },
+        { letter: 'C', text: 'Proposition C', isCorrect: false },
+        { letter: 'D', text: 'Proposition D', isCorrect: false },
+        { letter: 'E', text: 'Proposition E', isCorrect: false },
+      ],
+      explanationHtml: '<p>Explication clinique conforme.</p>',
+      isVerified: true,
+      source: source || 'Annales Examens',
+      specialtyId: specialtyId,
+      courseId: courseId || undefined,
+      year: year !== '' ? Number(year) : undefined,
+    };
+
+    const updated = [...parsedQcms];
+    updated.splice(index, 0, newQcm);
+    const renumbered = updated.map((q, idx) => ({ ...q, tempNum: idx + 1 }));
+    setParsedQcms(renumbered);
+    setEditingQcmId(newQcm.id);
+  };
+
+  // Delete QCM item from parsed array
+  const removeParsedQcmAt = (index: number) => {
+    const updated = parsedQcms.filter((_, idx) => idx !== index);
+    const renumbered = updated.map((q, idx) => ({ ...q, tempNum: idx + 1 }));
+    setParsedQcms(renumbered);
+  };
+
+  // Add option to parsed QCM
+  const addOptionToParsedQcm = (qcmId: string) => {
+    setParsedQcms(prev => prev.map(q => {
+      if (q.id === qcmId) {
+        const nextLetter = String.fromCharCode(65 + q.options.length);
+        return {
+          ...q,
+          options: [...q.options, { letter: nextLetter, text: `Proposition ${nextLetter}`, isCorrect: false }]
+        };
+      }
+      return q;
+    }));
+  };
+
+  // Remove option from parsed QCM
+  const removeOptionFromParsedQcm = (qcmId: string, optIdx: number) => {
+    setParsedQcms(prev => prev.map(q => {
+      if (q.id === qcmId) {
+        const nextOpts = q.options.filter((_, idx) => idx !== optIdx)
+          .map((opt, idx) => ({ ...opt, letter: String.fromCharCode(65 + idx) }));
+        return { ...q, options: nextOpts };
+      }
+      return q;
+    }));
+  };
+
+  // Apply Answer Key Text / File to Parsed QCMs
+  const handleApplyAnswerKeyText = (keyText: string) => {
+    if (!keyText.trim()) return;
+    const answerMap = parseAnswerKey(keyText);
+    if (answerMap.size === 0) {
+      alert('Aucune réponse valide n\'a été détectée dans le texte (ex format: "1. A, C\\n2. B").');
+      return;
+    }
+
+    setParsedQcms(prev => prev.map(q => {
+      const letters = answerMap.get(q.tempNum);
+      if (letters && letters.length > 0) {
+        const updatedOpts = q.options.map(opt => ({
+          ...opt,
+          isCorrect: letters.includes(opt.letter.toUpperCase())
+        }));
+        return { ...q, options: updatedOpts, isVerified: true };
+      }
+      return q;
+    }));
+
+    setSuccessMsg(`🔑 Corrigé appliqué avec succès à ${answerMap.size} QCM(s) !`);
+  };
+
+  // Group sources into parent and standalone sub-sources (e.g. Externat -> Externat - 2021, Externat - 2022)
+  const sourceTree = React.useMemo(() => {
+    const map = new Map<string, { total: number; subSources: Array<{ name: string; count: number }> }>();
+
+    const allSourceNames = Array.from(new Set([
+      ...scopeSources,
+      ...qcms.map(q => q.source?.trim()).filter(Boolean) as string[]
+    ]));
+
+    for (const src of allSourceNames) {
+      let parent = src;
+      if (src.includes(' - ')) {
+        parent = src.split(' - ')[0].trim();
+      } else if (src.includes('/')) {
+        parent = src.split('/')[0].trim();
+      }
+
+      if (!map.has(parent)) {
+        map.set(parent, { total: 0, subSources: [] });
+      }
+
+      const parentGroup = map.get(parent)!;
+      const count = qcms.filter(q => q.source?.trim().toLowerCase() === src.toLowerCase()).length;
+      if (!parentGroup.subSources.some(s => s.name === src)) {
+        parentGroup.subSources.push({ name: src, count });
+      }
+    }
+
+    Array.from(map.values()).forEach(group => {
+      group.total = group.subSources.reduce((sum: number, item: { name: string; count: number }) => sum + item.count, 0);
+    });
+
+    return map;
+  }, [qcms, scopeSources]);
+
   const filteredCourses = courses.filter(c => c.specialtyId === specialtyId);
   const filteredCoursesForFilter = selectedSpecialtyFilter !== 'all'
     ? courses.filter(c => c.specialtyId === selectedSpecialtyFilter)
@@ -581,9 +732,19 @@ export default function AdminQcmPage() {
     // 3. Course matching
     const matchCourse = selectedCourseFilter === 'all' || q.courseId === selectedCourseFilter;
 
-    // 4. Source / Sous-source matching
-    const matchSource = selectedSourceFilter === 'all'
-      || (q.source && q.source.toLowerCase().includes(selectedSourceFilter.toLowerCase()));
+    // 4. Source / Sous-source matching (Handles standalone sub-sources e.g. "Externat - 2021")
+    let matchSource = true;
+    if (selectedSourceFilter !== 'all') {
+      const filterLower = selectedSourceFilter.trim().toLowerCase();
+      const qSourceLower = (q.source || '').trim().toLowerCase();
+      if (selectedSourceFilter.includes(' - ')) {
+        // Exact sub-source match e.g. "Externat - 2021"
+        matchSource = qSourceLower === filterLower;
+      } else {
+        // Parent source match e.g. "Externat"
+        matchSource = qSourceLower === filterLower || qSourceLower.startsWith(filterLower + ' - ');
+      }
+    }
 
     // 5. Search query matching
     const query = searchQueryFilter.trim().toLowerCase();
@@ -967,7 +1128,7 @@ export default function AdminQcmPage() {
                 </button>
               </div>
 
-              {/* Parsed QCMs Preview List */}
+              {/* Parsed QCMs Preview & Manipulation List */}
               {parsedQcms.length > 0 && (
                 <div className="space-y-4 pt-4 border-t border-navy-100 dark:border-navy-800">
                   <div className="flex items-center justify-between flex-wrap gap-3 pb-2">
@@ -976,235 +1137,438 @@ export default function AdminQcmPage() {
                         <span>📋 QCMs Extraits Prêts à Valider ({parsedQcms.length})</span>
                       </h3>
                       <p className="text-xs text-navy-500">
-                        Vérifiez ou modifiez les propositions QCM par QCM avant l'importation finale.
+                        Vérifiez, réordonnez, permutez ou modifiez les questions et propositions avant l'importation finale.
                       </p>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={handleImportAllParsedQcms}
-                      disabled={batchSaving}
-                      className="px-5 py-2.5 rounded-2xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
-                    >
-                      {batchSaving ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          <span>Enregistrement du Lot...</span>
-                        </>
-                      ) : (
-                        <>
-                          <CheckCircle2 className="w-4 h-4" />
-                          <span>🚀 Importer Tous les {parsedQcms.length} QCMs Validés</span>
-                        </>
-                      )}
-                    </button>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => insertParsedQcmAt(0)}
+                        className="px-3 py-2 rounded-xl text-xs font-bold bg-indigo-50 dark:bg-navy-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 transition-all flex items-center gap-1 border border-indigo-200 dark:border-indigo-700"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>+ Insérer QCM au début</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleImportAllParsedQcms}
+                        disabled={batchSaving}
+                        className="px-5 py-2.5 rounded-2xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
+                      >
+                        {batchSaving ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Enregistrement du Lot...</span>
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span>🚀 Importer Tous les {parsedQcms.length} QCMs Validés</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
 
-                  {/* List of Parsed QCM Cards */}
-                  <div className="space-y-3">
+                  {/* Quick Answer Key Drawer / Text & File Applicator */}
+                  <div className="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 space-y-3 text-xs">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <Key className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                        <span className="font-bold text-amber-900 dark:text-amber-200">
+                          🔑 Appliquer ou Remplacer la Grille de Réponses Exactes en Masse (Texte / Fichier)
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setShowQuickAnswerKey(!showQuickAnswerKey)}
+                        className="text-[11px] font-bold text-amber-700 dark:text-amber-300 hover:underline flex items-center gap-1"
+                      >
+                        <span>{showQuickAnswerKey ? 'Fermer le Panneau Corrigés' : '⚡ Ouvrir le Panneau Corrigés Texte'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showQuickAnswerKey ? 'rotate-180' : ''}`} />
+                      </button>
+                    </div>
+
+                    {showQuickAnswerKey && (
+                      <div className="space-y-3 pt-1">
+                        <p className="text-[11px] text-amber-800 dark:text-amber-300">
+                          Collez ici le texte des réponses numérotées (ex: <code>1. A, C&#10;2. B&#10;3. A, D, E</code>). Les cases à cocher de chaque QCM seront mises à jour automatiquement !
+                        </p>
+                        <textarea
+                          value={quickAnswerKeyText}
+                          onChange={e => setQuickAnswerKeyText(e.target.value)}
+                          rows={3}
+                          placeholder="Collez la grille des corrigés ici... (ex: 1. A, C\n2. B\n3. D)"
+                          className="w-full p-3 font-mono text-xs rounded-xl border border-amber-300 dark:border-amber-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white focus:ring-2 focus:ring-amber-500"
+                        />
+                        <div className="flex justify-end">
+                          <button
+                            type="button"
+                            onClick={() => handleApplyAnswerKeyText(quickAnswerKeyText)}
+                            className="px-4 py-2 rounded-xl text-xs font-black bg-amber-600 hover:bg-amber-700 text-white shadow-xs transition-all flex items-center gap-1.5"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span>Appliquer la Grille à tous les QCMs</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* List of Parsed QCM Cards with Manipulation & Insertion Controls */}
+                  <div className="space-y-4">
                     {parsedQcms.map((qcmItem, qIdx) => {
                       const isEditing = editingQcmId === qcmItem.id;
+                      const currentSwapInput = swapInputs[qcmItem.id] || '';
 
                       return (
-                        <div key={qcmItem.id} className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-sm space-y-3">
-                          <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-navy-100 dark:border-navy-800">
-                            <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-1 rounded-xl text-xs font-black bg-brand-100 text-brand-800 dark:bg-brand-950/60 dark:text-brand-300">
-                                QCM #{qcmItem.tempNum}
-                              </span>
-
-                              {qcmItem.isVerified ? (
-                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center gap-1">
-                                  <Check className="w-3 h-3 text-emerald-600" />
-                                  <span>Réponse détectée</span>
+                        <React.Fragment key={qcmItem.id}>
+                          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-sm space-y-4 relative group">
+                            {/* Card Header & Reordering Toolbar */}
+                            <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-navy-100 dark:border-navy-800">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="px-3 py-1 rounded-xl text-xs font-black bg-brand-600 text-white shadow-xs flex items-center gap-1">
+                                  <span>QCM #{qcmItem.tempNum}</span>
+                                  <span className="text-[10px] opacity-75">/ {parsedQcms.length}</span>
                                 </span>
-                              ) : (
-                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-300 dark:border-amber-800 flex items-center gap-1">
-                                  <AlertCircle className="w-3 h-3 text-amber-600" />
-                                  <span>À vérifier</span>
-                                </span>
-                              )}
-                            </div>
 
-                            <div className="flex items-center gap-2">
-                              <button
-                                type="button"
-                                onClick={() => setEditingQcmId(isEditing ? null : qcmItem.id)}
-                                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-navy-100 dark:bg-navy-800 text-navy-700 dark:text-navy-300 hover:bg-navy-200 transition-all flex items-center gap-1"
-                              >
-                                <Edit3 className="w-3.5 h-3.5" />
-                                <span>{isEditing ? 'Masquer l\'Édition' : 'Modifier'}</span>
-                              </button>
+                                {/* Move Up / Down Buttons */}
+                                <div className="flex items-center gap-1 p-0.5 rounded-xl bg-navy-100 dark:bg-navy-800">
+                                  <button
+                                    type="button"
+                                    onClick={() => moveParsedQcm(qIdx, qIdx - 1)}
+                                    disabled={qIdx === 0}
+                                    title="Monter ce QCM"
+                                    className="p-1 rounded-lg text-navy-600 dark:text-navy-300 hover:bg-white dark:hover:bg-navy-700 disabled:opacity-30 transition-all"
+                                  >
+                                    <ArrowUp className="w-3.5 h-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => moveParsedQcm(qIdx, qIdx + 1)}
+                                    disabled={qIdx === parsedQcms.length - 1}
+                                    title="Descendre ce QCM"
+                                    className="p-1 rounded-lg text-navy-600 dark:text-navy-300 hover:bg-white dark:hover:bg-navy-700 disabled:opacity-30 transition-all"
+                                  >
+                                    <ArrowDown className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
 
-                              <button
-                                type="button"
-                                onClick={() => handleImportSingleParsedQcm(qcmItem)}
-                                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-all flex items-center gap-1 shadow-xs"
-                              >
-                                <Plus className="w-3.5 h-3.5" />
-                                <span>Importer ce QCM</span>
-                              </button>
-                            </div>
-                          </div>
+                                {/* Position Swap Input Box */}
+                                <div className="flex items-center gap-1.5 text-xs bg-navy-50 dark:bg-navy-950 px-2.5 py-1 rounded-xl border border-navy-200 dark:border-navy-800">
+                                  <ArrowUpDown className="w-3 h-3 text-indigo-600" />
+                                  <span className="text-[10px] font-bold text-navy-500">Permuter :</span>
+                                  <input
+                                    type="number"
+                                    min={1}
+                                    max={parsedQcms.length}
+                                    value={currentSwapInput}
+                                    onChange={e => setSwapInputs(prev => ({ ...prev, [qcmItem.id]: e.target.value }))}
+                                    placeholder={`#${qcmItem.tempNum}`}
+                                    className="w-12 px-1.5 py-0.5 text-xs font-bold text-center rounded border border-navy-300 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const targetNum = parseInt(currentSwapInput, 10);
+                                      if (targetNum > 0 && targetNum <= parsedQcms.length) {
+                                        swapParsedQcmNumber(qIdx, targetNum);
+                                        setSwapInputs(prev => ({ ...prev, [qcmItem.id]: '' }));
+                                      }
+                                    }}
+                                    className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-600 text-white hover:bg-indigo-700 transition-all"
+                                  >
+                                    OK
+                                  </button>
+                                </div>
 
-                          {/* Per-QCM Source & Course Selector */}
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 text-xs">
-                            <div>
-                              <div className="flex items-center justify-between mb-0.5">
-                                <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300">📌 Source pour ce QCM :</span>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: qcmItem.source === '__custom__' ? '' : '__custom__' } : q));
-                                  }}
-                                  className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
-                                >
-                                  {qcmItem.source === '__custom__' ? '← Choisir dans la liste' : '+ Nouvelle Source'}
-                                </button>
+                                {/* Quick Swipe to Top / Bottom */}
+                                <div className="flex items-center gap-1 text-[10px] text-navy-400">
+                                  <button
+                                    type="button"
+                                    onClick={() => moveParsedQcm(qIdx, 0)}
+                                    title="Placer tout au début (1er QCM)"
+                                    className="px-2 py-0.5 rounded bg-navy-100 dark:bg-navy-800 hover:bg-navy-200 text-navy-700 dark:text-navy-300 font-bold"
+                                  >
+                                    🔝 Début
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => moveParsedQcm(qIdx, parsedQcms.length - 1)}
+                                    title="Placer tout à la fin (Dernier QCM)"
+                                    className="px-2 py-0.5 rounded bg-navy-100 dark:bg-navy-800 hover:bg-navy-200 text-navy-700 dark:text-navy-300 font-bold"
+                                  >
+                                    🔚 Fin
+                                  </button>
+                                </div>
                               </div>
 
-                              {qcmItem.source === '__custom__' ? (
-                                <input
-                                  type="text"
-                                  placeholder="Saisissez la nouvelle source..."
-                                  onChange={e => {
-                                    const val = e.target.value;
-                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val } : q));
-                                  }}
-                                  className="w-full px-2 py-1 text-xs font-bold rounded-lg border border-indigo-400 bg-white dark:bg-navy-900"
-                                />
-                              ) : (
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => setEditingQcmId(isEditing ? null : qcmItem.id)}
+                                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-navy-100 dark:bg-navy-800 text-navy-700 dark:text-navy-300 hover:bg-navy-200 transition-all flex items-center gap-1"
+                                >
+                                  <Edit3 className="w-3.5 h-3.5" />
+                                  <span>{isEditing ? 'Fermer Édition' : '✏️ Editer Question & Propositions'}</span>
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() => removeParsedQcmAt(qIdx)}
+                                  className="p-1.5 rounded-xl text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                                  title="Supprimer ce QCM du lot"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() => handleImportSingleParsedQcm(qcmItem)}
+                                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-all flex items-center gap-1 shadow-xs"
+                                >
+                                  <Plus className="w-3.5 h-3.5" />
+                                  <span>Importer Seul</span>
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Per-QCM Source, Course & Year Attribute Bar */}
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 text-xs">
+                              <div>
+                                <div className="flex items-center justify-between mb-0.5">
+                                  <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300">📌 Source pour ce QCM :</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: qcmItem.source === '__custom__' ? '' : '__custom__' } : q));
+                                    }}
+                                    className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                                  >
+                                    {qcmItem.source === '__custom__' ? '← Sélectionner' : '+ Saisir Autre'}
+                                  </button>
+                                </div>
+
+                                {qcmItem.source === '__custom__' ? (
+                                  <input
+                                    type="text"
+                                    placeholder="ex: Externat - 2021..."
+                                    onChange={e => {
+                                      const val = e.target.value;
+                                      setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val } : q));
+                                    }}
+                                    className="w-full px-2 py-1 text-xs font-bold rounded-lg border border-indigo-400 bg-white dark:bg-navy-900"
+                                  />
+                                ) : (
+                                  <select
+                                    value={qcmItem.source !== undefined ? qcmItem.source : (source === '__other__' ? sourceOther : source)}
+                                    onChange={e => {
+                                      const val = e.target.value;
+                                      setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val === '__custom__' ? '' : val } : q));
+                                    }}
+                                    className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                                  >
+                                    <option value="Externat">Externat</option>
+                                    <option value="SIAU">SIAU</option>
+                                    <option value="Annales Résidanat">Annales Résidanat</option>
+                                    <option value="QCM CNP">QCM CNP</option>
+                                    <option value="Hypercours">Hypercours</option>
+                                    {scopeSources.filter(s => !['Externat', 'SIAU', 'Annales Résidanat', 'QCM CNP', 'Hypercours'].includes(s)).map(s => (
+                                      <option key={s} value={s}>{s}</option>
+                                    ))}
+                                    {qcmItem.source && !['Externat', 'SIAU', 'Annales Résidanat', 'QCM CNP', 'Hypercours', ...scopeSources].includes(qcmItem.source) && (
+                                      <option value={qcmItem.source}>{qcmItem.source}</option>
+                                    )}
+                                    <option value="__custom__">✨ + Autre sous-source...</option>
+                                  </select>
+                                )}
+                              </div>
+
+                              <div>
+                                <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">📚 Cours du QCM :</span>
                                 <select
-                                  value={qcmItem.source !== undefined ? qcmItem.source : (source === '__other__' ? sourceOther : source)}
+                                  value={qcmItem.courseId !== undefined ? qcmItem.courseId : courseId}
                                   onChange={e => {
                                     const val = e.target.value;
-                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, source: val === '__custom__' ? '' : val } : q));
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, courseId: val } : q));
                                   }}
                                   className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
                                 >
-                                  <option value="Externat">Externat</option>
-                                  <option value="SIAU">SIAU</option>
-                                  <option value="Annales Résidanat">Annales Résidanat</option>
-                                  <option value="QCM CNP">QCM CNP</option>
-                                  <option value="Hypercours">Hypercours</option>
-                                  {scopeSources.filter(s => !['Externat', 'SIAU', 'Annales Résidanat', 'QCM CNP', 'Hypercours'].includes(s)).map(s => (
-                                    <option key={s} value={s}>{s}</option>
+                                  <option value="">-- Aucun cours spécifique --</option>
+                                  {filteredCourses.map(c => (
+                                    <option key={c.id} value={c.id}>{c.title}</option>
                                   ))}
-                                  {qcmItem.source && !['Externat', 'SIAU', 'Annales Résidanat', 'QCM CNP', 'Hypercours', ...scopeSources].includes(qcmItem.source) && (
-                                    <option value={qcmItem.source}>{qcmItem.source}</option>
-                                  )}
-                                  <option value="__custom__">✨ + Saisir une nouvelle source...</option>
                                 </select>
-                              )}
+                              </div>
+
+                              <div>
+                                <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">🎓 Année d'Études :</span>
+                                <select
+                                  value={qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? year : '')}
+                                  onChange={e => {
+                                    const val = e.target.value ? Number(e.target.value) : undefined;
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, year: val } : q));
+                                  }}
+                                  className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                                >
+                                  <option value="">Global</option>
+                                  {MEDICAL_YEARS.map(y => (
+                                    <option key={y.year} value={y.year}>{y.label}</option>
+                                  ))}
+                                </select>
+                              </div>
                             </div>
 
-                            <div>
-                              <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">📚 Cours du QCM :</span>
-                              <select
-                                value={qcmItem.courseId !== undefined ? qcmItem.courseId : courseId}
-                                onChange={e => {
-                                  const val = e.target.value;
-                                  setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, courseId: val } : q));
-                                }}
-                                className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
-                              >
-                                <option value="">-- Aucun cours spécifique --</option>
-                                {filteredCourses.map(c => (
-                                  <option key={c.id} value={c.id}>{c.title}</option>
-                                ))}
-                              </select>
-                            </div>
+                            {/* Question & Proposition Full Editable Mode */}
+                            {isEditing ? (
+                              <div className="space-y-4 pt-2 bg-navy-50/70 dark:bg-navy-950/60 p-4 rounded-2xl border border-navy-200 dark:border-navy-800">
+                                <div>
+                                  <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                                    Énoncé de la question :
+                                  </label>
+                                  <textarea
+                                    value={qcmItem.question}
+                                    onChange={e => {
+                                      const val = e.target.value;
+                                      setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, question: val } : q));
+                                    }}
+                                    rows={2}
+                                    className="w-full px-3 py-2 text-xs font-bold rounded-xl border border-navy-300 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white"
+                                  />
+                                </div>
 
-                            <div>
-                              <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">🎓 Année d'Études :</span>
-                              <select
-                                value={qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? year : '')}
-                                onChange={e => {
-                                  const val = e.target.value ? Number(e.target.value) : undefined;
-                                  setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, year: val } : q));
-                                }}
-                                className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
-                              >
-                                <option value="">Global</option>
-                                {MEDICAL_YEARS.map(y => (
-                                  <option key={y.year} value={y.year}>{y.label}</option>
-                                ))}
-                              </select>
-                            </div>
+                                <div>
+                                  <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                                    Vignette / Cas Clinique (Optionnel) :
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={qcmItem.vignetteText || ''}
+                                    onChange={e => {
+                                      const val = e.target.value;
+                                      setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, vignetteText: val } : q));
+                                    }}
+                                    placeholder="ex: Un patient de 54 ans consulte pour..."
+                                    className="w-full px-3 py-1.5 text-xs rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white"
+                                  />
+                                </div>
+
+                                <div className="space-y-2.5">
+                                  <div className="flex items-center justify-between">
+                                    <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
+                                      Propositions (Propositions A, B, C...) & Cocher les réponses exactes :
+                                    </label>
+                                    <button
+                                      type="button"
+                                      onClick={() => addOptionToParsedQcm(qcmItem.id)}
+                                      className="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                                    >
+                                      <PlusCircle className="w-3.5 h-3.5" />
+                                      <span>+ Ajouter Proposition</span>
+                                    </button>
+                                  </div>
+
+                                  {qcmItem.options.map((opt, oIdx) => (
+                                    <div key={oIdx} className="flex items-center gap-2">
+                                      <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 text-xs font-bold cursor-pointer shrink-0">
+                                        <input
+                                          type="checkbox"
+                                          checked={opt.isCorrect}
+                                          onChange={() => toggleParsedQcmCorrect(qcmItem.id, oIdx)}
+                                          className="w-4 h-4 text-brand-600 rounded"
+                                        />
+                                        <input
+                                          type="text"
+                                          value={opt.letter}
+                                          onChange={e => {
+                                            const val = e.target.value.toUpperCase();
+                                            setParsedQcms(prev => prev.map(q => {
+                                              if (q.id === qcmItem.id) {
+                                                const nextOpts = [...q.options];
+                                                nextOpts[oIdx] = { ...nextOpts[oIdx], letter: val };
+                                                return { ...q, options: nextOpts };
+                                              }
+                                              return q;
+                                            }));
+                                          }}
+                                          className="w-6 text-center font-bold text-xs border-b border-navy-300 dark:border-navy-600 bg-transparent text-navy-900 dark:text-white"
+                                        />
+                                      </label>
+
+                                      <input
+                                        type="text"
+                                        value={opt.text}
+                                        onChange={e => updateParsedQcmOptionText(qcmItem.id, oIdx, e.target.value)}
+                                        className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white"
+                                      />
+
+                                      {qcmItem.options.length > 2 && (
+                                        <button
+                                          type="button"
+                                          onClick={() => removeOptionFromParsedQcm(qcmItem.id, oIdx)}
+                                          className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-950 transition-colors"
+                                          title="Supprimer cette option"
+                                        >
+                                          <Trash2 className="w-3.5 h-3.5" />
+                                        </button>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : (
+                              /* Live Interactive Read-Only Preview */
+                              <div className="space-y-2">
+                                {qcmItem.vignetteText && (
+                                  <div className="p-3 rounded-xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 text-xs text-amber-950 dark:text-amber-200 italic">
+                                    <strong>Vignette clinique :</strong> {qcmItem.vignetteText}
+                                  </div>
+                                )}
+
+                                <p className="font-bold text-sm text-navy-950 dark:text-white">
+                                  {qcmItem.question}
+                                </p>
+
+                                <div className="grid grid-cols-1 gap-1.5 text-xs">
+                                  {qcmItem.options.map((opt, oIdx) => (
+                                    <div
+                                      key={oIdx}
+                                      className={`p-2.5 rounded-xl border flex items-center justify-between gap-2 transition-all ${
+                                        opt.isCorrect
+                                          ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
+                                          : 'bg-navy-50/50 dark:bg-navy-950/30 border-navy-200/60 dark:border-navy-800 text-navy-700 dark:text-navy-300'
+                                      }`}
+                                    >
+                                      <span><strong>{opt.letter}.</strong> {opt.text}</span>
+                                      {opt.isCorrect && (
+                                        <span className="text-[10px] uppercase tracking-wider font-black px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+                                          Exacte
+                                        </span>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </div>
 
-                          {/* Editable Question Text & Options */}
-                          {isEditing ? (
-                            <div className="space-y-3 pt-2 bg-navy-50/50 dark:bg-navy-950/40 p-4 rounded-xl border border-navy-200 dark:border-navy-800">
-                              <div>
-                                <label className="block text-[11px] font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                                  Énoncé de la question :
-                                </label>
-                                <input
-                                  type="text"
-                                  value={qcmItem.question}
-                                  onChange={e => {
-                                    const val = e.target.value;
-                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, question: val } : q));
-                                  }}
-                                  className="w-full px-3 py-2 text-xs font-bold rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
-                                />
-                              </div>
-
-                              <div className="space-y-2">
-                                <label className="block text-[11px] font-bold uppercase text-navy-700 dark:text-navy-300">
-                                  Propositions & Réponses Exactes :
-                                </label>
-                                {qcmItem.options.map((opt, oIdx) => (
-                                  <div key={oIdx} className="flex items-center gap-2">
-                                    <label className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 text-xs font-bold cursor-pointer">
-                                      <input
-                                        type="checkbox"
-                                        checked={opt.isCorrect}
-                                        onChange={() => toggleParsedQcmCorrect(qcmItem.id, oIdx)}
-                                        className="w-4 h-4 text-brand-600 rounded"
-                                      />
-                                      <span>{opt.letter}.</span>
-                                    </label>
-                                    <input
-                                      type="text"
-                                      value={opt.text}
-                                      onChange={e => updateParsedQcmOptionText(qcmItem.id, oIdx, e.target.value)}
-                                      className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
-                                    />
-                                  </div>
-                                ))}
-                              </div>
+                          {/* Manual QCM Insertion Divider Button between cards */}
+                          <div className="relative py-1 flex items-center justify-center">
+                            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                              <div className="w-full border-t border-dashed border-indigo-200 dark:border-indigo-800" />
                             </div>
-                          ) : (
-                            /* Live Interactive Read-Only Preview */
-                            <div className="space-y-2">
-                              <p className="font-bold text-sm text-navy-950 dark:text-white">
-                                {qcmItem.question}
-                              </p>
-
-                              <div className="grid grid-cols-1 gap-1.5 text-xs">
-                                {qcmItem.options.map((opt, oIdx) => (
-                                  <div
-                                    key={oIdx}
-                                    className={`p-2 rounded-xl border flex items-center justify-between gap-2 ${
-                                      opt.isCorrect
-                                        ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
-                                        : 'bg-navy-50/50 dark:bg-navy-950/30 border-navy-200/60 dark:border-navy-800 text-navy-700 dark:text-navy-300'
-                                    }`}
-                                  >
-                                    <span><strong>{opt.letter}.</strong> {opt.text}</span>
-                                    {opt.isCorrect && (
-                                      <span className="text-[10px] uppercase tracking-wider font-black px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
-                                        Exacte
-                                      </span>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
+                            <button
+                              type="button"
+                              onClick={() => insertParsedQcmAt(qIdx + 1)}
+                              className="relative px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-50 dark:bg-navy-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-200 dark:border-indigo-700 shadow-2xs transition-all flex items-center gap-1 opacity-70 hover:opacity-100"
+                            >
+                              <Plus className="w-3 h-3" />
+                              <span>➕ Insérer un QCM manuellement ici (entre #{qcmItem.tempNum} et #{qcmItem.tempNum + 1})</span>
+                            </button>
+                          </div>
+                        </React.Fragment>
                       );
                     })}
                   </div>
@@ -1318,6 +1682,76 @@ export default function AdminQcmPage() {
           )}
         </div>
       )}
+
+      {/* Standalone Sources & Sessions Hierarchy Sidebar / Tree Panel */}
+      <div className="apple-card p-5 space-y-3 bg-gradient-to-br from-slate-50 to-indigo-50/30 dark:from-navy-900 dark:to-indigo-950/20 border border-indigo-100 dark:border-indigo-900">
+        <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-navy-100 dark:border-navy-800">
+          <div className="flex items-center gap-2">
+            <FolderTree className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-sm font-black text-navy-950 dark:text-white">
+              Navigation par Sources & Sessions d'Examens :
+            </span>
+          </div>
+          
+          {selectedSourceFilter !== 'all' && (
+            <button
+              onClick={() => setSelectedSourceFilter('all')}
+              className="px-3 py-1 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-700 transition-all flex items-center gap-1 shadow-xs"
+            >
+              <span>📌 Source isolée : <u>{selectedSourceFilter}</u></span>
+              <X className="w-3.5 h-3.5 ml-1" />
+            </button>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 pt-1 text-xs">
+          {Array.from(sourceTree.entries()).map(([parentName, group]) => {
+            const isParentActive = selectedSourceFilter.toLowerCase() === parentName.toLowerCase();
+
+            return (
+              <div key={parentName} className="p-3 rounded-2xl bg-white dark:bg-navy-900 border border-navy-200/80 dark:border-navy-800 space-y-2 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => setSelectedSourceFilter(parentName)}
+                    className={`font-black text-xs hover:underline text-left truncate flex items-center gap-1.5 ${
+                      isParentActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-navy-950 dark:text-white'
+                    }`}
+                  >
+                    <span>📁 {parentName}</span>
+                  </button>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300">
+                    {group.total} QCMs
+                  </span>
+                </div>
+
+                {/* Sub-sources list */}
+                <div className="space-y-1 pl-2 border-l-2 border-indigo-100 dark:border-indigo-900">
+                  {group.subSources.map(sub => {
+                    const isSubActive = selectedSourceFilter.toLowerCase() === sub.name.toLowerCase();
+
+                    return (
+                      <button
+                        key={sub.name}
+                        onClick={() => setSelectedSourceFilter(sub.name)}
+                        className={`w-full text-left px-2 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center justify-between gap-1 ${
+                          isSubActive
+                            ? 'bg-indigo-600 text-white shadow-xs'
+                            : 'text-navy-700 dark:text-navy-300 hover:bg-indigo-50 dark:hover:bg-navy-800'
+                        }`}
+                      >
+                        <span className="truncate">📄 {sub.name.includes(' - ') ? sub.name.split(' - ')[1] : sub.name}</span>
+                        <span className={`text-[10px] px-1.5 py-0.2 rounded ${isSubActive ? 'bg-indigo-700 text-white' : 'bg-navy-100 dark:bg-navy-800 text-navy-500'}`}>
+                          {sub.count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Filter Bar for Existing QCM Bank */}
       <div className="apple-card p-5 space-y-4">
