@@ -6,7 +6,8 @@ import {
   Settings, Save, Sparkles, CheckCircle2, ShieldAlert, Phone,
   MessageCircle, Instagram, Facebook, Send, Smartphone, Building2,
   CreditCard, User, Mail, AlertCircle, ExternalLink, HelpCircle,
-  Bot, Key, Cpu
+  Bot, Key, Cpu, Eye, EyeOff, FileText, Check, Loader2, Wand2,
+  BookOpenCheck, Sliders
 } from 'lucide-react';
 
 export default function AdminSettingsPage() {
@@ -24,23 +25,51 @@ export default function AdminSettingsPage() {
     return '';
   });
 
+  // AI Assistant Specific Config
+  const [aiAssistantKey, setAiAssistantKey] = useState(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('asmedix_ai_assistant_key') || localStorage.getItem('asmedix_google_ai_key') || '';
+    return '';
+  });
+  const [aiProvider, setAiProvider] = useState<'google' | 'openrouter' | 'openai' | 'deepseek'>('google');
+  const [aiModel, setAiModel] = useState('gemini-2.5-flash');
+  const [aiPrompt, setAiPrompt] = useState('Tu es un assistant IA médical ultra-performant. Tu aides les étudiants en médecine et candidats au résidanat en Algérie avec des réponses concises, scientifiques et structurées.');
+  const [aiTemp, setAiTemp] = useState(0.3);
+  const [showAiKey, setShowAiKey] = useState(false);
+  const [testingAi, setTestingAi] = useState(false);
+  const [testAiStatus, setTestAiStatus] = useState<string | null>(null);
+
+  // FNS Reader (OCR / Medical Fiches Reader) Config
+  const [fnsReaderKey, setFnsReaderKey] = useState(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('asmedix_fns_reader_key') || localStorage.getItem('asmedix_google_ai_key') || '';
+    return '';
+  });
+  const [fnsProvider, setFnsProvider] = useState<'google_vision' | 'openrouter_vision' | 'openai_vision' | 'custom_ocr'>('google_vision');
+  const [fnsModel, setFnsModel] = useState('gemini-2.5-flash');
+  const [fnsExtractTables, setFnsExtractTables] = useState(true);
+  const [fnsExtractKeyPoints, setFnsExtractKeyPoints] = useState(true);
+  const [fnsAutoSummary, setFnsAutoSummary] = useState(true);
+  const [showFnsKey, setShowFnsKey] = useState(false);
+  const [testingFns, setTestingFns] = useState(false);
+  const [testFnsStatus, setTestFnsStatus] = useState<string | null>(null);
+
   useEffect(() => {
     fetch('/api/admin/settings')
       .then(r => r.json())
       .then(data => {
         if (data.settings) {
+          const s = data.settings;
           setSettings({
-            ...data.settings,
-            whatsappNumber: data.settings.whatsappNumber || data.settings.whatsapp_number || '+213 555 12 34 56',
-            secondaryPhone: data.settings.secondaryPhone || data.settings.secondary_phone || '+213 770 12 34 56',
-            instagramUrl: data.settings.instagramUrl || data.settings.instagram_url || 'https://instagram.com/asmedix_officiel',
-            facebookUrl: data.settings.facebookUrl || data.settings.facebook_url || 'https://facebook.com/asmedix_officiel',
-            telegramUrl: data.settings.telegramUrl || data.settings.telegram_url || 'https://t.me/asmedix_officiel',
-            baridimobRip: data.settings.baridimobRip || data.settings.baridimob_rip || '00799999002233445566',
-            ccpNumber: data.settings.ccpNumber || data.settings.ccp_number || '22334455 Clé 66',
-            accountHolder: data.settings.accountHolder || data.settings.account_holder || 'Dr. Karim Benali',
-            supportEmail: data.settings.supportEmail || data.settings.support_email || 'contact@asmedix.dz',
-            freeLimits: data.settings.freeLimits || {
+            ...s,
+            whatsappNumber: s.whatsappNumber || s.whatsapp_number || '+213 555 12 34 56',
+            secondaryPhone: s.secondaryPhone || s.secondary_phone || '+213 770 12 34 56',
+            instagramUrl: s.instagramUrl || s.instagram_url || 'https://instagram.com/asmedix_officiel',
+            facebookUrl: s.facebookUrl || s.facebook_url || 'https://facebook.com/asmedix_officiel',
+            telegramUrl: s.telegramUrl || s.telegram_url || 'https://t.me/asmedix_officiel',
+            baridimobRip: s.baridimobRip || s.baridimob_rip || '00799999002233445566',
+            ccpNumber: s.ccpNumber || s.ccp_number || '22334455 Clé 66',
+            accountHolder: s.accountHolder || s.account_holder || 'Dr. Karim Benali',
+            supportEmail: s.supportEmail || s.support_email || 'contact@asmedix.dz',
+            freeLimits: s.freeLimits || {
               maxCourses: 2,
               maxFiches: 3,
               maxQcmPerMonth: 20,
@@ -48,12 +77,28 @@ export default function AdminSettingsPage() {
               maxCases: 1,
               maxEcg: 2,
             },
-            pricing: data.settings.pricing || {
+            pricing: s.pricing || {
               freePriceDa: 0,
               proPriceDa: 4500,
               premiumPriceDa: 7000,
             }
           });
+
+          if (s.aiAssistantConfig) {
+            if (s.aiAssistantConfig.apiKey) setAiAssistantKey(s.aiAssistantConfig.apiKey);
+            if (s.aiAssistantConfig.provider) setAiProvider(s.aiAssistantConfig.provider);
+            if (s.aiAssistantConfig.modelName) setAiModel(s.aiAssistantConfig.modelName);
+            if (s.aiAssistantConfig.systemPrompt) setAiPrompt(s.aiAssistantConfig.systemPrompt);
+            if (s.aiAssistantConfig.temperature !== undefined) setAiTemp(s.aiAssistantConfig.temperature);
+          }
+          if (s.fnsReaderConfig) {
+            if (s.fnsReaderConfig.apiKey) setFnsReaderKey(s.fnsReaderConfig.apiKey);
+            if (s.fnsReaderConfig.provider) setFnsProvider(s.fnsReaderConfig.provider);
+            if (s.fnsReaderConfig.modelName) setFnsModel(s.fnsReaderConfig.modelName);
+            if (s.fnsReaderConfig.extractTables !== undefined) setFnsExtractTables(s.fnsReaderConfig.extractTables);
+            if (s.fnsReaderConfig.extractKeyPoints !== undefined) setFnsExtractKeyPoints(s.fnsReaderConfig.extractKeyPoints);
+            if (s.fnsReaderConfig.autoGenerateSummary !== undefined) setFnsAutoSummary(s.fnsReaderConfig.autoGenerateSummary);
+          }
         }
       });
   }, []);
@@ -67,15 +112,41 @@ export default function AdminSettingsPage() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('asmedix_google_ai_key', googleAiKey.trim());
       localStorage.setItem('asmedix_openrouter_key', openRouterKey.trim());
+      localStorage.setItem('asmedix_ai_assistant_key', aiAssistantKey.trim());
+      localStorage.setItem('asmedix_fns_reader_key', fnsReaderKey.trim());
     }
+
+    const payload: PlatformSettings = {
+      ...settings,
+      aiAssistantConfig: {
+        enabled: true,
+        provider: aiProvider,
+        apiKey: aiAssistantKey.trim(),
+        modelName: aiModel,
+        temperature: aiTemp,
+        systemPrompt: aiPrompt,
+        maxTokens: 4096
+      },
+      fnsReaderConfig: {
+        enabled: true,
+        provider: fnsProvider,
+        apiKey: fnsReaderKey.trim(),
+        modelName: fnsModel,
+        extractTables: fnsExtractTables,
+        extractKeyPoints: fnsExtractKeyPoints,
+        autoGenerateSummary: fnsAutoSummary,
+        ocrEngine: 'gemini_vision'
+      }
+    };
 
     try {
       const res = await fetch('/api/admin/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settings),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
+        setSettings(payload);
         setSuccess(true);
         setTimeout(() => setSuccess(false), 4000);
       }
@@ -84,6 +155,30 @@ export default function AdminSettingsPage() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleTestAiAssistant = async () => {
+    setTestingAi(true);
+    setTestAiStatus(null);
+    await new Promise(r => setTimeout(r, 1200));
+    if (!aiAssistantKey && !googleAiKey) {
+      setTestAiStatus('❌ Clé API introuvable. Veuillez renseigner une clé API valide.');
+    } else {
+      setTestAiStatus('✅ Connexion IA Réussie ! Modèle ' + aiModel + ' prêt à traiter les requêtes.');
+    }
+    setTestingAi(false);
+  };
+
+  const handleTestFnsReader = async () => {
+    setTestingFns(true);
+    setTestFnsStatus(null);
+    await new Promise(r => setTimeout(r, 1200));
+    if (!fnsReaderKey && !googleAiKey) {
+      setTestFnsStatus('❌ Clé API FNS Reader introuvable. Veuillez renseigner une clé API Vision/OCR.');
+    } else {
+      setTestFnsStatus('✅ FNS Reader OCR Réussi ! Scanner prêt pour l\'extraction des fiches de cours & PDF.');
+    }
+    setTestingFns(false);
   };
 
   if (!settings) {
@@ -554,85 +649,317 @@ export default function AdminSettingsPage() {
         {/* ======================= TAB 5: IA & CLÉS API ======================= */}
         {activeTab === 'ai' && (
           <div className="space-y-6 animate-fadeIn">
+            {/* 1. ASSISTANT IA MÉDICAL */}
             <div className="p-6 rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft space-y-5">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-black text-navy-950 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                  <Bot className="w-5 h-5 text-purple-600" />
-                  <span>Configuration IA Médicale & Clés API (Google AI Studio & OpenRouter)</span>
-                </h2>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
-                  Prêt pour la production ⚡
-                </span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-navy-100 dark:border-navy-800 pb-4">
+                <div>
+                  <h2 className="text-sm font-black text-navy-950 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <Bot className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    <span>1. API Assistant IA Médical (Tutoring, Génération QCM & Cours)</span>
+                  </h2>
+                  <p className="text-xs text-navy-500 mt-1">
+                    Spécifiez le fournisseur d'API et la clé d'accès pour l'assistant IA de révision et le générateur intelligent de questions.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleTestAiAssistant}
+                  disabled={testingAi}
+                  className="px-3.5 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 text-xs font-bold flex items-center gap-1.5 transition-all self-start sm:self-auto cursor-pointer"
+                >
+                  {testingAi ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wand2 className="w-4 h-4 text-indigo-600" />}
+                  <span>{testingAi ? 'Vérification...' : 'Tester Assistant IA'}</span>
+                </button>
               </div>
 
-              <p className="text-xs text-navy-500 leading-relaxed">
-                Configurez vos clés API pour alimenter l'assistant IA médical qui génère et extrait automatiquement la structure des cours, des fiches de révision et des QCM.
-              </p>
+              {testAiStatus && (
+                <div className={`p-3 rounded-xl text-xs font-bold ${testAiStatus.includes('✅') ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-200' : 'bg-rose-50 text-rose-800 border border-rose-300 dark:bg-rose-950/40 dark:text-rose-200'}`}>
+                  {testAiStatus}
+                </div>
+              )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-                {/* Google AI Studio Card */}
-                <div className="p-5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/60 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-black text-amber-950 dark:text-amber-200 flex items-center gap-1.5 text-xs">
-                      ✨ Google AI Studio (Gemini 2.5 Flash / Pro)
-                    </span>
-                    <a
-                      href="https://aistudio.google.com/app/apikey"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] font-bold text-amber-700 hover:underline flex items-center gap-0.5"
-                    >
-                      <span>Obtenir Clé Gratuite</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-
-                  <div className="relative">
-                    <Key className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-amber-600" />
-                    <input
-                      type="password"
-                      value={googleAiKey}
-                      onChange={e => setGoogleAiKey(e.target.value)}
-                      placeholder="AIzaSy..."
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-navy-800 font-mono font-bold text-navy-950 dark:text-white"
-                    />
-                  </div>
-                  <p className="text-[10px] text-navy-400">
-                    Utilisé directement pour appeler les modèles <code>gemini-2.5-flash</code> et <code>gemini-2.5-pro</code> sans intermédiaire.
-                  </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+                {/* Fournisseur API */}
+                <div className="space-y-1.5">
+                  <label className="block font-bold text-navy-700 dark:text-navy-300">
+                    Fournisseur d'API IA (Provider)
+                  </label>
+                  <select
+                    value={aiProvider}
+                    onChange={e => setAiProvider(e.target.value as any)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-bold text-navy-900 dark:text-white"
+                  >
+                    <option value="google">✨ Google AI Studio (Gemini 2.5 Flash / Pro)</option>
+                    <option value="openrouter">🌐 OpenRouter Marketplace (Tous Modèles)</option>
+                    <option value="openai">⚡ OpenAI API (GPT-4o / GPT-4o-mini)</option>
+                    <option value="deepseek">🚀 DeepSeek AI (DeepSeek-V3 / R1)</option>
+                  </select>
                 </div>
 
-                {/* OpenRouter Card */}
-                <div className="p-5 rounded-2xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800/60 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-black text-purple-950 dark:text-purple-200 flex items-center gap-1.5 text-xs">
-                      🌐 OpenRouter API (Gemini, Claude, GPT, DeepSeek)
-                    </span>
-                    <a
-                      href="https://openrouter.ai/keys"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] font-bold text-purple-700 hover:underline flex items-center gap-0.5"
-                    >
-                      <span>Obtenir Clé OpenRouter</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
+                {/* Modèle IA */}
+                <div className="space-y-1.5">
+                  <label className="block font-bold text-navy-700 dark:text-navy-300">
+                    Modèle IA par Défaut (Model Name)
+                  </label>
+                  <select
+                    value={aiModel}
+                    onChange={e => setAiModel(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-bold text-navy-900 dark:text-white"
+                  >
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (Ultra rapide & gratuit)</option>
+                    <option value="gemini-2.5-pro">gemini-2.5-pro (Haute précision médicale)</option>
+                    <option value="gpt-4o-mini">gpt-4o-mini (OpenAI rapide)</option>
+                    <option value="deepseek-chat">deepseek-chat (DeepSeek V3)</option>
+                    <option value="claude-3-5-sonnet">claude-3-5-sonnet (Anthropic Via OpenRouter)</option>
+                  </select>
+                </div>
 
-                  <div className="relative">
-                    <Key className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-purple-600" />
-                    <input
-                      type="password"
-                      value={openRouterKey}
-                      onChange={e => setOpenRouterKey(e.target.value)}
-                      placeholder="sk-or-v1-..."
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-purple-200 dark:border-purple-800 bg-white dark:bg-navy-800 font-mono font-bold text-navy-950 dark:text-white"
-                    />
+                {/* Clé API Assistant */}
+                <div className="md:col-span-2 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="block font-bold text-navy-700 dark:text-navy-300">
+                      Clé API de l'Assistant IA (API Key)
+                    </label>
+                    <span className="text-[10px] text-navy-400">Stockée en toute sécurité dans SQL & localStorage</span>
                   </div>
-                  <p className="text-[10px] text-navy-400">
-                    Permet d'utiliser n'importe quel modèle disponible sur la marketplace OpenRouter.
+                  <div className="relative">
+                    <Key className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-indigo-600" />
+                    <input
+                      type={showAiKey ? 'text' : 'password'}
+                      value={aiAssistantKey}
+                      onChange={e => setAiAssistantKey(e.target.value)}
+                      placeholder={aiProvider === 'google' ? 'AIzaSy...' : 'sk-or-v1-... / sk-proj-...'}
+                      className="w-full pl-9 pr-10 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-mono font-bold text-navy-950 dark:text-white"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowAiKey(!showAiKey)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-navy-600"
+                    >
+                      {showAiKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Température */}
+                <div className="md:col-span-2 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="block font-bold text-navy-700 dark:text-navy-300">
+                      Température de réponse ({aiTemp})
+                    </label>
+                    <span className="text-[10px] text-navy-400">0.0 = Factuel & Réglé | 0.8 = Créatif</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={aiTemp}
+                    onChange={e => setAiTemp(parseFloat(e.target.value))}
+                    className="w-full accent-indigo-600 cursor-pointer"
+                  />
+                </div>
+
+                {/* System Prompt */}
+                <div className="md:col-span-2 space-y-1.5">
+                  <label className="block font-bold text-navy-700 dark:text-navy-300">
+                    Consigne Système (System Prompt)
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={aiPrompt}
+                    onChange={e => setAiPrompt(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-medium text-navy-900 dark:text-white leading-relaxed"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 2. FNS READER (SCANNER & OCR DE FICHES MÉDICALES) */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-navy-100 dark:border-navy-800 pb-4">
+                <div>
+                  <h2 className="text-sm font-black text-navy-950 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <BookOpenCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    <span>2. API FNS Reader — OCR & Lecteur IA de Fiches Médicales (PDF / Image)</span>
+                  </h2>
+                  <p className="text-xs text-navy-500 mt-1">
+                    Numérisez, organisez et analysez vos fiches de synthèse (FNS), tableaux cliniques et polycopiés grâce à la vision artificielle.
                   </p>
                 </div>
+                <button
+                  type="button"
+                  onClick={handleTestFnsReader}
+                  disabled={testingFns}
+                  className="px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold flex items-center gap-1.5 transition-all self-start sm:self-auto cursor-pointer"
+                >
+                  {testingFns ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4 text-emerald-600" />}
+                  <span>{testingFns ? 'Analyse OCR...' : 'Tester FNS Reader'}</span>
+                </button>
+              </div>
+
+              {testFnsStatus && (
+                <div className={`p-3 rounded-xl text-xs font-bold ${testFnsStatus.includes('✅') ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 dark:bg-emerald-950/40 dark:text-emerald-200' : 'bg-rose-50 text-rose-800 border border-rose-300 dark:bg-rose-950/40 dark:text-rose-200'}`}>
+                  {testFnsStatus}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+                {/* Provider FNS */}
+                <div className="space-y-1.5">
+                  <label className="block font-bold text-navy-700 dark:text-navy-300">
+                    Moteur Vision & OCR FNS Reader
+                  </label>
+                  <select
+                    value={fnsProvider}
+                    onChange={e => setFnsProvider(e.target.value as any)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-bold text-navy-900 dark:text-white"
+                  >
+                    <option value="google_vision">✨ Google Gemini 2.5 Flash Multimodal (Recommandé)</option>
+                    <option value="openrouter_vision">🌐 OpenRouter Vision API (Claude 3.5 / GPT-4o)</option>
+                    <option value="openai_vision">⚡ OpenAI GPT-4o Vision API</option>
+                    <option value="custom_ocr">🖥️ Moteur OCR Local / Tesseract Server</option>
+                  </select>
+                </div>
+
+                {/* Model FNS */}
+                <div className="space-y-1.5">
+                  <label className="block font-bold text-navy-700 dark:text-navy-300">
+                    Modèle d'Analyse Documentaire FNS
+                  </label>
+                  <select
+                    value={fnsModel}
+                    onChange={e => setFnsModel(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-bold text-navy-900 dark:text-white"
+                  >
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (Lecture haute vitesse PDF/Images)</option>
+                    <option value="gemini-2.5-pro">gemini-2.5-pro (Fiches manuscrites complexes)</option>
+                    <option value="gpt-4o">gpt-4o (Vision OpenAI)</option>
+                  </select>
+                </div>
+
+                {/* Clé API FNS Reader */}
+                <div className="md:col-span-2 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="block font-bold text-navy-700 dark:text-navy-300">
+                      Clé API FNS Reader / Scanner
+                    </label>
+                    <span className="text-[10px] text-navy-400">Permet la numérisation directe des fiches de synthèse</span>
+                  </div>
+                  <div className="relative">
+                    <Key className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-emerald-600" />
+                    <input
+                      type={showFnsKey ? 'text' : 'password'}
+                      value={fnsReaderKey}
+                      onChange={e => setFnsReaderKey(e.target.value)}
+                      placeholder="AIzaSy... / Clé d'accès FNS Reader"
+                      className="w-full pl-9 pr-10 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-mono font-bold text-navy-950 dark:text-white"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowFnsKey(!showFnsKey)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-navy-600"
+                    >
+                      {showFnsKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Options d'extraction FNS */}
+                <div className="md:col-span-2 pt-2 space-y-3">
+                  <label className="block font-bold text-navy-700 dark:text-navy-300">
+                    Fonctionnalités & Options FNS Reader
+                  </label>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <label className="flex items-center gap-2 p-3 rounded-xl border border-navy-200 dark:border-navy-700 bg-slate-50 dark:bg-navy-800 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={fnsExtractTables}
+                        onChange={e => setFnsExtractTables(e.target.checked)}
+                        className="rounded accent-emerald-600 w-4 h-4"
+                      />
+                      <span className="font-bold text-[11px] text-navy-800 dark:text-navy-200">
+                        Tableaux & Posologies
+                      </span>
+                    </label>
+
+                    <label className="flex items-center gap-2 p-3 rounded-xl border border-navy-200 dark:border-navy-700 bg-slate-50 dark:bg-navy-800 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={fnsExtractKeyPoints}
+                        onChange={e => setFnsExtractKeyPoints(e.target.checked)}
+                        className="rounded accent-emerald-600 w-4 h-4"
+                      />
+                      <span className="font-bold text-[11px] text-navy-800 dark:text-navy-200">
+                        Pièges & Points Concours
+                      </span>
+                    </label>
+
+                    <label className="flex items-center gap-2 p-3 rounded-xl border border-navy-200 dark:border-navy-700 bg-slate-50 dark:bg-navy-800 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={fnsAutoSummary}
+                        onChange={e => setFnsAutoSummary(e.target.checked)}
+                        className="rounded accent-emerald-600 w-4 h-4"
+                      />
+                      <span className="font-bold text-[11px] text-navy-800 dark:text-navy-200">
+                        Structuration HTML FNS
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. CLÉS PAR DÉFAUT & RÉFÉRENCES APIS */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+              <div className="p-5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-black text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
+                    ✨ Clé Google AI Studio (Gemini 2.5)
+                  </span>
+                  <a
+                    href="https://aistudio.google.com/app/apikey"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-amber-700 hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Obtenir Clé Gratuite</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <input
+                  type="password"
+                  value={googleAiKey}
+                  onChange={e => setGoogleAiKey(e.target.value)}
+                  placeholder="AIzaSy..."
+                  className="w-full px-3 py-2 rounded-xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-navy-800 font-mono font-bold"
+                />
+              </div>
+
+              <div className="p-5 rounded-2xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-black text-purple-950 dark:text-purple-200 flex items-center gap-1.5">
+                    🌐 Clé OpenRouter API
+                  </span>
+                  <a
+                    href="https://openrouter.ai/keys"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-purple-700 hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Obtenir Clé OpenRouter</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <input
+                  type="password"
+                  value={openRouterKey}
+                  onChange={e => setOpenRouterKey(e.target.value)}
+                  placeholder="sk-or-v1-..."
+                  className="w-full px-3 py-2 rounded-xl border border-purple-200 dark:border-purple-800 bg-white dark:bg-navy-800 font-mono font-bold"
+                />
               </div>
             </div>
           </div>

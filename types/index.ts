@@ -340,6 +340,25 @@ export interface PlatformSettings {
     modelName: string;
     enabled: boolean;
   };
+  aiAssistantConfig?: {
+    enabled: boolean;
+    provider: 'google' | 'openrouter' | 'openai' | 'deepseek';
+    apiKey: string;
+    modelName: string;
+    temperature: number;
+    systemPrompt: string;
+    maxTokens: number;
+  };
+  fnsReaderConfig?: {
+    enabled: boolean;
+    provider: 'google_vision' | 'openrouter_vision' | 'openai_vision' | 'custom_ocr';
+    apiKey: string;
+    modelName: string;
+    extractTables: boolean;
+    extractKeyPoints: boolean;
+    autoGenerateSummary: boolean;
+    ocrEngine: 'gemini_vision' | 'tesseract' | 'cloud_vision';
+  };
   maintenanceMode: boolean;
   registrationsOpen: boolean;
 }
