@@ -92,9 +92,13 @@ function CourseEditorContent() {
         badgeColor: 'bg-emerald-500 text-white',
         models: [
           { value: 'gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)' },
-          { value: 'gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro (Raisonnement Élevé)' },
-          { value: 'gemini-2.0-flash', label: '🚀 Gemini 2.0 Flash' },
-          { value: 'gemini-1.5-pro', label: '📄 Gemini 1.5 Pro' },
+          { value: 'gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro (Raisonnement Élevé & Précision)' },
+          { value: 'gemini-2.0-flash', label: '🚀 Gemini 2.0 Flash (Next-Gen Rapide)' },
+          { value: 'gemini-2.0-flash-lite', label: '⚡ Gemini 2.0 Flash Lite (Ultra Léger)' },
+          { value: 'gemini-2.0-pro-exp-02-05', label: '🔬 Gemini 2.0 Pro Experimental' },
+          { value: 'gemini-1.5-pro', label: '📚 Gemini 1.5 Pro (Contexte Géant 2M Tokens)' },
+          { value: 'gemini-1.5-flash', label: '🚀 Gemini 1.5 Flash (Standard)' },
+          { value: 'gemini-1.5-flash-8b', label: '⚡ Gemini 1.5 Flash 8B (Léger)' },
         ]
       };
     } else if (cleanKey.startsWith('sk-or-v1-')) {
@@ -1616,8 +1620,13 @@ ${textContent.substring(0, 90000)}`;
                       className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
                     >
                       <option value="gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
-                      <option value="gemini-2.5-pro">🧠 Gemini 2.5 Pro (Haute Raisonnement)</option>
-                      <option value="gemini-1.5-flash">🚀 Gemini 1.5 Flash</option>
+                      <option value="gemini-2.5-pro">🧠 Gemini 2.5 Pro (Haute Précision Médicale & Raisonnement)</option>
+                      <option value="gemini-2.0-flash">🚀 Gemini 2.0 Flash (Next-Gen Rapide)</option>
+                      <option value="gemini-2.0-flash-lite">⚡ Gemini 2.0 Flash Lite (Ultra Léger)</option>
+                      <option value="gemini-2.0-pro-exp-02-05">🔬 Gemini 2.0 Pro Experimental</option>
+                      <option value="gemini-1.5-pro">📚 Gemini 1.5 Pro (Contexte Géant 2M Tokens)</option>
+                      <option value="gemini-1.5-flash">🚀 Gemini 1.5 Flash (Standard)</option>
+                      <option value="gemini-1.5-flash-8b">⚡ Gemini 1.5 Flash 8B (Léger)</option>
                     </select>
                   </div>
                 </>
