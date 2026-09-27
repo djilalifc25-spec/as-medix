@@ -147,6 +147,30 @@ export async function POST(req: NextRequest) {
       });
     } catch (_) {}
 
+    // Also create matching notification so AppTopNav bell updates instantly
+    const notifObj = {
+      id: 'notif_' + reminderId,
+      user_id: userId !== 'guest' ? userId : null,
+      title: `⏰ ${newReminder.tagLabel || 'Rappel programmé'}`,
+      message: `Rappel pour « ${newReminder.targetTitle} »${newReminder.userNote ? ` : ${newReminder.userNote}` : ''}`,
+      type: 'reminder',
+      read: false,
+      link_url: newReminder.targetType === 'cours' ? `/cours/${newReminder.targetId}` : `/qcm/${newReminder.targetId}`,
+      created_at: newReminder.createdAt
+    };
+
+    try {
+      await supabaseAdmin.from('notifications').insert(notifObj);
+    } catch (_) {}
+
+    // Store in global memory map for notifications API
+    const globalForNotifs = globalThis as any;
+    if (!globalForNotifs.asmedixNotificationsMemory) {
+      globalForNotifs.asmedixNotificationsMemory = new Map();
+    }
+    const userNotifs = globalForNotifs.asmedixNotificationsMemory.get(userId) || [];
+    globalForNotifs.asmedixNotificationsMemory.set(userId, [notifObj, ...userNotifs]);
+
     return NextResponse.json({
       success: true,
       reminder: newReminder

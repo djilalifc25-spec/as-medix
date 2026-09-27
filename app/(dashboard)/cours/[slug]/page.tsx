@@ -226,12 +226,27 @@ function CourseDetailContent() {
 
   const scrollToSection = (sectionId: string) => {
     setShowTocMobile(false);
+    setIsTocModalOpen(false);
     setActiveSection(sectionId);
+
     const el = document.getElementById(sectionId);
     if (el) {
-      const yOffset = -90;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      if (isFullscreen) {
+        const container = document.getElementById('asmedix-fullscreen-cours');
+        if (container) {
+          const containerRect = container.getBoundingClientRect();
+          const elRect = el.getBoundingClientRect();
+          const scrollTop = container.scrollTop + (elRect.top - containerRect.top) - 80;
+          container.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
+        }
+      } else {
+        const yOffset = -90;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      }
+      try {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (_) {}
     }
   };
 
@@ -670,40 +685,7 @@ function CourseDetailContent() {
 
 
 
-            {/* Interactive Sommaire / TOC Quick Jump Box */}
-            {activeToc.length > 0 && (
-              <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-navy-900 border border-brand-200 dark:border-brand-900/60 shadow-soft space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-black text-xs uppercase tracking-wider text-brand-700 dark:text-brand-300 flex items-center gap-2">
-                    <List className="w-4 h-4 text-brand-600" />
-                    <span>Sommaire Interactif du Cours ({activeToc.length} sections) :</span>
-                  </h3>
-                  <span className="text-[10px] text-navy-400 font-medium">Accès direct au clic</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {activeToc.map((item, idx) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => scrollToSection(item.id)}
-                      className={`p-2.5 rounded-2xl border text-left text-xs font-bold transition-all flex items-center justify-between group active:scale-95 cursor-pointer ${
-                        activeSection === item.id
-                          ? 'bg-brand-600 text-white border-brand-600 shadow-sm'
-                          : 'bg-slate-50 dark:bg-navy-950/60 text-navy-800 dark:text-navy-200 border-navy-150 dark:border-navy-800 hover:border-brand-400 hover:bg-brand-50/50 dark:hover:bg-navy-800'
-                      }`}
-                    >
-                      <span className="truncate flex-1 mr-2">
-                        <span className="opacity-70 mr-1.5">{idx + 1}.</span>
-                        <span>{item.title}</span>
-                      </span>
-                      <ChevronRight className={`w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 ${
-                        activeSection === item.id ? 'text-white' : 'text-navy-400'
-                      }`} />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+
 
             {/* HTML Content */}
             <div className="apple-card p-4 sm:p-10 shadow-soft relative overflow-x-hidden" onClick={handleCourseContentClick}>
@@ -1123,49 +1105,8 @@ function CourseDetailContent() {
           )}
         </div>
 
-        {/* Grid: TOC + Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Table of contents sidebar */}
-          <div className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-28 p-5 rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-navy-400">
-                Sommaire interactif
-              </span>
-                {activeToc.map((item, idx) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => scrollToSection(item.id)}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-between group active:scale-95 cursor-pointer ${
-                      activeSection === item.id
-                        ? 'bg-brand-600 text-white shadow-xs font-bold'
-                        : 'text-navy-600 dark:text-navy-400 hover:bg-navy-50 dark:hover:bg-navy-800'
-                    }`}
-                  >
-                    <span className="truncate flex-1 mr-1">
-                      <span className="opacity-70 mr-1.5">{idx + 1}.</span>
-                      <span>{item.title}</span>
-                    </span>
-                    <ChevronRight className={`w-3 h-3 shrink-0 transition-transform group-hover:translate-x-0.5 ${
-                      activeSection === item.id ? 'text-white' : 'text-navy-400'
-                    }`} />
-                  </button>
-                ))}
-
-              <div className="pt-3 border-t border-navy-100 dark:border-navy-800">
-                <Link
-                  href={`/qcm?specialty=${course.specialtyId}&course=${course.id}`}
-                  className="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-soft transition-all"
-                >
-                  <Brain className="w-4 h-4" />
-                  <span>Tester mes acquis en QCM</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Rich HTML Content */}
-          <div className="lg:col-span-3 p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft">
+        {/* Rich HTML Content */}
+        <div className="p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft">
             {/* Summary points */}
             {course.summaryPoints && (
               <div className="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 mb-6 sm:mb-8 space-y-2">
@@ -1207,7 +1148,6 @@ function CourseDetailContent() {
             </div>
           </div>
         </div>
-      </div>
 
 
 

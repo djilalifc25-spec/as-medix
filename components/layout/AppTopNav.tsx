@@ -69,11 +69,20 @@ export const AppTopNav: React.FC<{ user?: User | null }> = ({ user: initialUser 
   useEffect(() => {
     fetchNotifications();
     syncUserSession();
+
+    const handleNotifAdded = () => {
+      fetchNotifications();
+    };
+    window.addEventListener('asmedix-notification-added', handleNotifAdded);
+
     const interval = setInterval(() => {
       fetchNotifications();
       syncUserSession();
     }, 10000);
-    return () => clearInterval(interval);
+    return () => {
+      window.removeEventListener('asmedix-notification-added', handleNotifAdded);
+      clearInterval(interval);
+    };
   }, []);
 
   const handleMarkAllRead = async () => {

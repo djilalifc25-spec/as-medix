@@ -227,6 +227,10 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
           }
         }
 
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('asmedix-notification-added'));
+        }
+
         if (onSaved) onSaved(data.reminder);
         onClose();
       }
