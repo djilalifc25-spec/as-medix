@@ -1,9 +1,12 @@
 /**
- * OpenRouter AI Integration Service for AS-MEDIX Platform
- * Supports all OpenRouter models (Gemini 2.5, Claude 3.5, GPT-4o, DeepSeek, etc.)
+ * Unified AI Integration Service for AS-MEDIX Platform
+ * Supports both Google AI Studio (Gemini API) and OpenRouter API
  */
 
-export interface OpenRouterConfig {
+export type AIProviderType = 'google_ai_studio' | 'openrouter';
+
+export interface AIProviderConfig {
+  provider?: AIProviderType;
   apiKey?: string;
   model?: string;
 }
@@ -17,19 +20,90 @@ export interface AIExtractedCourseData {
   htmlContent: string;
 }
 
-const DEFAULT_MODEL = 'google/gemini-2.5-flash';
+const DEFAULT_OPENROUTER_MODEL = 'google/gemini-2.5-flash';
+const DEFAULT_GOOGLE_MODEL = 'gemini-2.5-flash';
 
+/**
+ * Call Google AI Studio (Gemini API)
+ */
+export async function callGoogleAIStudio(
+  messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+  config: AIProviderConfig = {},
+  jsonMode: boolean = false
+): Promise<string> {
+  const apiKey = config.apiKey || process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_STUDIO_API_KEY || '';
+  if (!apiKey) {
+    throw new Error('Clé API Google AI Studio (Gemini) manquante. Veuillez saisir votre clé API Google AI Studio.');
+  }
+
+  const modelName = config.model || DEFAULT_GOOGLE_MODEL;
+  const systemInstruction = messages.find(m => m.role === 'system')?.content || '';
+  const userMessages = messages.filter(m => m.role !== 'system');
+
+  const contents = userMessages.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }]
+  }));
+
+  const payload: any = {
+    contents,
+    generationConfig: {
+      temperature: 0.2,
+    }
+  };
+
+  if (systemInstruction) {
+    payload.systemInstruction = {
+      parts: [{ text: systemInstruction }]
+    };
+  }
+
+  if (jsonMode) {
+    payload.generationConfig.responseMimeType = 'application/json';
+  }
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey.trim()}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let errMessage = `Erreur Google AI Studio (${response.status})`;
+    try {
+      const errJson = JSON.parse(errorText);
+      if (errJson.error?.message) errMessage = errJson.error.message;
+    } catch (_) {}
+    throw new Error(errMessage);
+  }
+
+  const data = await response.json();
+  const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (!reply) {
+    throw new Error('Aucune réponse générée par Google AI Studio.');
+  }
+
+  return reply;
+}
+
+/**
+ * Call OpenRouter API
+ */
 export async function callOpenRouterAPI(
   messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
-  config: OpenRouterConfig = {},
+  config: AIProviderConfig = {},
   jsonMode: boolean = false
 ): Promise<string> {
   const apiKey = config.apiKey || process.env.OPENROUTER_API_KEY || '';
   if (!apiKey) {
-    throw new Error('Clé API OpenRouter manquante. Veuillez saisir votre clé API OpenRouter dans les paramètres ou l\'interface.');
+    throw new Error('Clé API OpenRouter manquante. Veuillez saisir votre clé API OpenRouter.');
   }
 
-  const model = config.model || process.env.OPENROUTER_MODEL || DEFAULT_MODEL;
+  const model = config.model || process.env.OPENROUTER_MODEL || DEFAULT_OPENROUTER_MODEL;
 
   const payload: any = {
     model: model,
@@ -73,11 +147,28 @@ export async function callOpenRouterAPI(
 }
 
 /**
+ * Unified AI API Call (Google AI Studio OR OpenRouter)
+ */
+export async function callUnifiedAI(
+  messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+  config: AIProviderConfig = {},
+  jsonMode: boolean = false
+): Promise<string> {
+  const provider = config.provider || 'google_ai_studio';
+
+  if (provider === 'google_ai_studio') {
+    return callGoogleAIStudio(messages, config, jsonMode);
+  } else {
+    return callOpenRouterAPI(messages, config, jsonMode);
+  }
+}
+
+/**
  * Intelligent AI Extractor & Formatter for Courses
  */
 export async function aiAnalyzeAndFormatCourse(
   rawTextOrHtml: string,
-  config: OpenRouterConfig = {},
+  config: AIProviderConfig = {},
   contextInfo: { specialty?: string; year?: number } = {}
 ): Promise<AIExtractedCourseData> {
   const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée d'AS-MEDIX.
@@ -110,7 +201,7 @@ Règles de mise en forme de "htmlContent" :
 Voici le document / cours médical brut à analyser et formater :
 ${rawTextOrHtml.substring(0, 25000)}`;
 
-  const responseText = await callOpenRouterAPI(
+  const responseText = await callUnifiedAI(
     [
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt }
@@ -120,7 +211,6 @@ ${rawTextOrHtml.substring(0, 25000)}`;
   );
 
   try {
-    // Clean potential markdown blocks if present
     const jsonCleaned = responseText.replace(/```json\s*/gi, '').replace(/```\s*$/gi, '').trim();
     const parsed = JSON.parse(jsonCleaned);
 
@@ -135,7 +225,7 @@ ${rawTextOrHtml.substring(0, 25000)}`;
       htmlContent: parsed.htmlContent || rawTextOrHtml
     };
   } catch (parseErr) {
-    console.error('[OpenRouter AI] JSON parse error:', parseErr, responseText);
-    throw new Error('Format de réponse JSON invalide reçu de l\'IA OpenRouter.');
+    console.error('[Unified AI] JSON parse error:', parseErr, responseText);
+    throw new Error('Format de réponse JSON invalide reçu de l\'IA.');
   }
 }

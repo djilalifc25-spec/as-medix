@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { content, apiKey, model, specialty, year } = body;
+    const { content, provider, apiKey, model, specialty, year } = body;
 
     if (!content || typeof content !== 'string' || content.trim().length === 0) {
       return NextResponse.json({ error: 'Contenu médical brut requis pour l\'analyse IA' }, { status: 400 });
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     const result = await aiAnalyzeAndFormatCourse(
       content,
-      { apiKey, model },
+      { provider, apiKey, model },
       { specialty, year }
     );
 
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     return NextResponse.json({
       success: false,
-      error: err.message || 'Erreur lors du traitement par l\'IA OpenRouter'
+      error: err.message || 'Erreur lors du traitement par l\'Assistant IA'
     }, { status: 500 });
   }
 }

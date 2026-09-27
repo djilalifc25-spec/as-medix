@@ -5,14 +5,24 @@ import { PlatformSettings } from '@/types';
 import {
   Settings, Save, Sparkles, CheckCircle2, ShieldAlert, Phone,
   MessageCircle, Instagram, Facebook, Send, Smartphone, Building2,
-  CreditCard, User, Mail, AlertCircle, ExternalLink, HelpCircle
+  CreditCard, User, Mail, AlertCircle, ExternalLink, HelpCircle,
+  Bot, Key, Cpu
 } from 'lucide-react';
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<PlatformSettings | null>(null);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [activeTab, setActiveTab] = useState<'contacts' | 'banking' | 'pricing' | 'quotas'>('contacts');
+  const [activeTab, setActiveTab] = useState<'contacts' | 'banking' | 'pricing' | 'quotas' | 'ai'>('contacts');
+
+  const [googleAiKey, setGoogleAiKey] = useState(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('asmedix_google_ai_key') || '';
+    return '';
+  });
+  const [openRouterKey, setOpenRouterKey] = useState(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('asmedix_openrouter_key') || '';
+    return '';
+  });
 
   useEffect(() => {
     fetch('/api/admin/settings')
@@ -53,6 +63,11 @@ export default function AdminSettingsPage() {
     if (!settings) return;
     setSaving(true);
     setSuccess(false);
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('asmedix_google_ai_key', googleAiKey.trim());
+      localStorage.setItem('asmedix_openrouter_key', openRouterKey.trim());
+    }
 
     try {
       const res = await fetch('/api/admin/settings', {
@@ -151,6 +166,19 @@ export default function AdminSettingsPage() {
         >
           <CreditCard className="w-4 h-4" />
           <span>Tarifs Abonnements</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('ai')}
+          className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+            activeTab === 'ai'
+              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-soft font-black'
+              : 'text-navy-600 dark:text-navy-300 hover:bg-navy-100 dark:hover:bg-navy-800'
+          }`}
+        >
+          <Bot className="w-4 h-4 text-amber-300" />
+          <span>🤖 IA & Clés API (Gemini / OpenRouter)</span>
         </button>
 
         <button
@@ -517,6 +545,93 @@ export default function AdminSettingsPage() {
                     })}
                     className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-bold"
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ======================= TAB 5: IA & CLÉS API ======================= */}
+        {activeTab === 'ai' && (
+          <div className="space-y-6 animate-fadeIn">
+            <div className="p-6 rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft space-y-5">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-black text-navy-950 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-purple-600" />
+                  <span>Configuration IA Médicale & Clés API (Google AI Studio & OpenRouter)</span>
+                </h2>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                  Prêt pour la production ⚡
+                </span>
+              </div>
+
+              <p className="text-xs text-navy-500 leading-relaxed">
+                Configurez vos clés API pour alimenter l'assistant IA médical qui génère et extrait automatiquement la structure des cours, des fiches de révision et des QCM.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                {/* Google AI Studio Card */}
+                <div className="p-5 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/60 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-black text-amber-950 dark:text-amber-200 flex items-center gap-1.5 text-xs">
+                      ✨ Google AI Studio (Gemini 2.5 Flash / Pro)
+                    </span>
+                    <a
+                      href="https://aistudio.google.com/app/apikey"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-bold text-amber-700 hover:underline flex items-center gap-0.5"
+                    >
+                      <span>Obtenir Clé Gratuite</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+
+                  <div className="relative">
+                    <Key className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-amber-600" />
+                    <input
+                      type="password"
+                      value={googleAiKey}
+                      onChange={e => setGoogleAiKey(e.target.value)}
+                      placeholder="AIzaSy..."
+                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-navy-800 font-mono font-bold text-navy-950 dark:text-white"
+                    />
+                  </div>
+                  <p className="text-[10px] text-navy-400">
+                    Utilisé directement pour appeler les modèles <code>gemini-2.5-flash</code> et <code>gemini-2.5-pro</code> sans intermédiaire.
+                  </p>
+                </div>
+
+                {/* OpenRouter Card */}
+                <div className="p-5 rounded-2xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-800/60 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-black text-purple-950 dark:text-purple-200 flex items-center gap-1.5 text-xs">
+                      🌐 OpenRouter API (Gemini, Claude, GPT, DeepSeek)
+                    </span>
+                    <a
+                      href="https://openrouter.ai/keys"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-bold text-purple-700 hover:underline flex items-center gap-0.5"
+                    >
+                      <span>Obtenir Clé OpenRouter</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+
+                  <div className="relative">
+                    <Key className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-purple-600" />
+                    <input
+                      type="password"
+                      value={openRouterKey}
+                      onChange={e => setOpenRouterKey(e.target.value)}
+                      placeholder="sk-or-v1-..."
+                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-purple-200 dark:border-purple-800 bg-white dark:bg-navy-800 font-mono font-bold text-navy-950 dark:text-white"
+                    />
+                  </div>
+                  <p className="text-[10px] text-navy-400">
+                    Permet d'utiliser n'importe quel modèle disponible sur la marketplace OpenRouter.
+                  </p>
                 </div>
               </div>
             </div>

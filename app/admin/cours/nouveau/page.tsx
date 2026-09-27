@@ -53,15 +53,22 @@ function CourseEditorContent() {
   const coverFileInputRef = useRef<HTMLInputElement>(null);
   const contentFileInputRef = useRef<HTMLInputElement>(null);
 
-  // OpenRouter AI Modal State
+  // AI Assistant Modal State (Google AI Studio & OpenRouter)
   const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [aiProvider, setAiProvider] = useState<'google_ai_studio' | 'openrouter'>('google_ai_studio');
+  const [googleAiKey, setGoogleAiKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('asmedix_google_ai_key') || '';
+    }
+    return '';
+  });
   const [openRouterKey, setOpenRouterKey] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('asmedix_openrouter_key') || '';
     }
     return '';
   });
-  const [selectedAiModel, setSelectedAiModel] = useState('google/gemini-2.5-flash');
+  const [selectedAiModel, setSelectedAiModel] = useState('gemini-2.5-flash');
   const [aiRawInput, setAiRawInput] = useState('');
   const [aiProcessing, setAiProcessing] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
@@ -73,7 +80,7 @@ function CourseEditorContent() {
     setAiModalOpen(true);
   };
 
-  const handleRunOpenRouterAi = async () => {
+  const handleRunAi = async () => {
     if (!aiRawInput.trim()) {
       setAiError('Veuillez coller le texte ou le code HTML brut du cours à analyser.');
       return;
@@ -82,8 +89,11 @@ function CourseEditorContent() {
     setAiProcessing(true);
     setAiError(null);
 
-    if (openRouterKey.trim() && typeof window !== 'undefined') {
-      localStorage.setItem('asmedix_openrouter_key', openRouterKey.trim());
+    const activeApiKey = aiProvider === 'google_ai_studio' ? googleAiKey.trim() : openRouterKey.trim();
+
+    if (typeof window !== 'undefined') {
+      if (googleAiKey.trim()) localStorage.setItem('asmedix_google_ai_key', googleAiKey.trim());
+      if (openRouterKey.trim()) localStorage.setItem('asmedix_openrouter_key', openRouterKey.trim());
     }
 
     try {
@@ -93,7 +103,8 @@ function CourseEditorContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           content: aiRawInput,
-          apiKey: openRouterKey.trim(),
+          provider: aiProvider,
+          apiKey: activeApiKey,
           model: selectedAiModel,
           specialty: spec?.name || 'Médecine',
           year: year !== '' ? Number(year) : undefined
@@ -102,7 +113,7 @@ function CourseEditorContent() {
 
       const data = await res.json();
       if (!res.ok || !data.success || !data.result) {
-        throw new Error(data.error || 'Erreur lors de l\'analyse par l\'IA OpenRouter');
+        throw new Error(data.error || 'Erreur lors de l\'analyse par l\'Assistant IA');
       }
 
       const resObj = data.result;
@@ -111,10 +122,11 @@ function CourseEditorContent() {
       if (resObj.description) setDescription(resObj.description);
       if (resObj.htmlContent) setHtmlContent(resObj.htmlContent);
 
-      setSuccessNotice("🚀 Cours intégralement structuré et formaté au design AS-MEDIX par l'IA OpenRouter ! (Titre, sous-titre, description et HTML générés)");
+      const providerLabel = aiProvider === 'google_ai_studio' ? 'Google AI Studio (Gemini)' : 'OpenRouter';
+      setSuccessNotice(`🚀 Cours intégralement structuré et formaté au design AS-MEDIX par l'IA ${providerLabel} ! (Titre, sous-titre, description et HTML générés)`);
       setAiModalOpen(false);
     } catch (err: any) {
-      setAiError(err.message || 'Erreur d\'exécution OpenRouter AI');
+      setAiError(err.message || 'Erreur d\'exécution de l\'Assistant IA');
     } finally {
       setAiProcessing(false);
     }
@@ -456,11 +468,11 @@ function CourseEditorContent() {
           <button
             type="button"
             onClick={handleOpenAiModal}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white shadow-soft transition-all cursor-pointer"
-            title="Ouvrir l'Assistant IA OpenRouter pour formater et extraire le cours"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white shadow-md hover:shadow-lg transition-all cursor-pointer border border-purple-400/30"
+            title="Ouvrir l'Assistant IA (Google AI Studio & OpenRouter) pour formater et extraire le cours"
           >
             <Bot className="w-4 h-4 text-purple-200 animate-bounce" />
-            <span>🤖 Assistant IA OpenRouter</span>
+            <span>🤖 Assistant IA Médical (Gemini & OpenRouter)</span>
           </button>
 
           {currentSlug && (
@@ -489,6 +501,34 @@ function CourseEditorContent() {
           >
             {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
             <span>{isEditMode ? (isPublished ? 'Mettre à jour' : 'Publier le cours') : 'Publier le cours'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Prominent Floating AI Assistant Hero Banner */}
+      <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-purple-900 via-indigo-900 to-navy-900 text-white border border-purple-500/30 shadow-xl relative overflow-hidden">
+        <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-black bg-purple-500/20 text-purple-200 border border-purple-400/30">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+              <span>Générateur Automatique de Cours par IA Médicale</span>
+            </div>
+            <h2 className="text-lg sm:text-xl font-black text-white">
+              Collez un Poly / PDF brut ➔ L'IA extrait le Titre, Sous-titre & HTML AS-MEDIX
+            </h2>
+            <p className="text-xs text-purple-200/90 leading-relaxed">
+              Support complet de <strong>Google AI Studio (Gemini 2.5 Flash / Pro)</strong> et <strong>OpenRouter API</strong> (Gemini, Claude, GPT-4o, DeepSeek). Formatage 100% automatique avec les conteneurs d'alertes médicales et perles cliniques.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleOpenAiModal}
+            className="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-purple-500 to-indigo-500 hover:from-amber-300 hover:to-indigo-400 text-navy-950 font-black text-xs shadow-lg hover:shadow-xl transition-all shrink-0 flex items-center gap-2 cursor-pointer border border-amber-300/40"
+          >
+            <Wand2 className="w-4 h-4 text-navy-950 animate-spin" />
+            <span>Lancer l'Assistant IA Main-Libre 🚀</span>
           </button>
         </div>
       </div>
@@ -1113,23 +1153,25 @@ function CourseEditorContent() {
       </div>
 
       {/* ========================================================================= */}
-      {/* OPENROUTER AI ASSISTANT MODAL */}
+      {/* UNIFIED AI ASSISTANT MODAL (GOOGLE AI STUDIO & OPENROUTER) */}
       {/* ========================================================================= */}
       {aiModalOpen && (
-        <div className="fixed inset-0 z-50 bg-navy-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-navy-900 border border-navy-200 dark:border-navy-700 rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-navy-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white dark:bg-navy-900 border border-navy-200 dark:border-navy-700 rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in-95 my-auto">
             <div className="flex items-center justify-between pb-3 border-b border-navy-100 dark:border-navy-800">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-2xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-300 flex items-center justify-center shadow-xs">
-                  <Bot className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center shadow-md">
+                  <Bot className="w-5 h-5 animate-pulse" />
                 </div>
                 <div>
                   <h3 className="text-base font-black text-navy-950 dark:text-white flex items-center gap-2">
-                    Assistant IA OpenRouter
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">Intelligent 2.5</span>
+                    Assistant IA Médical AS-MEDIX
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+                      Multi-Moteur ⚡
+                    </span>
                   </h3>
-                  <p className="text-xs text-navy-500">
-                    Extrait le Titre, Sous-titre, Description, Points Clés & HTML AS-MEDIX en 1 clic.
+                  <p className="text-xs text-navy-500 dark:text-navy-400">
+                    Extrait le Titre, Sous-titre, Description, Points Clés & Code HTML AS-MEDIX en 1 clic.
                   </p>
                 </div>
               </div>
@@ -1149,39 +1191,158 @@ function CourseEditorContent() {
               </div>
             )}
 
-            {/* Settings Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
-                  <Key className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Clé API OpenRouter</span>
-                </label>
-                <input
-                  type="password"
-                  value={openRouterKey}
-                  onChange={e => setOpenRouterKey(e.target.value)}
-                  placeholder="sk-or-v1-..."
-                  className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
-                />
-                <p className="text-[10px] text-navy-400 mt-1">Sauvegardée localement sur votre navigateur.</p>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
-                  <Cpu className="w-3.5 h-3.5 text-purple-500" />
-                  <span>Modèle IA OpenRouter</span>
-                </label>
-                <select
-                  value={selectedAiModel}
-                  onChange={e => setSelectedAiModel(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+            {/* Provider Selector Tabs */}
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-navy-700 dark:text-navy-300">
+                Fournisseur IA (Choix du Moteur) :
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAiProvider('google_ai_studio');
+                    setSelectedAiModel('gemini-2.5-flash');
+                  }}
+                  className={`p-3.5 rounded-2xl border-2 text-left transition-all flex items-start gap-3 cursor-pointer ${
+                    aiProvider === 'google_ai_studio'
+                      ? 'border-brand-600 bg-brand-50/70 dark:bg-brand-950/40 text-brand-950 dark:text-white shadow-sm'
+                      : 'border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800/60 text-navy-600 dark:text-navy-400 hover:border-navy-300'
+                  }`}
                 >
-                  <option value="google/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
-                  <option value="anthropic/claude-3.5-haiku">🧠 Claude 3.5 Haiku (Haute Précision)</option>
-                  <option value="openai/gpt-4o-mini">🚀 GPT-4o Mini (OpenAI)</option>
-                  <option value="deepseek/deepseek-r1">🔬 DeepSeek R1 (Raisonnement)</option>
-                </select>
+                  <div className="w-7 h-7 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                    ✨
+                  </div>
+                  <div>
+                    <div className="text-xs font-black flex items-center gap-1.5">
+                      <span>Google AI Studio</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500 text-white font-bold">Gratuit & Rapide</span>
+                    </div>
+                    <p className="text-[11px] text-navy-500 dark:text-navy-400 mt-0.5">
+                      Gemini 2.5 Flash / Pro. Clé API gratuite Google AI Studio.
+                    </p>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAiProvider('openrouter');
+                    setSelectedAiModel('google/gemini-2.5-flash');
+                  }}
+                  className={`p-3.5 rounded-2xl border-2 text-left transition-all flex items-start gap-3 cursor-pointer ${
+                    aiProvider === 'openrouter'
+                      ? 'border-purple-600 bg-purple-50/70 dark:bg-purple-950/40 text-purple-950 dark:text-white shadow-sm'
+                      : 'border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800/60 text-navy-600 dark:text-navy-400 hover:border-navy-300'
+                  }`}
+                >
+                  <div className="w-7 h-7 rounded-xl bg-purple-500/20 text-purple-600 dark:text-purple-300 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                    🌐
+                  </div>
+                  <div>
+                    <div className="text-xs font-black flex items-center gap-1.5">
+                      <span>OpenRouter API</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500 text-white font-bold">Multi-Modèles</span>
+                    </div>
+                    <p className="text-[11px] text-navy-500 dark:text-navy-400 mt-0.5">
+                      Gemini, Claude 3.5, GPT-4o, DeepSeek R1 via OpenRouter.
+                    </p>
+                  </div>
+                </button>
               </div>
+            </div>
+
+            {/* Provider Configuration (Key & Model) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-navy-50/70 dark:bg-navy-950/50 border border-navy-100 dark:border-navy-800">
+              {aiProvider === 'google_ai_studio' ? (
+                <>
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 flex items-center gap-1">
+                        <Key className="w-3.5 h-3.5 text-amber-500" />
+                        <span>Clé API Google AI Studio</span>
+                      </label>
+                      <a
+                        href="https://aistudio.google.com/app/apikey"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-bold text-amber-600 hover:underline flex items-center gap-0.5"
+                      >
+                        <span>Obtenir une clé</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </a>
+                    </div>
+                    <input
+                      type="password"
+                      value={googleAiKey}
+                      onChange={e => setGoogleAiKey(e.target.value)}
+                      placeholder="AIzaSy..."
+                      className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    />
+                    <p className="text-[10px] text-navy-400 mt-1">Sauvegardée localement sur votre navigateur.</p>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
+                      <Cpu className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Modèle Gemini</span>
+                    </label>
+                    <select
+                      value={selectedAiModel}
+                      onChange={e => setSelectedAiModel(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    >
+                      <option value="gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
+                      <option value="gemini-2.5-pro">🧠 Gemini 2.5 Pro (Haute Raisonnement)</option>
+                      <option value="gemini-1.5-flash">🚀 Gemini 1.5 Flash</option>
+                    </select>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 flex items-center gap-1">
+                        <Key className="w-3.5 h-3.5 text-purple-500" />
+                        <span>Clé API OpenRouter</span>
+                      </label>
+                      <a
+                        href="https://openrouter.ai/keys"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-bold text-purple-600 hover:underline flex items-center gap-0.5"
+                      >
+                        <span>Obtenir clé OpenRouter</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </a>
+                    </div>
+                    <input
+                      type="password"
+                      value={openRouterKey}
+                      onChange={e => setOpenRouterKey(e.target.value)}
+                      placeholder="sk-or-v1-..."
+                      className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                    <p className="text-[10px] text-navy-400 mt-1">Sauvegardée localement sur votre navigateur.</p>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
+                      <Cpu className="w-3.5 h-3.5 text-purple-500" />
+                      <span>Modèle IA OpenRouter</span>
+                    </label>
+                    <select
+                      value={selectedAiModel}
+                      onChange={e => setSelectedAiModel(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                      <option value="google/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
+                      <option value="anthropic/claude-3.5-haiku">🧠 Claude 3.5 Haiku (Haute Précision)</option>
+                      <option value="openai/gpt-4o-mini">🚀 GPT-4o Mini (OpenAI)</option>
+                      <option value="deepseek/deepseek-r1">🔬 DeepSeek R1 (Raisonnement)</option>
+                    </select>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Raw Content Input */}
@@ -1190,7 +1351,7 @@ function CourseEditorContent() {
                 Collez le texte brut du PDF, cours scanné ou code HTML brut :
               </label>
               <textarea
-                rows={8}
+                rows={7}
                 value={aiRawInput}
                 onChange={e => setAiRawInput(e.target.value)}
                 placeholder="Collez ici n'importe quel cours médical brut ou extrait PDF..."
@@ -1210,9 +1371,9 @@ function CourseEditorContent() {
               </button>
               <button
                 type="button"
-                onClick={handleRunOpenRouterAi}
+                onClick={handleRunAi}
                 disabled={aiProcessing}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white font-black text-xs shadow-md transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white font-black text-xs shadow-md transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {aiProcessing ? (
                   <>
@@ -1222,7 +1383,7 @@ function CourseEditorContent() {
                 ) : (
                   <>
                     <Wand2 className="w-4 h-4 text-purple-200" />
-                    <span>🚀 Analyser & Formater avec l'IA OpenRouter</span>
+                    <span>🚀 Analyser & Formater le Cours avec l'IA</span>
                   </>
                 )}
               </button>
