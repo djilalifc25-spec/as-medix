@@ -72,6 +72,7 @@ function QcmHubContent() {
   const [selectedSpecId, setSelectedSpecId] = useState<string>(initialSpec);
   const [isLaunchModalOpen, setIsLaunchModalOpen] = useState<boolean>(false);
   const [modalSpecialtyId, setModalSpecialtyId] = useState<string>(initialSpec);
+  const [modalInitialFolder, setModalInitialFolder] = useState<string | null>(null);
 
   React.useEffect(() => {
     if (selectedSpecId) {
@@ -277,6 +278,7 @@ function QcmHubContent() {
     setSelectedSpecId(specId);
     setActiveSpecialtyId(specId);
     setModalSpecialtyId(specId);
+    setModalInitialFolder(null);
     setIsLaunchModalOpen(true);
     setSelectedCourseId('');
     setActiveQcmIndex(0);
@@ -284,6 +286,18 @@ function QcmHubContent() {
     setHasValidated(false);
     setCompleted(false);
     setScore(0);
+  };
+
+  const handleSourceClickFromDashboard = (src: string) => {
+    if (src === 'TOUS') {
+      launchSession('TOUS', '');
+      return;
+    }
+    setSelectedSpecId(selectedSpecId);
+    setActiveSpecialtyId(selectedSpecId);
+    setModalSpecialtyId(selectedSpecId);
+    setModalInitialFolder(src);
+    setIsLaunchModalOpen(true);
   };
 
   const handleCourseSelect = (courseId: string) => {
@@ -776,16 +790,17 @@ function QcmHubContent() {
                     <button
                       key={src}
                       type="button"
-                      onClick={() => launchSession(src, '')}
-                      className="group flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-navy-900 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300 hover:bg-brand-600 hover:text-white transition-all shadow-xs"
+                      onClick={() => handleSourceClickFromDashboard(src)}
+                      className="group flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-navy-900 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300 hover:bg-brand-600 hover:text-white transition-all shadow-xs cursor-pointer"
                     >
-                      <span>{isTous ? '📋' : '📖'}</span>
+                      <span>{isTous ? '📋' : '📁'}</span>
+                      <span className="font-bold">{src}</span>
                       {count > 0 && (
                         <span className="text-[10px] font-mono opacity-80">
                           ({count}){doneCount > 0 ? ` • ${doneCount} fait` : ''}
                         </span>
                       )}
-                      <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">▶</span>
+                      <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">📂</span>
                     </button>
                   );
                 })}
@@ -1002,6 +1017,7 @@ function QcmHubContent() {
         isOpen={isLaunchModalOpen}
         onClose={() => setIsLaunchModalOpen(false)}
         specialtyId={modalSpecialtyId || selectedSpecId}
+        initialSourceFolder={modalInitialFolder}
       />
     </div>
   );

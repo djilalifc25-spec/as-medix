@@ -29,12 +29,46 @@ export interface QcmLaunchModalProps {
   isOpen: boolean;
   onClose: () => void;
   specialtyId: string;
+  initialSourceFolder?: string | null;
+}
+
+// Smart source hierarchy parser (e.g. "Externat - EMD 2017", "Externat (2021)", "Externat 2021")
+export function parseSourceHierarchy(s: string): { parent: string; sub: string | null } {
+  const clean = s.trim();
+  if (!clean) return { parent: 'Divers', sub: null };
+
+  if (clean.includes(' - ')) {
+    const parts = clean.split(' - ');
+    return { parent: parts[0].trim(), sub: parts.slice(1).join(' - ').trim() };
+  }
+  if (clean.includes(' / ')) {
+    const parts = clean.split(' / ');
+    return { parent: parts[0].trim(), sub: parts.slice(1).join(' / ').trim() };
+  }
+  if (clean.includes('(') && clean.includes(')')) {
+    const parent = clean.split('(')[0].trim();
+    const sub = clean.slice(clean.indexOf('(') + 1, clean.lastIndexOf(')')).trim();
+    if (parent && sub) return { parent, sub };
+  }
+  
+  const knownParents = ['Externat', 'Résidanat', 'Residanat', 'Annales', 'FARES', 'Hypercours', 'SIAU', 'Livre Hygiene', 'CNP'];
+  for (const kp of knownParents) {
+    if (clean.toLowerCase().startsWith(kp.toLowerCase()) && clean.length > kp.length) {
+      const rest = clean.slice(kp.length).trim();
+      if (rest) {
+        return { parent: kp, sub: rest };
+      }
+    }
+  }
+
+  return { parent: clean, sub: null };
 }
 
 export function QcmLaunchModal({
   isOpen,
   onClose,
   specialtyId,
+  initialSourceFolder,
 }: QcmLaunchModalProps) {
   const router = useRouter();
   const { faculty: selectedFaculty } = useFaculty();
@@ -93,17 +127,23 @@ export function QcmLaunchModal({
       .catch(() => {});
   }, [isOpen]);
 
-  // Reset state whenever modal opens or closes or specialty changes
+  // Reset state whenever modal opens or closes or specialty/initialFolder changes
   useEffect(() => {
     if (isOpen) {
       setIsClosing(false);
-      setStep('mode');
-      setSelectedMode(null);
-      setSelectedCourseId('');
+      if (initialSourceFolder) {
+        setStep('sources');
+        setSelectedMode('SPECIALTY');
+        setActiveFolder(initialSourceFolder);
+      } else {
+        setStep('mode');
+        setSelectedMode(null);
+        setSelectedCourseId('');
+        setActiveFolder(null);
+      }
       setSearchQuery('');
-      setActiveFolder(null);
     }
-  }, [isOpen, specialtyId]);
+  }, [isOpen, specialtyId, initialSourceFolder]);
 
   // Handle modal lifecycle & body class
   useEffect(() => {
@@ -301,25 +341,21 @@ export function QcmLaunchModal({
     return Array.from(new Set([...baseSources, ...availableSources, ...qcmSourcesForSpec]));
   }, [availableSources, qcmSourcesForSpec]);
 
-  // Group sources into parent and sub-sources (epreuves)
+  // Group sources into parent and sub-sources (epreuves) using smart hierarchy parser
   const groupedSources = useMemo(() => {
     const parentMap: Record<string, string[]> = {};
     const parents: string[] = [];
 
     combinedSources.forEach(s => {
-      if (s.includes(' - ')) {
-        const parts = s.split(' - ');
-        const parent = parts[0].trim();
-        if (!parentMap[parent]) {
-          parentMap[parent] = [];
-          if (!parents.includes(parent)) parents.push(parent);
-        }
-        if (!parentMap[parent].includes(s)) {
-          parentMap[parent].push(s);
-        }
-      } else {
-        if (!parents.includes(s)) parents.push(s);
-        if (!parentMap[s]) parentMap[s] = [];
+      const { parent, sub } = parseSourceHierarchy(s);
+      if (!parents.includes(parent)) {
+        parents.push(parent);
+      }
+      if (!parentMap[parent]) {
+        parentMap[parent] = [];
+      }
+      if (sub && !parentMap[parent].includes(s)) {
+        parentMap[parent].push(s);
       }
     });
 
