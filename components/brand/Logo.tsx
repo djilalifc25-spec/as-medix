@@ -87,7 +87,7 @@ export const Logo: React.FC<LogoProps> = ({
 
   const currentSize = sizeMap[size] || sizeMap.md;
 
-  // Concept 1: Stethoscope M Monogram + Medical Cross Spark
+  // Design 3: Metallic Silver & Gold Stethoscope Monogram with Cyan Core Spark
   const renderIcon = () => {
     return (
       <div className="relative group/logo-icon flex items-center justify-center shrink-0">
@@ -95,7 +95,7 @@ export const Logo: React.FC<LogoProps> = ({
           className={`${currentSize.box} flex items-center justify-center transition-all duration-300 shadow-md ${
             variant === 'monochrome'
               ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-slate-900/10'
-              : 'bg-gradient-to-tr from-indigo-600 via-brand-600 to-sky-500 text-white shadow-lg shadow-indigo-500/25 group-hover:scale-105 group-hover:shadow-indigo-500/40'
+              : 'bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800 text-white shadow-lg shadow-slate-950/40 group-hover:scale-105 border border-amber-500/30'
           }`}
         >
           <svg
@@ -107,23 +107,24 @@ export const Logo: React.FC<LogoProps> = ({
             className={`${currentSize.svgClass} transition-transform duration-300 group-hover:scale-110 shrink-0`}
             style={{ minWidth: currentSize.svgWidth, minHeight: currentSize.svgWidth }}
           >
-            {/* Stethoscope M Loop */}
+            {/* Silver Interlocking 'A' and 'M' */}
             <path
-              d="M8 11C8 8.5 11 8.5 12 10.5C13 12.5 14 16 16 14C18 16 19 12.5 20 10.5C21 8.5 24 8.5 24 11C24 14.5 22 20 16 22C10 20 8 14.5 8 11Z"
-              stroke="#ffffff"
+              d="M7 23L12 9L15 17.5M25 23L20 9L17 17.5"
+              stroke="#e2e8f0"
               strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            {/* Top Bar & Tips */}
-            <path d="M10 8.5C12.5 7 19.5 7 22 8.5" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
-            <circle cx="9.5" cy="8.5" r="1.2" fill="#ffffff" />
-            <circle cx="22.5" cy="8.5" r="1.2" fill="#ffffff" />
-
-            {/* Chestpiece + Medical Cross Spark at bottom */}
-            <circle cx="16" cy="21.5" r="3" fill="#0b1226" stroke="#38bdf8" strokeWidth="1.2" />
-            <path d="M16 20V23M14.5 21.5H17.5" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" />
-            <circle cx="22" cy="15" r="1.5" fill="#34d399" />
+            {/* Gold Stethoscope Loop 'S' */}
+            <path
+              d="M11 11C13.5 9 17 9 19.5 11C21 12.5 21 15 16 16.5C11 18 11 20.5 12.5 22C15 24 18.5 24 21 22"
+              stroke="#fbbf24"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+            />
+            {/* Cyan Core Spark */}
+            <circle cx="16" cy="16.5" r="2" fill="#06b6d4" />
+            <circle cx="16" cy="16.5" r="0.9" fill="#ffffff" />
           </svg>
         </div>
       </div>
