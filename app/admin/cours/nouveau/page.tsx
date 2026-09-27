@@ -11,7 +11,7 @@ import {
   Columns, ExternalLink, Loader2, CheckCircle2, FileText, PlusCircle,
   Stethoscope, ShieldAlert, Pill, Table, List, BookmarkCheck, Upload, Image as ImageIcon, School
 } from 'lucide-react';
-import { autoFormatCourseHtml } from '@/lib/autoHtmlFormatter';
+import { autoFormatCourseHtml, extractMetadataFromHtml } from '@/lib/autoHtmlFormatter';
 
 function CourseEditorContent() {
   const router = useRouter();
@@ -225,6 +225,40 @@ function CourseEditorContent() {
     setSuccessNotice("✨ Code HTML mis en forme automatiquement avec le design AS MEDIX (0 perte de texte) !");
   };
 
+  const handleAutoExtractMetadata = (htmlToParse?: string) => {
+    const targetHtml = htmlToParse !== undefined ? htmlToParse : htmlContent;
+    const meta = extractMetadataFromHtml(targetHtml);
+    let count = 0;
+
+    if (meta.title) {
+      setTitle(meta.title);
+      count++;
+    }
+    if (meta.subtitle) {
+      setSubtitle(meta.subtitle);
+      count++;
+    }
+    if (meta.description) {
+      setDescription(meta.description);
+      count++;
+    }
+
+    if (count > 0) {
+      setSuccessNotice(`✨ ${count} champ(s) (Titre, Sous-titre, Description) extrait(s) automatiquement du code HTML ! Vous pouvez les modifier ci-dessous.`);
+    } else {
+      setErrorMessage("⚠️ Aucun titre ou paragraphe significatif n'a pu être extrait du code HTML.");
+    }
+  };
+
+  const handleHtmlPaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const pastedText = e.clipboardData.getData('text');
+    if (pastedText && (pastedText.includes('<') || pastedText.length > 40)) {
+      setTimeout(() => {
+        handleAutoExtractMetadata(pastedText);
+      }, 100);
+    }
+  };
+
   const handleSave = async (publishNow: boolean) => {
     if (!title.trim()) {
       alert('Veuillez renseigner le titre du cours.');
@@ -406,9 +440,20 @@ function CourseEditorContent() {
             </h3>
 
             <div>
-              <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1">
-                Titre du cours *
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300">
+                  Titre du cours *
+                </label>
+                <button
+                  type="button"
+                  onClick={() => handleAutoExtractMetadata()}
+                  className="text-[10px] font-bold text-amber-700 dark:text-amber-300 hover:text-amber-800 flex items-center gap-1 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded-md border border-amber-200 dark:border-amber-800/60 transition-all"
+                  title="Extraire automatiquement le titre, sous-titre et la description depuis le code HTML"
+                >
+                  <Sparkles className="w-3 h-3 text-amber-500" />
+                  <span>Auto-remplir de l'HTML</span>
+                </button>
+              </div>
               <input
                 type="text"
                 value={title}
@@ -751,17 +796,29 @@ function CourseEditorContent() {
                 </button>
               </div>
 
-              {convertMode === 'THEME' && (
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={handleAutoFormat}
-                  className="px-2.5 py-1 rounded-lg text-[11px] font-black bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white shadow-xs flex items-center gap-1 transition-all"
-                  title="Convertir immédiatement le code actuel vers le thème officiel sans supprimer ni ajouter d'information"
+                  onClick={() => handleAutoExtractMetadata()}
+                  className="px-2.5 py-1 rounded-lg text-[11px] font-black bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-xs flex items-center gap-1.5 transition-all"
+                  title="Extraire le Titre, Sous-titre et Description depuis le code HTML"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-                  <span>Convertir Maintenant</span>
+                  <Sparkles className="w-3.5 h-3.5 text-amber-200" />
+                  <span>🔍 Auto-extraire Titre & Description</span>
                 </button>
-              )}
+
+                {convertMode === 'THEME' && (
+                  <button
+                    type="button"
+                    onClick={handleAutoFormat}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-black bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white shadow-xs flex items-center gap-1 transition-all"
+                    title="Convertir immédiatement le code actuel vers le thème officiel sans supprimer ni ajouter d'information"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                    <span>Convertir Maintenant</span>
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Quick Insertion Toolbar */}
@@ -882,6 +939,7 @@ function CourseEditorContent() {
                 ref={textareaRef}
                 value={htmlContent}
                 onChange={e => setHtmlContent(e.target.value)}
+                onPaste={handleHtmlPaste}
                 rows={26}
                 className="w-full font-mono text-xs text-navy-900 dark:text-navy-100 bg-navy-50/60 dark:bg-navy-950 p-4 rounded-2xl border border-navy-200 dark:border-navy-800 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed resize-y"
               />
@@ -900,6 +958,7 @@ function CourseEditorContent() {
                   ref={textareaRef}
                   value={htmlContent}
                   onChange={e => setHtmlContent(e.target.value)}
+                onPaste={handleHtmlPaste}
                   rows={26}
                   className="w-full font-mono text-xs text-navy-900 dark:text-navy-100 bg-navy-50/60 dark:bg-navy-950 p-3 rounded-2xl border border-navy-200 dark:border-navy-800 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed resize-y"
                 />

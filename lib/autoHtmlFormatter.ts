@@ -140,3 +140,66 @@ export function autoFormatCourseHtml(rawHtml: string): FormattedCourseResult {
 
   return { htmlContent: formatted, tableOfContents: toc };
 }
+
+export interface ExtractedCourseMetadata {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+export function extractMetadataFromHtml(rawHtml: string): ExtractedCourseMetadata {
+  if (!rawHtml || typeof rawHtml !== 'string') return {};
+
+  const cleanText = (str: string) => str.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+
+  let title: string | undefined;
+  let subtitle: string | undefined;
+  let description: string | undefined;
+
+  // 1. Extract Title
+  const h1Match = rawHtml.match(/<h1[^>]*>(.*?)<\/h1>/i);
+  if (h1Match && h1Match[1]) {
+    title = cleanText(h1Match[1]);
+  } else {
+    const h2Match = rawHtml.match(/<h2[^>]*>(.*?)<\/h2>/i);
+    if (h2Match && h2Match[1]) {
+      title = cleanText(h2Match[1]);
+    }
+  }
+
+  if (title) {
+    title = title.replace(/^(?:chapitre|cours|module|\d+[\.-])\s*/i, '').trim();
+  }
+
+  // 2. Extract Subtitle
+  const subMatch = rawHtml.match(/<(?:p|h2|h3|div)[^>]*class=["'][^"']*(?:subtitle|sous-titre|lead|chapeau)[^"']*["'][^>]*>(.*?)<\/(?:p|h2|h3|div)>/i);
+  if (subMatch && subMatch[1]) {
+    subtitle = cleanText(subMatch[1]);
+  } else if (h1Match) {
+    const h2AfterH1 = rawHtml.match(/<h1[^>]*>[\s\S]*?<\/h1>\s*<h2[^>]*>(.*?)<\/h2>/i);
+    if (h2AfterH1 && h2AfterH1[1]) {
+      subtitle = cleanText(h2AfterH1[1]);
+    }
+  }
+
+  // 3. Extract Description
+  const pMatches: string[] = [];
+  const pRegex = /<p[^>]*>(.*?)<\/p>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = pRegex.exec(rawHtml)) !== null) {
+    const text = cleanText(match[1]);
+    if (text.length >= 25 && !text.startsWith('💡') && !text.startsWith('📌') && !text.startsWith('⚠️') && !text.startsWith('🚨')) {
+      pMatches.push(text);
+    }
+  }
+
+  if (pMatches.length > 0) {
+    description = pMatches[0];
+    if (description.length > 220) {
+      description = description.substring(0, 217).trim() + '...';
+    }
+  }
+
+  return { title, subtitle, description };
+}
+
