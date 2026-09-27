@@ -69,6 +69,8 @@ function CourseEditorContent() {
     return '';
   });
   const [selectedAiModel, setSelectedAiModel] = useState('gemini-2.5-flash');
+  const [aiInputType, setAiInputType] = useState<'text' | 'pdfUrl'>('text');
+  const [aiPdfUrl, setAiPdfUrl] = useState('');
   const [aiRawInput, setAiRawInput] = useState('');
   const [aiProcessing, setAiProcessing] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
@@ -81,8 +83,12 @@ function CourseEditorContent() {
   };
 
   const handleRunAi = async () => {
-    if (!aiRawInput.trim()) {
+    if (aiInputType === 'text' && !aiRawInput.trim()) {
       setAiError('Veuillez coller le texte ou le code HTML brut du cours à analyser.');
+      return;
+    }
+    if (aiInputType === 'pdfUrl' && !aiPdfUrl.trim()) {
+      setAiError('Veuillez saisir ou coller l\'URL du fichier PDF à télécharger.');
       return;
     }
 
@@ -98,17 +104,24 @@ function CourseEditorContent() {
 
     try {
       const spec = specialtiesList.find(s => s.id === specialtyId);
+      const payload: any = {
+        provider: aiProvider,
+        apiKey: activeApiKey,
+        model: selectedAiModel,
+        specialty: spec?.name || 'Médecine',
+        year: year !== '' ? Number(year) : undefined
+      };
+
+      if (aiInputType === 'pdfUrl') {
+        payload.pdfUrl = aiPdfUrl.trim();
+      } else {
+        payload.content = aiRawInput;
+      }
+
       const res = await fetch('/api/admin/ai/format-course', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: aiRawInput,
-          provider: aiProvider,
-          apiKey: activeApiKey,
-          model: selectedAiModel,
-          specialty: spec?.name || 'Médecine',
-          year: year !== '' ? Number(year) : undefined
-        })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
@@ -1345,18 +1358,73 @@ function CourseEditorContent() {
               )}
             </div>
 
-            {/* Raw Content Input */}
-            <div>
-              <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1">
-                Collez le texte brut du PDF, cours scanné ou code HTML brut :
-              </label>
-              <textarea
-                rows={7}
-                value={aiRawInput}
-                onChange={e => setAiRawInput(e.target.value)}
-                placeholder="Collez ici n'importe quel cours médical brut ou extrait PDF..."
-                className="w-full font-mono text-xs text-navy-900 dark:text-navy-100 bg-navy-50/70 dark:bg-navy-950 p-3 rounded-2xl border border-navy-200 dark:border-navy-800 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
-              />
+            {/* Content Input Mode Selector (Text vs PDF Link) */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300">
+                  Source du cours à convertir (100% Préservation du Contenu) :
+                </label>
+                <div className="flex items-center gap-1 bg-navy-100 dark:bg-navy-800 p-1 rounded-xl">
+                  <button
+                    type="button"
+                    onClick={() => setAiInputType('text')}
+                    className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                      aiInputType === 'text'
+                        ? 'bg-brand-600 text-white shadow-xs'
+                        : 'text-navy-600 dark:text-navy-300 hover:text-navy-950'
+                    }`}
+                  >
+                    📝 Texte / HTML
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAiInputType('pdfUrl')}
+                    className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                      aiInputType === 'pdfUrl'
+                        ? 'bg-purple-600 text-white shadow-xs'
+                        : 'text-navy-600 dark:text-navy-300 hover:text-navy-950'
+                    }`}
+                  >
+                    🔗 Lien PDF Direct
+                  </button>
+                </div>
+              </div>
+
+              {aiInputType === 'text' ? (
+                <div>
+                  <textarea
+                    rows={6}
+                    value={aiRawInput}
+                    onChange={e => setAiRawInput(e.target.value)}
+                    placeholder="Collez ici l'intégralité du texte du cours, polycopié ou code HTML brut..."
+                    className="w-full font-mono text-xs text-navy-900 dark:text-navy-100 bg-navy-50/70 dark:bg-navy-950 p-3 rounded-2xl border border-navy-200 dark:border-navy-800 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-y"
+                  />
+                  <p className="text-[10px] text-navy-400 mt-1">
+                    ✨ 100% du contenu copié sera préservé et sublimé avec la toolbar et les encadrés colorés.
+                  </p>
+                </div>
+              ) : (
+                <div className="p-4 rounded-2xl bg-purple-50/50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">📄</span>
+                    <div>
+                      <p className="text-xs font-bold text-purple-950 dark:text-purple-200">
+                        Conversion Directe depuis un Lien Web PDF
+                      </p>
+                      <p className="text-[10px] text-navy-500">
+                        Le serveur téléchargera le fichier PDF, en extraira 100% du texte et le convertira en présentation AS-MEDIX.
+                      </p>
+                    </div>
+                  </div>
+                  <input
+                    type="url"
+                    value={aiPdfUrl}
+                    onChange={e => setAiPdfUrl(e.target.value)}
+                    placeholder="https://exemple.com/cours-cardiologie.pdf ou lien Supabase Storage"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-purple-300 dark:border-purple-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Modal Actions */}
