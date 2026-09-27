@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { Course } from '@/types';
+import { autoFormatCourseHtml } from '@/lib/autoHtmlFormatter';
 
 function mapSupabaseRowToCourse(row: any): Course {
   const title = row.title || row.name || 'Cours';
@@ -176,8 +177,8 @@ export async function POST(req: Request) {
           accessLevel: body.accessLevel || existing.accessLevel,
           published: body.published !== undefined ? Boolean(body.published) : existing.published,
           year: body.year !== undefined ? (body.year ? Number(body.year) as any : undefined) : existing.year,
-          htmlContent: body.htmlContent !== undefined ? body.htmlContent : existing.htmlContent,
-          tableOfContents: body.tableOfContents || existing.tableOfContents,
+          htmlContent: body.htmlContent !== undefined ? autoFormatCourseHtml(body.htmlContent).htmlContent : existing.htmlContent,
+          tableOfContents: (body.tableOfContents && body.tableOfContents.length > 0) ? body.tableOfContents : (body.htmlContent ? autoFormatCourseHtml(body.htmlContent).tableOfContents : existing.tableOfContents),
         });
 
         if (updated) {
@@ -189,6 +190,7 @@ export async function POST(req: Request) {
     }
 
     // CREATE NEW COURSE (OR UPSERT)
+    const formattedResult = autoFormatCourseHtml(body.htmlContent || '<p>Contenu médical en cours de rédaction...</p>');
     const newCourse: Course = {
       id: body.id || `cours_${Date.now()}`,
       slug: body.slug || `cours-${Date.now()}`,
@@ -212,12 +214,8 @@ export async function POST(req: Request) {
       viewsCount: 0,
       likesCount: 0,
       qcmCount: 5,
-      tableOfContents: body.tableOfContents || [
-        { id: 'intro', title: '1. Introduction', level: 1 },
-        { id: 'clinique', title: '2. Clinique', level: 1 },
-        { id: 'traitement', title: '3. Traitement', level: 1 },
-      ],
-      htmlContent: body.htmlContent || '<p>Contenu médical en cours de rédaction...</p>',
+      tableOfContents: (body.tableOfContents && body.tableOfContents.length > 0) ? body.tableOfContents : formattedResult.tableOfContents,
+      htmlContent: formattedResult.htmlContent,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

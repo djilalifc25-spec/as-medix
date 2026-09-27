@@ -221,7 +221,7 @@ function CourseEditorContent() {
 
   const handleAutoFormat = () => {
     const formatted = autoFormatCourseHtml(htmlContent);
-    setHtmlContent(formatted);
+    setHtmlContent(formatted.htmlContent);
     setSuccessNotice("✨ Code HTML mis en forme automatiquement avec le design AS MEDIX (0 perte de texte) !");
   };
 
@@ -235,7 +235,7 @@ function CourseEditorContent() {
     setSuccessNotice(null);
     setErrorMessage(null);
 
-    const finalHtml = convertMode === 'THEME' ? autoFormatCourseHtml(htmlContent) : htmlContent;
+    const finalHtml = convertMode === 'THEME' ? autoFormatCourseHtml(htmlContent).htmlContent : htmlContent;
     if (convertMode === 'THEME') {
       setHtmlContent(finalHtml);
     }
