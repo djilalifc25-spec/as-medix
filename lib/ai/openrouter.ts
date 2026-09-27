@@ -3,7 +3,7 @@
  * Supports both Google AI Studio (Gemini API) and OpenRouter API
  */
 
-export type AIProviderType = 'google_ai_studio' | 'openrouter' | 'openai' | 'anthropic' | 'deepseek';
+export type AIProviderType = 'google_ai_studio' | 'openrouter' | 'openai' | 'anthropic' | 'deepseek' | 'codecraft';
 
 export interface AIProviderConfig {
   provider?: AIProviderType;
@@ -314,6 +314,59 @@ export async function callAnthropicAPI(
 }
 
 /**
+ * Call CodeCraft API (https://codecraftapi.com/v1)
+ */
+export async function callCodeCraftAPI(
+  messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+  config: AIProviderConfig = {},
+  jsonMode: boolean = false
+): Promise<string> {
+  const apiKey = config.apiKey || process.env.CODECRAFT_API_KEY || '';
+  if (!apiKey) {
+    throw new Error('Clé API CodeCraft manquante. Veuillez saisir votre clé API CodeCraft.');
+  }
+
+  const model = config.model || 'codecraft-pro';
+  const payload: any = {
+    model,
+    messages,
+    temperature: 0.2,
+  };
+
+  if (jsonMode) {
+    payload.response_format = { type: 'json_object' };
+  }
+
+  const response = await fetch('https://codecraftapi.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey.trim()}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let errMessage = `Erreur CodeCraft API (${response.status})`;
+    try {
+      const errJson = JSON.parse(errorText);
+      if (errJson.error?.message) errMessage = errJson.error.message;
+    } catch (_) {}
+    throw new Error(errMessage);
+  }
+
+  const data = await response.json();
+  const reply = data.choices?.[0]?.message?.content || data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (!reply) {
+    throw new Error('Aucune réponse générée par l\'IA CodeCraft.');
+  }
+
+  return reply;
+}
+
+/**
  * Unified AI API Call
  */
 export async function callUnifiedAI(
@@ -333,6 +386,8 @@ export async function callUnifiedAI(
     return callDeepSeekAPI(messages, config, jsonMode);
   } else if (provider === 'anthropic') {
     return callAnthropicAPI(messages, config, jsonMode);
+  } else if (provider === 'codecraft') {
+    return callCodeCraftAPI(messages, config, jsonMode);
   } else {
     return callOpenRouterAPI(messages, config, jsonMode);
   }

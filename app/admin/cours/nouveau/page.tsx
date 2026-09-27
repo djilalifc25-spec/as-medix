@@ -129,6 +129,18 @@ function CourseEditorContent() {
           { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1 (Reasoner)' },
         ]
       };
+    } else if (cleanKey.startsWith('cc-') || cleanKey.startsWith('codecraft-') || cleanKey.startsWith('sk-cc-')) {
+      return {
+        provider: 'codecraft' as const,
+        label: 'CodeCraft API (codecraftapi.com/v1)',
+        badgeColor: 'bg-indigo-600 text-white',
+        models: [
+          { value: 'codecraft-pro', label: '🧠 CodeCraft Pro' },
+          { value: 'codecraft-flash', label: '⚡ CodeCraft Flash' },
+          { value: 'gpt-4o', label: '🌐 GPT-4o (CodeCraft)' },
+          { value: 'claude-3-5-sonnet', label: '🧠 Claude 3.5 Sonnet (CodeCraft)' },
+        ]
+      };
     } else if (cleanKey.startsWith('sk-proj-') || cleanKey.startsWith('sk-')) {
       return {
         provider: 'openai' as const,
