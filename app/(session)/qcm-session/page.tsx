@@ -13,6 +13,7 @@ import confetti from 'canvas-confetti';
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CoursePreviewModal } from '@/components/qcm/CoursePreviewModal';
 import { StudyReminder } from '@/types';
+import { matchQcmToSource } from '@/lib/sourceUtils';
 
 // Helper for strict grading
 function isAnswerCorrect(selected: number[], correctAnswers?: number[]) {
@@ -326,14 +327,7 @@ function SessionContent() {
       const matchCourse = !course || qCourse.toLowerCase() === course.toLowerCase() || qCourseTitle.toLowerCase() === course.toLowerCase();
       
       const matchFaculty = faculty === 'TOUS' || !q.faculty || (q.faculty as string) === 'TOUS' || (q.faculty as string) === faculty;
-      const matchSource = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => {
-        const qSrcLower = (q.source as string || '').toLowerCase().trim();
-        const sLower = s.toLowerCase().trim();
-        if (sLower.includes(' - ')) {
-          return qSrcLower === sLower;
-        }
-        return qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
-      });
+      const matchSource = selectedSourcesList.length === 0 || selectedSourcesList.some(s => matchQcmToSource(q, s));
       return matchSpec && matchCourse && matchFaculty && matchSource;
     });
   }, [allQcms, specialty, course, faculty, source, qcmId, remindersOnly, userReminders]);

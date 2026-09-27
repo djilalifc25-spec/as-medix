@@ -12,6 +12,7 @@ import { useFaculty } from '@/components/context/FacultyContext';
 import { useToast } from '@/components/context/ToastContext';
 import { useSpecialtyTheme } from '@/components/context/SpecialtyThemeContext';
 import { QcmLaunchModal } from '@/components/modals/QcmLaunchModal';
+import { matchQcmToSource } from '@/lib/sourceUtils';
 import { MedicalYear, Specialty } from '@/types';
 import {
   Brain, Play, CheckCircle2, XCircle, RotateCcw, Award, ChevronRight, AlertTriangle, Bell,
@@ -189,14 +190,7 @@ function QcmHubContent() {
       const matchSpec = q.specialtyId === selectedSpecId;
       const matchCourse = !courseIdToUse || q.courseId === courseIdToUse;
       const matchFac = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
-      const matchSrc = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => {
-        const qSrcLower = (q.source as string || '').toLowerCase().trim();
-        const sLower = s.toLowerCase().trim();
-        if (sLower.includes(' - ')) {
-          return qSrcLower === sLower;
-        }
-        return qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
-      });
+      const matchSrc = selectedSourcesList.length === 0 || selectedSourcesList.some(s => matchQcmToSource(q, s));
       return matchSpec && matchCourse && matchFac && matchSrc;
     }).length;
 
@@ -268,7 +262,7 @@ function QcmHubContent() {
     const qCourse = q.courseId || '';
     const matchCourse = !selectedCourseId || qCourse.toLowerCase() === selectedCourseId.toLowerCase();
     const matchFaculty = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || (q.faculty as string).toLowerCase() === selectedFaculty.toLowerCase();
-    const matchSource = selectedSource === 'TOUS' || !q.source || (q.source as string).toLowerCase().includes(selectedSource.toLowerCase());
+    const matchSource = selectedSource === 'TOUS' || matchQcmToSource(q, selectedSource);
     return matchSpec && matchCourse && matchFaculty && matchSource;
   });
 

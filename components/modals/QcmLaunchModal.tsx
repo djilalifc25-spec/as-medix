@@ -24,44 +24,13 @@ import { INITIAL_QCMS } from '@/lib/db/seedQcm';
 import { SPECIALTY_THEMES } from '@/components/context/SpecialtyThemeContext';
 import { SpecialtyLogo } from '@/components/brand/SpecialtyLogo';
 import { useFaculty } from '@/components/context/FacultyContext';
+import { matchQcmToSource, extractEpreuvesForFolder, parseSourceHierarchy } from '@/lib/sourceUtils';
 
 export interface QcmLaunchModalProps {
   isOpen: boolean;
   onClose: () => void;
   specialtyId: string;
   initialSourceFolder?: string | null;
-}
-
-// Smart source hierarchy parser (e.g. "Externat - EMD 2017", "Externat (2021)", "Externat 2021")
-export function parseSourceHierarchy(s: string): { parent: string; sub: string | null } {
-  const clean = s.trim();
-  if (!clean) return { parent: 'Divers', sub: null };
-
-  if (clean.includes(' - ')) {
-    const parts = clean.split(' - ');
-    return { parent: parts[0].trim(), sub: parts.slice(1).join(' - ').trim() };
-  }
-  if (clean.includes(' / ')) {
-    const parts = clean.split(' / ');
-    return { parent: parts[0].trim(), sub: parts.slice(1).join(' / ').trim() };
-  }
-  if (clean.includes('(') && clean.includes(')')) {
-    const parent = clean.split('(')[0].trim();
-    const sub = clean.slice(clean.indexOf('(') + 1, clean.lastIndexOf(')')).trim();
-    if (parent && sub) return { parent, sub };
-  }
-  
-  const knownParents = ['Externat', 'Résidanat', 'Residanat', 'Annales', 'FARES', 'Hypercours', 'SIAU', 'Livre Hygiene', 'CNP'];
-  for (const kp of knownParents) {
-    if (clean.toLowerCase().startsWith(kp.toLowerCase()) && clean.length > kp.length) {
-      const rest = clean.slice(kp.length).trim();
-      if (rest) {
-        return { parent: kp, sub: rest };
-      }
-    }
-  }
-
-  return { parent: clean, sub: null };
 }
 
 export function QcmLaunchModal({
@@ -226,16 +195,7 @@ export function QcmLaunchModal({
     return allQcms.filter((q) => {
       const matchSpec = q.specialtyId === specialtyId;
       const matchCourse = !courseId || q.courseId === courseId;
-      let matchSrc = !sourceName || sourceName === 'TOUS';
-      if (!matchSrc && q.source) {
-        const qSrcLower = q.source.toLowerCase().trim();
-        const sLower = sourceName!.toLowerCase().trim();
-        if (sLower.includes(' - ')) {
-          matchSrc = qSrcLower === sLower;
-        } else {
-          matchSrc = qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
-        }
-      }
+      const matchSrc = !sourceName || matchQcmToSource(q, sourceName);
       return matchSpec && matchCourse && matchSrc;
     }).length;
   };
@@ -250,16 +210,7 @@ export function QcmLaunchModal({
     return allQcms.filter((q) => {
       const matchSpec = q.specialtyId === specialtyId;
       const matchCourse = !courseId || q.courseId === courseId;
-      let matchSrc = !sourceName || sourceName === 'TOUS';
-      if (!matchSrc && q.source) {
-        const qSrcLower = q.source.toLowerCase().trim();
-        const sLower = sourceName!.toLowerCase().trim();
-        if (sLower.includes(' - ')) {
-          matchSrc = qSrcLower === sLower;
-        } else {
-          matchSrc = qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
-        }
-      }
+      const matchSrc = !sourceName || matchQcmToSource(q, sourceName);
       return matchSpec && matchCourse && matchSrc && doneSet.has(q.id);
     }).length;
   };
@@ -341,26 +292,26 @@ export function QcmLaunchModal({
     return Array.from(new Set([...baseSources, ...availableSources, ...qcmSourcesForSpec]));
   }, [availableSources, qcmSourcesForSpec]);
 
-  // Group sources into parent and sub-sources (epreuves) using smart hierarchy parser
+  // Group sources into parent and sub-sources (epreuves) using smart hierarchy parser & dynamic text scanner
   const groupedSources = useMemo(() => {
     const parentMap: Record<string, string[]> = {};
     const parents: string[] = [];
 
     combinedSources.forEach(s => {
-      const { parent, sub } = parseSourceHierarchy(s);
+      const { parent } = parseSourceHierarchy(s);
       if (!parents.includes(parent)) {
         parents.push(parent);
       }
-      if (!parentMap[parent]) {
-        parentMap[parent] = [];
-      }
-      if (sub && !parentMap[parent].includes(s)) {
-        parentMap[parent].push(s);
-      }
+    });
+
+    const scopeQcms = allQcms.filter(q => q.specialtyId === specialtyId && (!selectedCourseId || q.courseId === selectedCourseId));
+
+    parents.forEach(parent => {
+      parentMap[parent] = extractEpreuvesForFolder(scopeQcms, parent, availableSources);
     });
 
     return { parents, parentMap };
-  }, [combinedSources]);
+  }, [combinedSources, allQcms, specialtyId, selectedCourseId, availableSources]);
 
   const handleCloseClick = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e && e.stopPropagation) {

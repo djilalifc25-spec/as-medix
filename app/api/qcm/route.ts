@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
+import { matchQcmToSource } from '@/lib/sourceUtils';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,7 +72,8 @@ export async function GET(req: NextRequest) {
       qcms = qcms.filter(q => q.faculty === faculty || q.faculty === 'TOUS');
     }
     if (source && source !== 'TOUS') {
-      qcms = qcms.filter(q => q.source && q.source.toLowerCase().includes(source.toLowerCase()));
+      const selectedSourcesList = source.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+      qcms = qcms.filter(q => selectedSourcesList.some(s => matchQcmToSource(q, s)));
     }
 
     return NextResponse.json({ success: true, qcms, total: qcms.length });
