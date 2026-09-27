@@ -171,8 +171,8 @@ export async function aiAnalyzeAndFormatCourse(
   config: AIProviderConfig = {},
   contextInfo: { specialty?: string; year?: number } = {}
 ): Promise<AIExtractedCourseData> {
-  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée d'AS-MEDIX.
-Ta mission est de prendre du texte brut ou du code HTML médical (cours, polycopié, annales) et d'extraire la structure exacte tout en produisant une présentation HTML médicale professionnelle 100% conforme au design AS-MEDIX.
+  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée d'AS-MEDIX, experte en pédagogie médicale universitaire et préparation au concours de Résidanat.
+Ta mission est de prendre un cours médical brut (polycopié, annales, texte ou HTML) et de produire une PRÉSENTATION MÉDICALE PROFESSIONNELLE HAUT DE GAMME 100% conforme aux standards AS-MEDIX.
 
 Consignes strictes de réponse en JSON :
 Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
@@ -181,20 +181,47 @@ Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
 3. "description": Un résumé clinique concis de 2-3 phrases (environ 150-200 caractères) présentant le cours.
 4. "summaryPoints": Un tableau de 5 à 7 points clés essentiels pour le concours de Résidanat ("À retenir pour le concours").
 5. "tableOfContents": Un tableau d'objets [{"id": "sec-1", "title": "1. Titre de section", "level": 1}] pour chaque section principale.
-6. "htmlContent": Le code HTML complet du cours structuré par balises <section id="sec-1">, <section id="sec-2">, etc.
+6. "htmlContent": Le code HTML complet du cours structuré et enrichi.
 
-Règles de mise en forme de "htmlContent" :
-- Utilise des <section id="sec-X" class="mb-10"> pour chaque grande partie.
-- Utilise des <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2"> pour les titres de sections.
-- Insère des encadrés visuels attractifs pour mettre en valeur les éléments importants :
-  • Note / Perle Clinique: <div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4">💡 <strong>Perle Clinique :</strong> ...</div>
-  • Rappel: <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4">📌 <strong>Rappel :</strong> ...</div>
-  • Piège Résidanat: <div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4">⚠️ <strong>Piège Concours :</strong> ...</div>
-  • Urgence: <div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4">🚨 <strong>Urgence Vital :</strong> ...</div>
-  • Traitement: <div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4">💊 <strong>Prise en Charge :</strong> ...</div>
-- Décore les tableaux avec : <table class="w-full my-6 text-xs border-collapse border border-navy-200 dark:border-navy-700 rounded-2xl overflow-hidden shadow-sm">
-- Ne supprime AUCUNE information médicale essentielle.
-- Ne réponds rien d'autre que du JSON strict.`;
+RÈGLES DE MISE EN FORME UNIQUE ET PROFESSIONNELLE POUR "htmlContent" :
+
+1. TOOLBAR DE NAVIGATION RAPIDE EN HAUT DU COURS :
+Au tout début de "htmlContent", commence OBLIGATOIREMENT par ce bloc HTML de navigation rapide :
+<div class="quick-nav-bar p-3.5 mb-8 rounded-2xl bg-gradient-to-r from-navy-900 via-brand-950 to-navy-900 text-white border border-navy-700 shadow-md flex items-center justify-between flex-wrap gap-2 not-prose">
+  <div class="flex items-center gap-1.5 text-xs font-bold flex-wrap">
+    <span class="text-amber-400 mr-1 font-black">⚡ Accès Rapide :</span>
+    <button onclick="document.querySelector('.rappel')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 text-[11px] font-bold transition-all">📌 Rappels</button>
+    <button onclick="document.querySelector('.note')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-500/40 text-[11px] font-bold transition-all">💡 Perles</button>
+    <button onclick="document.querySelector('.piege')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 text-orange-200 border border-orange-500/40 text-[11px] font-bold transition-all">⚠️ Pièges</button>
+    <button onclick="document.querySelector('.urgence')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/40 text-[11px] font-bold transition-all">🚨 Urgences</button>
+    <button onclick="document.querySelector('.traitement')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-500/40 text-[11px] font-bold transition-all">💊 Traitement</button>
+  </div>
+  <button onclick="if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen()}" class="px-3 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-black shadow-xs transition-all flex items-center gap-1 cursor-pointer">
+    🖥️ Plein Écran
+  </button>
+</div>
+
+2. STRUCTURE PAR SECTIONS ET TITRES :
+- Découpe le cours en <section id="sec-1" class="mb-10">, <section id="sec-2" class="mb-10">, etc.
+- Titres principaux H2 : <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2 flex items-center gap-2">...</h2>
+- Titres secondaires H3 : <h3 class="text-lg font-bold text-navy-800 dark:text-navy-100 mt-5 mb-2">...</h3>
+
+3. ENCADRÉS VISUELS COULORÉS (CALLOUTS MÉDICAUX) :
+Insère généreusement des encadrés colorés pour faire ressortir la valeur médicale :
+- 📌 Rappel Prérequis : <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4">📌 <strong>Rappel Physiopathologique :</strong> ...</div>
+- 💡 Perles Cliniques : <div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4">💡 <strong>Perle Clinique / Mnémotechnique :</strong> ...</div>
+- ⚠️ Pièges Concours / QCM : <div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4">⚠️ <strong>Piège Concours Résidanat :</strong> ...</div>
+- 🚨 Urgences / Gravité : <div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4">🚨 <strong>Alerte Vital / Conduite à Tenir :</strong> ...</div>
+- 💊 Traitement & Posologies : <div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4">💊 <strong>Prise en Charge Thérapeutique :</strong> ...</div>
+- ⭐ Points Clés : <div class="point-cle p-4 rounded-2xl bg-sky-50/70 border border-sky-200 dark:bg-sky-950/30 text-xs sm:text-sm text-sky-900 dark:text-sky-200 my-4">⭐ <strong>Point Clé Synthèse :</strong> ...</div>
+
+4. TABLEAUX ET LISTES SOIGNÉS :
+- Tableaux : <table class="w-full my-6 text-xs border-collapse border border-navy-200 dark:border-navy-700 rounded-2xl overflow-hidden shadow-sm"> avec en-têtes <th class="p-3 bg-navy-100 dark:bg-navy-800 text-navy-900 dark:text-white font-bold border border-navy-200 dark:border-navy-700 text-left">.
+- Puces claires avec balises <strong> pour les termes clés.
+
+5. EXACTITUDE MÉDICALE :
+- Ne supprime AUCUNE donnée médicale essentielle. Preserve l'intégralité du texte tout en le sublimant visuellement.
+- Ne réponds rien d'autre que l'objet JSON strict.`;
 
   const userPrompt = `Spécialité : ${contextInfo.specialty || 'Médecine General'} ${contextInfo.year ? `• Année : ${contextInfo.year}` : ''}
 
