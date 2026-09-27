@@ -202,7 +202,8 @@ Au tout début de "htmlContent", commence OBLIGATOIREMENT par ce bloc HTML de na
 </div>
 
 2. TITRES COLORÉS ET STYLISÉS STYLE LIVRE MÉDICAL :
-- Titres H2 colorés avec badges : <h2 class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION</span>...</h2>
+- Titres H2 colorés avec ancres ID obligatoires : <h2 id="sec-1" class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION 1</span>...</h2>
+- Assure-toi que chaque section principale H2 a un identifiant unique (id="sec-1", id="sec-2", id="sec-3", etc.) correspondant au tableau "tableOfContents" pour permettre la navigation fluide au clic.
 - Titres H3 stylisés : <h3 class="text-lg font-bold text-indigo-900 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>...</h3>
 
 3. SURLIGNAGE ET MOTS-CLÉS :

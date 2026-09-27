@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { useRouter, notFound, useParams, useSearchParams } from 'next/navigation';
@@ -8,6 +8,7 @@ import { INITIAL_COURSES } from '@/lib/db/seedCourses';
 import { INITIAL_QCMS } from '@/lib/db/seedQcm';
 import { QCM, Course } from '@/types';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
+import { processCourseToc } from '@/lib/utils/tocExtractor';
 import {
   ArrowLeft, Clock, BookOpen, Brain, Sparkles, Maximize2, Minimize2,
   CheckCircle2, ChevronRight, X, List, Share2, Bookmark, Highlighter, Eye, EyeOff, Edit3, Save, Bell, AlertTriangle,
@@ -213,11 +214,31 @@ function CourseDetailContent() {
   const [fontSize, setFontSize] = useState<'sm' | 'base' | 'lg'>('base');
   const [activeSection, setActiveSection] = useState<string>('');
 
-  useEffect(() => {
-    if (course?.tableOfContents?.[0]?.id) {
-      setActiveSection(course.tableOfContents[0].id);
+  const tocData = useMemo(() => {
+    if (!course?.htmlContent) return { processedHtml: '', toc: [] };
+    return processCourseToc(course.htmlContent, course.tableOfContents);
+  }, [course?.htmlContent, course?.tableOfContents]);
+
+  const activeToc = useMemo(() => {
+    return tocData.toc.length > 0 ? tocData.toc : (course?.tableOfContents || []);
+  }, [tocData.toc, course?.tableOfContents]);
+
+  const scrollToSection = (sectionId: string) => {
+    setShowTocMobile(false);
+    setActiveSection(sectionId);
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const yOffset = -90;
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
-  }, [course]);
+  };
+
+  useEffect(() => {
+    if (activeToc?.[0]?.id) {
+      setActiveSection(activeToc[0].id);
+    }
+  }, [activeToc]);
 
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [showTocMobile, setShowTocMobile] = useState(false);
@@ -559,15 +580,23 @@ function CourseDetailContent() {
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              {course.tableOfContents.map((item) => (
-                <a
+              {activeToc.map((item, idx) => (
+                <button
                   key={item.id}
-                  href={`#${item.id}`}
-                  onClick={() => setShowTocMobile(false)}
-                  className="block px-3 py-2 rounded-xl text-xs font-semibold text-navy-800 dark:text-navy-200 hover:bg-brand-50 dark:hover:bg-navy-800 transition-colors"
+                  type="button"
+                  onClick={() => scrollToSection(item.id)}
+                  className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between ${
+                    activeSection === item.id
+                      ? 'bg-brand-600 text-white shadow-xs'
+                      : 'text-navy-800 dark:text-navy-200 hover:bg-brand-50 dark:hover:bg-navy-800'
+                  }`}
                 >
-                  • {item.title}
-                </a>
+                  <span className="truncate flex-1">
+                    <span className="opacity-75 mr-1.5">{idx + 1}.</span>
+                    <span>{item.title}</span>
+                  </span>
+                  <ChevronRight className="w-3.5 h-3.5 opacity-60 shrink-0" />
+                </button>
               ))}
             </div>
           )}
@@ -677,11 +706,46 @@ function CourseDetailContent() {
               </div>
             </div>
 
+            {/* Interactive Sommaire / TOC Quick Jump Box */}
+            {activeToc.length > 0 && (
+              <div className="p-4 sm:p-5 rounded-3xl bg-white dark:bg-navy-900 border border-brand-200 dark:border-brand-900/60 shadow-soft space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-black text-xs uppercase tracking-wider text-brand-700 dark:text-brand-300 flex items-center gap-2">
+                    <List className="w-4 h-4 text-brand-600" />
+                    <span>Sommaire Interactif du Cours ({activeToc.length} sections) :</span>
+                  </h3>
+                  <span className="text-[10px] text-navy-400 font-medium">Accès direct au clic</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {activeToc.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => scrollToSection(item.id)}
+                      className={`p-2.5 rounded-2xl border text-left text-xs font-bold transition-all flex items-center justify-between group active:scale-95 cursor-pointer ${
+                        activeSection === item.id
+                          ? 'bg-brand-600 text-white border-brand-600 shadow-sm'
+                          : 'bg-slate-50 dark:bg-navy-950/60 text-navy-800 dark:text-navy-200 border-navy-150 dark:border-navy-800 hover:border-brand-400 hover:bg-brand-50/50 dark:hover:bg-navy-800'
+                      }`}
+                    >
+                      <span className="truncate flex-1 mr-2">
+                        <span className="opacity-70 mr-1.5">{idx + 1}.</span>
+                        <span>{item.title}</span>
+                      </span>
+                      <ChevronRight className={`w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-0.5 ${
+                        activeSection === item.id ? 'text-white' : 'text-navy-400'
+                      }`} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* HTML Content */}
             <div className="apple-card p-4 sm:p-10 shadow-soft relative overflow-x-hidden" onClick={handleCourseContentClick}>
               <div
                 className={`prose dark:prose-invert max-w-none break-words ${fontSizeClass} ${activeRecall ? 'select-none blur-[0.6px]' : ''} [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:overflow-x-auto [&_table]:w-full [&_pre]:overflow-x-auto`}
-                dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
+                dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(tocData.processedHtml || course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
               />
             </div>
 
@@ -1095,21 +1159,26 @@ function CourseDetailContent() {
               <span className="text-xs font-bold uppercase tracking-wider text-navy-400">
                 Sommaire interactif
               </span>
-              <nav className="space-y-1">
-                {course.tableOfContents.map((item) => (
-                  <a
+                {activeToc.map((item, idx) => (
+                  <button
                     key={item.id}
-                    href={`#${item.id}`}
-                    className={`block px-3 py-2 rounded-xl text-xs transition-colors ${
+                    type="button"
+                    onClick={() => scrollToSection(item.id)}
+                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-between group active:scale-95 cursor-pointer ${
                       activeSection === item.id
-                        ? 'bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold'
+                        ? 'bg-brand-600 text-white shadow-xs font-bold'
                         : 'text-navy-600 dark:text-navy-400 hover:bg-navy-50 dark:hover:bg-navy-800'
                     }`}
                   >
-                    {item.title}
-                  </a>
+                    <span className="truncate flex-1 mr-1">
+                      <span className="opacity-70 mr-1.5">{idx + 1}.</span>
+                      <span>{item.title}</span>
+                    </span>
+                    <ChevronRight className={`w-3 h-3 shrink-0 transition-transform group-hover:translate-x-0.5 ${
+                      activeSection === item.id ? 'text-white' : 'text-navy-400'
+                    }`} />
+                  </button>
                 ))}
-              </nav>
 
               <div className="pt-3 border-t border-navy-100 dark:border-navy-800">
                 <Link
@@ -1147,7 +1216,7 @@ function CourseDetailContent() {
             <div
               className={`prose dark:prose-invert max-w-none ${fontSizeClass}`}
               onClick={handleCourseContentClick}
-              dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
+              dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(tocData.processedHtml || course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
             />
 
             {/* Bottom QCM Challenge CTA */}
