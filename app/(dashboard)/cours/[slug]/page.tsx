@@ -12,7 +12,7 @@ import { processCourseToc } from '@/lib/utils/tocExtractor';
 import {
   ArrowLeft, Clock, BookOpen, Brain, Sparkles, Maximize2, Minimize2,
   CheckCircle2, ChevronRight, X, List, Share2, Bookmark, Highlighter, Eye, EyeOff, Edit3, Save, Bell, AlertTriangle,
-  Play, ChevronDown
+  Play, ChevronDown, Search
 } from 'lucide-react';
 import { useMemorization } from '@/lib/hooks/useMemorization';
 import { useFaculty } from '@/components/context/FacultyContext';
@@ -24,6 +24,7 @@ import { TocModal } from '@/components/study/TocModal';
 import { SpacedRepetitionModal } from '@/components/study/SpacedRepetitionModal';
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CourseNotesDrawer } from '@/components/study/CourseNotesDrawer';
+import { CourseSearchModal, SearchMatchResult } from '@/components/study/CourseSearchModal';
 import { SavedHighlight } from '@/lib/hooks/useMemorization';
 
 function normalizeSlug(str: string): string {
@@ -106,9 +107,32 @@ function matchesCourse(c: Course | any, slugOrId: string): boolean {
   return false;
 }
 
-function applyUserHighlightsToHtml(html: string, courseHighlights: SavedHighlight[]): string {
+function applyUserHighlightsToHtml(
+  html: string,
+  courseHighlights: SavedHighlight[],
+  searchQuery?: string,
+  targetMatchIndex?: number
+): string {
   if (!html) return '';
   let cleaned = html.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
+
+  // Apply search query highlights if active
+  if (searchQuery && searchQuery.trim().length >= 2) {
+    const escaped = searchQuery.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    let matchIdx = 0;
+    try {
+      const regex = new RegExp(`(?<!<[^>]*)${escaped}(?![^<]*>)`, 'gi');
+      cleaned = cleaned.replace(regex, (matchText) => {
+        matchIdx++;
+        const isTarget = targetMatchIndex ? matchIdx === targetMatchIndex : false;
+        const colorClass = isTarget
+          ? 'bg-amber-400 dark:bg-amber-500 text-amber-950 font-black ring-4 ring-amber-400 animate-pulse scale-105 shadow-md z-10 relative inline-block'
+          : 'bg-amber-200/90 dark:bg-amber-900/90 text-amber-950 dark:text-amber-100 font-bold border border-amber-400';
+        return `<mark id="asmedix-search-match-${matchIdx}" class="asmedix-search-hl ${colorClass} rounded px-1.5 py-0.5 transition-all">${matchText}</mark>`;
+      });
+    } catch (_) {}
+  }
+
   if (!courseHighlights || courseHighlights.length === 0) return cleaned;
 
   const sorted = [...courseHighlights].sort((a, b) => b.selectedText.length - a.selectedText.length);
@@ -259,6 +283,36 @@ function CourseDetailContent() {
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [showTocMobile, setShowTocMobile] = useState(false);
   const [isTocModalOpen, setIsTocModalOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [activeSearchQuery, setActiveSearchQuery] = useState('');
+  const [targetMatchIndex, setTargetMatchIndex] = useState<number | undefined>(undefined);
+
+  const handleSelectSearchMatch = (match: SearchMatchResult) => {
+    setActiveSearchQuery(match.matchedText);
+    setTargetMatchIndex(match.occurrenceIndex);
+
+    setTimeout(() => {
+      const el = document.getElementById(`asmedix-search-match-${match.occurrenceIndex}`);
+      if (el) {
+        if (isFullscreen) {
+          const container = document.getElementById('asmedix-fullscreen-cours');
+          if (container) {
+            const containerRect = container.getBoundingClientRect();
+            const elRect = el.getBoundingClientRect();
+            const scrollTop = container.scrollTop + (elRect.top - containerRect.top) - 120;
+            container.scrollTo({ top: Math.max(0, scrollTop), behavior: 'smooth' });
+          }
+        } else {
+          const yOffset = -120;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        }
+        try {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (_) {}
+      }
+    }, 120);
+  };
 
   // Memorization states
   const [activeRecall, setActiveRecall] = useState<boolean>(false);
@@ -480,6 +534,20 @@ function CourseDetailContent() {
 
             {/* Controls */}
             <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              {/* Rechercher dans le cours Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsSearchModalOpen(true);
+                }}
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-navy-800 dark:text-navy-200 border border-navy-200 dark:border-navy-700 text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
+                title="Rechercher un mot dans ce cours"
+              >
+                <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                <span>Rechercher</span>
+              </button>
+
               {/* Sommaire Modal Button */}
               <button
                 type="button"
@@ -754,6 +822,20 @@ function CourseDetailContent() {
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Rechercher dans le cours Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsSearchModalOpen(true);
+              }}
+              className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-navy-800 dark:text-navy-200 border border-navy-200 dark:border-navy-700 text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
+              title="Rechercher un mot dans ce cours"
+            >
+              <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+              <span>Rechercher</span>
+            </button>
+
             {/* Sommaire Modal Button */}
             <button
               type="button"
@@ -1217,6 +1299,15 @@ function CourseDetailContent() {
         activeSection={activeSection}
         onSelectSection={(id) => scrollToSection(id)}
         courseTitle={course.title}
+      />
+
+      {/* Interactive In-Course Text Search Modal */}
+      <CourseSearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+        htmlContent={tocData.processedHtml || course.htmlContent}
+        courseTitle={course.title}
+        onSelectMatch={handleSelectSearchMatch}
       />
     </>
   );
