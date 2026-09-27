@@ -33,16 +33,16 @@ export const metadata: Metadata = {
   description: 'Cours medicaux complets, fiches de revision, QCM interactifs ECNi/Residanat, outils pour etudiants et medecins algeriens.',
   keywords: ['médecine algérie', 'résidanat algérie', 'cours médecine', 'QCM médecine', 'ECNi', 'conduite à tenir', 'ECG', 'tuberculose', 'cardiologie', 'garde urgences'],
   authors: [{ name: 'AS MEDIX HealthTech' }],
-  manifest: '/manifest.json',
+  manifest: '/manifest.json?v=3',
   icons: {
     icon: [
-      { url: '/icons/icon-512.svg', type: 'image/svg+xml' },
-      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/icons/icon-512.svg?v=3', type: 'image/svg+xml' },
+      { url: '/icons/icon-192.png?v=3', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512.png?v=3', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: '/icons/icon-512.svg',
+    shortcut: '/icons/icon-512.svg?v=3',
     apple: [
-      { url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/icons/apple-touch-icon.png?v=3', sizes: '180x180', type: 'image/png' },
     ],
   },
   appleWebApp: {
@@ -69,9 +69,9 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/icons/icon-512.svg" type="image/svg+xml" />
-        <link rel="icon" href="/icons/icon-192.png" type="image/png" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+        <link rel="icon" href="/icons/icon-512.svg?v=3" type="image/svg+xml" />
+        <link rel="icon" href="/icons/icon-192.png?v=3" type="image/png" sizes="192x192" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=3" />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} font-sans min-h-screen text-slate-900 dark:text-slate-100 bg-[#f8fafc] dark:bg-[#070b14] selection:bg-sky-500 selection:text-white relative antialiased transition-colors duration-500 overflow-x-hidden w-full max-w-full`}>
         <ThemeProvider>
