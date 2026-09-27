@@ -227,6 +227,98 @@ function CourseEditorContent() {
     setAiModalOpen(true);
   };
 
+  const runClientSideCodeCraft = async (apiKey: string, modelName: string, textContent: string, specName: string) => {
+    const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée et Éditeur d'Atlas Médicaux d'AS-MEDIX.
+Ta mission est de prendre un cours médical (PDF, polycopié, annales) et de le transformer en une PRÉSENTATION DE TYPE LIVRE / ATLAS MÉDICAL ILLUSTRE, HAUTEMENT COLORÉE, DYNAMIQUE ET ÉLÉGANTE.
+
+Consignes strictes de réponse en JSON :
+Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
+1. "title": Le titre médical principal du cours.
+2. "subtitle": Le sous-titre / thématique clinique.
+3. "description": Un résumé clinique concis de 2-3 phrases.
+4. "summaryPoints": Un tableau de 5 à 7 points clés essentiels pour le concours de Résidanat.
+5. "tableOfContents": Un tableau d'objets [{"id": "sec-1", "title": "1. Titre de section", "level": 1}] pour chaque section principale.
+6. "htmlContent": Le code HTML complet du cours rédigé au format Livre / Atlas Médical.
+
+EXIGENCES STYLE LIVRE & ATLAS MÉDICAL ("htmlContent") :
+1. TITRES COLORÉS ET STYLISÉS STYLE LIVRE MÉDICAL :
+- Titres H2 colorés avec ancres ID obligatoires : <h2 id="sec-1" class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION 1</span>...</h2>
+
+4. ENCADRÉS VISUELS COLORÉS (CALLOUTS LIVRE MÉDICAL) :
+- 📌 Rappel : <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs">📌 <strong>Rappel Physiopathologique :</strong> ...</div>
+- 💡 Perles : <div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4 shadow-xs">💡 <strong>Perle Clinique / Mnémotechnique :</strong> ...</div>
+- ⚠️ Pièges : <div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4 shadow-xs">⚠️ <strong>Piège Concours :</strong> ...</div>
+- 🚨 Urgences : <div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4 shadow-xs">🚨 <strong>Alerte Urgence :</strong> ...</div>
+- 💊 Traitement : <div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4 shadow-xs">💊 <strong>Prise en Charge Thérapeutique :</strong> ...</div>
+
+5. CONSERVATION INTEGRALE DU CONTENU (100% DU PDF) :
+- Ne supprime AUCUN paragraphe, donnée clinique ou tableau.
+- Ne réponds rien d'autre que l'objet JSON strict.`;
+
+    const userPrompt = `Spécialité : ${specName || 'Médecine General'}
+Voici le document / cours médical brut à analyser et formater :
+${textContent.substring(0, 90000)}`;
+
+    const endpoints = [
+      'https://codecraftapi.com/v1/chat/completions',
+      'https://codecraftapi.com/api/v1/chat/completions',
+      'https://codecraftapi.com/chat/completions'
+    ];
+
+    let replyText = '';
+    let lastErr: any = null;
+
+    for (const ep of endpoints) {
+      try {
+        const ccRes = await fetch(ep, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey.trim()}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: modelName || 'codecraft-pro',
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.2,
+            response_format: { type: 'json_object' }
+          })
+        });
+
+        if (!ccRes.ok) {
+          const errBody = await ccRes.text();
+          throw new Error(`CodeCraft HTTP ${ccRes.status}: ${errBody.substring(0, 200)}`);
+        }
+
+        const data = await ccRes.json();
+        replyText = data.choices?.[0]?.message?.content || data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        if (replyText) break;
+      } catch (e: any) {
+        lastErr = e;
+      }
+    }
+
+    if (!replyText) {
+      throw lastErr || new Error('Aucune réponse reçue de l\'API CodeCraft.');
+    }
+
+    const jsonCleaned = replyText.replace(/```json\s*/gi, '').replace(/```\s*$/gi, '').trim();
+    const parsed = JSON.parse(jsonCleaned);
+
+    return {
+      title: parsed.title || 'Cours Médical Extrait',
+      subtitle: parsed.subtitle || 'Module de formation et annales',
+      description: parsed.description || 'Présentation complète du cours médical.',
+      summaryPoints: Array.isArray(parsed.summaryPoints) ? parsed.summaryPoints : [],
+      tableOfContents: Array.isArray(parsed.tableOfContents) ? parsed.tableOfContents : [
+        { id: 'sec-1', title: '1. Introduction & Généralités', level: 1 }
+      ],
+      htmlContent: parsed.htmlContent || textContent
+    };
+  };
+
   const handleRunAi = async () => {
     if (aiInputType === 'text' && !aiRawInput.trim()) {
       setAiError('Veuillez coller le texte ou le code HTML brut du cours à analyser.');
@@ -267,39 +359,56 @@ function CourseEditorContent() {
 
     try {
       const spec = specialtiesList.find(s => s.id === specialtyId);
-      const payload: any = {
-        provider: effectiveProvider,
-        apiKey: activeApiKey,
-        model: selectedAiModel,
-        specialty: spec?.name || 'Médecine',
-        year: year !== '' ? Number(year) : undefined
-      };
+      let resObj: any = null;
 
-      if (aiInputType === 'pdfUrl') {
-        payload.pdfUrl = aiPdfUrl.trim();
-      } else {
-        payload.content = aiRawInput;
+      if (effectiveProvider === 'codecraft' && aiInputType === 'text') {
+        try {
+          resObj = await runClientSideCodeCraft(activeApiKey, selectedAiModel, aiRawInput, spec?.name || 'Médecine');
+        } catch (clientErr: any) {
+          console.warn('[CodeCraft Direct Client Fetch Failed, trying backend server proxy]:', clientErr);
+        }
       }
 
-      const res = await fetch('/api/admin/ai/format-course', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      if (!resObj) {
+        const payload: any = {
+          provider: effectiveProvider,
+          apiKey: activeApiKey,
+          model: selectedAiModel,
+          specialty: spec?.name || 'Médecine',
+          year: year !== '' ? Number(year) : undefined
+        };
 
-      const rawText = await res.text();
-      let data: any = {};
-      try {
-        data = JSON.parse(rawText);
-      } catch (_parseErr) {
-        throw new Error(`Le serveur a renvoyé une réponse HTML au lieu de JSON (Code HTTP ${res.status}). Si vous utilisez un lien PDF, assurez-vous qu'il s'agit d'un lien de téléchargement direct et non d'une page Web.`);
+        if (aiInputType === 'pdfUrl') {
+          payload.pdfUrl = aiPdfUrl.trim();
+        } else {
+          payload.content = aiRawInput;
+        }
+
+        const res = await fetch('/api/admin/ai/format-course', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const rawText = await res.text();
+        let data: any = {};
+        try {
+          data = JSON.parse(rawText);
+        } catch (_parseErr) {
+          throw new Error(`Erreur réponse serveur : ${rawText.substring(0, 300)}`);
+        }
+
+        if (!res.ok || !data.success || !data.result) {
+          if ((data.error?.includes('CLOUDFLARE_403') || data.error?.includes('403')) && aiInputType === 'text') {
+            resObj = await runClientSideCodeCraft(activeApiKey, selectedAiModel, aiRawInput, spec?.name || 'Médecine');
+          } else {
+            throw new Error(data.error || 'Erreur lors de l\'analyse par l\'Assistant IA');
+          }
+        } else {
+          resObj = data.result;
+        }
       }
 
-      if (!res.ok || !data.success || !data.result) {
-        throw new Error(data.error || 'Erreur lors de l\'analyse par l\'Assistant IA');
-      }
-
-      const resObj = data.result;
       if (resObj.title) setTitle(resObj.title);
       if (resObj.subtitle) setSubtitle(resObj.subtitle);
       if (resObj.description) setDescription(resObj.description);

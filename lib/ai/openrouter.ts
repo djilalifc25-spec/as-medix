@@ -363,17 +363,21 @@ export async function callCodeCraftAPI(
 
       if (!response.ok) {
         const errorText = await response.text();
-        let errDetail = errorText;
+        const isHtmlError = errorText.toLowerCase().includes('<!doctype') || errorText.toLowerCase().includes('just a moment') || errorText.toLowerCase().includes('cloudflare');
+        let errDetail = isHtmlError ? '[CLOUDFLARE_403_BOT_BLOCK] Protection Cloudflare Challenge active sur CodeCraft API.' : errorText;
+
         try {
-          const errJson = JSON.parse(errorText);
-          if (errJson.error?.message) errDetail = errJson.error.message;
-          else if (errJson.message) errDetail = errJson.message;
-          else if (errJson.error) errDetail = typeof errJson.error === 'string' ? errJson.error : JSON.stringify(errJson.error);
+          if (!isHtmlError) {
+            const errJson = JSON.parse(errorText);
+            if (errJson.error?.message) errDetail = errJson.error.message;
+            else if (errJson.message) errDetail = errJson.message;
+            else if (errJson.error) errDetail = typeof errJson.error === 'string' ? errJson.error : JSON.stringify(errJson.error);
+          }
         } catch (_) {}
 
         let errMessage = `Erreur CodeCraft API (${response.status})`;
-        if (response.status === 403) {
-          errMessage = `Accès refusé CodeCraft API (HTTP 403) : Clé API invalide, compte non autorisé ou quota épuisé sur CodeCraft. ${errDetail ? `Détails: ${errDetail}` : ''}`;
+        if (response.status === 403 || isHtmlError) {
+          errMessage = `[CLOUDFLARE_403] Protection Cloudflare active sur CodeCraft API (HTTP 403). ${errDetail}`;
         } else if (response.status === 401) {
           errMessage = `Clé API CodeCraft non valide (HTTP 401). Veuillez vérifier votre clé sur codecraftapi.com. ${errDetail ? `Détails: ${errDetail}` : ''}`;
         } else if (errDetail) {
