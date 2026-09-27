@@ -160,6 +160,13 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
   const handleSave = async () => {
     setIsSaving(true);
     try {
+      // Auto-request notification permission if not yet decided
+      if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default') {
+        try {
+          await Notification.requestPermission();
+        } catch (_) {}
+      }
+
       const { date: targetDate, days } = calculateTargetDate();
       const currentTagObj = tagOptions.find(t => t.id === selectedTag);
 
@@ -182,6 +189,16 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
 
       const data = await res.json();
       if (data.success && data.reminder) {
+        // Trigger browser notification if permission granted
+        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+          try {
+            new Notification(`⏰ Rappel AS-MEDIX Programmé !`, {
+              body: `${currentTagObj?.label || '⚠️ Piège'} sur "${targetTitle}". Prévu pour ${targetDate.toLocaleDateString('fr-FR')} à ${targetDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}.`,
+              icon: '/icons/icon-192x192.png'
+            });
+          } catch (_) {}
+        }
+
         if (onSaved) onSaved(data.reminder);
         onClose();
       }
