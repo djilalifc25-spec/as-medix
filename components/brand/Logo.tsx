@@ -87,7 +87,7 @@ export const Logo: React.FC<LogoProps> = ({
 
   const currentSize = sizeMap[size] || sizeMap.md;
 
-  // SVG Icon: High-contrast Medical Cross intersected with glowing ECG Pulse
+  // Concept 1: Stethoscope M Monogram + Medical Cross Spark
   const renderIcon = () => {
     return (
       <div className="relative group/logo-icon flex items-center justify-center shrink-0">
@@ -95,7 +95,7 @@ export const Logo: React.FC<LogoProps> = ({
           className={`${currentSize.box} flex items-center justify-center transition-all duration-300 shadow-md ${
             variant === 'monochrome'
               ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-slate-900/10'
-              : 'bg-gradient-to-tr from-sky-600 via-blue-600 to-indigo-600 text-white shadow-lg shadow-sky-500/25 group-hover:scale-105 group-hover:shadow-sky-500/40'
+              : 'bg-gradient-to-tr from-indigo-600 via-brand-600 to-sky-500 text-white shadow-lg shadow-indigo-500/25 group-hover:scale-105 group-hover:shadow-indigo-500/40'
           }`}
         >
           <svg
@@ -107,28 +107,23 @@ export const Logo: React.FC<LogoProps> = ({
             className={`${currentSize.svgClass} transition-transform duration-300 group-hover:scale-110 shrink-0`}
             style={{ minWidth: currentSize.svgWidth, minHeight: currentSize.svgWidth }}
           >
-            {/* Soft Ambient Inner Glow */}
-            <circle cx="16" cy="16" r="14" fill="white" fillOpacity="0.12" />
-
-            {/* Precision Medical Cross */}
+            {/* Stethoscope M Loop */}
             <path
-              d="M13 5C13 4.44772 13.4477 4 14 4H18C18.5523 4 19 4.44772 19 5V13H27C27.5523 13 28 13.4477 28 14V18C28 18.5523 27.5523 19 27 19H19V27C19 27.5523 18.5523 28 18 28H14C13.4477 28 13 27.5523 13 27V19H5C4.44772 19 4 18.5523 4 18V14C4 13.4477 4.44772 13 5 13H13V5Z"
-              fill="white"
-              fillOpacity="0.35"
-            />
-
-            {/* Dynamic Vital ECG Pulse wave running through */}
-            <path
-              d="M4 16H9.5L12 11L15 21.5L17.5 13.5L19.5 17.5L21.5 16H28"
+              d="M8 11C8 8.5 11 8.5 12 10.5C13 12.5 14 16 16 14C18 16 19 12.5 20 10.5C21 8.5 24 8.5 24 11C24 14.5 22 20 16 22C10 20 8 14.5 8 11Z"
               stroke="#ffffff"
-              strokeWidth="2.6"
+              strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
+            {/* Top Bar & Tips */}
+            <path d="M10 8.5C12.5 7 19.5 7 22 8.5" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
+            <circle cx="9.5" cy="8.5" r="1.2" fill="#ffffff" />
+            <circle cx="22.5" cy="8.5" r="1.2" fill="#ffffff" />
 
-            {/* Glowing Vital Node */}
-            <circle cx="21.5" cy="16" r="2" fill="#38bdf8" />
-            <circle cx="15" cy="21.5" r="1.2" fill="#34d399" />
+            {/* Chestpiece + Medical Cross Spark at bottom */}
+            <circle cx="16" cy="21.5" r="3" fill="#0b1226" stroke="#38bdf8" strokeWidth="1.2" />
+            <path d="M16 20V23M14.5 21.5H17.5" stroke="#ffffff" strokeWidth="0.9" strokeLinecap="round" />
+            <circle cx="22" cy="15" r="1.5" fill="#34d399" />
           </svg>
         </div>
       </div>
