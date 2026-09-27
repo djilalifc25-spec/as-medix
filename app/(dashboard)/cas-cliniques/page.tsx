@@ -1,11 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { INITIAL_CLINICAL_CASES } from '@/lib/db/seedClinicalCases';
+import { ClinicalCase } from '@/types';
 import { Award, ArrowRight, User, Stethoscope, ChevronRight } from 'lucide-react';
 
 export default function ClinicalCasesCatalogPage() {
+  const [cases, setCases] = useState<ClinicalCase[]>(INITIAL_CLINICAL_CASES);
+
+  useEffect(() => {
+    fetch('/api/cas-cliniques')
+      .then(r => r.json())
+      .then(d => {
+        if (d.cases && Array.isArray(d.cases) && d.cases.length > 0) {
+          setCases(d.cases);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <div className="space-y-8">
       <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-700 via-indigo-600 to-purple-600 text-white shadow-soft flex flex-col sm:flex-row sm:items-center justify-between gap-6">
@@ -24,7 +38,7 @@ export default function ClinicalCasesCatalogPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {INITIAL_CLINICAL_CASES.map((cc) => (
+        {cases.map((cc) => (
           <div
             key={cc.id}
             className="p-6 rounded-3xl bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 shadow-soft hover:shadow-soft-lg transition-all flex flex-col justify-between space-y-4"

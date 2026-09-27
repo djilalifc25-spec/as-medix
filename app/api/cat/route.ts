@@ -11,83 +11,90 @@ export async function GET(req: NextRequest) {
     const specialty = url.searchParams.get('specialty') || undefined;
     const urgency = url.searchParams.get('urgency') || undefined;
     const search = url.searchParams.get('search') || undefined;
+    const slug = url.searchParams.get('slug') || undefined;
 
-    let protocols: CATProtocol[] = [];
+    let map = new Map<string, CATProtocol>();
 
-    // 1. Try Supabase first
+    // 1. Local store protocols
+    const local = db.getCatProtocols();
+    for (const item of local) {
+      map.set(item.id, item);
+      if (item.slug) map.set(item.slug, item);
+    }
+
+    // 2. Cloud Supabase protocols
     try {
       let query = supabaseAdmin
         .from('cat_protocols')
         .select('*')
         .eq('published', true);
 
-      if (specialty) {
-        query = query.eq('specialty_id', specialty);
-      }
-      if (urgency && urgency !== 'all') {
-        query = query.eq('urgency_level', urgency);
-      }
-      if (search) {
-        query = query.or(`title.ilike.%${search}%,synopsis.ilike.%${search}%,specialty_name.ilike.%${search}%`);
-      }
-
       const { data, error } = await query;
-      if (!error && data && data.length > 0) {
-        protocols = data.map((d: any) => ({
-          id: d.id,
-          slug: d.slug,
-          title: d.title,
-          specialtyId: d.specialty_id,
-          specialtyName: d.specialty_name,
-          category: d.category,
-          urgencyLevel: d.urgency_level,
-          severity: d.severity,
-          page: d.page,
-          summary: d.synopsis,
-          synopsis: d.synopsis,
-          cliniqueHtml: d.clinique_html,
-          urgenceHtml: d.urgence_html,
-          protocoleHtml: d.protocole_html,
-          bilanHtml: d.bilan_html,
-          alertes: d.alertes,
-          conseils: d.conseils,
-          ordonnance: d.ordonnance || [],
-          evaluationInitiale: [],
-          signesDeGravite: d.alertes ? [d.alertes] : [],
-          diagnosticCritères: [],
-          examensComplementaires: d.bilan_html ? [d.bilan_html] : [],
-          conduiteImmediate: [],
-          traitementSpecifique: [],
-          orientation: d.alertes || '',
-          redFlags: d.alertes ? [d.alertes] : [],
-          clinicalPearls: d.conseils ? [d.conseils] : [],
-          accessLevel: 'FREE',
-          published: true,
-          updatedAt: d.updated_at
-        }));
+      if (!error && data && Array.isArray(data)) {
+        for (const d of data) {
+          const mapped: CATProtocol = {
+            id: d.id,
+            slug: d.slug || d.id,
+            title: d.title,
+            specialtyId: d.specialty_id || d.specialtyId || 'cardio',
+            specialtyName: d.specialty_name || d.specialtyName || 'Urgences',
+            category: d.category || 'Urgences',
+            urgencyLevel: d.urgency_level || d.urgencyLevel || 'Urgence Vitale',
+            severity: d.severity || 'amber',
+            page: d.page || '',
+            summary: d.synopsis || d.summary || '',
+            synopsis: d.synopsis || d.summary || '',
+            cliniqueHtml: d.clinique_html || d.cliniqueHtml || '',
+            urgenceHtml: d.urgence_html || d.urgenceHtml || '',
+            protocoleHtml: d.protocole_html || d.protocoleHtml || '',
+            bilanHtml: d.bilan_html || d.bilanHtml || '',
+            alertes: d.alertes || '',
+            conseils: d.conseils || '',
+            ordonnance: Array.isArray(d.ordonnance) ? d.ordonnance : [],
+            evaluationInitiale: Array.isArray(d.evaluation_initiale) ? d.evaluation_initiale : [],
+            signesDeGravite: d.alertes ? [d.alertes] : [],
+            diagnosticCritères: [],
+            examensComplementaires: d.bilan_html ? [d.bilan_html] : [],
+            conduiteImmediate: [],
+            traitementSpecifique: [],
+            orientation: d.alertes || 'SAU',
+            redFlags: d.alertes ? [d.alertes] : [],
+            clinicalPearls: d.conseils ? [d.conseils] : [],
+            accessLevel: 'FREE',
+            published: true,
+            updatedAt: d.updated_at || new Date().toISOString()
+          };
+          map.set(mapped.id, mapped);
+          if (mapped.slug) map.set(mapped.slug, mapped);
+        }
       }
-    } catch (e) {
-      // Fallback
+    } catch (e) {}
+
+    // Deduplicate Map by ID
+    let protocols = Array.from(new Set(Array.from(map.values())));
+
+    if (slug) {
+      const decodedSlug = decodeURIComponent(slug).trim().toLowerCase();
+      protocols = protocols.filter(p => 
+        p.id === slug || 
+        p.slug === slug || 
+        (p.slug && p.slug.toLowerCase() === decodedSlug) ||
+        (p.id && p.id.toLowerCase() === decodedSlug)
+      );
     }
-
-    // 2. Fallback to local store if Supabase unavailable
-    if (protocols.length === 0) {
-      protocols = db.getCatProtocols();
-
-      if (specialty) {
-        protocols = protocols.filter(p => p.specialtyId === specialty);
-      }
-      if (urgency && urgency !== 'all') {
-        protocols = protocols.filter(p => p.urgencyLevel === urgency);
-      }
-      if (search) {
-        const q = search.toLowerCase();
-        protocols = protocols.filter(p =>
-          p.title.toLowerCase().includes(q) ||
-          p.summary.toLowerCase().includes(q) ||
-          p.specialtyName.toLowerCase().includes(q)
-        );
-      }
+    if (specialty) {
+      protocols = protocols.filter(p => p.specialtyId === specialty);
+    }
+    if (urgency && urgency !== 'all') {
+      protocols = protocols.filter(p => p.urgencyLevel === urgency);
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      protocols = protocols.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        (p.summary && p.summary.toLowerCase().includes(q)) ||
+        p.specialtyName.toLowerCase().includes(q)
+      );
     }
 
     return NextResponse.json({

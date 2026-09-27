@@ -215,6 +215,7 @@ export interface ClinicalCase {
   accessLevel: PlanType;
   published: boolean;
   caseHtml?: string;
+  debrief?: string;
 }
 
 export interface ECGRecord {

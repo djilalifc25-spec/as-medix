@@ -1,15 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { INITIAL_ECG_RECORDS } from '@/lib/db/seedEcg';
+import { ECGRecord } from '@/types';
 import { Activity, Check, Eye, EyeOff, AlertTriangle, Sparkles, Filter, ChevronRight } from 'lucide-react';
 
 export default function EcgLibraryPage() {
+  const [records, setRecords] = useState<ECGRecord[]>(INITIAL_ECG_RECORDS);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeEcgId, setActiveEcgId] = useState<string>(INITIAL_ECG_RECORDS[0]?.id);
   const [showInterpretation, setShowInterpretation] = useState<boolean>(false);
 
-  const activeEcg = INITIAL_ECG_RECORDS.find(e => e.id === activeEcgId) || INITIAL_ECG_RECORDS[0];
+  useEffect(() => {
+    fetch('/api/ecg')
+      .then(r => r.json())
+      .then(d => {
+        if (d.records && Array.isArray(d.records) && d.records.length > 0) {
+          setRecords(d.records);
+          if (!d.records.some((r: any) => r.id === activeEcgId)) {
+            setActiveEcgId(d.records[0].id);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const activeEcg = records.find(e => e.id === activeEcgId) || records[0] || INITIAL_ECG_RECORDS[0];
 
   const categories = [
     { id: 'all', label: 'Tous les tracés' },
@@ -20,7 +36,7 @@ export default function EcgLibraryPage() {
     { id: 'Urgence', label: 'Urgences vitales' },
   ];
 
-  const filtered = INITIAL_ECG_RECORDS.filter(e =>
+  const filtered = records.filter(e =>
     selectedCategory === 'all' || e.category === selectedCategory
   );
 

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db/store';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { getCurrentUser } from '@/lib/auth';
-import { INITIAL_MEDICATIONS } from '@/lib/db/seedMedications';
+import { Medication } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,44 +11,44 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const q = searchParams.get('q')?.toLowerCase().trim() || '';
 
-    const supabase = getSupabaseServerClient();
+    let map = new Map<string, Medication>();
+    const local = db.getMedications();
+    for (const item of local) map.set(item.id, item);
 
-    // Try Supabase first
-    let query = supabase.from('medications').select('*').order('dci', { ascending: true });
+    try {
+      const { data: cloud, error } = await supabaseAdmin.from('medications').select('*');
+      if (!error && Array.isArray(cloud)) {
+        for (const m of cloud) {
+          const mapped: Medication = {
+            id: String(m.id),
+            dci: m.dci,
+            commercialNames: m.commercial_names || m.commercialNames || [],
+            therapeuticClass: m.therapeutic_class || m.therapeuticClass || 'Thérapeutique',
+            dosageForms: m.dosage_forms || m.dosageForms || [],
+            indications: m.indications || [],
+            contraindications: m.contraindications || [],
+            interactions: m.interactions || [],
+            standardPosology: m.standard_posology || m.standardPosology || '',
+            algerianCommercialStatus: m.algerian_commercial_status || m.algerianCommercialStatus || 'Disponible en pharmacie',
+            notes: m.notes || ''
+          };
+          map.set(mapped.id, mapped);
+        }
+      }
+    } catch (e) {}
+
+    let medications = Array.from(map.values());
     if (q) {
-      query = query.or(`dci.ilike.%${q}%,therapeutic_class.ilike.%${q}%`);
-    }
-    const { data, error } = await query.limit(200);
-
-    // If Supabase has data, use it; otherwise fallback to local seed
-    let medications;
-    if (!error && data && data.length > 0) {
-      medications = data.map((m: any) => ({
-        id: m.id, dci: m.dci,
-        commercialNames: m.commercial_names || [],
-        therapeuticClass: m.therapeutic_class,
-        dosageForms: m.dosage_forms || [],
-        indications: m.indications || [],
-        contraindications: m.contraindications || [],
-        interactions: m.interactions || [],
-        standardPosology: m.standard_posology,
-        algerianCommercialStatus: m.algerian_commercial_status,
-        notes: m.notes,
-      }));
-    } else {
-      // Fallback to seed data with local search
-      medications = q
-        ? INITIAL_MEDICATIONS.filter(m =>
-            m.dci.toLowerCase().includes(q) ||
-            m.commercialNames.some(cn => cn.toLowerCase().includes(q)) ||
-            m.therapeuticClass.toLowerCase().includes(q))
-        : INITIAL_MEDICATIONS;
+      medications = medications.filter(m =>
+        m.dci.toLowerCase().includes(q) ||
+        (Array.isArray(m.commercialNames) && m.commercialNames.some(cn => cn.toLowerCase().includes(q))) ||
+        (m.therapeuticClass && m.therapeuticClass.toLowerCase().includes(q))
+      );
     }
 
     return NextResponse.json({ success: true, medications, total: medications.length });
   } catch (err: any) {
-    // Always fallback to seed on error
-    return NextResponse.json({ success: true, medications: INITIAL_MEDICATIONS, total: INITIAL_MEDICATIONS.length });
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
 
@@ -58,25 +59,42 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
     }
     const body = await req.json();
-    const supabase = getSupabaseServerClient();
-
-    const { data, error } = await supabase.from('medications').upsert({
+    const newMed: Medication = {
       id: body.id || `med_${Date.now()}`,
       dci: body.dci,
-      commercial_names: body.commercialNames || [],
-      therapeutic_class: body.therapeuticClass || 'Thérapeutique',
-      dosage_forms: body.dosageForms || [],
+      commercialNames: body.commercialNames || [],
+      therapeuticClass: body.therapeuticClass || 'Thérapeutique',
+      dosageForms: body.dosageForms || [],
       indications: body.indications || [],
       contraindications: body.contraindications || [],
       interactions: body.interactions || [],
-      standard_posology: body.standardPosology || '',
-      algerian_commercial_status: body.algerianCommercialStatus || 'Disponible en pharmacie',
-      notes: body.notes || '',
-      updated_at: new Date().toISOString(),
-    }, { onConflict: 'id' }).select().single();
+      standardPosology: body.standardPosology || '',
+      algerianCommercialStatus: body.algerianCommercialStatus || 'Disponible en pharmacie',
+      notes: body.notes || ''
+    };
 
-    if (error) throw error;
-    return NextResponse.json({ success: true, medication: data });
+    const saved = db.createMedication(newMed);
+
+    try {
+      await supabaseAdmin.from('medications').upsert({
+        id: newMed.id,
+        dci: newMed.dci,
+        commercial_names: newMed.commercialNames,
+        therapeutic_class: newMed.therapeuticClass,
+        dosage_forms: newMed.dosageForms,
+        indications: newMed.indications,
+        contraindications: newMed.contraindications,
+        interactions: newMed.interactions,
+        standard_posology: newMed.standardPosology,
+        algerian_commercial_status: newMed.algerianCommercialStatus,
+        notes: newMed.notes,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'id' });
+    } catch (sErr) {
+      console.warn('[Supabase Sync] Medication upsert warning:', sErr);
+    }
+
+    return NextResponse.json({ success: true, medication: saved });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
@@ -92,13 +110,16 @@ export async function DELETE(req: NextRequest) {
     const id = searchParams.get('id');
     if (!id) return NextResponse.json({ success: false, error: 'ID requis' }, { status: 400 });
 
-    const supabase = getSupabaseServerClient();
-    const { error } = await supabase.from('medications').delete().eq('id', id);
-    if (error) throw error;
+    db.deleteMedication(id);
+
+    try {
+      await supabaseAdmin.from('medications').delete().eq('id', id);
+    } catch (sErr) {
+      console.warn('[Supabase Sync] Medication delete warning:', sErr);
+    }
+
     return NextResponse.json({ success: true });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
-
-

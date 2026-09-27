@@ -42,7 +42,14 @@ function CatDetailContent() {
       .catch(() => {});
   }, []);
 
-  const cat = protocols.find(c => c.slug === slug || c.id === slug || c.id === `cat_${slug}`);
+  const decodedSlug = decodeURIComponent(slug).trim().toLowerCase();
+  const cat = protocols.find(c =>
+    c.slug === slug ||
+    c.id === slug ||
+    (c.slug && c.slug.toLowerCase() === decodedSlug) ||
+    (c.id && c.id.toLowerCase() === decodedSlug) ||
+    c.id === `cat_${slug}`
+  ) || protocols[0];
 
   // Body scroll locking and modal synchronization in fullscreen
   useEffect(() => {

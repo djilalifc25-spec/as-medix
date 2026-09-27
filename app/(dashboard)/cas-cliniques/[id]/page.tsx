@@ -1,9 +1,10 @@
-﻿'use client';
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { INITIAL_CLINICAL_CASES } from '@/lib/db/seedClinicalCases';
+import { ClinicalCase } from '@/types';
 import {
   ArrowLeft, User, Stethoscope, Activity, CheckCircle2, XCircle,
   ArrowRight, Award, Check, RotateCcw
@@ -14,7 +15,22 @@ export default function ClinicalCaseRunnerPage() {
   const params = useParams();
   const id = params.id as string;
 
-  const clinicalCase = INITIAL_CLINICAL_CASES.find(c => c.id === id) || INITIAL_CLINICAL_CASES[0];
+  const [clinicalCase, setClinicalCase] = useState<ClinicalCase>(() => {
+    return INITIAL_CLINICAL_CASES.find(c => c.id === id) || INITIAL_CLINICAL_CASES[0];
+  });
+
+  useEffect(() => {
+    fetch('/api/cas-cliniques')
+      .then(r => r.json())
+      .then(d => {
+        if (d.cases && Array.isArray(d.cases)) {
+          const found = d.cases.find((c: any) => c.id === id || c.id === decodeURIComponent(id));
+          if (found) setClinicalCase(found);
+        }
+      })
+      .catch(() => {});
+  }, [id]);
+
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);

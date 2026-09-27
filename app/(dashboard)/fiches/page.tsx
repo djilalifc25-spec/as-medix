@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ALL_SPECIALTIES } from '@/lib/db/seedData';
@@ -21,6 +21,19 @@ function FichesHubContent() {
   const [selectedSpecId, setSelectedSpecId] = useState<string>(initialSpec);
   const [search, setSearch] = useState('');
 
+  const [allFiches, setAllFiches] = useState<any[]>(INITIAL_FICHES);
+
+  useEffect(() => {
+    fetch('/api/fiches')
+      .then(r => r.json())
+      .then(d => {
+        if (d.fiches && Array.isArray(d.fiches) && d.fiches.length > 0) {
+          setAllFiches(d.fiches);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   // 3D Active Recall Trainer State
   const [trainerOpen, setTrainerOpen] = useState(false);
   const [trainerIndex, setTrainerIndex] = useState(0);
@@ -30,14 +43,14 @@ function FichesHubContent() {
 
   // Filter fiches by active specialty
   const specialtyFiches = selectedSpecId
-    ? INITIAL_FICHES.filter(f => f.specialtyId === selectedSpecId)
-    : INITIAL_FICHES;
+    ? allFiches.filter(f => f.specialtyId === selectedSpecId)
+    : allFiches;
 
   const displayFiches = specialtyFiches.filter(f =>
     !search ||
     f.title.toLowerCase().includes(search.toLowerCase()) ||
     f.specialtyName.toLowerCase().includes(search.toLowerCase()) ||
-    f.keyTakeaways.some(t => t.toLowerCase().includes(search.toLowerCase()))
+    (Array.isArray(f.keyTakeaways) && f.keyTakeaways.some((t: string) => t.toLowerCase().includes(search.toLowerCase())))
   );
 
   const handleRateCard = (quality: 'hard' | 'medium' | 'easy' | 'perfect') => {
@@ -200,7 +213,7 @@ function FichesHubContent() {
                       <span className="font-bold text-amber-700 dark:text-amber-300 block uppercase text-[10px]">
                         ⚡ Points Clés Mémorisables :
                       </span>
-                      {displayFiches[trainerIndex].keyTakeaways.map((point, idx) => (
+                      {displayFiches[trainerIndex].keyTakeaways.map((point: string, idx: number) => (
                         <div key={idx} className="flex items-start gap-1.5 text-navy-800 dark:text-navy-200">
                           <span className="text-amber-500 font-bold">•</span>
                           <span>{point}</span>
@@ -398,7 +411,7 @@ function FichesHubContent() {
                       <span className="font-bold text-amber-900 dark:text-amber-200 block text-[11px] uppercase tracking-wider">
                         ⚡ Points cardinaux :
                       </span>
-                      {fiche.keyTakeaways.map((point, idx) => (
+                      {fiche.keyTakeaways.map((point: string, idx: number) => (
                         <div key={idx} className="flex items-start gap-1.5">
                           <span className="text-amber-600 font-bold">•</span>
                           <span>{point}</span>
