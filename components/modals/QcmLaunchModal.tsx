@@ -12,7 +12,11 @@ import {
   Zap,
   Layers,
   Search,
-  Sparkles
+  Sparkles,
+  Folder,
+  FolderOpen,
+  FileText,
+  ChevronLeft
 } from 'lucide-react';
 import { ALL_SPECIALTIES } from '@/lib/db/seedData';
 import { INITIAL_COURSES } from '@/lib/db/seedCourses';
@@ -39,6 +43,7 @@ export function QcmLaunchModal({
   const [selectedMode, setSelectedMode] = useState<'SPECIALTY' | 'COURSE' | null>(null);
   const [selectedCourseId, setSelectedCourseId] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeFolder, setActiveFolder] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
   const [allCourses, setAllCourses] = useState(INITIAL_COURSES);
@@ -96,6 +101,7 @@ export function QcmLaunchModal({
       setSelectedMode(null);
       setSelectedCourseId('');
       setSearchQuery('');
+      setActiveFolder(null);
     }
   }, [isOpen, specialtyId]);
 
@@ -379,7 +385,11 @@ export function QcmLaunchModal({
                 type="button"
                 onClick={() => {
                   if (step === 'sources') {
-                    setStep(selectedMode === 'COURSE' ? 'courses' : 'mode');
+                    if (activeFolder) {
+                      setActiveFolder(null);
+                    } else {
+                      setStep(selectedMode === 'COURSE' ? 'courses' : 'mode');
+                    }
                   } else if (step === 'courses') {
                     setStep('mode');
                   }
@@ -621,7 +631,7 @@ export function QcmLaunchModal({
             </div>
           )}
 
-          {/* STEP 3: SOURCE SELECTION & MULTI-SOURCE LAUNCH */}
+          {/* STEP 3: SOURCE SELECTION & FOLDER / EPREUVE DRILL-DOWN */}
           {step === 'sources' && (
             <div className="space-y-4 animate-in fade-in duration-200">
               {/* Context banner */}
@@ -649,169 +659,257 @@ export function QcmLaunchModal({
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-sm font-black text-white flex items-center justify-between">
-                  <span>Choisissez vos sources (Multi-Sélection)</span>
-                  <span className="text-[10px] font-bold text-sky-300 bg-sky-500/20 px-2 py-0.5 rounded-full border border-sky-500/30">
-                    Cochez 1 ou plusieurs
-                  </span>
-                </h3>
-                <p className="text-xs text-white/60 mt-0.5">
-                  Combinez plusieurs sources pour personnaliser votre épreuve QCM.
-                </p>
-              </div>
-
-              {/* Multi-source toggle options */}
-              <div className="space-y-2">
-                {/* TOUS / All sources pill */}
-                <button
-                  type="button"
-                  onClick={() => toggleSourceSelection('TOUS')}
-                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between gap-3 cursor-pointer ${
-                    selectedSources.includes('TOUS')
-                      ? 'bg-sky-500/25 border-sky-400 text-white shadow-md'
-                      : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/80'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-5 h-5 rounded-lg border flex items-center justify-center text-xs font-bold ${
-                      selectedSources.includes('TOUS') ? 'bg-sky-500 border-sky-400 text-white' : 'border-white/30 bg-white/5'
-                    }`}>
-                      {selectedSources.includes('TOUS') && '✓'}
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold block">Toutes les sources (Combinées)</span>
-                      <span className="text-[10px] text-white/50">{countQcms(selectedCourseId, 'TOUS')} questions disponibles</span>
-                    </div>
+              {/* FOLDER VIEW: LEVEL 1 (Dossiers de Sources) */}
+              {activeFolder === null ? (
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-sm font-black text-white flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Folder className="w-4 h-4 text-sky-400" />
+                        <span>Dossiers de Sources Médicales</span>
+                      </span>
+                      <span className="text-[10px] font-bold text-sky-300 bg-sky-500/20 px-2 py-0.5 rounded-full border border-sky-500/30">
+                        Cliquez un dossier pour voir ses épreuves
+                      </span>
+                    </h3>
+                    <p className="text-xs text-white/60 mt-0.5">
+                      Chaque dossier (ex: Externat, Résidanat) contient des épreuves isolées (ex: EMD 2017).
+                    </p>
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-1 rounded-lg bg-sky-500/30 text-sky-300">
-                    {countQcms(selectedCourseId, 'TOUS')} QCMs
-                  </span>
-                </button>
 
-                {/* Individual combined sources grouped by parent & epreuve */}
-                <div className="space-y-3 pt-1">
-                  {groupedSources.parents.map((parent) => {
-                    const subSources = groupedSources.parentMap[parent] || [];
-                    const parentQCount = countQcms(selectedCourseId, parent);
-                    const parentDoneCount = countDoneQcms(selectedCourseId, parent);
-                    const isParentSelected = selectedSources.includes(parent);
+                  {/* TOUS / All sources pill */}
+                  <button
+                    type="button"
+                    onClick={() => toggleSourceSelection('TOUS')}
+                    className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between gap-3 cursor-pointer ${
+                      selectedSources.includes('TOUS')
+                        ? 'bg-sky-500/25 border-sky-400 text-white shadow-md'
+                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/80'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-5 h-5 rounded-lg border flex items-center justify-center text-xs font-bold ${
+                        selectedSources.includes('TOUS') ? 'bg-sky-500 border-sky-400 text-white' : 'border-white/30 bg-white/5'
+                      }`}>
+                        {selectedSources.includes('TOUS') && '✓'}
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold block">Toutes les sources (Combinées)</span>
+                        <span className="text-[10px] text-white/50">{countQcms(selectedCourseId, 'TOUS')} questions disponibles</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-sky-500/30 text-sky-300 font-mono">
+                      {countQcms(selectedCourseId, 'TOUS')} QCMs
+                    </span>
+                  </button>
 
-                    return (
-                      <div key={parent} className="space-y-1.5 p-3 rounded-2xl bg-white/5 border border-white/10">
-                        {/* Parent Source Card */}
+                  {/* Folder Cards List */}
+                  <div className="space-y-2.5 pt-1">
+                    {groupedSources.parents.map((parent) => {
+                      const subSources = groupedSources.parentMap[parent] || [];
+                      const parentQCount = countQcms(selectedCourseId, parent);
+                      const parentDoneCount = countDoneQcms(selectedCourseId, parent);
+                      const isParentSelected = selectedSources.includes(parent);
+
+                      return (
                         <div
-                          onClick={() => toggleSourceSelection(parent)}
-                          className={`p-3 rounded-xl border transition-all text-left flex items-center justify-between gap-2.5 cursor-pointer ${
-                            isParentSelected
-                              ? 'bg-blue-600/30 border-blue-400 text-white shadow-sm'
-                              : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/80'
-                          }`}
+                          key={parent}
+                          onClick={() => setActiveFolder(parent)}
+                          className="p-4 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/15 hover:border-sky-400/60 hover:from-white/15 transition-all text-left flex items-center justify-between gap-3 group cursor-pointer shadow-md active:scale-[0.99]"
                         >
-                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                            <div className={`w-4 h-4 rounded-md border flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                              isParentSelected ? 'bg-blue-500 border-blue-400 text-white' : 'border-white/30 bg-white/5'
-                            }`}>
-                              {isParentSelected && '✓'}
+                          <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                            <div className="w-11 h-11 rounded-2xl bg-sky-500/20 text-sky-300 border border-sky-500/30 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                              <Folder className="w-5 h-5 fill-sky-500/30" />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <span className="text-xs font-bold truncate block">{parent}</span>
-                              <span className="text-[10px] text-white/50">
-                                {parentQCount} QCMs {parentDoneCount > 0 ? `• ${parentDoneCount} fait` : ''}
-                              </span>
+                              <div className="flex items-center gap-2">
+                                <h4 className="text-sm font-black text-white group-hover:text-sky-300 transition-colors truncate">
+                                  Dossier {parent}
+                                </h4>
+                                {subSources.length > 0 && (
+                                  <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                                    {subSources.length} épreuve{subSources.length > 1 ? 's' : ''}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-[11px] text-white/60 truncate mt-0.5">
+                                {parentQCount} QCMs disponibles
+                                {subSources.length > 0 ? ` • Cliquez pour choisir une épreuve (ex: EMD)` : ''}
+                                {parentDoneCount > 0 ? ` • ${parentDoneCount} fait` : ''}
+                              </p>
                             </div>
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              launchFullscreen(parent);
-                            }}
-                            title={`Lancer l'ensemble de ${parent}`}
-                            className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70 hover:text-white shrink-0"
-                          >
-                            <Play className="w-3.5 h-3.5 fill-current" />
-                          </button>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                launchFullscreen(parent);
+                              }}
+                              title={`Lancer l'intégralité de ${parent}`}
+                              className="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold flex items-center gap-1 shrink-0 border border-white/10"
+                            >
+                              <Play className="w-3 h-3 fill-current" />
+                              <span className="hidden sm:inline">Lancer Tout</span>
+                            </button>
+                            <div className="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                              <ChevronRight className="w-4 h-4" />
+                            </div>
+                          </div>
                         </div>
-
-                        {/* Sub-sources / Isolated Epreuves */}
-                        {subSources.length > 0 && (
-                          <div className="pl-3 border-l-2 border-sky-500/30 space-y-1 pt-1">
-                            <div className="text-[10px] font-bold text-sky-300 uppercase tracking-wider mb-1">
-                              Épreuves & Sub-sources isolées :
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                              {subSources.map((subSrc) => {
-                                const subQCount = countQcms(selectedCourseId, subSrc);
-                                const subDoneCount = countDoneQcms(selectedCourseId, subSrc);
-                                const isSubSelected = selectedSources.includes(subSrc);
-                                const labelName = subSrc.includes(' - ') ? subSrc.split(' - ').slice(1).join(' - ') : subSrc;
-
-                                return (
-                                  <div
-                                    key={subSrc}
-                                    onClick={() => toggleSourceSelection(subSrc)}
-                                    className={`p-2.5 rounded-xl border transition-all text-left flex items-center justify-between gap-2 cursor-pointer ${
-                                      isSubSelected
-                                        ? 'bg-sky-600/30 border-sky-400 text-white shadow-xs'
-                                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/70'
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-2 min-w-0 flex-1">
-                                      <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center text-[9px] font-bold shrink-0 ${
-                                        isSubSelected ? 'bg-sky-500 border-sky-400 text-white' : 'border-white/30 bg-white/5'
-                                      }`}>
-                                        {isSubSelected && '✓'}
-                                      </div>
-                                      <div className="min-w-0 flex-1">
-                                        <span className="text-xs font-bold text-sky-200 truncate block" title={subSrc}>{labelName}</span>
-                                        <span className="text-[9px] text-white/50">{subQCount} QCMs</span>
-                                      </div>
-                                    </div>
-
-                                    <button
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        launchFullscreen(subSrc);
-                                      }}
-                                      title={`Lancer l'épreuve isolée ${subSrc}`}
-                                      className="px-2 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-300 text-[10px] font-bold flex items-center gap-1 shrink-0"
-                                    >
-                                      <Play className="w-2.5 h-2.5 fill-current" />
-                                      <span>Ouvrir</span>
-                                    </button>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                /* FOLDER VIEW: LEVEL 2 (Épreuves isolées à l'intérieur du dossier sélectionné) */
+                <div className="space-y-3 animate-in fade-in duration-200">
+                  {/* Folder header navigation */}
+                  <div className="p-3.5 rounded-2xl bg-sky-950/60 border border-sky-500/40 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <button
+                        type="button"
+                        onClick={() => setActiveFolder(null)}
+                        className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer shrink-0"
+                        title="Retour aux dossiers"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <div className="min-w-0">
+                        <span className="text-[10px] uppercase font-bold text-sky-300 block">
+                          📁 Dossier Source Sélectionné
+                        </span>
+                        <h4 className="text-sm font-black text-white truncate">
+                          {activeFolder}
+                        </h4>
+                      </div>
+                    </div>
+
+                    <div className="text-xs font-mono font-black text-sky-300 px-2.5 py-1 rounded-xl bg-sky-500/20 border border-sky-400/30 shrink-0">
+                      {countQcms(selectedCourseId, activeFolder)} QCMs Total
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-black text-white">
+                      Sélectionnez une épreuve d'examen dans {activeFolder}
+                    </h3>
+                    <p className="text-xs text-white/60 mt-0.5">
+                      Chaque épreuve s'ouvre de manière totalement isolée (ex: EMD 2017 ouvre uniquement l'EMD 2017).
+                    </p>
+                  </div>
+
+                  {/* List of Epreuves inside activeFolder */}
+                  <div className="space-y-2 pt-1">
+                    {/* Option 1: Toutes les épreuves du dossier */}
+                    <div
+                      onClick={() => launchFullscreen(activeFolder)}
+                      className="p-4 rounded-2xl bg-indigo-600/20 border border-indigo-400/40 hover:bg-indigo-600/30 transition-all text-left flex items-center justify-between gap-3 cursor-pointer group active:scale-[0.99]"
+                    >
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500/30 text-indigo-300 flex items-center justify-center shrink-0">
+                          <Layers className="w-5 h-5" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <span className="text-xs font-black text-white group-hover:text-indigo-200 block">
+                            Toutes les épreuves d'« {activeFolder} » regroupées
+                          </span>
+                          <span className="text-[10px] text-white/60">
+                            {countQcms(selectedCourseId, activeFolder)} QCMs au total
+                          </span>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          launchFullscreen(activeFolder);
+                        }}
+                        className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shrink-0"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-white" />
+                        <span>Lancer Tout</span>
+                      </button>
+                    </div>
+
+                    {/* Option 2: Individual Isolated Epreuves */}
+                    {((groupedSources.parentMap[activeFolder] || []).length === 0) ? (
+                      <div className="p-6 text-center text-xs text-white/50 bg-white/5 rounded-2xl border border-white/10">
+                        Toutes les questions de cette source appartiennent à l'épreuve principale {activeFolder}.
+                      </div>
+                    ) : (
+                      (groupedSources.parentMap[activeFolder] || []).map((subSrc) => {
+                        const subQCount = countQcms(selectedCourseId, subSrc);
+                        const subDoneCount = countDoneQcms(selectedCourseId, subSrc);
+                        const labelName = subSrc.includes(' - ') ? subSrc.split(' - ').slice(1).join(' - ') : subSrc;
+
+                        return (
+                          <div
+                            key={subSrc}
+                            onClick={() => launchFullscreen(subSrc)}
+                            className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/12 hover:border-sky-400/50 transition-all text-left flex items-center justify-between gap-3 cursor-pointer group active:scale-[0.99] shadow-xs"
+                          >
+                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                              <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center justify-center shrink-0">
+                                <FileText className="w-4 h-4" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs font-black text-white group-hover:text-sky-300 transition-colors truncate">
+                                    Épreuve Isolée : {labelName}
+                                  </span>
+                                  <span className="px-2 py-0.2 rounded-md text-[9px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                                    Isolé
+                                  </span>
+                                </div>
+                                <div className="text-[10px] text-white/50 truncate mt-0.5">
+                                  Source exacte: « {subSrc} » • {subQCount} QCMs
+                                  {subDoneCount > 0 ? ` • ${subDoneCount} fait` : ''}
+                                </div>
+                              </div>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                launchFullscreen(subSrc);
+                              }}
+                              className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md shrink-0"
+                            >
+                              <Play className="w-3 h-3 fill-white" />
+                              <span>Ouvrir {labelName}</span>
+                            </button>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Launch button for selected sources */}
-              <button
-                type="button"
-                onClick={() => launchFullscreen()}
-                className="w-full py-4 rounded-2xl text-xs sm:text-sm font-black text-white shadow-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer mt-3"
-                style={{
-                  background: `linear-gradient(135deg, ${theme.color}, ${theme.secondaryColor})`,
-                }}
-              >
-                <Play className="w-4 h-4 fill-white" />
-                <span>
-                  Lancer la session (
-                  {selectedSources.includes('TOUS')
-                    ? 'Toutes les sources'
-                    : `${selectedSources.length} source${selectedSources.length > 1 ? 's' : ''} sélectionnée${selectedSources.length > 1 ? 's' : ''}`}
-                  )
-                </span>
-              </button>
+              {activeFolder === null && (
+                <button
+                  type="button"
+                  onClick={() => launchFullscreen()}
+                  className="w-full py-4 rounded-2xl text-xs sm:text-sm font-black text-white shadow-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all cursor-pointer mt-3"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.color}, ${theme.secondaryColor})`,
+                  }}
+                >
+                  <Play className="w-4 h-4 fill-white" />
+                  <span>
+                    Lancer la session (
+                    {selectedSources.includes('TOUS')
+                      ? 'Toutes les sources'
+                      : `${selectedSources.length} source${selectedSources.length > 1 ? 's' : ''} sélectionnée${selectedSources.length > 1 ? 's' : ''}`}
+                    )
+                  </span>
+                </button>
+              )}
             </div>
           )}
         </div>
