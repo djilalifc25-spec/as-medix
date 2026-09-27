@@ -124,7 +124,14 @@ function CourseEditorContent() {
         body: JSON.stringify(payload)
       });
 
-      const data = await res.json();
+      const rawText = await res.text();
+      let data: any = {};
+      try {
+        data = JSON.parse(rawText);
+      } catch (_parseErr) {
+        throw new Error(`Le serveur a renvoyé une réponse HTML au lieu de JSON (Code HTTP ${res.status}). Si vous utilisez un lien PDF, assurez-vous qu'il s'agit d'un lien de téléchargement direct et non d'une page Web.`);
+      }
+
       if (!res.ok || !data.success || !data.result) {
         throw new Error(data.error || 'Erreur lors de l\'analyse par l\'Assistant IA');
       }
