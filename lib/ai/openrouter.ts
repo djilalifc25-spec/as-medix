@@ -337,33 +337,57 @@ export async function callCodeCraftAPI(
     payload.response_format = { type: 'json_object' };
   }
 
-  const response = await fetch('https://codecraftapi.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey.trim()}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
+  const endpoints = [
+    'https://codecraftapi.com/v1/chat/completions',
+    'https://codecraftapi.com/api/v1/chat/completions',
+    'https://codecraftapi.com/chat/completions'
+  ];
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    let errMessage = `Erreur CodeCraft API (${response.status})`;
+  let lastError: Error | null = null;
+  for (const endpoint of endpoints) {
     try {
-      const errJson = JSON.parse(errorText);
-      if (errJson.error?.message) errMessage = errJson.error.message;
-    } catch (_) {}
-    throw new Error(errMessage);
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey.trim()}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errMessage = `Erreur CodeCraft API (${response.status})`;
+        try {
+          const errJson = JSON.parse(errorText);
+          if (errJson.error?.message) errMessage = errJson.error.message;
+          else if (errJson.message) errMessage = errJson.message;
+        } catch (_) {}
+
+        if (response.status === 404) {
+          lastError = new Error(errMessage);
+          continue;
+        }
+        throw new Error(errMessage);
+      }
+
+      const data = await response.json();
+      const reply = data.choices?.[0]?.message?.content || data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!reply) {
+        throw new Error('Aucune réponse générée par l\'IA CodeCraft.');
+      }
+
+      return reply;
+    } catch (err: any) {
+      if (err.message && !err.message.includes('404')) {
+        throw err;
+      }
+      lastError = err;
+    }
   }
 
-  const data = await response.json();
-  const reply = data.choices?.[0]?.message?.content || data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!reply) {
-    throw new Error('Aucune réponse générée par l\'IA CodeCraft.');
-  }
-
-  return reply;
+  throw lastError || new Error('Impossible d\'atteindre l\'API CodeCraft sur https://codecraftapi.com/v1');
 }
 
 /**

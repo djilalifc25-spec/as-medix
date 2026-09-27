@@ -81,6 +81,8 @@ function CourseEditorContent() {
   const [aiProcessing, setAiProcessing] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
 
+  const [manualDirectProvider, setManualDirectProvider] = useState<'auto' | 'codecraft' | 'openai' | 'anthropic' | 'deepseek' | 'google_ai_studio' | 'openrouter'>('auto');
+
   const detectApiProvider = (key: string) => {
     const cleanKey = key.trim();
     if (cleanKey.startsWith('AIzaSy')) {
@@ -129,7 +131,7 @@ function CourseEditorContent() {
           { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1 (Reasoner)' },
         ]
       };
-    } else if (cleanKey.startsWith('cc-') || cleanKey.startsWith('codecraft-') || cleanKey.startsWith('sk-cc-')) {
+    } else if (cleanKey.startsWith('cc_') || cleanKey.startsWith('cc-') || cleanKey.toLowerCase().startsWith('codecraft') || cleanKey.startsWith('sk-cc')) {
       return {
         provider: 'codecraft' as const,
         label: 'CodeCraft API (codecraftapi.com/v1)',
@@ -156,16 +158,66 @@ function CourseEditorContent() {
     }
 
     return {
-      provider: 'openai' as const,
-      label: 'Clé Directe (Format OpenAI)',
-      badgeColor: 'bg-navy-600 text-white',
+      provider: 'codecraft' as const,
+      label: 'Clé Directe (CodeCraft / OpenAI)',
+      badgeColor: 'bg-indigo-600 text-white',
       models: [
+        { value: 'codecraft-pro', label: '🧠 CodeCraft Pro' },
         { value: 'gpt-4o', label: '🌐 GPT-4o' },
         { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini' },
         { value: 'deepseek-chat', label: '🔬 DeepSeek Chat' },
-        { value: 'gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash' },
       ]
     };
+  };
+
+  const getEffectiveDirectProvider = (key: string) => {
+    if (manualDirectProvider !== 'auto') {
+      if (manualDirectProvider === 'codecraft') {
+        return {
+          provider: 'codecraft' as const,
+          label: 'CodeCraft API (codecraftapi.com/v1)',
+          badgeColor: 'bg-indigo-600 text-white',
+          models: [
+            { value: 'codecraft-pro', label: '🧠 CodeCraft Pro' },
+            { value: 'codecraft-flash', label: '⚡ CodeCraft Flash' },
+            { value: 'gpt-4o', label: '🌐 GPT-4o (CodeCraft)' },
+            { value: 'claude-3-5-sonnet', label: '🧠 Claude 3.5 Sonnet (CodeCraft)' },
+          ]
+        };
+      } else if (manualDirectProvider === 'openai') {
+        return {
+          provider: 'openai' as const,
+          label: 'OpenAI ChatGPT Direct',
+          badgeColor: 'bg-teal-600 text-white',
+          models: [
+            { value: 'gpt-4o', label: '🌐 GPT-4o' },
+            { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini' },
+            { value: 'gpt-4-turbo', label: '🧠 GPT-4 Turbo' },
+          ]
+        };
+      } else if (manualDirectProvider === 'anthropic') {
+        return {
+          provider: 'anthropic' as const,
+          label: 'Anthropic Claude Direct',
+          badgeColor: 'bg-amber-600 text-white',
+          models: [
+            { value: 'claude-3-5-sonnet-20241022', label: '🧠 Claude 3.5 Sonnet' },
+            { value: 'claude-3-5-haiku-20241022', label: '⚡ Claude 3.5 Haiku' },
+          ]
+        };
+      } else if (manualDirectProvider === 'deepseek') {
+        return {
+          provider: 'deepseek' as const,
+          label: 'DeepSeek Direct API',
+          badgeColor: 'bg-blue-600 text-white',
+          models: [
+            { value: 'deepseek-chat', label: '🔬 DeepSeek V3 / Chat' },
+            { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1' },
+          ]
+        };
+      }
+    }
+    return detectApiProvider(key);
   };
 
   const handleOpenAiModal = () => {
@@ -197,7 +249,7 @@ function CourseEditorContent() {
       activeApiKey = openRouterKey.trim();
     } else {
       activeApiKey = directApiKey.trim();
-      const detected = detectApiProvider(activeApiKey);
+      const detected = getEffectiveDirectProvider(activeApiKey);
       effectiveProvider = detected.provider;
     }
 
@@ -1507,9 +1559,31 @@ function CourseEditorContent() {
               )}
 
               {aiProvider === 'direct_api' && (() => {
-                const detected = detectApiProvider(directApiKey);
+                const detected = getEffectiveDirectProvider(directApiKey);
                 return (
                   <>
+                    <div className="sm:col-span-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-3 border-b border-navy-100 dark:border-navy-800">
+                      <label className="text-xs font-bold text-navy-700 dark:text-navy-300 flex items-center gap-1.5 shrink-0">
+                        <span>Plateforme Cible :</span>
+                      </label>
+                      <select
+                        value={manualDirectProvider}
+                        onChange={e => {
+                          const p = e.target.value as any;
+                          setManualDirectProvider(p);
+                          const det = getEffectiveDirectProvider(directApiKey);
+                          if (det.models.length > 0) setSelectedAiModel(det.models[0].value);
+                        }}
+                        className="px-3 py-1.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      >
+                        <option value="auto">⚡ Auto-détecter (selon le préfixe de clé)</option>
+                        <option value="codecraft">🚀 CodeCraft API (codecraftapi.com/v1)</option>
+                        <option value="openai">🌐 OpenAI Direct (ChatGPT)</option>
+                        <option value="anthropic">🧠 Anthropic Claude Direct</option>
+                        <option value="deepseek">🔬 DeepSeek AI Direct</option>
+                      </select>
+                    </div>
+
                     <div>
                       <div className="flex items-center justify-between mb-1">
                         <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 flex items-center gap-1">
@@ -1526,23 +1600,23 @@ function CourseEditorContent() {
                         onChange={e => {
                           const val = e.target.value;
                           setDirectApiKey(val);
-                          const det = detectApiProvider(val);
+                          const det = getEffectiveDirectProvider(val);
                           if (det.models.length > 0 && !det.models.some(m => m.value === selectedAiModel)) {
                             setSelectedAiModel(det.models[0].value);
                           }
                         }}
-                        placeholder="Collez votre clé (sk-..., AIzaSy..., sk-or-v1-..., sk-ant-..., sk-dsk-...)"
+                        placeholder="Collez votre clé (cc_..., cc-..., sk-..., AIzaSy..., sk-or-v1-..., sk-ant-..., sk-dsk-...)"
                         className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                       />
                       <p className="text-[10px] text-navy-400 mt-1">
-                        Plateforme auto-détectée par le préfixe de votre clé API.
+                        Compatible CodeCraft (codecraftapi.com/v1), OpenAI, Anthropic, DeepSeek, Google, OpenRouter.
                       </p>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
                         <Cpu className="w-3.5 h-3.5 text-teal-500" />
-                        <span>Modèles Détectés ({detected.models.length})</span>
+                        <span>Modèles Sélectionnés ({detected.models.length})</span>
                       </label>
                       <select
                         value={selectedAiModel}
