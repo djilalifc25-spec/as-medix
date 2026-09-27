@@ -4,124 +4,125 @@ import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
 
-async function syncQcmsToSupabase(qcms: QCM[]) {
-  try {
-    const map = new Map<string, any>();
-    qcms.forEach((qcm, index) => {
-      const safeId = String(qcm.id || `qcm_${Date.now()}_${index}_${Math.random().toString(36).substring(2, 6)}`);
-      map.set(safeId, {
-        id: safeId,
-        specialty: String(qcm.specialtyId || 'cardio'),
-        specialty_id: String(qcm.specialtyId || 'cardio'),
-        specialty_name: String(qcm.specialtyName || 'Cardiologie'),
-        course_id: qcm.courseId ? String(qcm.courseId) : null,
-        course_title: qcm.courseTitle ? String(qcm.courseTitle) : null,
-        question: String(qcm.question || qcm.title || 'Question'),
-        title: String(qcm.question || qcm.title || 'Question'),
-        vignette: String(qcm.vignette || ''),
-        options: Array.isArray(qcm.options) ? qcm.options : [],
-        correct_answers: Array.isArray(qcm.correctAnswers) ? qcm.correctAnswers : [0],
-        explanation: String(qcm.explanation || ''),
-        source: qcm.source ? String(qcm.source) : null,
-        faculty: qcm.faculty ? String(qcm.faculty) : 'TOUS',
-        rang: qcm.rang ? String(qcm.rang) : 'Rang A',
-        difficulty: qcm.difficulty ? String(qcm.difficulty) : 'Moyen',
-        type: qcm.type ? String(qcm.type) : 'SINGLE',
-        reference: qcm.reference ? String(qcm.reference) : null,
-        year: qcm.year ? String(qcm.year) : null
-      });
-    });
-
-    const payload = Array.from(map.values());
-    if (payload.length > 0) {
-      let { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
-      if (error && error.message && error.message.includes('Could not find the column')) {
-        console.warn('[Supabase Batch Sync] Retrying with core schema columns due to missing SQL columns on Supabase:', error.message);
-        const corePayload = payload.map(item => ({
-          id: item.id,
-          specialty: item.specialty,
-          specialty_id: item.specialty_id,
-          specialty_name: item.specialty_name,
-          course_id: item.course_id,
-          course_title: item.course_title,
-          rang: item.rang,
-          title: item.title,
-          vignette: item.vignette,
-          options: item.options,
-          correct_answers: item.correct_answers,
-          explanation: item.explanation,
-          year: item.year
-        }));
-        const retryRes = await supabaseAdmin.from('qcms').upsert(corePayload, { onConflict: 'id' });
-        if (retryRes.error) {
-          console.error('[Supabase Batch Sync Retry Error]:', retryRes.error);
-        }
-      } else if (error) {
-        console.error('[Supabase Batch Sync Error]:', error);
-      }
-    }
-  } catch (err) {
-    console.error('[Supabase Batch Sync] QCM upsert exception:', err);
-  }
-}
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
     const sessionCookie = req.cookies.get('asmedix_session')?.value;
-    const authHeader = req.headers.get('x-admin-key');
-    const isValidKey = authHeader && (authHeader === process.env.SUPABASE_SERVICE_ROLE_KEY || authHeader === 'asmedix-secret-admin');
-    
-    // Permit batch QCM import if valid key, admin user, or authenticated session on admin panel
-    if (!isValidKey && !currentUser && !sessionCookie) {
-      return NextResponse.json({ error: 'Accès non autorisé — Connexion requise' }, { status: 401 });
+    if (!currentUser && !sessionCookie) {
+      return NextResponse.json({ success: false, error: 'Accès non autorisé. Veuillez vous connecter.' }, { status: 401 });
     }
 
-    const body = await req.json();
-    const items: any[] = Array.isArray(body) ? body : (body.qcms || []);
-
-    if (items.length === 0) {
-      return NextResponse.json({ error: 'Aucun QCM fourni dans le corps de la requête.' }, { status: 400 });
+    let body: any;
+    try {
+      body = await req.json();
+    } catch (_jsonErr) {
+      return NextResponse.json({ success: false, error: 'Format JSON invalide.' }, { status: 400 });
     }
 
-    const createdList: QCM[] = [];
+    const { qcms, examTitle, specialtyId, specialtyName, courseId, courseTitle, faculty, year, source } = body;
 
-    for (const item of items) {
+    if (!Array.isArray(qcms) || qcms.length === 0) {
+      return NextResponse.json({ success: false, error: 'Aucun QCM à importer dans la liste.' }, { status: 400 });
+    }
+
+    const createdQcms: QCM[] = [];
+    const supabasePayloads: any[] = [];
+
+    const now = Date.now();
+
+    for (let i = 0; i < qcms.length; i++) {
+      const q = qcms[i];
+      const qcmId = q.id || `qcm_ai_${now}_${i + 1}`;
+      const finalSource = source || examTitle || q.source || 'Annales IA Extrait';
+
+      const optionsArray = Array.isArray(q.options) ? q.options.map((opt: any, optIdx: number) => ({
+        id: opt.id || `opt_${optIdx + 1}`,
+        letter: opt.letter || String.fromCharCode(65 + optIdx),
+        text: opt.text || ''
+      })) : [];
+
+      const correctAnswersArray = Array.isArray(q.correctAnswers) ? q.correctAnswers : [0];
+
       const newQcm: QCM = {
-        id: item.id || `qcm_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-        title: item.title || (item.question ? (item.question.length > 80 ? item.question.substring(0, 80) + '...' : item.question) : 'QCM'),
-        specialtyId: item.specialtyId || 'cardio',
-        specialtyName: item.specialtyName || 'Cardiologie',
-        courseId: item.courseId || undefined,
-        courseTitle: item.courseTitle || undefined,
-        faculty: item.faculty || 'ORAN',
-        source: item.source || 'Annales Examens',
-        rang: item.rang || 'Rang A',
-        difficulty: item.difficulty || 'Moyen',
-        type: item.type || ((item.correctAnswers && item.correctAnswers.length > 1) ? 'MULTIPLE' : 'SINGLE'),
-        vignette: item.vignette || item.vignetteText || '',
-        question: item.question || item.title || '',
-        options: item.options || [],
-        correctAnswers: item.correctAnswers || [0],
-        explanation: item.explanation || item.explanationHtml || '',
-        reference: item.reference || "Faculté de Médecine d'Alger",
-        tags: item.tags || [],
-        accessLevel: item.accessLevel || 'FREE',
-        year: item.year ? (Number(item.year) as any) : undefined
+        id: qcmId,
+        title: q.title || q.question || `QCM ${i + 1}`,
+        specialtyId: specialtyId || q.specialtyId || 'cardio',
+        specialtyName: specialtyName || q.specialtyName || 'Cardiologie',
+        courseId: courseId || q.courseId || undefined,
+        courseTitle: courseTitle || q.courseTitle || undefined,
+        faculty: faculty || q.faculty || 'ORAN',
+        source: finalSource,
+        rang: q.rang || 'Rang A',
+        difficulty: q.difficulty || 'Moyen',
+        type: correctAnswersArray.length > 1 ? 'MULTIPLE' : 'SINGLE',
+        vignette: q.vignette || '',
+        question: q.question || q.title || `QCM ${i + 1}`,
+        options: optionsArray,
+        correctAnswers: correctAnswersArray,
+        explanation: q.explanation || q.explanationHtml || '',
+        reference: q.reference || `Examen : ${finalSource}`,
+        tags: [finalSource, specialtyName || 'Médecine', 'Extrait IA'],
+        accessLevel: 'FREE',
+        year: year ? Number(year) as any : undefined
       };
 
-      const saved = db.createQcm(newQcm);
-      createdList.push(saved);
+      // Add to local DB store
+      try {
+        db.createQcm(newQcm);
+      } catch (_dbErr) {
+        // Ignored if duplicate id
+      }
+      createdQcms.push(newQcm);
+
+      // Prepare Supabase payload
+      supabasePayloads.push({
+        id: newQcm.id,
+        specialty: newQcm.specialtyId,
+        specialty_id: newQcm.specialtyId,
+        specialty_name: newQcm.specialtyName,
+        course_id: newQcm.courseId || null,
+        course_title: newQcm.courseTitle || null,
+        question: newQcm.question,
+        title: newQcm.title,
+        vignette: newQcm.vignette,
+        options: newQcm.options,
+        correct_answers: newQcm.correctAnswers,
+        explanation: newQcm.explanation,
+        source: newQcm.source,
+        faculty: newQcm.faculty,
+        rang: newQcm.rang,
+        difficulty: newQcm.difficulty,
+        type: newQcm.type,
+        reference: newQcm.reference,
+        year: newQcm.year ? String(newQcm.year) : null
+      });
     }
 
-    await syncQcmsToSupabase(createdList);
+    // Sync all QCMs to Supabase in batch
+    if (supabasePayloads.length > 0) {
+      try {
+        const { error } = await supabaseAdmin.from('qcms').upsert(supabasePayloads, { onConflict: 'id' });
+        if (error) {
+          console.error('[Batch QCM Import] Supabase upsert error:', error.message);
+        }
+      } catch (sbErr) {
+        console.error('[Batch QCM Import] Supabase exception:', sbErr);
+      }
+    }
 
     return NextResponse.json({
       success: true,
-      count: createdList.length,
-      qcms: createdList
+      importedCount: createdQcms.length,
+      examTitle: examTitle || source || 'Examen QCM',
+      qcms: createdQcms
     });
   } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+    console.error('[batch-qcm-import] Error:', err);
+    return NextResponse.json({
+      success: false,
+      error: err.message || 'Erreur lors de l\'importation en lot des QCMs.'
+    }, { status: 500 });
   }
 }

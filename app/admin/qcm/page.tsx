@@ -5,7 +5,8 @@ import { ALL_SPECIALTIES } from '@/lib/db/seedData';
 import { QCM, Course, Specialty, MEDICAL_YEARS } from '@/types';
 import {
   Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, School,
-  FileText, Upload, FileCode, Check, Edit3, Layers, Loader2, ChevronDown, ChevronUp, AlertCircle
+  FileText, Upload, FileCode, Check, Edit3, Layers, Loader2, ChevronDown, ChevronUp, AlertCircle,
+  Link as LinkIcon, Globe, X, Key
 } from 'lucide-react';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
 import { ParsedQcmItem, parseQcmDocument } from '@/lib/qcmParser';
@@ -65,6 +66,19 @@ export default function AdminQcmPage() {
   const [editingQcmId, setEditingQcmId] = useState<string | null>(null);
   const [batchSaving, setBatchSaving] = useState(false);
 
+  // AI QCM Extractor Modal States
+  const [aiQcmModalOpen, setAiQcmModalOpen] = useState(false);
+  const [aiProvider, setAiProvider] = useState<'google_ai_studio' | 'openrouter' | 'codecraft' | 'openai' | 'anthropic' | 'deepseek'>('google_ai_studio');
+  const [googleAiKey, setGoogleAiKey] = useState('');
+  const [openRouterKey, setOpenRouterKey] = useState('');
+  const [directApiKey, setDirectApiKey] = useState('');
+  const [selectedAiModel, setSelectedAiModel] = useState('models/gemini-2.5-flash');
+  const [aiInputType, setAiInputType] = useState<'drive_pdf' | 'raw_text'>('drive_pdf');
+  const [aiPdfUrl, setAiPdfUrl] = useState('');
+  const [aiRawInput, setAiRawInput] = useState('');
+  const [examTitleInput, setExamTitleInput] = useState('');
+  const [aiExtracting, setAiExtracting] = useState(false);
+
   // Fetch scoped sources whenever specialty, course or faculty changes
   const fetchScopeSources = async (spec: string, crs: string, fac?: string) => {
     const params = new URLSearchParams();
@@ -82,11 +96,100 @@ export default function AdminQcmPage() {
   useEffect(() => {
     fetchData();
     fetchScopeSources(specialtyId, courseId, faculty);
+    try {
+      const gKey = localStorage.getItem('asmedix_google_ai_key') || '';
+      const oKey = localStorage.getItem('asmedix_openrouter_key') || '';
+      const dKey = localStorage.getItem('asmedix_direct_api_key') || '';
+      if (gKey) setGoogleAiKey(gKey);
+      if (oKey) setOpenRouterKey(oKey);
+      if (dKey) setDirectApiKey(dKey);
+    } catch (_e) {}
   }, []); // eslint-disable-line
 
   useEffect(() => {
     fetchScopeSources(specialtyId, courseId, faculty);
   }, [specialtyId, courseId, faculty]); // eslint-disable-line
+
+  const handleRunAiQcmExtract = async () => {
+    if (aiInputType === 'drive_pdf' && !aiPdfUrl.trim()) {
+      alert('Veuillez entrer un lien Google Drive ou PDF d\'examen.');
+      return;
+    }
+    if (aiInputType === 'raw_text' && !aiRawInput.trim()) {
+      alert('Veuillez coller le texte de l\'examen d\'abord.');
+      return;
+    }
+
+    const apiKey = aiProvider === 'google_ai_studio'
+      ? googleAiKey
+      : (aiProvider === 'openrouter' ? openRouterKey : directApiKey);
+
+    try {
+      if (aiProvider === 'google_ai_studio' && googleAiKey) localStorage.setItem('asmedix_google_ai_key', googleAiKey);
+      if (aiProvider === 'openrouter' && openRouterKey) localStorage.setItem('asmedix_openrouter_key', openRouterKey);
+      if (directApiKey) localStorage.setItem('asmedix_direct_api_key', directApiKey);
+    } catch (_e) {}
+
+    setAiExtracting(true);
+    setSuccessMsg('');
+
+    try {
+      const finalSource = source === '__other__' ? sourceOther : source;
+      const res = await fetch('/api/admin/ai/extract-qcms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: aiProvider,
+          apiKey: apiKey || undefined,
+          model: selectedAiModel,
+          pdfUrl: aiInputType === 'drive_pdf' ? aiPdfUrl.trim() : undefined,
+          content: aiInputType === 'raw_text' ? aiRawInput.trim() : undefined,
+          specialty: specialtyId,
+          year: year !== '' ? Number(year) : undefined,
+          source: finalSource || examTitleInput || 'Examen IA'
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Erreur lors de l\'extraction des QCMs par l\'IA.');
+      }
+
+      if (data.qcms && Array.isArray(data.qcms) && data.qcms.length > 0) {
+        const parsedItems: ParsedQcmItem[] = data.qcms.map((q: any) => ({
+          id: q.id || `qcm_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+          tempNum: q.qNum || 1,
+          title: q.title || `QCM ${q.qNum || 1}`,
+          vignetteText: q.vignette || '',
+          question: q.question || '',
+          options: (q.options || []).map((opt: any, optIdx: number) => ({
+            letter: opt.letter || String.fromCharCode(65 + optIdx),
+            text: opt.text || '',
+            isCorrect: q.correctAnswers?.includes(optIdx) ?? false
+          })),
+          explanationHtml: q.explanation || '',
+          isVerified: true,
+          source: q.source || finalSource || data.examTitle || 'Examen IA',
+          specialtyId: specialtyId,
+          courseId: courseId || undefined,
+          year: year !== '' ? Number(year) : undefined
+        }));
+
+        setParsedQcms(parsedItems);
+        setShowAddForm(true);
+        setQcmInputMode('BATCH_IMPORT');
+        setAiQcmModalOpen(false);
+        setSuccessMsg(`🤖 Extraction IA Réussie ! ${parsedItems.length} QCM(s) extraits de "${data.examTitle}". Vous pouvez réviser ci-dessous et cliquer sur "Importer Tout".`);
+      } else {
+        alert('L\'IA n\'a extrait aucun QCM du document fourni. Vérifiez le contenu.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || 'Erreur lors de la communication avec l\'IA.');
+    } finally {
+      setAiExtracting(false);
+    }
+  };
 
   const handleAddScopeSource = async () => {
     const name = newSourceInput.trim();
@@ -510,13 +613,23 @@ export default function AdminQcmPage() {
           </p>
         </div>
 
-        <button
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition-all active:scale-95"
-        >
-          <Plus className="w-4 h-4" />
-          <span>{showAddForm ? 'Fermer le Panneau' : 'Ajouter / Importer des QCMs'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setAiQcmModalOpen(true)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-soft transition-all active:scale-95"
+          >
+            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+            <span>🤖 Extraction IA (PDF / Drive)</span>
+          </button>
+
+          <button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition-all active:scale-95"
+          >
+            <Plus className="w-4 h-4" />
+            <span>{showAddForm ? 'Fermer le Panneau' : 'Ajouter / Importer des QCMs'}</span>
+          </button>
+        </div>
       </div>
 
       {successMsg && (
@@ -719,6 +832,26 @@ export default function AdminQcmPage() {
           {/* MODE 2: BATCH PDF / TEXT IMPORT SYSTEM */}
           {qcmInputMode === 'BATCH_IMPORT' && (
             <div className="space-y-6 pt-2">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 border border-purple-500/30 flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <p className="text-xs font-bold text-navy-950 dark:text-white flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                    <span>Besoin d'extraire automatiquement un PDF depuis Google Drive ou du Texte ?</span>
+                  </p>
+                  <p className="text-[11px] text-navy-500">
+                    Utilisez l'Intelligence Artificielle (Google AI Studio, DeepSeek, OpenRouter) pour structurer 100% des QCMs & propositions.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAiQcmModalOpen(true)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-700 text-white shadow-sm transition-all flex items-center gap-1.5"
+                >
+                  <Brain className="w-4 h-4" />
+                  <span>🚀 Lancer l'Extractor IA</span>
+                </button>
+              </div>
+
               <div className="p-4 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                 <p className="font-bold flex items-center gap-1.5 text-sm">
                   <Sparkles className="w-4 h-4 text-indigo-600" />
@@ -1413,6 +1546,273 @@ export default function AdminQcmPage() {
       })
     )}
   </div>
-</div>
-);
+
+      {/* AI QCM EXTRACTION MODAL */}
+      {aiQcmModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white dark:bg-navy-900 rounded-3xl max-w-2xl w-full border border-navy-200 dark:border-navy-800 shadow-2xl p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in duration-200">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-navy-100 dark:border-navy-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
+                  <Brain className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black text-navy-950 dark:text-white flex items-center gap-2">
+                    <span>🚀 Extrakteur QCM par Intelligence Artificielle</span>
+                  </h3>
+                  <p className="text-xs text-navy-500">
+                    Extrayez 100% des QCMs et propositions depuis un lien Google Drive PDF ou du texte brut.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setAiQcmModalOpen(false)}
+                className="p-2 rounded-xl text-navy-400 hover:text-navy-900 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Provider Selection */}
+            <div className="space-y-3">
+              <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
+                1. Sélectionner le Fournisseur IA :
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {[
+                  { id: 'google_ai_studio', name: 'Google AI Studio', icon: '⚡', desc: 'Gratuit / Clé Pro' },
+                  { id: 'openrouter', name: 'OpenRouter', icon: '🌐', desc: '50+ Modèles' },
+                  { id: 'deepseek', name: 'DeepSeek AI', icon: '🧠', desc: 'Très Économique' },
+                  { id: 'codecraft', name: 'CodeCraft API', icon: '🛠️', desc: 'Serveur Pro' },
+                  { id: 'openai', name: 'OpenAI (GPT-4o)', icon: '🤖', desc: 'Direct OpenAI' },
+                  { id: 'anthropic', name: 'Anthropic Claude', icon: '🎭', desc: 'Claude 3.5' },
+                ].map(p => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => {
+                      setAiProvider(p.id as any);
+                      if (p.id === 'google_ai_studio') setSelectedAiModel('models/gemini-2.5-flash');
+                      else if (p.id === 'openrouter') setSelectedAiModel('google/gemini-2.5-flash');
+                      else if (p.id === 'deepseek') setSelectedAiModel('deepseek-chat');
+                      else if (p.id === 'openai') setSelectedAiModel('gpt-4o-mini');
+                      else if (p.id === 'anthropic') setSelectedAiModel('claude-3-5-sonnet-20241022');
+                    }}
+                    className={`p-3 rounded-2xl border text-left transition-all ${
+                      aiProvider === p.id
+                        ? 'bg-purple-50 dark:bg-purple-950/40 border-purple-500 text-purple-900 dark:text-purple-200 ring-2 ring-purple-500/20 font-bold'
+                        : 'bg-white dark:bg-navy-800 border-navy-200 dark:border-navy-700 text-navy-700 dark:text-navy-300 hover:border-navy-300'
+                    }`}
+                  >
+                    <div className="text-xs font-bold flex items-center gap-1.5">
+                      <span>{p.icon}</span>
+                      <span>{p.name}</span>
+                    </div>
+                    <div className="text-[10px] text-navy-400 mt-0.5">{p.desc}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* API Key Box */}
+            <div className="space-y-2 p-4 rounded-2xl bg-slate-50 dark:bg-navy-950 border border-slate-200 dark:border-navy-800">
+              <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <Key className="w-4 h-4 text-purple-600" />
+                  <span>Clé API ({aiProvider === 'google_ai_studio' ? 'Google AI Studio' : aiProvider === 'openrouter' ? 'OpenRouter' : 'Clé API Directe'}) :</span>
+                </span>
+                <span className="text-[10px] text-purple-600 font-bold">
+                  {aiProvider === 'google_ai_studio' ? (googleAiKey ? '✅ Enregistrée' : 'Optionnelle (Utilise la clé serveur par défaut)') : 'Requise'}
+                </span>
+              </label>
+
+              {aiProvider === 'google_ai_studio' ? (
+                <input
+                  type="password"
+                  value={googleAiKey}
+                  onChange={e => setGoogleAiKey(e.target.value)}
+                  placeholder="AIzaSy... (Laissez vide pour utiliser la clé serveur par défaut)"
+                  className="w-full px-4 py-2 text-xs font-mono rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
+                />
+              ) : aiProvider === 'openrouter' ? (
+                <input
+                  type="password"
+                  value={openRouterKey}
+                  onChange={e => setOpenRouterKey(e.target.value)}
+                  placeholder="sk-or-v1-..."
+                  className="w-full px-4 py-2 text-xs font-mono rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
+                />
+              ) : (
+                <input
+                  type="password"
+                  value={directApiKey}
+                  onChange={e => setDirectApiKey(e.target.value)}
+                  placeholder="sk-..."
+                  className="w-full px-4 py-2 text-xs font-mono rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900"
+                />
+              )}
+            </div>
+
+            {/* Model Selector & Exam Title */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  Modèle IA :
+                </label>
+                <select
+                  value={selectedAiModel}
+                  onChange={e => setSelectedAiModel(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
+                >
+                  {aiProvider === 'google_ai_studio' && (
+                    <>
+                      <option value="models/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Super Rapide & Précis)</option>
+                      <option value="models/gemini-2.5-pro">🧠 Gemini 2.5 Pro (Raisonnement Élevé)</option>
+                      <option value="models/gemini-1.5-flash">Gemini 1.5 Flash</option>
+                      <option value="models/gemini-1.5-pro">Gemini 1.5 Pro</option>
+                    </>
+                  )}
+                  {aiProvider === 'openrouter' && (
+                    <>
+                      <option value="google/gemini-2.5-flash">Google Gemini 2.5 Flash</option>
+                      <option value="google/gemini-2.5-pro">Google Gemini 2.5 Pro</option>
+                      <option value="deepseek/deepseek-chat">DeepSeek Chat V3</option>
+                      <option value="deepseek/deepseek-r1">DeepSeek R1 Reasoner</option>
+                      <option value="openai/gpt-4o-mini">OpenAI GPT-4o Mini</option>
+                      <option value="openai/gpt-4o">OpenAI GPT-4o</option>
+                      <option value="anthropic/claude-3.5-sonnet">Anthropic Claude 3.5 Sonnet</option>
+                    </>
+                  )}
+                  {aiProvider === 'deepseek' && (
+                    <>
+                      <option value="deepseek-chat">DeepSeek Chat (V3)</option>
+                      <option value="deepseek-reasoner">DeepSeek R1 Reasoner</option>
+                    </>
+                  )}
+                  {aiProvider === 'codecraft' && (
+                    <option value="codecraft-v1">CodeCraft AI Engine</option>
+                  )}
+                  {aiProvider === 'openai' && (
+                    <>
+                      <option value="gpt-4o-mini">GPT-4o Mini</option>
+                      <option value="gpt-4o">GPT-4o Standard</option>
+                    </>
+                  )}
+                  {aiProvider === 'anthropic' && (
+                    <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+                  )}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  Nom de l'Épreuve / Source :
+                </label>
+                <input
+                  type="text"
+                  value={examTitleInput}
+                  onChange={e => setExamTitleInput(e.target.value)}
+                  placeholder="ex: EMD Cardiology Oran 2023"
+                  className="w-full px-3 py-2 text-xs font-bold rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white"
+                />
+              </div>
+            </div>
+
+            {/* Input Type Selector: PDF Link vs Raw Text */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 p-1 rounded-2xl bg-navy-100 dark:bg-navy-800 text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => setAiInputType('drive_pdf')}
+                  className={`flex-1 py-2 rounded-xl transition-all flex items-center justify-center gap-2 ${
+                    aiInputType === 'drive_pdf'
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'text-navy-500 hover:text-navy-900 dark:hover:text-white'
+                  }`}
+                >
+                  <LinkIcon className="w-4 h-4" />
+                  <span>Lien Google Drive / URL PDF</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAiInputType('raw_text')}
+                  className={`flex-1 py-2 rounded-xl transition-all flex items-center justify-center gap-2 ${
+                    aiInputType === 'raw_text'
+                      ? 'bg-purple-600 text-white shadow-sm'
+                      : 'text-navy-500 hover:text-navy-900 dark:hover:text-white'
+                  }`}
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Coller le Texte Brut</span>
+                </button>
+              </div>
+
+              {aiInputType === 'drive_pdf' ? (
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-navy-800 dark:text-navy-200">
+                    Coller le lien Google Drive ou PDF d'examen :
+                  </label>
+                  <input
+                    type="url"
+                    value={aiPdfUrl}
+                    onChange={e => setAiPdfUrl(e.target.value)}
+                    placeholder="https://drive.google.com/file/d/17y_1uazhDFMj6Xp_2Gaf64gF-vkUiY3y/view..."
+                    className="w-full px-4 py-2.5 text-xs font-mono rounded-2xl border border-purple-300 dark:border-purple-800 bg-purple-50/30 dark:bg-navy-950 focus:border-purple-600 text-navy-900 dark:text-white"
+                  />
+                  <p className="text-[10px] text-navy-400">
+                    💡 Formats supportés : Liens de partage Google Drive (`/file/d/.../view`), Google Docs/Slides, Dropbox, ou URLs directes PDF.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-navy-800 dark:text-navy-200">
+                    Coller le contenu texte de l'examen :
+                  </label>
+                  <textarea
+                    value={aiRawInput}
+                    onChange={e => setAiRawInput(e.target.value)}
+                    rows={6}
+                    placeholder="QCM 1: Quel est le symptôme de... A. Fièvre B. Toux..."
+                    className="w-full p-3 font-mono text-xs rounded-2xl border border-navy-200 dark:border-navy-800 bg-white dark:bg-navy-950 text-navy-900 dark:text-white"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-navy-100 dark:border-navy-800">
+              <button
+                type="button"
+                onClick={() => setAiQcmModalOpen(false)}
+                className="px-5 py-2.5 rounded-2xl text-xs font-bold text-navy-600 dark:text-navy-400 hover:bg-navy-100 dark:hover:bg-navy-800 transition-colors"
+              >
+                Annuler
+              </button>
+
+              <button
+                type="button"
+                onClick={handleRunAiQcmExtract}
+                disabled={aiExtracting}
+                className="px-6 py-3 rounded-2xl text-xs font-black bg-gradient-to-r from-purple-600 via-indigo-600 to-brand-600 hover:from-purple-700 hover:to-brand-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
+              >
+                {aiExtracting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Extraction IA en cours...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 text-amber-300" />
+                    <span>🚀 Démarrer l'Extraction par IA</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
