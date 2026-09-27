@@ -526,7 +526,7 @@ function CourseDetailContent() {
         >
           {/* Sticky Fullscreen Top Navigation Bar */}
           <div 
-            className="sticky top-0 z-50 w-full max-w-full px-2.5 sm:px-8 py-2 sm:py-3 bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-navy-100 dark:border-navy-800 shadow-sm flex items-center justify-between gap-1.5 sm:gap-3 overflow-hidden box-border"
+            className="sticky top-0 z-[1000] shrink-0 w-full max-w-full px-2.5 sm:px-8 py-2 sm:py-3 bg-white/95 dark:bg-navy-900/95 backdrop-blur-2xl border-b border-navy-100 dark:border-navy-800 shadow-md flex items-center justify-between gap-1.5 sm:gap-3 overflow-hidden box-border"
             style={{
               paddingTop: 'max(0.6rem, env(safe-area-inset-top, 0px))',
               paddingLeft: 'max(0.6rem, env(safe-area-inset-left, 0px))',
@@ -775,8 +775,8 @@ function CourseDetailContent() {
       <div className="space-y-4 sm:space-y-6 max-w-6xl mx-auto w-full">
 
 
-        {/* Top bar controls - Sticky & zero-overflow */}
-        <div className="sticky top-2 sm:top-4 z-30 bg-white/95 dark:bg-navy-900/95 backdrop-blur-xl py-2 px-3 sm:px-4 rounded-2xl border border-navy-200/80 dark:border-navy-700/80 shadow-md flex items-center justify-between gap-2 w-full mb-3">
+        {/* Top bar controls - Sticky below main topnav & zero-overflow */}
+        <div className="sticky top-14 sm:top-16 z-40 shrink-0 bg-white/95 dark:bg-navy-900/95 backdrop-blur-xl py-2 px-3 sm:px-4 rounded-2xl border border-navy-200 dark:border-navy-700 shadow-md flex items-center justify-between gap-1.5 sm:gap-2 w-full mb-4">
           <Link
             href="/cours"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-navy-600 dark:text-navy-300 hover:text-brand-600 transition-colors shrink-0"
@@ -788,6 +788,23 @@ function CourseDetailContent() {
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Sommaire Modal Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsTocModalOpen(true);
+              }}
+              className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-700 hover:to-brand-700 text-white text-xs font-black flex items-center gap-1 shadow-md active:scale-95 transition-all cursor-pointer shrink-0"
+              title="Ouvrir le Sommaire Interactif du Cours"
+            >
+              <List className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Sommaire</span>
+              {activeToc.length > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-mono">{activeToc.length}</span>
+              )}
+            </button>
+
             {/* Rechercher dans le cours Button */}
             <button
               type="button"
@@ -800,23 +817,6 @@ function CourseDetailContent() {
             >
               <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
               <span className="hidden sm:inline text-[11px]">Rechercher</span>
-            </button>
-
-            {/* Sommaire Modal Button */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsTocModalOpen(true);
-              }}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-700 hover:to-brand-700 text-white text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer shrink-0"
-              title="Ouvrir le Sommaire Interactif du Cours"
-            >
-              <List className="w-3.5 h-3.5" />
-              <span>Sommaire</span>
-              {activeToc.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-mono">{activeToc.length}</span>
-              )}
             </button>
 
             {/* Fullscreen Mode Button - PROMINENT, STICKY & ALWAYS VISIBLE ON MOBILE WITHOUT SCROLLING */}

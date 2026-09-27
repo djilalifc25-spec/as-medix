@@ -155,7 +155,7 @@ export const AppTopNav: React.FC<{ user?: User | null }> = ({ user: initialUser 
   return (
     <>
       <header
-        className="topnav sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-xs transition-colors"
+        className="topnav sticky top-0 z-[500] shrink-0 w-full border-b border-slate-200/80 dark:border-white/10 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-xs transition-colors"
         style={{ paddingTop: 'max(0px, env(safe-area-inset-top, 0px))' }}
       >
         <div className="mx-auto flex h-14 items-center justify-between gap-1 sm:gap-3 px-2 sm:px-5">
