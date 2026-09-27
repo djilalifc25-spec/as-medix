@@ -541,11 +541,11 @@ function CourseDetailContent() {
                   e.stopPropagation();
                   setIsSearchModalOpen(true);
                 }}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-navy-800 dark:text-navy-200 border border-navy-200 dark:border-navy-700 text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
+                className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-navy-800 dark:text-navy-200 border border-navy-200 dark:border-navy-700 text-xs font-bold flex items-center gap-1 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
                 title="Rechercher un mot dans ce cours"
               >
                 <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
-                <span>Rechercher</span>
+                <span className="hidden sm:inline text-[11px]">Rechercher</span>
               </button>
 
               {/* Sommaire Modal Button */}
@@ -829,11 +829,11 @@ function CourseDetailContent() {
                 e.stopPropagation();
                 setIsSearchModalOpen(true);
               }}
-              className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-navy-800 dark:text-navy-200 border border-navy-200 dark:border-navy-700 text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
+              className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-navy-700 text-navy-800 dark:text-navy-200 border border-navy-200 dark:border-navy-700 text-xs font-bold flex items-center gap-1 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
               title="Rechercher un mot dans ce cours"
             >
               <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
-              <span>Rechercher</span>
+              <span className="hidden sm:inline text-[11px]">Rechercher</span>
             </button>
 
             {/* Sommaire Modal Button */}
