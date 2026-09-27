@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { aiAnalyzeAndFormatCourse } from '@/lib/ai/openrouter';
-
-const pdfParse = require('pdf-parse');
+import { extractTextFromPdfBuffer } from '@/lib/safePdfExtractor';
 
 export const dynamic = 'force-dynamic';
 
@@ -75,9 +74,9 @@ export async function POST(req: NextRequest) {
           }, { status: 400 });
         }
 
-        let parsedPdf: any;
+        let extractedText = '';
         try {
-          parsedPdf = await pdfParse(buffer);
+          extractedText = await extractTextFromPdfBuffer(buffer);
         } catch (parsePdfErr: any) {
           return NextResponse.json({
             success: false,
@@ -85,14 +84,14 @@ export async function POST(req: NextRequest) {
           }, { status: 400 });
         }
 
-        if (!parsedPdf.text || parsedPdf.text.trim().length === 0) {
+        if (!extractedText || extractedText.trim().length === 0) {
           return NextResponse.json({
             success: false,
             error: 'Le fichier PDF téléchargé depuis le lien ne contient aucun texte extractible (ex: PDF scanné sous forme d\'images).'
           }, { status: 400 });
         }
 
-        content = parsedPdf.text;
+        content = extractedText;
       } catch (pdfErr: any) {
         return NextResponse.json({
           success: false,

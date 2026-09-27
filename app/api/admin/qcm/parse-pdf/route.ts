@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-const pdfParse = require('pdf-parse');
 import { parseQcmDocument } from '@/lib/qcmParser';
+import { extractTextFromPdfBuffer } from '@/lib/safePdfExtractor';
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,8 +16,7 @@ export async function POST(req: NextRequest) {
       const buffer = Buffer.from(await pdfFile.arrayBuffer());
       const isPdf = pdfFile.type.includes('pdf') || pdfFile.name.toLowerCase().endsWith('.pdf');
       if (isPdf) {
-        const parsedPdf = await pdfParse(buffer);
-        extractedPdfText = parsedPdf.text || '';
+        extractedPdfText = await extractTextFromPdfBuffer(buffer);
       } else {
         // Plain text or UTF-8 document
         extractedPdfText = buffer.toString('utf-8');
@@ -28,8 +27,8 @@ export async function POST(req: NextRequest) {
       const answerBuffer = Buffer.from(await answerKeyFile.arrayBuffer());
       const isAnswerPdf = answerKeyFile.type.includes('pdf') || answerKeyFile.name.toLowerCase().endsWith('.pdf');
       if (isAnswerPdf) {
-        const parsedKeyPdf = await pdfParse(answerBuffer);
-        extractedAnswerKeyText += '\n' + (parsedKeyPdf.text || '');
+        const textKey = await extractTextFromPdfBuffer(answerBuffer);
+        extractedAnswerKeyText += '\n' + textKey;
       } else {
         extractedAnswerKeyText += '\n' + answerBuffer.toString('utf-8');
       }
