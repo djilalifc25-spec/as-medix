@@ -343,26 +343,42 @@ export async function callCodeCraftAPI(
     'https://codecraftapi.com/chat/completions'
   ];
 
+  const headers: Record<string, string> = {
+    'Authorization': `Bearer ${apiKey.trim()}`,
+    'x-api-key': apiKey.trim(),
+    'api-key': apiKey.trim(),
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  };
+
   let lastError: Error | null = null;
   for (const endpoint of endpoints) {
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey.trim()}`,
-          'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
         const errorText = await response.text();
-        let errMessage = `Erreur CodeCraft API (${response.status})`;
+        let errDetail = errorText;
         try {
           const errJson = JSON.parse(errorText);
-          if (errJson.error?.message) errMessage = errJson.error.message;
-          else if (errJson.message) errMessage = errJson.message;
+          if (errJson.error?.message) errDetail = errJson.error.message;
+          else if (errJson.message) errDetail = errJson.message;
+          else if (errJson.error) errDetail = typeof errJson.error === 'string' ? errJson.error : JSON.stringify(errJson.error);
         } catch (_) {}
+
+        let errMessage = `Erreur CodeCraft API (${response.status})`;
+        if (response.status === 403) {
+          errMessage = `Accès refusé CodeCraft API (HTTP 403) : Clé API invalide, compte non autorisé ou quota épuisé sur CodeCraft. ${errDetail ? `Détails: ${errDetail}` : ''}`;
+        } else if (response.status === 401) {
+          errMessage = `Clé API CodeCraft non valide (HTTP 401). Veuillez vérifier votre clé sur codecraftapi.com. ${errDetail ? `Détails: ${errDetail}` : ''}`;
+        } else if (errDetail) {
+          errMessage = `Erreur CodeCraft API (${response.status}): ${errDetail}`;
+        }
 
         if (response.status === 404) {
           lastError = new Error(errMessage);
