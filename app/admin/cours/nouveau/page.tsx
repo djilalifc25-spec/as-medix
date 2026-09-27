@@ -109,16 +109,23 @@ function CourseEditorContent() {
         label: 'OpenRouter (Multi-Modèles)',
         badgeColor: 'bg-purple-500 text-white',
         models: [
-          { value: 'google/gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash' },
-          { value: 'google/gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro' },
-          { value: 'deepseek/deepseek-r1', label: '🔬 DeepSeek R1 (Raisonnement)' },
-          { value: 'deepseek/deepseek-chat', label: '🔬 DeepSeek V3 (Chat)' },
-          { value: 'anthropic/claude-3.7-sonnet', label: '🧠 Claude 3.7 Sonnet' },
-          { value: 'anthropic/claude-3.5-sonnet', label: '🧠 Claude 3.5 Sonnet' },
-          { value: 'openai/gpt-4o', label: '🌐 GPT-4o' },
-          { value: 'openai/gpt-4o-mini', label: '🚀 GPT-4o Mini' },
-          { value: 'openai/o3-mini', label: '🔬 o3-mini' },
-          { value: 'meta-llama/llama-3.3-70b-instruct', label: '🦙 Llama 3.3 70B' },
+          { value: 'google/gemini-2.5-flash', label: '⚡ Google Gemini 2.5 Flash (Recommandé)' },
+          { value: 'google/gemini-2.5-pro', label: '🧠 Google Gemini 2.5 Pro' },
+          { value: 'deepseek/deepseek-r1', label: '🔬 DeepSeek R1 (Raisonnement Pur)' },
+          { value: 'deepseek/deepseek-chat', label: '🔬 DeepSeek V3 (Chat Rapide)' },
+          { value: 'deepseek/deepseek-r1-distill-llama-70b', label: '🧠 DeepSeek R1 Distill Llama 70B' },
+          { value: 'anthropic/claude-3.7-sonnet', label: '🧠 Anthropic Claude 3.7 Sonnet (Hybride)' },
+          { value: 'anthropic/claude-3.5-sonnet', label: '🧠 Anthropic Claude 3.5 Sonnet' },
+          { value: 'anthropic/claude-3.5-haiku', label: '⚡ Anthropic Claude 3.5 Haiku' },
+          { value: 'openai/gpt-4o', label: '🌐 OpenAI GPT-4o' },
+          { value: 'openai/gpt-4o-mini', label: '🚀 OpenAI GPT-4o Mini' },
+          { value: 'openai/o3-mini', label: '🔬 OpenAI o3-mini' },
+          { value: 'openai/o1', label: '🧠 OpenAI o1' },
+          { value: 'meta-llama/llama-3.3-70b-instruct', label: '🦙 Meta Llama 3.3 70B' },
+          { value: 'meta-llama/llama-3.1-405b-instruct', label: '🦙 Meta Llama 3.1 405B' },
+          { value: 'qwen/qwen-2.5-72b-instruct', label: '🌐 Qwen 2.5 72B' },
+          { value: 'mistralai/mistral-large-2411', label: '🌊 Mistral Large 2' },
+          { value: 'perplexity/sonar-reasoning', label: '🔍 Perplexity Sonar Reasoning' },
         ]
       };
     } else if (cleanKey.startsWith('sk-ant-')) {
@@ -1689,10 +1696,24 @@ ${textContent.substring(0, 90000)}`;
                       onChange={e => setSelectedAiModel(e.target.value)}
                       className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                     >
-                      <option value="google/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
-                      <option value="anthropic/claude-3.5-haiku">🧠 Claude 3.5 Haiku (Haute Précision)</option>
-                      <option value="openai/gpt-4o-mini">🚀 GPT-4o Mini (OpenAI)</option>
-                      <option value="deepseek/deepseek-r1">🔬 DeepSeek R1 (Raisonnement)</option>
+                      <option value="google/gemini-2.5-flash">⚡ Google Gemini 2.5 Flash (Rapide & Économique - Recommandé)</option>
+                      <option value="google/gemini-2.5-pro">🧠 Google Gemini 2.5 Pro (Haute Précision & Raisonnement)</option>
+                      <option value="google/gemini-2.0-flash-001">🚀 Google Gemini 2.0 Flash</option>
+                      <option value="deepseek/deepseek-r1">🔬 DeepSeek R1 (Raisonnement Pur & Chaîne de pensée)</option>
+                      <option value="deepseek/deepseek-chat">🔬 DeepSeek V3 (Chat Rapide)</option>
+                      <option value="deepseek/deepseek-r1-distill-llama-70b">🧠 DeepSeek R1 Distill Llama 70B</option>
+                      <option value="anthropic/claude-3.7-sonnet">🧠 Anthropic Claude 3.7 Sonnet (Hybride)</option>
+                      <option value="anthropic/claude-3.5-sonnet">🧠 Anthropic Claude 3.5 Sonnet</option>
+                      <option value="anthropic/claude-3.5-haiku">⚡ Anthropic Claude 3.5 Haiku</option>
+                      <option value="openai/gpt-4o">🌐 OpenAI GPT-4o (Multimodal Phare)</option>
+                      <option value="openai/gpt-4o-mini">🚀 OpenAI GPT-4o Mini (Ultra Rapide)</option>
+                      <option value="openai/o3-mini">🔬 OpenAI o3-mini (Raisonnement Rapide)</option>
+                      <option value="openai/o1">🧠 OpenAI o1 (Raisonnement Complexe)</option>
+                      <option value="meta-llama/llama-3.3-70b-instruct">🦙 Meta Llama 3.3 70B</option>
+                      <option value="meta-llama/llama-3.1-405b-instruct">🦙 Meta Llama 3.1 405B (Geant Open-Source)</option>
+                      <option value="qwen/qwen-2.5-72b-instruct">🌐 Qwen 2.5 72B Instruct</option>
+                      <option value="mistralai/mistral-large-2411">🌊 Mistral Large 2</option>
+                      <option value="perplexity/sonar-reasoning">🔍 Perplexity Sonar Reasoning</option>
                     </select>
                   </div>
                 </>
