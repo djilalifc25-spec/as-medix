@@ -377,7 +377,7 @@ export async function callCodeCraftAPI(
 
         let errMessage = `Erreur CodeCraft API (${response.status})`;
         if (response.status === 403 || isHtmlError) {
-          errMessage = `[CLOUDFLARE_403] Protection Cloudflare active sur CodeCraft API (HTTP 403). ${errDetail}`;
+          errMessage = `⚠️ Le domaine CodeCraft (codecraftapi.com) est actuellement sous protection anti-robot Cloudflare (HTTP 403 Challenge). Le pare-feu de CodeCraft bloque les requêtes automatiques API. Veuillez utiliser votre clé gratuite Google AI Studio (Gemini) ou OpenRouter pour générer le cours sans aucune restriction.`;
         } else if (response.status === 401) {
           errMessage = `Clé API CodeCraft non valide (HTTP 401). Veuillez vérifier votre clé sur codecraftapi.com. ${errDetail ? `Détails: ${errDetail}` : ''}`;
         } else if (errDetail) {

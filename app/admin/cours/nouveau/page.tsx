@@ -289,7 +289,10 @@ ${textContent.substring(0, 90000)}`;
 
         if (!ccRes.ok) {
           const errBody = await ccRes.text();
-          throw new Error(`CodeCraft HTTP ${ccRes.status}: ${errBody.substring(0, 200)}`);
+          if (ccRes.status === 403 || errBody.toLowerCase().includes('just a moment') || errBody.toLowerCase().includes('cloudflare')) {
+            throw new Error(`⚠️ Le serveur CodeCraft (codecraftapi.com) est protégé par le pare-feu anti-robot Cloudflare (HTTP 403 Managed Challenge). Pour formater vos cours sans blocage, veuillez utiliser une clé gratuite Google AI Studio (Gemini 2.5) ou OpenRouter.`);
+          }
+          throw new Error(`CodeCraft API HTTP ${ccRes.status}: ${errBody.substring(0, 150)}`);
         }
 
         const data = await ccRes.json();
