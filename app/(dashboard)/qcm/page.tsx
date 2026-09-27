@@ -188,7 +188,14 @@ function QcmHubContent() {
       const matchSpec = q.specialtyId === selectedSpecId;
       const matchCourse = !courseIdToUse || q.courseId === courseIdToUse;
       const matchFac = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
-      const matchSrc = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => (q.source as string).toLowerCase().includes(s));
+      const matchSrc = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => {
+        const qSrcLower = (q.source as string || '').toLowerCase().trim();
+        const sLower = s.toLowerCase().trim();
+        if (sLower.includes(' - ')) {
+          return qSrcLower === sLower;
+        }
+        return qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
+      });
       return matchSpec && matchCourse && matchFac && matchSrc;
     }).length;
 

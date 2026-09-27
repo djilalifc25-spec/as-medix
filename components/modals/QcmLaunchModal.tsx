@@ -180,10 +180,16 @@ export function QcmLaunchModal({
     return allQcms.filter((q) => {
       const matchSpec = q.specialtyId === specialtyId;
       const matchCourse = !courseId || q.courseId === courseId;
-      const matchSrc =
-        !sourceName ||
-        sourceName === 'TOUS' ||
-        (q.source && q.source.toLowerCase().includes(sourceName.toLowerCase()));
+      let matchSrc = !sourceName || sourceName === 'TOUS';
+      if (!matchSrc && q.source) {
+        const qSrcLower = q.source.toLowerCase().trim();
+        const sLower = sourceName!.toLowerCase().trim();
+        if (sLower.includes(' - ')) {
+          matchSrc = qSrcLower === sLower;
+        } else {
+          matchSrc = qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
+        }
+      }
       return matchSpec && matchCourse && matchSrc;
     }).length;
   };
@@ -198,10 +204,16 @@ export function QcmLaunchModal({
     return allQcms.filter((q) => {
       const matchSpec = q.specialtyId === specialtyId;
       const matchCourse = !courseId || q.courseId === courseId;
-      const matchSrc =
-        !sourceName ||
-        sourceName === 'TOUS' ||
-        (q.source && q.source.toLowerCase().includes(sourceName.toLowerCase()));
+      let matchSrc = !sourceName || sourceName === 'TOUS';
+      if (!matchSrc && q.source) {
+        const qSrcLower = q.source.toLowerCase().trim();
+        const sLower = sourceName!.toLowerCase().trim();
+        if (sLower.includes(' - ')) {
+          matchSrc = qSrcLower === sLower;
+        } else {
+          matchSrc = qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
+        }
+      }
       return matchSpec && matchCourse && matchSrc && doneSet.has(q.id);
     }).length;
   };
@@ -267,11 +279,46 @@ export function QcmLaunchModal({
 
   if (!isOpen) return null;
 
-  // Build combined source list
-  const baseSources = ['Résidanat', 'Externat', 'Annales', 'FARES'];
-  const combinedSources = Array.from(
-    new Set([...baseSources, ...availableSources])
-  );
+  // Build combined source list including all dynamic QCM sources for specialty
+  const qcmSourcesForSpec = useMemo(() => {
+    const set = new Set<string>();
+    allQcms.forEach(q => {
+      if (q.specialtyId === specialtyId && q.source) {
+        set.add(q.source);
+      }
+    });
+    return Array.from(set);
+  }, [allQcms, specialtyId]);
+
+  const combinedSources = useMemo(() => {
+    const baseSources = ['Résidanat', 'Externat', 'Annales', 'FARES'];
+    return Array.from(new Set([...baseSources, ...availableSources, ...qcmSourcesForSpec]));
+  }, [availableSources, qcmSourcesForSpec]);
+
+  // Group sources into parent and sub-sources (epreuves)
+  const groupedSources = useMemo(() => {
+    const parentMap: Record<string, string[]> = {};
+    const parents: string[] = [];
+
+    combinedSources.forEach(s => {
+      if (s.includes(' - ')) {
+        const parts = s.split(' - ');
+        const parent = parts[0].trim();
+        if (!parentMap[parent]) {
+          parentMap[parent] = [];
+          if (!parents.includes(parent)) parents.push(parent);
+        }
+        if (!parentMap[parent].includes(s)) {
+          parentMap[parent].push(s);
+        }
+      } else {
+        if (!parents.includes(s)) parents.push(s);
+        if (!parentMap[s]) parentMap[s] = [];
+      }
+    });
+
+    return { parents, parentMap };
+  }, [combinedSources]);
 
   const handleCloseClick = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e && e.stopPropagation) {
@@ -642,50 +689,106 @@ export function QcmLaunchModal({
                   </span>
                 </button>
 
-                {/* Individual combined sources */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  {combinedSources.map((src) => {
-                    const qCount = countQcms(selectedCourseId, src);
-                    const doneCount = countDoneQcms(selectedCourseId, src);
-                    const isSelected = selectedSources.includes(src);
+                {/* Individual combined sources grouped by parent & epreuve */}
+                <div className="space-y-3 pt-1">
+                  {groupedSources.parents.map((parent) => {
+                    const subSources = groupedSources.parentMap[parent] || [];
+                    const parentQCount = countQcms(selectedCourseId, parent);
+                    const parentDoneCount = countDoneQcms(selectedCourseId, parent);
+                    const isParentSelected = selectedSources.includes(parent);
 
                     return (
-                      <button
-                        key={src}
-                        type="button"
-                        onClick={() => toggleSourceSelection(src)}
-                        className={`p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between gap-2.5 cursor-pointer ${
-                          isSelected
-                            ? 'bg-blue-600/30 border-blue-400 text-white shadow-sm'
-                            : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/70'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                          <div className={`w-4 h-4 rounded-md border flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                            isSelected ? 'bg-blue-500 border-blue-400 text-white' : 'border-white/30 bg-white/5'
-                          }`}>
-                            {isSelected && '✓'}
+                      <div key={parent} className="space-y-1.5 p-3 rounded-2xl bg-white/5 border border-white/10">
+                        {/* Parent Source Card */}
+                        <div
+                          onClick={() => toggleSourceSelection(parent)}
+                          className={`p-3 rounded-xl border transition-all text-left flex items-center justify-between gap-2.5 cursor-pointer ${
+                            isParentSelected
+                              ? 'bg-blue-600/30 border-blue-400 text-white shadow-sm'
+                              : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/80'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                            <div className={`w-4 h-4 rounded-md border flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                              isParentSelected ? 'bg-blue-500 border-blue-400 text-white' : 'border-white/30 bg-white/5'
+                            }`}>
+                              {isParentSelected && '✓'}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <span className="text-xs font-bold truncate block">{parent}</span>
+                              <span className="text-[10px] text-white/50">
+                                {parentQCount} QCMs {parentDoneCount > 0 ? `• ${parentDoneCount} fait` : ''}
+                              </span>
+                            </div>
                           </div>
-                          <div className="min-w-0 flex-1">
-                            <span className="text-xs font-bold truncate block">{src}</span>
-                            <span className="text-[10px] text-white/50">
-                              {qCount} QCMs {doneCount > 0 ? `• ${doneCount} fait` : ''}
-                            </span>
-                          </div>
+
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              launchFullscreen(parent);
+                            }}
+                            title={`Lancer l'ensemble de ${parent}`}
+                            className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70 hover:text-white shrink-0"
+                          >
+                            <Play className="w-3.5 h-3.5 fill-current" />
+                          </button>
                         </div>
 
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            launchFullscreen(src);
-                          }}
-                          title={`Lancer uniquement ${src}`}
-                          className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70 hover:text-white shrink-0"
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                        </button>
-                      </button>
+                        {/* Sub-sources / Isolated Epreuves */}
+                        {subSources.length > 0 && (
+                          <div className="pl-3 border-l-2 border-sky-500/30 space-y-1 pt-1">
+                            <div className="text-[10px] font-bold text-sky-300 uppercase tracking-wider mb-1">
+                              Épreuves & Sub-sources isolées :
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                              {subSources.map((subSrc) => {
+                                const subQCount = countQcms(selectedCourseId, subSrc);
+                                const subDoneCount = countDoneQcms(selectedCourseId, subSrc);
+                                const isSubSelected = selectedSources.includes(subSrc);
+                                const labelName = subSrc.includes(' - ') ? subSrc.split(' - ').slice(1).join(' - ') : subSrc;
+
+                                return (
+                                  <div
+                                    key={subSrc}
+                                    onClick={() => toggleSourceSelection(subSrc)}
+                                    className={`p-2.5 rounded-xl border transition-all text-left flex items-center justify-between gap-2 cursor-pointer ${
+                                      isSubSelected
+                                        ? 'bg-sky-600/30 border-sky-400 text-white shadow-xs'
+                                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/70'
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                                      <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center text-[9px] font-bold shrink-0 ${
+                                        isSubSelected ? 'bg-sky-500 border-sky-400 text-white' : 'border-white/30 bg-white/5'
+                                      }`}>
+                                        {isSubSelected && '✓'}
+                                      </div>
+                                      <div className="min-w-0 flex-1">
+                                        <span className="text-xs font-bold text-sky-200 truncate block" title={subSrc}>{labelName}</span>
+                                        <span className="text-[9px] text-white/50">{subQCount} QCMs</span>
+                                      </div>
+                                    </div>
+
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        launchFullscreen(subSrc);
+                                      }}
+                                      title={`Lancer l'épreuve isolée ${subSrc}`}
+                                      className="px-2 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/40 text-sky-300 text-[10px] font-bold flex items-center gap-1 shrink-0"
+                                    >
+                                      <Play className="w-2.5 h-2.5 fill-current" />
+                                      <span>Ouvrir</span>
+                                    </button>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>

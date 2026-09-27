@@ -14,6 +14,15 @@ import { ReminderModal } from '@/components/study/ReminderModal';
 import { CoursePreviewModal } from '@/components/qcm/CoursePreviewModal';
 import { StudyReminder } from '@/types';
 
+// Helper for strict grading
+function isAnswerCorrect(selected: number[], correctAnswers?: number[]) {
+  if (!Array.isArray(correctAnswers) || correctAnswers.length === 0) return false;
+  if (correctAnswers.length === 1 && selected.length > 1) {
+    return false;
+  }
+  return selected.length === correctAnswers.length && selected.every(a => correctAnswers.includes(a));
+}
+
 // ── Progress Bar ─────────────────────────────────────────────────────────────
 function ProgressBar({ current, total }: { current: number; total: number }) {
   const pct = total > 0 ? (current / total) * 100 : 0;
@@ -57,7 +66,7 @@ function QuestionNavigator({
     (qcms || []).forEach((q, i) => {
       const selected = userAnswersMap[i] || [];
       if (selected.length > 0) {
-        const isCorrect = q && Array.isArray(q.correctAnswers) && selected.length === q.correctAnswers.length && selected.every((a: number) => q.correctAnswers.includes(a));
+        const isCorrect = q && isAnswerCorrect(selected, q.correctAnswers);
         if (isCorrect) correctCount++;
         else incorrectCount++;
       }
@@ -111,7 +120,7 @@ function QuestionNavigator({
           if (i === current) {
             cls = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 shadow-md';
           } else if (isResultsRevealed && isAnswered) {
-            const isCorrect = q && Array.isArray(q.correctAnswers) && selected.length === q.correctAnswers.length && selected.every((a: number) => q.correctAnswers.includes(a));
+            const isCorrect = q && isAnswerCorrect(selected, q.correctAnswers);
             cls = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
           } else if (isAnswered) {
             cls = 'bg-indigo-600 text-indigo-100 font-bold border border-indigo-400/40';
@@ -317,7 +326,14 @@ function SessionContent() {
       const matchCourse = !course || qCourse.toLowerCase() === course.toLowerCase() || qCourseTitle.toLowerCase() === course.toLowerCase();
       
       const matchFaculty = faculty === 'TOUS' || !q.faculty || (q.faculty as string) === 'TOUS' || (q.faculty as string) === faculty;
-      const matchSource = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => (q.source as string).toLowerCase().includes(s));
+      const matchSource = selectedSourcesList.length === 0 || !q.source || selectedSourcesList.some(s => {
+        const qSrcLower = (q.source as string || '').toLowerCase().trim();
+        const sLower = s.toLowerCase().trim();
+        if (sLower.includes(' - ')) {
+          return qSrcLower === sLower;
+        }
+        return qSrcLower === sLower || qSrcLower.startsWith(sLower + ' - ') || qSrcLower.includes(sLower);
+      });
       return matchSpec && matchCourse && matchFaculty && matchSource;
     });
   }, [allQcms, specialty, course, faculty, source, qcmId, remindersOnly, userReminders]);
@@ -334,34 +350,28 @@ function SessionContent() {
   const isCurrentFlagged = flaggedQuestionsMap[currentIndex] || false;
   const isCurrentValidatedImmediate = validatedImmediateMap[currentIndex] || false;
 
-  // Calculate global score
+  // Calculate global score using strict QCS / QCM rules
   const finalScore = useMemo(() => {
     let scoreAcc = 0;
     sessionQcms.forEach((q, idx) => {
       if (!q || !Array.isArray(q.correctAnswers)) return;
       const selected = userAnswersMap[idx] || [];
-      if (selected.length === q.correctAnswers.length && selected.every(a => q.correctAnswers.includes(a))) {
+      if (isAnswerCorrect(selected, q.correctAnswers)) {
         scoreAcc += 1;
       }
     });
     return scoreAcc;
   }, [sessionQcms, userAnswersMap]);
 
-  // Toggle option selection (memorized grid)
+  // Toggle option selection (Multi-select checkbox for ALL questions, never forcing single selection in UI)
   const toggleOption = (optIdx: number) => {
     if (isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
 
     setUserAnswersMap(prev => {
       const currentArr = prev[currentIndex] || [];
-      let updatedArr: number[];
-
-      if (qcm?.type === 'SINGLE') {
-        updatedArr = currentArr.includes(optIdx) ? [] : [optIdx];
-      } else {
-        updatedArr = currentArr.includes(optIdx)
-          ? currentArr.filter(i => i !== optIdx)
-          : [...currentArr, optIdx];
-      }
+      const updatedArr = currentArr.includes(optIdx)
+        ? currentArr.filter(i => i !== optIdx)
+        : [...currentArr, optIdx];
       return { ...prev, [currentIndex]: updatedArr };
     });
   };
@@ -415,10 +425,7 @@ function SessionContent() {
 
     setValidatedImmediateMap(prev => ({ ...prev, [currentIndex]: true }));
 
-    const isCorrect =
-      Array.isArray(qcm.correctAnswers) &&
-      currentSelectedOptions.length === qcm.correctAnswers.length &&
-      currentSelectedOptions.every(a => qcm.correctAnswers.includes(a));
+    const isCorrect = isAnswerCorrect(currentSelectedOptions, qcm.correctAnswers);
 
     if (isCorrect) {
       confetti({ particleCount: 30, spread: 40, origin: { y: 0.7 }, ticks: 50 });
@@ -632,7 +639,7 @@ function SessionContent() {
               if (idx === currentIndex) {
                 pillStyle = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 scale-105 shadow-sm';
               } else if (isResultsRevealed && isAnswered) {
-                const isCorrect = selected.length === q.correctAnswers.length && selected.every(a => q.correctAnswers.includes(a));
+                const isCorrect = isAnswerCorrect(selected, q.correctAnswers);
                 pillStyle = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
               } else if (isAnswered) {
                 pillStyle = 'bg-indigo-600 text-indigo-100 font-bold border border-indigo-400/40';
@@ -678,7 +685,7 @@ function SessionContent() {
           <div className="flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/30 uppercase tracking-wider">
-                {qcm?.type === 'MULTIPLE' ? 'Choix Multiple' : 'Choix Simple'}
+                Question d'Épreuve
               </span>
               {(qcm?.faculty as string) === 'ORAN' && (
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">Oran</span>
