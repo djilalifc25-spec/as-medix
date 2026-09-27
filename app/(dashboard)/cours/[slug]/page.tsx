@@ -20,6 +20,7 @@ import { useToast } from '@/components/context/ToastContext';
 import { useSpecialtyTheme } from '@/components/context/SpecialtyThemeContext';
 import { TextHighlighter } from '@/components/study/TextHighlighter';
 import { HighlightNoteModal } from '@/components/study/HighlightNoteModal';
+import { TocModal } from '@/components/study/TocModal';
 import { SpacedRepetitionModal } from '@/components/study/SpacedRepetitionModal';
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CourseNotesDrawer } from '@/components/study/CourseNotesDrawer';
@@ -242,6 +243,7 @@ function CourseDetailContent() {
 
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [showTocMobile, setShowTocMobile] = useState(false);
+  const [isTocModalOpen, setIsTocModalOpen] = useState(false);
 
   // Memorization states
   const [activeRecall, setActiveRecall] = useState<boolean>(false);
@@ -463,6 +465,23 @@ function CourseDetailContent() {
 
             {/* Controls */}
             <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              {/* Sommaire Modal Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsTocModalOpen(true);
+                }}
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-700 hover:to-brand-700 text-white text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer shrink-0"
+                title="Ouvrir le Sommaire Interactif du Cours"
+              >
+                <List className="w-3.5 h-3.5" />
+                <span>Sommaire</span>
+                {activeToc.length > 0 && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-mono">{activeToc.length}</span>
+                )}
+              </button>
+
               {/* Spaced Repetition / Epingler button */}
               <button
                 type="button"
@@ -817,6 +836,23 @@ function CourseDetailContent() {
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Sommaire Modal Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsTocModalOpen(true);
+              }}
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-brand-600 hover:from-indigo-700 hover:to-brand-700 text-white text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer shrink-0"
+              title="Ouvrir le Sommaire Interactif du Cours"
+            >
+              <List className="w-3.5 h-3.5" />
+              <span>Sommaire</span>
+              {activeToc.length > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-mono">{activeToc.length}</span>
+              )}
+            </button>
+
             {/* Fullscreen Mode Button - PROMINENT, STICKY & ALWAYS VISIBLE ON MOBILE WITHOUT SCROLLING */}
             <button
               type="button"
@@ -1332,6 +1368,16 @@ function CourseDetailContent() {
         onClose={() => setIsHighlightModalOpen(false)}
         onUpdateNote={(id, updates) => updateHighlight(id, updates)}
         onDeleteHighlight={(id) => removeHighlight(id)}
+      />
+
+      {/* Interactive Sommaire Modal Popup */}
+      <TocModal
+        isOpen={isTocModalOpen}
+        onClose={() => setIsTocModalOpen(false)}
+        toc={activeToc}
+        activeSection={activeSection}
+        onSelectSection={(id) => scrollToSection(id)}
+        courseTitle={course.title}
       />
     </>
   );
