@@ -3,7 +3,7 @@
  * Supports both Google AI Studio (Gemini API) and OpenRouter API
  */
 
-export type AIProviderType = 'google_ai_studio' | 'openrouter';
+export type AIProviderType = 'google_ai_studio' | 'openrouter' | 'openai' | 'anthropic' | 'deepseek';
 
 export interface AIProviderConfig {
   provider?: AIProviderType;
@@ -147,7 +147,174 @@ export async function callOpenRouterAPI(
 }
 
 /**
- * Unified AI API Call (Google AI Studio OR OpenRouter)
+ * Call OpenAI API
+ */
+export async function callOpenAIAPI(
+  messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+  config: AIProviderConfig = {},
+  jsonMode: boolean = false
+): Promise<string> {
+  const apiKey = config.apiKey || process.env.OPENAI_API_KEY || '';
+  if (!apiKey) {
+    throw new Error('Clé API OpenAI manquante. Veuillez saisir votre clé API OpenAI.');
+  }
+
+  const model = config.model || 'gpt-4o';
+  const payload: any = {
+    model,
+    messages,
+    temperature: 0.2,
+  };
+
+  if (jsonMode) {
+    payload.response_format = { type: 'json_object' };
+  }
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey.trim()}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let errMessage = `Erreur OpenAI API (${response.status})`;
+    try {
+      const errJson = JSON.parse(errorText);
+      if (errJson.error?.message) errMessage = errJson.error.message;
+    } catch (_) {}
+    throw new Error(errMessage);
+  }
+
+  const data = await response.json();
+  const reply = data.choices?.[0]?.message?.content;
+
+  if (!reply) {
+    throw new Error('Aucune réponse générée par l\'IA OpenAI.');
+  }
+
+  return reply;
+}
+
+/**
+ * Call DeepSeek API
+ */
+export async function callDeepSeekAPI(
+  messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+  config: AIProviderConfig = {},
+  jsonMode: boolean = false
+): Promise<string> {
+  const apiKey = config.apiKey || process.env.DEEPSEEK_API_KEY || '';
+  if (!apiKey) {
+    throw new Error('Clé API DeepSeek manquante. Veuillez saisir votre clé API DeepSeek.');
+  }
+
+  const model = config.model || 'deepseek-chat';
+  const payload: any = {
+    model,
+    messages,
+    temperature: 0.2,
+  };
+
+  if (jsonMode) {
+    payload.response_format = { type: 'json_object' };
+  }
+
+  const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey.trim()}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let errMessage = `Erreur DeepSeek API (${response.status})`;
+    try {
+      const errJson = JSON.parse(errorText);
+      if (errJson.error?.message) errMessage = errJson.error.message;
+    } catch (_) {}
+    throw new Error(errMessage);
+  }
+
+  const data = await response.json();
+  const reply = data.choices?.[0]?.message?.content;
+
+  if (!reply) {
+    throw new Error('Aucune réponse générée par l\'IA DeepSeek.');
+  }
+
+  return reply;
+}
+
+/**
+ * Call Anthropic API
+ */
+export async function callAnthropicAPI(
+  messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
+  config: AIProviderConfig = {},
+  jsonMode: boolean = false
+): Promise<string> {
+  const apiKey = config.apiKey || process.env.ANTHROPIC_API_KEY || '';
+  if (!apiKey) {
+    throw new Error('Clé API Anthropic manquante. Veuillez saisir votre clé API Anthropic.');
+  }
+
+  const model = config.model || 'claude-3-5-sonnet-20241022';
+  const systemInstruction = messages.find(m => m.role === 'system')?.content || '';
+  const userMessages = messages.filter(m => m.role !== 'system').map(m => ({
+    role: m.role === 'assistant' ? 'assistant' : 'user',
+    content: m.content
+  }));
+
+  const payload: any = {
+    model,
+    max_tokens: 8192,
+    messages: userMessages,
+    temperature: 0.2,
+  };
+
+  if (systemInstruction) {
+    payload.system = systemInstruction;
+  }
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey.trim(),
+      'anthropic-version': '2023-06-01',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    let errMessage = `Erreur Anthropic API (${response.status})`;
+    try {
+      const errJson = JSON.parse(errorText);
+      if (errJson.error?.message) errMessage = errJson.error.message;
+    } catch (_) {}
+    throw new Error(errMessage);
+  }
+
+  const data = await response.json();
+  const reply = data.content?.[0]?.text;
+
+  if (!reply) {
+    throw new Error('Aucune réponse générée par l\'IA Anthropic.');
+  }
+
+  return reply;
+}
+
+/**
+ * Unified AI API Call
  */
 export async function callUnifiedAI(
   messages: { role: 'system' | 'user' | 'assistant'; content: string }[],
@@ -158,6 +325,14 @@ export async function callUnifiedAI(
 
   if (provider === 'google_ai_studio') {
     return callGoogleAIStudio(messages, config, jsonMode);
+  } else if (provider === 'openrouter') {
+    return callOpenRouterAPI(messages, config, jsonMode);
+  } else if (provider === 'openai') {
+    return callOpenAIAPI(messages, config, jsonMode);
+  } else if (provider === 'deepseek') {
+    return callDeepSeekAPI(messages, config, jsonMode);
+  } else if (provider === 'anthropic') {
+    return callAnthropicAPI(messages, config, jsonMode);
   } else {
     return callOpenRouterAPI(messages, config, jsonMode);
   }

@@ -53,9 +53,9 @@ function CourseEditorContent() {
   const coverFileInputRef = useRef<HTMLInputElement>(null);
   const contentFileInputRef = useRef<HTMLInputElement>(null);
 
-  // AI Assistant Modal State (Google AI Studio & OpenRouter)
+  // AI Assistant Modal State (Google AI Studio, OpenRouter & Direct API Auto-detect)
   const [aiModalOpen, setAiModalOpen] = useState(false);
-  const [aiProvider, setAiProvider] = useState<'google_ai_studio' | 'openrouter'>('google_ai_studio');
+  const [aiProvider, setAiProvider] = useState<'google_ai_studio' | 'openrouter' | 'direct_api'>('google_ai_studio');
   const [googleAiKey, setGoogleAiKey] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('asmedix_google_ai_key') || '';
@@ -68,12 +68,93 @@ function CourseEditorContent() {
     }
     return '';
   });
+  const [directApiKey, setDirectApiKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('asmedix_direct_api_key') || '';
+    }
+    return '';
+  });
   const [selectedAiModel, setSelectedAiModel] = useState('gemini-2.5-flash');
   const [aiInputType, setAiInputType] = useState<'text' | 'pdfUrl'>('text');
   const [aiPdfUrl, setAiPdfUrl] = useState('');
   const [aiRawInput, setAiRawInput] = useState('');
   const [aiProcessing, setAiProcessing] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+
+  const detectApiProvider = (key: string) => {
+    const cleanKey = key.trim();
+    if (cleanKey.startsWith('AIzaSy')) {
+      return {
+        provider: 'google_ai_studio' as const,
+        label: 'Google AI Studio (Gemini)',
+        badgeColor: 'bg-emerald-500 text-white',
+        models: [
+          { value: 'gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)' },
+          { value: 'gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro (Raisonnement Élevé)' },
+          { value: 'gemini-2.0-flash', label: '🚀 Gemini 2.0 Flash' },
+          { value: 'gemini-1.5-pro', label: '📄 Gemini 1.5 Pro' },
+        ]
+      };
+    } else if (cleanKey.startsWith('sk-or-v1-')) {
+      return {
+        provider: 'openrouter' as const,
+        label: 'OpenRouter (Multi-Modèles)',
+        badgeColor: 'bg-purple-500 text-white',
+        models: [
+          { value: 'google/gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash' },
+          { value: 'deepseek/deepseek-chat', label: '🔬 DeepSeek V3' },
+          { value: 'anthropic/claude-3.5-sonnet', label: '🧠 Claude 3.5 Sonnet' },
+          { value: 'openai/gpt-4o', label: '🌐 GPT-4o' },
+          { value: 'meta-llama/llama-3.3-70b-instruct', label: '🦙 Llama 3.3 70B' },
+        ]
+      };
+    } else if (cleanKey.startsWith('sk-ant-')) {
+      return {
+        provider: 'anthropic' as const,
+        label: 'Anthropic Claude Direct',
+        badgeColor: 'bg-amber-600 text-white',
+        models: [
+          { value: 'claude-3-5-sonnet-20241022', label: '🧠 Claude 3.5 Sonnet' },
+          { value: 'claude-3-5-haiku-20241022', label: '⚡ Claude 3.5 Haiku' },
+          { value: 'claude-3-opus-20240229', label: '🔬 Claude 3 Opus' },
+        ]
+      };
+    } else if (cleanKey.startsWith('sk-dsk-')) {
+      return {
+        provider: 'deepseek' as const,
+        label: 'DeepSeek Direct API',
+        badgeColor: 'bg-blue-600 text-white',
+        models: [
+          { value: 'deepseek-chat', label: '🔬 DeepSeek V3 / Chat' },
+          { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1 (Reasoner)' },
+        ]
+      };
+    } else if (cleanKey.startsWith('sk-proj-') || cleanKey.startsWith('sk-')) {
+      return {
+        provider: 'openai' as const,
+        label: 'OpenAI ChatGPT Direct',
+        badgeColor: 'bg-teal-600 text-white',
+        models: [
+          { value: 'gpt-4o', label: '🌐 GPT-4o (Modèle Phare)' },
+          { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini (Rapide)' },
+          { value: 'gpt-4-turbo', label: '🧠 GPT-4 Turbo' },
+          { value: 'o3-mini', label: '🔬 o3-mini (Raisonnement)' },
+        ]
+      };
+    }
+
+    return {
+      provider: 'openai' as const,
+      label: 'Clé Directe (Format OpenAI)',
+      badgeColor: 'bg-navy-600 text-white',
+      models: [
+        { value: 'gpt-4o', label: '🌐 GPT-4o' },
+        { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini' },
+        { value: 'deepseek-chat', label: '🔬 DeepSeek Chat' },
+        { value: 'gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash' },
+      ]
+    };
+  };
 
   const handleOpenAiModal = () => {
     if (!aiRawInput.trim()) {
@@ -95,17 +176,35 @@ function CourseEditorContent() {
     setAiProcessing(true);
     setAiError(null);
 
-    const activeApiKey = aiProvider === 'google_ai_studio' ? googleAiKey.trim() : openRouterKey.trim();
+    let activeApiKey = '';
+    let effectiveProvider: string = aiProvider;
+
+    if (aiProvider === 'google_ai_studio') {
+      activeApiKey = googleAiKey.trim();
+    } else if (aiProvider === 'openrouter') {
+      activeApiKey = openRouterKey.trim();
+    } else {
+      activeApiKey = directApiKey.trim();
+      const detected = detectApiProvider(activeApiKey);
+      effectiveProvider = detected.provider;
+    }
+
+    if (!activeApiKey) {
+      setAiError('Veuillez saisir une clé API valide.');
+      setAiProcessing(false);
+      return;
+    }
 
     if (typeof window !== 'undefined') {
       if (googleAiKey.trim()) localStorage.setItem('asmedix_google_ai_key', googleAiKey.trim());
       if (openRouterKey.trim()) localStorage.setItem('asmedix_openrouter_key', openRouterKey.trim());
+      if (directApiKey.trim()) localStorage.setItem('asmedix_direct_api_key', directApiKey.trim());
     }
 
     try {
       const spec = specialtiesList.find(s => s.id === specialtyId);
       const payload: any = {
-        provider: aiProvider,
+        provider: effectiveProvider,
         apiKey: activeApiKey,
         model: selectedAiModel,
         specialty: spec?.name || 'Médecine',
@@ -142,8 +241,8 @@ function CourseEditorContent() {
       if (resObj.description) setDescription(resObj.description);
       if (resObj.htmlContent) setHtmlContent(resObj.htmlContent);
 
-      const providerLabel = aiProvider === 'google_ai_studio' ? 'Google AI Studio (Gemini)' : 'OpenRouter';
-      setSuccessNotice(`🚀 Cours intégralement structuré et formaté au design AS-MEDIX par l'IA ${providerLabel} ! (Titre, sous-titre, description et HTML générés)`);
+      const providerLabel = effectiveProvider.toUpperCase();
+      setSuccessNotice(`🚀 Cours intégralement structuré et formaté au design AS-MEDIX par l'IA (${providerLabel}) ! (Titre, sous-titre, description et HTML générés)`);
       setAiModalOpen(false);
     } catch (err: any) {
       setAiError(err.message || 'Erreur d\'exécution de l\'Assistant IA');
@@ -1216,14 +1315,14 @@ function CourseEditorContent() {
               <label className="block text-xs font-bold text-navy-700 dark:text-navy-300">
                 Fournisseur IA (Choix du Moteur) :
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button
                   type="button"
                   onClick={() => {
                     setAiProvider('google_ai_studio');
                     setSelectedAiModel('gemini-2.5-flash');
                   }}
-                  className={`p-3.5 rounded-2xl border-2 text-left transition-all flex items-start gap-3 cursor-pointer ${
+                  className={`p-3 rounded-2xl border-2 text-left transition-all flex items-start gap-2.5 cursor-pointer ${
                     aiProvider === 'google_ai_studio'
                       ? 'border-brand-600 bg-brand-50/70 dark:bg-brand-950/40 text-brand-950 dark:text-white shadow-sm'
                       : 'border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800/60 text-navy-600 dark:text-navy-400 hover:border-navy-300'
@@ -1233,12 +1332,12 @@ function CourseEditorContent() {
                     ✨
                   </div>
                   <div>
-                    <div className="text-xs font-black flex items-center gap-1.5">
-                      <span>Google AI Studio</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500 text-white font-bold">Gratuit & Rapide</span>
+                    <div className="text-xs font-black flex items-center gap-1">
+                      <span>Google AI</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500 text-white font-bold">Gratuit</span>
                     </div>
-                    <p className="text-[11px] text-navy-500 dark:text-navy-400 mt-0.5">
-                      Gemini 2.5 Flash / Pro. Clé API gratuite Google AI Studio.
+                    <p className="text-[10px] text-navy-500 dark:text-navy-400 mt-0.5">
+                      Gemini 2.5 Flash / Pro.
                     </p>
                   </div>
                 </button>
@@ -1249,7 +1348,7 @@ function CourseEditorContent() {
                     setAiProvider('openrouter');
                     setSelectedAiModel('google/gemini-2.5-flash');
                   }}
-                  className={`p-3.5 rounded-2xl border-2 text-left transition-all flex items-start gap-3 cursor-pointer ${
+                  className={`p-3 rounded-2xl border-2 text-left transition-all flex items-start gap-2.5 cursor-pointer ${
                     aiProvider === 'openrouter'
                       ? 'border-purple-600 bg-purple-50/70 dark:bg-purple-950/40 text-purple-950 dark:text-white shadow-sm'
                       : 'border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800/60 text-navy-600 dark:text-navy-400 hover:border-navy-300'
@@ -1259,12 +1358,41 @@ function CourseEditorContent() {
                     🌐
                   </div>
                   <div>
-                    <div className="text-xs font-black flex items-center gap-1.5">
-                      <span>OpenRouter API</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500 text-white font-bold">Multi-Modèles</span>
+                    <div className="text-xs font-black flex items-center gap-1">
+                      <span>OpenRouter</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500 text-white font-bold">Hub</span>
                     </div>
-                    <p className="text-[11px] text-navy-500 dark:text-navy-400 mt-0.5">
-                      Gemini, Claude 3.5, GPT-4o, DeepSeek R1 via OpenRouter.
+                    <p className="text-[10px] text-navy-500 dark:text-navy-400 mt-0.5">
+                      Gemini, Claude, GPT, DeepSeek.
+                    </p>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAiProvider('direct_api');
+                    const detected = detectApiProvider(directApiKey);
+                    if (detected.models.length > 0) {
+                      setSelectedAiModel(detected.models[0].value);
+                    }
+                  }}
+                  className={`p-3 rounded-2xl border-2 text-left transition-all flex items-start gap-2.5 cursor-pointer ${
+                    aiProvider === 'direct_api'
+                      ? 'border-teal-600 bg-teal-50/70 dark:bg-teal-950/40 text-teal-950 dark:text-white shadow-sm'
+                      : 'border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800/60 text-navy-600 dark:text-navy-400 hover:border-navy-300'
+                  }`}
+                >
+                  <div className="w-7 h-7 rounded-xl bg-teal-500/20 text-teal-600 dark:text-teal-300 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                    ⚡
+                  </div>
+                  <div>
+                    <div className="text-xs font-black flex items-center gap-1">
+                      <span>Clé API Directe</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-teal-600 text-white font-bold">Auto</span>
+                    </div>
+                    <p className="text-[10px] text-navy-500 dark:text-navy-400 mt-0.5">
+                      Détection OpenAI, Claude, DeepSeek...
                     </p>
                   </div>
                 </button>
@@ -1273,7 +1401,7 @@ function CourseEditorContent() {
 
             {/* Provider Configuration (Key & Model) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-navy-50/70 dark:bg-navy-950/50 border border-navy-100 dark:border-navy-800">
-              {aiProvider === 'google_ai_studio' ? (
+              {aiProvider === 'google_ai_studio' && (
                 <>
                   <div>
                     <div className="flex items-center justify-between mb-1">
@@ -1317,7 +1445,9 @@ function CourseEditorContent() {
                     </select>
                   </div>
                 </>
-              ) : (
+              )}
+
+              {aiProvider === 'openrouter' && (
                 <>
                   <div>
                     <div className="flex items-center justify-between mb-1">
@@ -1363,6 +1493,58 @@ function CourseEditorContent() {
                   </div>
                 </>
               )}
+
+              {aiProvider === 'direct_api' && (() => {
+                const detected = detectApiProvider(directApiKey);
+                return (
+                  <>
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 flex items-center gap-1">
+                          <Key className="w-3.5 h-3.5 text-teal-500" />
+                          <span>Clé API Directe</span>
+                        </label>
+                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold ${detected.badgeColor}`}>
+                          {detected.label}
+                        </span>
+                      </div>
+                      <input
+                        type="password"
+                        value={directApiKey}
+                        onChange={e => {
+                          const val = e.target.value;
+                          setDirectApiKey(val);
+                          const det = detectApiProvider(val);
+                          if (det.models.length > 0 && !det.models.some(m => m.value === selectedAiModel)) {
+                            setSelectedAiModel(det.models[0].value);
+                          }
+                        }}
+                        placeholder="Collez votre clé (sk-..., AIzaSy..., sk-or-v1-..., sk-ant-..., sk-dsk-...)"
+                        className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      />
+                      <p className="text-[10px] text-navy-400 mt-1">
+                        Plateforme auto-détectée par le préfixe de votre clé API.
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1 flex items-center gap-1">
+                        <Cpu className="w-3.5 h-3.5 text-teal-500" />
+                        <span>Modèles Détectés ({detected.models.length})</span>
+                      </label>
+                      <select
+                        value={selectedAiModel}
+                        onChange={e => setSelectedAiModel(e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      >
+                        {detected.models.map(m => (
+                          <option key={m.value} value={m.value}>{m.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                );
+              })()}
             </div>
 
             {/* Content Input Mode Selector (Text vs PDF Link) */}
