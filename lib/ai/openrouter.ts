@@ -246,33 +246,52 @@ export async function callDeepSeekAPI(
     payload.response_format = { type: 'json_object' };
   }
 
-  const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey.trim()}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
+  const endpoints = [
+    'https://api.deepseek.com/chat/completions',
+    'https://api.deepseek.com/v1/chat/completions'
+  ];
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    let errMessage = `Erreur DeepSeek API (${response.status})`;
+  let lastErr: Error | null = null;
+  for (const endpoint of endpoints) {
     try {
-      const errJson = JSON.parse(errorText);
-      if (errJson.error?.message) errMessage = errJson.error.message;
-    } catch (_) {}
-    throw new Error(errMessage);
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey.trim()}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errMessage = `Erreur DeepSeek API (${response.status})`;
+        try {
+          const errJson = JSON.parse(errorText);
+          if (errJson.error?.message) errMessage = errJson.error.message;
+        } catch (_) {}
+        if (response.status === 404) {
+          lastErr = new Error(errMessage);
+          continue;
+        }
+        throw new Error(errMessage);
+      }
+
+      const data = await response.json();
+      const reply = data.choices?.[0]?.message?.content;
+
+      if (!reply) {
+        throw new Error('Aucune réponse générée par l\'IA DeepSeek.');
+      }
+
+      return reply;
+    } catch (e: any) {
+      if (!e.message?.includes('404')) throw e;
+      lastErr = e;
+    }
   }
 
-  const data = await response.json();
-  const reply = data.choices?.[0]?.message?.content;
-
-  if (!reply) {
-    throw new Error('Aucune réponse générée par l\'IA DeepSeek.');
-  }
-
-  return reply;
+  throw lastErr || new Error('Impossible de contacter l\'API DeepSeek.');
 }
 
 /**

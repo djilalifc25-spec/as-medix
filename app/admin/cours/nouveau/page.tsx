@@ -110,9 +110,14 @@ function CourseEditorContent() {
         badgeColor: 'bg-purple-500 text-white',
         models: [
           { value: 'google/gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash' },
-          { value: 'deepseek/deepseek-chat', label: '🔬 DeepSeek V3' },
+          { value: 'google/gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro' },
+          { value: 'deepseek/deepseek-r1', label: '🔬 DeepSeek R1 (Raisonnement)' },
+          { value: 'deepseek/deepseek-chat', label: '🔬 DeepSeek V3 (Chat)' },
+          { value: 'anthropic/claude-3.7-sonnet', label: '🧠 Claude 3.7 Sonnet' },
           { value: 'anthropic/claude-3.5-sonnet', label: '🧠 Claude 3.5 Sonnet' },
           { value: 'openai/gpt-4o', label: '🌐 GPT-4o' },
+          { value: 'openai/gpt-4o-mini', label: '🚀 GPT-4o Mini' },
+          { value: 'openai/o3-mini', label: '🔬 o3-mini' },
           { value: 'meta-llama/llama-3.3-70b-instruct', label: '🦙 Llama 3.3 70B' },
         ]
       };
@@ -122,8 +127,9 @@ function CourseEditorContent() {
         label: 'Anthropic Claude Direct',
         badgeColor: 'bg-amber-600 text-white',
         models: [
-          { value: 'claude-3-5-sonnet-20241022', label: '🧠 Claude 3.5 Sonnet' },
-          { value: 'claude-3-5-haiku-20241022', label: '⚡ Claude 3.5 Haiku' },
+          { value: 'claude-3-7-sonnet-20250219', label: '🧠 Claude 3.7 Sonnet (Hybride)' },
+          { value: 'claude-3-5-sonnet-20241022', label: '🧠 Claude 3.5 Sonnet (Haute Précision)' },
+          { value: 'claude-3-5-haiku-20241022', label: '⚡ Claude 3.5 Haiku (Ultra Rapide)' },
           { value: 'claude-3-opus-20240229', label: '🔬 Claude 3 Opus' },
         ]
       };
@@ -133,8 +139,9 @@ function CourseEditorContent() {
         label: 'DeepSeek Direct API',
         badgeColor: 'bg-blue-600 text-white',
         models: [
-          { value: 'deepseek-chat', label: '🔬 DeepSeek V3 / Chat' },
-          { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1 (Reasoner)' },
+          { value: 'deepseek-chat', label: '🔬 DeepSeek V3 (Chat / Rapide)' },
+          { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1 (Raisonnement Pur)' },
+          { value: 'deepseek-coder', label: '💻 DeepSeek Coder V2' },
         ]
       };
     } else if (cleanKey.startsWith('cc_') || cleanKey.startsWith('cc-') || cleanKey.toLowerCase().startsWith('codecraft') || cleanKey.startsWith('sk-cc')) {
@@ -155,23 +162,26 @@ function CourseEditorContent() {
         label: 'OpenAI ChatGPT Direct',
         badgeColor: 'bg-teal-600 text-white',
         models: [
-          { value: 'gpt-4o', label: '🌐 GPT-4o (Modèle Phare)' },
-          { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini (Rapide)' },
-          { value: 'gpt-4-turbo', label: '🧠 GPT-4 Turbo' },
+          { value: 'gpt-4o', label: '🌐 GPT-4o (Modèle Phare Multimodal)' },
+          { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini (Rapide & Économique)' },
           { value: 'o3-mini', label: '🔬 o3-mini (Raisonnement)' },
+          { value: 'o1', label: '🧠 o1 (Raisonnement Complexe)' },
+          { value: 'o1-mini', label: '⚡ o1-mini (Raisonnement Rapide)' },
+          { value: 'gpt-4-turbo', label: '📚 GPT-4 Turbo' },
         ]
       };
     }
 
     return {
       provider: 'codecraft' as const,
-      label: 'Clé Directe (CodeCraft / OpenAI)',
+      label: 'Clé Directe (CodeCraft / OpenAI / DeepSeek)',
       badgeColor: 'bg-indigo-600 text-white',
       models: [
+        { value: 'deepseek-chat', label: '🔬 DeepSeek V3' },
+        { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1' },
         { value: 'codecraft-pro', label: '🧠 CodeCraft Pro' },
         { value: 'gpt-4o', label: '🌐 GPT-4o' },
         { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini' },
-        { value: 'deepseek-chat', label: '🔬 DeepSeek Chat' },
       ]
     };
   };
@@ -198,7 +208,9 @@ function CourseEditorContent() {
           models: [
             { value: 'gpt-4o', label: '🌐 GPT-4o' },
             { value: 'gpt-4o-mini', label: '⚡ GPT-4o Mini' },
-            { value: 'gpt-4-turbo', label: '🧠 GPT-4 Turbo' },
+            { value: 'o3-mini', label: '🔬 o3-mini' },
+            { value: 'o1', label: '🧠 o1' },
+            { value: 'gpt-4-turbo', label: '📚 GPT-4 Turbo' },
           ]
         };
       } else if (manualDirectProvider === 'anthropic') {
@@ -207,8 +219,10 @@ function CourseEditorContent() {
           label: 'Anthropic Claude Direct',
           badgeColor: 'bg-amber-600 text-white',
           models: [
+            { value: 'claude-3-7-sonnet-20250219', label: '🧠 Claude 3.7 Sonnet' },
             { value: 'claude-3-5-sonnet-20241022', label: '🧠 Claude 3.5 Sonnet' },
             { value: 'claude-3-5-haiku-20241022', label: '⚡ Claude 3.5 Haiku' },
+            { value: 'claude-3-opus-20240229', label: '🔬 Claude 3 Opus' },
           ]
         };
       } else if (manualDirectProvider === 'deepseek') {
@@ -217,8 +231,9 @@ function CourseEditorContent() {
           label: 'DeepSeek Direct API',
           badgeColor: 'bg-blue-600 text-white',
           models: [
-            { value: 'deepseek-chat', label: '🔬 DeepSeek V3 / Chat' },
-            { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1' },
+            { value: 'deepseek-chat', label: '🔬 DeepSeek V3 (Chat / Rapide)' },
+            { value: 'deepseek-reasoner', label: '🧠 DeepSeek R1 (Raisonnement Pur)' },
+            { value: 'deepseek-coder', label: '💻 DeepSeek Coder V2' },
           ]
         };
       }
