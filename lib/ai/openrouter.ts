@@ -205,11 +205,9 @@ Au tout début de "htmlContent", commence OBLIGATOIREMENT par ce bloc HTML de na
 - Titres H2 colorés avec badges : <h2 class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION</span>...</h2>
 - Titres H3 stylisés : <h3 class="text-lg font-bold text-indigo-900 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>...</h3>
 
-3. SURLIGNAGE (HIGHLIGHTERS) & ÉLÉMENTS CLÉS :
-Mets en valeur les mots importants, critères diagnostics et posologies en utilisant la balise <mark> ou des surlignages colorés :
-- Surlignage ambré : <mark class="bg-amber-200/80 dark:bg-amber-950/80 text-amber-950 dark:text-amber-200 px-1.5 py-0.5 rounded font-bold">mot ou valeur clé</mark>
-- Surlignage vert : <mark class="bg-emerald-100 dark:bg-emerald-950/80 text-emerald-950 dark:text-emerald-200 px-1.5 py-0.5 rounded font-bold">traitement de choix</mark>
-- Surlignage rouge : <mark class="bg-rose-100 dark:bg-rose-950/80 text-rose-950 dark:text-rose-200 px-1.5 py-0.5 rounded font-bold">contre-indication absolue</mark>
+3. SURLIGNAGE ET MOTS-CLÉS :
+- N'ajoute PAS de balises <mark> ni de surlignage automatique de texte. L'utilisateur utilise son propre outil interactif de surlignage et de prise de notes.
+- Garde une typographie épurée, élégante, ultra-lisible de style livre de médecine d'excellence.
 
 4. ENCADRÉS VISUELS COLORÉS (CALLOUTS LIVRE MÉDICAL) :
 - 📌 Rappel : <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs">📌 <strong>Rappel Physiopathologique :</strong> ...</div>

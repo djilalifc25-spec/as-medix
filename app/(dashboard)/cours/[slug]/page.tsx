@@ -18,9 +18,11 @@ import { useFaculty } from '@/components/context/FacultyContext';
 import { useToast } from '@/components/context/ToastContext';
 import { useSpecialtyTheme } from '@/components/context/SpecialtyThemeContext';
 import { TextHighlighter } from '@/components/study/TextHighlighter';
+import { HighlightNoteModal } from '@/components/study/HighlightNoteModal';
 import { SpacedRepetitionModal } from '@/components/study/SpacedRepetitionModal';
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CourseNotesDrawer } from '@/components/study/CourseNotesDrawer';
+import { SavedHighlight } from '@/lib/hooks/useMemorization';
 
 function normalizeSlug(str: string): string {
   if (!str) return '';
@@ -102,6 +104,37 @@ function matchesCourse(c: Course | any, slugOrId: string): boolean {
   return false;
 }
 
+function applyUserHighlightsToHtml(html: string, courseHighlights: SavedHighlight[]): string {
+  if (!html) return '';
+  let cleaned = html.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
+  if (!courseHighlights || courseHighlights.length === 0) return cleaned;
+
+  const sorted = [...courseHighlights].sort((a, b) => b.selectedText.length - a.selectedText.length);
+
+  sorted.forEach(h => {
+    if (!h.selectedText || h.selectedText.trim().length < 2) return;
+    const escaped = h.selectedText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const colorClass = {
+      yellow: 'bg-amber-200/90 text-amber-950 dark:bg-amber-950/90 dark:text-amber-100 border border-amber-300 dark:border-amber-700',
+      green: 'bg-emerald-200/90 text-emerald-950 dark:bg-emerald-950/90 dark:text-emerald-100 border border-emerald-300 dark:border-emerald-700',
+      pink: 'bg-rose-200/90 text-rose-950 dark:bg-rose-950/90 dark:text-rose-100 border border-rose-300 dark:border-rose-700',
+      blue: 'bg-sky-200/90 text-sky-950 dark:bg-sky-950/90 dark:text-sky-100 border border-sky-300 dark:border-sky-700'
+    }[h.color || 'yellow'];
+
+    const noteIndicator = h.note ? ' 📝' : '';
+    const replacement = `<mark data-highlight-id="${h.id}" class="asmedix-user-hl ${colorClass} cursor-pointer rounded px-1.5 py-0.5 font-bold transition-all shadow-xs" title="${h.note ? 'Note: ' + h.note.replace(/"/g, '&quot;') : 'Surlignage personnel (Cliquer pour voir note)'}">$&${noteIndicator}</mark>`;
+
+    try {
+      const regex = new RegExp(`(?<!<[^>]*)${escaped}(?![^<]*>)`, 'gi');
+      cleaned = cleaned.replace(regex, replacement);
+    } catch (_) {
+      cleaned = cleaned.replace(h.selectedText, replacement);
+    }
+  });
+
+  return cleaned;
+}
+
 function CourseDetailContent() {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -159,7 +192,23 @@ function CourseDetailContent() {
     }
   }, [course?.specialtyId, setActiveSpecialtyId]);
 
-  const { addHighlight, scheduleReview, notes, saveNote } = useMemorization();
+  const { highlights, addHighlight, updateHighlight, removeHighlight, scheduleReview, notes, saveNote } = useMemorization(course?.slug);
+
+  const [selectedHighlight, setSelectedHighlight] = useState<SavedHighlight | null>(null);
+  const [isHighlightModalOpen, setIsHighlightModalOpen] = useState<boolean>(false);
+
+  const handleCourseContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const hlEl = target.closest('[data-highlight-id]') as HTMLElement | null;
+    if (hlEl) {
+      const id = hlEl.getAttribute('data-highlight-id');
+      const found = highlights.find(h => h.id === id);
+      if (found) {
+        setSelectedHighlight(found);
+        setIsHighlightModalOpen(true);
+      }
+    }
+  };
 
   const [fontSize, setFontSize] = useState<'sm' | 'base' | 'lg'>('base');
   const [activeSection, setActiveSection] = useState<string>('');
@@ -629,10 +678,10 @@ function CourseDetailContent() {
             </div>
 
             {/* HTML Content */}
-            <div className="apple-card p-4 sm:p-10 shadow-soft relative overflow-x-hidden">
+            <div className="apple-card p-4 sm:p-10 shadow-soft relative overflow-x-hidden" onClick={handleCourseContentClick}>
               <div
                 className={`prose dark:prose-invert max-w-none break-words ${fontSizeClass} ${activeRecall ? 'select-none blur-[0.6px]' : ''} [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:overflow-x-auto [&_table]:w-full [&_pre]:overflow-x-auto`}
-                dangerouslySetInnerHTML={{ __html: course.htmlContent }}
+                dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
               />
             </div>
 
@@ -1097,7 +1146,8 @@ function CourseDetailContent() {
             {/* HTML Render */}
             <div
               className={`prose dark:prose-invert max-w-none ${fontSizeClass}`}
-              dangerouslySetInnerHTML={{ __html: course.htmlContent }}
+              onClick={handleCourseContentClick}
+              dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
             />
 
             {/* Bottom QCM Challenge CTA */}
@@ -1204,6 +1254,15 @@ function CourseDetailContent() {
         title={course.title}
         initialNote={notes[course.slug]?.content || ''}
         onSaveNote={(content) => saveNote(course.slug, course.title, content)}
+      />
+
+      {/* Interactive Click-to-Read Highlight Note Modal */}
+      <HighlightNoteModal
+        highlight={selectedHighlight}
+        isOpen={isHighlightModalOpen}
+        onClose={() => setIsHighlightModalOpen(false)}
+        onUpdateNote={(id, updates) => updateHighlight(id, updates)}
+        onDeleteHighlight={(id) => removeHighlight(id)}
       />
     </>
   );
