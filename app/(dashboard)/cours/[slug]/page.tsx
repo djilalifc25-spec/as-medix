@@ -668,62 +668,7 @@ function CourseDetailContent() {
               </div>
             )}
 
-            {/* Memorization & Study Tricks Toolbar */}
-            <div className="p-3 sm:p-4 rounded-2xl bg-white dark:bg-navy-900 border border-navy-150 dark:border-navy-800 shadow-xs flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black uppercase tracking-wider text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
-                  <Brain className="w-4 h-4 text-brand-600" />
-                  <span className="hidden sm:inline">Outillage de Mémorisation :</span>
-                  <span className="sm:hidden">Outils :</span>
-                </span>
-              </div>
 
-              <div className="flex items-center flex-wrap gap-2">
-                {/* Active Recall Toggle */}
-                <button
-                  onClick={() => setActiveRecall(!activeRecall)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
-                    activeRecall
-                      ? 'bg-rose-600 text-white shadow-xs'
-                      : 'bg-navy-50 dark:bg-navy-800 text-navy-700 dark:text-navy-300 hover:bg-rose-50'
-                  }`}
-                  title="Masquer les mots-clés pour tester votre mémoire active"
-                >
-                  {activeRecall ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5 text-rose-500" />}
-                  <span>{activeRecall ? 'Cache-Cache (Actif)' : 'Mode Cache-Cache'}</span>
-                </button>
-
-                {/* Smart Reminder & Trap Button */}
-                <button
-                  onClick={() => setIsReminderModalOpen(true)}
-                  className="px-3 py-1.5 rounded-xl bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-100 transition-all"
-                  title="Programmer un rappel de révision ou marquer comme piège d'examen"
-                >
-                  <Bell className="w-3.5 h-3.5 text-amber-600" />
-                  <span>⏰ Rappel & Piège</span>
-                </button>
-
-                {/* Spaced Repetition Modal Button */}
-                <button
-                  onClick={() => setIsSpacedModalOpen(true)}
-                  className="px-3 py-1.5 rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200 dark:border-brand-800 text-xs font-bold flex items-center gap-1.5 hover:bg-brand-100 transition-all"
-                  title="Planifier la révision à J+1, J+3, J+7, J+30"
-                >
-                  <Bookmark className="w-3.5 h-3.5 text-brand-600" />
-                  <span>📌 Révision</span>
-                </button>
-
-                {/* Personal Notes Drawer Button */}
-                <button
-                  onClick={() => setIsNotesDrawerOpen(true)}
-                  className="px-3 py-1.5 rounded-xl bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-100 transition-all"
-                  title="Ajouter vos notes et astuces mnémotechniques"
-                >
-                  <Edit3 className="w-3.5 h-3.5 text-amber-600" />
-                  <span>📝 Notes</span>
-                </button>
-              </div>
-            </div>
 
             {/* Interactive Sommaire / TOC Quick Jump Box */}
             {activeToc.length > 0 && (
@@ -812,16 +757,7 @@ function CourseDetailContent() {
       {/* STANDARD IN-DASHBOARD COURSE VIEW */}
       {/* ========================================================================= */}
       <div className="space-y-4 sm:space-y-6 max-w-6xl mx-auto w-full">
-        {/* Floating Fullscreen Action Button on Mobile - NEVER requires scrolling or swiping */}
-        <button
-          type="button"
-          onClick={enterFullscreen}
-          className="sm:hidden fixed bottom-20 right-4 z-40 px-4 py-2.5 rounded-full bg-gradient-to-r from-brand-600 to-indigo-600 text-white text-xs font-black shadow-lg flex items-center gap-2 active:scale-95 transition-all border border-white/20 animate-fade-in cursor-pointer"
-          title="Ouvrir en plein écran"
-        >
-          <Maximize2 className="w-4 h-4" />
-          <span>Plein Écran</span>
-        </button>
+
 
         {/* Top bar controls - Sticky & zero-overflow */}
         <div className="sticky top-2 sm:top-4 z-30 bg-white/95 dark:bg-navy-900/95 backdrop-blur-xl py-2 px-3 sm:px-4 rounded-2xl border border-navy-200/80 dark:border-navy-700/80 shadow-md flex items-center justify-between gap-2 w-full mb-3">
@@ -1273,44 +1209,7 @@ function CourseDetailContent() {
         </div>
       </div>
 
-      {/* Floating Quick Action Pill for Mobile Readers */}
-      {!isFullscreen && (
-        <div 
-          className="sm:hidden fixed right-3.5 z-40 flex flex-col gap-2 items-end animate-in fade-in"
-          style={{
-            bottom: 'max(5.5rem, calc(env(safe-area-inset-bottom, 0px) + 5rem))',
-          }}
-        >
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsNotesDrawerOpen(true);
-            }}
-            className="h-10 px-3.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-black text-xs shadow-lg shadow-amber-500/30 flex items-center gap-1.5 active:scale-90 transition-all border border-amber-300 cursor-pointer"
-            title="Ouvrir mon carnet de notes"
-          >
-            <Edit3 className="w-3.5 h-3.5" />
-            <span>Notes</span>
-            {notes[course.slug]?.content && (
-              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            )}
-          </button>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsSpacedModalOpen(true);
-            }}
-            className="h-10 px-3.5 rounded-full bg-[#5D5FEF] hover:bg-[#4a4ce0] text-white font-black text-xs shadow-lg shadow-indigo-500/30 flex items-center gap-1.5 active:scale-90 transition-all border border-indigo-400 cursor-pointer"
-            title="Épingler pour révision espacée"
-          >
-            <Bookmark className="w-3.5 h-3.5" />
-            <span>Épingler</span>
-          </button>
-        </div>
-      )}
 
       {/* Floating Highlighting Selection Toolbar */}
       <TextHighlighter

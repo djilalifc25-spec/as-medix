@@ -185,23 +185,7 @@ Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
 
 EXIGENCES STYLE LIVRE & ATLAS MÉDICAL ("htmlContent") :
 
-1. TOOLBAR DE NAVIGATION RAPIDE EN HAUT DU COURS :
-Au tout début de "htmlContent", commence OBLIGATOIREMENT par ce bloc HTML de navigation rapide :
-<div class="quick-nav-bar p-3.5 mb-8 rounded-2xl bg-gradient-to-r from-navy-900 via-brand-950 to-navy-900 text-white border border-navy-700 shadow-md flex items-center justify-between flex-wrap gap-2 not-prose">
-  <div class="flex items-center gap-1.5 text-xs font-bold flex-wrap">
-    <span class="text-amber-400 mr-1 font-black">⚡ Accès Rapide :</span>
-    <button onclick="document.querySelector('.rappel')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 text-[11px] font-bold transition-all cursor-pointer">📌 Rappels</button>
-    <button onclick="document.querySelector('.note')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-500/40 text-[11px] font-bold transition-all cursor-pointer">💡 Perles</button>
-    <button onclick="document.querySelector('.piege')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 text-orange-200 border border-orange-500/40 text-[11px] font-bold transition-all cursor-pointer">⚠️ Pièges</button>
-    <button onclick="document.querySelector('.urgence')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/40 text-[11px] font-bold transition-all cursor-pointer">🚨 Urgences</button>
-    <button onclick="document.querySelector('.traitement')?.scrollIntoView({behavior:'smooth'})" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-500/40 text-[11px] font-bold transition-all cursor-pointer">💊 Traitement</button>
-  </div>
-  <button onclick="if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen()}" class="px-3 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-black shadow-xs transition-all flex items-center gap-1 cursor-pointer">
-    🖥️ Plein Écran
-  </button>
-</div>
-
-2. TITRES COLORÉS ET STYLISÉS STYLE LIVRE MÉDICAL :
+1. TITRES COLORÉS ET STYLISÉS STYLE LIVRE MÉDICAL :
 - Titres H2 colorés avec ancres ID obligatoires : <h2 id="sec-1" class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION 1</span>...</h2>
 - Assure-toi que chaque section principale H2 a un identifiant unique (id="sec-1", id="sec-2", id="sec-3", etc.) correspondant au tableau "tableOfContents" pour permettre la navigation fluide au clic.
 - Titres H3 stylisés : <h3 class="text-lg font-bold text-indigo-900 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>...</h3>

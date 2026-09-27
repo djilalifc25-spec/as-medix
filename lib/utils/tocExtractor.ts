@@ -16,13 +16,18 @@ export function processCourseToc(
     return { processedHtml: '', toc: rawToc ? rawToc.map((t, idx) => ({ id: t.id || `sec-${idx + 1}`, title: t.title, level: t.level || 1 })) : [] };
   }
 
+  // Strip legacy quick-nav-bar div elements if present
+  let cleanedInput = htmlContent
+    .replace(/<div[^>]*class="[^"]*quick-nav-bar[^"]*"[^>]*>[\s\S]*?<\/div>\s*<\/div>/gi, '')
+    .replace(/<div[^>]*class="[^"]*quick-nav-bar[^"]*"[^>]*>[\s\S]*?<\/div>/gi, '');
+
   const generatedToc: TocItem[] = [];
   let secIndex = 0;
 
   // Pattern matches <h2> and <h3> tags
   const headingRegex = /<h([23])([^>]*)>(.*?)<\/h\1>/gi;
 
-  const processedHtml = htmlContent.replace(headingRegex, (match, levelStr, attrs, innerText) => {
+  const processedHtml = cleanedInput.replace(headingRegex, (match, levelStr, attrs, innerText) => {
     secIndex++;
     const level = parseInt(levelStr, 10);
     
