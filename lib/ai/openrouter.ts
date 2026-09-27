@@ -171,8 +171,8 @@ export async function aiAnalyzeAndFormatCourse(
   config: AIProviderConfig = {},
   contextInfo: { specialty?: string; year?: number } = {}
 ): Promise<AIExtractedCourseData> {
-  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée et Designer UI d'AS-MEDIX.
-Ta mission est d'agir comme un Directeur Artistique et Professeur de Médecine Hospitalo-Universitaire pour convertir un cours médical (PDF, polycopié, annales) en une PRÉSENTATION MÉDICALE PROFESSIONNELLE SPECTACULAIRE, ÉLÉGANTE ET HAUT DE GAMME.
+  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée et Éditeur d'Atlas Médicaux d'AS-MEDIX.
+Ta mission est de prendre un cours médical (PDF, polycopié, annales) et de le transformer en une PRÉSENTATION DE TYPE LIVRE / ATLAS MÉDICAL ILLUSTRE, HAUTEMENT COLORÉE, DYNAMIQUE ET ÉLÉGANTE.
 
 Consignes strictes de réponse en JSON :
 Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
@@ -181,9 +181,9 @@ Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
 3. "description": Un résumé clinique concis de 2-3 phrases (environ 150-200 caractères) présentant le cours.
 4. "summaryPoints": Un tableau de 5 à 7 points clés essentiels pour le concours de Résidanat ("À retenir pour le concours").
 5. "tableOfContents": Un tableau d'objets [{"id": "sec-1", "title": "1. Titre de section", "level": 1}] pour chaque section principale.
-6. "htmlContent": Le code HTML complet du cours structuré, rédigé avec un design époustouflant.
+6. "htmlContent": Le code HTML complet du cours rédigé au format Livre / Atlas Médical.
 
-EXIGENCES DESIGNER & MISE EN FORME UNIQUE DE "htmlContent" :
+EXIGENCES STYLE LIVRE & ATLAS MÉDICAL ("htmlContent") :
 
 1. TOOLBAR DE NAVIGATION RAPIDE EN HAUT DU COURS :
 Au tout début de "htmlContent", commence OBLIGATOIREMENT par ce bloc HTML de navigation rapide :
@@ -201,56 +201,26 @@ Au tout début de "htmlContent", commence OBLIGATOIREMENT par ce bloc HTML de na
   </button>
 </div>
 
-2. DESIGN DES SECTIONS ET TITRES :
-- Découpe le cours en <section id="sec-1" class="mb-10">, <section id="sec-2" class="mb-10">, etc.
-- Titres H2 magnifiques : <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2 flex items-center gap-2"><span class="w-2 h-6 bg-brand-600 rounded-full inline-block"></span> Titre de section</h2>
-- Titres H3 : <h3 class="text-lg font-bold text-navy-800 dark:text-navy-100 mt-5 mb-2">...</h3>
+2. TITRES COLORÉS ET STYLISÉS STYLE LIVRE MÉDICAL :
+- Titres H2 colorés avec badges : <h2 class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION</span>...</h2>
+- Titres H3 stylisés : <h3 class="text-lg font-bold text-indigo-900 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>...</h3>
 
-3. ENCADRÉS VISUELS COLORÉS (CALLOUTS MÉDICAUX DESIGN) :
-Mets en valeur les perles et pièges médicaux avec des cartes au design soigné :
-- 📌 Rappel Prérequis : <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs">📌 <strong>Rappel Physiopathologique :</strong> ...</div>
-- 💡 Perles Cliniques : <div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4 shadow-xs">💡 <strong>Perle Clinique / Mnémotechnique :</strong> ...</div>
-- ⚠️ Pièges Concours / QCM : <div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4 shadow-xs">⚠️ <strong>Piège Concours Résidanat :</strong> ...</div>
-- 🚨 Urgences / Gravité : <div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4 shadow-xs">🚨 <strong>Alerte Vital / Conduite à Tenir :</strong> ...</div>
-- 💊 Traitement & Posologies : <div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4 shadow-xs">💊 <strong>Prise en Charge Thérapeutique :</strong> ...</div>
-- ⭐ Points Clés : <div class="point-cle p-4 rounded-2xl bg-sky-50/70 border border-sky-200 dark:bg-sky-950/30 text-xs sm:text-sm text-sky-900 dark:text-sky-200 my-4 shadow-xs">⭐ <strong>Point Clé Synthèse :</strong> ...</div>
+3. SURLIGNAGE (HIGHLIGHTERS) & ÉLÉMENTS CLÉS :
+Mets en valeur les mots importants, critères diagnostics et posologies en utilisant la balise <mark> ou des surlignages colorés :
+- Surlignage ambré : <mark class="bg-amber-200/80 dark:bg-amber-950/80 text-amber-950 dark:text-amber-200 px-1.5 py-0.5 rounded font-bold">mot ou valeur clé</mark>
+- Surlignage vert : <mark class="bg-emerald-100 dark:bg-emerald-950/80 text-emerald-950 dark:text-emerald-200 px-1.5 py-0.5 rounded font-bold">traitement de choix</mark>
+- Surlignage rouge : <mark class="bg-rose-100 dark:bg-rose-950/80 text-rose-950 dark:text-rose-200 px-1.5 py-0.5 rounded font-bold">contre-indication absolue</mark>
 
-4. DERNIÈRES RECOMMANDATIONS PAR L'IA (À INCLURE À LA FIN DU COURS) :
-À la toute fin du cours (avant de fermer le HTML), termine OBLIGATOIREMENT par ce bloc d'analyse synthétique finale :
-<section id="sec-ia-recommendations" class="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-navy-950 via-purple-950 to-indigo-950 text-white border-2 border-purple-500/40 shadow-2xl space-y-4 not-prose">
-  <div class="flex items-center gap-3 border-b border-purple-800/60 pb-3">
-    <span class="text-2xl">🤖</span>
-    <div>
-      <h3 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
-        Dernières Recommandations & Flash-Synthèse par l'IA Médicale AS-MEDIX
-        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-navy-950 uppercase tracking-wider">Spécial Concours</span>
-      </h3>
-      <p class="text-xs text-purple-200">Conseils cliniques de dernière minute et pièges fréquents pour le Résidanat</p>
-    </div>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-    <div class="p-4 rounded-2xl bg-purple-900/40 border border-purple-700/50 space-y-2">
-      <h4 class="font-bold text-amber-300 flex items-center gap-1.5 text-xs">⚠️ 3 Pièges QCM récurrents à éviter :</h4>
-      <ul class="list-disc pl-4 space-y-1 text-purple-100">
-        <li>Ne pas confondre l'examen de 1ère intention et l'examen de certitude.</li>
-        <li>Vérifier systématiquement les contre-indications absolues avant d'initier le traitement.</li>
-        <li>Retenir le signe sémiologique le plus spécifique pour les questions fermées.</li>
-      </ul>
-    </div>
-    <div class="p-4 rounded-2xl bg-indigo-900/40 border border-indigo-700/50 space-y-2">
-      <h4 class="font-bold text-emerald-300 flex items-center gap-1.5 text-xs">💊 Conduite à Tenir Réflexe en Pratique :</h4>
-      <ul class="list-disc pl-4 space-y-1 text-indigo-100">
-        <li>Évaluer immédiatement les constantes vitales et la présence de signes de choc.</li>
-        <li>Demander le bilan biologique et d'imagerie ciblé en urgence.</li>
-        <li>Hospitaliser en unité spécialisée en cas d'instabilité hémodynamique.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+4. ENCADRÉS VISUELS COLORÉS (CALLOUTS LIVRE MÉDICAL) :
+- 📌 Rappel : <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs">📌 <strong>Rappel Physiopathologique :</strong> ...</div>
+- 💡 Perles : <div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4 shadow-xs">💡 <strong>Perle Clinique / Mnémotechnique :</strong> ...</div>
+- ⚠️ Pièges : <div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4 shadow-xs">⚠️ <strong>Piège Concours :</strong> ...</div>
+- 🚨 Urgences : <div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4 shadow-xs">🚨 <strong>Alerte Urgence :</strong> ...</div>
+- 💊 Traitement : <div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4 shadow-xs">💊 <strong>Prise en Charge Thérapeutique :</strong> ...</div>
 
-5. EXIGENCES STRICTES DE CONSERVATION (100% DU PDF) :
-- Ne supprime AUCUNE donnée, paragraphe, chiffre, tableau ou nom d'auteur du document original.
-- Conserve 100% des informations du PDF tout en les structurant et en les magnifiant.
+5. CONSERVATION INTEGRALE DU CONTENU (100% DU PDF) :
+- Ne supprime AUCUN paragraphe, donnée clinique, tableau ou classification du document original.
+- Ne rajoute PAS de section "Dernières Recommandations" à la fin du cours. Conserve la fin naturelle du cours.
 - Ne réponds rien d'autre que l'objet JSON strict.`;
 
   const userPrompt = `Spécialité : ${contextInfo.specialty || 'Médecine General'} ${contextInfo.year ? `• Année : ${contextInfo.year}` : ''}
