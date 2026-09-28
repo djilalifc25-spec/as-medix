@@ -980,19 +980,58 @@ export default function AdminQcmPage() {
                   </div>
 
                   <div>
-                    <span className="text-[10px] font-bold text-navy-400">B. Sous-Source / Session :</span>
-                    <input
-                      type="text"
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] font-bold text-navy-400">B. Sous-Source / Session (Options Fermées) :</span>
+                      <span className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/80 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">
+                        🔒 Choix Fixe Uniquement
+                      </span>
+                    </div>
+
+                    {/* Closed Select Dropdown - Cannot type anything */}
+                    <select
                       value={subSource}
                       onChange={e => {
                         const sub = e.target.value;
                         setSubSource(sub);
-                        const full = parentSource && sub ? `${parentSource} - ${sub}` : (parentSource || sub);
+                        const full = parentSource && sub ? `${parentSource} - ${sub}` : parentSource;
                         setSource(full);
+                        if (sub && !isNaN(Number(sub))) {
+                          setYear(Number(sub));
+                        }
                       }}
-                      placeholder="ex: 2018/2019, Rattrapage 2021..."
-                      className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 text-xs font-bold text-navy-900 dark:text-white"
-                    />
+                      className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 text-xs font-bold text-navy-900 dark:text-white cursor-pointer shadow-xs"
+                    >
+                      <option value="">-- Sélectionner une année fermée --</option>
+                      {['2018', '2019', '2020', '2021', '2022', '2023'].map(yr => (
+                        <option key={yr} value={yr}>📅 Session {yr}</option>
+                      ))}
+                    </select>
+
+                    {/* Closed 1-Click Interactive Badges */}
+                    <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                      {['2018', '2019', '2020', '2021', '2022', '2023'].map(yr => {
+                        const isSelected = subSource === yr;
+                        return (
+                          <button
+                            key={yr}
+                            type="button"
+                            onClick={() => {
+                              setSubSource(yr);
+                              const full = parentSource && yr ? `${parentSource} - ${yr}` : parentSource;
+                              setSource(full);
+                              setYear(Number(yr));
+                            }}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                              isSelected
+                                ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-400 scale-105 font-black'
+                                : 'bg-white dark:bg-navy-900 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-navy-800'
+                            }`}
+                          >
+                            {isSelected ? `✓ ${yr}` : yr}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 

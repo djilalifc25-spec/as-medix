@@ -75,6 +75,14 @@ export function extractEpreuvesForFolder(qcms: any[], folderName: string, availa
   const epreuvesSet = new Set<string>();
   const folderLower = (folderName || '').toLowerCase().trim();
 
+  // Closed standard session years
+  const STANDARD_YEARS = ['2018', '2019', '2020', '2021', '2022', '2023'];
+  if (folderLower === 'externat' || folderLower.includes('externat') || folderLower.includes('annale') || folderLower.includes('residanat') || folderLower.includes('résidanat')) {
+    STANDARD_YEARS.forEach(yr => {
+      epreuvesSet.add(`${folderName} - ${yr}`);
+    });
+  }
+
   // 1. From availableSources and qcms.source
   const allSourceStrings = new Set<string>([...availableSources]);
   (qcms || []).forEach(q => {
@@ -110,5 +118,7 @@ export function extractEpreuvesForFolder(qcms: any[], folderName: string, availa
     }
   });
 
-  return Array.from(epreuvesSet);
+  const list = Array.from(epreuvesSet);
+  list.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  return list;
 }
