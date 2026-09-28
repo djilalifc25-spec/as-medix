@@ -145,6 +145,9 @@ export default function AdminQcmPage() {
         setParentSource(clean);
         setNewCustomSourceName('');
         setSourceSuccessMsg(`✅ Source "${clean}" enregistrée directement dans Supabase SQL`);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
         setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
@@ -177,6 +180,9 @@ export default function AdminQcmPage() {
           setParentSource(data.structuredSources[0]?.name || '');
         }
         setSourceSuccessMsg(`🗑️ Source "${sourceName}" supprimée de Supabase SQL`);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
         setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
@@ -210,6 +216,9 @@ export default function AdminQcmPage() {
         setSubSource(cleanSub);
         setNewCustomSubSourceName(prev => ({ ...prev, [parentName]: '' }));
         setSourceSuccessMsg(`✅ Sous-source "${cleanSub}" ajoutée à "${parentName}" et sauvegardée dans Supabase SQL`);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
         setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
@@ -243,6 +252,9 @@ export default function AdminQcmPage() {
           setSubSource('');
         }
         setSourceSuccessMsg(`🗑️ Sous-source "${subSourceName}" supprimée de Supabase SQL`);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
         setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {

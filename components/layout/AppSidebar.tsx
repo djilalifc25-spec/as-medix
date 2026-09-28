@@ -114,20 +114,39 @@ export const AppSidebar: React.FC = () => {
     }
   }, []);
 
-  // Helper to extract structured sources (parent + subSources) for a specialty
+  // Helper to extract structured sources (parent + subSources) for a specialty strictly matching current faculty
   const getStructuredModuleSources = useCallback((specId: string): StructuredSource[] => {
     const specObj = specialtiesList.find(s => s.id === specId || s.slug === specId);
     const specName = specObj?.name?.toLowerCase();
 
+    // Only include QCMs matching the selected faculty
     const specQcms = qcmsList.filter(q =>
-      q.specialtyId === specId ||
+      (q.specialtyId === specId ||
       (q.specialtyId && q.specialtyId.toLowerCase() === specId.toLowerCase()) ||
-      (specName && q.specialtyName && q.specialtyName.toLowerCase() === specName)
+      (specName && q.specialtyName && q.specialtyName.toLowerCase() === specName)) &&
+      (faculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === faculty)
     );
 
     const accumulated: any[] = [];
     adminSources.forEach(s => {
-      const matchSpec = s.specialty === specId || (specName && s.specialty?.toLowerCase() === specName) || (s as any).key === specId || (s as any).key === `${specId}::${faculty}`;
+      // Strict faculty matching:
+      // If s.faculty is set to ORAN, only show it when faculty === 'ORAN' or faculty === 'TOUS'.
+      // If s.faculty is set to SIDI_BEL_ABBES, only show it when faculty === 'SIDI_BEL_ABBES' or faculty === 'TOUS'.
+      // An ORAN source must NEVER show in SIDI_BEL_ABBES, and an SBA source must NEVER show in ORAN.
+      const sFac = s.faculty || (s as any).key?.split('::')[1] || 'TOUS';
+      const matchFaculty =
+        faculty === 'TOUS' ||
+        sFac === 'TOUS' ||
+        sFac === faculty;
+
+      if (!matchFaculty) return;
+
+      const matchSpec =
+        s.specialty === specId ||
+        (specName && s.specialty?.toLowerCase() === specName) ||
+        (s as any).key === specId ||
+        (s as any).key === `${specId}::${sFac}`;
+
       if (matchSpec && (!s.course || s.course === '')) {
         if (Array.isArray(s.structuredSources) && s.structuredSources.length > 0) {
           accumulated.push(...s.structuredSources);
@@ -155,19 +174,28 @@ export const AppSidebar: React.FC = () => {
     return getStructuredModuleSources(specId).map(s => s.name);
   }, [getStructuredModuleSources]);
 
-  // Helper to extract course-level sources for a specific course (only sources with actual QCMs in that course)
+  // Helper to extract course-level sources for a specific course strictly matching current faculty
   const getCourseSources = useCallback((specId: string, courseId: string, courseTitle?: string): string[] => {
     const set = new Set<string>();
     const specObj = specialtiesList.find(s => s.id === specId || s.slug === specId);
     const specName = specObj?.name?.toLowerCase();
 
+    // Only include course QCMs matching the selected faculty
     const courseQcms = qcmsList.filter(q =>
       (q.specialtyId === specId || (q.specialtyId && q.specialtyId.toLowerCase() === specId.toLowerCase()) || (specName && q.specialtyName && q.specialtyName.toLowerCase() === specName)) &&
-      (q.courseId === courseId || (courseTitle && (q.courseTitle === courseTitle || q.courseId === courseTitle)))
+      (q.courseId === courseId || (courseTitle && (q.courseTitle === courseTitle || q.courseId === courseTitle))) &&
+      (faculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === faculty)
     );
-    if (courseQcms.length === 0) return [];
 
     adminSources.forEach(s => {
+      const sFac = s.faculty || (s as any).key?.split('::')[1] || 'TOUS';
+      const matchFaculty =
+        faculty === 'TOUS' ||
+        sFac === 'TOUS' ||
+        sFac === faculty;
+
+      if (!matchFaculty) return;
+
       if ((s.specialty === specId || (specName && s.specialty?.toLowerCase() === specName)) && (s.course === courseId || (courseTitle && s.course === courseTitle))) {
         s.sources?.forEach(src => {
           if (src?.trim()) {
@@ -188,7 +216,7 @@ export const AppSidebar: React.FC = () => {
     });
 
     return Array.from(set);
-  }, [adminSources, qcmsList, specialtiesList]);
+  }, [adminSources, qcmsList, specialtiesList, faculty]);
 
   useEffect(() => {
     fetchDynamicData();

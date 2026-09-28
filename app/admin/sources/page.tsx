@@ -12,6 +12,7 @@ type Scope = "global" | "specialty" | "course";
 interface SourceItem {
   name: string;
   faculty?: "ORAN" | "SIDI_BEL_ABBES" | "TOUS";
+  subSources?: string[];
 }
 
 interface ScopeGroup {
@@ -40,6 +41,15 @@ export default function AdminSourcesPage() {
   const [newSourceFaculty, setNewSourceFaculty] = useState<FacultyType>("TOUS");
   const [saving, setSaving] = useState(false);
 
+  // Sub-source inline addition state
+  const [addingSubSourceFor, setAddingSubSourceFor] = useState<{
+    parentName: string;
+    specialty?: string;
+    course?: string;
+    faculty?: string;
+  } | null>(null);
+  const [newSubSourceName, setNewSubSourceName] = useState<string>("");
+
   // Quick 3-step wizard state
   const [wizardFac, setWizardFac] = useState<FacultyType>("ORAN");
   const [wizardSpec, setWizardSpec] = useState<string>("cardio");
@@ -59,8 +69,8 @@ export default function AdminSourcesPage() {
 
     try {
       for (let yr = startYearGen; yr < endYearGen; yr++) {
-        const subName = `${parentName} - ${yr}/${yr + 1}`;
-        const body: Record<string, string> = { name: subName };
+        const subName = `${yr}/${yr + 1}`;
+        const body: Record<string, string> = { parentName, subSource: subName };
         if (wizardSpec) body.specialty = wizardSpec;
         if (wizardCourse) body.course = wizardCourse;
         if (wizardFac !== "TOUS") body.faculty = wizardFac;
@@ -74,8 +84,11 @@ export default function AdminSourcesPage() {
         if (data.success) addedCount++;
       }
 
-      showMsg(`🎉 ${addedCount} sessions d'examens générées avec succès pour "${parentName}" (${startYearGen} à ${endYearGen}) !`);
+      showMsg(`🎉 ${addedCount} sessions générées avec succès pour "${parentName}" (${startYearGen} à ${endYearGen}) !`);
       setWizardName("");
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("asmedix-content-updated"));
+      }
       load();
     } finally {
       setSaving(false);
@@ -91,7 +104,14 @@ export default function AdminSourcesPage() {
     try {
       const allRes = await fetch("/api/admin/sources/all");
       const allData = await allRes.json();
-      const allScopes: { key: string; specialty?: string; course?: string; faculty?: string; sources: string[] }[] = allData.scopes || [];
+      const allScopes: {
+        key: string;
+        specialty?: string;
+        course?: string;
+        faculty?: string;
+        sources: string[];
+        structuredSources?: { name: string; subSources: string[] }[];
+      }[] = allData.scopes || [];
 
       const getSourcesFor = (spec?: string, crs?: string): SourceItem[] => {
         const list: SourceItem[] = [];
@@ -100,8 +120,14 @@ export default function AdminSourcesPage() {
           const matchCrs = (entry.course || undefined) === (crs || undefined);
           if (matchSpec && matchCrs) {
             const fac = (entry.faculty as "ORAN" | "SIDI_BEL_ABBES" | undefined) || "TOUS";
-            for (const s of entry.sources) {
-              list.push({ name: s, faculty: fac });
+            if (Array.isArray(entry.structuredSources) && entry.structuredSources.length > 0) {
+              for (const s of entry.structuredSources) {
+                list.push({ name: s.name, faculty: fac, subSources: s.subSources || [] });
+              }
+            } else if (Array.isArray(entry.sources)) {
+              for (const s of entry.sources) {
+                list.push({ name: s, faculty: fac, subSources: [] });
+              }
             }
           }
         }
@@ -184,6 +210,9 @@ export default function AdminSourcesPage() {
         setNewSourceName("");
         setActiveScope(null);
         showMsg(`Source ajoutée avec succès${newSourceFaculty !== "TOUS" ? ` pour ${newSourceFaculty}` : ""} !`);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("asmedix-content-updated"));
+        }
         load();
       }
     } finally {
@@ -214,6 +243,9 @@ export default function AdminSourcesPage() {
         setWizardName("");
         if (wizardSpec) setExpanded((p) => ({ ...p, [wizardSpec]: true }));
         showMsg(`Source "${name}" ajoutée instantanément pour ${wizardFac === "TOUS" ? "Toutes Facultés" : wizardFac} !`);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("asmedix-content-updated"));
+        }
         load();
       }
     } finally {
@@ -221,9 +253,58 @@ export default function AdminSourcesPage() {
     }
   };
 
+  const handleAddSubSourceDirect = async (parentName: string, subSourceName: string, specialty?: string, course?: string, faculty?: string) => {
+    const cleanSub = subSourceName.trim();
+    if (!cleanSub) return;
+    setSaving(true);
+    const body: Record<string, string> = { parentName, subSource: cleanSub };
+    if (specialty) body.specialty = specialty;
+    if (course) body.course = course;
+    if (faculty && faculty !== "TOUS") body.faculty = faculty;
+
+    try {
+      const res = await fetch("/api/admin/sources", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setAddingSubSourceFor(null);
+        setNewSubSourceName("");
+        showMsg(`Sous-source "${cleanSub}" ajoutée à "${parentName}" !`);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("asmedix-content-updated"));
+        }
+        load();
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeleteSubSource = async (parentName: string, subSource: string, specialty?: string, course?: string, faculty?: string) => {
+    if (!confirm(`Supprimer la sous-source "${subSource}" de "${parentName}" ?`)) return;
+    const body: Record<string, string> = { parentName, subSource };
+    if (specialty) body.specialty = specialty;
+    if (course) body.course = course;
+    if (faculty && faculty !== "TOUS") body.faculty = faculty;
+
+    await fetch("/api/admin/sources", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    showMsg(`Sous-source "${subSource}" supprimée.`);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("asmedix-content-updated"));
+    }
+    load();
+  };
+
   const handleDelete = async (name: string, specialty?: string, course?: string, faculty?: string) => {
     const facLabel = faculty && faculty !== "TOUS" ? ` (${faculty})` : "";
-    if (!confirm(`Supprimer "${name}"${facLabel} de ce scope ?`)) return;
+    if (!confirm(`Supprimer "${name}"${facLabel} et toutes ses sous-sources ?`)) return;
     const body: Record<string, string> = { name };
     if (specialty) body.specialty = specialty;
     if (course) body.course = course;
@@ -235,6 +316,9 @@ export default function AdminSourcesPage() {
       body: JSON.stringify(body),
     });
     showMsg("Source supprimée.");
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("asmedix-content-updated"));
+    }
     load();
   };
 
@@ -245,9 +329,142 @@ export default function AdminSourcesPage() {
     }
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
-      list = list.filter((s) => s.name.toLowerCase().includes(term));
+      list = list.filter((s) => s.name.toLowerCase().includes(term) || s.subSources?.some((sub) => sub.toLowerCase().includes(term)));
     }
     return list;
+  };
+
+  const renderSourceCard = (src: SourceItem, specialty?: string, course?: string) => {
+    const isOran = src.faculty === "ORAN";
+    const isSba = src.faculty === "SIDI_BEL_ABBES";
+    const isAddingSub =
+      addingSubSourceFor?.parentName === src.name &&
+      addingSubSourceFor?.specialty === specialty &&
+      addingSubSourceFor?.course === course &&
+      addingSubSourceFor?.faculty === src.faculty;
+
+    return (
+      <div
+        key={`${src.name}-${src.faculty || "TOUS"}`}
+        className="p-3 rounded-2xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700/80 shadow-2xs space-y-2 transition-all hover:border-slate-300 dark:hover:border-navy-600"
+      >
+        {/* Header: Name + Faculty Badge + Quick Actions */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-xs sm:text-sm font-black text-slate-800 dark:text-white truncate">
+              📖 {src.name}
+            </span>
+            {isOran && (
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] bg-amber-500 text-white font-black shrink-0">
+                🏛️ Oran
+              </span>
+            )}
+            {isSba && (
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] bg-indigo-600 text-white font-black shrink-0">
+                🏛️ SBA
+              </span>
+            )}
+            {!isOran && !isSba && (
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] bg-slate-100 dark:bg-navy-800 text-slate-600 dark:text-slate-300 font-bold shrink-0">
+                🌐 Commun
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-1 shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                if (isAddingSub) {
+                  setAddingSubSourceFor(null);
+                  setNewSubSourceName("");
+                } else {
+                  setAddingSubSourceFor({
+                    parentName: src.name,
+                    specialty,
+                    course,
+                    faculty: src.faculty,
+                  });
+                  setNewSubSourceName("");
+                }
+              }}
+              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 hover:bg-sky-100 text-[10px] font-bold border border-sky-200 dark:border-sky-800 cursor-pointer transition-colors"
+              title="Ajouter une sous-source (session, EMD, année)"
+            >
+              <Plus className="w-2.5 h-2.5" />
+              <span>+ Session</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDelete(src.name, specialty, course, src.faculty)}
+              className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+              title="Supprimer cette source et toutes ses sous-sources"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Sub-sources list badges */}
+        {src.subSources && src.subSources.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-0.5">
+            {src.subSources.map((sub) => (
+              <div
+                key={sub}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 text-[10px] font-medium border border-slate-200/80 dark:border-navy-700"
+              >
+                <span>📅 {sub.startsWith("Session") || sub.startsWith("EMD") ? sub : `Session ${sub}`}</span>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteSubSource(src.name, sub, specialty, course, src.faculty)}
+                  className="text-slate-400 hover:text-rose-600 ml-0.5 text-xs font-bold leading-none cursor-pointer"
+                  title={`Supprimer la sous-source "${sub}"`}
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Inline add sub-source form */}
+        {isAddingSub && (
+          <div className="p-2 rounded-xl bg-sky-50/70 dark:bg-navy-800/80 border border-sky-200/80 dark:border-sky-800 flex items-center gap-1.5 animate-fade-in mt-1">
+            <input
+              autoFocus
+              type="text"
+              value={newSubSourceName}
+              onChange={(e) => setNewSubSourceName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleAddSubSourceDirect(src.name, newSubSourceName, specialty, course, src.faculty);
+                }
+              }}
+              placeholder="Nom de session (ex: EMD 1, 2024, Session Rattrapage...)"
+              className="flex-1 px-2.5 py-1 rounded-lg border border-sky-300 dark:border-sky-700 bg-white dark:bg-navy-900 text-xs text-slate-800 dark:text-white"
+            />
+            <button
+              type="button"
+              onClick={() => handleAddSubSourceDirect(src.name, newSubSourceName, specialty, course, src.faculty)}
+              disabled={saving || !newSubSourceName.trim()}
+              className="px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold disabled:opacity-40 cursor-pointer"
+            >
+              {saving ? "..." : "Ajouter"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setAddingSubSourceFor(null);
+                setNewSubSourceName("");
+              }}
+              className="px-2 py-1 rounded-lg bg-slate-100 dark:bg-navy-700 text-slate-500 text-xs cursor-pointer"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+      </div>
+    );
   };
 
   const globalGroup = groups.find((g) => g.key === "__global__");
@@ -571,45 +788,12 @@ export default function AdminSourcesPage() {
                 </div>
               )}
 
-              {/* Sources pills */}
-              <div className="flex flex-wrap gap-2 pt-1">
+              {/* Sources cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
                 {filterSourcesList(globalGroup.sources).length === 0 && (
-                  <span className="text-xs text-slate-400 italic">Aucune source pour ce filtre.</span>
+                  <span className="text-xs text-slate-400 italic col-span-2">Aucune source pour ce filtre.</span>
                 )}
-                {filterSourcesList(globalGroup.sources).map((src) => {
-                  const isOran = src.faculty === "ORAN";
-                  const isSba = src.faculty === "SIDI_BEL_ABBES";
-                  return (
-                    <div
-                      key={`${src.name}-${src.faculty}`}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-xs font-bold text-blue-900 dark:text-blue-300"
-                    >
-                      <span>📖 {src.name}</span>
-                      {isOran && (
-                        <span className="px-1.5 py-0.2 rounded-md text-[9px] bg-amber-500 text-white font-black">
-                          Oran
-                        </span>
-                      )}
-                      {isSba && (
-                        <span className="px-1.5 py-0.2 rounded-md text-[9px] bg-indigo-600 text-white font-black">
-                          SBA
-                        </span>
-                      )}
-                      {!isOran && !isSba && (
-                        <span className="px-1.5 py-0.2 rounded-md text-[9px] bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-semibold">
-                          Commun
-                        </span>
-                      )}
-                      <button
-                        onClick={() => handleDelete(src.name, undefined, undefined, src.faculty)}
-                        className="text-blue-400 hover:text-rose-600 ml-1 cursor-pointer"
-                        title="Supprimer"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
-                    </div>
-                  );
-                })}
+                {filterSourcesList(globalGroup.sources).map((src) => renderSourceCard(src, undefined, undefined))}
               </div>
             </div>
           )}
@@ -747,36 +931,13 @@ export default function AdminSourcesPage() {
                       )}
 
                       {/* Specialty sources list */}
-                      <div className="flex flex-wrap gap-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {specFilteredSources.length === 0 && (
-                          <span className="text-[10px] text-slate-400 italic">
+                          <span className="text-[10px] text-slate-400 italic col-span-2">
                             Aucune source spécifique à cette spécialité.
                           </span>
                         )}
-                        {specFilteredSources.map((src) => (
-                          <div
-                            key={`${src.name}-${src.faculty}`}
-                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 text-[11px] font-bold text-blue-900 dark:text-blue-300"
-                          >
-                            <span>📖 {src.name}</span>
-                            {src.faculty === "ORAN" && (
-                              <span className="px-1.5 py-0.2 rounded-md text-[9px] bg-amber-500 text-white font-black">
-                                Oran
-                              </span>
-                            )}
-                            {src.faculty === "SIDI_BEL_ABBES" && (
-                              <span className="px-1.5 py-0.2 rounded-md text-[9px] bg-indigo-600 text-white font-black">
-                                SBA
-                              </span>
-                            )}
-                            <button
-                              onClick={() => handleDelete(src.name, specId, undefined, src.faculty)}
-                              className="text-blue-400 hover:text-rose-600 ml-0.5 cursor-pointer"
-                            >
-                              <Trash2 className="w-2.5 h-2.5" />
-                            </button>
-                          </div>
-                        ))}
+                        {specFilteredSources.map((src) => renderSourceCard(src, specId, undefined))}
                       </div>
                     </div>
 
@@ -885,36 +1046,13 @@ export default function AdminSourcesPage() {
                               )}
 
                               {/* Course sources list */}
-                              <div className="flex flex-wrap gap-1.5">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 {crsFilteredSources.length === 0 && (
-                                  <span className="text-[10px] text-slate-400 italic">
+                                  <span className="text-[10px] text-slate-400 italic col-span-2">
                                     Aucune source pour ce cours.
                                   </span>
                                 )}
-                                {crsFilteredSources.map((src) => (
-                                  <div
-                                    key={`${src.name}-${src.faculty}`}
-                                    className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white dark:bg-navy-900 border border-indigo-200 dark:border-indigo-800 text-[10px] font-bold text-indigo-900 dark:text-indigo-300 shadow-2xs"
-                                  >
-                                    <span>📖 {src.name}</span>
-                                    {src.faculty === "ORAN" && (
-                                      <span className="px-1.5 py-0.1 rounded text-[8px] bg-amber-500 text-white font-black">
-                                        Oran
-                                      </span>
-                                    )}
-                                    {src.faculty === "SIDI_BEL_ABBES" && (
-                                      <span className="px-1.5 py-0.1 rounded text-[8px] bg-indigo-600 text-white font-black">
-                                        SBA
-                                      </span>
-                                    )}
-                                    <button
-                                      onClick={() => handleDelete(src.name, specId, crsGroup.course, src.faculty)}
-                                      className="text-indigo-400 hover:text-rose-600 ml-0.5 cursor-pointer"
-                                    >
-                                      <Trash2 className="w-2.5 h-2.5" />
-                                    </button>
-                                  </div>
-                                ))}
+                                {crsFilteredSources.map((src) => renderSourceCard(src, specId, crsGroup.course))}
                               </div>
                             </div>
                           );

@@ -289,19 +289,21 @@ export function QcmLaunchModal({
 
   if (!isOpen) return null;
 
-  // Build combined source list including all dynamic QCM sources for specialty
+  // Build combined source list including all dynamic QCM sources for specialty matching selected faculty
   const qcmSourcesForSpec = useMemo(() => {
     const set = new Set<string>();
     allQcms.forEach(q => {
-      if (q.specialtyId === specialtyId && q.source) {
+      const matchFac = !selectedFaculty || selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
+      if (q.specialtyId === specialtyId && q.source && matchFac) {
         set.add(q.source);
       }
     });
     return Array.from(set);
-  }, [allQcms, specialtyId]);
+  }, [allQcms, specialtyId, selectedFaculty]);
 
   const combinedSources = useMemo(() => {
-    const baseSources = ['Résidanat', 'Externat', 'Annales', 'FARES'];
+    // Only use sources configured by admin or present in actual QCMs for this faculty
+    const baseSources: string[] = [];
     return Array.from(new Set([...baseSources, ...availableSources, ...qcmSourcesForSpec]));
   }, [availableSources, qcmSourcesForSpec]);
 
@@ -317,7 +319,11 @@ export function QcmLaunchModal({
       }
     });
 
-    const scopeQcms = allQcms.filter(q => q.specialtyId === specialtyId && (!selectedCourseId || q.courseId === selectedCourseId));
+    const scopeQcms = allQcms.filter(q =>
+      q.specialtyId === specialtyId &&
+      (!selectedCourseId || q.courseId === selectedCourseId) &&
+      (!selectedFaculty || selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty)
+    );
 
     parents.forEach(parent => {
       parentMap[parent] = extractEpreuvesForFolder(scopeQcms, parent, availableSources);

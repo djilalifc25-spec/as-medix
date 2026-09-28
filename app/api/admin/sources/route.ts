@@ -53,22 +53,46 @@ export async function GET(req: Request) {
       });
     }
 
-    // Merged: course-level + specialty-level + year-level + global
+    // Merged: course-level + specialty-level + year-level + global with strict faculty isolation
     const keysToFetch: string[] = [];
     if (specialty && course) {
-      keysToFetch.push(`${specialty}__${course}`);
-      if (faculty && faculty !== 'TOUS') keysToFetch.push(`${specialty}__${course}::${faculty}`);
+      if (faculty && faculty !== 'TOUS') {
+        keysToFetch.push(`${specialty}__${course}::${faculty}`);
+        keysToFetch.push(`${specialty}__${course}`);
+      } else {
+        keysToFetch.push(`${specialty}__${course}`);
+        keysToFetch.push(`${specialty}__${course}::ORAN`);
+        keysToFetch.push(`${specialty}__${course}::SIDI_BEL_ABBES`);
+      }
     }
     if (specialty) {
-      keysToFetch.push(specialty);
-      if (faculty && faculty !== 'TOUS') keysToFetch.push(`${specialty}::${faculty}`);
+      if (faculty && faculty !== 'TOUS') {
+        keysToFetch.push(`${specialty}::${faculty}`);
+        keysToFetch.push(specialty);
+      } else {
+        keysToFetch.push(specialty);
+        keysToFetch.push(`${specialty}::ORAN`);
+        keysToFetch.push(`${specialty}::SIDI_BEL_ABBES`);
+      }
     }
     if (year) {
-      keysToFetch.push(`annee_${year}`);
-      if (faculty && faculty !== 'TOUS') keysToFetch.push(`annee_${year}::${faculty}`);
+      if (faculty && faculty !== 'TOUS') {
+        keysToFetch.push(`annee_${year}::${faculty}`);
+        keysToFetch.push(`annee_${year}`);
+      } else {
+        keysToFetch.push(`annee_${year}`);
+        keysToFetch.push(`annee_${year}::ORAN`);
+        keysToFetch.push(`annee_${year}::SIDI_BEL_ABBES`);
+      }
     }
-    keysToFetch.push('__global__');
-    if (faculty && faculty !== 'TOUS') keysToFetch.push(`__global__::${faculty}`);
+    if (faculty && faculty !== 'TOUS') {
+      keysToFetch.push(`__global__::${faculty}`);
+      keysToFetch.push('__global__');
+    } else {
+      keysToFetch.push('__global__');
+      keysToFetch.push('__global__::ORAN');
+      keysToFetch.push('__global__::SIDI_BEL_ABBES');
+    }
 
     const { data } = await supabase.from('custom_sources').select('scope_key,sources').in('scope_key', keysToFetch);
     const map: Record<string, any[]> = {};

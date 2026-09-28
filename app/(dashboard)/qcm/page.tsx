@@ -137,14 +137,22 @@ function QcmHubContent() {
 
   // Reload sources whenever specialty, course or faculty changes
   React.useEffect(() => {
-    const params = new URLSearchParams();
-    if (selectedSpecId) params.set('specialty', selectedSpecId);
-    if (selectedCourseId) params.set('course', selectedCourseId);
-    if (selectedFaculty && selectedFaculty !== 'TOUS') params.set('faculty', selectedFaculty);
-    fetch(`/api/admin/sources?${params}`)
-      .then(r => r.json())
-      .then(d => { if (d.sources) setAvailableSources(d.sources); })
-      .catch(() => {});
+    const loadSources = () => {
+      const params = new URLSearchParams();
+      if (selectedSpecId) params.set('specialty', selectedSpecId);
+      if (selectedCourseId) params.set('course', selectedCourseId);
+      if (selectedFaculty && selectedFaculty !== 'TOUS') params.set('faculty', selectedFaculty);
+      fetch(`/api/admin/sources?${params}`)
+        .then(r => r.json())
+        .then(d => { if (d.sources) setAvailableSources(d.sources); })
+        .catch(() => {});
+    };
+
+    loadSources();
+    window.addEventListener('asmedix-content-updated', loadSources);
+    return () => {
+      window.removeEventListener('asmedix-content-updated', loadSources);
+    };
   }, [selectedSpecId, selectedCourseId, selectedFaculty]);
 
   const { showEmptySourceToast } = useToast();
