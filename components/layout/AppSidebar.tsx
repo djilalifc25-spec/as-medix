@@ -147,14 +147,7 @@ export const AppSidebar: React.FC = () => {
     });
 
     const result = normalizeSourcesList(accumulated);
-    if (result.length > 0) return result;
-
-    return [
-      { name: 'Externat', subSources: ['2018', '2019', '2020', '2021', '2022', '2023'] },
-      { name: 'Annales Résidanat', subSources: ['2018', '2019', '2020', '2021', '2022', '2023'] },
-      { name: 'Hypercours', subSources: [] },
-      { name: 'SIAU', subSources: [] }
-    ];
+    return result;
   }, [adminSources, qcmsList, specialtiesList, faculty]);
 
   // Helper to extract module-level sources as flat strings
@@ -583,7 +576,11 @@ export const AppSidebar: React.FC = () => {
                           ) : (
                             yearSpecialties.map(spec => {
                               const isSpecOpen = activeCourseSpec === spec.id;
-                              const specCourses = coursesList.filter(c => c.specialtyId === spec.id);
+                              const specCourses = coursesList.filter(c => {
+                                const matchSpec = c.specialtyId === spec.id;
+                                const matchFac = faculty === 'TOUS' || !c.faculty || c.faculty === 'TOUS' || c.faculty === faculty;
+                                return matchSpec && matchFac;
+                              });
 
                               return (
                                 <div key={`crs_spec_${spec.id}`} className="space-y-0.5">
@@ -682,7 +679,11 @@ export const AppSidebar: React.FC = () => {
                         <div className="ml-2 pl-2 border-l border-brand-300 dark:border-brand-800 space-y-1 py-1 animate-fade-in">
                           {transversalSpecialties.map(spec => {
                             const isSpecOpen = activeCourseSpec === spec.id;
-                            const specCourses = coursesList.filter(c => c.specialtyId === spec.id);
+                            const specCourses = coursesList.filter(c => {
+                              const matchSpec = c.specialtyId === spec.id;
+                              const matchFac = faculty === 'TOUS' || !c.faculty || c.faculty === 'TOUS' || c.faculty === faculty;
+                              return matchSpec && matchFac;
+                            });
 
                             return (
                               <div key={`crs_spec_${spec.id}`} className="space-y-0.5">
@@ -765,7 +766,9 @@ export const AppSidebar: React.FC = () => {
                 <span className="truncate" suppressHydrationWarning>Banque QCM (6 Années)</span>
               </div>
               <div className="flex items-center gap-1.5 shrink-0" suppressHydrationWarning>
-                <span suppressHydrationWarning className="badge badge-iris text-[10px] px-1.5 py-0 font-bold">{qcmsList.length} QCM</span>
+                <span suppressHydrationWarning className="badge badge-iris text-[10px] px-1.5 py-0 font-bold">
+                  {qcmsList.filter(q => faculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === faculty).length} QCM
+                </span>
                 {qcmExpanded ? <ChevronDown className="w-3.5 h-3.5" suppressHydrationWarning /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" suppressHydrationWarning />}
               </div>
             </button>
@@ -821,8 +824,16 @@ export const AppSidebar: React.FC = () => {
                           ) : (
                             yearSpecialties.map(spec => {
                               const isSpecOpen = activeQcmSpec === spec.id;
-                              const specQcms = qcmsList.filter(q => q.specialtyId === spec.id);
-                              const specCourses = coursesList.filter(c => c.specialtyId === spec.id);
+                              const specQcms = qcmsList.filter(q => {
+                                const matchSpec = q.specialtyId === spec.id;
+                                const matchFac = faculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === faculty;
+                                return matchSpec && matchFac;
+                              });
+                              const specCourses = coursesList.filter(c => {
+                                const matchSpec = c.specialtyId === spec.id;
+                                const matchFac = faculty === 'TOUS' || !c.faculty || c.faculty === 'TOUS' || c.faculty === faculty;
+                                return matchSpec && matchFac;
+                              });
                               const specCount = specQcms.length;
 
                               return (
@@ -856,7 +867,7 @@ export const AppSidebar: React.FC = () => {
                                         {/* Totalité du Module Section */}
                                         <div className="space-y-1.5 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
                                           <Link
-                                            href={`/qcm-session?specialty=${spec.id}`}
+                                            href={`/qcm-session?specialty=${spec.id}${faculty !== 'TOUS' ? `&faculty=${faculty}` : ''}`}
                                             onClick={handleLinkClick}
                                             className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:opacity-95 shadow-xs"
                                           >
@@ -909,10 +920,10 @@ export const AppSidebar: React.FC = () => {
                                                             <div className="text-[8px] font-bold uppercase text-slate-400 px-1 mb-0.5">
                                                               Sessions disponibles :
                                                             </div>
-                                                            {src.subSources.map(sub => (
+                                                             {src.subSources.map(sub => (
                                                               <Link
                                                                 key={sub}
-                                                                href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(`${src.name} - ${sub}`)}`}
+                                                                href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(`${src.name} - ${sub}`)}${faculty !== 'TOUS' ? `&faculty=${faculty}` : ''}`}
                                                                 onClick={handleLinkClick}
                                                                 className="flex items-center justify-between px-2 py-1 rounded-md text-[10px] font-semibold text-slate-600 dark:text-slate-300 hover:bg-sky-50 hover:text-sky-600 dark:hover:bg-sky-950/50 transition-colors"
                                                                 title={`Lancer QCM ${src.name} session ${sub}`}
@@ -933,7 +944,7 @@ export const AppSidebar: React.FC = () => {
                                                   return (
                                                     <Link
                                                       key={src.name}
-                                                      href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(src.name)}`}
+                                                      href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(src.name)}${faculty !== 'TOUS' ? `&faculty=${faculty}` : ''}`}
                                                       onClick={handleLinkClick}
                                                       className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 hover:bg-indigo-50 hover:text-[#5D5FEF] dark:hover:bg-white/5 transition-all shadow-2xs"
                                                       title={`Lancer tous les QCMs de "${src.name}"`}
@@ -970,7 +981,7 @@ export const AppSidebar: React.FC = () => {
                                               return (
                                                 <div key={crs.id} className="p-1.5 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-white/5 space-y-1">
                                                   <Link
-                                                    href={`/qcm-session?specialty=${spec.id}&course=${crs.id}`}
+                                                    href={`/qcm-session?specialty=${spec.id}&course=${crs.id}${faculty !== 'TOUS' ? `&faculty=${faculty}` : ''}`}
                                                     onClick={handleLinkClick}
                                                     className="flex items-center justify-between text-[10px] font-bold text-slate-700 dark:text-slate-200 hover:text-[#5D5FEF] transition-colors truncate"
                                                     title={`QCM : ${crs.title}`}

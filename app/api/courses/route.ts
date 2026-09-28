@@ -101,7 +101,7 @@ function mapSupabaseRowToCourse(row: any): Course {
     description: row.description || '',
     coverImage: row.cover_image || 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200',
     difficulty: row.difficulty || 'Incontournable',
-    faculty: row.faculty || 'ORAN',
+    faculty: row.faculty || 'TOUS',
     source: row.source || 'Annales Examens',
     rang: row.rang || 'Rang A',
     estimatedDuration: row.duration || row.estimated_duration || '30 min',

@@ -196,14 +196,15 @@ export function QcmLaunchModal({
     return allQcms.filter((q) => {
       const matchSpec = q.specialtyId === specialtyId;
       const matchCourse = !courseId || q.courseId === courseId;
+      const matchFac = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
       const matchSrc = !sourceName || matchQcmToSource(q, sourceName);
-      return matchSpec && matchCourse && matchSrc;
+      return matchSpec && matchCourse && matchFac && matchSrc;
     }).length;
   };
 
   const totalSpecialtyQcms = useMemo(
     () => countQcms(undefined, 'TOUS'),
-    [allQcms, specialtyId]
+    [allQcms, specialtyId, selectedFaculty]
   );
 
   const countDoneQcms = (courseId?: string, sourceName?: string) => {
@@ -211,14 +212,15 @@ export function QcmLaunchModal({
     return allQcms.filter((q) => {
       const matchSpec = q.specialtyId === specialtyId;
       const matchCourse = !courseId || q.courseId === courseId;
+      const matchFac = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
       const matchSrc = !sourceName || matchQcmToSource(q, sourceName);
-      return matchSpec && matchCourse && matchSrc && doneSet.has(q.id);
+      return matchSpec && matchCourse && matchFac && matchSrc && doneSet.has(q.id);
     }).length;
   };
 
   const doneSpecialtyQcms = useMemo(
     () => countDoneQcms(undefined, 'TOUS'),
-    [allQcms, specialtyId, userStats.doneQcmIds]
+    [allQcms, specialtyId, selectedFaculty, userStats.doneQcmIds]
   );
 
   const selectedCourse = useMemo(

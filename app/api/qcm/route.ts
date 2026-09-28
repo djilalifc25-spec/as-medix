@@ -83,7 +83,7 @@ function mapSupabaseQcmToType(row: any): QCM {
     specialtyName: String(row.specialty_name || 'Cardiologie'),
     courseId: row.course_id ? String(row.course_id) : undefined,
     courseTitle: row.course_title ? String(row.course_title) : undefined,
-    faculty: (row.faculty || 'ORAN') as any,
+    faculty: (row.faculty || 'TOUS') as any,
     source: sourceVal,
     parentSource: parentVal,
     subSource: subVal,
@@ -137,7 +137,7 @@ export async function GET(req: NextRequest) {
       qcms = qcms.filter(q => q.courseId === course);
     }
     if (faculty && faculty !== 'TOUS') {
-      qcms = qcms.filter(q => q.faculty === faculty || q.faculty === 'TOUS');
+      qcms = qcms.filter(q => q.faculty === faculty || q.faculty === 'TOUS' || !q.faculty);
     }
     if (source && source !== 'TOUS') {
       const selectedSourcesList = source.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);

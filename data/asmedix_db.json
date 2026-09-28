@@ -11,7 +11,7 @@
       "plan": "FREE",
       "status": "pending",
       "createdAt": "2026-01-01T08:00:00Z",
-      "lastActive": "2026-09-26T03:13:02.197Z",
+      "lastActive": "2026-09-28T22:03:33.552Z",
       "usage": {
         "coursesViewedMonth": 24,
         "qcmsAnsweredMonth": 157,
@@ -20,7 +20,7 @@
         "casesViewedMonth": 9,
         "resetDate": "2026-09-30T23:59:59Z"
       },
-      "activeSessionId": "sess_b64_dXNyX2FkbWluX21hc3Rlcg_1790392382197_6g3lr_ROLE_ADMIN",
+      "activeSessionId": "sess_b64_dXNyX2FkbWluX21hc3Rlcg_1790633013552_3s76i_ROLE_ADMIN",
       "lastDevice": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
     },
     {
@@ -46,6 +46,77 @@
       "password": "NouveauPassword123!",
       "activeSessionId": "sess_b64_YjM1ZjA1OGUtNTBiYy00ZDUwLWFmZDAtYjM5OTQ5ZmYyOWI3_1790376992299_djiwu_ROLE_USER",
       "lastDevice": "node"
+    },
+    {
+      "id": "usr_1790437094073",
+      "email": "dr_persistent_1790437094073@asmedix.study",
+      "name": "Dr. Persistent Test",
+      "username": "dr_persistent",
+      "password": "MyPassword123!",
+      "profession": "Médecin",
+      "faculty": "ORAN",
+      "role": "USER",
+      "plan": "PRO",
+      "createdAt": "2026-09-26T15:38:14.074Z"
+    },
+    {
+      "id": "b35f058e-50bc-4d50-afd0-790438833504",
+      "email": "dr_verif_1790438833504@asmedix.study",
+      "name": "Dr. Verification Test",
+      "username": "dr_verif_1790438833504",
+      "password": "Password123!",
+      "profession": "Médecin",
+      "faculty": "ORAN",
+      "role": "USER",
+      "plan": "PRO",
+      "createdAt": "2026-09-26T16:07:13.504Z"
+    },
+    {
+      "id": "73acaaba-f009-4afe-af75-d594ebb7df55",
+      "email": "ndkdkd@gmail.com",
+      "name": "Dr. xjw’x’ dnjdnd",
+      "username": "dkkddk",
+      "password": "jerbi0-jufwos-Xodryd",
+      "profession": "Étudiant",
+      "faculty": "ORAN",
+      "role": "USER",
+      "plan": "PREMIUM",
+      "status": "active",
+      "createdAt": "2026-09-26T16:09:45.585Z",
+      "lastActive": "2026-09-26T16:09:45.585Z",
+      "usage": {
+        "coursesViewedMonth": 0,
+        "qcmsAnsweredMonth": 0,
+        "fichesViewedMonth": 0,
+        "catViewedMonth": 0,
+        "casesViewedMonth": 0,
+        "resetDate": "2026-10-26T16:09:45.585Z"
+      }
+    },
+    {
+      "id": "80426513-f483-4e39-8e73-2802189b06c3",
+      "email": "saradjelloul8@gmail.com",
+      "name": "Dr. Sara Djelloul",
+      "username": "drdjelloulsara",
+      "password": "govfeb-4pEqgo-dudbit",
+      "profession": "Étudiant",
+      "faculty": "ORAN",
+      "role": "USER",
+      "plan": "PREMIUM",
+      "status": "active",
+      "createdAt": "2026-09-26T16:53:27.870Z",
+      "lastActive": "2026-09-26T16:53:27.870Z",
+      "usage": {
+        "coursesViewedMonth": 0,
+        "qcmsAnsweredMonth": 0,
+        "fichesViewedMonth": 0,
+        "catViewedMonth": 0,
+        "casesViewedMonth": 0,
+        "resetDate": "2026-10-26T16:53:27.870Z"
+      },
+      "licenseKey": "ASMEDIX-PREMIUM-2026-8042-6513",
+      "subscriptionStartedAt": "2026-09-26T17:14:25.691Z",
+      "subscriptionExpiresAt": "2027-09-26T17:14:25.691Z"
     }
   ],
   "courses": [

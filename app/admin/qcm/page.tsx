@@ -61,6 +61,7 @@ export default function AdminQcmPage() {
   const [newCustomSubSourceName, setNewCustomSubSourceName] = useState<Record<string, string>>({});
   const [sourceActionLoading, setSourceActionLoading] = useState(false);
   const [managingSourcesOpen, setManagingSourcesOpen] = useState(false);
+  const [sourceSuccessMsg, setSourceSuccessMsg] = useState('');
 
   // Batch QCM Import States
   const [qcmInputMode, setQcmInputMode] = useState<'MANUAL' | 'BATCH_IMPORT'>('MANUAL');
@@ -143,6 +144,8 @@ export default function AdminQcmPage() {
         setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
         setParentSource(clean);
         setNewCustomSourceName('');
+        setSourceSuccessMsg(`✅ Source "${clean}" enregistrée directement dans Supabase SQL`);
+        setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
       alert('Erreur lors de l\'ajout de la source');
@@ -171,8 +174,10 @@ export default function AdminQcmPage() {
         setStructuredSources(data.structuredSources);
         setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
         if (parentSource === sourceName) {
-          setParentSource(data.structuredSources[0]?.name || 'Externat');
+          setParentSource(data.structuredSources[0]?.name || '');
         }
+        setSourceSuccessMsg(`🗑️ Source "${sourceName}" supprimée de Supabase SQL`);
+        setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
       alert('Erreur lors de la suppression de la source');
@@ -204,6 +209,8 @@ export default function AdminQcmPage() {
         setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
         setSubSource(cleanSub);
         setNewCustomSubSourceName(prev => ({ ...prev, [parentName]: '' }));
+        setSourceSuccessMsg(`✅ Sous-source "${cleanSub}" ajoutée à "${parentName}" et sauvegardée dans Supabase SQL`);
+        setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
       alert('Erreur lors de l\'ajout de la sous-source');
@@ -235,6 +242,8 @@ export default function AdminQcmPage() {
         if (subSource === subSourceName) {
           setSubSource('');
         }
+        setSourceSuccessMsg(`🗑️ Sous-source "${subSourceName}" supprimée de Supabase SQL`);
+        setTimeout(() => setSourceSuccessMsg(''), 4000);
       }
     } catch (_err) {
       alert('Erreur lors de la suppression de la sous-source');
@@ -1045,6 +1054,13 @@ export default function AdminQcmPage() {
                   </button>
                 </div>
 
+                {sourceSuccessMsg && (
+                  <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-bold animate-in fade-in flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span>{sourceSuccessMsg}</span>
+                  </div>
+                )}
+
                 {/* Form to add a new Source to this module */}
                 <div className="flex gap-2">
                   <input
@@ -1195,9 +1211,9 @@ export default function AdminQcmPage() {
                   onChange={e => setFaculty(e.target.value as any)}
                   className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-amber-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
                 >
-                  <option value="ORAN">🏛️ Oran (Oran 1 - Chalabi)</option>
-                  <option value="SIDI_BEL_ABBES">🏛️ Sidi Bel Abbès (Djillali Liabès)</option>
-                  <option value="TOUS">🌐 Toutes Facultés / Tronc Commun</option>
+                  <option value="ORAN">🏛️ Uniquement Faculté d'Oran (Oran 1 - Chalabi)</option>
+                  <option value="SIDI_BEL_ABBES">🏛️ Uniquement Faculté de Sidi Bel Abbès (SBA)</option>
+                  <option value="TOUS">🌐 Tronc Commun / Visible Partout (Oran & SBA)</option>
                 </select>
               </div>
 

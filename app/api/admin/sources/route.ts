@@ -74,7 +74,7 @@ export async function GET(req: Request) {
     const map: Record<string, any[]> = {};
     for (const row of (data || [])) map[row.scope_key] = row.sources;
 
-    const accumulated: any[] = [...DEFAULT_STRUCTURED_SOURCES];
+    const accumulated: any[] = [];
     for (const key of keysToFetch) {
       const arr = map[key] || [];
       for (const item of arr) accumulated.push(item);
@@ -116,7 +116,7 @@ export async function POST(req: Request) {
     const supabase = getSupabaseServerClient();
 
     const { data: existing } = await supabase.from('custom_sources').select('sources').eq('scope_key', key).single();
-    let structured: StructuredSource[] = normalizeSourcesList(existing?.sources && existing.sources.length > 0 ? existing.sources : DEFAULT_STRUCTURED_SOURCES);
+    let structured: StructuredSource[] = normalizeSourcesList(existing?.sources && Array.isArray(existing.sources) ? existing.sources : []);
 
     // Case 1: Add a sub-source to a parent source
     if (parentName && subSource) {
@@ -194,7 +194,7 @@ export async function DELETE(req: Request) {
     const supabase = getSupabaseServerClient();
 
     const { data: existing } = await supabase.from('custom_sources').select('sources').eq('scope_key', key).single();
-    let structured: StructuredSource[] = normalizeSourcesList(existing?.sources && existing.sources.length > 0 ? existing.sources : DEFAULT_STRUCTURED_SOURCES);
+    let structured: StructuredSource[] = normalizeSourcesList(existing?.sources && Array.isArray(existing.sources) ? existing.sources : []);
 
     // Case 1: Delete a specific sub-source
     if (parentName && subSource) {

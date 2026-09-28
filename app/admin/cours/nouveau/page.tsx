@@ -995,9 +995,9 @@ ${textContent.substring(0, 90000)}`;
                   onChange={e => setFaculty(e.target.value as any)}
                   className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-amber-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                 >
-                  <option value="ORAN">🏛️ Oran (Chalabi)</option>
-                  <option value="SIDI_BEL_ABBES">🏛️ Sidi Bel Abbès</option>
-                  <option value="TOUS">🌐 Tronc Commun / Tous</option>
+                  <option value="ORAN">🏛️ Uniquement Faculté d'Oran (Oran 1 - Chalabi)</option>
+                  <option value="SIDI_BEL_ABBES">🏛️ Uniquement Faculté de Sidi Bel Abbès (SBA)</option>
+                  <option value="TOUS">🌐 Tronc Commun / Visible Partout (Oran & SBA)</option>
                 </select>
               </div>
             </div>
