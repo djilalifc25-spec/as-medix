@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
-import { matchQcmToSource } from '@/lib/sourceUtils';
+import { matchQcmToSource, parseSourceHierarchy } from '@/lib/sourceUtils';
 
 export const dynamic = 'force-dynamic';
 
@@ -72,6 +72,10 @@ function mapSupabaseQcmToType(row: any): QCM {
   const explanationVal = typeof row.explanation === 'object' ? JSON.stringify(row.explanation) : String(row.explanation || '');
   const refVal = typeof row.reference === 'object' ? JSON.stringify(row.reference) : String(row.reference || "Faculté de Médecine d'Alger");
 
+  const hierarchy = parseSourceHierarchy(sourceVal);
+  const parentVal = row.parent_source ? String(row.parent_source) : (hierarchy.parent || sourceVal);
+  const subVal = row.sub_source ? String(row.sub_source) : (hierarchy.sub || undefined);
+
   return {
     id: String(row.id),
     title: questionVal || 'QCM',
@@ -81,6 +85,8 @@ function mapSupabaseQcmToType(row: any): QCM {
     courseTitle: row.course_title ? String(row.course_title) : undefined,
     faculty: (row.faculty || 'ORAN') as any,
     source: sourceVal,
+    parentSource: parentVal,
+    subSource: subVal,
     rang: (row.rang || 'Rang A') as any,
     difficulty: (row.difficulty || 'Moyen') as any,
     type: correctAnswers.length > 1 ? 'MULTIPLE' : (row.type || 'SINGLE'),
@@ -107,28 +113,22 @@ export async function GET(req: NextRequest) {
     const faculty = url.searchParams.get('faculty') || undefined;
     const source = url.searchParams.get('source') || undefined;
 
-    let qcmsMap = new Map<string, QCM>();
+    let qcms: QCM[] = [];
 
-    // 1. Load local memory DB qcms
-    const localQcms = db.getQcms();
-    for (const q of localQcms) {
-      qcmsMap.set(q.id, q);
-    }
-
-    // 2. Load Cloud Supabase qcms (Persistent storage)
+    // 1. Prioritize Cloud Supabase qcms (Persistent storage)
     try {
       const { data: cloudQcms, error } = await supabaseAdmin.from('qcms').select('*');
-      if (!error && Array.isArray(cloudQcms)) {
-        for (const row of cloudQcms) {
-          const mapped = mapSupabaseQcmToType(row);
-          qcmsMap.set(mapped.id, mapped);
-        }
+      if (!error && Array.isArray(cloudQcms) && cloudQcms.length > 0) {
+        qcms = cloudQcms.map(mapSupabaseQcmToType);
       }
     } catch (sErr) {
       console.warn('Supabase fetch qcms fallback:', sErr);
     }
 
-    let qcms = Array.from(qcmsMap.values());
+    // 2. Fallback to local memory DB only if cloud is completely empty
+    if (qcms.length === 0) {
+      qcms = db.getQcms();
+    }
 
     if (specialty) {
       qcms = qcms.filter(q => q.specialtyId === specialty);

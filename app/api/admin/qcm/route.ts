@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
+import { parseSourceHierarchy } from '@/lib/sourceUtils';
 
 function parseOptions(raw: any): any[] {
   let arr: any[] = [];
@@ -70,6 +71,10 @@ function mapSupabaseQcmToType(row: any): QCM {
   const explanationVal = typeof row.explanation === 'object' ? JSON.stringify(row.explanation) : String(row.explanation || '');
   const refVal = typeof row.reference === 'object' ? JSON.stringify(row.reference) : String(row.reference || "Faculté de Médecine d'Alger");
 
+  const hierarchy = parseSourceHierarchy(sourceVal);
+  const parentVal = row.parent_source ? String(row.parent_source) : (hierarchy.parent || sourceVal);
+  const subVal = row.sub_source ? String(row.sub_source) : (hierarchy.sub || undefined);
+
   return {
     id: String(row.id),
     title: questionVal || 'QCM',
@@ -79,6 +84,8 @@ function mapSupabaseQcmToType(row: any): QCM {
     courseTitle: row.course_title ? String(row.course_title) : undefined,
     faculty: (row.faculty || 'ORAN') as any,
     source: sourceVal,
+    parentSource: parentVal,
+    subSource: subVal,
     rang: (row.rang || 'Rang A') as any,
     difficulty: (row.difficulty || 'Moyen') as any,
     type: correctAnswers.length > 1 ? 'MULTIPLE' : (row.type || 'SINGLE'),
@@ -99,6 +106,7 @@ function mapSupabaseQcmToType(row: any): QCM {
 
 async function syncQcmToSupabase(qcm: QCM) {
   try {
+    const finalSource = qcm.source || (qcm.parentSource && qcm.subSource ? `${qcm.parentSource} - ${qcm.subSource}` : qcm.parentSource) || 'Externat';
     const payload = {
       id: String(qcm.id),
       specialty: String(qcm.specialtyId || 'cardio'),
@@ -112,7 +120,7 @@ async function syncQcmToSupabase(qcm: QCM) {
       options: Array.isArray(qcm.options) ? qcm.options : [],
       correct_answers: Array.isArray(qcm.correctAnswers) ? qcm.correctAnswers : [0],
       explanation: String(qcm.explanation || ''),
-      source: qcm.source ? String(qcm.source) : null,
+      source: finalSource,
       faculty: qcm.faculty ? String(qcm.faculty) : 'TOUS',
       rang: qcm.rang ? String(qcm.rang) : 'Rang A',
       difficulty: qcm.difficulty ? String(qcm.difficulty) : 'Moyen',
@@ -166,24 +174,21 @@ export async function GET(req: NextRequest) {
 
   let qcmsMap = new Map<string, QCM>();
 
-  const localQcms = db.getQcms();
-  for (const q of localQcms) {
-    qcmsMap.set(q.id, q);
-  }
+  let qcms: QCM[] = [];
 
   try {
     const { data: cloudQcms, error } = await supabaseAdmin.from('qcms').select('*');
-    if (!error && Array.isArray(cloudQcms)) {
-      for (const row of cloudQcms) {
-        const mapped = mapSupabaseQcmToType(row);
-        qcmsMap.set(mapped.id, mapped);
-      }
+    if (!error && Array.isArray(cloudQcms) && cloudQcms.length > 0) {
+      qcms = cloudQcms.map(mapSupabaseQcmToType);
     }
   } catch (err) {
     console.warn('Supabase fetch qcms error:', err);
   }
 
-  const qcms = Array.from(qcmsMap.values());
+  if (qcms.length === 0) {
+    qcms = db.getQcms();
+  }
+
   return NextResponse.json({ success: true, qcms });
 }
 
@@ -196,6 +201,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
+    const effectiveSource = body.source || (body.parentSource && body.subSource ? `${body.parentSource} - ${body.subSource}` : body.parentSource) || 'Externat';
     const newQcm: QCM = {
       id: body.id || 'qcm_' + Date.now(),
       title: body.title,
@@ -204,7 +210,9 @@ export async function POST(req: NextRequest) {
       courseId: body.courseId || undefined,
       courseTitle: body.courseTitle || undefined,
       faculty: body.faculty || 'ORAN',
-      source: body.source || 'Annales Résidanat',
+      source: effectiveSource,
+      parentSource: body.parentSource || undefined,
+      subSource: body.subSource || undefined,
       rang: body.rang || 'Rang A',
       difficulty: body.difficulty || 'Moyen',
       type: body.type || 'SINGLE',

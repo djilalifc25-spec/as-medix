@@ -19,6 +19,8 @@ export interface ParsedQcmItem {
   explanationHtml: string;
   isVerified: boolean;
   source?: string;
+  parentSource?: string;
+  subSource?: string;
   specialtyId?: string;
   courseId?: string;
   year?: number;

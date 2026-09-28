@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
-import { getCurrentUser } from '@/lib/auth';
+import { normalizeSourcesList } from '@/lib/sourceUtils';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,10 +13,35 @@ export async function GET() {
     const scopes = (data || []).map((row: any) => {
       const [base, fac] = row.scope_key.split('::');
       const faculty = fac || undefined;
-      if (base === '__global__') return { key: row.scope_key, faculty, sources: row.sources };
+      const structured = normalizeSourcesList(row.sources || []);
+      const flat = structured.map(s => s.name);
+
+      if (base === '__global__') {
+        return {
+          key: row.scope_key,
+          faculty,
+          sources: flat,
+          structuredSources: structured
+        };
+      }
       const parts = base.split('__');
-      if (parts.length === 2) return { key: row.scope_key, specialty: parts[0], course: parts[1], faculty, sources: row.sources };
-      return { key: row.scope_key, specialty: parts[0], faculty, sources: row.sources };
+      if (parts.length === 2) {
+        return {
+          key: row.scope_key,
+          specialty: parts[0],
+          course: parts[1],
+          faculty,
+          sources: flat,
+          structuredSources: structured
+        };
+      }
+      return {
+        key: row.scope_key,
+        specialty: parts[0],
+        faculty,
+        sources: flat,
+        structuredSources: structured
+      };
     });
 
     return NextResponse.json({ scopes });

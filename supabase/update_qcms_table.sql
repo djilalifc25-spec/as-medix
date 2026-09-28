@@ -27,6 +27,8 @@ ALTER TABLE public.qcms
   ADD COLUMN IF NOT EXISTS correct_answers JSONB DEFAULT '[]'::jsonb,
   ADD COLUMN IF NOT EXISTS explanation TEXT,
   ADD COLUMN IF NOT EXISTS source TEXT,
+  ADD COLUMN IF NOT EXISTS parent_source TEXT,
+  ADD COLUMN IF NOT EXISTS sub_source TEXT,
   ADD COLUMN IF NOT EXISTS faculty TEXT DEFAULT 'TOUS',
   ADD COLUMN IF NOT EXISTS year INTEGER,
   ADD COLUMN IF NOT EXISTS rang TEXT DEFAULT 'Rang A',
@@ -66,3 +68,5 @@ CREATE POLICY "Custom sources modifiable by all" ON public.custom_sources FOR AL
 CREATE INDEX IF NOT EXISTS idx_qcms_specialty ON public.qcms(specialty_id);
 CREATE INDEX IF NOT EXISTS idx_qcms_course ON public.qcms(course_id);
 CREATE INDEX IF NOT EXISTS idx_qcms_source ON public.qcms(source);
+CREATE INDEX IF NOT EXISTS idx_qcms_parent_source ON public.qcms(parent_source);
+CREATE INDEX IF NOT EXISTS idx_qcms_sub_source ON public.qcms(sub_source);

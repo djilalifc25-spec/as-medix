@@ -11,8 +11,9 @@ import { INITIAL_FICHES } from '@/lib/db/seedFiches';
 import { INITIAL_CALCULATORS } from '@/lib/db/seedCalculators';
 import { INITIAL_ORDONNANCES } from '@/lib/db/seedOrdonnances';
 import { INITIAL_CLINICAL_CASES } from '@/lib/db/seedClinicalCases';
-import { QCM, Course, CATProtocol, Specialty } from '@/types';
+import { QCM, Course, CATProtocol, Specialty, StructuredSource } from '@/types';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
+import { normalizeSourcesList } from '@/lib/sourceUtils';
 import { useSidebar } from './SidebarContext';
 import { useFaculty } from '@/components/context/FacultyContext';
 import { Logo } from '@/components/brand/Logo';
@@ -20,7 +21,7 @@ import {
   ChevronRight, ChevronDown, ChevronLeft, PanelLeftClose, PanelLeftOpen, X,
   BookOpen, Zap, Brain, Siren, Calculator, FileText, Stethoscope,
   Activity, Pill, Heart, FlaskConical, Sparkles, BarChart3,
-  MessageCircle, Home, Target, PlayCircle, Bell, School
+  MessageCircle, Home, Target, PlayCircle, Bell, School, Folder, Calendar
 } from 'lucide-react';
 
 const MEDICAL_YEARS = [
@@ -53,6 +54,7 @@ export const AppSidebar: React.FC = () => {
   const [qcmExpanded, setQcmExpanded] = useState<boolean>(false);
   const [activeQcmYear, setActiveQcmYear] = useState<number | 'none' | null>(null);
   const [activeQcmSpec, setActiveQcmSpec] = useState<string | null>(null);
+  const [expandedQcmSource, setExpandedQcmSource] = useState<string | null>(null);
 
   const [fichesExpanded, setFichesExpanded] = useState<boolean>(false);
   const [activeFicheSpec, setActiveFicheSpec] = useState<string | null>(null);
@@ -74,7 +76,7 @@ export const AppSidebar: React.FC = () => {
   const [qcmsList, setQcmsList] = useState<QCM[]>(INITIAL_QCMS);
   const [coursesList, setCoursesList] = useState<Course[]>(INITIAL_COURSES);
   const [catsList, setCatsList] = useState<CATProtocol[]>(INITIAL_CAT);
-  const [adminSources, setAdminSources] = useState<{ specialty?: string; course?: string; faculty?: string; sources: string[] }[]>([]);
+  const [adminSources, setAdminSources] = useState<{ specialty?: string; course?: string; faculty?: string; sources: string[]; structuredSources?: StructuredSource[] }[]>([]);
 
   const fetchDynamicData = useCallback(async () => {
     try {
@@ -112,9 +114,8 @@ export const AppSidebar: React.FC = () => {
     }
   }, []);
 
-  // Helper to extract module-level sources for a specialty (only sources with actual QCMs)
-  const getModuleSources = useCallback((specId: string): string[] => {
-    const set = new Set<string>();
+  // Helper to extract structured sources (parent + subSources) for a specialty
+  const getStructuredModuleSources = useCallback((specId: string): StructuredSource[] => {
     const specObj = specialtiesList.find(s => s.id === specId || s.slug === specId);
     const specName = specObj?.name?.toLowerCase();
 
@@ -123,16 +124,16 @@ export const AppSidebar: React.FC = () => {
       (q.specialtyId && q.specialtyId.toLowerCase() === specId.toLowerCase()) ||
       (specName && q.specialtyName && q.specialtyName.toLowerCase() === specName)
     );
-    if (specQcms.length === 0) return [];
 
+    const accumulated: any[] = [];
     adminSources.forEach(s => {
-      if ((s.specialty === specId || (specName && s.specialty?.toLowerCase() === specName)) && (!s.course || s.course === '')) {
-        s.sources?.forEach(src => {
-          if (src?.trim()) {
-            const clean = src.trim();
-            set.add(clean);
-          }
-        });
+      const matchSpec = s.specialty === specId || (specName && s.specialty?.toLowerCase() === specName) || (s as any).key === specId || (s as any).key === `${specId}::${faculty}`;
+      if (matchSpec && (!s.course || s.course === '')) {
+        if (Array.isArray(s.structuredSources) && s.structuredSources.length > 0) {
+          accumulated.push(...s.structuredSources);
+        } else if (Array.isArray(s.sources)) {
+          accumulated.push(...s.sources);
+        }
       }
     });
 
@@ -140,13 +141,26 @@ export const AppSidebar: React.FC = () => {
       if (q.source) {
         q.source.split(',').forEach(src => {
           const cleaned = src.trim();
-          if (cleaned) set.add(cleaned);
+          if (cleaned) accumulated.push(cleaned);
         });
       }
     });
 
-    return Array.from(set);
-  }, [adminSources, qcmsList, specialtiesList]);
+    const result = normalizeSourcesList(accumulated);
+    if (result.length > 0) return result;
+
+    return [
+      { name: 'Externat', subSources: ['2018', '2019', '2020', '2021', '2022', '2023'] },
+      { name: 'Annales Résidanat', subSources: ['2018', '2019', '2020', '2021', '2022', '2023'] },
+      { name: 'Hypercours', subSources: [] },
+      { name: 'SIAU', subSources: [] }
+    ];
+  }, [adminSources, qcmsList, specialtiesList, faculty]);
+
+  // Helper to extract module-level sources as flat strings
+  const getModuleSources = useCallback((specId: string): string[] => {
+    return getStructuredModuleSources(specId).map(s => s.name);
+  }, [getStructuredModuleSources]);
 
   // Helper to extract course-level sources for a specific course (only sources with actual QCMs in that course)
   const getCourseSources = useCallback((specId: string, courseId: string, courseTitle?: string): string[] => {
@@ -835,12 +849,12 @@ export const AppSidebar: React.FC = () => {
 
                                   {/* Level 3: Totalité du Module vs Par Cours */}
                                   {isSpecOpen && (() => {
-                                    const moduleSources = getModuleSources(spec.id);
+                                    const moduleStructuredSources = getStructuredModuleSources(spec.id);
 
                                     return (
                                       <div className="ml-3 pl-2 border-l border-slate-200 dark:border-white/10 space-y-2 py-1.5 animate-fade-in">
                                         {/* Totalité du Module Section */}
-                                        <div className="space-y-1 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
+                                        <div className="space-y-1.5 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
                                           <Link
                                             href={`/qcm-session?specialty=${spec.id}`}
                                             onClick={handleLinkClick}
@@ -848,30 +862,92 @@ export const AppSidebar: React.FC = () => {
                                           >
                                             <div className="flex items-center gap-1.5 truncate">
                                               <PlayCircle className="w-3.5 h-3.5 shrink-0" />
-                                              <span className="truncate">Totalité du Module</span>
+                                              <span className="truncate">Totalité du Module (Toutes sources)</span>
                                             </div>
                                             <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-mono">{specCount} QCM</span>
                                           </Link>
 
-                                          {/* Module Sources */}
-                                          {moduleSources.length > 0 && (
+                                          {/* Module Sources Hierarchy (Année -> Module -> Source -> Sous-Source) */}
+                                          {moduleStructuredSources.length > 0 && (
                                             <div className="pt-1 space-y-1">
-                                              <div className="text-[9px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-1">
-                                                📚 Sources Totalité Module :
+                                              <div className="text-[9px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-1 flex items-center justify-between">
+                                                <span>📚 Sources du Module :</span>
+                                                <span className="text-[8px] text-slate-400 lowercase font-normal">choisir une session</span>
                                               </div>
-                                              <div className="flex flex-wrap gap-1 px-0.5">
-                                                {moduleSources.map(src => (
-                                                  <Link
-                                                    key={src}
-                                                    href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(src)}`}
-                                                    onClick={handleLinkClick}
-                                                    className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50 hover:bg-sky-50 dark:hover:bg-sky-950/60 transition-colors truncate max-w-full flex items-center gap-1 shadow-2xs"
-                                                    title={`Lancer QCM source "${src}" pour ${spec.name}`}
-                                                  >
-                                                    <span>🏷️</span>
-                                                    <span className="truncate">{src}</span>
-                                                  </Link>
-                                                ))}
+                                              <div className="space-y-1">
+                                                {moduleStructuredSources.map(src => {
+                                                  const hasSubs = Array.isArray(src.subSources) && src.subSources.length > 0;
+                                                  const sourceKey = `${spec.id}__${src.name}`;
+                                                  const isSourceOpen = expandedQcmSource === sourceKey;
+
+                                                  if (hasSubs) {
+                                                    return (
+                                                      <div key={src.name} className="space-y-0.5">
+                                                        <button
+                                                          type="button"
+                                                          onClick={() => setExpandedQcmSource(isSourceOpen ? null : sourceKey)}
+                                                          className={`w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all ${
+                                                            isSourceOpen
+                                                              ? 'bg-sky-500/15 dark:bg-sky-500/25 text-sky-700 dark:text-sky-300 border border-sky-400/40 shadow-xs'
+                                                              : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 hover:bg-sky-50/60 dark:hover:bg-white/5'
+                                                          }`}
+                                                        >
+                                                          <div className="flex items-center gap-1.5 truncate">
+                                                            <Folder className={`w-3 h-3 shrink-0 ${isSourceOpen ? 'text-sky-500' : 'text-slate-400'}`} />
+                                                            <span className="truncate">{src.name}</span>
+                                                          </div>
+                                                          <div className="flex items-center gap-1 shrink-0">
+                                                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 font-mono font-bold">
+                                                              {src.subSources.length} sessions
+                                                            </span>
+                                                            {isSourceOpen ? <ChevronDown className="w-2.5 h-2.5 text-sky-500" /> : <ChevronRight className="w-2.5 h-2.5 text-slate-400" />}
+                                                          </div>
+                                                        </button>
+
+                                                        {isSourceOpen && (
+                                                          <div className="ml-2 pl-2 border-l border-sky-300 dark:border-sky-800 space-y-0.5 py-1 animate-fade-in">
+                                                            <div className="text-[8px] font-bold uppercase text-slate-400 px-1 mb-0.5">
+                                                              Sessions disponibles :
+                                                            </div>
+                                                            {src.subSources.map(sub => (
+                                                              <Link
+                                                                key={sub}
+                                                                href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(`${src.name} - ${sub}`)}`}
+                                                                onClick={handleLinkClick}
+                                                                className="flex items-center justify-between px-2 py-1 rounded-md text-[10px] font-semibold text-slate-600 dark:text-slate-300 hover:bg-sky-50 hover:text-sky-600 dark:hover:bg-sky-950/50 transition-colors"
+                                                                title={`Lancer QCM ${src.name} session ${sub}`}
+                                                              >
+                                                                <div className="flex items-center gap-1.5 truncate">
+                                                                  <Calendar className="w-2.5 h-2.5 text-sky-500 shrink-0" />
+                                                                  <span>Session {sub}</span>
+                                                                </div>
+                                                                <span className="text-[8px] text-sky-500 font-bold">Lancer →</span>
+                                                              </Link>
+                                                            ))}
+                                                          </div>
+                                                        )}
+                                                      </div>
+                                                    );
+                                                  }
+
+                                                  return (
+                                                    <Link
+                                                      key={src.name}
+                                                      href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(src.name)}`}
+                                                      onClick={handleLinkClick}
+                                                      className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 hover:bg-indigo-50 hover:text-[#5D5FEF] dark:hover:bg-white/5 transition-all shadow-2xs"
+                                                      title={`Lancer tous les QCMs de "${src.name}"`}
+                                                    >
+                                                      <div className="flex items-center gap-1.5 truncate">
+                                                        <PlayCircle className="w-3 h-3 text-indigo-500 shrink-0" />
+                                                        <span className="truncate">{src.name}</span>
+                                                      </div>
+                                                      <span className="text-[8px] px-1 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold">
+                                                        Direct →
+                                                      </span>
+                                                    </Link>
+                                                  );
+                                                })}
                                               </div>
                                             </div>
                                           )}
@@ -1002,12 +1078,12 @@ export const AppSidebar: React.FC = () => {
                                 </button>
 
                                 {isSpecOpen && (() => {
-                                  const moduleSources = getModuleSources(spec.id);
+                                  const moduleStructuredSources = getStructuredModuleSources(spec.id);
 
                                   return (
                                     <div className="ml-3 pl-2 border-l border-slate-200 dark:border-white/10 space-y-2 py-1.5 animate-fade-in">
                                       {/* Totalité du Module Section */}
-                                      <div className="space-y-1 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
+                                      <div className="space-y-1.5 p-2 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
                                         <Link
                                           href={`/qcm-session?specialty=${spec.id}`}
                                           onClick={handleLinkClick}
@@ -1015,30 +1091,92 @@ export const AppSidebar: React.FC = () => {
                                         >
                                           <div className="flex items-center gap-1.5 truncate">
                                             <PlayCircle className="w-3.5 h-3.5 shrink-0" />
-                                            <span className="truncate">Totalité du Module</span>
+                                            <span className="truncate">Totalité du Module (Toutes sources)</span>
                                           </div>
                                           <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-mono">{specCount} QCM</span>
                                         </Link>
 
-                                        {/* Module Sources */}
-                                        {moduleSources.length > 0 && (
+                                        {/* Module Sources Hierarchy (Année -> Module -> Source -> Sous-Source) */}
+                                        {moduleStructuredSources.length > 0 && (
                                           <div className="pt-1 space-y-1">
-                                            <div className="text-[9px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-1">
-                                              📚 Sources Totalité Module :
+                                            <div className="text-[9px] font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 px-1 flex items-center justify-between">
+                                              <span>📚 Sources du Module :</span>
+                                              <span className="text-[8px] text-slate-400 lowercase font-normal">choisir une session</span>
                                             </div>
-                                            <div className="flex flex-wrap gap-1 px-0.5">
-                                              {moduleSources.map(src => (
-                                                <Link
-                                                  key={src}
-                                                  href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(src)}`}
-                                                  onClick={handleLinkClick}
-                                                  className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/50 hover:bg-sky-50 dark:hover:bg-sky-950/60 transition-colors truncate max-w-full flex items-center gap-1 shadow-2xs"
-                                                  title={`Lancer QCM source "${src}" pour ${spec.name}`}
-                                                >
-                                                  <span>🏷️</span>
-                                                  <span className="truncate">{src}</span>
-                                                </Link>
-                                              ))}
+                                            <div className="space-y-1">
+                                              {moduleStructuredSources.map(src => {
+                                                const hasSubs = Array.isArray(src.subSources) && src.subSources.length > 0;
+                                                const sourceKey = `transversal_${spec.id}__${src.name}`;
+                                                const isSourceOpen = expandedQcmSource === sourceKey;
+
+                                                if (hasSubs) {
+                                                  return (
+                                                    <div key={src.name} className="space-y-0.5">
+                                                      <button
+                                                        type="button"
+                                                        onClick={() => setExpandedQcmSource(isSourceOpen ? null : sourceKey)}
+                                                        className={`w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[10px] font-bold text-left transition-all ${
+                                                          isSourceOpen
+                                                            ? 'bg-sky-500/15 dark:bg-sky-500/25 text-sky-700 dark:text-sky-300 border border-sky-400/40 shadow-xs'
+                                                            : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 hover:bg-sky-50/60 dark:hover:bg-white/5'
+                                                        }`}
+                                                      >
+                                                        <div className="flex items-center gap-1.5 truncate">
+                                                          <Folder className={`w-3 h-3 shrink-0 ${isSourceOpen ? 'text-sky-500' : 'text-slate-400'}`} />
+                                                          <span className="truncate">{src.name}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-1 shrink-0">
+                                                          <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 font-mono font-bold">
+                                                            {src.subSources.length} sessions
+                                                          </span>
+                                                          {isSourceOpen ? <ChevronDown className="w-2.5 h-2.5 text-sky-500" /> : <ChevronRight className="w-2.5 h-2.5 text-slate-400" />}
+                                                        </div>
+                                                      </button>
+
+                                                      {isSourceOpen && (
+                                                        <div className="ml-2 pl-2 border-l border-sky-300 dark:border-sky-800 space-y-0.5 py-1 animate-fade-in">
+                                                          <div className="text-[8px] font-bold uppercase text-slate-400 px-1 mb-0.5">
+                                                            Sessions disponibles :
+                                                          </div>
+                                                          {src.subSources.map(sub => (
+                                                            <Link
+                                                              key={sub}
+                                                              href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(`${src.name} - ${sub}`)}`}
+                                                              onClick={handleLinkClick}
+                                                              className="flex items-center justify-between px-2 py-1 rounded-md text-[10px] font-semibold text-slate-600 dark:text-slate-300 hover:bg-sky-50 hover:text-sky-600 dark:hover:bg-sky-950/50 transition-colors"
+                                                              title={`Lancer QCM ${src.name} session ${sub}`}
+                                                            >
+                                                              <div className="flex items-center gap-1.5 truncate">
+                                                                <Calendar className="w-2.5 h-2.5 text-sky-500 shrink-0" />
+                                                                <span>Session {sub}</span>
+                                                              </div>
+                                                              <span className="text-[8px] text-sky-500 font-bold">Lancer →</span>
+                                                            </Link>
+                                                          ))}
+                                                        </div>
+                                                      )}
+                                                    </div>
+                                                  );
+                                                }
+
+                                                return (
+                                                  <Link
+                                                    key={src.name}
+                                                    href={`/qcm-session?specialty=${spec.id}&source=${encodeURIComponent(src.name)}`}
+                                                    onClick={handleLinkClick}
+                                                    className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[10px] font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-white/10 hover:bg-indigo-50 hover:text-[#5D5FEF] dark:hover:bg-white/5 transition-all shadow-2xs"
+                                                    title={`Lancer tous les QCMs de "${src.name}"`}
+                                                  >
+                                                    <div className="flex items-center gap-1.5 truncate">
+                                                      <PlayCircle className="w-3 h-3 text-indigo-500 shrink-0" />
+                                                      <span className="truncate">{src.name}</span>
+                                                    </div>
+                                                    <span className="text-[8px] px-1 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold">
+                                                      Direct →
+                                                    </span>
+                                                  </Link>
+                                                );
+                                              })}
                                             </div>
                                           </div>
                                         )}

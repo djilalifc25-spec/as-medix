@@ -1,4 +1,45 @@
-// lib/sourceUtils.ts
+import { StructuredSource } from '@/types';
+
+export function normalizeSourceItem(item: any): StructuredSource {
+  if (!item) return { name: '', subSources: [] };
+  if (typeof item === 'string') {
+    const clean = item.trim();
+    if (clean.includes(' - ')) {
+      const parts = clean.split(' - ');
+      const p = parts[0].trim();
+      const sub = parts.slice(1).join(' - ').trim();
+      return { name: p, subSources: sub ? [sub] : [] };
+    }
+    return { name: clean, subSources: [] };
+  }
+  if (typeof item === 'object') {
+    const name = String(item.name || '').trim();
+    const rawSubs: any[] = Array.isArray(item.subSources) ? item.subSources : [];
+    const subSources: string[] = Array.from(new Set(rawSubs.map((s: any) => String(s).trim()).filter(Boolean)));
+    return { name, subSources };
+  }
+  return { name: String(item).trim(), subSources: [] };
+}
+
+export function normalizeSourcesList(rawList: any[]): StructuredSource[] {
+  if (!Array.isArray(rawList)) return [];
+  const map = new Map<string, Set<string>>();
+
+  rawList.forEach(item => {
+    const norm = normalizeSourceItem(item);
+    if (!norm.name) return;
+    if (!map.has(norm.name)) {
+      map.set(norm.name, new Set<string>());
+    }
+    const currentSubs = map.get(norm.name)!;
+    norm.subSources.forEach(s => currentSubs.add(s));
+  });
+
+  return Array.from(map.entries()).map(([name, subSet]) => ({
+    name,
+    subSources: Array.from(subSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  }));
+}
 
 export function parseSourceHierarchy(s: string): { parent: string; sub: string | null } {
   const clean = (s || '').trim();

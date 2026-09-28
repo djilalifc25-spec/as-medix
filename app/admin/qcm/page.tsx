@@ -2,15 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { ALL_SPECIALTIES } from '@/lib/db/seedData';
-import { QCM, Course, Specialty, MEDICAL_YEARS } from '@/types';
+import { QCM, Course, Specialty, MEDICAL_YEARS, StructuredSource } from '@/types';
 import {
   Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, School,
   FileText, Upload, FileCode, Check, Edit3, Layers, Loader2, ChevronDown, ChevronUp, AlertCircle,
   Link as LinkIcon, Globe, X, Key, ArrowUp, ArrowDown, ArrowUpDown, PlusCircle, FolderTree, ChevronRight,
-  Copy, Sliders, CornerDownRight
+  Copy, Sliders, CornerDownRight, Folder, Calendar, Settings
 } from 'lucide-react';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
 import { ParsedQcmItem, parseQcmDocument, parseAnswerKey } from '@/lib/qcmParser';
+import { parseSourceHierarchy } from '@/lib/sourceUtils';
 
 export default function AdminQcmPage() {
   const [qcms, setQcms] = useState<QCM[]>([]);
@@ -51,10 +52,15 @@ export default function AdminQcmPage() {
   const [activeTab, setActiveTab] = useState<'html' | 'preview'>('html');
   const [successMsg, setSuccessMsg] = useState('');
 
-  // Per-scope sources
+  // Per-scope sources & hierarchy
   const [scopeSources, setScopeSources] = useState<string[]>([]);
+  const [structuredSources, setStructuredSources] = useState<StructuredSource[]>([]);
   const [newSourceInput, setNewSourceInput] = useState('');
   const [addingSource, setAddingSource] = useState(false);
+  const [newCustomSourceName, setNewCustomSourceName] = useState('');
+  const [newCustomSubSourceName, setNewCustomSubSourceName] = useState<Record<string, string>>({});
+  const [sourceActionLoading, setSourceActionLoading] = useState(false);
+  const [managingSourcesOpen, setManagingSourcesOpen] = useState(false);
 
   // Batch QCM Import States
   const [qcmInputMode, setQcmInputMode] = useState<'MANUAL' | 'BATCH_IMPORT'>('MANUAL');
@@ -115,23 +121,148 @@ export default function AdminQcmPage() {
     } catch (_err) {}
   };
 
+  // Add a new Source to current module
+  const handleAddModuleSource = async (sourceName: string) => {
+    const clean = sourceName.trim();
+    if (!clean) return;
+    setSourceActionLoading(true);
+    try {
+      const res = await fetch('/api/admin/sources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: clean,
+          specialty: specialtyId,
+          course: courseId || undefined,
+          faculty: faculty !== 'TOUS' ? faculty : undefined,
+        })
+      });
+      const data = await res.json();
+      if (data.structuredSources) {
+        setStructuredSources(data.structuredSources);
+        setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
+        setParentSource(clean);
+        setNewCustomSourceName('');
+      }
+    } catch (_err) {
+      alert('Erreur lors de l\'ajout de la source');
+    } finally {
+      setSourceActionLoading(false);
+    }
+  };
+
+  // Delete a Source from current module
+  const handleDeleteModuleSource = async (sourceName: string) => {
+    if (!confirm(`Supprimer la source "${sourceName}" et toutes ses sous-sources pour ce module ?`)) return;
+    setSourceActionLoading(true);
+    try {
+      const res = await fetch('/api/admin/sources', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: sourceName,
+          specialty: specialtyId,
+          course: courseId || undefined,
+          faculty: faculty !== 'TOUS' ? faculty : undefined,
+        })
+      });
+      const data = await res.json();
+      if (data.structuredSources) {
+        setStructuredSources(data.structuredSources);
+        setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
+        if (parentSource === sourceName) {
+          setParentSource(data.structuredSources[0]?.name || 'Externat');
+        }
+      }
+    } catch (_err) {
+      alert('Erreur lors de la suppression de la source');
+    } finally {
+      setSourceActionLoading(false);
+    }
+  };
+
+  // Add a Sub-Source to a parent Source
+  const handleAddSubSource = async (parentName: string, subSourceName: string) => {
+    const cleanSub = subSourceName.trim();
+    if (!cleanSub) return;
+    setSourceActionLoading(true);
+    try {
+      const res = await fetch('/api/admin/sources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parentName: parentName,
+          subSource: cleanSub,
+          specialty: specialtyId,
+          course: courseId || undefined,
+          faculty: faculty !== 'TOUS' ? faculty : undefined,
+        })
+      });
+      const data = await res.json();
+      if (data.structuredSources) {
+        setStructuredSources(data.structuredSources);
+        setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
+        setSubSource(cleanSub);
+        setNewCustomSubSourceName(prev => ({ ...prev, [parentName]: '' }));
+      }
+    } catch (_err) {
+      alert('Erreur lors de l\'ajout de la sous-source');
+    } finally {
+      setSourceActionLoading(false);
+    }
+  };
+
+  // Delete a Sub-Source from a parent Source
+  const handleDeleteSubSource = async (parentName: string, subSourceName: string) => {
+    if (!confirm(`Supprimer la sous-source "${subSourceName}" de "${parentName}" ?`)) return;
+    setSourceActionLoading(true);
+    try {
+      const res = await fetch('/api/admin/sources', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          parentName: parentName,
+          subSource: subSourceName,
+          specialty: specialtyId,
+          course: courseId || undefined,
+          faculty: faculty !== 'TOUS' ? faculty : undefined,
+        })
+      });
+      const data = await res.json();
+      if (data.structuredSources) {
+        setStructuredSources(data.structuredSources);
+        setScopeSources(data.sources || data.structuredSources.map((s: any) => s.name));
+        if (subSource === subSourceName) {
+          setSubSource('');
+        }
+      }
+    } catch (_err) {
+      alert('Erreur lors de la suppression de la sous-source');
+    } finally {
+      setSourceActionLoading(false);
+    }
+  };
+
   // Fetch scoped sources whenever specialty, course or faculty changes
   const fetchScopeSources = async (spec: string, crs: string, fac?: string) => {
-    const params = new URLSearchParams();
-    if (spec) params.set('specialty', spec);
-    if (crs) params.set('course', crs);
-    if (fac && fac !== 'TOUS') params.set('faculty', fac);
-    const res = await fetch(`/api/admin/sources?${params}`);
-    const data = await res.json();
-    if (data.sources) {
-      setScopeSources(data.sources);
-      const effective = (parentSource && subSource.trim()) ? `${parentSource.trim()} - ${subSource.trim()}` : null;
-      if (effective) {
-        setSource(effective);
-      } else if (!source || !data.sources.includes(source)) {
-        setSource(data.sources[0] || 'Externat');
+    try {
+      const params = new URLSearchParams();
+      if (spec) params.set('specialty', spec);
+      if (crs) params.set('course', crs);
+      if (fac && fac !== 'TOUS') params.set('faculty', fac);
+      const res = await fetch(`/api/admin/sources?${params}`);
+      const data = await res.json();
+      if (data.structuredSources && Array.isArray(data.structuredSources)) {
+        setStructuredSources(data.structuredSources);
+        const names = data.structuredSources.map((s: StructuredSource) => s.name);
+        setScopeSources(names);
+        if (names.length > 0 && !names.includes(parentSource)) {
+          setParentSource(names[0]);
+        }
+      } else if (data.sources) {
+        setScopeSources(data.sources);
       }
-    }
+    } catch (_err) {}
   };
 
   useEffect(() => {
@@ -315,6 +446,8 @@ export default function AdminQcmPage() {
       courseTitle: crs ? crs.title : undefined,
       faculty: faculty || 'ORAN',
       source: finalSource || 'Annales Examens',
+      parentSource: parentSource || undefined,
+      subSource: subSource || undefined,
       rang: 'Rang A',
       difficulty: 'Moyen',
       type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
@@ -444,6 +577,10 @@ export default function AdminQcmPage() {
       .map((opt, idx) => opt.isCorrect ? idx : -1)
       .filter(idx => idx !== -1);
 
+    const parsedH = parseSourceHierarchy(itemSource);
+    const itemParentSource = qcmItem.parentSource || parentSource || parsedH.parent;
+    const itemSubSource = qcmItem.subSource || subSource || parsedH.sub || undefined;
+
     const payload = {
       title: qcmItem.question.length > 80 ? qcmItem.question.substring(0, 80) + '...' : qcmItem.question,
       year: itemYear,
@@ -453,6 +590,8 @@ export default function AdminQcmPage() {
       courseTitle: crs ? crs.title : undefined,
       faculty: faculty || 'ORAN',
       source: itemSource,
+      parentSource: itemParentSource || undefined,
+      subSource: itemSubSource || undefined,
       rang: 'Rang A',
       difficulty: 'Moyen',
       type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
@@ -509,6 +648,10 @@ export default function AdminQcmPage() {
           .map((opt, idx) => opt.isCorrect ? idx : -1)
           .filter(idx => idx !== -1);
 
+        const parsedBatchH = parseSourceHierarchy(itemSource);
+        const itemParentSource = qcmItem.parentSource || parentSource || parsedBatchH.parent;
+        const itemSubSource = qcmItem.subSource || subSource || parsedBatchH.sub || undefined;
+
         return {
           id: qcmItem.id || `qcm_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
           title: qcmItem.question.length > 80 ? qcmItem.question.substring(0, 80) + '...' : qcmItem.question,
@@ -519,6 +662,8 @@ export default function AdminQcmPage() {
           courseTitle: crs ? crs.title : undefined,
           faculty: faculty || 'ORAN',
           source: itemSource,
+          parentSource: itemParentSource || undefined,
+          subSource: itemSubSource || undefined,
           rang: 'Rang A',
           difficulty: 'Moyen',
           type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
@@ -864,12 +1009,181 @@ export default function AdminQcmPage() {
 
           {/* Scope selection for both modes (Faculté, Source, Année, Spécialité, Cours) */}
           <div className="space-y-4 p-5 rounded-2xl bg-slate-50 dark:bg-navy-900/50 border border-slate-200 dark:border-navy-800">
-            <div className="text-xs font-black text-navy-900 dark:text-white uppercase tracking-wider flex items-center justify-between">
-              <span>🎯 Attributs Cibles des QCMs Imprimés</span>
-              <span className="text-[10px] text-brand-600 font-bold bg-brand-500/10 px-2 py-0.5 rounded-full border border-brand-500/20">
-                {courseId ? 'Rattaché au Cours' : 'Rattaché au Module'}
+            <div className="text-xs font-black text-navy-900 dark:text-white uppercase tracking-wider flex items-center justify-between flex-wrap gap-2">
+              <span className="flex items-center gap-2">
+                <span>🎯 Attributs Cibles des QCMs Imprimés</span>
+                <span className="text-[10px] text-brand-600 font-bold bg-brand-500/10 px-2 py-0.5 rounded-full border border-brand-500/20">
+                  {courseId ? 'Rattaché au Cours' : 'Rattaché au Module'}
+                </span>
               </span>
+              <button
+                type="button"
+                onClick={() => setManagingSourcesOpen(!managingSourcesOpen)}
+                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs flex items-center gap-1.5 transition-all"
+              >
+                <Settings className="w-3.5 h-3.5" />
+                <span>{managingSourcesOpen ? '✕ Fermer Gestionnaire' : '⚙️ Gérer Sources & Sous-Sources du Module'}</span>
+              </button>
             </div>
+
+            {/* COLLAPSIBLE SOURCES & SUB-SOURCES MANAGER */}
+            {managingSourcesOpen && (
+              <div className="p-4 rounded-2xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Folder className="w-4 h-4 text-indigo-600" />
+                    <h4 className="text-xs font-black text-indigo-950 dark:text-indigo-200 uppercase tracking-wide">
+                      Gestionnaire des Sources & Sous-Sources — {specialtiesList.find(s => s.id === specialtyId)?.name || specialtyId}
+                    </h4>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setManagingSourcesOpen(false)}
+                    className="text-[11px] text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-bold"
+                  >
+                    ✕ Fermer
+                  </button>
+                </div>
+
+                {/* Form to add a new Source to this module */}
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Nom de la nouvelle source (ex: SIAU, Hypercours, Annales Résidanat...)"
+                    value={newCustomSourceName}
+                    onChange={e => setNewCustomSourceName(e.target.value)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleAddModuleSource(newCustomSourceName);
+                      }
+                    }}
+                    className="flex-1 px-3 py-2 text-xs rounded-xl border border-indigo-200 dark:border-indigo-800 bg-white dark:bg-navy-900 font-bold"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleAddModuleSource(newCustomSourceName)}
+                    disabled={!newCustomSourceName.trim() || sourceActionLoading}
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white flex items-center gap-1.5 transition-all shadow-xs"
+                  >
+                    {sourceActionLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
+                    <span>+ Ajouter Source</span>
+                  </button>
+                </div>
+
+                {/* List of current structured sources */}
+                <div className="space-y-2.5">
+                  {structuredSources.length === 0 ? (
+                    <p className="text-xs text-navy-400 italic">Aucune source enregistrée pour ce module. Ajoutez-en une ci-dessus.</p>
+                  ) : (
+                    structuredSources.map(s => {
+                      const hasSubs = s.subSources && s.subSources.length > 0;
+                      return (
+                        <div key={s.name} className="p-3 rounded-xl bg-white dark:bg-navy-900 border border-indigo-100 dark:border-navy-800 shadow-xs space-y-2">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-black text-navy-900 dark:text-white">📁 {s.name}</span>
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                                hasSubs
+                                  ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200'
+                                  : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200'
+                              }`}>
+                                {hasSubs ? `🗂️ ${s.subSources.length} session(s)` : '⚡ Lancement direct (sans sous-source)'}
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteModuleSource(s.name)}
+                              disabled={sourceActionLoading}
+                              className="text-xs text-rose-500 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/50 p-1.5 rounded-lg transition-all"
+                              title="Supprimer cette source"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+
+                          {/* Sub-sources pills */}
+                          <div className="pl-4 border-l-2 border-indigo-100 dark:border-indigo-900/50 space-y-2">
+                            {hasSubs ? (
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                {s.subSources.map(sub => (
+                                  <span
+                                    key={sub}
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-navy-800 text-navy-800 dark:text-navy-200 border border-slate-200 dark:border-navy-700"
+                                  >
+                                    <span>📅 {sub}</span>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleDeleteSubSource(s.name, sub)}
+                                      disabled={sourceActionLoading}
+                                      className="hover:text-rose-500 ml-0.5 text-navy-400 font-black text-xs"
+                                      title={`Supprimer la sous-source ${sub}`}
+                                    >
+                                      ✕
+                                    </button>
+                                  </span>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-[11px] text-navy-400">
+                                Cette source ne contient aucune sous-source. L'étudiant y accède directement d'un clic dans la barre latérale.
+                              </p>
+                            )}
+
+                            {/* Quick Add Sub-Source / Session (Options fermées 2018-2023) */}
+                            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                              <span className="text-[10px] font-bold text-navy-400">Ajout rapide de session :</span>
+                              {['2018', '2019', '2020', '2021', '2022', '2023'].map(yr => {
+                                const alreadyExists = s.subSources.includes(yr);
+                                if (alreadyExists) return null;
+                                return (
+                                  <button
+                                    key={yr}
+                                    type="button"
+                                    onClick={() => handleAddSubSource(s.name, yr)}
+                                    disabled={sourceActionLoading}
+                                    className="px-2 py-0.5 text-[10px] font-bold rounded bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-navy-800 dark:text-indigo-300 border border-indigo-200 transition-all"
+                                  >
+                                    + {yr}
+                                  </button>
+                                );
+                              })}
+                              <div className="flex items-center gap-1 ml-auto">
+                                <input
+                                  type="text"
+                                  placeholder="Autre session..."
+                                  value={newCustomSubSourceName[s.name] || ''}
+                                  onChange={e => setNewCustomSubSourceName({ ...newCustomSubSourceName, [s.name]: e.target.value })}
+                                  onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      const val = newCustomSubSourceName[s.name];
+                                      if (val?.trim()) handleAddSubSource(s.name, val.trim());
+                                    }
+                                  }}
+                                  className="px-2 py-0.5 text-[11px] rounded border border-slate-200 dark:border-navy-700 bg-white dark:bg-navy-800 w-28"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const val = newCustomSubSourceName[s.name];
+                                    if (val?.trim()) handleAddSubSource(s.name, val.trim());
+                                  }}
+                                  disabled={!newCustomSubSourceName[s.name]?.trim() || sourceActionLoading}
+                                  className="px-2 py-0.5 text-[11px] font-bold rounded bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -951,103 +1265,158 @@ export default function AdminQcmPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
-                  5. Source Parente & Sous-Source / Année d'Examen :
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
-                  <div>
-                    <span className="text-[10px] font-bold text-navy-400">A. Source Parente :</span>
-                    <select
-                      value={parentSource}
-                      onChange={e => {
-                        const p = e.target.value;
-                        setParentSource(p);
-                        const full = p && subSource ? `${p} - ${subSource}` : p;
-                        setSource(full);
-                      }}
-                      className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
-                    >
-                      <option value="Externat">Externat</option>
-                      <option value="SIAU">SIAU</option>
-                      <option value="Annales Résidanat">Annales Résidanat</option>
-                      <option value="QCM CNP">QCM CNP</option>
-                      <option value="Hypercours">Hypercours</option>
-                      {scopeSources.map(s => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-bold text-navy-400">B. Sous-Source / Session (Options Fermées) :</span>
-                      <span className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/80 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">
-                        🔒 Choix Fixe Uniquement
-                      </span>
-                    </div>
-
-                    {/* Closed Select Dropdown - Cannot type anything */}
-                    <select
-                      value={subSource}
-                      onChange={e => {
-                        const sub = e.target.value;
-                        setSubSource(sub);
-                        const full = parentSource && sub ? `${parentSource} - ${sub}` : parentSource;
-                        setSource(full);
-                        if (sub && !isNaN(Number(sub))) {
-                          setYear(Number(sub));
-                        }
-                      }}
-                      className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 text-xs font-bold text-navy-900 dark:text-white cursor-pointer shadow-xs"
-                    >
-                      <option value="">-- Sélectionner une année fermée --</option>
-                      {['2018', '2019', '2020', '2021', '2022', '2023'].map(yr => (
-                        <option key={yr} value={yr}>📅 Session {yr}</option>
-                      ))}
-                    </select>
-
-                    {/* Closed 1-Click Interactive Badges */}
-                    <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                      {['2018', '2019', '2020', '2021', '2022', '2023'].map(yr => {
-                        const isSelected = subSource === yr;
-                        return (
-                          <button
-                            key={yr}
-                            type="button"
-                            onClick={() => {
-                              setSubSource(yr);
-                              const full = parentSource && yr ? `${parentSource} - ${yr}` : parentSource;
-                              setSource(full);
-                              setYear(Number(yr));
-                            }}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                              isSelected
-                                ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-400 scale-105 font-black'
-                                : 'bg-white dark:bg-navy-900 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-navy-800'
-                            }`}
-                          >
-                            {isSelected ? `✓ ${yr}` : yr}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-indigo-50/60 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800">
-                  <div className="text-[11px] font-bold text-indigo-900 dark:text-indigo-200 min-w-0 truncate">
-                    📌 Attribué : <span className="underline">{source || parentSource || 'Non définie'}</span>
-                  </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
+                    5. Source Parente & Sous-Source (Session d'Examen) :
+                  </label>
                   <button
                     type="button"
-                    onClick={handleAddScopeSource}
-                    disabled={!source.trim() || addingSource}
-                    className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 text-white text-[10px] font-bold shrink-0 transition-all shadow-xs"
+                    onClick={() => setManagingSourcesOpen(!managingSourcesOpen)}
+                    className="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 flex items-center gap-1 underline"
                   >
-                    {addingSource ? '...' : '+ Sauvegarder la Sous-Source dans la Base'}
+                    <Settings className="w-3 h-3" />
+                    <span>Gérer les sources du module</span>
                   </button>
                 </div>
+
+                {(() => {
+                  const currentStructured = structuredSources.find(s => s.name === parentSource);
+                  const currentSubSources = currentStructured
+                    ? currentStructured.subSources
+                    : (parentSource === 'Externat' ? ['2018', '2019', '2020', '2021', '2022', '2023'] : []);
+                  const hasSubSources = currentSubSources.length > 0;
+
+                  return (
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {/* Parent Source Dropdown */}
+                        <div>
+                          <span className="text-[10px] font-bold text-navy-400">A. Source Parente :</span>
+                          <select
+                            value={parentSource}
+                            onChange={e => {
+                              const p = e.target.value;
+                              setParentSource(p);
+                              const targetSourceObj = structuredSources.find(s => s.name === p);
+                              if (targetSourceObj && targetSourceObj.subSources.length > 0) {
+                                const nextSub = targetSourceObj.subSources.includes(subSource) ? subSource : targetSourceObj.subSources[0];
+                                setSubSource(nextSub);
+                                setSource(`${p} - ${nextSub}`);
+                                if (!isNaN(Number(nextSub))) setYear(Number(nextSub));
+                              } else {
+                                setSubSource('');
+                                setSource(p);
+                              }
+                            }}
+                            className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-indigo-50 dark:bg-navy-800 text-xs font-bold text-navy-900 dark:text-white"
+                          >
+                            {structuredSources.length > 0 ? (
+                              structuredSources.map(s => (
+                                <option key={s.name} value={s.name}>
+                                  {s.subSources.length > 0 ? '📁 ' : '⚡ '} {s.name} {s.subSources.length === 0 ? '(Directe)' : `(${s.subSources.length} sessions)`}
+                                </option>
+                              ))
+                            ) : (
+                              <>
+                                <option value="Externat">📁 Externat (Sessions 2018-2023)</option>
+                                <option value="SIAU">⚡ SIAU (Directe)</option>
+                                <option value="Annales Résidanat">📁 Annales Résidanat</option>
+                                <option value="QCM CNP">⚡ QCM CNP (Directe)</option>
+                                <option value="Hypercours">⚡ Hypercours (Directe)</option>
+                                {scopeSources.map(s => (
+                                  <option key={s} value={s}>{s}</option>
+                                ))}
+                              </>
+                            )}
+                          </select>
+                        </div>
+
+                        {/* Sub-Source Closed Options OR Direct Source Badge */}
+                        <div>
+                          {hasSubSources ? (
+                            <>
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-[10px] font-bold text-navy-400">B. Sous-Source / Session (Options Fermées) :</span>
+                                <span className="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/80 px-1.5 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">
+                                  🔒 Choix Fixe Uniquement
+                                </span>
+                              </div>
+
+                              {/* Closed Select Dropdown - Cannot type anything */}
+                              <select
+                                value={subSource}
+                                onChange={e => {
+                                  const sub = e.target.value;
+                                  setSubSource(sub);
+                                  const full = parentSource && sub ? `${parentSource} - ${sub}` : parentSource;
+                                  setSource(full);
+                                  if (sub && !isNaN(Number(sub))) {
+                                    setYear(Number(sub));
+                                  }
+                                }}
+                                className="w-full px-3 py-2 rounded-xl border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 text-xs font-bold text-navy-900 dark:text-white cursor-pointer shadow-xs"
+                              >
+                                <option value="">-- Sélectionner une année fermée --</option>
+                                {currentSubSources.map(yr => (
+                                  <option key={yr} value={yr}>📅 Session {yr}</option>
+                                ))}
+                              </select>
+
+                              {/* Closed 1-Click Interactive Badges */}
+                              <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                                {currentSubSources.map(yr => {
+                                  const isSelected = subSource === yr;
+                                  return (
+                                    <button
+                                      key={yr}
+                                      type="button"
+                                      onClick={() => {
+                                        setSubSource(yr);
+                                        const full = parentSource && yr ? `${parentSource} - ${yr}` : parentSource;
+                                        setSource(full);
+                                        if (!isNaN(Number(yr))) setYear(Number(yr));
+                                      }}
+                                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                        isSelected
+                                          ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-400 scale-105 font-black'
+                                          : 'bg-white dark:bg-navy-900 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-navy-800'
+                                      }`}
+                                    >
+                                      {isSelected ? `✓ ${yr}` : yr}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </>
+                          ) : (
+                            <div className="h-full flex flex-col justify-center p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300">
+                              <div className="flex items-center gap-1.5 text-xs font-bold">
+                                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                                <span>⚡ Source Directe</span>
+                              </div>
+                              <p className="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">
+                                Aucun choix de sous-source requis pour "{parentSource}". L'étudiant accède directement à tous ses QCMs d'un seul clic.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-indigo-50/60 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800">
+                        <div className="text-[11px] font-bold text-indigo-900 dark:text-indigo-200 min-w-0 truncate">
+                          📌 Source Attribuée : <span className="underline font-black">{source || parentSource || 'Non définie'}</span>
+                        </div>
+                        <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold shrink-0">
+                          {hasSubSources
+                            ? (subSource ? `✓ Sous-Source : ${subSource}` : '⚠️ Veuillez sélectionner une session')
+                            : '✓ Lancement Direct Sans Sous-Source'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
               </div>
             </div>
           </div>

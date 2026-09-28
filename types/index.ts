@@ -114,6 +114,11 @@ export interface QCMOption {
   letter: 'A' | 'B' | 'C' | 'D' | 'E';
 }
 
+export interface StructuredSource {
+  name: string;
+  subSources: string[];
+}
+
 export interface QCM {
   id: string;
   title: string;
@@ -123,7 +128,9 @@ export interface QCM {
   courseTitle?: string;
   faculty?: FacultyType; // ORAN | SIDI_BEL_ABBES | TOUS
   year?: MedicalYear | number; // 1-6 or exam session year (e.g. 2019)
-  source?: string; // e.g. "Externat", "Annales Résidanat", "Hypercours", "QCM CNP"
+  source?: string; // e.g. "Externat - 2019", "Hypercours"
+  parentSource?: string; // e.g. "Externat"
+  subSource?: string; // e.g. "2019"
   rang: 'Rang A' | 'Rang B';
   difficulty: 'Facile' | 'Moyen' | 'Difficile';
   type: 'SINGLE' | 'MULTIPLE' | 'TRUE_FALSE';

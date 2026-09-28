@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
+import { parseSourceHierarchy } from '@/lib/sourceUtils';
 
 export const dynamic = 'force-dynamic';
 
@@ -45,6 +46,10 @@ export async function POST(req: NextRequest) {
 
       const correctAnswersArray = Array.isArray(q.correctAnswers) ? q.correctAnswers : [0];
 
+      const hierarchy = parseSourceHierarchy(finalSource);
+      const effectiveParent = q.parentSource || hierarchy.parent;
+      const effectiveSub = q.subSource || hierarchy.sub || undefined;
+
       const newQcm: QCM = {
         id: qcmId,
         title: q.title || q.question || `QCM ${i + 1}`,
@@ -54,6 +59,8 @@ export async function POST(req: NextRequest) {
         courseTitle: courseTitle || q.courseTitle || undefined,
         faculty: faculty || q.faculty || 'ORAN',
         source: finalSource,
+        parentSource: effectiveParent,
+        subSource: effectiveSub,
         rang: q.rang || 'Rang A',
         difficulty: q.difficulty || 'Moyen',
         type: correctAnswersArray.length > 1 ? 'MULTIPLE' : 'SINGLE',
@@ -91,6 +98,8 @@ export async function POST(req: NextRequest) {
         correct_answers: newQcm.correctAnswers,
         explanation: newQcm.explanation,
         source: newQcm.source,
+        parent_source: newQcm.parentSource || null,
+        sub_source: newQcm.subSource || null,
         faculty: newQcm.faculty,
         rang: newQcm.rang,
         difficulty: newQcm.difficulty,
@@ -105,8 +114,14 @@ export async function POST(req: NextRequest) {
     // Sync all QCMs to Supabase in batch
     if (supabasePayloads.length > 0) {
       try {
-        const { error } = await supabaseAdmin.from('qcms').upsert(supabasePayloads, { onConflict: 'id' });
-        if (error) {
+        let { error } = await supabaseAdmin.from('qcms').upsert(supabasePayloads, { onConflict: 'id' });
+        if (error && error.message && error.message.includes('Could not find the column')) {
+          const stripped = supabasePayloads.map(p => {
+            const { parent_source, sub_source, ...rest } = p;
+            return rest;
+          });
+          await supabaseAdmin.from('qcms').upsert(stripped, { onConflict: 'id' });
+        } else if (error) {
           console.error('[Batch QCM Import] Supabase upsert error:', error.message);
         }
       } catch (sbErr) {
