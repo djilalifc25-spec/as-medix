@@ -57,6 +57,13 @@ const nextConfig = {
         ],
       },
       {
+        // HTML pages / SSR routes — revalidate to ensure new deployment asset hashes are picked up immediately
+        source: '/((?!_next/static|_next/image|favicon.ico|icons|images|api).*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+        ],
+      },
+      {
         // API routes — no cache by default
         source: '/api/:path*',
         headers: [

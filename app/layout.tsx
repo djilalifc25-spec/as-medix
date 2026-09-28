@@ -72,6 +72,46 @@ export default function RootLayout({
         <link rel="icon" href="/icons/icon-192.png?v=5" type="image/png" sizes="192x192" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=5" />
         <link rel="icon" href="/icons/icon-512.svg?v=5" type="image/svg+xml" />
+        {/* Auto-recover from stale chunks or CSS 404s after new Vercel deployments */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  window.addEventListener('error', function(e) {
+                    var target = e && e.target;
+                    if (target && (target.tagName === 'LINK' || target.tagName === 'SCRIPT')) {
+                      var url = target.href || target.src || '';
+                      if (url.indexOf('/_next/static/') !== -1) {
+                        var last = sessionStorage.getItem('asmedix_chunk_recover');
+                        var now = Date.now();
+                        if (!last || now - parseInt(last, 10) > 10000) {
+                          sessionStorage.setItem('asmedix_chunk_recover', String(now));
+                          window.location.reload();
+                        }
+                      }
+                    }
+                  }, true);
+                  window.addEventListener('unhandledrejection', function(e) {
+                    var reason = e && (e.reason && (e.reason.message || e.reason.name) || String(e.reason || ''));
+                    if (
+                      reason.indexOf('ChunkLoadError') !== -1 ||
+                      reason.indexOf('Loading chunk') !== -1 ||
+                      reason.indexOf('Failed to fetch') !== -1
+                    ) {
+                      var last = sessionStorage.getItem('asmedix_chunk_recover');
+                      var now = Date.now();
+                      if (!last || now - parseInt(last, 10) > 10000) {
+                        sessionStorage.setItem('asmedix_chunk_recover', String(now));
+                        window.location.reload();
+                      }
+                    }
+                  });
+                } catch (err) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} font-sans min-h-screen text-slate-900 dark:text-slate-100 bg-[#f8fafc] dark:bg-[#070b14] selection:bg-sky-500 selection:text-white relative antialiased transition-colors duration-500 overflow-x-hidden w-full max-w-full`}>
         <ThemeProvider>
