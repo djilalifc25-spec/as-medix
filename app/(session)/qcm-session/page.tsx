@@ -283,6 +283,7 @@ function SessionContent() {
 
   const [completed, setCompleted] = useState(false);
   const [showNavigator, setShowNavigator] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   useEffect(() => {
     fetch('/api/qcm', { cache: 'no-store' })
@@ -339,15 +340,23 @@ function SessionContent() {
 
   const totalCount = sessionQcms.length;
   const answeredCount = Object.keys(userAnswersMap).filter(k => (userAnswersMap[Number(k)] || []).length > 0).length;
-  const currentNumber = currentIndex + 1;
-  const qcm = sessionQcms[currentIndex];
+  const safeCurrentIndex = totalCount > 0 ? Math.min(Math.max(0, currentIndex), totalCount - 1) : 0;
+  const currentNumber = safeCurrentIndex + 1;
+  const qcm = totalCount > 0 ? sessionQcms[safeCurrentIndex] : null;
   const currentQcmReminder = qcm ? userReminders.find(r => r.targetId === qcm.id && r.status === 'pending') : null;
 
   // Selected & Eliminated options for current QCM
-  const currentSelectedOptions = userAnswersMap[currentIndex] || [];
-  const currentEliminatedOptions = eliminatedOptionsMap[currentIndex] || [];
-  const isCurrentFlagged = flaggedQuestionsMap[currentIndex] || false;
-  const isCurrentValidatedImmediate = validatedImmediateMap[currentIndex] || false;
+  const currentSelectedOptions = userAnswersMap[safeCurrentIndex] || [];
+  const currentEliminatedOptions = eliminatedOptionsMap[safeCurrentIndex] || [];
+  const isCurrentFlagged = flaggedQuestionsMap[safeCurrentIndex] || false;
+  const isCurrentValidatedImmediate = validatedImmediateMap[safeCurrentIndex] || false;
+
+  // Keep currentIndex synchronized if session length changes
+  useEffect(() => {
+    if (currentIndex >= sessionQcms.length && sessionQcms.length > 0) {
+      setCurrentIndex(0);
+    }
+  }, [sessionQcms.length, currentIndex]);
 
   // Calculate global score using strict QCS / QCM rules
   const finalScore = useMemo(() => {
@@ -367,11 +376,11 @@ function SessionContent() {
     if (isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
 
     setUserAnswersMap(prev => {
-      const currentArr = prev[currentIndex] || [];
+      const currentArr = prev[safeCurrentIndex] || [];
       const updatedArr = currentArr.includes(optIdx)
         ? currentArr.filter(i => i !== optIdx)
         : [...currentArr, optIdx];
-      return { ...prev, [currentIndex]: updatedArr };
+      return { ...prev, [safeCurrentIndex]: updatedArr };
     });
   };
 
@@ -381,11 +390,11 @@ function SessionContent() {
     if (isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
 
     setEliminatedOptionsMap(prev => {
-      const currentArr = prev[currentIndex] || [];
+      const currentArr = prev[safeCurrentIndex] || [];
       const updatedArr = currentArr.includes(optIdx)
         ? currentArr.filter(i => i !== optIdx)
         : [...currentArr, optIdx];
-      return { ...prev, [currentIndex]: updatedArr };
+      return { ...prev, [safeCurrentIndex]: updatedArr };
     });
   };
 
@@ -393,7 +402,7 @@ function SessionContent() {
   const toggleFlagQuestion = () => {
     setFlaggedQuestionsMap(prev => ({
       ...prev,
-      [currentIndex]: !prev[currentIndex]
+      [safeCurrentIndex]: !prev[safeCurrentIndex]
     }));
   };
 
@@ -422,7 +431,7 @@ function SessionContent() {
   const handleValidateImmediate = useCallback(() => {
     if (!qcm || currentSelectedOptions.length === 0 || isCurrentValidatedImmediate) return;
 
-    setValidatedImmediateMap(prev => ({ ...prev, [currentIndex]: true }));
+    setValidatedImmediateMap(prev => ({ ...prev, [safeCurrentIndex]: true }));
 
     const isCorrect = isAnswerCorrect(currentSelectedOptions, qcm.correctAnswers);
 
@@ -442,7 +451,7 @@ function SessionContent() {
         timeSpentSeconds: 20
       })
     }).catch(() => {});
-  }, [qcm, currentSelectedOptions, isCurrentValidatedImmediate, currentIndex]);
+  }, [qcm, currentSelectedOptions, isCurrentValidatedImmediate, safeCurrentIndex]);
 
   // Reveal all deferred results
   const handleRevealAllResults = useCallback(() => {
@@ -484,6 +493,21 @@ function SessionContent() {
     setValidatedImmediateMap({});
     setCompleted(false);
     setShowVignetteDetails(false);
+  };
+
+  // Touch swipe handling for mobile scrolling
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartX - touchEndX;
+
+    if (diffX > 60) handleNext();
+    else if (diffX < -60) handlePrev();
+    setTouchStartX(null);
   };
 
   if (isLoading) {
@@ -538,23 +562,6 @@ function SessionContent() {
       />
     );
   }
-
-  // Touch swipe handling for mobile scrolling
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX === null) return;
-    const touchEndX = e.changedTouches[0].clientX;
-    const diffX = touchStartX - touchEndX;
-
-    if (diffX > 60) handleNext();
-    else if (diffX < -60) handlePrev();
-    setTouchStartX(null);
-  };
 
   const isExplanationShown = isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate);
 
@@ -646,7 +653,7 @@ function SessionContent() {
 
               let pillStyle = 'bg-white/10 text-white/70 hover:bg-white/20';
 
-              if (idx === currentIndex) {
+              if (idx === safeCurrentIndex) {
                 pillStyle = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 scale-105 shadow-sm';
               } else if (isResultsRevealed && isAnswered) {
                 const isCorrect = isAnswerCorrect(selected, q.correctAnswers);
@@ -677,7 +684,7 @@ function SessionContent() {
         {showNavigator && (
           <QuestionNavigator
             total={sessionQcms.length}
-            current={currentIndex}
+            current={safeCurrentIndex}
             userAnswersMap={userAnswersMap}
             flaggedQuestionsMap={flaggedQuestionsMap}
             isResultsRevealed={isResultsRevealed}
@@ -918,7 +925,7 @@ function SessionContent() {
           <button
             type="button"
             onClick={handlePrev}
-            disabled={currentIndex === 0}
+            disabled={safeCurrentIndex === 0}
             className="flex items-center gap-1 px-3 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 disabled:opacity-25 disabled:cursor-not-allowed text-white text-xs font-bold transition-all shrink-0 cursor-pointer"
             title="Question précédente"
           >
@@ -943,7 +950,7 @@ function SessionContent() {
                 onClick={handleNext}
                 className="w-full py-2.5 sm:py-3 rounded-xl bg-sky-600 hover:bg-sky-500 active:scale-95 text-white font-black text-xs sm:text-sm shadow-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ring-2 ring-sky-400/40"
               >
-                <span>{currentIndex < sessionQcms.length - 1 ? 'Question Suivante' : 'Terminer & Score Global'}</span>
+                <span>{safeCurrentIndex < sessionQcms.length - 1 ? 'Question Suivante' : 'Terminer & Score Global'}</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             )}

@@ -12,6 +12,10 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  React.useEffect(() => {
+    console.error('[Application Error Boundary caught error]:', error);
+  }, [error]);
+
   return (
     <div className="min-h-screen bg-navy-50/50 dark:bg-navy-950 flex flex-col items-center justify-center p-4 text-center">
       <Logo size="lg" />
@@ -23,6 +27,11 @@ export default function ErrorPage({
         <p className="text-sm text-navy-600 dark:text-navy-300">
           Notre équipe technique a été notifiée. Veuillez réessayer de recharger la vue.
         </p>
+        {error?.message && (
+          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-mono text-left break-all max-h-32 overflow-y-auto">
+            {error.message}
+          </div>
+        )}
         <div className="pt-4 flex items-center justify-center gap-3">
           <button
             onClick={() => reset()}
