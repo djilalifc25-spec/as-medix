@@ -122,7 +122,7 @@ export interface QCM {
   courseId?: string;
   courseTitle?: string;
   faculty?: FacultyType; // ORAN | SIDI_BEL_ABBES | TOUS
-  year?: MedicalYear; // 1 | 2 | 3 | 4 | 5 | 6
+  year?: MedicalYear | number; // 1-6 or exam session year (e.g. 2019)
   source?: string; // e.g. "Externat", "Annales Résidanat", "Hypercours", "QCM CNP"
   rang: 'Rang A' | 'Rang B';
   difficulty: 'Facile' | 'Moyen' | 'Difficile';

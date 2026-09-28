@@ -1864,5 +1864,32 @@ export const INITIAL_QCMS: QCM[] = [
     "tags": [],
     "accessLevel": "FREE",
     "year": 4
+  },
+  {
+    "id": "qcm_cardio_externat_2019_01",
+    "title": "Prise en charge initiale du STEMI vu précocement (Session 2019)",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "courseId": "cours_cardio_idm",
+    "courseTitle": "Infarctus du Myocarde ST+",
+    "faculty": "ORAN",
+    "source": "Externat - 2019",
+    "rang": "Rang A",
+    "difficulty": "Moyen",
+    "type": "SINGLE",
+    "vignette": "Patient de 56 ans, tabagique, présentant un infarctus du myocarde inférieur en phase aiguë vu à H2.",
+    "question": "Un patient de 56 ans sans antécédent consulte pour une douleur rétrosternale constrictive évoluant depuis 90 minutes. L'ECG montre un sus-décalage persistant de ST de 3 mm en DII, DIII, aVF. Quelle est la stratégie de reperfusion recommandée en première intention ?",
+    "options": [
+      { "id": "opt_1", "letter": "A", "text": "Angioplastie coronaire primaire en urgence si délai contact médical - guide < 120 minutes" },
+      { "id": "opt_2", "letter": "B", "text": "Fibrinolyse intraveineuse immédiate quel que soit le délai d'accès à la coronarographie" },
+      { "id": "opt_3", "letter": "C", "text": "Surveillance simple en USIC pendant 48 heures avant décision coronarographique" },
+      { "id": "opt_4", "letter": "D", "text": "Pontage aorto-coronarien en urgence sous circulation extracorporelle" }
+    ],
+    "correctAnswers": [0],
+    "explanation": "<p><strong>Justification clinique (Externat 2019) :</strong> L'angioplastie primaire est la stratégie de reperfusion de référence si elle est réalisable dans les 120 minutes suivant le premier contact médical.</p>",
+    "reference": "Faculté de Médecine d'Alger - Epreuve Externat Session 2019",
+    "tags": ["externat", "2019", "cardio", "stemi"],
+    "accessLevel": "FREE",
+    "year": 2019
   }
 ];

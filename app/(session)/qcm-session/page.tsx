@@ -266,6 +266,7 @@ function SessionContent() {
   const courseName = searchParams.get('courseName') || course;
 
   const [allQcms, setAllQcms] = useState(INITIAL_QCMS);
+  const [isLoading, setIsLoading] = useState(true);
   const [showVignetteDetails, setShowVignetteDetails] = useState(false);
   const [userReminders, setUserReminders] = useState<StudyReminder[]>([]);
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
@@ -284,14 +285,17 @@ function SessionContent() {
   const [showNavigator, setShowNavigator] = useState(false);
 
   useEffect(() => {
-    fetch('/api/qcm')
+    fetch('/api/qcm', { cache: 'no-store' })
       .then(r => r.json())
       .then(d => {
         if (d.qcms && d.qcms.length > 0) {
           setAllQcms(d.qcms);
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
 
     fetch('/api/reminders')
       .then(r => r.json())
@@ -325,7 +329,7 @@ function SessionContent() {
       
       const qCourse = q.courseId || '';
       const qCourseTitle = q.courseTitle || '';
-      const matchCourse = !course || qCourse.toLowerCase() === course.toLowerCase() || qCourseTitle.toLowerCase() === course.toLowerCase();
+      const matchCourse = !course || !qCourse || qCourse === 'TOUS' || qCourse.toLowerCase() === course.toLowerCase() || qCourseTitle.toLowerCase() === course.toLowerCase();
       
       const matchFaculty = faculty === 'TOUS' || !q.faculty || (q.faculty as string) === 'TOUS' || (q.faculty as string) === faculty;
       const matchSource = selectedSourcesList.length === 0 || selectedSourcesList.some(s => matchQcmToSource(q, s));
@@ -481,6 +485,17 @@ function SessionContent() {
     setCompleted(false);
     setShowVignetteDetails(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-navy-950 flex items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-3 text-white">
+          <Brain className="w-8 h-8 animate-pulse text-sky-400" />
+          <span className="text-sm font-bold">Chargement des QCMs...</span>
+        </div>
+      </div>
+    );
+  }
 
   if (sessionQcms.length === 0) {
     return (
