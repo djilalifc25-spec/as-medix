@@ -35,14 +35,15 @@ export function matchQcmToSource(q: any, s: string): boolean {
   if (!q || !s) return false;
   if (s === 'TOUS' || s === 'all') return true;
 
-  const qSrcLower = String(q.source || '').toLowerCase().trim();
+  const qSrcLower = typeof q.source === 'string' ? q.source.toLowerCase().trim() : String(q.source || '').toLowerCase().trim();
   const sLower = String(s).toLowerCase().trim();
 
   // Fast exact match on source
   if (qSrcLower === sLower) return true;
 
   const tagsStr = Array.isArray(q.tags) ? q.tags.join(' ') : String(q.tags || '');
-  const fullQcmText = `${qSrcLower} ${String(q.reference || '')} ${String(q.vignette || '')} ${String(q.question || '')} ${String(q.title || '')} ${tagsStr}`.toLowerCase();
+  const yearStr = q.year ? String(q.year) : '';
+  const fullQcmText = `${qSrcLower} ${String(q.reference || '')} ${String(q.vignette || '')} ${String(q.question || '')} ${String(q.title || '')} ${tagsStr} ${yearStr}`.toLowerCase();
 
   // 1. Direct match on full text or q.source
   if (fullQcmText.includes(sLower)) return true;
@@ -55,7 +56,7 @@ export function matchQcmToSource(q: any, s: string): boolean {
 
     // Check if parent matches source/text AND subTerm matches full text
     const matchParent = !parentTerm || qSrcLower === parentTerm || qSrcLower.includes(parentTerm) || fullQcmText.includes(parentTerm);
-    if (matchParent && fullQcmText.includes(subTerm)) {
+    if (matchParent && (fullQcmText.includes(subTerm) || qSrcLower.includes(subTerm))) {
       return true;
     }
     return false;

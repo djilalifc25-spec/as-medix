@@ -690,7 +690,7 @@ function SessionContent() {
               )}
               {qcm?.source && (
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-400/20 text-purple-300 border border-purple-400/30 truncate max-w-[140px]">
-                  {qcm.source as string}
+                  {typeof qcm.source === 'string' ? qcm.source : String(qcm.source || '')}
                 </span>
               )}
 
@@ -754,9 +754,9 @@ function SessionContent() {
               </div>
               <div className={`text-white/85 leading-relaxed italic ${showVignetteDetails ? '' : 'line-clamp-2 sm:line-clamp-3'}`}>
                 {qcm.vignetteHtml ? (
-                  <div dangerouslySetInnerHTML={{ __html: qcm.vignetteHtml as string }} />
+                  <div dangerouslySetInnerHTML={{ __html: typeof qcm.vignetteHtml === 'string' ? qcm.vignetteHtml : String(qcm.vignetteHtml) }} />
                 ) : (
-                  <p>"{qcm.vignette}"</p>
+                  <p>"{typeof qcm.vignette === 'string' ? qcm.vignette : String(qcm.vignette || '')}"</p>
                 )}
               </div>
             </div>
@@ -764,7 +764,7 @@ function SessionContent() {
 
           {/* Question Text */}
           <h2 className="text-xs sm:text-base font-black text-white leading-snug">
-            {qcm?.question || 'Question QCM'}
+            {typeof qcm?.question === 'string' ? qcm.question : (qcm?.question ? String(qcm.question) : 'Question QCM')}
           </h2>
 
           {/* 5 Options with Elimination (❌ Rayure) */}
@@ -798,18 +798,18 @@ function SessionContent() {
 
               return (
                 <div
-                  key={opt.id || `opt_${idx}`}
+                  key={opt.id ? String(opt.id) : `opt_${idx}`}
                   onClick={() => toggleOption(idx)}
                   className={`relative group flex items-center gap-2.5 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition-all duration-150 ${base}`}
                 >
                   {/* Letter badge */}
                   <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-all ${ltr}`}>
-                    {opt.letter || String.fromCharCode(65 + idx)}
+                    {typeof opt.letter === 'string' ? opt.letter : String(opt.letter || String.fromCharCode(65 + idx))}
                   </span>
 
                   {/* Option Text */}
                   <span className={`text-xs sm:text-sm flex-1 leading-snug font-medium ${isEliminated ? 'line-through decoration-rose-400/60' : ''}`}>
-                    {opt.text || ''}
+                    {typeof opt.text === 'string' ? opt.text : String(opt.text || '')}
                   </span>
 
                   {/* Action Right: Rayure (❌) and Status Check */}
@@ -880,15 +880,15 @@ function SessionContent() {
 
               <div className="text-xs text-white/85 leading-relaxed">
                 {qcm?.explanationHtml ? (
-                  <div dangerouslySetInnerHTML={{ __html: qcm.explanationHtml as string }} />
+                  <div dangerouslySetInnerHTML={{ __html: typeof qcm.explanationHtml === 'string' ? qcm.explanationHtml : String(qcm.explanationHtml) }} />
                 ) : (
-                  <p>{qcm?.explanation || 'Pas d\'explication fournie.'}</p>
+                  <p>{typeof qcm?.explanation === 'string' ? qcm.explanation : (qcm?.explanation ? String(qcm.explanation) : 'Pas d\'explication fournie.')}</p>
                 )}
               </div>
               {qcm?.reference && (
                 <div className="text-[10px] text-emerald-400/80 pt-1 border-t border-emerald-500/20 flex items-center gap-1">
                   <Flag className="w-3 h-3" />
-                  <span>Réf : {qcm.reference as string}</span>
+                  <span>Réf : {typeof qcm.reference === 'string' ? qcm.reference : String(qcm.reference)}</span>
                 </div>
               )}
             </div>

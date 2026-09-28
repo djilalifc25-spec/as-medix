@@ -166,7 +166,7 @@ export function CoursePreviewModal({
                     <span>Justification Clinique & Anatomoclinique</span>
                   </div>
                   <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed space-y-2">
-                    <p>{explanation}</p>
+                    <p>{typeof explanation === 'string' ? explanation : (explanation ? String(explanation) : '')}</p>
                   </div>
                 </div>
               ) : (

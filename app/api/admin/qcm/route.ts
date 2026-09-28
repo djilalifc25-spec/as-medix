@@ -24,15 +24,15 @@ function parseOptions(raw: any): any[] {
     }
     if (opt && typeof opt === 'object') {
       return {
-        id: opt.id || `opt_${idx + 1}`,
-        letter: opt.letter || String.fromCharCode(65 + idx),
-        text: opt.text || ''
+        id: String(opt.id || `opt_${idx + 1}`),
+        letter: String(opt.letter || String.fromCharCode(65 + idx)),
+        text: typeof opt.text === 'object' ? JSON.stringify(opt.text) : String(opt.text || '')
       };
     }
     return {
       id: `opt_${idx + 1}`,
       letter: String.fromCharCode(65 + idx),
-      text: ''
+      text: typeof opt === 'number' || typeof opt === 'boolean' ? String(opt) : ''
     };
   });
 }
@@ -56,7 +56,7 @@ function parseCorrectAnswers(raw: any, rawFallback: any): number[] {
 }
 
 function parseTags(raw: any): string[] {
-  if (Array.isArray(raw)) return raw.map(t => String(t));
+  if (Array.isArray(raw)) return raw.map(t => typeof t === 'object' ? JSON.stringify(t) : String(t));
   if (typeof raw === 'string') return raw.split(',').map(t => t.trim()).filter(Boolean);
   return [];
 }
@@ -64,30 +64,36 @@ function parseTags(raw: any): string[] {
 function mapSupabaseQcmToType(row: any): QCM {
   const options = parseOptions(row.options);
   const correctAnswers = parseCorrectAnswers(row.correct_answers, row.correctAnswers);
+  const sourceVal = typeof row.source === 'object' ? JSON.stringify(row.source) : String(row.source || 'Annales Examens');
+  const vignetteVal = typeof row.vignette === 'object' ? JSON.stringify(row.vignette) : String(row.vignette || '');
+  const questionVal = typeof row.question === 'object' ? JSON.stringify(row.question) : String(row.question || row.title || '');
+  const explanationVal = typeof row.explanation === 'object' ? JSON.stringify(row.explanation) : String(row.explanation || '');
+  const refVal = typeof row.reference === 'object' ? JSON.stringify(row.reference) : String(row.reference || "Faculté de Médecine d'Alger");
+
   return {
     id: String(row.id),
-    title: String(row.title || row.question || 'QCM'),
+    title: questionVal || 'QCM',
     specialtyId: String(row.specialty_id || row.specialty || 'cardio'),
     specialtyName: String(row.specialty_name || 'Cardiologie'),
     courseId: row.course_id ? String(row.course_id) : undefined,
     courseTitle: row.course_title ? String(row.course_title) : undefined,
     faculty: (row.faculty || 'ORAN') as any,
-    source: String(row.source || 'Annales Examens'),
+    source: sourceVal,
     rang: (row.rang || 'Rang A') as any,
     difficulty: (row.difficulty || 'Moyen') as any,
     type: correctAnswers.length > 1 ? 'MULTIPLE' : (row.type || 'SINGLE'),
-    vignette: String(row.vignette || ''),
-    question: String(row.question || row.title || ''),
+    vignette: vignetteVal,
+    question: questionVal,
     options: options.length > 0 ? options : [
       { id: 'opt_1', letter: 'A', text: 'Proposition A' },
       { id: 'opt_2', letter: 'B', text: 'Proposition B' }
     ],
     correctAnswers: correctAnswers,
-    explanation: String(row.explanation || ''),
-    reference: String(row.reference || "Faculté de Médecine d'Alger"),
+    explanation: explanationVal,
+    reference: refVal,
     tags: parseTags(row.tags),
     accessLevel: row.access_level || 'FREE',
-    year: row.year ? Number(row.year) as any : undefined
+    year: row.year && !isNaN(Number(row.year)) ? Number(row.year) as any : undefined
   };
 }
 
