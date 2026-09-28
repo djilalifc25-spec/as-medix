@@ -86,6 +86,35 @@ export default function AdminQcmPage() {
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
   const [swapInputs, setSwapInputs] = useState<Record<string, string>>({});
 
+  // Helper to compute combined parent + sub-source name (e.g. "Externat - 2021")
+  const getEffectiveSource = (): string => {
+    if (parentSource && subSource.trim()) {
+      return `${parentSource.trim()} - ${subSource.trim()}`;
+    }
+    if (source === '__other__') {
+      return sourceOther.trim() || 'Annales Examens';
+    }
+    return source.trim() || parentSource.trim() || 'Externat';
+  };
+
+  // Auto-save a source name to current scope in database
+  const ensureSourceInScope = async (sourceName: string) => {
+    if (!sourceName || scopeSources.includes(sourceName)) return;
+    try {
+      await fetch('/api/admin/sources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: sourceName,
+          specialty: specialtyId,
+          course: courseId || undefined,
+          faculty: faculty !== 'TOUS' ? faculty : undefined,
+        })
+      });
+      setScopeSources(prev => Array.from(new Set([sourceName, ...prev])));
+    } catch (_err) {}
+  };
+
   // Fetch scoped sources whenever specialty, course or faculty changes
   const fetchScopeSources = async (spec: string, crs: string, fac?: string) => {
     const params = new URLSearchParams();
@@ -96,7 +125,12 @@ export default function AdminQcmPage() {
     const data = await res.json();
     if (data.sources) {
       setScopeSources(data.sources);
-      setSource(prev => (prev && data.sources.includes(prev)) ? prev : (data.sources[0] || ''));
+      const effective = (parentSource && subSource.trim()) ? `${parentSource.trim()} - ${subSource.trim()}` : null;
+      if (effective) {
+        setSource(effective);
+      } else if (!source || !data.sources.includes(source)) {
+        setSource(data.sources[0] || 'Externat');
+      }
     }
   };
 
@@ -141,7 +175,9 @@ export default function AdminQcmPage() {
     setSuccessMsg('');
 
     try {
-      const finalSource = source === '__other__' ? sourceOther : source;
+      const finalSource = getEffectiveSource();
+      await ensureSourceInScope(finalSource);
+
       const res = await fetch('/api/admin/ai/extract-qcms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -267,7 +303,8 @@ export default function AdminQcmPage() {
 
     const spec = specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId);
     const crs = courses.find(c => c.id === courseId);
-    const finalSource = source === '__other__' ? sourceOther : source;
+    const finalSource = getEffectiveSource();
+    await ensureSourceInScope(finalSource);
 
     const newQcmPayload = {
       title,
@@ -399,7 +436,7 @@ export default function AdminQcmPage() {
     const itemCourseId = qcmItem.courseId || courseId;
     const crs = courses.find(c => c.id === itemCourseId);
 
-    const finalGlobalSource = source === '__other__' ? sourceOther : source;
+    const finalGlobalSource = getEffectiveSource();
     const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
     const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
 
@@ -432,23 +469,7 @@ export default function AdminQcmPage() {
     };
 
     // Auto-save new custom source to DB if it's not already in scopeSources
-    if (itemSource && !scopeSources.includes(itemSource)) {
-      try {
-        await fetch('/api/admin/sources', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: itemSource,
-            specialty: itemSpecId,
-            course: itemCourseId,
-            faculty: faculty !== 'TOUS' ? faculty : undefined,
-          })
-        });
-        setScopeSources(prev => Array.from(new Set([itemSource, ...prev])));
-      } catch (err) {
-        console.warn('Auto save source failed:', err);
-      }
-    }
+    await ensureSourceInScope(itemSource);
 
     const res = await fetch('/api/admin/qcm', {
       method: 'POST',
@@ -473,12 +494,14 @@ export default function AdminQcmPage() {
     setSuccessMsg('');
 
     try {
+      const finalGlobalSource = getEffectiveSource();
+      await ensureSourceInScope(finalGlobalSource);
+
       const qcmsToImport = parsedQcms.map(qcmItem => {
         const itemSpecId = qcmItem.specialtyId || specialtyId;
         const spec = specialtiesList.find(s => s.id === itemSpecId) || ALL_SPECIALTIES.find(s => s.id === itemSpecId);
         const itemCourseId = qcmItem.courseId || courseId;
         const crs = courses.find(c => c.id === itemCourseId);
-        const finalGlobalSource = source === '__other__' ? sourceOther : source;
         const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
         const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
 
