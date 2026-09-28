@@ -141,7 +141,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen pb-24">
-      <div className="max-w-7xl mx-auto px-3 sm:px-5 py-5 space-y-6 animate-fade-up">
+      <div className="max-w-7xl mx-auto px-0.5 sm:px-4 py-4 sm:py-5 space-y-4 sm:space-y-6 animate-fade-up min-w-0 w-full">
 
         {/* ── HERO BANNER ── */}
         <div
@@ -280,38 +280,25 @@ export default function DashboardPage() {
         <PinterestClinicalCockpit />
 
         {/* ── MAIN GRID ── */}
-        <div className="grid lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 min-w-0 w-full">
 
           {/* LEFT COLUMN */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-5 min-w-0 w-full">
 
             {/* Daily Clinical Pearl */}
-            <div className="card overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-white/8">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-900/20 text-amber-500 flex items-center justify-center">
-                    <Star className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-slate-800 dark:text-white">Perle Clinique du Jour</h3>
-                    <p className="text-xs text-slate-500">QCM flash avec explication clinique complète</p>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4">
-                <DailyClinicalPearl />
-              </div>
+            <div className="w-full min-w-0">
+              <DailyClinicalPearl />
             </div>
 
             {/* Quick Access Modules */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
+            <div className="w-full min-w-0">
+              <div className="flex items-center justify-between mb-2.5 sm:mb-3">
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white">Accès Rapide</h3>
-                <Link href="/cours" className="text-xs font-semibold text-[#5D5FEF] hover:underline flex items-center gap-1">
+                <Link href="/cours" className="text-xs font-semibold text-[#5D5FEF] hover:underline flex items-center gap-1 shrink-0">
                   Tout voir <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
                 {[
                   { href: '/qcm',         icon: Brain,       label: 'QCM Résidanat',  badge: 'ANNALES',  color: '#5D5FEF', bg: '#EEF2FF' },
                   { href: '/cours',       icon: BookOpen,    label: 'Cours Médicaux', badge: '',         color: '#2563EB', bg: '#EFF6FF' },
@@ -322,16 +309,16 @@ export default function DashboardPage() {
                 ].map((m, i) => {
                   const Icon = m.icon;
                   return (
-                    <Link key={i} href={m.href} className="card hover-lift p-4 flex flex-col gap-3 group">
-                      <div className="flex items-start justify-between">
-                        <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    <Link key={i} href={m.href} className="card hover-lift p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 group min-w-0">
+                      <div className="flex items-start justify-between gap-1">
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shrink-0"
                           style={{ background: m.bg, color: m.color }}>
-                          <Icon className="w-4.5 h-4.5" strokeWidth={2} />
+                          <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" strokeWidth={2} />
                         </div>
-                        {m.badge && <span className="badge badge-iris text-[10px]">{m.badge}</span>}
+                        {m.badge && <span className="badge badge-iris text-[9px] sm:text-[10px] px-1.5 py-0.5">{m.badge}</span>}
                       </div>
-                      <div>
-                        <div className="text-sm font-bold text-slate-800 dark:text-white group-hover:text-[#5D5FEF] transition-colors">
+                      <div className="min-w-0">
+                        <div className="text-xs sm:text-sm font-bold text-slate-800 dark:text-white group-hover:text-[#5D5FEF] transition-colors truncate">
                           {m.label}
                         </div>
                       </div>
@@ -386,7 +373,7 @@ export default function DashboardPage() {
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="space-y-5">
+          <div className="space-y-4 sm:space-y-5 min-w-0 w-full">
 
             {/* Goal Tracker */}
             <div className="card overflow-hidden">

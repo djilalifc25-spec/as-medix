@@ -307,6 +307,24 @@ body {
 .stat-card-change.up   { color: var(--c-success); }
 .stat-card-change.down { color: var(--c-danger); }
 
+@media (max-width: 640px) {
+  .stat-card {
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+  .stat-card-value {
+    font-size: 20px;
+  }
+  .stat-card-label {
+    font-size: 10px;
+    letter-spacing: 0.03em;
+  }
+  .stat-card-change {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+}
+
 /* ── PROGRESS BAR ── */
 .progress-track {
   height: 6px;

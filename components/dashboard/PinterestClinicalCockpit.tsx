@@ -244,7 +244,7 @@ export const PinterestClinicalCockpit: React.FC = () => {
   const data = SPECIALTY_DIAGNOSIS_MAP[activeSpecialtyKey] || SPECIALTY_DIAGNOSIS_MAP.cardio;
 
   return (
-    <div className="w-full bg-[#F4F5F8] dark:bg-[#0C0F17] rounded-[32px] sm:rounded-[40px] p-4 sm:p-7 md:p-9 font-sans border border-slate-200/80 dark:border-white/10 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.06)] transition-all duration-300">
+    <div className="w-full max-w-full min-w-0 overflow-hidden bg-[#F4F5F8] dark:bg-[#0C0F17] rounded-[24px] sm:rounded-[40px] p-3.5 sm:p-7 md:p-9 font-sans border border-slate-200/80 dark:border-white/10 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.06)] transition-all duration-300">
       
       {/* 1. TOP HEADER & PILL NAVIGATION (Exact Pinterest Style) */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200/70 dark:border-white/10">
@@ -314,7 +314,7 @@ export const PinterestClinicalCockpit: React.FC = () => {
       </div>
 
       {/* Specialty Switcher Ribbon */}
-      <div className="pt-4 pb-2 flex items-center justify-between gap-3 overflow-x-auto scrollbar-none">
+      <div className="pt-4 pb-2 flex items-center justify-between gap-3 overflow-x-auto scrollbar-none w-full max-w-full min-w-0">
         <div className="flex items-center gap-1.5 min-w-max">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mr-1">Spécialité :</span>
           {CLINICAL_COCKPIT_SPECIALTIES.map((spec) => {
@@ -425,7 +425,7 @@ export const PinterestClinicalCockpit: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-tr from-slate-100/60 via-transparent to-[#5D5FEF]/5 pointer-events-none" />
 
             {/* Central Organ Image */}
-            <div className="relative z-10 w-56 h-56 sm:w-80 sm:h-80 my-2 sm:my-4 flex items-center justify-center shrink-0">
+            <div className="relative z-10 w-48 h-48 sm:w-80 sm:h-80 max-w-full my-2 sm:my-4 flex items-center justify-center shrink-0">
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-xl border border-slate-200/50 dark:border-white/10 group">
                 <Image
                   src={data.organImagePath}

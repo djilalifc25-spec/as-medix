@@ -33,7 +33,7 @@ function DashboardShellInner({
         }`}
       >
         <AppTopNav user={user} />
-        <main className="flex-1 px-4 py-2.5 sm:px-6 sm:py-6 lg:px-8 max-w-7xl w-full mx-auto transition-all">
+        <main className="flex-1 px-2.5 sm:px-6 py-2.5 sm:py-6 lg:px-8 max-w-7xl w-full mx-auto transition-all min-w-0 overflow-x-hidden">
           {children}
         </main>
       </div>

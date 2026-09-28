@@ -155,51 +155,51 @@ export function DailyClinicalPearl() {
   const isCorrect = selectedOption === pearl.correctIndex;
 
   return (
-    <div className="apple-card p-6 sm:p-7 space-y-5 border-2 border-brand-500/25 dark:border-brand-500/30 bg-gradient-to-br from-white via-brand-500/[0.03] to-indigo-500/[0.04] dark:from-navy-900 dark:via-navy-900/95 dark:to-navy-950 shadow-soft-xl relative overflow-hidden">
+    <div className="apple-card p-3.5 sm:p-6 space-y-4 sm:space-y-5 border-2 border-brand-500/25 dark:border-brand-500/30 bg-gradient-to-br from-white via-brand-500/[0.03] to-indigo-500/[0.04] dark:from-navy-900 dark:via-navy-900/95 dark:to-navy-950 shadow-soft-xl relative overflow-hidden w-full min-w-0 max-w-full">
       <div className="absolute top-0 right-0 w-56 h-56 rounded-full bg-brand-500/10 blur-3xl pointer-events-none" />
 
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-navy-100 dark:border-navy-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-navy-100 dark:border-navy-800">
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shadow-soft shrink-0">
-            <Stethoscope className="w-5 h-5" />
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-brand-600 to-indigo-600 text-white flex items-center justify-center shadow-soft shrink-0">
+            <Stethoscope className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm sm:text-base font-black text-navy-950 dark:text-white">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <h3 className="text-sm sm:text-base font-black text-navy-950 dark:text-white truncate">
                 Le Cas Flash du Jour
               </h3>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300">
+              <span className="px-2 py-0.5 rounded-full text-[9.5px] font-black uppercase tracking-wider bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 shrink-0">
                 1 Min Challenge
               </span>
             </div>
-            <p className="text-xs text-navy-500 dark:text-navy-400">
-              Chaque matin, affûtez votre réflexe clinique avec un piège récurrent du Résidanat.
+            <p className="text-[11px] sm:text-xs text-navy-500 dark:text-navy-400 line-clamp-1 sm:line-clamp-none">
+              Chaque matin, affûtez votre réflexe clinique avec un piège du Résidanat.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="px-3 py-1 rounded-xl text-xs font-bold bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 text-navy-800 dark:text-navy-200 flex items-center gap-1.5 shadow-2xs">
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <span className="px-2.5 py-1 rounded-xl text-xs font-bold bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 text-navy-800 dark:text-navy-200 flex items-center gap-1.5 shadow-2xs">
             <span>{pearl.specialtyEmoji}</span>
             <span>{pearl.specialtyName}</span>
           </span>
         </div>
       </div>
 
-      <div className="p-4 sm:p-5 rounded-2xl bg-navy-50/80 dark:bg-navy-800/60 border border-navy-200/80 dark:border-navy-700/80 space-y-2">
+      <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-navy-50/80 dark:bg-navy-800/60 border border-navy-200/80 dark:border-navy-700/80 space-y-1.5">
         <span className="text-[10px] font-black uppercase tracking-wider text-brand-600 dark:text-brand-400 flex items-center gap-1">
-          <Lightbulb className="w-3.5 h-3.5" />
+          <Lightbulb className="w-3.5 h-3.5 shrink-0" />
           <span>Vignette Clinique :</span>
         </span>
-        <p className="text-xs sm:text-sm text-navy-800 dark:text-navy-200 leading-relaxed font-medium">
+        <p className="text-xs sm:text-sm text-navy-800 dark:text-navy-200 leading-relaxed font-medium break-words">
           "{pearl.vignette}"
         </p>
       </div>
 
-      <div className="space-y-1.5">
-        <h4 className="text-xs sm:text-sm font-black text-navy-950 dark:text-white flex items-center gap-1.5">
-          <HelpCircle className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
-          <span>{pearl.question}</span>
+      <div className="space-y-1">
+        <h4 className="text-xs sm:text-sm font-black text-navy-950 dark:text-white flex items-start gap-1.5">
+          <HelpCircle className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+          <span className="break-words flex-1 leading-snug">{pearl.question}</span>
         </h4>
       </div>
 
@@ -228,19 +228,19 @@ export function DailyClinicalPearl() {
               type="button"
               disabled={hasValidated}
               onClick={() => handleSelect(idx)}
-              className={`w-full p-3 sm:p-3.5 rounded-xl border text-left text-xs sm:text-sm transition-all flex items-center justify-between gap-3 ${btnStyle} ${!hasValidated ? 'active:scale-[0.99] cursor-pointer' : 'cursor-default'}`}
+              className={`w-full p-2.5 sm:p-3.5 rounded-xl border text-left text-xs sm:text-sm transition-all flex items-start sm:items-center justify-between gap-2.5 ${btnStyle} ${!hasValidated ? 'active:scale-[0.99] cursor-pointer' : 'cursor-default'}`}
             >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black border border-current shrink-0">
+              <div className="flex items-start sm:items-center gap-2 sm:gap-2.5 min-w-0 flex-1">
+                <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black border border-current shrink-0 mt-0.5 sm:mt-0">
                   {String.fromCharCode(65 + idx)}
                 </span>
-                <span className="truncate">{opt}</span>
+                <span className="break-words leading-snug flex-1">{opt}</span>
               </div>
               {hasValidated && isThisCorrect && (
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5 sm:mt-0" />
               )}
               {hasValidated && isSelected && !isThisCorrect && (
-                <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
+                <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5 sm:mt-0" />
               )}
             </button>
           );
@@ -253,7 +253,7 @@ export function DailyClinicalPearl() {
             type="button"
             onClick={handleValidate}
             disabled={selectedOption === null}
-            className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${
+            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 ${
               selectedOption !== null
                 ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-soft active:scale-95 cursor-pointer'
                 : 'bg-navy-100 dark:bg-navy-800 text-navy-400 cursor-not-allowed'
@@ -265,7 +265,7 @@ export function DailyClinicalPearl() {
         </div>
       ) : (
         <div className="space-y-3 pt-2 animate-in fade-in duration-300">
-          <div className={`p-4 rounded-2xl border flex items-start gap-3 ${
+          <div className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border flex items-start gap-2.5 sm:gap-3 ${
             isCorrect
               ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200'
               : 'bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800/60 text-rose-900 dark:text-rose-200'
@@ -275,37 +275,37 @@ export function DailyClinicalPearl() {
             ) : (
               <AlertTriangle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
             )}
-            <div className="space-y-1 text-xs">
+            <div className="space-y-1 text-xs min-w-0 flex-1">
               <div className="font-black text-sm">
                 {isCorrect ? 'Excellent réflexe clinique ! ✅' : 'Piège d\'examen classique évité ! ⚠️'}
               </div>
-              <p className="leading-relaxed opacity-90">
+              <p className="leading-relaxed opacity-90 break-words">
                 {pearl.explanation}
               </p>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-300/60 dark:border-amber-700/50 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-2.5">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-amber-500/10 border border-amber-300/60 dark:border-amber-700/50 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-2.5">
             <span className="text-base shrink-0">🎯</span>
-            <div>
+            <div className="min-w-0 flex-1">
               <span className="font-black text-amber-800 dark:text-amber-300 block text-[11px] uppercase tracking-wider">
                 Le Piège Classique de Concours :
               </span>
-              <p className="mt-0.5 leading-relaxed">
+              <p className="mt-0.5 leading-relaxed break-words">
                 {pearl.trap}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
             <span className="text-[11px] text-navy-400">
               Défi du jour complété. Revenez demain pour le prochain cas !
             </span>
             <Link
               href="/cours"
-              className="px-3 py-1.5 rounded-xl bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 hover:border-brand-400 text-brand-600 dark:text-brand-400 text-xs font-bold flex items-center gap-1.5 transition-all shadow-2xs"
+              className="px-3 py-1.5 rounded-xl bg-white dark:bg-navy-800 border border-navy-200 dark:border-navy-700 hover:border-brand-400 text-brand-600 dark:text-brand-400 text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs self-start sm:self-auto"
             >
-              <BookOpen className="w-3.5 h-3.5" />
+              <BookOpen className="w-3.5 h-3.5 shrink-0" />
               <span>Consulter le cours complet</span>
             </Link>
           </div>
