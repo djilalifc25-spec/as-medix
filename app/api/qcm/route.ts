@@ -6,26 +6,88 @@ import { matchQcmToSource } from '@/lib/sourceUtils';
 
 export const dynamic = 'force-dynamic';
 
+function parseOptions(raw: any): any[] {
+  let arr: any[] = [];
+  if (Array.isArray(raw)) {
+    arr = raw;
+  } else if (typeof raw === 'string') {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) arr = parsed;
+    } catch (_e) {}
+  }
+  return arr.map((opt: any, idx: number) => {
+    if (typeof opt === 'string') {
+      return {
+        id: `opt_${idx + 1}`,
+        letter: String.fromCharCode(65 + idx),
+        text: opt
+      };
+    }
+    if (opt && typeof opt === 'object') {
+      return {
+        id: opt.id || `opt_${idx + 1}`,
+        letter: opt.letter || String.fromCharCode(65 + idx),
+        text: opt.text || ''
+      };
+    }
+    return {
+      id: `opt_${idx + 1}`,
+      letter: String.fromCharCode(65 + idx),
+      text: ''
+    };
+  });
+}
+
+function parseCorrectAnswers(raw: any, rawFallback: any): number[] {
+  let arr = Array.isArray(raw) ? raw : (Array.isArray(rawFallback) ? rawFallback : null);
+  if (!arr && typeof raw === 'string') {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) arr = parsed;
+    } catch (_e) {}
+  }
+  if (!arr && typeof rawFallback === 'string') {
+    try {
+      const parsed = JSON.parse(rawFallback);
+      if (Array.isArray(parsed)) arr = parsed;
+    } catch (_e) {}
+  }
+  if (!arr || arr.length === 0) return [0];
+  return arr.map((val: any) => Number(val)).filter(n => !isNaN(n));
+}
+
+function parseTags(raw: any): string[] {
+  if (Array.isArray(raw)) return raw.map(t => String(t));
+  if (typeof raw === 'string') return raw.split(',').map(t => t.trim()).filter(Boolean);
+  return [];
+}
+
 function mapSupabaseQcmToType(row: any): QCM {
+  const options = parseOptions(row.options);
+  const correctAnswers = parseCorrectAnswers(row.correct_answers, row.correctAnswers);
   return {
-    id: row.id,
-    title: row.title || row.question || 'QCM',
-    specialtyId: row.specialty_id || row.specialty || 'cardio',
-    specialtyName: row.specialty_name || 'Cardiologie',
-    courseId: row.course_id || undefined,
-    courseTitle: row.course_title || undefined,
-    faculty: row.faculty || 'ORAN',
-    source: row.source || 'Annales Examens',
-    rang: row.rang || 'Rang A',
-    difficulty: row.difficulty || 'Moyen',
-    type: row.type || 'SINGLE',
-    vignette: row.vignette || '',
-    question: row.question || row.title || '',
-    options: Array.isArray(row.options) ? row.options : [],
-    correctAnswers: Array.isArray(row.correct_answers) ? row.correct_answers : [0],
-    explanation: row.explanation || '',
-    reference: row.reference || "Faculté de Médecine d'Alger",
-    tags: Array.isArray(row.tags) ? row.tags : [],
+    id: String(row.id),
+    title: String(row.title || row.question || 'QCM'),
+    specialtyId: String(row.specialty_id || row.specialty || 'cardio'),
+    specialtyName: String(row.specialty_name || 'Cardiologie'),
+    courseId: row.course_id ? String(row.course_id) : undefined,
+    courseTitle: row.course_title ? String(row.course_title) : undefined,
+    faculty: (row.faculty || 'ORAN') as any,
+    source: String(row.source || 'Annales Examens'),
+    rang: (row.rang || 'Rang A') as any,
+    difficulty: (row.difficulty || 'Moyen') as any,
+    type: correctAnswers.length > 1 ? 'MULTIPLE' : (row.type || 'SINGLE'),
+    vignette: String(row.vignette || ''),
+    question: String(row.question || row.title || ''),
+    options: options.length > 0 ? options : [
+      { id: 'opt_1', letter: 'A', text: 'Proposition A' },
+      { id: 'opt_2', letter: 'B', text: 'Proposition B' }
+    ],
+    correctAnswers: correctAnswers,
+    explanation: String(row.explanation || ''),
+    reference: String(row.reference || "Faculté de Médecine d'Alger"),
+    tags: parseTags(row.tags),
     accessLevel: row.access_level || 'FREE',
     year: row.year ? Number(row.year) as any : undefined
   };
