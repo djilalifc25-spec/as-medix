@@ -96,7 +96,9 @@ export async function POST(req: NextRequest) {
         difficulty: newQcm.difficulty,
         type: newQcm.type,
         reference: newQcm.reference,
-        year: newQcm.year ? String(newQcm.year) : null
+        tags: Array.isArray(newQcm.tags) ? newQcm.tags : [],
+        access_level: newQcm.accessLevel || 'FREE',
+        year: (newQcm.year && !isNaN(Number(newQcm.year))) ? Number(newQcm.year) : null
       });
     }
 

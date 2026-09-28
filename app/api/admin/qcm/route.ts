@@ -112,7 +112,9 @@ async function syncQcmToSupabase(qcm: QCM) {
       difficulty: qcm.difficulty ? String(qcm.difficulty) : 'Moyen',
       type: qcm.type ? String(qcm.type) : 'SINGLE',
       reference: qcm.reference ? String(qcm.reference) : null,
-      year: qcm.year ? String(qcm.year) : null
+      tags: Array.isArray(qcm.tags) ? qcm.tags : [],
+      access_level: qcm.accessLevel ? String(qcm.accessLevel) : 'FREE',
+      year: (qcm.year && !isNaN(Number(qcm.year))) ? Number(qcm.year) : null
     };
     let { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
     if (error && error.message && error.message.includes('Could not find the column')) {
@@ -129,6 +131,9 @@ async function syncQcmToSupabase(qcm: QCM) {
         options: payload.options,
         correct_answers: payload.correct_answers,
         explanation: payload.explanation,
+        source: payload.source,
+        faculty: payload.faculty,
+        reference: payload.reference,
         year: payload.year
       };
       await supabaseAdmin.from('qcms').upsert(corePayload, { onConflict: 'id' });

@@ -45,6 +45,24 @@ CREATE POLICY "Qcms readable by all" ON public.qcms FOR SELECT USING (true);
 DROP POLICY IF EXISTS "Qcms modifiable by all" ON public.qcms;
 CREATE POLICY "Qcms modifiable by all" ON public.qcms FOR ALL USING (true);
 
--- Index for real-time fast lookups by specialty and course
+-- Ensure custom_sources table exists
+CREATE TABLE IF NOT EXISTS public.custom_sources (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    scope_key TEXT NOT NULL UNIQUE,
+    faculty TEXT DEFAULT 'TOUS',
+    sources JSONB NOT NULL DEFAULT '[]'::jsonb,
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.custom_sources ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Custom sources readable by all" ON public.custom_sources;
+CREATE POLICY "Custom sources readable by all" ON public.custom_sources FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Custom sources modifiable by all" ON public.custom_sources;
+CREATE POLICY "Custom sources modifiable by all" ON public.custom_sources FOR ALL USING (true);
+
+-- Indexes for real-time fast lookups by specialty and course
 CREATE INDEX IF NOT EXISTS idx_qcms_specialty ON public.qcms(specialty_id);
 CREATE INDEX IF NOT EXISTS idx_qcms_course ON public.qcms(course_id);
+CREATE INDEX IF NOT EXISTS idx_qcms_source ON public.qcms(source);
