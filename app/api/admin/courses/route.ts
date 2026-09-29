@@ -43,7 +43,7 @@ function mapSupabaseRowToCourse(row: any): Course {
 
 async function syncCourseToSupabase(course: Course) {
   try {
-    const payload = {
+    const basePayload: Record<string, any> = {
       id: String(course.id),
       specialty: String(course.specialtyId || 'cardio'),
       specialty_id: String(course.specialtyId || 'cardio'),
@@ -52,17 +52,40 @@ async function syncCourseToSupabase(course: Course) {
       subtitle: String(course.subtitle || ''),
       duration: String(course.estimatedDuration || '30 min'),
       difficulty: String(course.difficulty || 'Incontournable'),
-      faculty: String(course.faculty || 'TOUS'),
       rang: String(course.rang || 'Rang A'),
       html_content: String(course.htmlContent || ''),
       year: course.year ? String(course.year) : null,
       updated_at: new Date().toISOString()
     };
-    const { error } = await supabaseAdmin.from('courses').upsert(payload, { onConflict: 'id' });
-    if (error) {
-      console.error('[Supabase Sync] Course upsert error:', error.message);
+
+    const fullPayload = {
+      ...basePayload,
+      slug: String(course.slug || course.id),
+      faculty: String(course.faculty || 'TOUS'),
+      author: String(course.author || ''),
+      author_title: String(course.authorTitle || ''),
+      description: String(course.description || ''),
+      cover_image: String(course.coverImage || ''),
+      source: String(course.source || ''),
+      access_level: String(course.accessLevel || 'FREE'),
+      published: Boolean(course.published),
+      views_count: Number(course.viewsCount || 0),
+      likes_count: Number(course.likesCount || 0),
+      qcm_count: Number(course.qcmCount || 5),
+      table_of_contents: course.tableOfContents || []
+    };
+
+    const { error: fullError } = await supabaseAdmin.from('courses').upsert(fullPayload, { onConflict: 'id' });
+    if (fullError) {
+      console.warn('[Supabase Sync] Course upsert with extra columns failed, retrying with base schema:', fullError.message);
+      const { error: baseError } = await supabaseAdmin.from('courses').upsert(basePayload, { onConflict: 'id' });
+      if (baseError) {
+        console.error('[Supabase Sync] Course base upsert error:', baseError.message);
+      } else {
+        console.log('[Supabase Sync] Course successfully upserted into Supabase (base schema):', course.id);
+      }
     } else {
-      console.log('[Supabase Sync] Course successfully upserted into Supabase:', course.id);
+      console.log('[Supabase Sync] Course successfully upserted into Supabase (full schema):', course.id);
     }
   } catch (err) {
     console.error('[Supabase Sync] Course upsert exception:', err);
