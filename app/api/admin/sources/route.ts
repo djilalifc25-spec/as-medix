@@ -214,38 +214,68 @@ export async function DELETE(req: Request) {
 
     const body = await req.json();
     const { name, parentName, subSource, specialty, course, faculty, year } = body;
-    const key = buildScopeKey(specialty, course, faculty, year);
     const supabase = getSupabaseServerClient();
 
-    const { data: existing } = await supabase.from('custom_sources').select('sources').eq('scope_key', key).single();
-    let structured: StructuredSource[] = normalizeSourcesList(existing?.sources && Array.isArray(existing.sources) ? existing.sources : []);
-
-    // Case 1: Delete a specific sub-source
-    if (parentName && subSource) {
-      const cleanParent = String(parentName).trim().toLowerCase();
-      const cleanSub = String(subSource).trim();
-      const found = structured.find(s => s.name.toLowerCase() === cleanParent);
-      if (found) {
-        found.subSources = found.subSources.filter(s => s !== cleanSub);
-      }
-    } 
-    // Case 2: Delete the entire source
-    else if (name) {
-      const cleanName = String(name).trim().toLowerCase();
-      structured = structured.filter(s => s.name.toLowerCase() !== cleanName);
-    } else {
+    if (!name && !(parentName && subSource)) {
       return NextResponse.json({ error: 'Paramètre de suppression manquant' }, { status: 400 });
     }
 
-    await supabase.from('custom_sources').upsert(
-      { scope_key: key, faculty: faculty || 'TOUS', sources: structured, updated_at: new Date().toISOString() },
-      { onConflict: 'scope_key' }
-    );
+    // 1. Fetch ALL rows in custom_sources table to ensure full deletion across all scopes
+    const { data: allRows, error: fetchErr } = await supabase.from('custom_sources').select('*');
+    if (fetchErr) throw fetchErr;
+
+    const rowsToProcess = allRows || [];
+
+    for (const row of rowsToProcess) {
+      let structured: StructuredSource[] = normalizeSourcesList(row.sources || []);
+      let modified = false;
+
+      // Case 1: Delete a specific sub-source
+      if (parentName && subSource) {
+        const cleanParent = String(parentName).trim().toLowerCase();
+        const cleanSub = String(subSource).trim().toLowerCase();
+        const found = structured.find(s => s.name.toLowerCase() === cleanParent);
+        if (found) {
+          const initialLen = found.subSources.length;
+          found.subSources = found.subSources.filter(s => String(s).trim().toLowerCase() !== cleanSub);
+          if (found.subSources.length !== initialLen) {
+            modified = true;
+          }
+        }
+      } 
+      // Case 2: Delete an entire source
+      else if (name) {
+        const cleanName = String(name).trim().toLowerCase();
+        const initialLen = structured.length;
+        structured = structured.filter(s => s.name.toLowerCase() !== cleanName);
+        if (structured.length !== initialLen) {
+          modified = true;
+        }
+      }
+
+      if (modified) {
+        await supabase.from('custom_sources').upsert(
+          {
+            id: row.id,
+            scope_key: row.scope_key,
+            faculty: row.faculty || 'TOUS',
+            sources: structured,
+            updated_at: new Date().toISOString()
+          },
+          { onConflict: 'scope_key' }
+        );
+      }
+    }
+
+    // 2. Re-query remaining sources for the target scope key
+    const targetKey = buildScopeKey(specialty, course, faculty, year);
+    const { data: updatedTarget } = await supabase.from('custom_sources').select('sources').eq('scope_key', targetKey).single();
+    const finalStructured = normalizeSourcesList(updatedTarget?.sources || []);
 
     return NextResponse.json({
       success: true,
-      structuredSources: structured,
-      sources: structured.map(s => s.name)
+      structuredSources: finalStructured,
+      sources: finalStructured.map(s => s.name)
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
