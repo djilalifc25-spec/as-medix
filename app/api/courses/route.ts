@@ -128,27 +128,31 @@ export async function GET(req: NextRequest) {
     const slug = url.searchParams.get('slug') || undefined;
 
     let coursesMap = new Map<string, Course>();
+    let cloudFetched = false;
 
-    // 1. Local DB courses
-    const localCourses = db.getCourses();
-    for (const c of localCourses) {
-      coursesMap.set(c.id, c);
-    }
-
-    // 2. Cloud Supabase courses
+    // 1. Cloud Supabase courses (Primary source of truth)
     try {
       const { data: cloudCourses, error } = await supabaseAdmin.from('courses').select('*');
       if (!error && Array.isArray(cloudCourses)) {
+        cloudFetched = true;
         for (const row of cloudCourses) {
           const mapped = mapSupabaseRowToCourse(row);
-          const existing = coursesMap.get(mapped.id);
-          if (!existing || (mapped.htmlContent && mapped.htmlContent.length > (existing.htmlContent?.length || 0))) {
-            coursesMap.set(mapped.id, mapped);
-          }
+          coursesMap.set(mapped.id, mapped);
         }
       }
     } catch (sErr) {
       console.warn('[Courses API] Supabase fetch error:', sErr);
+    }
+
+    // 2. Fallback to Local DB courses if cloud query fails or for newly created local drafts
+    const localCourses = db.getCourses();
+    for (const c of localCourses) {
+      if (!cloudFetched) {
+        coursesMap.set(c.id, c);
+      } else if (!coursesMap.has(c.id) && c.htmlContent && c.htmlContent.length > 100) {
+        // Keep local draft if not present in cloud
+        coursesMap.set(c.id, c);
+      }
     }
 
     let courses = Array.from(coursesMap.values());

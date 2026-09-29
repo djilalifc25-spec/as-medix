@@ -7059,5 +7059,13 @@
       "createdAt": "2026-09-25T17:17:50.948Z",
       "approvedAt": "2026-09-25T17:17:51.116Z"
     }
+  ],
+  "deletedCourseIds": [
+    "custom-cardio-1788574898544",
+    "cours_cardio_rm",
+    "cours_cardio_ic",
+    "cours_cardio_yyyy",
+    "cours_cardio_nononon",
+    "cours_cardio_hyh"
   ]
 }

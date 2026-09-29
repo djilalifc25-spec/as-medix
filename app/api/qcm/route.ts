@@ -114,19 +114,21 @@ export async function GET(req: NextRequest) {
     const source = url.searchParams.get('source') || undefined;
 
     let qcms: QCM[] = [];
+    let cloudFetched = false;
 
     // 1. Prioritize Cloud Supabase qcms (Persistent storage)
     try {
       const { data: cloudQcms, error } = await supabaseAdmin.from('qcms').select('*');
-      if (!error && Array.isArray(cloudQcms) && cloudQcms.length > 0) {
+      if (!error && Array.isArray(cloudQcms)) {
+        cloudFetched = true;
         qcms = cloudQcms.map(mapSupabaseQcmToType);
       }
     } catch (sErr) {
       console.warn('Supabase fetch qcms fallback:', sErr);
     }
 
-    // 2. Fallback to local memory DB only if cloud is completely empty
-    if (qcms.length === 0) {
+    // 2. Fallback to local memory DB only if cloud query failed
+    if (!cloudFetched) {
       qcms = db.getQcms();
     }
 

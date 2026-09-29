@@ -43,6 +43,8 @@ interface DatabaseSchema {
   // Sources stored per scope: key = "specialtyId" | "specialtyId__courseId" | "__global__"
   customSources?: Record<string, string[]>;
   deletedSpecialtyIds?: string[];
+  deletedCourseIds?: string[];
+  deletedQcmIds?: string[];
 }
 
 class DatabaseStore {
@@ -258,10 +260,15 @@ class DatabaseStore {
 
         if (fsModule.existsSync(DB_FILE_PATH)) {
         const fileContent = fsModule.readFileSync(DB_FILE_PATH, 'utf-8');
-        this.data = JSON.parse(fileContent);
         if (!this.data.specialties) this.data.specialties = [];
         if (!this.data.deletedSpecialtyIds) this.data.deletedSpecialtyIds = [];
+        if (!this.data.deletedCourseIds) this.data.deletedCourseIds = [];
+        if (!this.data.deletedQcmIds) this.data.deletedQcmIds = [];
+
         const deletedIds = this.data.deletedSpecialtyIds || [];
+        const deletedCourseIds = this.data.deletedCourseIds || [];
+        const deletedQcmIds = this.data.deletedQcmIds || [];
+
         // Ensure all 45 specialties across the 6 years are present with their year assignment
         for (const seedSpec of ALL_SPECIALTIES) {
           if (deletedIds.includes(seedSpec.id)) continue;
@@ -273,6 +280,15 @@ class DatabaseStore {
             existing.faculty = existing.faculty || seedSpec.faculty || 'TOUS';
           }
         }
+
+        // Filter out deleted courses, QCMs, or items belonging to deleted specialties
+        if (deletedCourseIds.length > 0 || deletedIds.length > 0) {
+          this.data.courses = (this.data.courses || []).filter(c => !deletedCourseIds.includes(c.id) && !deletedIds.includes(c.specialtyId));
+        }
+        if (deletedQcmIds.length > 0 || deletedIds.length > 0) {
+          this.data.qcms = (this.data.qcms || []).filter(q => !deletedQcmIds.includes(q.id) && !deletedIds.includes(q.specialtyId));
+        }
+
         this.updateSpecialtyCounts();
         this.updateCourseQcmCounts();
         this.save();
@@ -367,19 +383,24 @@ class DatabaseStore {
 
   // --- COURSES ---
   public getCourses(): Course[] {
-    return this.data.courses;
+    const deletedCourseIds = this.data.deletedCourseIds || [];
+    const deletedSpecIds = this.data.deletedSpecialtyIds || [];
+    return (this.data.courses || []).filter(c => !deletedCourseIds.includes(c.id) && !deletedSpecIds.includes(c.specialtyId));
   }
 
   public getCourseBySlug(slug: string): Course | undefined {
-    return this.data.courses.find(c => c.slug === slug);
+    return this.getCourses().find(c => c.slug === slug);
   }
 
   public getCourseById(id: string): Course | undefined {
-    return this.data.courses.find(c => c.id === id);
+    return this.getCourses().find(c => c.id === id);
   }
 
   public createCourse(course: Course): Course {
     this.data.courses.unshift(course);
+    if (this.data.deletedCourseIds) {
+      this.data.deletedCourseIds = this.data.deletedCourseIds.filter(id => id !== course.id);
+    }
     this.updateSpecialtyCounts();
     this.updateCourseQcmCounts();
     this.save();
@@ -400,15 +421,16 @@ class DatabaseStore {
   }
 
   public deleteCourse(id: string): boolean {
+    if (!this.data.deletedCourseIds) this.data.deletedCourseIds = [];
+    if (!this.data.deletedCourseIds.includes(id)) {
+      this.data.deletedCourseIds.push(id);
+    }
     const prevLen = this.data.courses.length;
     this.data.courses = this.data.courses.filter(c => c.id !== id);
-    if (this.data.courses.length !== prevLen) {
-      this.updateSpecialtyCounts();
-      this.updateCourseQcmCounts();
-      this.save();
-      return true;
-    }
-    return false;
+    this.updateSpecialtyCounts();
+    this.updateCourseQcmCounts();
+    this.save();
+    return true;
   }
 
   public duplicateCourse(id: string): Course | undefined {
@@ -461,15 +483,20 @@ class DatabaseStore {
 
   // --- QCMS ---
   public getQcms(): QCM[] {
-    return this.data.qcms;
+    const deletedQcmIds = this.data.deletedQcmIds || [];
+    const deletedSpecIds = this.data.deletedSpecialtyIds || [];
+    return (this.data.qcms || []).filter(q => !deletedQcmIds.includes(q.id) && !deletedSpecIds.includes(q.specialtyId));
   }
 
   public getQcmById(id: string): QCM | undefined {
-    return this.data.qcms.find(q => q.id === id);
+    return this.getQcms().find(q => q.id === id);
   }
 
   public createQcm(qcm: QCM): QCM {
     this.data.qcms.push(qcm);
+    if (this.data.deletedQcmIds) {
+      this.data.deletedQcmIds = this.data.deletedQcmIds.filter(id => id !== qcm.id);
+    }
     this.updateSpecialtyCounts();
     this.updateCourseQcmCounts();
     this.save();
@@ -490,15 +517,16 @@ class DatabaseStore {
   }
 
   public deleteQcm(id: string): boolean {
+    if (!this.data.deletedQcmIds) this.data.deletedQcmIds = [];
+    if (!this.data.deletedQcmIds.includes(id)) {
+      this.data.deletedQcmIds.push(id);
+    }
     const prev = this.data.qcms.length;
     this.data.qcms = this.data.qcms.filter(q => q.id !== id);
-    if (this.data.qcms.length !== prev) {
-      this.updateSpecialtyCounts();
-      this.updateCourseQcmCounts();
-      this.save();
-      return true;
-    }
-    return false;
+    this.updateSpecialtyCounts();
+    this.updateCourseQcmCounts();
+    this.save();
+    return true;
   }
 
   public recordAttempt(attempt: QCMAttempt): QCMAttempt {

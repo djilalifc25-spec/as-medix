@@ -111,23 +111,28 @@ export async function GET(req: Request) {
   const id = searchParams.get('id');
 
   let coursesMap = new Map<string, Course>();
-  const localCourses = db.getCourses();
-  for (const c of localCourses) {
-    coursesMap.set(c.id, c);
-  }
+  let cloudFetched = false;
+
   try {
     const { data: cloudCourses, error } = await supabaseAdmin.from('courses').select('*');
     if (!error && Array.isArray(cloudCourses)) {
+      cloudFetched = true;
       for (const row of cloudCourses) {
         const mapped = mapSupabaseRowToCourse(row);
-        const existing = coursesMap.get(mapped.id);
-        if (!existing || (mapped.htmlContent && mapped.htmlContent.length > (existing.htmlContent?.length || 0))) {
-          coursesMap.set(mapped.id, mapped);
-        }
+        coursesMap.set(mapped.id, mapped);
       }
     }
   } catch (sErr) {
     console.warn('[Admin Courses GET] Supabase fetch error:', sErr);
+  }
+
+  const localCourses = db.getCourses();
+  for (const c of localCourses) {
+    if (!cloudFetched) {
+      coursesMap.set(c.id, c);
+    } else if (!coursesMap.has(c.id) && c.htmlContent && c.htmlContent.length > 100) {
+      coursesMap.set(c.id, c);
+    }
   }
 
   const allCourses = Array.from(coursesMap.values());
