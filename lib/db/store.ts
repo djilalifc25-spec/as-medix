@@ -45,6 +45,7 @@ interface DatabaseSchema {
   deletedSpecialtyIds?: string[];
   deletedCourseIds?: string[];
   deletedQcmIds?: string[];
+  deletedFichesSpecialtyIds?: string[];
 }
 
 class DatabaseStore {
@@ -264,10 +265,12 @@ class DatabaseStore {
         if (!this.data.deletedSpecialtyIds) this.data.deletedSpecialtyIds = [];
         if (!this.data.deletedCourseIds) this.data.deletedCourseIds = [];
         if (!this.data.deletedQcmIds) this.data.deletedQcmIds = [];
+        if (!this.data.deletedFichesSpecialtyIds) this.data.deletedFichesSpecialtyIds = [];
 
         const deletedIds = this.data.deletedSpecialtyIds || [];
         const deletedCourseIds = this.data.deletedCourseIds || [];
         const deletedQcmIds = this.data.deletedQcmIds || [];
+        const deletedFichesSpecIds = this.data.deletedFichesSpecialtyIds || [];
 
         // Ensure all 45 specialties across the 6 years are present with their year assignment
         for (const seedSpec of ALL_SPECIALTIES) {
@@ -287,6 +290,9 @@ class DatabaseStore {
         }
         if (deletedQcmIds.length > 0 || deletedIds.length > 0) {
           this.data.qcms = (this.data.qcms || []).filter(q => !deletedQcmIds.includes(q.id) && !deletedIds.includes(q.specialtyId));
+        }
+        if (deletedFichesSpecIds.length > 0 || deletedIds.length > 0) {
+          this.data.fiches = (this.data.fiches || []).filter(f => !deletedFichesSpecIds.includes(f.specialtyId) && !deletedIds.includes(f.specialtyId));
         }
 
         this.updateSpecialtyCounts();
@@ -456,15 +462,24 @@ class DatabaseStore {
 
   // --- FICHES ---
   public getFiches(): Fiche[] {
-    return this.data.fiches;
+    const deletedFichesSpecIds = this.data.deletedFichesSpecialtyIds || [];
+    const deletedSpecIds = this.data.deletedSpecialtyIds || [];
+    return (this.data.fiches || []).filter(f => !deletedFichesSpecIds.includes(f.specialtyId) && !deletedSpecIds.includes(f.specialtyId));
+  }
+
+  public getDeletedFichesSpecialtyIds(): string[] {
+    return this.data.deletedFichesSpecialtyIds || [];
   }
 
   public getFicheBySlug(slug: string): Fiche | undefined {
-    return this.data.fiches.find(f => f.slug === slug);
+    return this.getFiches().find(f => f.slug === slug);
   }
 
   public createFiche(fiche: Fiche): Fiche {
     this.data.fiches.push(fiche);
+    if (this.data.deletedFichesSpecialtyIds && fiche.specialtyId) {
+      this.data.deletedFichesSpecialtyIds = this.data.deletedFichesSpecialtyIds.filter(id => id !== fiche.specialtyId);
+    }
     this.updateSpecialtyCounts();
     this.save();
     return fiche;
@@ -479,6 +494,19 @@ class DatabaseStore {
       return true;
     }
     return false;
+  }
+
+  public deleteFichesBySpecialties(specialtyIds: string[]): boolean {
+    if (!this.data.deletedFichesSpecialtyIds) this.data.deletedFichesSpecialtyIds = [];
+    specialtyIds.forEach(id => {
+      if (!this.data.deletedFichesSpecialtyIds!.includes(id)) {
+        this.data.deletedFichesSpecialtyIds!.push(id);
+      }
+    });
+    this.data.fiches = this.data.fiches.filter(f => !specialtyIds.includes(f.specialtyId));
+    this.updateSpecialtyCounts();
+    this.save();
+    return true;
   }
 
   // --- QCMS ---

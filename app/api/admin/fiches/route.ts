@@ -34,6 +34,15 @@ async function deleteFicheFromSupabase(id: string) {
   }
 }
 
+async function deleteFichesBySpecialtiesFromSupabase(specialtyIds: string[]) {
+  try {
+    await supabaseAdmin.from('fiches').delete().in('specialty_id', specialtyIds);
+    await supabaseAdmin.from('fiches').delete().in('specialty', specialtyIds);
+  } catch (err) {
+    console.warn('[Supabase Sync] Fiches module delete warning:', err);
+  }
+}
+
 export async function GET(req: NextRequest) {
   const currentUser = await getCurrentUser();
   if (!currentUser || (currentUser.role !== 'ADMIN' && currentUser.role !== 'SUPER_ADMIN')) {
@@ -41,7 +50,8 @@ export async function GET(req: NextRequest) {
   }
 
   const fiches = db.getFiches();
-  return NextResponse.json({ success: true, fiches });
+  const deletedSpecialtyIds = db.getDeletedFichesSpecialtyIds();
+  return NextResponse.json({ success: true, fiches, deletedSpecialtyIds });
 }
 
 export async function POST(req: NextRequest) {
@@ -52,6 +62,19 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
+
+    if (body.action === 'delete_module' || Array.isArray(body.specialtyIds)) {
+      const specialtyIds: string[] = Array.isArray(body.specialtyIds)
+        ? body.specialtyIds
+        : (body.specialtyId ? [body.specialtyId] : []);
+      if (specialtyIds.length === 0) {
+        return NextResponse.json({ success: false, error: 'specialtyIds manquant' }, { status: 400 });
+      }
+      db.deleteFichesBySpecialties(specialtyIds);
+      await deleteFichesBySpecialtiesFromSupabase(specialtyIds);
+      return NextResponse.json({ success: true, deletedSpecialtyIds: specialtyIds });
+    }
+
     const newFiche: Fiche = {
       id: body.id || 'fiche_' + Date.now(),
       slug: body.slug || 'fiche-' + Date.now(),
@@ -83,14 +106,41 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
     }
 
+    let idsToDelete: string[] = [];
+    let specialtyIdsToDelete: string[] = [];
+
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get('id');
-    if (!id) return NextResponse.json({ success: false, error: 'ID requis' }, { status: 400 });
+    const queryId = searchParams.get('id');
+    const querySpecId = searchParams.get('specialtyId');
 
-    db.deleteFiche(id);
-    await deleteFicheFromSupabase(id);
+    if (queryId) idsToDelete.push(queryId);
+    if (querySpecId) specialtyIdsToDelete.push(querySpecId);
 
-    return NextResponse.json({ success: true });
+    if (req.headers.get('content-type')?.includes('application/json')) {
+      try {
+        const body = await req.json();
+        if (body.id) idsToDelete.push(body.id);
+        if (Array.isArray(body.ids)) idsToDelete.push(...body.ids);
+        if (body.specialtyId) specialtyIdsToDelete.push(body.specialtyId);
+        if (Array.isArray(body.specialtyIds)) specialtyIdsToDelete.push(...body.specialtyIds);
+      } catch (_) {}
+    }
+
+    if (specialtyIdsToDelete.length > 0) {
+      db.deleteFichesBySpecialties(specialtyIdsToDelete);
+      await deleteFichesBySpecialtiesFromSupabase(specialtyIdsToDelete);
+      return NextResponse.json({ success: true, deletedSpecialtyIds: specialtyIdsToDelete });
+    }
+
+    if (idsToDelete.length > 0) {
+      for (const id of idsToDelete) {
+        db.deleteFiche(id);
+        await deleteFicheFromSupabase(id);
+      }
+      return NextResponse.json({ success: true, deletedIds: idsToDelete });
+    }
+
+    return NextResponse.json({ success: false, error: 'ID ou specialtyId requis' }, { status: 400 });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }

@@ -56,7 +56,9 @@ export default function AdminFichesPage() {
       ]);
       if (resFiches.fiches) setFiches(resFiches.fiches);
       if (resSpecs && resSpecs.specialties && Array.isArray(resSpecs.specialties)) {
-        setSpecialtiesList(resSpecs.specialties);
+        const deletedFichesSpecs = resFiches.deletedSpecialtyIds || [];
+        const filteredSpecs = resSpecs.specialties.filter((s: any) => !deletedFichesSpecs.includes(s.id));
+        setSpecialtiesList(filteredSpecs);
       }
     } catch (e) {
       console.error('Fetch Fiches error:', e);
@@ -79,17 +81,17 @@ export default function AdminFichesPage() {
 
   const handleDeleteSelectedModules = async () => {
     if (selectedModuleIds.length === 0) return;
-    if (!confirm(`Supprimer définitivement les ${selectedModuleIds.length} module(s) sélectionné(s) et les synchroniser sur Supabase ?`)) return;
+    if (!confirm(`Supprimer définitivement les fiches des ${selectedModuleIds.length} module(s) pour Fiches Flash (sans toucher aux Cours ou QCM) et synchroniser sur Supabase ?`)) return;
 
     try {
-      const res = await fetch('/api/admin/specialties', {
-        method: 'DELETE',
+      const res = await fetch('/api/admin/fiches', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids: selectedModuleIds })
+        body: JSON.stringify({ action: 'delete_module', specialtyIds: selectedModuleIds })
       });
       const data = await res.json();
       if (data.success) {
-        setSuccessMsg(`🎉 ${selectedModuleIds.length} module(s) supprimé(s) avec succès !`);
+        setSuccessMsg(`🎉 ${selectedModuleIds.length} module(s) supprimé(s) de Fiches Flash avec succès !`);
         setSelectedModuleIds([]);
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
@@ -139,16 +141,16 @@ export default function AdminFichesPage() {
   };
 
   const handleDeleteModule = async (id: string, name: string) => {
-    if (!confirm(`Supprimer le module "${name}" et le synchroniser sur Supabase ?`)) return;
+    if (!confirm(`Supprimer le module "${name}" pour Fiches Flash (sans toucher aux Cours ou QCM) et synchroniser sur Supabase ?`)) return;
     try {
-      const res = await fetch('/api/admin/specialties', {
-        method: 'DELETE',
+      const res = await fetch('/api/admin/fiches', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids: [id] })
+        body: JSON.stringify({ action: 'delete_module', specialtyIds: [id] })
       });
       const data = await res.json();
       if (data.success) {
-        setSuccessMsg(`Module "${name}" supprimé.`);
+        setSuccessMsg(`Module "${name}" supprimé pour Fiches Flash.`);
         setSelectedModuleIds(prev => prev.filter(m => m !== id));
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));

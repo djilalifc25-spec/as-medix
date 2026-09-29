@@ -8,12 +8,12 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   try {
     let map = new Map<string, Fiche>();
-    const local = db.getFiches();
-    for (const item of local) map.set(item.id, item);
+    let cloudFetched = false;
 
     try {
       const { data: cloud, error } = await supabaseAdmin.from('fiches').select('*');
       if (!error && Array.isArray(cloud)) {
+        cloudFetched = true;
         for (const row of cloud) {
           const mapped: Fiche = {
             id: String(row.id),
@@ -34,7 +34,13 @@ export async function GET(req: NextRequest) {
       }
     } catch (e) {}
 
-    const fiches = Array.from(map.values());
+    if (!cloudFetched) {
+      const local = db.getFiches();
+      for (const item of local) map.set(item.id, item);
+    }
+
+    const deletedFichesSpecIds = db.getDeletedFichesSpecialtyIds();
+    const fiches = Array.from(map.values()).filter(f => !deletedFichesSpecIds.includes(f.specialtyId));
     return NextResponse.json({ success: true, fiches, total: fiches.length });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
