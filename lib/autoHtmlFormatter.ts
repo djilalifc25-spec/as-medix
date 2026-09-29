@@ -74,41 +74,53 @@ export function autoFormatCourseHtml(rawHtml: string): FormattedCourseResult {
     return `<h${level}${attrs}>${titleText}</h${level}>`;
   });
 
+  // Auto-decorating Anatomical & Histological Sections
+  formatted = formatted.replace(
+    /<(div|blockquote|p|section)(?![^>]*class=.*?(anatomie|histologie|rappel))([^>]*)>(\s*(?:🫀|Anatomie|Histologie|Rappel Anatomique|Vascularisation|Innervation).*?)<\/\1>/gi,
+    '<div class="anatomie p-5 rounded-2xl bg-slate-950 text-slate-100 border border-slate-800 shadow-md my-6" $3><div class="flex items-center gap-2 text-sky-400 font-black text-xs uppercase tracking-wider mb-2">🫀 Repères Anatomiques et Histologiques</div>$4</div>'
+  );
+
+  // Auto-decorating Paraclinical / Laboratory Sections
+  formatted = formatted.replace(
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:🔬|Biologie|Examens complémentaires|Paraclinique|Imagerie|Bilan).*?)<\/\1>/gi,
+    '<div class="paraclinique p-4 rounded-2xl bg-cyan-50/80 border border-cyan-200 dark:bg-cyan-950/30 text-xs sm:text-sm text-cyan-900 dark:text-cyan-200 my-4 shadow-xs" $3>🔬 <strong>Bilan Paraclinique & Imagerie :</strong> $4</div>'
+  );
+
   // Auto-decorating Callouts (Note, Rappel, Piège, Urgence, Traitement, Point Clé)
   formatted = formatted.replace(
-    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle))([^>]*)>(\s*(?:💡|Perle|Perle Clinique|Note|Remarque).*?)<\/\1>/gi,
-    '<div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4" $3>$4</div>'
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:💡|Perle|Perle Clinique|Note|Remarque).*?)<\/\1>/gi,
+    '<div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4 shadow-xs" $3>$4</div>'
   );
 
   formatted = formatted.replace(
-    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle))([^>]*)>(\s*(?:📌|Rappel|Prérequis).*?)<\/\1>/gi,
-    '<div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4" $3>$4</div>'
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:📌|Rappel|Prérequis).*?)<\/\1>/gi,
+    '<div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs" $3>$4</div>'
   );
 
   formatted = formatted.replace(
-    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle))([^>]*)>(\s*(?:⚠️|Piège|Attention|Warning).*?)<\/\1>/gi,
-    '<div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4" $3>$4</div>'
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:⚠️|Piège|Attention|Warning).*?)<\/\1>/gi,
+    '<div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4 shadow-xs" $3>$4</div>'
   );
 
   formatted = formatted.replace(
-    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle))([^>]*)>(\s*(?:🚨|Urgence|Alerte|Danger).*?)<\/\1>/gi,
-    '<div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4" $3>$4</div>'
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:🚨|Urgence|Alerte|Danger|Drapeau rouge|Red flag).*?)<\/\1>/gi,
+    '<div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4 shadow-xs" $3>$4</div>'
   );
 
   formatted = formatted.replace(
-    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle))([^>]*)>(\s*(?:💊|Traitement|Prise en charge|Thérapeutique).*?)<\/\1>/gi,
-    '<div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4" $3>$4</div>'
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:💊|Traitement|Prise en charge|Thérapeutique).*?)<\/\1>/gi,
+    '<div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4 shadow-xs" $3>$4</div>'
   );
 
   formatted = formatted.replace(
-    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle))([^>]*)>(\s*(?:⭐|Point Clé|À retenir|Synthèse).*?)<\/\1>/gi,
-    '<div class="point-cle p-4 rounded-2xl bg-sky-50/70 border border-sky-200 dark:bg-sky-950/30 text-xs sm:text-sm text-sky-900 dark:text-sky-200 my-4" $3>$4</div>'
+    /<(div|blockquote|p)(?![^>]*class=.*?(note|rappel|piege|urgence|traitement|point-cle|paraclinique))([^>]*)>(\s*(?:⭐|Point Clé|À retenir|Synthèse).*?)<\/\1>/gi,
+    '<div class="point-cle p-4 rounded-2xl bg-purple-50/70 border border-purple-200 dark:bg-purple-950/30 text-xs sm:text-sm text-purple-900 dark:text-purple-200 my-4 shadow-xs" $3>$4</div>'
   );
 
   // Tables, lists, images styling
   formatted = formatted.replace(
     /<table(?![^>]*class=)([^>]*)>/gi,
-    '<table class="w-full my-6 text-xs border-collapse border border-navy-200 dark:border-navy-700 rounded-2xl overflow-hidden shadow-sm" $1>'
+    '<table class="w-full my-6 text-xs sm:text-sm border-collapse border border-navy-200 dark:border-navy-700 rounded-2xl overflow-hidden shadow-sm" $1>'
   );
   formatted = formatted.replace(
     /<th(?![^>]*class=)([^>]*)>/gi,
