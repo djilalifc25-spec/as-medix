@@ -42,6 +42,7 @@ export default function AdminFichesPage() {
   const [newModuleYear, setNewModuleYear] = useState<string>('4');
   const [newModuleFaculty, setNewModuleFaculty] = useState<string>('TOUS');
   const [savingModule, setSavingModule] = useState(false);
+  const [selectedModuleIds, setSelectedModuleIds] = useState<string[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -59,6 +60,47 @@ export default function AdminFichesPage() {
       }
     } catch (e) {
       console.error('Fetch Fiches error:', e);
+    }
+  };
+
+  const toggleSelectModule = (id: string) => {
+    setSelectedModuleIds(prev =>
+      prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAllModules = () => {
+    if (selectedModuleIds.length === specialtiesList.length) {
+      setSelectedModuleIds([]);
+    } else {
+      setSelectedModuleIds(specialtiesList.map(s => s.id));
+    }
+  };
+
+  const handleDeleteSelectedModules = async () => {
+    if (selectedModuleIds.length === 0) return;
+    if (!confirm(`Supprimer définitivement les ${selectedModuleIds.length} module(s) sélectionné(s) et les synchroniser sur Supabase ?`)) return;
+
+    try {
+      const res = await fetch('/api/admin/specialties', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedModuleIds })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(`🎉 ${selectedModuleIds.length} module(s) supprimé(s) avec succès !`);
+        setSelectedModuleIds([]);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+        fetchData();
+        setTimeout(() => setSuccessMsg(''), 4000);
+      } else {
+        alert(data.error || 'Erreur lors de la suppression des modules');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Erreur réseau');
     }
   };
 
@@ -99,10 +141,15 @@ export default function AdminFichesPage() {
   const handleDeleteModule = async (id: string, name: string) => {
     if (!confirm(`Supprimer le module "${name}" et le synchroniser sur Supabase ?`)) return;
     try {
-      const res = await fetch(`/api/admin/specialties?id=${id}`, { method: 'DELETE' });
+      const res = await fetch('/api/admin/specialties', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: [id] })
+      });
       const data = await res.json();
       if (data.success) {
         setSuccessMsg(`Module "${name}" supprimé.`);
+        setSelectedModuleIds(prev => prev.filter(m => m !== id));
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
         }
@@ -534,19 +581,48 @@ export default function AdminFichesPage() {
               </div>
             </form>
 
-            <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
-              <h4 className="text-xs font-bold text-navy-800 dark:text-navy-200">Modules existants ({specialtiesList.length}) :</h4>
+            <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+              <div className="flex items-center justify-between pb-2 border-b border-navy-100 dark:border-navy-800">
+                <label className="flex items-center gap-2 text-xs font-bold text-navy-800 dark:text-navy-200 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={specialtiesList.length > 0 && selectedModuleIds.length === specialtiesList.length}
+                    onChange={toggleSelectAllModules}
+                    className="w-4 h-4 rounded border-navy-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                  />
+                  <span>Tout Sélectionner ({specialtiesList.length} modules)</span>
+                </label>
+
+                {selectedModuleIds.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleDeleteSelectedModules}
+                    className="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-sm flex items-center gap-1.5 cursor-pointer animate-in fade-in"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Supprimer ({selectedModuleIds.length})</span>
+                  </button>
+                )}
+              </div>
+
               <div className="space-y-1.5">
                 {specialtiesList.map(s => (
                   <div key={s.id} className="p-2.5 rounded-xl bg-navy-50 dark:bg-navy-800 flex items-center justify-between gap-2 text-xs">
-                    <span className="font-bold text-navy-900 dark:text-white flex items-center gap-2">
+                    <label className="flex items-center gap-2.5 font-bold text-navy-900 dark:text-white cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedModuleIds.includes(s.id)}
+                        onChange={() => toggleSelectModule(s.id)}
+                        className="w-4 h-4 rounded border-navy-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                      />
                       <span>{getSpecialtyEmoji(s.id)}</span>
                       <span>{s.name}</span>
                       <span className="text-[10px] text-navy-400">({s.year ? `${s.year}e Année` : 'Transversal'})</span>
-                    </span>
+                    </label>
                     <button
+                      type="button"
                       onClick={() => handleDeleteModule(s.id, s.name)}
-                      className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-950/40"
+                      className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-950/40 cursor-pointer"
                       title="Supprimer ce module"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

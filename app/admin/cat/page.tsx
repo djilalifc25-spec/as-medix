@@ -54,6 +54,7 @@ export default function AdminCatPage() {
   const [newModuleFaculty, setNewModuleFaculty] = useState<string>('TOUS');
   const [savingModule, setSavingModule] = useState(false);
   const [specialtiesList, setSpecialtiesList] = useState(ALL_SPECIALTIES);
+  const [selectedModuleIds, setSelectedModuleIds] = useState<string[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -73,6 +74,47 @@ export default function AdminCatPage() {
       }
     } catch (e) {
       console.error('Fetch CAT error:', e);
+    }
+  };
+
+  const toggleSelectModule = (id: string) => {
+    setSelectedModuleIds(prev =>
+      prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAllModules = () => {
+    if (selectedModuleIds.length === specialtiesList.length) {
+      setSelectedModuleIds([]);
+    } else {
+      setSelectedModuleIds(specialtiesList.map(s => s.id));
+    }
+  };
+
+  const handleDeleteSelectedModules = async () => {
+    if (selectedModuleIds.length === 0) return;
+    if (!confirm(`Supprimer définitivement les ${selectedModuleIds.length} module(s) sélectionné(s) et les synchroniser sur Supabase ?`)) return;
+
+    try {
+      const res = await fetch('/api/admin/specialties', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedModuleIds })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(`🎉 ${selectedModuleIds.length} module(s) supprimé(s) avec succès !`);
+        setSelectedModuleIds([]);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+        fetchData();
+        setTimeout(() => setSuccessMsg(''), 4000);
+      } else {
+        alert(data.error || 'Erreur lors de la suppression des modules');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Erreur réseau');
     }
   };
 
@@ -113,10 +155,15 @@ export default function AdminCatPage() {
   const handleDeleteModule = async (id: string, name: string) => {
     if (!confirm(`Supprimer le module "${name}" et le synchroniser sur Supabase ?`)) return;
     try {
-      const res = await fetch(`/api/admin/specialties?id=${id}`, { method: 'DELETE' });
+      const res = await fetch('/api/admin/specialties', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: [id] })
+      });
       const data = await res.json();
       if (data.success) {
         setSuccessMsg(`Module "${name}" supprimé.`);
+        setSelectedModuleIds(prev => prev.filter(m => m !== id));
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
         }
@@ -294,6 +341,15 @@ export default function AdminCatPage() {
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setModuleModalOpen(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all cursor-pointer"
+          >
+            <Folder className="w-4 h-4" />
+            <span>➕ Gérer les Modules</span>
+          </button>
+
           <button
             type="button"
             onClick={() => setAiCatModalOpen(true)}
@@ -570,6 +626,141 @@ export default function AdminCatPage() {
           </div>
         )}
       </div>
+
+      {/* MODULE MANAGEMENT MODAL */}
+      {moduleModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white dark:bg-navy-900 rounded-3xl max-w-xl w-full border border-navy-200 dark:border-navy-800 shadow-2xl p-6 space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-navy-100 dark:border-navy-800">
+              <h3 className="text-base font-bold text-navy-950 dark:text-white flex items-center gap-2">
+                <Folder className="w-5 h-5 text-emerald-500" />
+                <span>Gestion des Modules & Spécialités</span>
+              </h3>
+              <button onClick={() => setModuleModalOpen(false)} className="p-1.5 rounded-xl text-navy-400 hover:text-navy-900 dark:hover:text-white">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddModule} className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/40 space-y-3">
+              <h4 className="text-xs font-bold text-emerald-900 dark:text-emerald-300">➕ Créer un Nouveau Module</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">Nom complet :</label>
+                  <input
+                    type="text"
+                    value={newModuleName}
+                    onChange={e => setNewModuleName(e.target.value)}
+                    placeholder="ex: Addictologie & Dépendances"
+                    className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 text-xs"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">Nom court :</label>
+                  <input
+                    type="text"
+                    value={newModuleShort}
+                    onChange={e => setNewModuleShort(e.target.value)}
+                    placeholder="ex: Addicto"
+                    className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 text-xs"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">Année d'étude :</label>
+                  <select
+                    value={newModuleYear}
+                    onChange={e => setNewModuleYear(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 text-xs font-bold"
+                  >
+                    <option value="1">1ère Année</option>
+                    <option value="2">2ème Année</option>
+                    <option value="3">3ème Année</option>
+                    <option value="4">4ème Année</option>
+                    <option value="5">5ème Année</option>
+                    <option value="6">6ème Année</option>
+                    <option value="none">Transversal (Sans année)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">Faculté :</label>
+                  <select
+                    value={newModuleFaculty}
+                    onChange={e => setNewModuleFaculty(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 text-xs font-bold"
+                  >
+                    <option value="TOUS">Toutes Facultés (TOUS)</option>
+                    <option value="ORAN">Faculté d'Oran</option>
+                    <option value="SIDI_BEL_ABBES">Faculté de Sidi Bel Abbès</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-1">
+                <button
+                  type="submit"
+                  disabled={savingModule}
+                  className="px-5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md disabled:opacity-50"
+                >
+                  {savingModule ? 'Enregistrement...' : 'Créer & Synchroniser Supabase'}
+                </button>
+              </div>
+            </form>
+
+            <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+              <div className="flex items-center justify-between pb-2 border-b border-navy-100 dark:border-navy-800">
+                <label className="flex items-center gap-2 text-xs font-bold text-navy-800 dark:text-navy-200 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={specialtiesList.length > 0 && selectedModuleIds.length === specialtiesList.length}
+                    onChange={toggleSelectAllModules}
+                    className="w-4 h-4 rounded border-navy-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                  />
+                  <span>Tout Sélectionner ({specialtiesList.length} modules)</span>
+                </label>
+
+                {selectedModuleIds.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleDeleteSelectedModules}
+                    className="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-sm flex items-center gap-1.5 cursor-pointer animate-in fade-in"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Supprimer ({selectedModuleIds.length})</span>
+                  </button>
+                )}
+              </div>
+
+              <div className="space-y-1.5">
+                {specialtiesList.map(s => (
+                  <div key={s.id} className="p-2.5 rounded-xl bg-navy-50 dark:bg-navy-800 flex items-center justify-between gap-2 text-xs">
+                    <label className="flex items-center gap-2.5 font-bold text-navy-900 dark:text-white cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedModuleIds.includes(s.id)}
+                        onChange={() => toggleSelectModule(s.id)}
+                        className="w-4 h-4 rounded border-navy-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                      />
+                      <span>{getSpecialtyEmoji(s.id)}</span>
+                      <span>{s.name}</span>
+                      <span className="text-[10px] text-navy-400">({s.year ? `${s.year}e Année` : 'Transversal'})</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteModule(s.id, s.name)}
+                      className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-950/40 cursor-pointer"
+                      title="Supprimer ce module"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* AI CAT EXTRACTOR MODAL */}
       {aiCatModalOpen && (

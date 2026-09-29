@@ -222,26 +222,51 @@ export async function DELETE(req: NextRequest) {
     }
 
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get('id');
+    const idsToDelete: string[] = [];
 
-    if (!id) {
-      return NextResponse.json({ error: 'ID de la spécialité requis' }, { status: 400 });
+    const queryId = searchParams.get('id');
+    const queryIds = searchParams.get('ids');
+
+    if (queryId) idsToDelete.push(queryId);
+    if (queryIds) {
+      queryIds.split(',').map((s: string) => s.trim()).filter(Boolean).forEach((id: string) => {
+        if (!idsToDelete.includes(id)) idsToDelete.push(id);
+      });
     }
 
-    const ok = db.deleteSpecialty(id);
-    if (!ok) {
-      return NextResponse.json({ error: 'Spécialité introuvable' }, { status: 404 });
+    if (req.headers.get('content-type')?.includes('application/json')) {
+      try {
+        const body = await req.json();
+        if (body.id && !idsToDelete.includes(body.id)) idsToDelete.push(body.id);
+        if (Array.isArray(body.ids)) {
+          body.ids.map((s: any) => String(s).trim()).filter(Boolean).forEach((id: string) => {
+            if (!idsToDelete.includes(id)) idsToDelete.push(id);
+          });
+        }
+      } catch (_) {}
+    }
+
+    if (idsToDelete.length === 0) {
+      return NextResponse.json({ error: 'ID(s) de la spécialité requis' }, { status: 400 });
+    }
+
+    for (const id of idsToDelete) {
+      db.deleteSpecialty(id);
     }
 
     // Sync deletion with Supabase SQL specialties table
     try {
       const supabase = getSupabaseServerClient();
-      await supabase.from('specialties').delete().eq('id', id);
+      await supabase.from('specialties').delete().in('id', idsToDelete);
     } catch (sErr) {
-      console.error('Error deleting specialty from Supabase:', sErr);
+      console.error('Error deleting specialties from Supabase:', sErr);
     }
 
-    return NextResponse.json({ success: true, message: 'Spécialité supprimée avec succès' });
+    return NextResponse.json({
+      success: true,
+      message: `${idsToDelete.length} module(s) supprimé(s) avec succès`,
+      deletedIds: idsToDelete
+    });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Erreur lors de la suppression' }, { status: 500 });
   }

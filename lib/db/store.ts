@@ -42,6 +42,7 @@ interface DatabaseSchema {
   gardeProtocols?: GardeProtocol[];
   // Sources stored per scope: key = "specialtyId" | "specialtyId__courseId" | "__global__"
   customSources?: Record<string, string[]>;
+  deletedSpecialtyIds?: string[];
 }
 
 class DatabaseStore {
@@ -259,8 +260,11 @@ class DatabaseStore {
         const fileContent = fsModule.readFileSync(DB_FILE_PATH, 'utf-8');
         this.data = JSON.parse(fileContent);
         if (!this.data.specialties) this.data.specialties = [];
+        if (!this.data.deletedSpecialtyIds) this.data.deletedSpecialtyIds = [];
+        const deletedIds = this.data.deletedSpecialtyIds || [];
         // Ensure all 45 specialties across the 6 years are present with their year assignment
         for (const seedSpec of ALL_SPECIALTIES) {
+          if (deletedIds.includes(seedSpec.id)) continue;
           const existing = this.data.specialties.find(s => s.id === seedSpec.id);
           if (!existing) {
             this.data.specialties.push({ ...seedSpec });
@@ -676,6 +680,10 @@ class DatabaseStore {
 
   public deleteSpecialty(id: string): boolean {
     if (!this.data.specialties) return false;
+    if (!this.data.deletedSpecialtyIds) this.data.deletedSpecialtyIds = [];
+    if (!this.data.deletedSpecialtyIds.includes(id)) {
+      this.data.deletedSpecialtyIds.push(id);
+    }
     const prev = this.data.specialties.length;
     this.data.specialties = this.data.specialties.filter(s => s.id !== id && s.slug !== id);
     if (this.data.specialties.length !== prev) {
@@ -683,6 +691,7 @@ class DatabaseStore {
       this.save();
       return true;
     }
+    this.save();
     return false;
   }
 
