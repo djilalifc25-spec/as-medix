@@ -25,6 +25,7 @@ export interface ParsedQcmItem {
   courseId?: string;
   courseTitle?: string;
   year?: number;
+  faculty?: 'ORAN' | 'SIDI_BEL_ABBES' | 'TOUS';
 }
 
 /**

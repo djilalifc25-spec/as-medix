@@ -304,6 +304,23 @@ export default function AdminQcmPage() {
     fetchScopeSources(specialtyId, courseId, faculty);
   }, [specialtyId, courseId, faculty]); // eslint-disable-line
 
+  // Live auto-synchronize parsed QCM review cards when top target parameters change
+  useEffect(() => {
+    if (parsedQcms.length > 0) {
+      const effSource = getEffectiveSource();
+      setParsedQcms(prev => prev.map(q => ({
+        ...q,
+        specialtyId: specialtyId || q.specialtyId,
+        faculty: faculty || q.faculty || 'ORAN',
+        year: year !== '' ? Number(year) : q.year,
+        courseId: courseId || (q.courseId ? q.courseId : undefined),
+        source: effSource || q.source,
+        parentSource: parentSource || q.parentSource,
+        subSource: subSource || q.subSource
+      })));
+    }
+  }, [specialtyId, year, faculty, courseId, parentSource, subSource, source, sourceOther]); // eslint-disable-line
+
   const handleRunAiQcmExtract = async () => {
     if (aiInputType === 'drive_pdf' && !aiPdfUrl.trim()) {
       alert('Veuillez entrer un lien Google Drive ou PDF d\'examen.');
@@ -370,11 +387,14 @@ export default function AdminQcmPage() {
           })),
           explanationHtml: q.explanation || '',
           isVerified: true,
-          source: q.source || finalSource || data.examTitle || 'Examen IA',
+          source: finalSource || (q.source && q.source !== 'hyperqcm' ? q.source : undefined),
           specialtyId: specialtyId,
-          courseId: q.courseId || courseId || undefined,
+          courseId: courseId || q.courseId || undefined,
           courseTitle: q.courseTitle || undefined,
-          year: year !== '' ? Number(year) : undefined
+          year: year !== '' ? Number(year) : undefined,
+          faculty: faculty || 'ORAN',
+          parentSource: parentSource || undefined,
+          subSource: subSource || undefined
         }));
 
         setParsedQcms(parsedItems);
@@ -587,17 +607,39 @@ export default function AdminQcmPage() {
           throw new Error(data.error || `Erreur serveur (${res.status}) lors de l'analyse du fichier`);
         }
 
+        const finalSource = getEffectiveSource();
         if (data.qcms && Array.isArray(data.qcms) && data.qcms.length > 0) {
-          setParsedQcms(data.qcms);
-          setSuccessMsg(`🎉 ${data.qcms.length} QCM(s) extraits avec succès ! Previsualisez et modifiez-les ci-dessous avant validation.`);
+          const enriched = data.qcms.map((q: any) => ({
+            ...q,
+            specialtyId: specialtyId,
+            courseId: courseId || q.courseId || undefined,
+            year: year !== '' ? Number(year) : q.year,
+            faculty: faculty || 'ORAN',
+            source: finalSource || (q.source && q.source !== 'hyperqcm' ? q.source : undefined),
+            parentSource: parentSource || undefined,
+            subSource: subSource || undefined
+          }));
+          setParsedQcms(enriched);
+          setSuccessMsg(`🎉 ${enriched.length} QCM(s) extraits avec succès ! Previsualisez et modifiez-les ci-dessous avant validation.`);
         } else {
           alert('Aucun QCM n\'a pu être extrait. Assurez-vous que le fichier contient des numéros de QCM (ex: QCM 1, 1., Q1).');
         }
       } else if (pastedQcmText.trim()) {
         const qcms = parseQcmDocument(pastedQcmText, pastedAnswerKeyText);
         if (qcms.length > 0) {
-          setParsedQcms(qcms);
-          setSuccessMsg(`🎉 ${qcms.length} QCM(s) extraits du texte collé !`);
+          const finalSource = getEffectiveSource();
+          const enriched = qcms.map(q => ({
+            ...q,
+            specialtyId: specialtyId,
+            courseId: courseId || q.courseId || undefined,
+            year: year !== '' ? Number(year) : q.year,
+            faculty: faculty || 'ORAN',
+            source: finalSource || (q.source && q.source !== 'hyperqcm' ? q.source : undefined),
+            parentSource: parentSource || undefined,
+            subSource: subSource || undefined
+          }));
+          setParsedQcms(enriched);
+          setSuccessMsg(`🎉 ${enriched.length} QCM(s) extraits du texte collé !`);
         } else {
           alert('Aucun QCM détecté dans le texte. Utilisez des structures comme "QCM 1 : ... A. ... B. ...".');
         }
