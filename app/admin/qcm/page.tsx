@@ -743,7 +743,11 @@ export default function AdminQcmPage() {
       if (data.success) {
         setQcms(prev => [...(data.qcms || qcmsToImport), ...prev]);
         setParsedQcms([]);
-        setSuccessMsg(`🚀 ${qcmsToImport.length} QCM(s) importés avec succès et sauvegardés définitivement dans Supabase !`);
+        setSuccessMsg(`🚀 ${qcmsToImport.length} QCM(s) extraits par l'IA importés avec succès et enregistrés définitivement dans Supabase !`);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+        await fetchData();
       } else {
         alert(data.error || 'Erreur lors de l\'importation en lot.');
       }

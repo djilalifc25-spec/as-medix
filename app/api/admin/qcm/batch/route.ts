@@ -134,13 +134,11 @@ export async function POST(req: NextRequest) {
         correct_answers: newQcm.correctAnswers,
         explanation: newQcm.explanation,
         source: newQcm.source,
-        parent_source: newQcm.parentSource || null,
-        sub_source: newQcm.subSource || null,
-        faculty: newQcm.faculty,
-        rang: newQcm.rang,
-        difficulty: newQcm.difficulty,
-        type: newQcm.type,
-        reference: newQcm.reference,
+        faculty: newQcm.faculty || 'ORAN',
+        rang: newQcm.rang || 'Rang A',
+        difficulty: newQcm.difficulty || 'Moyen',
+        type: newQcm.type || 'SINGLE',
+        reference: newQcm.reference || null,
         tags: Array.isArray(newQcm.tags) ? newQcm.tags : [],
         access_level: newQcm.accessLevel || 'FREE',
         year: (newQcm.year && !isNaN(Number(newQcm.year))) ? Number(newQcm.year) : null
@@ -150,15 +148,36 @@ export async function POST(req: NextRequest) {
     // Sync all QCMs to Supabase in batch
     if (supabasePayloads.length > 0) {
       try {
-        let { error } = await supabaseAdmin.from('qcms').upsert(supabasePayloads, { onConflict: 'id' });
-        if (error && error.message && error.message.includes('Could not find the column')) {
-          const stripped = supabasePayloads.map(p => {
-            const { parent_source, sub_source, ...rest } = p;
-            return rest;
-          });
-          await supabaseAdmin.from('qcms').upsert(stripped, { onConflict: 'id' });
-        } else if (error) {
-          console.error('[Batch QCM Import] Supabase upsert error:', error.message);
+        const { error } = await supabaseAdmin.from('qcms').upsert(supabasePayloads, { onConflict: 'id' });
+        if (error) {
+          console.warn('[Batch QCM Import] Full payload failed, retrying with core schema:', error.message);
+          const corePayloads = supabasePayloads.map(p => ({
+            id: p.id,
+            specialty: p.specialty,
+            specialty_id: p.specialty_id,
+            specialty_name: p.specialty_name,
+            course_id: p.course_id,
+            course_title: p.course_title,
+            question: p.question,
+            title: p.title,
+            vignette: p.vignette,
+            options: p.options,
+            correct_answers: p.correct_answers,
+            explanation: p.explanation,
+            source: p.source,
+            faculty: p.faculty,
+            rang: p.rang,
+            reference: p.reference,
+            year: p.year
+          }));
+          const { error: coreErr } = await supabaseAdmin.from('qcms').upsert(corePayloads, { onConflict: 'id' });
+          if (coreErr) {
+            console.error('[Batch QCM Import] Core payload error:', coreErr.message);
+          } else {
+            console.log('[Batch QCM Import] Core batch successfully upserted into Supabase:', corePayloads.length);
+          }
+        } else {
+          console.log('[Batch QCM Import] Full batch successfully upserted into Supabase:', supabasePayloads.length);
         }
       } catch (sbErr) {
         console.error('[Batch QCM Import] Supabase exception:', sbErr);
