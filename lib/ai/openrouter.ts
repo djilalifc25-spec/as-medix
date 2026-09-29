@@ -560,3 +560,94 @@ ${rawTextOrHtml.substring(0, 90000)}`;
     throw new Error('Format de réponse JSON invalide reçu de l\'IA.');
   }
 }
+
+export interface AIExtractedCATData {
+  title: string;
+  specialtyId: string;
+  specialtyName: string;
+  urgencyLevel: 'Urgence Vitale' | 'Urgence Relative' | 'Prise en charge réglée';
+  summary: string;
+  conduiteHtml: string;
+  evaluationInitiale: string[];
+  conduiteImmediate: string[];
+  traitementSpecifique: string[];
+  redFlags: string[];
+  clinicalPearls: string[];
+}
+
+/**
+ * Intelligent AI Extractor & Formatter for Conduites à Tenir (CAT) / Emergency Protocols
+ */
+export async function aiAnalyzeAndFormatCAT(
+  rawTextOrUrl: string,
+  config: AIProviderConfig = {},
+  options: { specialtyId?: string } = {}
+): Promise<AIExtractedCATData> {
+  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée en Médecine d'Urgence et Réanimation d'AS-MEDIX.
+Ta mission est de prendre un document de Conduite à Tenir (CAT) / Protocole d'Urgence (PDF Google Drive ou texte brut) et de le transformer en un PROTOCOLE D'URGENCE MÉDICALE HAUTEMENT PROFESSIONNEL, COLORÉ, DYNAMIQUE ET ERGONOMIQUE.
+
+CONSIGNE CAPITALE ABSOLUE - CONSERVATION 100/100 DES DÉTAILS + ENRICHISSEMENT MÉDICAL :
+1. Conserve 100% de l'intégralité du contenu du document d'urgence (constantes vitales, posologies, voies d'administration, pièges cliniques, examens).
+2. ENRICHIS le contenu avec des explications physiopathologiques claires sur la maladie/pathologie pour une compréhension médicale synthétique et complète.
+3. DÉTECTION DU MODULE / SPÉCIALITÉ MÉDICALE :
+   Analyse la maladie traitée et détermine le code de spécialité ("specialtyId") et le nom ("specialtyName") parmi :
+   - "cardio" : Cardiologie & Pathologies Vasculaires (Angor, SCA, IDM, Embolie pulmonaire, OAP, Troubles du rythme, Choc cardiogénique)
+   - "neuro" : Neurologie (AVC, Coma, Convulsions, Hémorragie méningée, HED, Méningite)
+   - "pneumo" : Pneumologie (Détresse respiratoire, Asthme AAG, Pneumothorax, SDRA)
+   - "gastro" : Gastro-Entérologie & Chirurgie Digestive (Douleurs abdominales, Pancréatite, Occlusion, Hémorragie digestive)
+   - "urgences" : Anesthésie-Réanimation & Urgences (Choc hypovolémique, Sepsis, Coup de chaleur, Hypothermie, Noyade, Strangulation, Electrisation, Polytrauma, Envenimation)
+   - "nephro" : Néphrologie (Insuffisance Rénale Aiguë, IRA, GNA, Anurie)
+   - "infectieux" : Infectiologie (Fièvre aux urgences, Purpura fulminans, Sepsis grave)
+   - "endocrino", "pediatrie", "gyneco", "dermato", "rhumato", "orl", "ophtalmo", "uro", "ortho", "chirurgie"
+
+Structure JSON de réponse (RETOURNE EXCLUSIVEMENT DU JSON VALIDE) :
+{
+  "title": "CAT UMC : Titre Précis de la Conduite à Tenir",
+  "specialtyId": "cardio",
+  "specialtyName": "Cardiologie & Pathologies Vasculaires",
+  "urgencyLevel": "Urgence Vitale",
+  "summary": "Définition, mécanismes physiopathologiques et critères de gravité immédiate...",
+  "evaluationInitiale": ["Constantes vitales (PA, FC, SpO2, FR, Glycémie)", "Signes de choc / défaillance d'organe"],
+  "conduiteImmediate": ["Mise en condition VVP, position, oxygénothérapie titrée"],
+  "traitementSpecifique": ["Posologie exacte médicament 1 (ex: Adrénaline 0.5mg IM)", "Traitement 2"],
+  "redFlags": ["Drapeau rouge 1 (piège à éviter absolument)", "Drapeau rouge 2"],
+  "clinicalPearls": ["Perle clinique 1 de réanimation"],
+  "conduiteHtml": "<div class=\"space-y-6\">... HTML professionnel et coloré avec Tailwind (cartes sombres, alertes rose-950/40, tableaux de doses, étapes 1️⃣ 2️⃣ 3️⃣) ...</div>"
+}`;
+
+  const userPrompt = `${options.specialtyId && options.specialtyId !== 'auto' ? `Spécialité Cible Imposée : ${options.specialtyId}` : 'Spécialité : Détection Automatique par l\'IA'}
+
+Voici le document / protocole d'urgence brut à analyser et formater (100% de conservation des détails + enrichissement IA) :
+${rawTextOrUrl.substring(0, 90000)}`;
+
+  const responseText = await callUnifiedAI(
+    [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt }
+    ],
+    config,
+    true
+  );
+
+  try {
+    const jsonCleaned = responseText.replace(/```json\s*/gi, '').replace(/```\s*$/gi, '').trim();
+    const parsed = JSON.parse(jsonCleaned);
+
+    return {
+      title: parsed.title || 'Conduite à Tenir UMC',
+      specialtyId: (options.specialtyId && options.specialtyId !== 'auto') ? options.specialtyId : (parsed.specialtyId || 'urgences'),
+      specialtyName: parsed.specialtyName || 'Urgences',
+      urgencyLevel: parsed.urgencyLevel || 'Urgence Vitale',
+      summary: parsed.summary || 'Protocole d\'urgence médicale.',
+      conduiteHtml: parsed.conduiteHtml || `<div class="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/40 text-rose-200">${rawTextOrUrl}</div>`,
+      evaluationInitiale: Array.isArray(parsed.evaluationInitiale) ? parsed.evaluationInitiale : [],
+      conduiteImmediate: Array.isArray(parsed.conduiteImmediate) ? parsed.conduiteImmediate : [],
+      traitementSpecifique: Array.isArray(parsed.traitementSpecifique) ? parsed.traitementSpecifique : [],
+      redFlags: Array.isArray(parsed.redFlags) ? parsed.redFlags : [],
+      clinicalPearls: Array.isArray(parsed.clinicalPearls) ? parsed.clinicalPearls : []
+    };
+  } catch (parseErr) {
+    console.error('[Unified AI CAT] JSON parse error:', parseErr, responseText);
+    throw new Error('Format de réponse JSON invalide reçu de l\'IA.');
+  }
+}
