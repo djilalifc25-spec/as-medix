@@ -11,7 +11,7 @@ import { INITIAL_FICHES } from '@/lib/db/seedFiches';
 import { INITIAL_CALCULATORS } from '@/lib/db/seedCalculators';
 import { INITIAL_ORDONNANCES } from '@/lib/db/seedOrdonnances';
 import { INITIAL_CLINICAL_CASES } from '@/lib/db/seedClinicalCases';
-import { QCM, Course, CATProtocol, Specialty, StructuredSource } from '@/types';
+import { QCM, Course, CATProtocol, Specialty, StructuredSource, Fiche } from '@/types';
 import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
 import { normalizeSourcesList } from '@/lib/sourceUtils';
 import { useSidebar } from './SidebarContext';
@@ -75,17 +75,20 @@ export const AppSidebar: React.FC = () => {
   const [specialtiesList, setSpecialtiesList] = useState<Specialty[]>(ALL_SPECIALTIES);
   const [qcmsList, setQcmsList] = useState<QCM[]>(INITIAL_QCMS);
   const [coursesList, setCoursesList] = useState<Course[]>(INITIAL_COURSES);
+  const [fichesList, setFichesList] = useState<Fiche[]>(INITIAL_FICHES);
+  const [deletedFichesSpecialtyIds, setDeletedFichesSpecialtyIds] = useState<string[]>([]);
   const [catsList, setCatsList] = useState<CATProtocol[]>(INITIAL_CAT);
   const [adminSources, setAdminSources] = useState<{ specialty?: string; course?: string; faculty?: string; sources: string[]; structuredSources?: StructuredSource[] }[]>([]);
 
   const fetchDynamicData = useCallback(async () => {
     try {
-      const [qRes, cRes, catRes, sRes, srcRes] = await Promise.all([
+      const [qRes, cRes, catRes, sRes, srcRes, fRes] = await Promise.all([
         fetch('/api/qcm'),
         fetch('/api/courses'),
         fetch('/api/cat'),
         fetch('/api/specialties'),
-        fetch('/api/admin/sources/all').catch(() => null)
+        fetch('/api/admin/sources/all').catch(() => null),
+        fetch('/api/fiches').catch(() => null)
       ]);
       const qData = await qRes.json();
       if (qData.qcms && Array.isArray(qData.qcms)) {
@@ -107,6 +110,15 @@ export const AppSidebar: React.FC = () => {
         const srcData = await srcRes.json();
         if (srcData.scopes && Array.isArray(srcData.scopes)) {
           setAdminSources(srcData.scopes);
+        }
+      }
+      if (fRes && fRes.ok) {
+        const fData = await fRes.json();
+        if (fData.fiches && Array.isArray(fData.fiches)) {
+          setFichesList(fData.fiches);
+        }
+        if (fData.deletedSpecialtyIds && Array.isArray(fData.deletedSpecialtyIds)) {
+          setDeletedFichesSpecialtyIds(fData.deletedSpecialtyIds);
         }
       }
     } catch {
@@ -1322,7 +1334,7 @@ export const AppSidebar: React.FC = () => {
                 <span className="truncate">Fiches Flash</span>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                <span className="badge badge-amber text-[10px] px-1.5 py-0">{INITIAL_FICHES.length} Fiches</span>
+                <span className="badge badge-amber text-[10px] px-1.5 py-0">{fichesList.length} Fiches</span>
                 {fichesExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
               </div>
             </button>
@@ -1336,12 +1348,14 @@ export const AppSidebar: React.FC = () => {
                   </Link>
                 </div>
 
-                {ALL_SPECIALTIES.map(spec => {
-                  const isFicheSpecOpen = activeFicheSpec === spec.id;
-                  const specFiches = INITIAL_FICHES.filter(f => f.specialtyId === spec.id);
+                {specialtiesList
+                  .filter(s => !deletedFichesSpecialtyIds.includes(s.id) && (faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty))
+                  .map(spec => {
+                    const isFicheSpecOpen = activeFicheSpec === spec.id;
+                    const specFiches = fichesList.filter(f => f.specialtyId === spec.id);
 
-                  return (
-                    <div key={spec.id} className="space-y-0.5">
+                    return (
+                      <div key={spec.id} className="space-y-0.5">
                       <button
                         onClick={() => setActiveFicheSpec(isFicheSpecOpen ? null : spec.id)}
                         className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-left transition-all ${
@@ -1427,7 +1441,7 @@ export const AppSidebar: React.FC = () => {
                   </Link>
                 </div>
 
-                {ALL_SPECIALTIES.map(spec => {
+                {specialtiesList.filter(s => faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty).map(spec => {
                   const isCatSpecOpen = activeCatSpec === spec.id;
                   const specCats = catsList.filter(c => c.specialtyId === spec.id);
 
@@ -1522,7 +1536,7 @@ export const AppSidebar: React.FC = () => {
                   </Link>
                 </div>
 
-                {ALL_SPECIALTIES.map(spec => {
+                {specialtiesList.filter(s => faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty).map(spec => {
                   const isCalcSpecOpen = activeCalcSpec === spec.id;
                   const specCalcs = INITIAL_CALCULATORS.filter(c => c.specialtyId === spec.id);
 
@@ -1613,7 +1627,7 @@ export const AppSidebar: React.FC = () => {
                   </Link>
                 </div>
 
-                {ALL_SPECIALTIES.map(spec => {
+                {specialtiesList.filter(s => faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty).map(spec => {
                   const isCaseSpecOpen = activeCaseSpec === spec.id;
                   const specCases = INITIAL_CLINICAL_CASES.filter(c => c.specialtyId === spec.id);
 
@@ -1704,7 +1718,7 @@ export const AppSidebar: React.FC = () => {
                   </Link>
                 </div>
 
-                {ALL_SPECIALTIES.map(spec => {
+                {specialtiesList.filter(s => faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty).map(spec => {
                   const isOrdSpecOpen = activeOrdSpec === spec.id;
                   const specOrds = INITIAL_ORDONNANCES.filter(o => o.specialtyId === spec.id);
 
