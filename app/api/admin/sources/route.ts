@@ -3,6 +3,7 @@ import { getSupabaseServerClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth';
 import { normalizeSourcesList, normalizeSourceItem } from '@/lib/sourceUtils';
 import { StructuredSource } from '@/types';
+import { db } from '@/lib/db/store';
 
 export const dynamic = 'force-dynamic';
 
@@ -267,7 +268,55 @@ export async function DELETE(req: Request) {
       }
     }
 
-    // 2. Re-query remaining sources for the target scope key
+    // 2. Delete matching QCMs from Supabase `qcms` table and local DB store
+    const cleanParent = parentName ? String(parentName).trim().toLowerCase() : '';
+    const cleanSub = subSource ? String(subSource).trim().toLowerCase() : '';
+    const cleanName = name ? String(name).trim().toLowerCase() : '';
+
+    try {
+      let qcmQuery = supabase.from('qcms').delete();
+      if (specialty && specialty !== 'TOUS') {
+        qcmQuery = qcmQuery.eq('specialty_id', specialty);
+      }
+
+      if (cleanParent && cleanSub) {
+        qcmQuery = qcmQuery.or(`and(parent_source.ilike.${cleanParent},sub_source.ilike.${cleanSub}),source.ilike.%${cleanParent}%${cleanSub}%`);
+      } else if (cleanName) {
+        qcmQuery = qcmQuery.or(`parent_source.ilike.${cleanName},source.ilike.%${cleanName}%`);
+      }
+      await qcmQuery;
+    } catch (qErr) {
+      console.error('Error deleting QCMs from Supabase:', qErr);
+    }
+
+    try {
+      const allLocalQcms = db.getQcms();
+      const qcmsToDelete = allLocalQcms.filter(q => {
+        const matchSpec = !specialty || specialty === 'TOUS' || q.specialtyId === specialty || q.specialtyId?.toLowerCase() === specialty.toLowerCase();
+        if (!matchSpec) return false;
+
+        const qParent = q.parentSource?.trim().toLowerCase() || '';
+        const qSub = q.subSource?.trim().toLowerCase() || '';
+        const qSrc = q.source?.trim().toLowerCase() || '';
+
+        if (cleanParent && cleanSub) {
+          if (qParent === cleanParent && qSub === cleanSub) return true;
+          if (qSrc.includes(cleanParent) && qSrc.includes(cleanSub)) return true;
+          return false;
+        } else if (cleanName) {
+          if (qParent === cleanName) return true;
+          if (qSrc.includes(cleanName)) return true;
+          return false;
+        }
+        return false;
+      });
+
+      qcmsToDelete.forEach(q => db.deleteQcm(q.id));
+    } catch (dbErr) {
+      console.error('Error deleting QCMs from local DB:', dbErr);
+    }
+
+    // 3. Re-query remaining sources for the target scope key
     const targetKey = buildScopeKey(specialty, course, faculty, year);
     const { data: updatedTarget } = await supabase.from('custom_sources').select('sources').eq('scope_key', targetKey).single();
     const finalStructured = normalizeSourcesList(updatedTarget?.sources || []);
@@ -281,3 +330,4 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
+
