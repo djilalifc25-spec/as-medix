@@ -577,6 +577,7 @@ export interface AIExtractedCATData {
 
 /**
  * Intelligent AI Extractor & Formatter for Conduites à Tenir (CAT) / Emergency Protocols
+ * Supports Document PDF, Raw Text, and Disease Name (Nom de la Maladie)
  */
 export async function aiAnalyzeAndFormatCAT(
   rawTextOrUrl: string,
@@ -584,11 +585,11 @@ export async function aiAnalyzeAndFormatCAT(
   options: { specialtyId?: string } = {}
 ): Promise<AIExtractedCATData> {
   const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée en Médecine d'Urgence et Réanimation d'AS-MEDIX.
-Ta mission est de prendre un document de Conduite à Tenir (CAT) / Protocole d'Urgence (PDF Google Drive ou texte brut) et de le transformer en un PROTOCOLE D'URGENCE MÉDICALE HAUTEMENT PROFESSIONNEL, COLORÉ, DYNAMIQUE ET ERGONOMIQUE.
+Ta mission est de prendre soit un nom de maladie (ex: "Crise d'asthme aiguë grave", "Angor instable", "Embolie pulmonaire", "Sepsis grave"), soit un document/texte de Conduite à Tenir (CAT) et de générer UN PROTOCOLE D'URGENCE MÉDICALE HAUTEMENT PROFESSIONNEL, 100% EXAGT ET RÉEL, COLORÉ, DYNAMIQUE ET ERGONOMIQUE.
 
-CONSIGNE CAPITALE ABSOLUE - CONSERVATION 100/100 DES DÉTAILS + ENRICHISSEMENT MÉDICAL :
-1. Conserve 100% de l'intégralité du contenu du document d'urgence (constantes vitales, posologies, voies d'administration, pièges cliniques, examens).
-2. ENRICHIS le contenu avec des explications physiopathologiques claires sur la maladie/pathologie pour une compréhension médicale synthétique et complète.
+CONSIGNE CAPITALE ABSOLUE - 100% DE PRÉCISION MÉDICALE + ENRICHISSEMENT ET POSOLOGIES EXACTES :
+1. Si l'entrée est le nom d'une maladie/pathologie, utilise 100% de la littérature médicale internationale (SFMU, SRLF, ESC, GINA) pour créer une CAT d'urgence complète et exacte.
+2. Si l'entrée est un document, conserve 100% du contenu (constantes vitales, posologies, voies d'administration, pièges cliniques, examens).
 3. DÉTECTION DU MODULE / SPÉCIALITÉ MÉDICALE :
    Analyse la maladie traitée et détermine le code de spécialité ("specialtyId") et le nom ("specialtyName") parmi :
    - "cardio" : Cardiologie & Pathologies Vasculaires (Angor, SCA, IDM, Embolie pulmonaire, OAP, Troubles du rythme, Choc cardiogénique)
@@ -617,7 +618,7 @@ Structure JSON de réponse (RETOURNE EXCLUSIVEMENT DU JSON VALIDE) :
 
   const userPrompt = `${options.specialtyId && options.specialtyId !== 'auto' ? `Spécialité Cible Imposée : ${options.specialtyId}` : 'Spécialité : Détection Automatique par l\'IA'}
 
-Voici le document / protocole d'urgence brut à analyser et formater (100% de conservation des détails + enrichissement IA) :
+Voici la maladie / document / protocole d'urgence brut à analyser et formater en CAT (100% de précision médicale) :
 ${rawTextOrUrl.substring(0, 90000)}`;
 
   const responseText = await callUnifiedAI(
@@ -651,3 +652,78 @@ ${rawTextOrUrl.substring(0, 90000)}`;
     throw new Error('Format de réponse JSON invalide reçu de l\'IA.');
   }
 }
+
+export interface AIExtractedFicheData {
+  title: string;
+  specialtyId: string;
+  specialtyName: string;
+  category: string;
+  estimatedReadTime: string;
+  keyTakeaways: string[];
+  htmlContent: string;
+}
+
+/**
+ * Intelligent AI Generator for Flash Back / Fiches Flash Cards
+ */
+export async function aiGenerateFlashcardsFromCourse(
+  input: string,
+  config: AIProviderConfig = {},
+  options: { specialtyId?: string } = {}
+): Promise<AIExtractedFicheData[]> {
+  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée en Pédagogie Médicale et Fiches Flash (Flash Back) d'AS-MEDIX.
+Ta mission est de prendre un nom de cours, une liste de cours médicaux, ou du texte de cours (ex: "Insuffisance Cardiaque, HTA Sévère, Valvulopathies") et de générer pour chaque cours/sujet une FICHE FLASH / FLASH BACK MÉDICALE HAUTEMENT SYNTHÉTIQUE, DYNAMIQUE ET COLORÉE.
+
+Pour chaque sujet/cours fourni, génère une fiche flash structurée de manière ergonomique et visuelle.
+
+Structure JSON de réponse (RETOURNE EXCLUSIVEMENT UN TABLEAU JSON D'OBJETS) :
+[
+  {
+    "title": "Fiche Mémo : Titre de la Fiche Flash",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Synthèse Clinique & Sémiologie",
+    "estimatedReadTime": "3 min",
+    "keyTakeaways": [
+      "Point clé réflexe 1 (Critère diagnostique majeur...)",
+      "Point clé réflexe 2 (Traitement de 1ère intention...)",
+      "Point clé réflexe 3 (Piège ou contre-indication...)"
+    ],
+    "htmlContent": "<div class=\"space-y-4\"><div class=\"p-4 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-bold text-sm shadow-md\">... En-tête coloré ...</div><div class=\"p-4 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-2\"><h4 class=\"text-xs font-bold uppercase text-brand-300\">1. Diagnostic & Formes Cliniques</h4><ul class=\"text-xs space-y-1 text-slate-200\">...</ul></div><div class=\"p-4 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs\"><strong class=\"text-amber-400\">⚠️ Pièges & Urgence :</strong> ...</div></div>"
+  }
+]`;
+
+  const userPrompt = `${options.specialtyId && options.specialtyId !== 'auto' ? `Spécialité Cible Imposée : ${options.specialtyId}` : 'Spécialité : Détection Automatique par l\'IA'}
+
+Voici les cours / sujets / textes pour générer les Fiches Flash (Flash Back) :
+${input.substring(0, 90000)}`;
+
+  const responseText = await callUnifiedAI(
+    [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt }
+    ],
+    config,
+    true
+  );
+
+  try {
+    const jsonCleaned = responseText.replace(/```json\s*/gi, '').replace(/```\s*$/gi, '').trim();
+    const parsed = JSON.parse(jsonCleaned);
+    const list = Array.isArray(parsed) ? parsed : [parsed];
+
+    return list.map(item => ({
+      title: item.title || 'Fiche Flash Révision',
+      specialtyId: (options.specialtyId && options.specialtyId !== 'auto') ? options.specialtyId : (item.specialtyId || 'cardio'),
+      specialtyName: item.specialtyName || 'Médecine',
+      category: item.category || 'Synthèse Clinique',
+      estimatedReadTime: item.estimatedReadTime || '3 min',
+      keyTakeaways: Array.isArray(item.keyTakeaways) ? item.keyTakeaways : ['Point mémo révision'],
+      htmlContent: item.htmlContent || `<div class="p-4 rounded-2xl bg-navy-900 text-white"><h3 class="font-bold">${item.title}</h3><p>${input}</p></div>`
+    }));
+  } catch (parseErr) {
+    console.error('[Unified AI Flashcards] JSON parse error:', parseErr, responseText);
+    throw new Error('Format de réponse JSON invalide reçu de l\'IA.');
+  }
+}
+

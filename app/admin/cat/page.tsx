@@ -38,12 +38,22 @@ export default function AdminCatPage() {
   const [openRouterKey, setOpenRouterKey] = useState('');
   const [directApiKey, setDirectApiKey] = useState('');
   const [selectedAiModel, setSelectedAiModel] = useState('models/gemini-2.5-flash');
-  const [aiInputType, setAiInputType] = useState<'drive_pdf' | 'raw_text'>('drive_pdf');
+  const [aiInputType, setAiInputType] = useState<'disease_name' | 'drive_pdf' | 'raw_text'>('disease_name');
+  const [aiDiseaseName, setAiDiseaseName] = useState('');
   const [aiPdfUrl, setAiPdfUrl] = useState('');
   const [aiRawInput, setAiRawInput] = useState('');
   const [aiModuleMode, setAiModuleMode] = useState<'auto' | 'manual'>('auto');
   const [aiTargetSpecialty, setAiTargetSpecialty] = useState('cardio');
   const [aiExtracting, setAiExtracting] = useState(false);
+
+  // Module / Specialty Management Modal State
+  const [moduleModalOpen, setModuleModalOpen] = useState(false);
+  const [newModuleName, setNewModuleName] = useState('');
+  const [newModuleShort, setNewModuleShort] = useState('');
+  const [newModuleYear, setNewModuleYear] = useState<string>('4');
+  const [newModuleFaculty, setNewModuleFaculty] = useState<string>('TOUS');
+  const [savingModule, setSavingModule] = useState(false);
+  const [specialtiesList, setSpecialtiesList] = useState(ALL_SPECIALTIES);
 
   useEffect(() => {
     fetchData();
@@ -51,14 +61,70 @@ export default function AdminCatPage() {
 
   const fetchData = async () => {
     try {
-      const [resCat, resCourses] = await Promise.all([
+      const [resCat, resCourses, resSpecs] = await Promise.all([
         fetch('/api/admin/cat').then(r => r.json()),
-        fetch('/api/admin/courses').then(r => r.json())
+        fetch('/api/admin/courses').then(r => r.json()),
+        fetch('/api/admin/specialties').then(r => r.json()).catch(() => null)
       ]);
       if (resCat.protocols) setProtocols(resCat.protocols);
       if (resCourses.courses) setCourses(resCourses.courses);
+      if (resSpecs && resSpecs.specialties && Array.isArray(resSpecs.specialties)) {
+        setSpecialtiesList(resSpecs.specialties);
+      }
     } catch (e) {
       console.error('Fetch CAT error:', e);
+    }
+  };
+
+  const handleAddModule = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newModuleName.trim()) return;
+    setSavingModule(true);
+    try {
+      const res = await fetch('/api/admin/specialties', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newModuleName.trim(),
+          shortName: newModuleShort.trim() || newModuleName.trim(),
+          year: newModuleYear,
+          faculty: newModuleFaculty
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(`🎉 Module "${newModuleName}" créé et synchronisé dans Supabase !`);
+        setNewModuleName('');
+        setNewModuleShort('');
+        setModuleModalOpen(false);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+        fetchData();
+        setTimeout(() => setSuccessMsg(''), 4000);
+      } else {
+        alert(data.error || 'Erreur lors de la création du module');
+      }
+    } finally {
+      setSavingModule(false);
+    }
+  };
+
+  const handleDeleteModule = async (id: string, name: string) => {
+    if (!confirm(`Supprimer le module "${name}" et le synchroniser sur Supabase ?`)) return;
+    try {
+      const res = await fetch(`/api/admin/specialties?id=${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(`Module "${name}" supprimé.`);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+        fetchData();
+        setTimeout(() => setSuccessMsg(''), 4000);
+      }
+    } catch (err: any) {
+      alert(err.message || 'Erreur lors de la suppression');
     }
   };
 
@@ -69,7 +135,7 @@ export default function AdminCatPage() {
       return;
     }
 
-    const spec = ALL_SPECIALTIES.find(s => s.id === specialtyId);
+    const spec = specialtiesList.find(s => s.id === specialtyId);
 
     const payload = {
       title,
@@ -116,7 +182,13 @@ export default function AdminCatPage() {
   // AI Extractor Execution Handler
   const handleRunAiCatExtract = async () => {
     let sourceContent = '';
-    if (aiInputType === 'drive_pdf') {
+    if (aiInputType === 'disease_name') {
+      if (!aiDiseaseName.trim()) {
+        alert('Veuillez saisir le nom de la maladie / pathologie (ex: Angor instable, OAP, Embolie pulmonaire, SDRA, AVC ischémique...).');
+        return;
+      }
+      sourceContent = `Nom de la maladie / pathologie : ${aiDiseaseName.trim()}`;
+    } else if (aiInputType === 'drive_pdf') {
       if (!aiPdfUrl.trim()) {
         alert('Veuillez coller le lien Google Drive ou l\'URL du fichier PDF de la Conduite à Tenir.');
         return;
@@ -151,11 +223,11 @@ export default function AdminCatPage() {
       );
 
       // Auto-fill form and create protocol
-      const specObj = ALL_SPECIALTIES.find(s => s.id === extracted.specialtyId) || ALL_SPECIALTIES.find(s => s.id === 'urgences');
+      const specObj = specialtiesList.find(s => s.id === extracted.specialtyId) || specialtiesList.find(s => s.id === 'urgences');
 
       const payload = {
         title: extracted.title,
-        specialtyId: specObj ? specObj.id : 'urgences',
+        specialtyId: specObj ? specObj.id : (extracted.specialtyId || 'urgences'),
         specialtyName: specObj ? specObj.name : extracted.specialtyName || 'Urgences',
         urgencyLevel: extracted.urgencyLevel || 'Urgence Vitale',
         summary: extracted.summary,
@@ -176,8 +248,9 @@ export default function AdminCatPage() {
       const data = await res.json();
 
       if (data.success) {
-        setSuccessMsg(`🚀 Protocole CAT "${extracted.title}" généré et affecté au module ${specObj ? specObj.name : 'Urgences'} !`);
+        setSuccessMsg(`🚀 Protocole CAT "${extracted.title}" généré avec succès 100% réel et affecté au module ${specObj ? specObj.name : 'Urgences'} !`);
         setAiCatModalOpen(false);
+        setAiDiseaseName('');
         setAiPdfUrl('');
         setAiRawInput('');
         fetchData();
