@@ -121,6 +121,49 @@
   ],
   "courses": [
     {
+      "id": "cours_asthme_adulte_1790712324795",
+      "slug": "asthme-adulte-physiopathologie-1790712324808",
+      "title": "Asthme de l'Adulte : Physiopathologie, Diagnostic et Prise en Charge",
+      "subtitle": "Module de Pneumologie • Diagnostic et Traitement GINA",
+      "specialtyId": "pneumo",
+      "specialtyName": "Pneumologie",
+      "year": 4,
+      "author": "Pr. Karim Benali",
+      "authorTitle": "Chef de Service Pneumologie",
+      "description": "Cours complet sur l'asthme de l'adulte avec physiopathologie, critères diagnostiques et recommandations GINA.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "ORAN",
+      "source": "Externat",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "Pneumologie",
+        "Asthme",
+        "Résidanat"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1,
+      "likesCount": 0,
+      "qcmCount": 5,
+      "tableOfContents": [
+        {
+          "id": "sec-1",
+          "title": "1. Définition et Diagnostic Positif",
+          "level": 1
+        },
+        {
+          "id": "sec-2",
+          "title": "2. Prise en Charge Thérapeutique (GINA 2026)",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<h2 id=\"sec-1\" class=\"text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3\">\n  <span class=\"px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider\">SECTION 1</span>\n  1. Définition et Diagnostic Positif\n</h2>\n<p class=\"text-navy-700 dark:text-navy-300 leading-relaxed my-3\">\nL'asthme est une maladie inflammatoire chronique des voies aériennes caractérisée par une hyperréactivité bronchique et une obstruction variable du débit aérien, souvent réversible spontanément ou sous traitement.\n</p>\n\n<div class=\"rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs\">\n📌 <strong>Rappel Physiopathologique :</strong> L'inflammation bronchique implique les éosinophiles, les mastocytes, les lymphocytes Th2 et la sécrétion d'IL-4, IL-5, IL-13 conduisant au remodelage bronchique.\n</div>\n\n<div class=\"piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4 shadow-xs\">\n⚠️ <strong>Piège Concours :</strong> La réversibilité du trouble ventilatoire obstructif (TVO) est définie par un gain du VEMS &gt; 12% ET &gt; 200 ml après inhalation de bronchodilatateur de courte durée d'action (B2CA).\n</div>\n\n<h2 id=\"sec-2\" class=\"text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3\">\n  <span class=\"px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider\">SECTION 2</span>\n  2. Prise en Charge Thérapeutique (GINA 2026)\n</h2>\n\n<div class=\"traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4 shadow-xs\">\n💊 <strong>Prise en Charge Thérapeutique :</strong> Association Corticoïde Inhalé (CSI) + Formotérol à la demande comme traitement de secours et de fond privilégié.\n</div>\n\n<div class=\"urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4 shadow-xs\">\n🚨 <strong>Alerte Urgence (Exacerbation Sévère / Asthme Aigu Grave) :</strong> Évaluer le silence auscultatoire, la cyanose, le pouls paradoxal, la PaCO2 normo-capnique ou hypercapnique (épuisement respiratoire).\n</div>\n",
+      "createdAt": "2026-09-29T20:05:29.643Z",
+      "updatedAt": "2026-09-29T20:05:29.644Z"
+    },
+    {
       "id": "cours_neuro_behcet",
       "slug": "la-maladie-de-behcet-neuro-behcet",
       "title": "La Maladie de Behçet & Neuro-Behçet",

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ALL_SPECIALTIES } from '@/lib/db/seedData';
 import { QCM, Course, Specialty, MEDICAL_YEARS, StructuredSource } from '@/types';
 import {
-  Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, School,
+  Brain, Plus, Trash2, CheckCircle2, Star, Sparkles, Filter, Code, Eye, EyeOff, School,
   FileText, Upload, FileCode, Check, Edit3, Layers, Loader2, ChevronDown, ChevronUp, AlertCircle,
   Link as LinkIcon, Globe, X, Key, ArrowUp, ArrowDown, ArrowUpDown, PlusCircle, FolderTree, ChevronRight,
   Copy, Sliders, CornerDownRight, Folder, Calendar, Settings
@@ -22,6 +22,8 @@ export default function AdminQcmPage() {
   const [selectedCourseFilter, setSelectedCourseFilter] = useState<string>('all');
   const [selectedSourceFilter, setSelectedSourceFilter] = useState<string>('all');
   const [searchQueryFilter, setSearchQueryFilter] = useState<string>('');
+  const [showAllAnswersGlobal, setShowAllAnswersGlobal] = useState<boolean>(false);
+  const [visibleAnswersMap, setVisibleAnswersMap] = useState<Record<string, boolean>>({});
   const [showAddForm, setShowAddForm] = useState(false);
 
   // Form states (Manual mode)
@@ -2426,6 +2428,46 @@ export default function AdminQcmPage() {
         </div>
       </div>
 
+      {/* Global Answer Toggle Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-navy-900 border border-navy-200 dark:border-navy-800 shadow-sm mb-4">
+        <div className="flex items-center gap-2 text-xs font-bold text-navy-700 dark:text-navy-300">
+          <span className="px-2.5 py-1 rounded-xl bg-brand-500/10 text-brand-600 dark:bg-brand-950 dark:text-brand-300">
+            📊 {filteredQcms.length} QCM(s) affiché(s)
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setShowAllAnswersGlobal(true)}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm ${
+              showAllAnswersGlobal
+                ? 'bg-emerald-600 text-white ring-2 ring-emerald-400'
+                : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/60 hover:bg-emerald-100'
+            }`}
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span>👁️ Afficher les réponses de TOUS les QCMs</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setShowAllAnswersGlobal(false);
+              setVisibleAnswersMap({});
+            }}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm ${
+              !showAllAnswersGlobal && Object.keys(visibleAnswersMap).length === 0
+                ? 'bg-slate-700 text-white'
+                : 'bg-slate-100 text-slate-700 dark:bg-navy-800 dark:text-slate-300 border border-slate-200 dark:border-navy-700 hover:bg-slate-200'
+            }`}
+          >
+            <EyeOff className="w-3.5 h-3.5" />
+            <span>🙈 Masquer TOUTES les réponses</span>
+          </button>
+        </div>
+      </div>
+
       {/* List of Existing QCMs */}
       <div className="space-y-4">
         {filteredQcms.length === 0 ? (
@@ -2448,7 +2490,10 @@ export default function AdminQcmPage() {
           </div>
         ) : (
           filteredQcms.map((qcm) => {
-            const specObj = specialtiesList.find(s => s.id === qcm.specialtyId);
+            const specObj = specialtiesList.find(s => s.id === qcm.specialtyId) || ALL_SPECIALTIES.find(s => s.id === qcm.specialtyId);
+            const specialtyDisplayName = specObj ? specObj.name : (qcm.specialtyName || qcm.specialtyId);
+            const isAnswerVisible = showAllAnswersGlobal || Boolean(visibleAnswersMap[qcm.id]);
+
             const effectiveYr = (qcm.year !== undefined && qcm.year !== null && (qcm.year as any) !== '')
               ? Number(qcm.year)
               : specObj?.year;
@@ -2468,7 +2513,7 @@ export default function AdminQcmPage() {
                       </span>
 
                       <span className="px-2.5 py-0.5 rounded-lg text-xs font-black bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 border border-brand-200/50">
-                        {getSpecialtyEmoji(qcm.specialtyId)} {qcm.specialtyName || qcm.specialtyId}
+                        {getSpecialtyEmoji(qcm.specialtyId)} {specialtyDisplayName}
                       </span>
 
                       {qcm.courseTitle && (
@@ -2492,58 +2537,86 @@ export default function AdminQcmPage() {
                     </h3>
                   </div>
 
-                  <button
-                    onClick={() => handleDelete(qcm.id)}
-                    className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0"
-                    title="Supprimer ce QCM"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setVisibleAnswersMap(prev => ({ ...prev, [qcm.id]: !prev[qcm.id] }))}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 border ${
+                        isAnswerVisible
+                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                          : 'bg-white dark:bg-navy-800 text-navy-700 dark:text-navy-200 border-navy-200 dark:border-navy-700 hover:border-emerald-400 hover:text-emerald-600'
+                      }`}
+                    >
+                      {isAnswerVisible ? (
+                        <>
+                          <EyeOff className="w-3.5 h-3.5" />
+                          <span>Masquer réponse</span>
+                        </>
+                      ) : (
+                        <>
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>👁️ Voir réponse</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(qcm.id)}
+                      className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0"
+                      title="Supprimer ce QCM"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
 
-            <p className="text-sm font-semibold text-navy-800 dark:text-navy-200">
-              {qcm.question}
-            </p>
+                <p className="text-sm font-semibold text-navy-800 dark:text-navy-200">
+                  {qcm.question}
+                </p>
 
-            <div className="grid grid-cols-1 gap-2 text-xs">
-              {qcm.options.map((opt, idx) => {
-                const isCorrect = qcm.correctAnswers?.includes(idx);
-                return (
-                  <div
-                    key={opt.id || idx}
-                    className={`p-3 rounded-xl border flex items-center justify-between ${
-                      isCorrect
-                        ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold'
-                        : 'bg-navy-50/50 dark:bg-navy-900/40 border-navy-200/60 dark:border-navy-800 text-navy-700 dark:text-navy-300'
-                    }`}
+                <div className="grid grid-cols-1 gap-2 text-xs">
+                  {qcm.options.map((opt, idx) => {
+                    const isCorrect = qcm.correctAnswers?.includes(idx);
+                    const highlightCorrect = isCorrect && isAnswerVisible;
+                    return (
+                      <div
+                        key={opt.id || idx}
+                        className={`p-3 rounded-xl border flex items-center justify-between transition-all ${
+                          highlightCorrect
+                            ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 font-bold shadow-sm'
+                            : 'bg-navy-50/50 dark:bg-navy-900/40 border-navy-200/60 dark:border-navy-800 text-navy-700 dark:text-navy-300'
+                        }`}
+                      >
+                        <span><strong>{opt.letter || String.fromCharCode(65 + idx)}.</strong> {opt.text}</span>
+                        {highlightCorrect && (
+                          <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+                            Exacte
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {qcm.explanation && (
+                  <details
+                    open={isAnswerVisible}
+                    className="text-xs bg-navy-50/60 dark:bg-navy-950 p-4 rounded-xl border border-navy-200 dark:border-navy-800 transition-all"
                   >
-                    <span><strong>{opt.letter || String.fromCharCode(65 + idx)}.</strong> {opt.text}</span>
-                    {isCorrect && (
-                      <span className="text-[10px] uppercase font-black px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
-                        Exacte
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {qcm.explanation && (
-              <details className="text-xs bg-navy-50/60 dark:bg-navy-950 p-4 rounded-xl border border-navy-200 dark:border-navy-800">
-                <summary className="font-bold text-brand-600 dark:text-brand-400 cursor-pointer hover:underline">
-                  Voir l'explication physiopathologique
-                </summary>
-                <div
-                  className="mt-2 text-navy-700 dark:text-navy-300 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: qcm.explanation }}
-                />
-              </details>
-            )}
-          </div>
-        );
-      })
-    )}
-  </div>
+                    <summary className="font-bold text-brand-600 dark:text-brand-400 cursor-pointer hover:underline">
+                      💡 Explication physiopathologique
+                    </summary>
+                    <div
+                      className="mt-2 text-navy-700 dark:text-navy-300 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: qcm.explanation }}
+                    />
+                  </details>
+                )}
+              </div>
+            );
+          })
+        )}
+      </div>
 
       {/* AI QCM EXTRACTION MODAL */}
       {aiQcmModalOpen && (
