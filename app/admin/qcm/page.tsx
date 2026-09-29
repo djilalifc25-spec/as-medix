@@ -2619,16 +2619,31 @@ export default function AdminQcmPage() {
                 >
                   {aiProvider === 'google_ai_studio' && (
                     <>
-                      <option value="models/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Super Rapide & Précis)</option>
-                      <option value="models/gemini-2.5-pro">🧠 Gemini 2.5 Pro (Raisonnement Élevé)</option>
-                      <option value="models/gemini-1.5-flash">Gemini 1.5 Flash</option>
-                      <option value="models/gemini-1.5-pro">Gemini 1.5 Pro</option>
+                      <option value="models/gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
+                      <option value="models/gemini-2.5-pro">🧠 Gemini 2.5 Pro (Haute Précision Médicale & Raisonnement)</option>
+                      <option value="models/gemini-2.5-flash-lite">⚡ Gemini 2.5 Flash Lite (Ultra Léger & Faible Latence)</option>
+                      <option value="models/gemini-2.0-flash">🚀 Gemini 2.0 Flash (Next-Gen Multimodal Rapide)</option>
+                      <option value="models/gemini-2.0-flash-lite">⚡ Gemini 2.0 Flash Lite (Léger & Haute Vitesse)</option>
+                      <option value="models/gemini-2.0-flash-thinking-exp-01-21">🔬 Gemini 2.0 Flash Thinking Exp (Raisonnement Détaillé)</option>
+                      <option value="models/gemini-2.0-pro-exp-02-05">🔬 Gemini 2.0 Pro Experimental</option>
+                      <option value="models/gemini-1.5-flash-latest">⚡ Gemini 1.5 Flash Latest</option>
+                      <option value="models/gemini-1.5-pro-latest">📚 Gemini 1.5 Pro Latest (Contexte 2M Tokens)</option>
+                      <option value="models/gemini-1.5-flash">🚀 Gemini 1.5 Flash</option>
+                      <option value="models/gemini-1.5-pro">📄 Gemini 1.5 Pro</option>
+                      <option value="models/gemini-1.5-flash-8b">⚡ Gemini 1.5 Flash 8B (Micro Model)</option>
                     </>
                   )}
                   {aiProvider === 'openrouter' && (
                     <>
-                      <option value="google/gemini-2.5-flash">Google Gemini 2.5 Flash</option>
-                      <option value="google/gemini-2.5-pro">Google Gemini 2.5 Pro</option>
+                      <option value="google/gemini-2.5-flash">⚡ Google Gemini 2.5 Flash (Recommandé)</option>
+                      <option value="google/gemini-2.5-pro">🧠 Google Gemini 2.5 Pro</option>
+                      <option value="google/gemini-2.5-flash-lite">⚡ Google Gemini 2.5 Flash Lite</option>
+                      <option value="google/gemini-2.0-flash-001">🚀 Google Gemini 2.0 Flash</option>
+                      <option value="google/gemini-2.0-flash-lite-001">⚡ Google Gemini 2.0 Flash Lite</option>
+                      <option value="google/gemini-2.0-flash-thinking-exp:free">🔬 Google Gemini 2.0 Flash Thinking (Gratuit)</option>
+                      <option value="google/gemini-1.5-flash">🚀 Google Gemini 1.5 Flash</option>
+                      <option value="google/gemini-1.5-pro">📚 Google Gemini 1.5 Pro</option>
+                      <option value="google/gemini-1.5-flash-8b">⚡ Google Gemini 1.5 Flash 8B</option>
                       <option value="deepseek/deepseek-chat">DeepSeek Chat V3</option>
                       <option value="deepseek/deepseek-r1">DeepSeek R1 Reasoner</option>
                       <option value="openai/gpt-4o-mini">OpenAI GPT-4o Mini</option>

@@ -92,15 +92,17 @@ function CourseEditorContent() {
         badgeColor: 'bg-emerald-500 text-white',
         models: [
           { value: 'gemini-2.5-flash', label: '⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)' },
-          { value: 'gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro (Raisonnement Élevé & Précision)' },
-          { value: 'gemini-2.0-flash', label: '🚀 Gemini 2.0 Flash (Next-Gen Rapide)' },
-          { value: 'gemini-2.0-flash-lite', label: '⚡ Gemini 2.0 Flash Lite (Ultra Léger)' },
+          { value: 'gemini-2.5-pro', label: '🧠 Gemini 2.5 Pro (Haute Précision Médicale & Raisonnement)' },
+          { value: 'gemini-2.5-flash-lite', label: '⚡ Gemini 2.5 Flash Lite (Ultra Léger & Faible Latence)' },
+          { value: 'gemini-2.0-flash', label: '🚀 Gemini 2.0 Flash (Next-Gen Multimodal Rapide)' },
+          { value: 'gemini-2.0-flash-lite', label: '⚡ Gemini 2.0 Flash Lite (Léger & Haute Vitesse)' },
+          { value: 'gemini-2.0-flash-thinking-exp-01-21', label: '🔬 Gemini 2.0 Flash Thinking Exp (Raisonnement Détaillé)' },
           { value: 'gemini-2.0-pro-exp-02-05', label: '🔬 Gemini 2.0 Pro Experimental' },
-          { value: 'gemini-1.5-flash-latest', label: '⚡ Gemini 1.5 Flash Latest (Recommandé 1.5)' },
+          { value: 'gemini-1.5-flash-latest', label: '⚡ Gemini 1.5 Flash Latest' },
           { value: 'gemini-1.5-pro-latest', label: '📚 Gemini 1.5 Pro Latest (Contexte 2M Tokens)' },
           { value: 'gemini-1.5-flash', label: '🚀 Gemini 1.5 Flash' },
           { value: 'gemini-1.5-pro', label: '📄 Gemini 1.5 Pro' },
-          { value: 'gemini-1.5-flash-8b', label: '⚡ Gemini 1.5 Flash 8B' },
+          { value: 'gemini-1.5-flash-8b', label: '⚡ Gemini 1.5 Flash 8B (Micro Model)' },
         ]
       };
     } else if (cleanKey.startsWith('sk-or-v1-')) {
@@ -111,6 +113,13 @@ function CourseEditorContent() {
         models: [
           { value: 'google/gemini-2.5-flash', label: '⚡ Google Gemini 2.5 Flash (Recommandé)' },
           { value: 'google/gemini-2.5-pro', label: '🧠 Google Gemini 2.5 Pro' },
+          { value: 'google/gemini-2.5-flash-lite', label: '⚡ Google Gemini 2.5 Flash Lite' },
+          { value: 'google/gemini-2.0-flash-001', label: '🚀 Google Gemini 2.0 Flash' },
+          { value: 'google/gemini-2.0-flash-lite-001', label: '⚡ Google Gemini 2.0 Flash Lite' },
+          { value: 'google/gemini-2.0-flash-thinking-exp:free', label: '🔬 Google Gemini 2.0 Flash Thinking (Gratuit)' },
+          { value: 'google/gemini-1.5-flash', label: '🚀 Google Gemini 1.5 Flash' },
+          { value: 'google/gemini-1.5-pro', label: '📚 Google Gemini 1.5 Pro' },
+          { value: 'google/gemini-1.5-flash-8b', label: '⚡ Google Gemini 1.5 Flash 8B' },
           { value: 'deepseek/deepseek-r1', label: '🔬 DeepSeek R1 (Raisonnement Pur)' },
           { value: 'deepseek/deepseek-chat', label: '🔬 DeepSeek V3 (Chat Rapide)' },
           { value: 'deepseek/deepseek-r1-distill-llama-70b', label: '🧠 DeepSeek R1 Distill Llama 70B' },
@@ -1649,14 +1658,16 @@ ${textContent.substring(0, 90000)}`;
                     >
                       <option value="gemini-2.5-flash">⚡ Gemini 2.5 Flash (Ultra Rapide & Recommandé)</option>
                       <option value="gemini-2.5-pro">🧠 Gemini 2.5 Pro (Haute Précision Médicale & Raisonnement)</option>
-                      <option value="gemini-2.0-flash">🚀 Gemini 2.0 Flash (Next-Gen Rapide)</option>
-                      <option value="gemini-2.0-flash-lite">⚡ Gemini 2.0 Flash Lite (Ultra Léger)</option>
+                      <option value="gemini-2.5-flash-lite">⚡ Gemini 2.5 Flash Lite (Ultra Léger & Faible Latence)</option>
+                      <option value="gemini-2.0-flash">🚀 Gemini 2.0 Flash (Next-Gen Multimodal Rapide)</option>
+                      <option value="gemini-2.0-flash-lite">⚡ Gemini 2.0 Flash Lite (Léger & Haute Vitesse)</option>
+                      <option value="gemini-2.0-flash-thinking-exp-01-21">🔬 Gemini 2.0 Flash Thinking Exp (Raisonnement Détaillé)</option>
                       <option value="gemini-2.0-pro-exp-02-05">🔬 Gemini 2.0 Pro Experimental</option>
-                      <option value="gemini-1.5-flash-latest">⚡ Gemini 1.5 Flash Latest (Recommandé 1.5)</option>
+                      <option value="gemini-1.5-flash-latest">⚡ Gemini 1.5 Flash Latest</option>
                       <option value="gemini-1.5-pro-latest">📚 Gemini 1.5 Pro Latest (Contexte 2M Tokens)</option>
                       <option value="gemini-1.5-flash">🚀 Gemini 1.5 Flash</option>
                       <option value="gemini-1.5-pro">📄 Gemini 1.5 Pro</option>
-                      <option value="gemini-1.5-flash-8b">⚡ Gemini 1.5 Flash 8B (Léger)</option>
+                      <option value="gemini-1.5-flash-8b">⚡ Gemini 1.5 Flash 8B (Micro Model)</option>
                     </select>
                   </div>
                 </>

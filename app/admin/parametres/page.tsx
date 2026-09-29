@@ -706,8 +706,14 @@ export default function AdminSettingsPage() {
                     onChange={e => setAiModel(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 font-bold text-navy-900 dark:text-white"
                   >
-                    <option value="gemini-2.5-flash">gemini-2.5-flash (Ultra rapide & gratuit)</option>
-                    <option value="gemini-2.5-pro">gemini-2.5-pro (Haute précision médicale)</option>
+                    <option value="gemini-2.5-flash">gemini-2.5-flash (⚡ Ultra rapide & Recommandé)</option>
+                    <option value="gemini-2.5-pro">gemini-2.5-pro (🧠 Haute précision médicale & Raisonnement)</option>
+                    <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite (⚡ Léger & Faible Latence)</option>
+                    <option value="gemini-2.0-flash">gemini-2.0-flash (🚀 Next-Gen Multimodal Rapide)</option>
+                    <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite (⚡ Flash-Lite Léger)</option>
+                    <option value="gemini-2.0-flash-thinking-exp-01-21">gemini-2.0-flash-thinking-exp (🔬 Raisonnement Pas-à-Pas)</option>
+                    <option value="gemini-1.5-flash">gemini-1.5-flash (🚀 Gemini 1.5 Flash)</option>
+                    <option value="gemini-1.5-pro">gemini-1.5-pro (📚 Gemini 1.5 Pro)</option>
                     <option value="gpt-4o-mini">gpt-4o-mini (OpenAI rapide)</option>
                     <option value="deepseek-chat">deepseek-chat (DeepSeek V3)</option>
                     <option value="claude-3-5-sonnet">claude-3-5-sonnet (Anthropic Via OpenRouter)</option>
