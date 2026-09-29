@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { Course } from '@/types';
 import { autoFormatCourseHtml } from '@/lib/autoHtmlFormatter';
+import { autoLinkQcmsToCourse } from '@/lib/qcmCourseLinker';
 
 function mapSupabaseRowToCourse(row: any): Course {
   const title = row.title || row.name || 'Cours';
@@ -184,6 +185,8 @@ export async function POST(req: Request) {
 
         if (updated) {
           await syncCourseToSupabase(updated);
+          const linkRes = await autoLinkQcmsToCourse(updated);
+          return NextResponse.json({ success: true, course: updated, linkedQcmsCount: linkRes.linkedCount });
         }
 
         return NextResponse.json({ success: true, course: updated });
@@ -225,9 +228,11 @@ export async function POST(req: Request) {
       ? db.updateCourse(newCourse.id, newCourse)
       : db.createCourse(newCourse);
 
-    await syncCourseToSupabase(saved || newCourse);
+    const finalCourse = saved || newCourse;
+    await syncCourseToSupabase(finalCourse);
+    const linkRes = await autoLinkQcmsToCourse(finalCourse);
 
-    return NextResponse.json({ success: true, course: saved || newCourse });
+    return NextResponse.json({ success: true, course: finalCourse, linkedQcmsCount: linkRes.linkedCount });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
@@ -280,6 +285,8 @@ export async function PUT(req: Request) {
 
     if (updated) {
       await syncCourseToSupabase(updated);
+      const linkRes = await autoLinkQcmsToCourse(updated);
+      return NextResponse.json({ success: true, course: updated, linkedQcmsCount: linkRes.linkedCount });
     }
 
     return NextResponse.json({ success: true, course: updated });

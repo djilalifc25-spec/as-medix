@@ -92,6 +92,7 @@ export default function AdminQcmPage() {
   const [showQuickAnswerKey, setShowQuickAnswerKey] = useState(false);
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
   const [swapInputs, setSwapInputs] = useState<Record<string, string>>({});
+  const [reconcilingCourses, setReconcilingCourses] = useState(false);
 
   // Helper to compute combined parent + sub-source name (e.g. "Externat - 2021")
   const getEffectiveSource = (): string => {
@@ -330,6 +331,10 @@ export default function AdminQcmPage() {
       const finalSource = getEffectiveSource();
       await ensureSourceInScope(finalSource);
 
+      const availableCoursesForAi = courses
+        .filter(c => !specialtyId || c.specialtyId === specialtyId)
+        .map(c => ({ id: c.id, title: c.title, slug: c.slug, specialtyId: c.specialtyId }));
+
       const res = await fetch('/api/admin/ai/extract-qcms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -341,7 +346,8 @@ export default function AdminQcmPage() {
           content: aiInputType === 'raw_text' ? aiRawInput.trim() : undefined,
           specialty: specialtyId,
           year: year !== '' ? Number(year) : undefined,
-          source: finalSource || examTitleInput || 'Examen IA'
+          source: finalSource || examTitleInput || 'Examen IA',
+          availableCourses: availableCoursesForAi
         })
       });
 
@@ -366,7 +372,8 @@ export default function AdminQcmPage() {
           isVerified: true,
           source: q.source || finalSource || data.examTitle || 'Examen IA',
           specialtyId: specialtyId,
-          courseId: courseId || undefined,
+          courseId: q.courseId || courseId || undefined,
+          courseTitle: q.courseTitle || undefined,
           year: year !== '' ? Number(year) : undefined
         }));
 
@@ -422,6 +429,29 @@ export default function AdminQcmPage() {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  // Reconcile and auto-link all orphaned QCMs to available courses
+  const handleAutoLinkCourses = async () => {
+    setReconcilingCourses(true);
+    setSuccessMsg('');
+    try {
+      const res = await fetch('/api/admin/qcm/auto-link', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(`⚡ Rattachement automatique terminé ! ${data.totalLinked} QCM(s) rattachés directement à leurs cours respectifs.`);
+        await fetchData();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+      } else {
+        alert(data.error || 'Erreur lors du rattachement');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Erreur réseau');
+    } finally {
+      setReconcilingCourses(false);
     }
   };
 
@@ -589,6 +619,7 @@ export default function AdminQcmPage() {
     
     const itemCourseId = qcmItem.courseId || courseId;
     const crs = courses.find(c => c.id === itemCourseId);
+    const itemCourseTitle = crs ? crs.title : (qcmItem.courseTitle || undefined);
 
     const finalGlobalSource = getEffectiveSource();
     const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
@@ -608,7 +639,7 @@ export default function AdminQcmPage() {
       specialtyId: itemSpecId,
       specialtyName: spec ? spec.name : 'Cardiologie',
       courseId: itemCourseId || undefined,
-      courseTitle: crs ? crs.title : undefined,
+      courseTitle: itemCourseTitle,
       faculty: faculty || 'ORAN',
       source: itemSource,
       parentSource: itemParentSource || undefined,
@@ -662,6 +693,7 @@ export default function AdminQcmPage() {
         const spec = specialtiesList.find(s => s.id === itemSpecId) || ALL_SPECIALTIES.find(s => s.id === itemSpecId);
         const itemCourseId = qcmItem.courseId || courseId;
         const crs = courses.find(c => c.id === itemCourseId);
+        const itemCourseTitle = crs ? crs.title : (qcmItem.courseTitle || undefined);
         const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
         const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
 
@@ -680,7 +712,7 @@ export default function AdminQcmPage() {
           specialtyId: itemSpecId,
           specialtyName: spec ? spec.name : 'Cardiologie',
           courseId: itemCourseId || undefined,
-          courseTitle: crs ? crs.title : undefined,
+          courseTitle: itemCourseTitle,
           faculty: faculty || 'ORAN',
           source: itemSource,
           parentSource: itemParentSource || undefined,
@@ -963,7 +995,22 @@ export default function AdminQcmPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={handleAutoLinkCourses}
+            disabled={reconcilingCourses}
+            title="Analyser et rattacher automatiquement tous les QCMs orphelins aux cours existants"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 hover:bg-amber-500/20 transition-all active:scale-95 disabled:opacity-50"
+          >
+            {reconcilingCourses ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Layers className="w-3.5 h-3.5" />
+            )}
+            <span>⚡ Rattacher QCMs aux Cours</span>
+          </button>
+
           <button
             onClick={() => setAiQcmModalOpen(true)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-soft transition-all active:scale-95"
@@ -1846,12 +1893,24 @@ export default function AdminQcmPage() {
                               </div>
 
                               <div>
-                                <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">📚 Cours du QCM :</span>
+                                <div className="flex items-center justify-between mb-0.5">
+                                  <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300">📚 Cours du QCM :</span>
+                                  {qcmItem.courseTitle && !qcmItem.courseId && (
+                                    <span className="text-[9px] font-bold text-amber-600 dark:text-amber-400" title="Sujet détecté par l'IA">
+                                      ✨ Thème: {qcmItem.courseTitle}
+                                    </span>
+                                  )}
+                                </div>
                                 <select
                                   value={qcmItem.courseId !== undefined ? qcmItem.courseId : courseId}
                                   onChange={e => {
                                     const val = e.target.value;
-                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, courseId: val } : q));
+                                    const crsObj = courses.find(c => c.id === val);
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? {
+                                      ...q,
+                                      courseId: val,
+                                      courseTitle: crsObj ? crsObj.title : (val === '' ? undefined : q.courseTitle)
+                                    } : q));
                                   }}
                                   className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
                                 >

@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { callUnifiedAI } from '@/lib/ai/openrouter';
 import { extractTextFromPdfBuffer } from '@/lib/safePdfExtractor';
+import { matchQcmToCourse } from '@/lib/qcmCourseLinker';
+import { db } from '@/lib/db/store';
+import { supabaseAdmin } from '@/lib/supabase/admin';
+import { Course } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -54,7 +58,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Format de requête JSON invalide.' }, { status: 400 });
     }
 
-    let { content, pdfUrl, provider, apiKey, model, specialty, year, source } = body;
+    let { content, pdfUrl, provider, apiKey, model, specialty, year, source, availableCourses } = body;
+
+    // Fetch available courses for this specialty if not explicitly passed
+    let coursesList: Course[] = Array.isArray(availableCourses) ? availableCourses : [];
+    if (coursesList.length === 0) {
+      try {
+        let query = supabaseAdmin.from('courses').select('id, title, slug, specialty_id, specialty_name');
+        if (specialty) {
+          query = query.eq('specialty_id', specialty);
+        }
+        const { data: cloudCourses } = await query;
+        if (cloudCourses && Array.isArray(cloudCourses) && cloudCourses.length > 0) {
+          coursesList = cloudCourses.map((c: any) => ({
+            id: String(c.id),
+            title: c.title || c.name || 'Cours',
+            slug: c.slug || '',
+            specialtyId: c.specialty_id || specialty || 'cardio',
+            specialtyName: c.specialty_name || 'Spécialité'
+          } as Course));
+        }
+      } catch (_) {}
+
+      if (coursesList.length === 0) {
+        const localCourses = db.getCourses();
+        coursesList = specialty ? localCourses.filter(c => c.specialtyId === specialty) : localCourses;
+      }
+    }
 
     // Fetch and extract PDF from URL if pdfUrl is provided
     if (pdfUrl && typeof pdfUrl === 'string' && pdfUrl.trim().length > 0) {
@@ -118,8 +148,21 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
+    const coursesPromptContext = coursesList.length > 0
+      ? `LISTE DES COURS EXISTANTS DANS CE MODULE (AS-MEDIX) :
+${coursesList.map(c => `- ID: "${c.id}" | Titre: "${c.title}"`).join('\n')}
+
+INSTRUCTIONS DE RATTACHEMENT AU COURS :
+Pour chaque QCM extrait, détermine précisément à quel cours il correspond.
+- Si le sujet de la question correspond à l'un des cours ci-dessus : renvoie son "courseId" exact et son "courseTitle" exact.
+- Si aucun cours de la liste ci-dessus ne correspond (le cours n'a pas encore été créé sur la plateforme) : renvoie "courseId": null et renvoie dans "courseTitle" le titre médical standard et précis du cours correspondant (ex: "Rétrécissement Aortique", "Péricardite Aiguë", "Asthme de l'adulte", "Syndrome Néphrotique").`
+      : `INSTRUCTIONS DE RATTACHEMENT AU COURS :
+Pour chaque QCM extrait, identifie et indique dans "courseTitle" le nom exact du cours médical correspondant (ex: "Infarctus du Myocarde", "Péricardite Aiguë", "Insuffisance Cardiaque"), et "courseId": null.`;
+
     const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée et Extrakteur de QCMs d'Examens d'AS-MEDIX.
-Ta mission est d'analyser le document ou l'examen médical fourni, et d'en extraire 100% DES QCMs (Questions à Choix Multiples) avec CHAQUE PROPOSITION (A, B, C, D, E), la vignette clinique si présente, les réponses correctes et les explications médicales.
+Ta mission est d'analyser le document ou l'examen médical fourni, et d'en extraire 100% DES QCMs (Questions à Choix Multiples) avec CHAQUE PROPOSITION (A, B, C, D, E), la vignette clinique si présente, les réponses correctes, LA JUSTIFICATION CLINIQUE DÉTAILLÉE et le RATTACHEMENT AU COURS CORRESPONDANT.
+
+${coursesPromptContext}
 
 Règles de réponse JSON strictes :
 Renvoie EXCLUSIVEMENT un objet JSON valide avec cette structure exacte :
@@ -130,6 +173,8 @@ Renvoie EXCLUSIVEMENT un objet JSON valide avec cette structure exacte :
     {
       "qNum": 1,
       "title": "Question 1",
+      "courseId": "ID du cours correspondant si présent dans la liste, sinon null",
+      "courseTitle": "Titre exact du cours médical correspondant",
       "vignette": "Texte du cas clinique / vignette clinique si présent (sinon vide)",
       "question": "Énoncé exact et complet de la question...",
       "options": [
@@ -139,7 +184,7 @@ Renvoie EXCLUSIVEMENT un objet JSON valide avec cette structure exacte :
         { "letter": "D", "text": "Intitulé complet de la proposition D", "isCorrect": false },
         { "letter": "E", "text": "Intitulé complet de la proposition E", "isCorrect": false }
       ],
-      "explanation": "Explication médicale et justification des réponses correctes (ou rappel clinique)...",
+      "explanation": "JUSTIFICATION MÉDICALE APPROFONDIE OBLIGATOIRE : Explique d'abord pourquoi la ou les réponses exactes sont cliniquement et physiopathologiquement vraies (critères diagnostiques, signes de certitude, reco internationales/algériennes). Puis justifie pourquoi les autres propositions sont fausses (pièges classiques, contre-indications, distracteurs). Ne laisse JAMAIS ce champ vide.",
       "rang": "Rang A",
       "difficulty": "Moyen"
     }
@@ -149,8 +194,10 @@ Renvoie EXCLUSIVEMENT un objet JSON valide avec cette structure exacte :
 Consignes impératives :
 1. Extraction exhaustive : Ne saute AUCUNE question du document. Extrais 100% des QCMs.
 2. Pour chaque option A, B, C, D, E : Indique si elle est correcte (isCorrect: true/false). Si la grille de réponses est fournie ou évidente cliniquement, marque les propositions exactes.
-3. Si une vignette clinique s'applique à plusieurs questions, reproduis-la dans la clé "vignette".
-4. Ne réponds rien d'autre que l'objet JSON strict.`;
+3. JUSTIFICATION MÉDICALE OBLIGATOIRE : Rédige une vraie explication médicale pour chaque question. C'est essentiel pour la révision du concours de résidanat.
+4. RATTACHEMENT AU COURS : Assigne systématiquement chaque QCM au cours correspondant ("courseId" et "courseTitle").
+5. Si une vignette clinique s'applique à plusieurs questions, reproduis-la dans la clé "vignette".
+6. Ne réponds rien d'autre que l'objet JSON strict.`;
 
     const userPrompt = `Spécialité : ${specialty || 'Médecine Générale'} ${year ? `• Année : ${year}` : ''} ${source ? `• Source / Examen : ${source}` : ''}
 
@@ -180,7 +227,7 @@ ${content.substring(0, 90000)}`;
 
     const qcmsList = Array.isArray(parsedResult.qcms) ? parsedResult.qcms : [];
 
-    // Format QCMs into AS-MEDIX structure
+    // Format QCMs into AS-MEDIX structure with automatic course resolution
     const formattedQcms = qcmsList.map((q: any, idx: number) => {
       const rawOptions = Array.isArray(q.options) ? q.options : [];
       const optionsArray = rawOptions.map((opt: any, optIdx: number) => ({
@@ -200,6 +247,25 @@ ${content.substring(0, 90000)}`;
         correctAnswers.push(0); // Fallback if AI didn't mark any option
       }
 
+      // Resolve corresponding course
+      let resolvedCourseId = q.courseId && typeof q.courseId === 'string' && q.courseId.trim() && q.courseId.trim() !== 'null' ? q.courseId.trim() : undefined;
+      let resolvedCourseTitle = q.courseTitle && typeof q.courseTitle === 'string' && q.courseTitle.trim() && q.courseTitle.trim() !== 'null' ? q.courseTitle.trim() : undefined;
+
+      // Smart matching against existing courses if courseId is missing or needs validation
+      const matchedCourse = matchQcmToCourse(
+        { title: q.title, question: q.question, courseTitle: resolvedCourseTitle, specialtyId: specialty },
+        coursesList
+      );
+
+      if (matchedCourse) {
+        resolvedCourseId = matchedCourse.id;
+        resolvedCourseTitle = matchedCourse.title;
+      }
+
+      const cleanExplanation = (q.explanation && typeof q.explanation === 'string' && q.explanation.trim())
+        ? q.explanation.trim()
+        : '<p><strong>Justification clinique :</strong> Analyse clinique conforme aux recommandations médicales.</p>';
+
       return {
         id: `ai_qcm_${Date.now()}_${idx + 1}`,
         qNum: q.qNum || idx + 1,
@@ -208,7 +274,9 @@ ${content.substring(0, 90000)}`;
         vignette: q.vignette || '',
         options: optionsArray,
         correctAnswers: correctAnswers,
-        explanation: q.explanation || '',
+        explanation: cleanExplanation,
+        courseId: resolvedCourseId,
+        courseTitle: resolvedCourseTitle,
         rang: q.rang || 'Rang A',
         difficulty: q.difficulty || 'Moyen',
         type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',

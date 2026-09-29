@@ -23,6 +23,7 @@ export interface ParsedQcmItem {
   subSource?: string;
   specialtyId?: string;
   courseId?: string;
+  courseTitle?: string;
   year?: number;
 }
 

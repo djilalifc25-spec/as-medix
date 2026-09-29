@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
 import { parseSourceHierarchy } from '@/lib/sourceUtils';
+import { matchQcmToCourse } from '@/lib/qcmCourseLinker';
 
 function parseOptions(raw: any): any[] {
   let arr: any[] = [];
@@ -202,13 +203,32 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const effectiveSource = body.source || (body.parentSource && body.subSource ? `${body.parentSource} - ${body.subSource}` : body.parentSource) || 'Externat';
+
+    let resolvedCourseId = body.courseId || undefined;
+    let resolvedCourseTitle = body.courseTitle || undefined;
+
+    if (!resolvedCourseId && (resolvedCourseTitle || body.question)) {
+      const coursesList = db.getCourses();
+      const matched = matchQcmToCourse({
+        title: body.title,
+        question: body.question,
+        courseTitle: resolvedCourseTitle,
+        specialtyId: body.specialtyId
+      }, coursesList);
+
+      if (matched) {
+        resolvedCourseId = matched.id;
+        resolvedCourseTitle = matched.title;
+      }
+    }
+
     const newQcm: QCM = {
       id: body.id || 'qcm_' + Date.now(),
       title: body.title,
       specialtyId: body.specialtyId,
       specialtyName: body.specialtyName || 'Cardiologie',
-      courseId: body.courseId || undefined,
-      courseTitle: body.courseTitle || undefined,
+      courseId: resolvedCourseId,
+      courseTitle: resolvedCourseTitle,
       faculty: body.faculty || 'TOUS',
       source: effectiveSource,
       parentSource: body.parentSource || undefined,

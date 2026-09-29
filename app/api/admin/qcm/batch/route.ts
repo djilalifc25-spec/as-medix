@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
 import { parseSourceHierarchy } from '@/lib/sourceUtils';
+import { matchQcmToCourse } from '@/lib/qcmCourseLinker';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,6 +29,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Aucun QCM à importer dans la liste.' }, { status: 400 });
     }
 
+    // Load available courses for matching
+    const localCourses = db.getCourses();
+    let coursesList = [...localCourses];
+    try {
+      const { data: cloudCourses } = await supabaseAdmin.from('courses').select('id, title, specialty_id');
+      if (cloudCourses && Array.isArray(cloudCourses)) {
+        for (const cc of cloudCourses) {
+          if (!coursesList.some(c => c.id === cc.id)) {
+            coursesList.push({
+              id: String(cc.id),
+              title: cc.title || 'Cours',
+              specialtyId: cc.specialty_id || 'cardio'
+            } as any);
+          }
+        }
+      }
+    } catch (_) {}
+
     const createdQcms: QCM[] = [];
     const supabasePayloads: any[] = [];
 
@@ -50,13 +69,30 @@ export async function POST(req: NextRequest) {
       const effectiveParent = q.parentSource || hierarchy.parent;
       const effectiveSub = q.subSource || hierarchy.sub || undefined;
 
+      let resolvedCourseId = courseId || q.courseId || undefined;
+      let resolvedCourseTitle = courseTitle || q.courseTitle || undefined;
+
+      if (!resolvedCourseId && (resolvedCourseTitle || q.question)) {
+        const matched = matchQcmToCourse({
+          title: q.title,
+          question: q.question,
+          courseTitle: resolvedCourseTitle,
+          specialtyId: specialtyId || q.specialtyId
+        }, coursesList as any);
+
+        if (matched) {
+          resolvedCourseId = matched.id;
+          resolvedCourseTitle = matched.title;
+        }
+      }
+
       const newQcm: QCM = {
         id: qcmId,
         title: q.title || q.question || `QCM ${i + 1}`,
         specialtyId: specialtyId || q.specialtyId || 'cardio',
         specialtyName: specialtyName || q.specialtyName || 'Cardiologie',
-        courseId: courseId || q.courseId || undefined,
-        courseTitle: courseTitle || q.courseTitle || undefined,
+        courseId: resolvedCourseId,
+        courseTitle: resolvedCourseTitle,
         faculty: faculty || q.faculty || 'ORAN',
         source: finalSource,
         parentSource: effectiveParent,

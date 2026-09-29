@@ -729,9 +729,13 @@ ${textContent.substring(0, 90000)}`;
       setIsPublished(publishNow);
       if (data.course?.slug) setCurrentSlug(data.course.slug);
 
+      const linkedNotice = data.linkedQcmsCount && data.linkedQcmsCount > 0 
+        ? ` (🎯 ${data.linkedQcmsCount} QCM(s) existants rattachés automatiquement à ce cours !)`
+        : '';
+
       setSuccessNotice(isEditMode 
-        ? (publishNow ? 'Cours mis à jour et publié avec succès !' : 'Modifications enregistrées !')
-        : (publishNow ? 'Nouveau cours publié avec succès !' : 'Brouillon enregistré avec succès !')
+        ? (publishNow ? `Cours mis à jour et publié avec succès !${linkedNotice}` : `Modifications enregistrées !${linkedNotice}`)
+        : (publishNow ? `Nouveau cours publié avec succès !${linkedNotice}` : `Brouillon enregistré avec succès !${linkedNotice}`)
       );
 
       // Scroll to top
