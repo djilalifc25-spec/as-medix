@@ -484,82 +484,12 @@ export async function aiAnalyzeAndFormatCourse(
   config: AIProviderConfig = {},
   contextInfo: { specialty?: string; year?: number } = {}
 ): Promise<AIExtractedCourseData> {
-  const systemPrompt = `Tu es l'Intelligence Artificielle Médicale Spécialisée et Éditeur d'Atlas Médicaux d'AS-MEDIX.
-Ta mission est de prendre un cours médical (PDF, polycopié, annales) et de le transformer en une PRÉSENTATION DE TYPE ATLAS MÉDICAL ILLUSTRE, HAUTEMENT COLORÉE, DYNAMIQUE, ERGONOMIQUE ET ULTRA-PROFESSIONNELLE.
-
-CONSIGNE CAPITALE ABSOLUE - CONSERVATION 100/100 DES DÉTAILS :
-- Tu dois conserver 100% DE L'INTEGRALITÉ DU CONTENU DU DOCUMENT SOURCE. Ne résume AUCUN paragraphe, ne supprime AUCUNE classification, donnée chiffrée, dose, signe clinique, nuance ou tableau. Chaque information présente dans le document original DOIT figurer dans le résultat HTML final.
-
-Consignes strictes de réponse en JSON :
-Renvoie EXCLUSIVEMENT un objet JSON valide avec ces clés :
-1. "title": Le titre médical principal du cours (court, précis, sans numéro de chapitre).
-2. "subtitle": Le sous-titre / thématique clinique (ex: "Diagnostic positif, physiopathologie et stratégie thérapeutique").
-3. "description": Un résumé clinique concis de 2-3 phrases (environ 150-200 caractères) présentant le cours.
-4. "summaryPoints": Un tableau de 5 à 7 points clés essentiels pour le concours de Résidanat ("À retenir pour le concours").
-5. "tableOfContents": Un tableau d'objets [{"id": "sec-1", "title": "1. Titre de section", "level": 1}] pour chaque section principale.
-6. "htmlContent": Le code HTML complet du cours rédigé au format Livre / Atlas Médical.
-
-EXIGENCES STYLE LIVRE & ATLAS MÉDICAL ("htmlContent") :
-
-1. TITRES COLORÉS ET STYLISÉS STYLE LIVRE MÉDICAL :
-- Titres H2 colorés avec ancres ID obligatoires : <h2 id="sec-1" class="text-2xl font-black text-brand-700 dark:text-brand-300 mt-8 mb-4 border-b-2 border-brand-500/30 pb-2 flex items-center gap-3"><span class="px-2.5 py-0.5 rounded-lg bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 text-xs font-black uppercase tracking-wider">SECTION 1</span>...</h2>
-- Assure-toi que chaque section principale H2 a un identifiant unique (id="sec-1", id="sec-2", id="sec-3", etc.) correspondant au tableau "tableOfContents" pour permettre la navigation fluide au clic.
-- Titres H3 stylisés : <h3 class="text-lg font-bold text-indigo-900 dark:text-indigo-300 mt-6 mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>...</h3>
-
-2. SCHÉMAS VISUELS, DIAGRAMMES & PRÉSENTATIONS ANATOMIQUES :
-- Quand le cours aborde l'Anatomie ou la Histologie : Génère des encadrés de présentation anatomique modernes avec schémas SVG propres et repères visuels (ex: vascularisation, rapports anatomiques, couches tissulaires). Ex: <div class="my-6 p-5 rounded-2xl bg-slate-900 text-white border border-slate-700 shadow-lg"><div class="flex items-center gap-2 text-sky-400 font-bold text-sm uppercase mb-3">🫀 Repères Anatomiques et Histologiques</div>...</div>
-- Quand le cours contient une Physiopathologie ou Cascade d'événements : Génère des schémas / flowcharts visuels en HTML/SVG ou en étapes numérotées flex/grid (ex: Étiologie ➔ Mécanisme ➔ Manifestation clinique).
-- Pour les Arbres Décisionnels Diagnostiques & Thérapeutiques : Formate des organigrammes visuels clairs avec des connecteurs et des badges colorés.
-
-3. ENCADRÉS VISUELS COLORÉS (CALLOUTS LIVRE MÉDICAL) :
-- 📌 Rappel Anatomique / Physiopathologique : <div class="rappel p-4 rounded-2xl bg-amber-50/80 border border-amber-200 dark:bg-amber-950/30 text-xs sm:text-sm text-amber-900 dark:text-amber-200 my-4 shadow-xs">📌 <strong>Rappel Physiopathologique :</strong> ...</div>
-- 💡 Perles Cliniques & Mnémotechniques : <div class="note p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 dark:bg-indigo-950/30 text-xs sm:text-sm text-indigo-900 dark:text-indigo-200 my-4 shadow-xs">💡 <strong>Perle Clinique / Mnémotechnique :</strong> ...</div>
-- ⚠️ Pièges Concours & Diagnostic : <div class="piege p-4 rounded-2xl bg-orange-50/80 border border-orange-200 dark:bg-orange-950/30 text-xs sm:text-sm text-orange-900 dark:text-orange-200 my-4 shadow-xs">⚠️ <strong>Piège Concours :</strong> ...</div>
-- 🚨 Urgences & Red Flags : <div class="urgence p-4 rounded-2xl bg-rose-50/80 border border-rose-200 dark:bg-rose-950/30 text-xs sm:text-sm text-rose-900 dark:text-rose-200 my-4 shadow-xs">🚨 <strong>Alerte Urgence :</strong> ...</div>
-- 💊 Prise en Charge Thérapeutique : <div class="traitement p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 dark:bg-emerald-950/30 text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 my-4 shadow-xs">💊 <strong>Prise en Charge Thérapeutique :</strong> ...</div>
-- ⭐ Points Clés & Résumé : <div class="point-cle p-4 rounded-2xl bg-purple-50/70 border border-purple-200 dark:bg-purple-950/30 text-xs sm:text-sm text-purple-900 dark:text-purple-200 my-4 shadow-xs">⭐ <strong>Point Clé Concours :</strong> ...</div>
-
-4. TABLEAUX ET COMPARATIFS ÉLÉGANTS :
-- Formate les tableaux originaux avec un style moderne (en-têtes foncés ou pastel, bordures arrondies, badges de couleurs dans les cellules).
-
-5. CONSERVATION INTEGRALE DU CONTENU (100% DU DOCUMENT SOURCE) :
-- Ne supprime AUCUN paragraphe, donnée clinique, tableau ou classification du document original.
-- Ne rajoute PAS de section "Dernières Recommandations" à la fin du cours si elle ne figure pas dans le document. Conserve la fin naturelle du cours.
-- Ne réponds rien d'autre que l'objet JSON strict.`;
-
-  const userPrompt = `Spécialité : ${contextInfo.specialty || 'Médecine General'} ${contextInfo.year ? `• Année : ${contextInfo.year}` : ''}
-
-Voici le document / cours médical brut à analyser et formater (100% Conservation de tout le texte) :
-${rawTextOrHtml.substring(0, 90000)}`;
-
-  const responseText = await callUnifiedAI(
-    [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt }
-    ],
-    config,
-    true
-  );
-
-  try {
-    const jsonCleaned = responseText.replace(/```json\s*/gi, '').replace(/```\s*$/gi, '').trim();
-    const parsed = JSON.parse(jsonCleaned);
-
-    return {
-      title: parsed.title || 'Cours Médical Extrait',
-      subtitle: parsed.subtitle || 'Module de formation et annales',
-      description: parsed.description || 'Présentation complète du cours médical.',
-      summaryPoints: Array.isArray(parsed.summaryPoints) ? parsed.summaryPoints : [],
-      tableOfContents: Array.isArray(parsed.tableOfContents) ? parsed.tableOfContents : [
-        { id: 'sec-1', title: '1. Introduction & Généralités', level: 1 }
-      ],
-      htmlContent: parsed.htmlContent || rawTextOrHtml
-    };
-  } catch (parseErr) {
-    console.error('[Unified AI] JSON parse error:', parseErr, responseText);
-    throw new Error('Format de réponse JSON invalide reçu de l\'IA.');
-  }
+  const { formatFullCoursePreservingContent } = await import('@/lib/ai/fullCourseFormatter');
+  return formatFullCoursePreservingContent(rawTextOrHtml, config, contextInfo);
 }
+
+// Legacy single-shot course formatter prompt has been migrated to @/lib/ai/fullCourseFormatter
+
 
 export interface AIExtractedCATData {
   title: string;

@@ -2,2074 +2,1337 @@ import { Fiche } from '@/types';
 
 export const INITIAL_FICHES: Fiche[] = [
   {
-    id: 'fiche_choc_types',
-    slug: 'les-4-etats-de-choc',
-    title: 'Fiche Synthèse : Les 4 Grands États de Choc',
-    specialtyId: 'urgences',
-    specialtyName: 'Urgences & Réanimation',
-    category: 'Urgence Vitale',
-    estimatedReadTime: '5 min',
-    accessLevel: 'FREE',
-    published: true,
-    keyTakeaways: [
-      'Choc hypovolémique : PVC basse, Index cardiaque bas, RVS élevées.',
-      'Choc cardiogénique : PVC haute, PCP haute, Index cardiaque bas, RVS élevées.',
-      'Choc distributif (septique/anaphylactique) : PVC normale ou basse, Index cardiaque élevé (au début), RVS effondrées.',
-      'Choc obstructif (tamponnade, EP massive) : PVC très haute, Index cardiaque bas, RVS élevées.'
+    "id": "fiche_choc_types",
+    "slug": "les-4-etats-de-choc",
+    "title": "Fiche Synthèse : Les 4 Grands États de Choc",
+    "specialtyId": "urgences",
+    "specialtyName": "Urgences & Réanimation",
+    "category": "Urgence Vitale",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Choc hypovolémique : PVC basse, Index cardiaque bas, RVS élevées.",
+      "Choc cardiogénique : PVC haute, PCP haute, Index cardiaque bas, RVS élevées.",
+      "Choc distributif (septique/anaphylactique) : PVC normale ou basse, Index cardiaque élevé (au début), RVS effondrées.",
+      "Choc obstructif (tamponnade, EP massive) : PVC très haute, Index cardiaque bas, RVS élevées."
     ],
-    htmlContent: `
-      <div class="space-y-4">
-        <p class="text-sm text-navy-700 dark:text-navy-300">
-          Un état de choc est défini par l'inadéquation entre les apports et les besoins tissulaires en oxygène, se traduisant biologiquement par une hyperlactatémie (&gt; 2 mmol/L).
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800">
-            <h4 class="font-bold text-sm text-indigo-900 dark:text-indigo-200">1. Choc Hypovolémique</h4>
-            <p class="text-xs text-navy-600 dark:text-navy-300 mt-1">Perte de volume circulant (hémorragie, déshydratation). Traitement : Remplissage rapide + Transfusion si sang.</p>
-          </div>
-          <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800">
-            <h4 class="font-bold text-sm text-rose-900 dark:text-rose-200">2. Choc Cardiogénique</h4>
-            <p class="text-xs text-navy-600 dark:text-navy-300 mt-1">Faillite de la pompe VG. Traitement : Inotropes (Dobutamine), revascularisation coronaire.</p>
-          </div>
-          <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
-            <h4 class="font-bold text-sm text-amber-900 dark:text-amber-200">3. Choc Distributif (Septique)</h4>
-            <p class="text-xs text-navy-600 dark:text-navy-300 mt-1">Vasoplégie majeure. Traitement : Noradrénaline + Remplissage 30 mL/kg + Antibiothérapie &lt; 1h.</p>
-          </div>
-          <div class="p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800">
-            <h4 class="font-bold text-sm text-purple-900 dark:text-purple-200">4. Choc Obstructif</h4>
-            <p class="text-xs text-navy-600 dark:text-navy-300 mt-1">Obstacle au remplissage ou à l'éjection (Tamponnade, EP massive, PNO sous tension). Traitement étiologique immédiat !</p>
-          </div>
-        </div>
-      </div>
-    `,
-    updatedAt: '2026-09-02T10:00:00Z'
+    "htmlContent": "\n      <div class=\"space-y-4\">\n        <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n          Un état de choc est défini par l'inadéquation entre les apports et les besoins tissulaires en oxygène, se traduisant biologiquement par une hyperlactatémie (&gt; 2 mmol/L).\n        </p>\n        <div class=\"grid grid-cols-1 sm:grid-cols-2 gap-3\">\n          <div class=\"p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800\">\n            <h4 class=\"font-bold text-sm text-indigo-900 dark:text-indigo-200\">1. Choc Hypovolémique</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Perte de volume circulant (hémorragie, déshydratation). Traitement : Remplissage rapide + Transfusion si sang.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800\">\n            <h4 class=\"font-bold text-sm text-rose-900 dark:text-rose-200\">2. Choc Cardiogénique</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Faillite de la pompe VG. Traitement : Inotropes (Dobutamine), revascularisation coronaire.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800\">\n            <h4 class=\"font-bold text-sm text-amber-900 dark:text-amber-200\">3. Choc Distributif (Septique)</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Vasoplégie majeure. Traitement : Noradrénaline + Remplissage 30 mL/kg + Antibiothérapie &lt; 1h.</p>\n          </div>\n          <div class=\"p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800\">\n            <h4 class=\"font-bold text-sm text-purple-900 dark:text-purple-200\">4. Choc Obstructif</h4>\n            <p class=\"text-xs text-navy-600 dark:text-navy-300 mt-1\">Obstacle au remplissage ou à l'éjection (Tamponnade, EP massive, PNO sous tension). Traitement étiologique immédiat !</p>\n          </div>\n        </div>\n      </div>\n    ",
+    "updatedAt": "2026-09-02T10:00:00Z"
   },
   {
-    id: 'fiche_glasgow',
-    slug: 'score-de-glasgow',
-    title: 'Fiche Mémotechnique : Score de Coma de Glasgow (GCS)',
-    specialtyId: 'neuro',
-    specialtyName: 'Neurologie',
-    category: 'Sémiologie & Urgences',
-    estimatedReadTime: '4 min',
-    accessLevel: 'FREE',
-    published: true,
-    keyTakeaways: [
-      'Score total de 3 à 15.',
-      'Coma défini par un score &le; 8 imposant la protection des voies aériennes (intubation).',
-      'Yeux (Y / 4), Verbal (V / 5), Moteur (M / 6).'
+    "id": "fiche_glasgow",
+    "slug": "score-de-glasgow",
+    "title": "Fiche Mémotechnique : Score de Coma de Glasgow (GCS)",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Sémiologie & Urgences",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Score total de 3 à 15.",
+      "Coma défini par un score &le; 8 imposant la protection des voies aériennes (intubation).",
+      "Yeux (Y / 4), Verbal (V / 5), Moteur (M / 6)."
     ],
-    htmlContent: `
-      <div class="space-y-4">
-        <p class="text-sm text-navy-700 dark:text-navy-300">
-          Évalue la profondeur du coma. Réponse motrice (M) = meilleur facteur pronostique.
-        </p>
-        <div class="p-3 rounded-xl bg-navy-50 dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 text-xs space-y-2">
-          <div><strong>Ouverture des Yeux (1 à 4) :</strong> 4-Spontanée, 3-À la demande, 2-À la douleur, 1-Nulle.</div>
-          <div><strong>Réponse Verbale (1 à 5) :</strong> 5-Orientée, 4-Confuse, 3-Inappropriée, 2-Incompréhensible, 1-Nulle.</div>
-          <div><strong>Réponse Motrice (1 à 6) :</strong> 6-Aux ordres, 5-Orientée à la douleur, 4-Évitement non adapté, 3-Décortication (flexion), 2-Décérébration (extension), 1-Nulle.</div>
-        </div>
-      </div>
-    `,
-    updatedAt: '2026-09-03T08:00:00Z'
+    "htmlContent": "\n      <div class=\"space-y-4\">\n        <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n          Évalue la profondeur du coma. Réponse motrice (M) = meilleur facteur pronostique.\n        </p>\n        <div class=\"p-3 rounded-xl bg-navy-50 dark:bg-navy-800/80 border border-navy-100 dark:border-navy-700 text-xs space-y-2\">\n          <div><strong>Ouverture des Yeux (1 à 4) :</strong> 4-Spontanée, 3-À la demande, 2-À la douleur, 1-Nulle.</div>\n          <div><strong>Réponse Verbale (1 à 5) :</strong> 5-Orientée, 4-Confuse, 3-Inappropriée, 2-Incompréhensible, 1-Nulle.</div>\n          <div><strong>Réponse Motrice (1 à 6) :</strong> 6-Aux ordres, 5-Orientée à la douleur, 4-Évitement non adapté, 3-Décortication (flexion), 2-Décérébration (extension), 1-Nulle.</div>\n        </div>\n      </div>\n    ",
+    "updatedAt": "2026-09-03T08:00:00Z"
   },
   {
-    id: 'fiche_hyperkaliemie_ecg',
-    slug: 'signes-ecg-hyperkaliemie',
-    title: 'Fiche Réflexe : Chronologie ECG de l\'Hyperkaliémie',
-    specialtyId: 'nephro',
-    specialtyName: 'Néphrologie',
-    category: 'ECG & Électrolytes',
-    estimatedReadTime: '4 min',
-    accessLevel: 'PRO',
-    published: true,
-    keyTakeaways: [
-      '1. Ondes T pointues, symétriques, à base étroite en tente de camping.',
-      '2. Allongement du PR et élargissement du QRS.',
-      '3. Disparition de l\'onde P (paralysie atriale).',
-      '4. Fusion QRS-ST-T en aspect sinusoïdal pré-fibrillatoire.'
+    "id": "fiche_hyperkaliemie_ecg",
+    "slug": "signes-ecg-hyperkaliemie",
+    "title": "Fiche Réflexe : Chronologie ECG de l'Hyperkaliémie",
+    "specialtyId": "nephro",
+    "specialtyName": "Néphrologie",
+    "category": "ECG & Électrolytes",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "PRO",
+    "published": true,
+    "keyTakeaways": [
+      "1. Ondes T pointues, symétriques, à base étroite en tente de camping.",
+      "2. Allongement du PR et élargissement du QRS.",
+      "3. Disparition de l'onde P (paralysie atriale).",
+      "4. Fusion QRS-ST-T en aspect sinusoïdal pré-fibrillatoire."
     ],
-    htmlContent: `
-      <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 text-xs space-y-2 text-navy-700 dark:text-navy-300">
-        <div class="font-bold text-rose-800 dark:text-rose-300 text-sm mb-1">🚨 Urgence Thérapeutique Immédiate :</div>
-        <p>Devant tout signe ECG d'hyperkaliémie : <strong>Gluconate de Calcium 10% (10 à 20 mL IVD sur 2-3 min)</strong> pour stabiliser la membrane cardiaque, SAUF si le patient est sous digitaliques (préférer le Chlorure de Magnésium).</p>
-      </div>
-    `,
-    updatedAt: '2026-09-04T14:00:00Z'
+    "htmlContent": "\n      <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 dark:border-rose-900/40 text-xs space-y-2 text-navy-700 dark:text-navy-300\">\n        <div class=\"font-bold text-rose-800 dark:text-rose-300 text-sm mb-1\">🚨 Urgence Thérapeutique Immédiate :</div>\n        <p>Devant tout signe ECG d'hyperkaliémie : <strong>Gluconate de Calcium 10% (10 à 20 mL IVD sur 2-3 min)</strong> pour stabiliser la membrane cardiaque, SAUF si le patient est sous digitaliques (préférer le Chlorure de Magnésium).</p>\n      </div>\n    ",
+    "updatedAt": "2026-09-04T14:00:00Z"
+  },
+  {
+    "id": "fiche_endocrino_hypo",
+    "slug": "hypoglycemie-conduite-a-tenir",
+    "title": "Fiche Réflexe : Prise en charge de l'Hypoglycémie Sévère",
+    "specialtyId": "endocrino",
+    "specialtyName": "Endocrinologie - Diabétologie",
+    "category": "Urgence Métabolique",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Seuil biologique : Glycémie capillaire ou veineuse < 0,70 g/L (3,9 mmol/L) chez le diabétique traité.",
+      "Patient conscient : Règle des 15g de glucides à absorption rapide (3 morceaux de sucre ou 150 mL de jus de fruit) et contrôle à 15 min.",
+      "Patient comateux avec voie veineuse : 2 à 3 ampoules de Sérum Glucosé à 30% (G30) en IV direct lent.",
+      "Patient comateux sans voie veineuse (diabétique de type 1) : Glucagon 1 mg en IM ou SC (ou Glucagon nasal Baqsimi)."
+    ],
+    "htmlContent": "\n      <div class=\"space-y-3 text-xs text-navy-700 dark:text-navy-300\">\n        <p><strong>Triade de Whipple :</strong> Signes neuroglycopéniques + Glycémie basse documentée + Disparition immédiate des symptômes après resucrage.</p>\n        <div class=\"p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n          <p class=\"font-bold text-amber-900 dark:text-amber-200\">Attention aux sulfamides hypoglycémiants (Daonil, Amarel) :</p>\n          <p class=\"mt-1\">Hypoglycémie prolongée sur plusieurs jours pouvant récidiver après un resucrage initial. Hospitalisation sous perfusion de G10% pendant 48 heures impérative !</p>\n        </div>\n      </div>\n    ",
+    "updatedAt": "2026-09-04T12:00:00Z"
+  },
+  {
+    "id": "fiche_gastro_hemorragie",
+    "slug": "hemorragie-digestive-haute",
+    "title": "Fiche Mémotechnique : Rupture de Varices Œsophagiennes",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Hépatologie",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "PRO",
+    "published": true,
+    "keyTakeaways": [
+      "Trépied immédiat : Vaso-actif (Terlipressine ou Somatostatine) + Ligature endoscopique < 12h + Ceftriaxone IV 7 jours.",
+      "Objectif transfusionnel restrictif chez le cirrhotique : Hémoglobine cible entre 7 et 8 g/dL (ne pas trop transfuser pour ne pas ré-augmenter la pression portale !).",
+      "Sonde de Blakemore ou de Linton uniquement en cas d'échec de l'hémostase endoscopique ou d'inondation cataclysmique en attendant le TIPS."
+    ],
+    "htmlContent": "\n      <div class=\"space-y-3 text-xs text-navy-700 dark:text-navy-300\">\n        <p>Le traitement vaso-actif par Terlipressine (2 mg IV puis 1-2 mg toutes les 4h) doit être débuté <strong>dès la suspicion clinique</strong>, avant même le transfert en salle d'endoscopie digestive.</p>\n      </div>\n    ",
+    "updatedAt": "2026-09-04T13:00:00Z"
+  },
+  {
+    "id": "fiche_pediatrie_apgar",
+    "slug": "score-d-apgar",
+    "title": "Fiche Synthèse : Le Score d'Apgar à la Naissance",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie",
+    "category": "Néonatalogie",
+    "estimatedReadTime": "3 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Évalué à 1, 5 et 10 minutes de vie.",
+      "5 items cotés de 0 à 2 : Apparence (Coloration), Pouls (FC > 100), Grimace (Réactivité), Activité (Tonus), Respiration (Cri vigoureux).",
+      "Score 8 à 10 : Normal. Score 4 à 7 : Détresse modérée. Score 0 à 3 : Mort apparente imposant une réanimation néonatale immédiate."
+    ],
+    "htmlContent": "\n      <div class=\"space-y-2 text-xs text-navy-700 dark:text-navy-300\">\n        <p>Mnémonique <strong>APGAR</strong> : <strong>A</strong>pparence, <strong>P</strong>ouls, <strong>G</strong>rimace, <strong>A</strong>ctivité, <strong>R</strong>espiration.</p>\n      </div>\n    ",
+    "updatedAt": "2026-09-04T14:00:00Z"
+  },
+  {
+    "id": "fiche_chirurgie_brulures",
+    "slug": "regle-des-9-de-wallace",
+    "title": "Fiche Réflexe : Règle des 9 de Wallace (Calcul de la Surface Brûlée)",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "category": "Urgences & Brûlés",
+    "estimatedReadTime": "3 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Tête et cou : 9%.",
+      "Chaque membre supérieur : 9% (face ant 4,5% + face post 4,5%).",
+      "Chaque membre inférieur : 18% (face ant 9% + face post 9%).",
+      "Face antérieure du tronc : 18% (thorax 9% + abdomen 9%).",
+      "Face postérieure du tronc : 18% (haut 9% + bas 9%).",
+      "Périnée et organes génitaux : 1%."
+    ],
+    "htmlContent": "\n      <div class=\"text-xs text-navy-700 dark:text-navy-300\">\n        <p><strong>Formule de Parkland pour la réanimation hydrique des premières 24h :</strong></p>\n        <p class=\"font-bold text-rose-700 dark:text-rose-300 mt-1\">Volume de Ringer Lactate = 4 mL x Poids (kg) x % de Surface Brûlée.</p>\n        <p class=\"text-navy-500 mt-1\">La moitié de ce volume est perfusée sur les 8 premières heures, l'autre moitié sur les 16 heures suivantes.</p>\n      </div>\n    ",
+    "updatedAt": "2026-09-04T15:00:00Z"
+  },
+  {
+    "id": "fiche_uro_ipss",
+    "slug": "score-ipss-hypertrophie-prostatique",
+    "title": "Fiche Synthèse : Score IPSS & Médicaments de l'HBP",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "category": "Urologie Fonctionnelle",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "PRO",
+    "published": true,
+    "keyTakeaways": [
+      "Évalue la sévérité des SBAU (symptômes du bas appareil urinaire) : 0-7 léger, 8-19 modéré, 20-35 sévère.",
+      "Alpha-bloquants (Tamsulosine, Alfuzosine) : Action rapide en 48-72h sur la composante obstructive dynamique (relaxation du col vésical).",
+      "Inhibiteurs de la 5-alpha-réductase (Finastéride, Dutastéride) : Action retardée en 3 à 6 mois, réduction du volume prostatique et divise par 2 le taux de PSA sérique !"
+    ],
+    "htmlContent": "\n      <div class=\"text-xs text-navy-700 dark:text-navy-300\">\n        <p>Piège fréquent : Tout dosage de PSA sous inhibiteur de la 5-alpha-réductase doit être <strong>multiplié par 2</strong> pour être interprété correctement dans le dépistage du cancer prostatique.</p>\n      </div>\n    ",
+    "updatedAt": "2026-09-04T16:00:00Z"
+  },
+  {
+    "id": "fiche_orl_obstruction_nasale_et_epistaxis",
+    "slug": "orl-obstruction-nasale-et-epistaxis",
+    "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "40 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
+    "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
+    "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "45 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
+    "slug": "orl-traumatismes-du-cou-et-de-la-face",
+    "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "35 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
+    "slug": "orl-diagnostic-des-tumefactions-cervicales",
+    "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "35 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_pathologies_de_l_oreille_externe",
+    "slug": "orl-pathologies-de-l-oreille-externe",
+    "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "30 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_otite_moyenne_aigue_oma",
+    "slug": "orl-otite-moyenne-aigue-oma",
+    "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "40 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
+    "slug": "orl-rhinosinusites-aigues-et-chroniques",
+    "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "40 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_corps_etrangers_en_orl",
+    "slug": "orl-corps-etrangers-en-orl",
+    "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "35 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
+    "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
+    "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "45 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_diagnostic_des_surdites",
+    "slug": "orl-diagnostic-des-surdites",
+    "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "45 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_diagnostic_des_vertiges",
+    "slug": "orl-diagnostic-des-vertiges",
+    "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "45 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
+    "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
+    "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "40 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_orl_rhinopharyngites_et_angines",
+    "slug": "orl-rhinopharyngites-et-angines",
+    "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
+    "specialtyId": "orl",
+    "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+    "category": "Fiche Flash & Synthèse",
+    "estimatedReadTime": "45 min",
+    "keyTakeaways": [
+      "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
+      "Diagnostics, pièges au concours et conduite à tenir.",
+      "Spécialité : Oto-Rhino-Laryngologie (ORL)"
+    ],
+    "accessLevel": "FREE",
+    "published": true,
+    "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
+    "updatedAt": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "id": "fiche_urgence_sca_st_plus",
+    "slug": "sca-st-plus-infarctus-myocarde-urgence",
+    "title": "Fiche Urgence : 1. Syndrome Coronarien Aigu ST+ (Infarctus du Myocarde)",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "ECG 12 dérivations réalisé et interprété en moins de 10 minutes (dérivations V7-V8-V9 et V3R-V4R systématiques).",
+      "Sus-décalage de ST persistant ≥ 1 mm dans au moins 2 dérivations contiguës (≥ 2 mm en V2-V3) ou BBG récent.",
+      "Angioplastie primaire (PCI) si délai premier contact médical - ballon < 120 min ; sinon Fibrinolyse IV immédiate < 10 min.",
+      "Trithérapie initiale : Aspirine 250 mg IVD + Inhibiteur P2Y12 (Ticagrélor ou Prasugrel) + Anticoagulant (Héparine ou Enoxaparine)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Critères Diagnostiques ECG</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Sus-décalage du segment ST mesuré au point J, convexe vers le haut, persistant > 20 min dans ≥ 2 dérivations contiguës :<br>• V2-V3 : ≥ 2 mm (homme ≥ 40 ans), ≥ 2.5 mm (homme < 40 ans), ≥ 1.5 mm (femme).<br>• Autres dérivations : ≥ 1 mm.<br>• Miroir (sous-décalage) quasi-constant confirmant le diagnostic.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Stratégie de Revascularisation (ESC)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Délai < 120 min :</strong> Transfert direct en salle de cathétérisme pour Angioplastie Primaire.<br>• <strong>Délai > 120 min :</strong> Fibrinolyse IV immédiate (Ténectéplase ou Altéplase) dans les 10 min du diagnostic.<br>• En cas de fibrinolyse réussie : Coronarographie systématique entre H2 et H24.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Traitement Médical Initial Immédiat (BASIC)\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• <strong>Charge Antiagrégante :</strong> Aspirine 150-300 mg PO/IVD + Ticagrélor 180 mg PO (ou Prasugrel 60 mg, ou Clopidogrel 600 mg).<br>• <strong>Anticoagulation :</strong> HNF bolus 70-100 UI/kg IVD ou Enoxaparine 0.5 mg/kg IVD.<br>• <strong>Analgésie :</strong> Morphine IV titrée si douleur intense.<br>• <em>Attention :</em> Pas de dérivés nitrés si IDM du ventricule droit (V3R-V4R) ou PAS < 90 mmHg !</div>\n        </div>\n        \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">Topographie Coronaire</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Antérieur étendu (V1 à V6, DI, aVL) : IVA.<br>• Inférieur (DII, DIII, aVF) : Artère coronaire droite (85%) ou Circonflexe.<br>• Postérieur ou Basal (V7, V8, V9) : Circonflexe ou IVP.<br>• Ventricule Droit (V3R, V4R) : Coronaire droite proximale.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">Surveillance des Complications</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Troubles du rythme ventriculaire (FV/TV) précoces.<br>• Choc cardiogénique (Killip IV).<br>• Complications mécaniques (rupture de pilier mitral, CIV post-infarctus, rupture de paroi libre).</div>\n    </div>\n    \n    </div>\n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Tout sous-décalage ST en V1-V3 doit faire évoquer un infarctus postérieur : réaliser impérativement V7-V8-V9 !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Devant tout IDM inférieur (DII, DIII, aVF), enregistrer immédiatement V3R et V4R pour éliminer une extension au Ventricule Droit.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Dans l'infarctus du ventricule droit, les dérivés nitrés et les diurétiques sont strictement contre-indiqués (risque de collapsus sévère par baisse de précharge) ; le traitement repose sur le remplissage vasculaire au sérum salé 0.9%.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_sca_st_moins",
+    "slug": "sca-st-moins-angor-instable-urgence",
+    "title": "Fiche Urgence : 2. Syndrome Coronarien Aigu ST- (NSTEMI & Angor Instable)",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Douleur angineuse prolongée (> 20 min au repos) sans sus-décalage persistant de ST à l'ECG.",
+      "Dosage de Troponine ultra-sensible (hs-cTn) avec protocole rapide H0/H1 ou H0/H2.",
+      "Stratification du risque ischémique par le score GRACE pour décider du délai de la coronarographie.",
+      "Coronarographie immédiate (< 2h) si instabilité hémodynamique, choc, récidive douloureuse réfractaire ou TV."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Présentation & Anomalies ECG</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Douleur thoracique rétrosternale constrictive de repos ou crescendo.<br>• ECG : Normal dans 30% des cas, ou sous-décalage du segment ST ≥ 0.5 mm, ou inversion profonde et symétrique des ondes T (> 1 mm).<br>• Répéter l'ECG à H1, H3 et lors de toute récidive douloureuse.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Stratification du Délai Coronarographique (ESC)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Très haut risque (< 2h) :</strong> Instabilité hémodynamique, choc, OAP, douleur réfractaire, TV soutenue.<br>• <strong>Haut risque (< 24h) :</strong> Score GRACE > 140, cinétique positive de troponine, sous-décalage dynamique de ST.<br>• <strong>Bas risque :</strong> Bilan non invasif (angio-TDM coronaire, épreuve d'effort/IRM).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Prise en Charge Thérapeutique Immédiate\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• <strong>Antiagrégant :</strong> Aspirine 150-300 mg PO/IVD immédiatement. Deuxième antiagrégant (Ticagrélor ou Prasugrel) discuté au moment de la coronarographie pour éviter de bloquer une éventuelle chirurgie de pontage.<br>• <strong>Anticoagulation :</strong> Fondaparinux 2.5 mg/j SC (meilleur ratio efficacité/saignement) ou Énoxaparine 1 mg/kg x 2/j SC.<br>• Bêtabloquant oral (Bisoprolol) précoce si absence d'insuffisance cardiaque aiguë.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Un ECG strictement normal n'élimine JAMAIS un SCA ST- ! Seule la cinétique de la troponine ultra-sensible permet d'exclure le diagnostic.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Dans le SCA ST-, le Fondaparinux est la molécule de choix car il réduit la mortalité et les saignements majeurs comparé à l'énoxaparine.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le Prasugrel ne doit JAMAIS être administré en prétraitement avant que l'anatomie coronaire ne soit connue à la coronarographie.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_oap_cardiogenique",
+    "slug": "oedeme-aigu-poumon-oap-cardiogenique",
+    "title": "Fiche Urgence : 3. Œdème Aigu du Poumon Cardiogénique (OAP)",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Polypnée brutale angoissante avec orthopnée majeure, râles crépitants 'en marée montante' et grésillement laryngé.",
+      "Trépied thérapeutique immédiat : Dérivés nitrés IV (Isocet) + Diurétiques de l'anse IV (Furosémide) + VNI (CPAP).",
+      "Position assise jambes pendantes pour diminuer le retour veineux.",
+      "Échocardiographie (ETT) en urgence pour identifier la cause (SCA, poussée hypertensive, valvulopathie aiguë)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes de Gravité Immédiats</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Cyanose, sueurs profuses, SaO2 < 85%.<br>• Épuisement respiratoire : bradypnée, respiration paradoxale thoraco-abdominale.<br>• Signes d'hypoperfusion : marbrures, oligurie, confusion.<br>• Pression artérielle : collapsus (PAS < 90 mmHg = choc cardiogénique !).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Conduite Thérapeutique d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Position assise</strong> stricte, jambes pendantes au bord du lit.<br>2. <strong>Oxygénothérapie :</strong> Cible SpO2 92-96% (88-92% chez le BPCO).<br>3. <strong>VNI (CPAP de Boussignac / PEP) :</strong> Pression 5-10 cmH2O dès l'admission.<br>4. <strong>Furosémide :</strong> 40 à 80 mg IVD (ou 2x la dose quotidienne orale).<br>5. <strong>Dinitrate d'isosorbide (Isocet) :</strong> 1 à 3 mg/h IVSE si PAS > 110 mmHg.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Divergence Thérapeutique Fondamentale\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• Si PAS > 110 mmHg (OAP hypertensif) : Les <strong>dérivés nitrés IV</strong> sont le traitement roi (vasodilatation artérielle et veineuse rapide).<br>• Si PAS < 90 mmHg (OAP avec choc cardiogénique) : Contre-indication formelle aux dérivés nitrés ! Recours immédiat aux inotropes positifs (Dobutamine 5-20 mcg/kg/min IVSE) et Noradrénaline.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais prescrire de dérivés nitrés si la PAS est inférieure à 100 mmHg ou en cas de prise récente d'inhibiteurs de la PDE-5 (Viagra/Cialis).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La VNI précoce réduit le recours à l'intubation trachéale de plus de 50% et diminue la mortalité intrahospitalière.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours rechercher un facteur déclenchant : poussée d'HTA, rupture de traitement diurétique, fibrillation atriale rapide, ischémie myocardique aiguë.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_dissection_aortique",
+    "slug": "dissection-aortique-aigue-urgence",
+    "title": "Fiche Urgence : 4. Dissection Aortique Aiguë",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Douleur thoracique brutale, déchirante, migratrice, irradiant dans le dos et entre les omoplates.",
+      "Asymétrie tensionnelle (> 20 mmHg entre les deux bras) et abolition d'un pouls périphérique.",
+      "Classification de Stanford : Type A (aorte ascendante = chirurgie immédiate) vs Type B (aorte descendante = médical).",
+      "Examen diagnostique de référence : Angioscanner aortique (aorte thoraco-abdomino-pelvienne) en urgence."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Classification de Stanford</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Stanford A (65%) :</strong> Touche l'aorte ascendante (avec ou sans l'aorte descendante). Risque mortel de rupture péricardique (tamponnade), d'insuffisance aortique aiguë et d'occlusion coronaire.<br>• <strong>Stanford B (35%) :</strong> Limité à l'aorte descendante en aval de l'artère sous-clavière gauche.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Prise en Charge Médicale Initiale</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Objectif hémodynamique strict :<br>• <strong>Fréquence cardiaque cible :</strong> < 60 bpm.<br>• <strong>PAS cible :</strong> 100-120 mmHg.<br>• Bêtabloquant IV d'action rapide : Esmolol (Brevibloc) ou Labétalol (Trandate) IVSE en première intention.<br>• Vasodilatateur (Nicardipine) ajouté UNIQUEMENT après blocage bêta.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Piège Vital : Ne Jamais Vasodilater Seul !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'administration d'un vasodilatateur pur (Nicardipine) sans bêtabloquant préalable provoque une tachycardie réflexe et augmente la contrainte de cisaillement pariétal aortique (dP/dt), accélérant la propagation et la rupture de la dissection !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toute suspicion de dissection aortique contre-indique formellement les anticoagulants, les antiagrégants et la fibrinolyse (risque de rupture cataclysmique) !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'angioscanner aortique avec injection au temps artériel précoce est l'examen de choix ; l'ETO n'est réalisée qu'en cas d'instabilité extrême au déchocage.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La présence d'un souffle diastolique d'insuffisance aortique de novo associé à une douleur thoracique rétro-dorsale signe une dissection de type A.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_tamponnade",
+    "slug": "tamponnade-pericardique-aigue-urgence",
+    "title": "Fiche Urgence : 5. Tamponnade Péricardique Aiguë",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Choc obstructif par compression des cavités droites par un épanchement péricardique abondant ou d'installation rapide.",
+      "Triade classique de Beck : Hypotension artérielle + Turgescence des veines jugulaires + Assourdissement des bruits du cœur.",
+      "Pouls paradoxal de Kussmaul (baisse de la PAS > 10 mmHg à l'inspiration spontanée).",
+      "Traitement salvateur : Ponction péricardique sous-xiphoïdienne d'évacuation (ou drainage chirurgical)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes Cliniques & ECG</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Triade de Beck :</strong> Hypotension, turgescence jugulaire majeure (avec reflux hépato-jugulaire), bruits du cœur lointains.<br>• <strong>ECG :</strong> Microvoltage diffus (< 5 mm dans les dérivations frontales) et alternance électrique du QRS (variations de l'axe battement après battement).<br>• Tachycardie sinusale compensatrice constante.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Échocardiographie (ETT) Immédiate</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Examen clé au lit du malade :<br>• Épanchement circonférentiel abondant.<br>• Collapsus télé-diastolique de l'oreillette droite puis du ventricule droit.<br>• Dilatation majeure de la veine cave inférieure (sans collapsus inspiratoire).<br>• Variations respiratoires excessives des flux transmitral (> 25%) et transtricuspide (> 40%).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Mesures Réanimatoires Vitales\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• <strong>Remplissage vasculaire massif</strong> par cristalloïdes (NaCl 0.9%) pour maintenir la précharge ventriculaire droite.<br>• <strong>Contre-indication absolue :</strong> Diurétiques et vasodilatateurs (effondrent le retour veineux et entraînent l'arrêt cardiaque immédiat) !<br>• Éviter la ventilation mécanique en pression positive si possible (aggrave la chute du retour veineux).</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais donner de diurétique à un patient suspect de tamponnade péricardique !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La ponction péricardique d'urgence se fait par voie sous-xiphoïdienne (aiguille orientée vers l'épaule gauche à 45° sous contrôle échographique continu).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'alternance électrique à l'ECG est quasi pathognomonique du cœur oscillant (swinging heart) dans la cavité péricardique inondée.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_fa_rapide",
+    "slug": "fibrillation-atriale-rapide-mal-toleree",
+    "title": "Fiche Urgence : 6. Fibrillation Atriale Rapide Mal Tolérée",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Tachyarythmie supraventriculaire désorganisée avec rythme ventriculaire irrégulièrement irrégulier > 130-150 bpm.",
+      "Si instabilité hémodynamique (choc, OAP, angor) : Cardioversion électrique synchronisée immédiate (100-200 Joules).",
+      "Si stabilité : Ralentissement de la fréquence ventriculaire (Bêtabloquant IV ou Amiodarone IV).",
+      "Anticoagulation précoce indispensable selon le score CHA2DS2-VASc."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Évaluation de la Tolérance</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Critères d'instabilité :</strong> Hypotension (PAS < 90 mmHg), OAP floride, angor réfractaire, altération de la conscience.<br>• Si instable = Urgence vitale : <strong>Choc Électrique Externe (CEE) synchronisé</strong> sous sédation courte + bolus d'Héparine IV.<br>• Si stable = Stratégie de contrôle de la fréquence cardiaque (Rate control).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Médicaments Ralentisseurs</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Fonction VG préservée :</strong> Bêtabloquant IV (Métoprolol 2.5-5 mg IVD) ou Vérapamil/Diltiazem.<br>• <strong>Altération FEVG / Insuffisance cardiaque :</strong> Amiodarone 300 mg IV sur 30 min puis 900 mg/24h, ou Digoxine IV lente.<br>• Objectif initial : FC < 110 bpm au repos.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Règle des 48 Heures pour la Cardioversion d'un Patient Stable\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Si la FA évolue depuis plus de 48 heures (ou durée indéterminée), la cardioversion immédiate est contre-indiquée en dehors de l'urgence vitale en raison du risque d'embolie systémique. Deux options : anticoagulation efficace pendant 3 semaines avant CEE, ou Échocardiographie Transœsophagienne (ETO) pour éliminer formellement un thrombus de l'auricule gauche.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours synchroniser le défibrillateur sur l'onde R pour la cardioversion de la FA afin d'éviter de déclencher une fibrillation ventriculaire (phénomène R-sur-T).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais administrer d'inhibiteur calcique bradycardisant (Vérapamil/Diltiazem) si la FEVG est altérée ou chez un patient en OAP.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas de FA pré-excitée sur syndrome de Wolff-Parkinson-White, l'amiodarone, la digoxine et les inhibiteurs calciques sont contre-indiqués (favorisent la conduction par la voie accessoire avec risque de FV) ; le traitement est le CEE ou l'Ibutilide.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_acr_tv_fv",
+    "slug": "arret-cardio-respiratoire-acr-tv-fv",
+    "title": "Fiche Urgence : 7. Arrêt Cardio-Respiratoire (ACR) : Rythmes Chocables",
+    "specialtyId": "cardio",
+    "specialtyName": "Cardiologie & Pathologies Vasculaires",
+    "category": "Urgence Cardiovasculaire",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Reconnaissance immédiate : Inconscience + Absence de respiration normale (gasps) + Absence de pouls carotidien (< 10s).",
+      "Rythmes chocables : Fibrillation Ventriculaire (FV) et Tachycardie Ventriculaire sans pouls (TV).",
+      "Compressions thoraciques continues de haute qualité : 100-120/min, profondeur 5-6 cm, ratio 30:2.",
+      "Défibrillation précoce : 1er choc à 150-200 Joules biphasiques, reprise immédiate du MCE sans interruption."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Algorithme des Rythmes Chocables</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Choc 1 :</strong> 150-200 J biphasique -> MCE 2 minutes.<br>• <strong>Choc 2 :</strong> 200 J -> MCE 2 minutes.<br>• <strong>Choc 3 :</strong> 200 J -> <strong>Adrénaline 1 mg IVD</strong> + <strong>Amiodarone 300 mg IVD</strong> (diluée dans du G5%).<br>• <strong>Choc 5 :</strong> Répéter Adrénaline 1 mg + 2ème dose Amiodarone 150 mg IVD.<br>• Adrénaline répétée ensuite toutes les 3 à 5 minutes (un cycle sur deux).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Qualité des Compressions (ERC 2025)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Fréquence : 100 à 120 compressions par minute.<br>• Profondeur : 5 à 6 cm chez l'adulte.<br>• Relâchement thoracique complet entre chaque compression.<br>• Minimiser au maximum les interruptions de massage (< 5 secondes lors des chocs).<br>• Relais des masseurs toutes les 2 minutes pour éviter l'épuisement.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Recherche Systématique des Causes Réversibles (Les 4H et 4T)\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• <strong>4 H :</strong> Hypoxie, Hypovolémie, Hypo/Hyperkaliémie & désordres métaboliques, Hypothermie.<br>• <strong>4 T :</strong> Thrombose coronaire (SCA) ou pulmonaire (EP), Tamponnade péricardique, Tension (Pneumothorax suffocant), Toxiques.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais vérifier le pouls ou analyser le rythme immédiatement après la délivrance du choc électrique : reprendre immédiatement le MCE pour 2 minutes entières !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Dans les rythmes chocables (FV/TV), l'adrénaline n'est injectée qu'APRÈS le 3ème choc (et non au début comme dans l'asystolie).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas d'asystolie ou de dissociation électromécanique (rythmes NON chocables) : Adrénaline 1 mg IVD immédiatement dès la pose de la voie veineuse.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_embolie_pulmonaire_grave",
+    "slug": "embolie-pulmonaire-grave-choc-urgence",
+    "title": "Fiche Urgence : 8. Embolie Pulmonaire à Haut Risque (Choc & Gravité)",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Urgence Respiratoire",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition de l'EP à haut risque : Présence d'un état de choc cardiogénique ou d'une hypotension persistante (PAS < 90 mmHg).",
+      "Échocardiographie au lit du malade : Dilatation du VD, septum paradoxal, rapport VD/VG > 1, signe de McConnell.",
+      "Traitement de première intention : Fibrinolyse systémique immédiate (rtPA / Altéplase 100 mg sur 2h).",
+      "Anticoagulation par Héparine Non Fractionnée (HNF) IV débutée dès la suspicion diagnostique."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Stratification Pronostique ESC</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Haut risque :</strong> Choc / Hypotension persistante (mortalité > 15-30%).<br>• <strong>Risque intermédiaire-élevé :</strong> Normotendu mais dysfonction VD à l'ETT/scanner ET Troponine élevée.<br>• <strong>Risque intermédiaire-faible :</strong> Un seul des deux marqueurs positif.<br>• <strong>Bas risque :</strong> Score sPESI = 0, pas de dysfonction VD ni biomarqueurs.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Protocole de Fibrinolyse Systémique</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Altéplase (rtPA) :</strong> 100 mg IV perfusé sur 2 heures (ou 0.6 mg/kg sur 15 min en cas d'ACR imminent).<br>• <strong>HNF concomitante :</strong> Bolus 80 UI/kg puis perfusion continue 18 UI/kg/h ciblée sur TCA 2 à 2.5.<br>• Si contre-indication absolue à la thrombolyse : Embolectomie chirurgicale ou thrombectomie percutanée.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Remplissage Vasculaire Restrictif\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Dans l'EP massive, le ventricule droit est en faillite aiguë. Un remplissage excessif aggrave la dilatation ventriculaire droite et majore la compression du VG (septum paradoxal). Limiter le remplissage à 500 mL de sérum salé 0.9% sur 15-30 min ; introduire précocement la Noradrénaline pour restaurer la pression de perfusion coronaire droite.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais attendre le résultat de l'angioscanner thoracique pour débuter l'héparine chez un patient suspect d'EP en détresse !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Chez le patient en arrêt cardiorespiratoire sur suspicion d'EP massive, la fibrinolyse IV en bolus est indiquée et la réanimation cardio-pulmonaire doit être poursuivie pendant au moins 60 à 90 minutes.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le dosage des D-Dimères n'a AUCUNE indication chez un patient avec probabilité clinique forte ou en état de choc (inutile et retarde la prise en charge).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_asthme_aigu_grave",
+    "slug": "asthme-aigu-grave-aag-reanimation",
+    "title": "Fiche Urgence : 9. Asthme Aigu Grave (AAG / Exacerbation Sévère)",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Urgence Respiratoire",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Signes d'extrême gravité : Silence auscultatoire, parole impossible, bradypnée, cyanose, sueurs, pouls paradoxal.",
+      "DEP (Débit Expiratoire de Pointe) < 30-50% de la valeur théorique ou du meilleur score personnel.",
+      "Nébulisations répétées en continu de Bêta-2 mimétiques (Salbutamol 5 mg) + Anticholinergique (Ipratropium 0.5 mg) sous O2.",
+      "Corticothérapie systémique précoce (Méthylprednisolone 1 mg/kg IV) + Sulfate de Magnésium IV."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes de Faillite Respiratoire</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Cliniques :</strong> Thorax bloqué distendu, silence auscultatoire complet (danger de mort imminente !), sueurs, agitation puis somnolence.<br>• <strong>Hémodynamiques :</strong> Tachycardie > 120 bpm, pouls paradoxal > 20 mmHg, collapsus.<br>• <strong>Gazométrie :</strong> Une PaCO2 normale ou élevée (> 40 mmHg) traduit un épuisement diaphragmatique sévère.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Schéma Thérapeutique Progressif</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Oxygène :</strong> Débit 6-8 L/min pour SpO2 93-95%.<br>2. <strong>Nébulisation sous 6-8 L/min O2 :</strong> Salbutamol 5 mg + Ipratropium 0.5 mg toutes les 20 min pendant 1h.<br>3. <strong>Corticothérapie IV :</strong> Méthylprednisolone 1 mg/kg IVD d'emblée.<br>4. <strong>Sulfate de Magnésium :</strong> 2 g IV sur 20 minutes.<br>5. <strong>Adrénaline SC/IV titrée :</strong> Si collapsus ou bronchospasme asphyxique rebelle.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Gazométrie : Le Piège de la Normocapnie\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Au début de la crise d'asthme, l'hyperventilation entraîne une hypocapnie profonde (PaCO2 < 35 mmHg). Une PaCO2 qui 'se normalise' ou augmente chez un asthmatique en crise traduit l'épuisement musculaire respiratoire et annonce l'arrêt respiratoire imminent !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais administrer de sédatifs ou d'anxiolytiques chez un patient en crise d'asthme aigu (facteur majeur de décès par arrêt respiratoire) !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'intubation orotrachéale dans l'AAG est grevée d'une lourde morbi-mortalité (barotraumatisme, collapsus de reventilation) ; elle est réservée à l'arrêt respiratoire avéré ou au coma.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le silence auscultatoire chez un dyspnéique n'est pas un signe d'amélioration, mais le témoin d'une obstruction bronchique quasi totale.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_decompensation_bpco",
+    "slug": "decompensation-aigue-bpco-acidose-respiratoire",
+    "title": "Fiche Urgence : 10. Décompensation Aiguë de BPCO & Acidose Respiratoire",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Urgence Respiratoire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Aggravation aiguë de la dyspnée, de la toux et du volume/purulence de l'expectoration (critères d'Anthonisen).",
+      "Gazométrie artérielle en air ambiant indispensable : Acidose respiratoire hypercapnique (pH < 7.35, PaCO2 > 45 mmHg).",
+      "Ventilation Non Invasive (VNI mode BiPAP) : Traitement de référence en cas d'acidose respiratoire décompensée.",
+      "Objectif d'oxygénothérapie très strict : SpO2 88-92% (risque d'hypoventilation alvéolaire majeure sous fort débit)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Indications de la VNI (BiPAP)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">La VNI est indiquée en urgence si :<br>• Acidose respiratoire avec <strong>pH < 7.35</strong> et <strong>PaCO2 > 45 mmHg</strong> persistant malgré le traitement médical initial bien conduit.<br>• Réduit la mortalité, le recours à l'intubation et les infections nosocomiales.<br>• Évaluation du gaz du sang à H1-H2 de VNI.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Conduite Médicale Systématique</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Oxygénothérapie contrôlée :</strong> Lunettes à débit adapté (1-2 L/min) pour SpO2 cible 88-92%.<br>• <strong>Bronchodilatateurs nébulisés :</strong> Bêta-2 mimétiques + Ipratropium.<br>• <strong>Corticothérapie :</strong> Prednisone 40 mg/j PO pendant 5 jours.<br>• <strong>Antibiotiques :</strong> Indiqués si crachats verdâtres (Anthonisen I) : Augmentin ou Macrolide ou C3G.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Danger Mortel : L'Oxygène à Fort Débit\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'administration intempestive d'oxygène à fort débit chez le patient BPCO supprime le stimulus hypoxique de la commande ventilatoire centrale, augmente l'effet espace mort et conduit au coma hypercapnique d'inondation.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais viser une SpO2 à 98-100% chez un insuffisant respiratoire chronique hypercapnique (SpO2 cible = 88 à 92%).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Contre-indications de la VNI : Coma profond (GCS < 8), arrêt cardiorespiratoire, instabilité hémodynamique sévère, vomissements incoercibles, vomiques.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours réaliser une radiographie pulmonaire au lit du malade pour éliminer un pneumothorax ou une atélectasie par encombrement.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_pneumothorax_compressif",
+    "slug": "pneumothorax-compressif-sous-tension-urgence",
+    "title": "Fiche Urgence : 11. Pneumothorax Compressif Sous Tension",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Urgence Thoracique",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Mécanisme à soupape créant une hyperpression intra-thoracique avec déviation médiastinale et collapsus des veines caves.",
+      "Diagnostic 100% CLINIQUE en détresse vitale : Tympanisme unilatéral + Abolition du MV + Turgescence jugulaire + Hypotension.",
+      "INTERDICTION ABSOLUE d'attendre la radiographie pulmonaire !",
+      "Geste salvateur immédiat : Décompression à l'aiguille (angiocathéter 14G ou 16G) puis drainage thoracique."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Triade Clinique d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Syndrome d'épanchement gazeux :</strong> Asymétrie thoracique, tympanisme percuté, abolition du murmure vésiculaire et des vibrations vocales.<br>• <strong>Retentissement hémodynamique :</strong> Choc obstructif, turgescence jugulaire bilatérale, tachycardie, déviation trachéale controlatérale.<br>• Emphysème sous-cutané cervical fréquent.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Technique de Décompression Immédiate</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Sites recommandés (ATLS) :</strong><br>1. 2ème Espace Intercostal sur la ligne médio-claviculaire au bord supérieur de la côte inférieure.<br>2. Ou 4ème/5ème Espace Intercostal sur la ligne axillaire antérieure.<br>• Insertion d'un cathéter de gros calibre (14-16G) : biseautage avec issue immédiate d'un souffle d'air sous pression confirmant la réussite.<br>• Pose d'un drain thoracique au bocal ensuite.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Erreur Fatale au Concours & en Garde\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Demander une radiographie pulmonaire ou un scanner chez un patient présentant un pneumothorax suffocant en état de choc est une faute médicale lourde. Le patient fera un arrêt cardiaque en salle de radiologie !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le diagnostic de pneumothorax compressif sous tension est exclusivement clinique : la décompression à l'aiguille prime sur tout examen d'imagerie.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours piquer au bord supérieur de la côte inférieure pour éviter de léser le paquet vasculo-nerveux intercostal sous-costal.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Chez un patient ventilé au respirateur sous pression positive, l'apparition d'une hypotension brutale avec hausse des pressions d'insufflation doit faire évoquer un pneumothorax sous tension bilatéral.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_hemoptysie_massive",
+    "slug": "hemoptysie-massive-urgence-asphyxique",
+    "title": "Fiche Urgence : 12. Hémoptysie Massive (> 100-200 mL / 24h)",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Urgence Respiratoire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Rejet par la bouche de sang rouge vif aéré lors d'un effort de toux : le risque principal est l'ASPHYXIE par inondation bronchique.",
+      "Décubitus latéral strict du CÔTÉ DU SAIGNEMENT (pour préserver le poumon sain sous-jacent).",
+      "Perfusion d'agents vasoconstricteurs (Terlipressine) et acide tranexamique IV.",
+      "Angio-TDM thoracique pour repérer les artères bronchiques hypertrophiées, suivi d'Embolisation artérielle bronchique."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Mesures de Réanimation Immédiates</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Positionnement :</strong> Demi-assis ou décubitus latéral du côté supposé saignant.<br>• <strong>Libération des voies aériennes :</strong> Oxygène à fort débit, aspiration au lit du malade.<br>• <strong>Fibroscopie bronchique souple :</strong> Au lit du malade, permet d'aspirer les caillots, localiser l'origine et instiller du sérum glacé adrénaliné.<br>• Arrêt immédiat de tout traitement anticoagulant ou antiagrégant.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Traitements Hémostatiques & Vasculaires</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Acide tranexamique (Exacyl) :</strong> 1 g IV sur 15 min puis 1 g toutes les 8h.<br>• <strong>Terlipressine (Glypressine) :</strong> 1 à 2 mg IVL si absence de coronaropathie.<br>• <strong>Embolisation artérielle bronchique :</strong> Traitement de référence en radiologie interventionnelle en cas de persistance du saignement.<br>• Chirurgie d'hémostase (résection) en dernier recours si échec.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Gravité de l'Hémoptysie : Volume vs Terrains\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'hémoptysie est dite grave dès 100 à 200 mL en un seul jet, ou dès le moindre saignement chez un patient respiratoire précaire (BPCO, séquelles de tuberculose, DDB) par risque d'inondation de l'arbre respiratoire.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le patient qui décède d'une hémoptysie meurt asphyxié et noyé dans son propre sang, et non de spoliation sanguine hémodynamique !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas d'intubation trachéale d'extrême urgence, utiliser une sonde sélective de Carlens ou réaliser une intubation sélective du poumon sain.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La principale étiologie en Algérie et au Maghreb reste la séquelle de tuberculose pulmonaire (aspergillome sur cavité résiduelle et bronchectasies).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_pneumonie_grave",
+    "slug": "pneumonie-aigue-communautaire-grave-crb65",
+    "title": "Fiche Urgence : 13. Pneumonie Aiguë Communautaire Grave (PFLA / Sepsis)",
+    "specialtyId": "pneumo",
+    "specialtyName": "Pneumologie",
+    "category": "Urgence Respiratoire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Triade début brutal : Frisson solennel unique + Fièvre > 39-40°C + Point de côté thoracique et expectorations rouillées (Pneumocoque).",
+      "Évaluation de la gravité au premier regard : Scores CRB-65 (en ambulatoire) et CURB-65 / Pneumonia Severity Index (PSI).",
+      "Signes d'hospitalisation en réanimation : Choc septique nécessitant vasopresseurs ou nécessité de ventilation mécanique.",
+      "Antibiothérapie probabiliste d'urgence dans les 4h : C3G IV (Ceftriaxone 2g) + Macrolide IV (Spiramycine ou Clarithromycine)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Score CRB-65 (1 point par item)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>C :</strong> Confusion mentale.<br>• <strong>R :</strong> Fréquence respiratoire ≥ 30/min.<br>• <strong>B :</strong> Pression artérielle basse (PAS < 90 ou PAD ≤ 60 mmHg).<br>• <strong>65 :</strong> Âge ≥ 65 ans.<br><em>Score 0 :</em> Traitement à domicile.<br><em>Score ≥ 1 :</em> Hospitalisation requise.<br><em>Score ≥ 2 :</em> Hospitalisation impérative, envisager soins intensifs.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Schémas Antibiotiques Recommandés</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>En hospitalisation conventionnelle :</strong> Amoxicilline-Acide clavulanique 1g x 3/j IV ou Céfotaxime 1g x 3/j (ou Ceftriaxone 1g/j) +/- Macrolide.<br>• <strong>En Réanimation / USI :</strong> Céfotaxime 2g x 3/j IV (ou Ceftriaxone 2g/j) + Lévofloxacine 500 mg x 2/j IV ou Clarithromycine 500 mg x 2/j IV (couverture Légionelle + Pneumocoque de sensibilité diminuée).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Antigénuries Solubles en Urgence\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Chez tout patient hospitalisé pour PAC grave, réaliser immédiatement l'antigénurie Légionelle sérogroupe 1 et l'antigénurie Pneumocoque dans les urines avant ou en parallèle de la première injection d'antibiotique.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le délai de la première dose d'antibiothérapie doit être inférieur à 4 heures (inférieur à 1h en cas de sepsis ou choc septique).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Une radiographie thoracique normale au début de la maladie ne récuse pas le diagnostic si la déshydratation est majeure (foyer apparaissant après réhydratation).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'amoxicilline seule ne couvre pas les bactéries intracellulaires (Legionella pneumophila, Mycoplasma pneumoniae) : association indispensable dans les formes graves.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_avc_ischemique",
+    "slug": "avc-ischemique-aigu-thrombolyse-thrombectomie",
+    "title": "Fiche Urgence : 14. Accident Vasculaire Cérébral Ischémique Aigu",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neuro-Urgence",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Déficit neurologique focal d'installation brutale : FAST (Face, Arm, Speech, Time).",
+      "Imagerie cérébrale immédiate : IRM cérébrale (Diffusion/FLAIR/T2*/3D TOF) en 1ère intention ou TDM sans injection.",
+      "Fibrinolyse intraveineuse par rtPA (Altéplase 0.9 mg/kg) éligible jusqu'à 4h30 après le début des symptômes.",
+      "Thrombectomie mécanique par voie endovasculaire jusqu'à 6h (et jusqu'à 24h selon critères de mismatch perfusion)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Chronologie & Fenêtres Thérapeutiques</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>< 4h30 :</strong> Thrombolyse IV par rtPA (Altéplase 0.9 mg/kg, max 90 mg : 10% en bolus puis 90% sur 1h).<br>• <strong>< 6h (voire 24h) :</strong> Thrombectomie mécanique par stent retriever si occlusion proximale d'un gros tronc (carotide interne, tronc de l'artère cérébrale moyenne M1).<br>• Respecter l'heure de début exacte (ou dernière fois vu normal).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Gestion Rigoureuse de la Pression Artérielle</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Avant thrombolyse :</strong> La PA doit être < 185/110 mmHg. Utiliser Nicardipine (Loxen) ou Labétalol IV.<br>• <strong>Pendant et après thrombolyse :</strong> Maintenir PA < 180/105 mmHg pendant 24h.<br>• <strong>Sans thrombolyse :</strong> Tolérer l'HTA jusqu'à 220/120 mmHg pour préserver la pénombre ischémique !</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Contre-Indications Absolues à la Thrombolyse\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• Hémorragie intracrânienne à l'imagerie.<br>• AVC ischémique sévère ou traumatisme crânien < 3 mois.<br>• Chirurgie majeure < 14 jours, hémorragie gastro-intestinale < 21 jours.<br>• Plaquettes < 100 000/mm3, TP < 50%, INR > 1.7 ou traitement curatif par AOD < 48h.<br>• Glycémie < 0.5 g/L (corriger impérativement avant toute décision : piège de l'hypoglycémie !).</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours vérifier la glycémie capillaire au lit du malade : l'hypoglycémie est le stroke-mimic n°1 simulant un AVC sylvien total !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais baisser brutalement la pression artérielle chez un patient présentant un AVC ischémique non candidat à la thrombolyse (risque d'effondrement de la perfusion dans la zone de pénombre).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne pas administrer d'aspirine ni d'anticoagulant dans les 24 heures suivant la réalisation d'une thrombolyse intraveineuse.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_hemorragie_meningee",
+    "slug": "hemorragie-meningee-sous-arachnoidienne-urgence",
+    "title": "Fiche Urgence : 15. Hémorragie Sous-Arachnoïdienne Non Traumatique",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neuro-Urgence",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Céphalée brutale, explosive, d'emblée maximale en 'coup de tonnerre' (< 1 minute), apyrétique.",
+      "Syndrome méningé au premier plan (raideur de nuque, signe de Kernig et Brudzinski, vomissements en jet, photophobie).",
+      "Scanner cérébral sans injection à réaliser en extrême urgence : hyperdensité spontanée dans les citernes de la base.",
+      "Prévention précoce du vasospasme par Nimodipine IV/PO + Traitement interventionnel de l'anévrisme < 24-48h."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Démarche Diagnostique Graduée</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>TDM cérébral sans injection immédiat :</strong> Sensibilité > 95% dans les 6 premières heures.<br>2. <strong>Ponction Lombaire (PL) :</strong> INDISPENSABLE si le scanner est normal au-delà de la 6e heure !<br>• Liquide surnageant xanthochromique (après centrifugation).<br>• Pression d'ouverture élevée.<br>• Nombre d'érythrocytes stable sur les 3 tubes (élimine la piqûre vasculaire).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Prise en Charge Thérapeutique Spécifique</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Repos au lit strict, pénombre, antalgiques adaptés (éviter AINS et aspirine).<br>• <strong>Nimodipine (Nimotop) :</strong> 60 mg toutes les 4h PO (ou IVSE) pendant 21 jours pour prévenir l'ischémie par vasospasme.<br>• Contrôle de la PAS < 140 mmHg avant exclusion de l'anévrisme.<br>• <strong>Traitement étiologique :</strong> Embolisation endovasculaire par coils (ou clippage neurochirurgical).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Complications Mortelles Précoces\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">• <strong>Récidive hémorragique précoce :</strong> Risque maximal dans les 24 premières heures (mortelle dans 50% des cas).<br>• <strong>Hydrocéphalie aiguë obstructive :</strong> Dilatation des ventricules au scanner nécessitant une dérivation ventriculaire externe (DVE) en urgence.<br>• <strong>Vasospasme artériel cérébral :</strong> Survient typiquement entre J4 et J14.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Un scanner cérébral normal n'élimine JAMAIS une hémorragie méningée : la ponction lombaire reste obligatoire si la clinique est évocatrice !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toute céphalée brutale en coup de tonnerre est une rupture d'anévrisme intracrânien jusqu'à preuve du contraire.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La Nimodipine prévient les séquelles ischémiques du vasospasme, mais ne réduit pas le vasospasme angiographique lui-même.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_etat_de_mal_epileptique",
+    "slug": "etat-de-mal-epileptique-convulsif-generalise",
+    "title": "Fiche Urgence : 16. État de Mal Épileptique Convulsif Généralisé",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neuro-Urgence",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition opérationnelle (ILAE) : Crise convulsive continue > 5 minutes, ou ≥ 2 crises sans reprise de conscience intermédiaire.",
+      "T1 (5 min) : Urgence thérapeutique immédiate pour bloquer la crise et prévenir les lésions neuronales.",
+      "T2 (30 min) : Risque majeur de pharmacorésistance et de séquelles cérébrales irréversibles.",
+      "1ère ligne : Benzodiazépine IV (Clonazépam 1 mg IVD ou Diazépam 10 mg) répétée une seule fois à 5 minutes."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Chronologie Thérapeutique des Urgences</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>0 à 5 min :</strong> Maintien des VAS, O2, PLS, glycémie capillaire, voie veineuse.<br>• <strong>5 min (1ère ligne) :</strong> Clonazépam 1 mg IVD lente (ou Midazolam 10 mg IM si pas de VVP). Répéter à 5 min si échec.<br>• <strong>15 à 30 min (2ème ligne) :</strong> Antiépileptique d'action prolongée IV : Lévétiracétam (Keppra) 60 mg/kg (max 4.5g) ou Valproate de sodium 40 mg/kg ou Phénytoïne.<br>• <strong>> 30-40 min (3ème ligne / Réa) :</strong> Intubation + Anesthésie générale par Propofol ou Midazolam.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Mesures Réanimatoires Associées</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Dépistage étiologique immédiat : Ionogramme (hyponatrémie, hypocalcémie), toxiques sanguins, alcoolisme aigu / sevrage.<br>• Si éthylique chronique suspect : Vitamine B1 (Thiamine) 500 mg IV AVANT tout soluté glucosé (prévention du Gayet-Wernicke).<br>• Surveillance thermique (hyperthermie maligne) et rhabdomyolyse (CPK, myoglobinurie).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Arrêt Respiratoire sous Benzodiazépines\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">La répétition intempestive des bolus de benzodiazépines au-delà de 2 doses expose à l'arrêt respiratoire et à l'effondrement hémodynamique sans efficacité antiépileptique supplémentaire. Si 2 doses échouent, passer impérativement à la 2ème ligne !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Tout coma post-critique persistant sans amélioration après 30-60 minutes doit faire rechercher un état de mal épileptique NON convulsif par un EEG en urgence.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais mettre d'objet dur entre les dents du patient pendant les convulsions (risque de fracture dentaire et d'inhalation bronchique).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En l'absence de voie veineuse périphérique disponible d'emblée, le Midazolam 10 mg par voie intramusculaire est aussi rapide et efficace que le diazépam intraveineux.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_htic_engagement",
+    "slug": "hypertension-intracranienne-htic-engagement-cerebral",
+    "title": "Fiche Urgence : 17. Hypertension Intra-Crânienne & Menace d'Engagement",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neuro-Urgence",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Céphalées matinales en casque, vomissements en jet faciles sans nausée, œdème papillaire au fond d'œil.",
+      "Triade de Cushing (signe tardif d'engagement imminent) : HTA sévère + Bradycardie + Bradypnée irrégulière.",
+      "Engagement temporal (hernie unilatérale) : Mydriase unilatérale aréactive ipsilatérale + Hémiplégie controlatérale.",
+      "Urgence osmotique : Mannitol 20% (0.5 à 1 g/kg) ou Sérum Salé Hypertonique 7.5% en bolus sur 20 min."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Les 3 Types d'Engagements Majeurs</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Sous-falcoriel :</strong> Hernie du gyrus cingulaire sous la faux du cerveau.<br>• <strong>Temporal / Uncal :</strong> Compression du III (mydriase aréactive homolatérale) et du tronc cérébral.<br>• <strong>Amydalien (foramen magnum) :</strong> Hernie des amygdales cérébelleuses comprimant le bulbe rachidien -> Arrêt cardiorespiratoire brutal sans signe focal !</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Mesures d'Urgence Immédiates</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Surélévation de la tête du lit à 30° dans l'axe (favorise le drainage veineux jugulaire).<br>• Éviter les compressions jugulaires (colliers cervicaux trop serrés).<br>• <strong>Osmothérapie :</strong> Mannitol 20% (100 à 200 mL) ou NaCl 7.5% (bolus de 100 mL).<br>• Sédation profonde et intubation précoce avec normocapnie cible (PaCO2 35-38 mmHg).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Contre-Indication Formelle de la Ponction Lombaire\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Toute suspicion clinique d'HTIC ou signe de focalisation neurologique CONTRE-INDIQUE formellement la ponction lombaire avant réalisation d'un scanner cérébral sans injection (risque de décompression sous-tentorielle brutale et d'engagement amygdalien fatal instantané !).</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La ponction lombaire sans scanner cérébral préalable devant une suspicion d'HTIC est une faute médicolégale majeure.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La triade de Cushing est un signe d'alerte ultime d'engagement du tronc cérébral : l'arrêt respiratoire peut survenir dans les minutes qui suivent.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'hyperventilation profonde (PaCO2 < 30 mmHg) doit être évitée en routine car elle induit une vasoconstriction cérébrale majeure avec ischémie tissulaire secondaire.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_guillain_barre",
+    "slug": "syndrome-de-guillain-barre-ascendant-urgence",
+    "title": "Fiche Urgence : 18. Syndrome de Guillain-Barré en Phase Ascendante",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neuro-Urgence",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Polyradiculonévrite aiguë démyélinisante post-infectieuse (Campylobacter jejuni, CMV, EBV).",
+      "Déficit moteur bilatéral, symétrique, d'aggravation ascendante rapide avec abolition précoce des réflexes ostéotendineux (ROT).",
+      "Risque vital : Atteinte des muscles respiratoires (diaphragme) et fausses routes par atteinte des paires crâniennes (IX, X).",
+      "Traitement étiologique en réanimation : Immunoglobulines intraveineuses (IgIV 0.4 g/kg/j pendant 5 jours) ou Échanges Plasmatiques."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Surveillance de la Défaillance Respiratoire</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Critères d'admission en Réanimation / USI :<br>• Évolution rapide du déficit en moins de 48 heures.<br>• Atteinte des muscles respiratoires : Capacité Vitale (CV) < 20 mL/kg, toux inefficace, respiration paradoxale.<br>• Dysautonomie : Variations brutales de la PA et de la FC (risque d'asystolie réflexe).<br>• Troubles de déglutition majeurs.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Examens Complémentaires Clés</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Ponction lombaire :</strong> Dissociation albumino-cytologique (hyperprotéinorachie > 0.5 g/L avec moins de 10 éléments cellulaires/mm3). Attention : peut être normale les 7 premiers jours !<br>• <strong>Électroneuromyogramme (ENMG) :</strong> Allongement des latences distales, ralentissement des vitesses de conduction, bloc de conduction.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Contre-Indication Majeure : Les Corticoïdes !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Les corticoïdes par voie générale (oraux ou IV) sont INÉFFICACES et déconseillés dans le syndrome de Guillain-Barré aigu, car ils n'apportent aucun bénéfice et peuvent ralentir la récupération motrice ultérieure.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais administrer de corticoïdes dans le Guillain-Barré : le traitement de choix repose exclusivement sur les IgIV ou les échanges plasmatiques débutés précocement.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La normalité de la protéinorachie à la ponction lombaire lors de la première semaine n'élimine absolument pas le diagnostic.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le risque d'arythmie cardiaque sévère par dysautonomie impose le scope cardiaque continu en soins intensifs.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_compression_medullaire",
+    "slug": "compression-medullaire-aigue-non-traumatique",
+    "title": "Fiche Urgence : 19. Compression Médullaire Aiguë Non Traumatique",
+    "specialtyId": "neuro",
+    "specialtyName": "Neurologie",
+    "category": "Neuro-Urgence",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence neurochirurgicale absolue : toute heure perdue compromet la récupération motrice et sphinctérienne définitive.",
+      "Association d'un syndrome lésionnel (radiculalgie fixe en ceinture), sous-lésionnel (paraparésie, niveau sensitif) et sphinctérien.",
+      "Signes d'alerte : Troubles mictionnels (rétention urinaire aiguë) et hypoesthésie périnéale en selle.",
+      "Examen diagnostique immédiat : IRM médullaire complète en urgence absolue."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Sémiologie en 3 Niveaux</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>1. Syndrome lésionnel :</strong> Douleur radiculaire constante, impulsive à la toux, fixant la hauteur de la lésion.<br>• <strong>2. Syndrome sous-lésionnel :</strong> Déficit moteur spastique sous la lésion (signe de Babinski bilatéral), niveau sensitif net en dessous duquel toutes les sensibilités sont abolies.<br>• <strong>3. Syndrome rachidien :</strong> Douleur vertébrale localisée, raideur segmentaire.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Conduite Thérapeutique d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Imagerie :</strong> IRM du rachis entier en urgence.<br>2. <strong>Corticothérapie forte dose :</strong> Méthylprednisolone IV bolus (10 mg/kg puis perfusion) pour réduire l'œdème péri-lésionnel tumoral.<br>3. <strong>Sondage vésical :</strong> Évacuation de la rétention aiguë d'urine.<br>4. <strong>Laminectomie décompressive chirurgicale :</strong> À réaliser impérativement dans les 12 à 24 premières heures !</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Piège de la Phase Flasque Initiale\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Au stade très aigu d'une compression médullaire rapide (choc spinal), le syndrome pyramidal est FLASQUE avec hypotonie et abolition des réflexes ostéotendineux, mimant une atteinte périphérique ! Seule la présence d'un niveau sensitif net et du signe de Babinski redresse le diagnostic.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La présence d'un niveau sensitif cutané impose une IRM médullaire et jamais cérébrale !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le délai chirurgical de décompression avant survenue d'un déficit moteur complet définitif est de moins de 24 à 48 heures.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours sonder la vessie : la rétention aiguë d'urine est souvent indolore chez ces patients en raison de l'anesthésie sous-lésionnelle.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.226006Z"
+  },
+  {
+    "id": "fiche_urgence_sepsis_choc_septique",
+    "slug": "choc-septique-sepsis-surviving-sepsis-campaign",
+    "title": "Fiche Urgence : 20. Choc Septique & Sepsis Sévère (Surviving Sepsis)",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie & Maladies Transmissibles",
+    "category": "Urgence Infectieuse & Réa",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition Choc Septique : Sepsis avec hypotension persistante nécessitant des vasopresseurs pour PAM ≥ 65 mmHg ET lactates > 2 mmol/L malgré un remplissage adéquat.",
+      "Dépistage rapide au lit par le score qSOFA (≥ 2 critères) : FR ≥ 22/min, GCS < 15, PAS ≤ 100 mmHg.",
+      "Hour-1 Bundle (dans la 1ère heure) : Dosages lactates, hémocultures, antibiothérapie large spectre, remplissage 30 mL/kg cristalloïdes.",
+      "Vasopresseur de première intention : Noradrénaline IVSE initiée dès l'échec ou en cours de remplissage."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. The Hour-1 Bundle (SSC 2024)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">À débuter dans les 60 minutes :<br>1. Mesurer les <strong>lactates sanguins</strong> (réévaluer si > 2 mmol/L).<br>2. Réaliser les <strong>hémocultures</strong> (2 paires aéro/anaérobie) avant antibiotiques.<br>3. Administrer l'<strong>antibiothérapie IV à large spectre</strong> sans délai.<br>4. Débuter un <strong>remplissage rapide par cristalloïdes (Ringer Lactate) à 30 mL/kg</strong> si hypotension ou lactates ≥ 4 mmol/L.<br>5. Débuter la <strong>Noradrénaline</strong> si PAM < 65 mmHg.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Objectifs Hémodynamiques Clés</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Pression Artérielle Moyenne (PAM) cible : ≥ 65 mmHg.<br>• Diurèse horaire : ≥ 0.5 mL/kg/h.<br>• Clairance des lactates (> 20% de baisse toutes les 2h).<br>• Temps de recoloration cutanée < 2 secondes (test digital).<br>• Corticothérapie (Hydrocortisone 200 mg/j) si choc réfractaire sous fortes doses de Noradrénaline.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Règle d'Or de l'Antibiothérapie dans le Sepsis\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Chaque heure de retard dans l'administration de l'antibiothérapie adaptée lors d'un choc septique augmente la mortalité de 7.6% ! En cas de difficulté de pose de voie pour hémocultures, NE PAS RETARDER l'injection antibiotique.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais attendre la fin du remplissage de 30 mL/kg pour débuter la Noradrénaline si la PAM est effondrée : l'introduction précoce restaure la perfusion coronaire et rénale.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Les solutés colloïdes synthétiques (HEA) et le sérum physiologique à 0.9% en quantité massive sont délétères (acidose hyperchlorémique et néphrotoxicité) : préférer les cristalloïdes balancés (Ringer Lactate).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'absence de fièvre n'élimine pas un sepsis : l'hypothermie (< 36°C) est un signe de gravité extrême associé à une surmortalité.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_purpura_fulminans",
+    "slug": "purpura-fulminans-meningococcemie-urgence",
+    "title": "Fiche Urgence : 21. Purpura Fulminans & Méningococcémie",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie & Maladies Transmissibles",
+    "category": "Urgence Infectieuse & Réa",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence infectieuse absolue : Syndrome fébrile + Purpura ecchymotique ou nécrotique extensif avec au moins un élément nécrotique > 3 mm.",
+      "Geste salvateur immédiat : Injection d'une C3G (Ceftriaxone ou Céfotaxime) IV ou IM SANS ATTENDRE AUCUN EXAMEN NI TRANSFERT !",
+      "Dose d'urgence : Ceftriaxone 2 g IV/IM chez l'adulte (50 à 100 mg/kg chez l'enfant).",
+      "Mesures associées : Isolement gouttelettes, appel du SAMU/réanimation, antibioprophylaxie des sujets contacts (Rifampicine)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Reconnaissance du Purpura Fulminans</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Éléments purpuriques pétéchiaux, ecchymotiques ou nécrotiques d'extension rapide en quelques minutes.<br>• Ne s'efface pas à la vitropression.<br>• Présence d'au moins <strong>un élément nécrotique ou ecchymotique d'au moins 3 mm</strong>.<br>• Signes de choc septique ou d'hypoperfusion périphérique.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Conduite Pratique Immédiate</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Ceftriaxone 2g IV ou IM</strong> (ou Céfotaxime 50-100 mg/kg) immédiatement au cabinet ou domicile.<br>2. Appel immédiat du SAMU (15) pour transfert médicalisé en réanimation.<br>3. Remplissage vasculaire cristalloïdes.<br>4. Isolement respiratoire gouttelettes.<br>5. Déclaration obligatoire à l'ARS/DSP et prophylaxie de l'entourage.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Faute Médicale Grave : Réaliser la Ponction Lombaire d'Abord\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">La ponction lombaire est STRICTEMENT CONTRE-INDIQUÉE avant l'antibiothérapie devant un purpura fulminans (risque d'instabilité hémodynamique et d'aggravation du choc) ! L'antibiothérapie doit être injectée dans les 5 minutes.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Tout retard d'injection antibiotique pour faire un bilan ou une ponction lombaire engage directement la responsabilité pénale du médecin.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Si la voie veineuse est impossible, l'injection se fait immédiatement par voie INTRAMUSCULAIRE (face antéro-latérale de cuisse).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'antibioprophylaxie des sujets contacts (entourage proche dans les 10 jours précédant) repose sur la Rifampicine per os pendant 2 jours (ou Ceftriaxone IM dose unique chez la femme enceinte).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_paludisme_grave",
+    "slug": "paludisme-grave-plasmodium-falciparum-artesunate",
+    "title": "Fiche Urgence : 22. Paludisme Grave d'Importation à Plasmodium falciparum",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie & Maladies Transmissibles",
+    "category": "Urgence Infectieuse & Réa",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Toute fièvre au retour d'une zone d'endémie palustre est un paludisme à Plasmodium falciparum jusqu'à preuve du contraire.",
+      "Critères de gravité de l'OMS : Neuropaludisme (coma, convulsions), détresse respiratoire/OAP, collapsus/choc, ictère, anémie sévère (Hb < 7 g/dL), hémoglobinurie, hyperlactatémie, parasitémie > 10%.",
+      "Diagnostic d'urgence : Frottis sanguin et Goutte Épaisse (ou test de diagnostic rapide TDR).",
+      "Traitement de référence universel : Artésunate intraveineux (2.4 mg/kg à H0, H12, H24 puis 1x/jour)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Critères de Gravité Majeurs (OMS)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Présence d'au moins UN critère :<br>• <strong>Neurologique :</strong> Score de Glasgow < 11, convulsions répétées.<br>• <strong>Respiratoire :</strong> PaO2 < 60 mmHg, OAP lésionnel.<br>• <strong>Hémodynamique :</strong> PAS < 80 mmHg avec marbrures.<br>• <strong>Biologique :</strong> Acidose métabolique (pH < 7.35), créatinine > 265 mcmol/L, hypoglycémie (< 2.2 mmol/L), parasitémie > 10% (ou > 4% chez le non-immun).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Traitement Antiparasitaire d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Artésunate IV :</strong> 2.4 mg/kg à H0, H12, H24 puis 2.4 mg/kg toutes les 24 heures (au moins 3 doses IV jusqu'à relais per os possible par ACT).<br>• Si Artésunate indisponible : Quinine IV (dose de charge 16 mg/kg sur 4h dans du G10% puis 8 mg/kg toutes les 8h) sous surveillance ECG continue (risque d'allongement du QT et hypoglycémie).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Piège Vital sous Quinine : L'Hypoglycémie Réfractaire\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">La quinine stimule directement la sécrétion d'insuline par les cellules bêta pancréatiques. Tout patient sous Quinine IV doit impérativement recevoir une perfusion continue de glucosé (G10%) avec surveillance de la glycémie capillaire toutes les 2 heures !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'Artésunate IV a supplanté la Quinine IV comme traitement de référence mondial (réduction de 35% de la mortalité et absence de risque d'hypoglycémie iatrogène).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Surveillance post-artésunate : Risque d'anémie hémolytique retardée survenant 1 à 3 semaines après le traitement (surveiller NFS et réticulocytes à J7, J14 et J21).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Un accès pernicieux palustre peut survenir même avec une parasitémie basse en raison de la séquestration érythrocytaire dans les capillaires cérébraux profonds.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_fasciite_necrosante",
+    "slug": "fasciite-necrosante-dhbn-urgence-chirurgicale",
+    "title": "Fiche Urgence : 23. Dermohypodermite Bactérienne Nécrosante & Fasciite",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie & Maladies Transmissibles",
+    "category": "Urgence Infectieuse & Réa",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Infection nécrosante aiguë des tissus mous sous-cutanés et des aponévroses musculaires (Streptococcus pyogenes, flore mixte anaérobie).",
+      "Signe cardinal d'alerte : DOULEUR disproportionnée par rapport aux signes inflammatoires cutanés initiaux.",
+      "Signes d'aggravation : Hypoesthésie cutanée centrale (nécrose des filets nerveux), crépitation gazeuse, phlyctènes hémorragiques, marbrures, état de choc.",
+      "Traitement salvateur : Débridement chirurgical d'extrême urgence en bloc opératoire + Antibiothérapie triple IV large spectre."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes Distinctifs DHB vs DHBN</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Érysipèle (DHB simple) :</strong> Bourrelet périphérique net, pas de nécrose, pas de choc, douleur modérée sensible aux antalgiques.<br>• <strong>Fasciite nécrosante (DHBN) :</strong> Pas de bourrelet, placards bleuâtres violacés froids et insensibles (anesthésie locale pathognomonique), crépitation sous-cutanée neigeuse, défaillance multiviscérale.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Stratégie Médico-Chirurgicale</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Chirurgie immédiate sans délai :</strong> Exploration, excision large et parage agressif de tous les tissus et fascias nécrosés.<br>2. <strong>Antibiothérapie triple IV :</strong> Pénicilline G (ou Amoxicilline-Clavulanique) + Clindamycine (effet anti-toxinique majeur) + Aminoside (Gentamicine).<br>3. Réanimation hydro-électrolytique lourde et oxygénothérapie hyperbare adjuvante.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Contre-Indication Formelle : Les AINS !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">La prise d'Anti-Inflammatoires Non Stéroïdiens (Ibuprofène, Kétoprofène) lors d'une infection cutanée débutante est un facteur de risque majeur de bascule vers une fasciite nécrosante foudroyante par blocage de la réponse leucocytaire immunitaire locale !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais attendre la crépitation sous-cutanée ou la nécrose cutanée patente pour opérer : quand elles apparaissent, le pronostic vital est déjà engagé dans plus de 50% des cas !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La clindamycine est indispensable car elle bloque la synthèse ribosomique des toxines pyrogènes streptococciques (effet Eagle).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Au niveau périnéal et scrotal, la fasciite nécrosante constitue la gangrène de Fournier (urgence urologique et proctologique).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_choc_anaphylactique",
+    "slug": "choc-anaphylactique-severe-adrenaline-im",
+    "title": "Fiche Urgence : 24. Choc Anaphylactique Sévère (Grade III - IV)",
+    "specialtyId": "infectieux",
+    "specialtyName": "Infectiologie & Maladies Transmissibles",
+    "category": "Urgence Vitale & Allergie",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Réaction d'hypersensibilité systémique sévère d'apparition brutale engageant le pronostic vital dans les minutes suivant l'exposition à un allergène.",
+      "Tableau associant signes cutanéo-muqueux (urticaire géant, œdème de Quincke) + signes respiratoires (bronchospasme, stridor) + collapsus cardiovasculaire.",
+      "Seul traitement curatif d'urgence : ADRÉNALINE PAR VOIE INTRAMUSCULAIRE (face antéro-latérale de la cuisse).",
+      "Dose de référence : 0.5 mg chez l'adulte (0.3 mg chez l'enfant), renouvelable toutes les 5 à 15 minutes."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Posologies de l'Adrénaline IM</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Adulte :</strong> 0.5 mg IM (soit 0.5 mL de la solution à 1 mg/mL = 1:1000 non diluée).<br>• <strong>Enfant > 12 ans :</strong> 0.5 mg IM.<br>• <strong>Enfant 6-12 ans :</strong> 0.3 mg IM.<br>• <strong>Enfant < 6 ans :</strong> 0.15 mg IM.<br>• Injection à répéter à 5-10 min si l'état respiratoire ou tensionnel ne s'améliore pas.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Mesures Réanimatoires Concomitantes</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Position :</strong> Décubitus dorsal strict avec jambes surélevées (Trendelenburg). Jamais debout ni assis !<br>• <strong>Oxygène :</strong> Masque à haute concentration 10-15 L/min.<br>• <strong>Remplissage vasculaire rapide :</strong> Cristalloïdes 20 à 30 mL/kg en 15-20 min.<br>• Corticoïdes IV et antihistaminiques : traitements secondaires pour prévenir le rebond tardif (ne sauvent pas la vie en phase aiguë !).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Piège Mortel : Le Redressement Brutal du Patient !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Relever un patient en choc anaphylactique en position assise ou debout peut provoquer un désamorçage cardiaque immédiat et fatal par chute catastrophique du retour veineux cave inférieur (Empty Heart Syndrome).</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'adrénaline doit être administrée par voie INTRAMUSCULAIRE et non sous-cutanée (absorption erratique) ni intraveineuse directe sans dilution (risque de fibrillation ventriculaire et d'IDM).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Les corticoïdes n'ont aucun effet sur le bronchospasme immédiat ni sur le collapsus (délai d'action de 4 à 6 heures) : ils ne doivent JAMAIS retarder l'adrénaline !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Surveillance obligatoire en milieu hospitalier pendant au moins 12 à 24 heures en raison du risque de réaction biphasique secondaire.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_pancreatite_aigue",
+    "slug": "pancreatite-aigue-grave-balthazar-ranson",
+    "title": "Fiche Urgence : 25. Pancréatite Aiguë Grave (Balthazar & Ranson)",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "category": "Urgence Médico-Chirurgicale",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Douleur épigastrique transfixiante brutale en coup de poignard avec position antalgique en chien de fusil + Lipasémie > 3x la normale.",
+      "Le scanner abdomino-pelvien injecté n'est indiqué qu'à 48-72h du début pour évaluer la nécrose (Score CTSI de Balthazar).",
+      "Étiologies principales : Lithiase biliaire (45%) et Alcoolisme chronique (40%).",
+      "Traitement médical réanimatoire prioritaire : Remplissage hydro-électrolytique précoce et analgésie multimodale."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Scores Pronostiques de Gravité</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Score de Ranson (à H0 et H48) :</strong> Âge > 55 ans, GB > 16 000, glycémie > 11 mmol/L, LDH > 350 UI/L, ASAT > 250 UI/L.<br>• <strong>Score de Balthazar (TDM à H72) :</strong> De A (pancréas normal) à E (≥ 2 coulées liquidiennes / gaz) + % de nécrose glandulaire.<br>• <strong>Score SIRS persistant à 48h :</strong> Meilleur indicateur précoce de défaillance multiviscérale.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Principes Thérapeutiques Modernes</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Remplissage vasculaire précoce :</strong> Ringer Lactate 200 à 300 mL/h les 24 premières heures (prévient la nécrose ischémique).<br>• <strong>Nutrition :</strong> Reprise entérale précoce (orale ou sonde naso-jéjunale) dès que la douleur le permet.<br>• <strong>Antibiotiques :</strong> AUCUNE antibioprophylaxie systématique n'est indiquée !<br>• Sphinctérotomie endoscopique urgente si angiocholite associée.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Piège Classique du Scanner Précipité\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Réaliser le scanner abdominal dans les 12 premières heures sous-estime systématiquement la nécrose pancréatique et ne change pas la prise en charge initiale. Le scanner de référence pour le calcul du score de Balthazar doit être fait entre la 48e et la 72e heure.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le taux de lipasémie n'a AUCUNE corrélation avec la gravité de la pancréatite (une lipasémie à 50x la normale peut être une pancréatite bénigne, et inversement).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais mettre d'antibiotiques à titre prophylactique dans la pancréatite aiguë nécrosante : ils favorisent la sélection de germes multirésistants et fongiques.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas de pancréatite biliaire sans angiocholite, la cholécystectomie doit être réalisée au cours de la même hospitalisation dès résolution des symptômes.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_occlusion_mecanique",
+    "slug": "occlusion-intestinale-aigue-mecanique-strangulation",
+    "title": "Fiche Urgence : 26. Occlusion Intestinale Aiguë Mécanique (Strangulation)",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "category": "Urgence Chirurgicale",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Syndrome occlusif complet : Douleurs abdominales, vomissements, arrêt précoce des matières et des gaz, météorisme abdominal.",
+      "Distinguer impérativement Occlusion par Strangulation (urgence chirurgicale à l'heure) et Occlusion par Obstruction.",
+      "Rechercher systématiquement une hernie étranglée au niveau de TOUS les orifices herniaires (aine, ombilic, cicatrice).",
+      "Examen diagnostique clé : Scanner abdomino-pelvien injecté (recherche du signe du tourbillon, défaut de rehaussement pariétal, pneumatose)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Strangulation vs Obstruction</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Strangulation (Bride, Volvulus, Hernie étranglée) :</strong> Début brutal, douleur vive continue sans répit, vomissements précoces abondants, météorisme asymétrique immobile, risque de nécrose ischémique digestive en moins de 6h.<br>• <strong>Obstruction (Tumeur colorectale, fécalome) :</strong> Début progressif, douleur paroxystique péristaltique, météorisme diffus volumineux en cadre.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Scanner Abdominal Injecté</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Permet d'affirmer le diagnostic et de poser l'indication chirurgicale immédiate :<br>• Zone de transition entre anses dilatées en amont et anses plates en aval.<br>• Signes de souffrance digestive : épaississement pariétal, défaut de rehaussement au temps artériel, pneumatose pariétale, aéroportie.<br>• Épanchement péritonéal libre.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Règle Immuable : Palper les Orifices Herniaires !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Ne jamais diagnostiquer une gastro-entérite ou une occlusion réflexe chez une personne âgée qui vomit sans avoir minutieusement examiné et palpé les orifices inguinaux et cruraux : la hernie crurale étranglée passée inaperçue est fatale.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'arrêt des gaz est le signe le plus précoce et le plus fidèle de l'occlusion (l'arrêt des matières peut être retardé par la vidange du segment d'aval).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Dans l'occlusion du côlon à valvule iléo-cæcale continente, le cæcum se dilate en vase clos : si le diamètre cæcal dépasse 10 cm, le risque de perforation diastatique est imminent !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La sonde naso-gastrique en aspiration douce est indispensable pour soulager la distension gastrique et prévenir l'inhalation bronchique (syndrome de Mendelson).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_peritonite_perforation",
+    "slug": "peritonite-aigue-generalisee-perforation-ventre-de-bois",
+    "title": "Fiche Urgence : 27. Péritonite Aiguë Généralisée (Perforation d'Ulcère)",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "category": "Urgence Chirurgicale",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Signe physique pathognomonique : Le 'Ventre de Bois' (contracture abdominale involontaire, invincible, tonique et douloureuse).",
+      "Douleur abdominale diffuse exacerbée par la décompression brutale de la paroi (signe de Blumberg) et la palpation du cul-de-sac de Douglas.",
+      "Disparition de la matité pré-hépatique à la percussion signant un pneumopéritoine par perforation d'organe creux.",
+      "Trépied thérapeutique immédiat : Réanimation hémodynamique + Antibiothérapie triple IV + Laparotomie / Cœlioscopie d'urgence."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Formes Cliniques Trompeuses</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Sujet âgé ou dénutri :</strong> Signes péritonéaux très atténués, pas de contracture nette mais simple défense ou ballonnement fébrile avec confusion mentale.<br>• <strong>Patient sous corticoïdes / immunodéprimé :</strong> Péritonites 'asthéniques' sans fièvre ni contracture avec état de choc septique d'emblée.<br>• La douleur au toucher rectal (cri du Douglas) reste un signe précieux.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Conduite Thérapeutique Immédiate</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Mise en condition :</strong> VVP gros calibre, sonde gastrique en aspiration, sonde urinaire.<br>2. <strong>Réanimation volémique :</strong> Remplissage cristalloïdes équilibrés.<br>3. <strong>Antibiothérapie probabiliste IV :</strong> C3G (Céfotaxime 2g x 3/j) + Métronidazole 500 mg x 3/j + Gentamicine.<br>4. <strong>Chirurgie d'urgence :</strong> Toilette péritonéale abondante + éradication de la source infectieuse.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Pneumopéritoine à l'Imagerie\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">La présence d'un croissant gazeux sous-diaphragmatique unilatéral ou bilatéral sur la radiographie de thorax de face debout (ou au scanner) affirme la perforation d'organe creux. Son absence n'élimine pas une péritonite (ex : appendicite perforée ou péritonite par diffusion).</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais administrer d'antalgiques morphiniques majeurs avant l'examen par le chirurgien si le diagnostic de péritonite n'a pas encore été formellement posé.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La contracture abdominale est involontaire et permanente : elle persiste même pendant le sommeil ou la distraction du patient, la différenciant de la simple défense.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Dans la perforation d'ulcère gastroduodénal, la suture simple avec épiplooplastie (procédé de Graham) est le traitement de choix.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_angiocholite_aigue",
+    "slug": "angiocholite-aigue-lithiasique-triade-charcot",
+    "title": "Fiche Urgence : 28. Angiocholite Aiguë Lithiasique",
+    "specialtyId": "gastro",
+    "specialtyName": "Gastro-entérologie & Hépatologie",
+    "category": "Urgence Hépato-Biliaire",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Infection bactérienne suppurée de la voie biliaire principale sous pression par obstacle lithiasique (calcul enclavé dans le cholédoque).",
+      "Triade sémiologique chronologique de Charcot en 24-48h : Douleur biliaire -> Fièvre avec frissons -> Ictère cutanéo-muqueux.",
+      "Pentade de Reynolds (forme toxique fulminante) : Triade de Charcot + État de choc septique + Confusion mentale.",
+      "Traitement curatif : Décompression biliaire urgente par CPRE (sphinctérotomie endoscopique) sous couverture antibiotique IV."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Chronologie de la Triade de Charcot</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">L'apparition successive en moins de 48 heures est pathognomonique :<br>1. <strong>Douleur hépatique :</strong> Colique hépatique épigastrique ou de l'hypochondre droit irradiant vers l'épaule.<br>2. <strong>Fièvre aiguë :</strong> Élevée (39-40°C) avec frissons solennels et bactériémie à bacilles Gram négatif.<br>3. <strong>Ictère franc :</strong> Conjonctival puis cutané avec urines foncées et selles décolorées.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Prise en Charge d'Extrême Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Antibiothérapie probabiliste IV immédiate :</strong> C3G (Ceftriaxone 2g/j) + Métronidazole 500 mg x 3/j (ou Pipéracilline-Tazobactam).<br>• <strong>Décompression biliaire en urgence (< 24h) :</strong> Sphinctérotomie endoscopique par CPRE pour extraire le calcul et poser un drain naso-biliaire ou une prothèse.<br>• Si échec CPRE : Drainage biliaire transhépatique percutané.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Urgence à l'Heure dans la Forme Grave\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'angiocholite grave avec état de choc (angiocholite suppurée aiguë) présente une mortalité proche de 100% sans décompression biliaire en urgence : l'antibiothérapie seule est incapable de pénétrer dans une voie biliaire sous haute pression !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La cholécystectomie en urgence au stade d'angiocholite aiguë est formellement contre-indiquée : il faut d'abord désobstruer la voie biliaire par voie endoscopique, puis réaliser la cholécystectomie à froid.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'échographie abdominale peut ne pas visualiser le calcul du bas cholédoque masqué par les gaz duodénaux ; la dilatation de la VBP (> 8 mm) suffit pour porter le diagnostic.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La bili-IRM (cholangio-IRM) est l'examen non invasif le plus performant pour cartographier le calcul cholédocien avant geste endoscopique.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_ischemie_mesenterique",
+    "slug": "ischemie-mesenterique-aigue-infarctus-mesenterique",
+    "title": "Fiche Urgence : 29. Ischémie Mésentérique Aiguë (Infarctus Mésentérique)",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "category": "Urgence Vasculo-Digestive",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence vasculaire absolue : 'Infarctus du tube digestif', mortalité supérieure à 60-80% en cas de retard diagnostique.",
+      "Discordance clinique frappante : DOULEUR abdominale atroce, brutale, intolérable, contrastant avec un ABDOMEN SOUPLE et peu sensible au début !",
+      "Biomarqueur d'alerte : Hyperlactatémie artérielle (signe d'anoxie cellulaire avancée).",
+      "Examen diagnostique décisif immédiat : Angio-TDM abdomino-pelvien injecté aux temps artériel et portal."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Mécanismes Étiologiques</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Embolie de l'artère mésentérique supérieure (50%) :</strong> Sujet en fibrillation atriale ou post-IDM, douleur cataclysmique hyper-aiguë.<br>• <strong>Thrombose artérielle athéromateuse (25%) :</strong> Sujet polyvasculaire avec antécédents d'angor intestinal postprandial.<br>• <strong>Ischémie non occlusive (NOMI 20%) :</strong> Vasoconstriction réflexe lors d'un état de choc cardiogénique sous fortes doses de vasopresseurs.<br>• <strong>Thrombose veineuse mésentérique (5%) :</strong> Thrombophilie.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Fenêtre Thérapeutique & Prise en Charge</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Avant nécrose :</strong> Revascularisation endovasculaire (embolectomie, thrombo-aspiration, stent) ou chirurgicale (pontage).<br>• <strong>Stade de nécrose / péritonite :</strong> Laparotomie urgente pour résection des anses grêles nécrotiques (Damage Control chirurgical avec laparostomie et Second Look systématique à 24-48h).<br>• Anticoagulation par HNF IV curative d'emblée.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Le Piège Redoutable de la Période de 'Calme Trompeur'\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Après la crise douloureuse initiale violente, survient parfois une accalmie sédative transitoire liée à la mort des terminaisons nerveuses de la paroi intestinale nécrosée. L'apparition secondaire d'un ballonnement avec contracture signe la perforation et la péritonite stercorale terminale.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'absence de défense ou de contracture abdominale au stade précoce ne doit JAMAIS faire écarter le diagnostic d'ischémie mésentérique chez un sujet à risque.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Tout patient âgé ou arythmique consultant pour une douleur abdominale violente inexpliquée avec abdomen souple doit avoir un angioscanner abdominal et un dosage des lactates.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais utiliser de vasopresseurs alpha-purs (qui aggravent l'ischémie splanchnique) sauf en cas de collapsus majeur.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_appendicite_aigue",
+    "slug": "appendicite-aigue-compliquee-abces-plastron",
+    "title": "Fiche Urgence : 30. Appendicite Aiguë Compliquée (Abcès & Plastron)",
+    "specialtyId": "chirurgie",
+    "specialtyName": "Chirurgie Générale & Viscérale",
+    "category": "Urgence Chirurgicale",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Douleur débutant souvent en péri-ombilical puis se fixant en fosse iliaque droite (point de McBurney).",
+      "Défense pariétale localisée, douleur à la décompression brutale de la FIG (signe de Rovsing) et à la flexion de la cuisse (signe du Psoas).",
+      "Plastron appendiculaire : masse ferme mal limitée, douloureuse de la FID, englobant les anses du grêle et le grand épiploon.",
+      "Échographie abdominale chez l'enfant et la femme jeune (diamètre > 6 mm non compressible) ; Scanner abdomino-pelvien injecté chez l'adulte."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Formes Topographiques Trompeuses</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Rétro-cæcale :</strong> Douleur lombaire droite mimant une colique néphrétique ou une pyélonéphrite (psoïtis au premier plan).<br>• <strong>Pelvienne :</strong> Signes urinaires (pollakiurie, dysurie) et rectaux (ténesme, faux besoins) avec douleur exquise au toucher rectal.<br>• <strong>Sous-hépatique :</strong> Mime une cholécystite aiguë.<br>• <strong>Méso-cœliaque :</strong> Mime une occlusion fébrile du grêle.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Stratégie selon le Stade Évolutif</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Appendicite aiguë simple / péritonite :</strong> Appendicectomie laparoscopique d'urgence + antibioprophylaxie.<br>• <strong>Abcès appendiculaire :</strong> Drainage percutané sous guidage échographique/scanner + antibiothérapie IV.<br>• <strong>Plastron appendiculaire constitué :</strong> Traitement médical premier (antibiothérapie IV + repos digestif) puis appendicectomie à froid différée à 2-3 mois.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Éliminer la Grossesse Extra-Utérine en Urgence\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Chez TOUTE femme en âge de procréer présentant une douleur de la fosse iliaque droite, le dosage systématique des bêta-hCG plasmatiques ou urinaires est obligatoire pour éliminer une GEU rompue avant toute chirurgie !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le toucher rectal n'est plus systématique chez l'adulte typique, mais reste capital pour détecter une appendicite pelvienne ou une péritonite du Douglas.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Chez la femme enceinte, l'appendice est refoulé vers le haut et l'extérieur par l'utérus gravide (douleur sous-hépatique et de l'hypochondre droit au 3e trimestre).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Opérer en urgence un plastron appendiculaire vrai est une faute technique majeure (risque élevé de plaies iatrogènes d'anses grêles fragiles et de fistules digestives postopératoires).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_acidocetose_diabetique",
+    "slug": "acidocetose-diabetique-severe-insuline-potassium",
+    "title": "Fiche Urgence : 31. Acidocétose Diabétique Sévère",
+    "specialtyId": "endocrino",
+    "specialtyName": "Endocrinologie - Diabétologie",
+    "category": "Urgence Métabolique",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Triade diagnostique : Hyperglycémie (> 2.5 g/L / 14 mmol/L) + Cétonémie (> 3 mmol/L ou cétonurie ++/+++) + Acidose métabolique (pH < 7.30, HCO3- < 15 mmol/L).",
+      "Respiration ample et profonde de Kussmaul avec odeur acétonique de l'haleine (odeur de pomme reinette).",
+      "1er geste thérapeutique salvateur : RÉHYDRATATION SALÉE MASSIVE (Sérum physiologique 0.9%).",
+      "Insulinothérapie IV continue (0.1 UI/kg/h d'insuline rapide) DÉBUTÉE UNIQUEMENT SI LA KALIÉMIE EST > 3.3 mmol/L !"
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Protocole de Réhydratation IV</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Déficit hydrique moyen de 5 à 8 Litres :<br>• H1 : 1000 mL de NaCl 0.9% en 1 heure.<br>• H2-H4 : 500 mL/h de NaCl 0.9%.<br>• Dès que la glycémie passe sous 2.5 g/L : <strong>Ajout impératif de Sérum Glucosé à 5% ou 10%</strong> (G5% ou G10%) pour éviter l'hypoglycémie tout en poursuivant l'insuline pour éteindre la cétogenèse.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Gestion Vitale du Potassium (K+)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">L'insuline fait entrer le potassium dans les cellules :<br>• <strong>K+ < 3.3 mmol/L :</strong> NE PAS DÉBUTER L'INSULINE ! Recharger d'abord en potassium (KCl 2-3 g/h IV).<br>• <strong>K+ entre 3.3 et 5.0 mmol/L :</strong> Débuter l'insuline ET apporter 1 à 2 g de KCl par litre de perfusion.<br>• <strong>K+ > 5.0 mmol/L :</strong> Débuter l'insuline sans KCl, contrôler à H2.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Danger Mortel : L'Arrêt Prématuré de l'Insuline\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'insuline ne sert pas seulement à baisser la glycémie, elle est le seul frein biologique à la lipolyse et à la cétogenèse. Ne jamais arrêter l'insuline quand la glycémie se normalise : perfuser du glucosé en parallèle et maintenir l'insuline jusqu'à disparition complète de la cétonémie (bicarbonates > 18 mmol/L) !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Débuter l'insuline chez un patient dont le potassium est < 3.3 mmol/L peut déclencher un arrêt cardiaque par hypokaliémie foudroyante !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Les bicarbonates de sodium sont formellement contre-indiqués en routine (risque d'acidose paradoxale du LCR, d'hypokaliémie et d'hypoxie tissulaire) ; réservés aux pH extrêmes < 6.90.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Chez l'enfant et l'adolescent, une baisse trop rapide de l'osmolarité plasmatique (> 3 mOsm/kg/h) expose au risque mortel d'œdème cérébral.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_syndrome_hyperosmolaire",
+    "slug": "syndrome-hyperglycemie-hyperosmolaire-coma-hhs",
+    "title": "Fiche Urgence : 32. Syndrome d'Hyperglycémie Hyperosmolaire (HHS)",
+    "specialtyId": "endocrino",
+    "specialtyName": "Endocrinologie - Diabétologie",
+    "category": "Urgence Métabolique",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Complication métabolique gravissime survenant typiquement chez le diabétique de type 2 âgé et déshydraté (mortalité 15-20%).",
+      "Critères biologiques : Glycémie majeure > 6 g/L (33 mmol/L) + Osmolarité plasmatique efficace > 320 mOsm/kg + pH > 7.30 (pas d'acidose sévère) + Cétonémie minime ou absente.",
+      "Déficit hydrique massif (8 à 12 Litres) avec déshydratation intracellulaire et extracellulaire globale.",
+      "Réhydratation prudente et progressive au sérum salé 0.9% + Anticoagulation préventive curative (risque thrombotique majeur)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Calcul de l'Osmolarité Efficace</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\"><strong>Osmolarité plasmatique calculée :</strong><br>Osm = 2 x [Na+] + Glycémie (en mmol/L).<br>• Dans le HHS, elle dépasse constamment 320 mOsm/kg.<br>• Calcul du sodium corrigé (formule de Katz) :<br>Na_corrigé = Na_mesuré + 0.3 x (Glycémie en mmol/L - 5).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Protocole Réanimatoire Spécifique</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Réhydratation :</strong> Sérum salé 0.9% (1 L sur H1, puis 500 mL/h). Correction de la moitié du déficit sur les 24 premières heures.<br>• <strong>Insulinothérapie :</strong> Faible dose (0.05 UI/kg/h), débutée APRÈS expansion volémique.<br>• <strong>Anticoagulation par HBPM :</strong> Systématique dès l'admission en raison de l'hyperviscosité sanguine extrême.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Recherche Systématique du Facteur Déclenchant\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Le HHS n'arrive jamais par hasard : dans plus de 80% des cas, il est déclenché par une infection sévère occulte (pneumonie, infection urinaire, gangrène de pied), un AVC, un IDM ou l'arrêt des apports hydriques chez un grabataire dépendant.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais baisser la glycémie trop vite : la chute brutale de l'osmolarité extracellulaire entraîne un flux d'eau vers les neurones avec œdème cérébral et collapsus intravasculaire.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La natrémie mesurée est faussement basse en raison de l'hyperglycémie (effet osmotique) : toujours calculer le sodium corrigé de Katz !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'insuline seule sans réhydratation préalable aggrave le collapsus hémodynamique en transférant le glucose et l'eau du secteur vasculaire vers le secteur intracellulaire.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_insuffisance_surrenale_aigue",
+    "slug": "insuffisance-surrenale-aigue-crise-addisonienne",
+    "title": "Fiche Urgence : 33. Insuffisance Surrénale Aiguë (Crise Addisonienne)",
+    "specialtyId": "endocrino",
+    "specialtyName": "Endocrinologie - Diabétologie",
+    "category": "Urgence Endocrinienne",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence vitale absolue : Décompensation aiguë d'une maladie d'Addison ou interruption brutale d'une corticothérapie au long cours.",
+      "Tableau clinique : Collapsus cardiovasculaire résistant au remplissage et aux catécholamines + Douleurs abdominales aiguës mimant un abdomen chirurgical + Vomissements/Diarrhées.",
+      "Anomalies biologiques caractéristiques : Hyponatrémie + Hyperkaliémie + Hypoglycémie + Hémoconcentration.",
+      "Geste salvateur immédiat : Hydrocortisone 100 mg IVD SANS ATTENDRE le résultat des dosages hormonaux !"
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Schéma d'Hormonothérapie Substitutive</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Bolus initial immédiat :</strong> Hydrocortisone 100 mg en IV direct (ou IM si pas de VVP).<br>• <strong>Perfusion continue :</strong> 100 mg toutes les 6 à 8 heures (soit 300 à 400 mg/24h) en IVSE.<br>• Décroissance progressive après stabilisation sur 4-5 jours vers la dose orale d'entretien (20-30 mg/j).<br>• L'activité minéralocorticoïde de l'hydrocortisone à forte dose est suffisante (pas besoin de Fludrocortisone au début).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Réanimation Hydro-Électrolytique</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Perfusion de <strong>Sérum Salé Isotonique (NaCl 0.9%) + Sérum Glucosé (G5% ou G10%)</strong> pour corriger à la fois l'hypovolémie, l'hyponatrémie et l'hypoglycémie.<br>• Volume : 3 à 4 Litres au cours des 24 premières heures.<br>• <strong>Contre-indication formelle :</strong> Pas de potassium dans les perfusions !</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Prélèvement Sanguin Pré-Thérapeutique Éclair\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Réaliser si possible un tube sec pour dosage du cortisol et de l'ACTH juste avant l'injection d'hydrocortisone, MAIS NE JAMAIS RETARDER l'administration de l'hormone de plus d'une minute si le prélèvement pose problème !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais attendre le résultat du dosage du cortisol sérique pour injecter l'Hydrocortisone (le résultat met plusieurs heures, le patient décède en quelques minutes de choc cardiocirculatoire).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toute douleur abdominale aiguë avec défense chez un patient addisonien ou traité par corticoïdes doit faire évoquer en priorité une ISA avant d'envisager une laparotomie chirurgicale blanche !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Les médicaments sédatifs et les anesthésiques peuvent précipiter un collapsus fatal chez ces patients en déplétion cortisolo-dépendante.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_crise_thyreotoxique",
+    "slug": "crise-aigue-thyreotoxique-orage-thyroidien",
+    "title": "Fiche Urgence : 34. Crise Aiguë Thyréotoxique (Orage Thyroïdien)",
+    "specialtyId": "endocrino",
+    "specialtyName": "Endocrinologie - Diabétologie",
+    "category": "Urgence Endocrinienne",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Exacerbation extrême d'une hyperthyroïdie engageant le pronostic vital (mortalité 20-30%), quantifiée par le Score de Burch-Wartofsky (≥ 45 points).",
+      "Manifestations cardinales : Hyperthermie maligne (> 39-40°C), tachycardie sinusale ou FA rapide (> 140 bpm), agitation psychomotrice extrême/delirium, ictère.",
+      "Quadruple blocage thérapeutique immédiat : Bêtabloquants (Propranolol) + Antithyroïdiens de synthèse (PTU) + Corticoïdes IV + Solution d'Iode.",
+      "Facteurs déclenchants fréquents : Sepsis intercurrent, chirurgie, injection de produit de contraste iodé, arrêt brutal des antithyroïdiens."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Schéma des 4 Piliers Thérapeutiques</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Bêtabloquant à forte dose :</strong> Propranolol (Avlocardyl) 60-80 mg toutes les 4-6h PO ou 1-2 mg IV lente (inhibe les récepteurs bêta et bloque la conversion T4->T3).<br>2. <strong>Antithyroïdien de synthèse :</strong> Propylthiouracile (PTU) 200 mg toutes les 4h par sonde gastrique (ou Néomercazole).<br>3. <strong>Corticothérapie IV :</strong> Hydrocortisone 100 mg toutes les 8h (freine la conversion T4->T3 et prévient l'insuffisance surrénale relative).<br>4. <strong>Iode minéral (Lugol) :</strong> Administré 1 heure APRÈS l'ATS (effet Wolff-Chaikoff).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Mesures Réanimatoires Associées</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• Refroidissement externe actif (poches de glace, couverture réfrigérante).<br>• Antipyrétiques : Paracétamol.<br>• <strong>CONTRE-INDICATION FORMELLE :</strong> Acide acétylsalicylique (Aspirine) !<br>• Réhydratation hydro-électrolytique massive par glucosé et sérum physiologique.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Danger Mortel : L'Aspirine est Formellement Proscrite !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'aspirine déplace massivement les hormones thyroïdiennes (T4 et T3) de leurs protéines de transport plasmatiques (TBG), augmentant brutalement la fraction libre active circulante et aggravant dramatiquement la crise thyrotoxique !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais donner d'iode (Lugol) avant l'antithyroïdien de synthèse : administré seul, l'iode sert de substrat à la glande et majore la tempête hormonale !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'aspirine est strictement contre-indiquée pour faire baisser la fièvre dans l'orage thyroïdien (utiliser uniquement le paracétamol).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Une tachyarythmie atriale inexpliquée résistante aux digitaliques et aux bêtabloquants usuels chez une femme jeune doit faire doser la TSH en urgence.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.228077Z"
+  },
+  {
+    "id": "fiche_urgence_ira_anurique",
+    "slug": "insuffisance-renale-aigue-anurique-indications-dialyse",
+    "title": "Fiche Urgence : 35. Insuffisance Rénale Aiguë & Indications de Dialyse",
+    "specialtyId": "nephro",
+    "specialtyName": "Néphrologie",
+    "category": "Urgence Néphrologique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition KDIGO : Élévation de la créatininémie ≥ 26.5 mcmol/L en 48h, ou ≥ 1.5x la valeur basale, ou diurèse < 0.5 mL/kg/h pendant ≥ 6h.",
+      "Anurie complète (< 100 mL/24h) : Urgence diagnostique imposant l'échographie rénale immédiate pour éliminer un obstacle obstructif.",
+      "Indications vitales d'Épuration Extrarénale (EER) d'urgence mémorisées par l'acronyme 'AEIOU'.",
+      "Éliminer impérativement une rétention aiguë d'urine sous-vésicale par palpation et sondage avant tout bilan néphrologique."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Mnémonique des Indications de Dialyse (AEIOU)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>A (Acidose) :</strong> Acidose métabolique sévère réfractaire (pH < 7.15, HCO3- < 10 mmol/L).<br>• <strong>E (Électrolytes) :</strong> Hyperkaliémie sévère menaçante (> 6.5 mmol/L avec signes ECG) résistante au traitement médical.<br>• <strong>I (Intoxications) :</strong> Toxiques dialysables (Lithium, Méthanol, Éthylène glycol, Salicylés).<br>• <strong>O (Overload) :</strong> OAP de surcharge réfractaire aux fortes doses de furosémide.<br>• <strong>U (Urémie) :</strong> Complications urémiques viscérales (Péricardite urémique, Encéphalopathie).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Démarche Étiologique Express</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>1. Post-rénale (obstructive 10%) :</strong> Dilatation des cavités pyélocalicielles à l'échographie -> Dérivation urgente (sonde JJ, néphrostomie).<br>• <strong>2. Pré-rénale (fonctionnelle 60%) :</strong> Déshydratation, choc, AINS/IEC. Ratios : NaU/KU < 1, U/P urée > 10, réversible en 24-48h après réhydratation saline.<br>• <strong>3. Rénale (organique 30%) :</strong> NTA (ischémique ou toxique 80%), néphrites interstitielles aiguës, glomérulonéphrites.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Règle Absolue : L'Échographie Rénale à H0\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Devant toute insuffisance rénale aiguë anurique, l'échographie rénale et des voies urinaires doit être réalisée dans les premières heures pour éliminer un obstacle bilatéral (ou sur rein unique anatomique ou fonctionnel) curable chirurgicalement.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais injecter de produit de contraste iodé pour explorer une insuffisance rénale aiguë (risque d'aggravation irréversible de la nécrose tubulaire) ; préférer l'échographie et le scanner sans injection.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le furosémide n'améliore pas le pronostic ni la survie de l'insuffisance rénale aiguë : il ne sert qu'à traiter la surcharge hydrosodée chez un patient qui répond encore aux diurétiques.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La péricardite urémique est une contre-indication à l'anticoagulation lors de l'hémodialyse (risque élevé de tamponnade hémorragique).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_hyperkaliemie_grave",
+    "slug": "hyperkaliemie-severe-menacante-ecg-urgence",
+    "title": "Fiche Urgence : 36. Hyperkaliémie Sévère Menaçante ([K+] > 6.5 mmol/L)",
+    "specialtyId": "nephro",
+    "specialtyName": "Néphrologie",
+    "category": "Urgence Électrolytique",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence rythmologique absolue : Le pronostic vital dépend des ANOMALIES ECG et non du seul chiffre de la kaliémie.",
+      "Chronologie des signes ECG : Ondes T pointues et symétriques en tente de camping -> Élargissement du QRS et allongement du PR -> Disparition de P -> Aspect sinusoïdal -> Fibrillation ventriculaire / Asystolie.",
+      "1er geste réflexe si signes ECG : GLUCONATE DE CALCIUM 10% (10 à 20 mL IVD sur 2-3 min) pour antagoniser la toxicité membranaire cardiaque.",
+      "Traitements de transfert intracellulaire : Sérum glucosé + Insuline ordinaire IVSE + Salbutamol nébulisé à forte dose (10-20 mg)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Les 3 Temps du Traitement d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Protection myocardique immédiate (délai 1-3 min) :</strong> Gluconate de calcium 10% (10 mL IVD en 3 min). Répéter après 5 min si l'ECG ne se normalise pas.<br>2. <strong>Transfert intracellulaire du K+ (délai 15-30 min) :</strong><br>• 500 mL de G10% (ou 250 mL G30%) + 10 à 15 UI d'Insuline ordinaire IV sur 30 min.<br>• Salbutamol 10 à 20 mg en nébulisation.<br>• Bicarbonate de sodium 4.2% ou 1.4% (si acidose métabolique concomitante).<br>3. <strong>Élimination du K+ (délai heures) :</strong> Résines échangeuses (Lokelma/Kayexalate), Furosémide IV, Hémodialyse en urgence.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Contre-Indication Majeure du Calcium</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Le calcium intraveineux est formellement contre-indiqué en cas d'<strong>intoxication digitalique</strong> (risque d'arrêt cardiaque irréversible en systole) !<br>Dans ce cas particulier :<br>• Utiliser du <strong>Chlorure de Magnésium</strong> ou du Sulfate de Magnésium IV.<br>• Administrer des anticorps anti-digitoxine spécifiques (Fab / Digifab).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Le Piège Fréquent de la Fausse Hyperkaliémie (Hémolyse)\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Toujours éliminer une fausse hyperkaliémie liée à une hémolyse in vitro lors du prélèvement (garrot serré trop longtemps, aiguille trop fine, agitation du tube). Cependant, EN PRÉSENCE DE MODIFICATIONS À L'ECG, TRAITER IMMÉDIATEMENT sans attendre un prélèvement de contrôle !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le Gluconate de calcium ne fait pas baisser la kaliémie plasmatique d'un seul dixième de mmol/L : il ne fait que stabiliser le potentiel de repos de la membrane myocardique pendant 30 à 60 minutes !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'insuline sans glucose chez un patient normoglycémique provoque un coma hypoglycémique foudroyant : toujours associer au moins 3 à 4 g de glucose pour 1 UI d'insuline.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La résine échangeuse d'ions (Kayexalate) a un délai d'action d'au moins 2 à 4 heures et n'a aucune place dans le traitement immédiat de l'urgence électrique.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_hyponatremie_aigue",
+    "slug": "hyponatremie-aigue-severe-oedeme-cerebral",
+    "title": "Fiche Urgence : 37. Hyponatrémie Aiguë Sévère Symptomatique ([Na+] < 120 mmol/L)",
+    "specialtyId": "nephro",
+    "specialtyName": "Néphrologie",
+    "category": "Urgence Électrolytique",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence neurologique : Entrée massive d'eau dans les cellules cérébrales créant un Œdème Cérébral aigu avec risque d'engagement.",
+      "Symptômes de gravité extrême : Confusion, obnubilation, crises convulsives comitiales répétées, coma, dépression respiratoire.",
+      "Traitement salvateur immédiat : Bolus de Sérum Salé Hypertonique à 3% (NaCl 3% : 150 mL en 20 min, renouvelable).",
+      "Règle de sécurité vitale : Vitesse de correction maximale de 8 à 10 mmol/L sur les premières 24 heures pour prévenir la Myélinolyse Centropontine."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Protocole du NaCl Hypertonique à 3%</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Devant des signes neurologiques sévères :<br>1. Perfusion de <strong>150 mL de NaCl 3% sur 20 minutes</strong>.<br>2. Contrôler la natrémie à 20-30 minutes.<br>3. Si les symptômes persistent ou si la natrémie n'a pas augmenté de 5 mmol/L : Répéter un 2ème bolus de 150 mL de NaCl 3%.<br>4. Objectif : Augmenter la natrémie de <strong>4 à 6 mmol/L rapidement</strong> pour stopper l'œdème cérébral et les convulsions.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Le Piège de la Démyélinisation Osmotique</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Si une hyponatrémie chronique est corrigée trop rapidement (> 10-12 mmol/L/24h) :<br>• Survenue après 2 à 6 jours d'une <strong>Myélinolyse centropontine (syndrome de démyélinisation osmotique)</strong>.<br>• Tableau irréversible de 'Locked-in syndrome', tétraparésie spastique et paralysie bulbaire.<br>• Si la correction s'emballe : Ré-abaisser la natrémie en perfusant du G5% ou de la Desmopressine (Minirin).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Préparation Rapide du NaCl 3% en Pratique\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Si les poches de NaCl 3% ne sont pas disponibles : mélanger <strong>40 mL de NaCl 10% dans 160 mL de NaCl 0.9%</strong> (ou 60 mL de NaCl 10% dans 140 mL d'eau PPI) pour obtenir une solution prête à l'emploi.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Dans l'hyponatrémie sévère symptomatique avec convulsions, l'urgence absolue est de remonter la natrémie de 5 mmol/L avec du NaCl 3%, quel que soit le statut volémique du patient !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais utiliser de solutés hypotoniques (G5% pur) chez un patient hyponatrémique (aggrave immédiatement l'œdème cérébral).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours éliminer une fausse hyponatrémie par hyperprotidémie majeure (myélome) ou hypertriglycéridémie massive (sérum lactescent).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_crise_hypercalcemique",
+    "slug": "hypercalcemie-aigue-majeure-bisphosphonates-ecg",
+    "title": "Fiche Urgence : 38. Hypercalcémie Aiguë Majeure ([Ca2+] > 3.5 mmol/L / 140 mg/L)",
+    "specialtyId": "nephro",
+    "specialtyName": "Néphrologie",
+    "category": "Urgence Électrolytique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Urgence cardiovasculaire et rénale : Raccourcissement du segment QT à l'ECG avec risque de troubles du rythme ventriculaire mortels.",
+      "Signes cliniques : Déshydratation extracellulaire globale majeure, syndrome polyuropolydipsique, douleurs abdominales, confusion/coma.",
+      "Deux étiologies dominantes (90%) : Hyperparathyroïdie primitive et Métastases / Sécrétion de PTH-rp des Cancers et Hémopathies.",
+      "Trépied thérapeutique d'urgence : Réhydratation saline massive (NaCl 0.9% 3 à 5 L/24h) + Bisphosphonates IV (Zolédronate) + Calcitonine."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes ECG Cardinaux</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Raccourcissement de l'intervalle QTc</strong> (< 360 ms) : signe le plus précoce et le plus constant.<br>• Aplatissement ou élargissement de l'onde T.<br>• Allongement du PR, blocs auriculo-ventriculaires (BAV).<br>• Tachycardie ventriculaire, fibrillation ventriculaire et arrêt cardiaque en systole.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Protocole Thérapeutique d'Attaque</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Expansion volémique saline :</strong> NaCl 0.9% (3 à 6 Litres par 24h) pour restaurer la volémie et induire une calciurèse saline forcée.<br>2. <strong>Bisphosphonates IV :</strong> Acide zolédronique (Zometa 4 mg IV sur 15 min) : effet maximal à 48-72h.<br>3. <strong>Calcitonine SC/IV :</strong> 4 à 8 UI/kg toutes les 12h (action hypocalcémiante rapide en quelques heures, mais phénomène d'échappement à 48h).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Le Rôle Discuté des Diurétiques de l'Anse\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Le Furosémide n'est plus administré systématiquement d'emblée : il est réservé EXCLUSIVEMENT aux patients présentant des signes de surcharge hydrosodée (OAP) après réhydratation saline complète, car administré chez un patient déshydraté il aggrave dramatiquement l'insuffisance rénale et l'hypercalcémie !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours calculer la calcémie corrigée en fonction de l'albuminémie : Ca_corrigé (mmol/L) = Ca_mesuré + 0.02 x (40 - Albuminémie en g/L).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais prescrire de diurétique thiazidique chez un patient hypercalcémique (les thiazidiques réduisent l'excrétion urinaire de calcium et majorent la crise).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas d'hypercalcémie maligne réfractaire avec anurie ou insuffisance rénale sévère, l'hémodialyse sur bain pauvre en calcium ou sans calcium est indiquée en urgence.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_torsion_cordon_spermatique",
+    "slug": "torsion-du-cordon-spermatique-urgence-6h",
+    "title": "Fiche Urgence : 39. Torsion du Cordon Spermatique (Urgence Chirurgicale < 6h)",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "category": "Urgence Urologique",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Toute douleur testiculaire aiguë unilatérale brutale chez l'enfant, l'adolescent ou l'adulte jeune est une torsion jusqu'à preuve chirurgicale !",
+      "Examen clinique : Bourse douloureuse augmentée de volume, testicule rétracté ascensionné au collet, horizontalisé, abolition du réflexe crémastérien.",
+      "Signe de Prehn NÉGATIF (la surélévation de la bourse ne soulage pas la douleur).",
+      "RÈGLE D'OR : EXPLORATION CHIRURGICALE BILATÉRALE SANS AUCUN EXAMEN COMPLÉMENTAIRE NI ÉCHOGRAPHIE PRÉALABLE DANS LES 6 HEURES !"
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes Distinctifs : Torsion vs Orchi-épididymite</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Torsion du cordon :</strong> Sujet jeune (< 25 ans), début brutal en coup de tonnerre, apyrétique, bandelette urinaire négative, réflexe crémastérien aboli, signe de Prehn négatif.<br>• <strong>Orchi-épididymite :</strong> Début progressif, fièvre, pyurie, réflexe crémastérien présent, signe de Prehn positif (soulagement au soulèvement de la bourse).<br><em>Règle absolue :</em> Au moindre doute, c'est une torsion !</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Temps Chirurgical Obligatoire</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Incision scrotale exploratrice :</strong> Détorsion du cordon et évaluation de la recoloration testiculaire après réchauffement au sérum tiède.<br>• <strong>Orchydopexie bilatérale :</strong> Fixation du testicule détordu ET fixation systématique du testicule controlatéral (malformation anatomique en battant de cloche bilatérale dans 80% des cas !).<br>• Orchidectomie si nécrose irréversible dépassée.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Faute Professionnelle Lourde : Attendre l'Écho-Doppler\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Prescrire une échographie-doppler scrotale et attendre le radiologue devant un tableau clinique typique de torsion testiculaire est une faute grave : l'écho-doppler fait perdre un temps précieux et peut comporter des faux négatifs (flux persistant si torsion incomplète). L'indication chirurgicale est purement clinique !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Au-delà de la 6ème heure d'ischémie testiculaire, les lésions de la spermatogenèse et la nécrose glandulaire deviennent irréversibles dans plus de 80% des cas.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours fixer le testicule opposé (controlatéral) au cours de la même intervention pour prévenir la torsion ultérieure du rein génital unique restant.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Une douleur de la fosse iliaque droite chez un jeune garçon peut être une douleur projetée d'une torsion testiculaire méconnue : examiner systématiquement les bourses !</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_pyelonephrite_obstructive",
+    "slug": "pyelonephrite-aigue-obstructive-drainage-urgence",
+    "title": "Fiche Urgence : 40. Pyélonéphrite Aiguë Obstructive (PNA sur Obstacle)",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "category": "Urgence Urologique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Infection parenchymateuse rénale aiguë suppurée compliquant un obstacle urétéral (lithiase, tumeur, compression extrinsèque).",
+      "Urgence médico-chirurgicale : Risque foudroyant de choc septique urologique et de destruction du parenchyme rénal.",
+      "Signes d'alerte : Douleur lombaire unilatérale + Fièvre élevée avec frissons solennels + Syndrome de réponse inflammatoire systémique.",
+      "Trépied curatif : Réanimation hémodynamique + Antibiothérapie double bactéricide IV + DRAINAGE CHIRURGICAL DU REIN EN URGENCE ABSOLUE."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Imagerie d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Uro-TDM sans injection (ou Échographie rénale) :</strong> Révèle la dilatation des cavités pyélocalicielles en amont de l'obstacle et localise le calcul urétéral.<br>• Recherche de complications : abcès rénal, pyonéphrose, infiltration péri-rénale majeure.<br>• À réaliser dans les 6 heures maximum de l'admission.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Modalités de Drainage du Rein</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Le drainage des urines purulentes sous pression est le seul geste qui guérit le sepsis :<br>1. <strong>Montée de sonde urétérale JJ (Double J) :</strong> Par voie endoscopique rétrograde trans-urétrale sous anesthésie.<br>2. <strong>Néphrostomie percutanée (PNC) :</strong> Pose d'un drain directement dans les cavités rénales sous guidage échographique (idéal si choc septique sévère ou urètre infranchissable).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Antibiothérapie IV d'Attaque\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">C3G parentérale (Céfotaxime 2g x 3/j ou Ceftriaxone 2g/j) associée systématiquement à un Aminoside (Amikacine 25-30 mg/kg/j en perfusion unique sur 30 min) pour obtenir une bactéricidie urinaire et plasmatique ultra-rapide sur les entérobactéries productrices de BLSE et Pseudomonas.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'antibiothérapie seule ne peut jamais guérir une pyélonéphrite obstructive : tant que le pus est sous pression dans le rein, le choc septique s'aggrave.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais tenter de lithotritie extracorporelle ni d'urétéroscopie laser en phase infectieuse aiguë : le seul objectif est le drainage d'attente.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Une pyélonéphrite aiguë avec anurie ou oligurie doit faire évoquer d'emblée un rein unique fonctionnel obstrué.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_retention_aigue_urine",
+    "slug": "retention-aigue-urine-globe-vesical-levee-obstacle",
+    "title": "Fiche Urgence : 41. Rétention Aiguë d'Urine & Syndrome de Levée d'Obstacle",
+    "specialtyId": "uro",
+    "specialtyName": "Urologie",
+    "category": "Urgence Urologique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Impossibilité totale et douloureuse d'uriner malgré des envies impérieuses fréquentes, avec angoisse et agitation.",
+      "Diagnostic clinique évident : Le 'Globe Vésical' (masse hypogastrique convexe vers le haut, mate à la percussion, rénitente et sensible).",
+      "Deux techniques de drainage : Sondage vésical par voie urétrale ou Cathétérisme sus-pubien.",
+      "Surveillance obligatoire post-décompression : Risque majeur de SYNDROME DE LEVÉE D'OBSTACLE (polyurie massive > 1 L/h, déshydratation et hypokaliémie)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Sondage vs Cathéter Sus-Pubien</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Sondage urétrale (1ère intention) :</strong> Sonde stérile en silicone ou latex, gel anesthésique local.<br>• <strong>Contre-indications du cathétérisme sus-pubien :</strong> Hématurie macroscopique ou suspicion de cancer de vessie, antécédent de chirurgie sous-ombilicale (risque de perforation digestive), pontage fémoral, troubles de l'hémostase.<br>• <strong>Contre-indication du sondage urétral :</strong> Suspicion de rupture traumatique de l'urètre (sang au méat).</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Prévention du Syndrome de Levée d'Obstacle</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Après vidange d'un volumineux globe (> 800-1000 mL) :<br>• Vidange initiale fractionnée (clampage tous les 500 mL pendant 15 min) pour prévenir l'hématurie a vacuo.<br>• Mesure horaire de la diurèse.<br>• Si diurèse > 500 mL/h : Compensation hydro-électrolytique IV par soluté salé équilibré (compensant 70-80% des pertes pour éviter d'entretenir la polyurie).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Prostatite Aiguë et Voie de Drainage\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">En cas de rétention aiguë d'urine fébrile chez l'homme (prostatite aiguë bactérienne), le cathétérisme sus-pubien était classiquement préféré pour éviter la douleur et la bactériémie du passage urétral ; le sondage urétral très doux par sonde de petit calibre reste possible sous couverture antibiotique.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Une incontinence urinaire chez le vieillard ou le diabétique peut n'être qu'une 'fausse incontinence par regorgement' masquant un globe vésical chronique géant !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'hématurie a vacuo après vidange vésicale est bénigne : elle résulte de la rupture de veinules de la muqueuse sous-muqueuse soudainement décomprimée.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais retirer la sonde vésicale avant 48 heures de traitement par alpha-bloquant (Tamsulosine) pour maximiser les chances de succès de reprise mictionnelle.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_grossesse_extra_uterine",
+    "slug": "grossesse-extra-uterine-rompue-geu-cataclysmique",
+    "title": "Fiche Urgence : 42. Grossesse Extra-Utérine Rompue (Inondation Péritonéale)",
+    "specialtyId": "gyneco",
+    "specialtyName": "Gynécologie - Obstétrique",
+    "category": "Urgence Gynéco-Obstétricale",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Première cause de mortalité maternelle au 1er trimestre de la grossesse.",
+      "Triade classique : Retard de règles + Douleurs pelviennes unilatérales vives + Métrorragies noirâtres sépia peu abondantes.",
+      "GEU rompue avec hémopéritoine cataclysmique : Douleur syncopale brutale, défense hypogastrique, douleur exquise au cul-de-sac de Douglas, état de choc hémorragique.",
+      "Confirmation diagnostique : Bêta-hCG plasmatiques positives + Vacuité utérine à l'échographie endovaginale + Épanchement péritonéal abondant."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Signes Échographiques Décisifs</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Utérus vide</strong> avec endomètre épaissi décidualisé (vacuité utérine alors que les b-hCG sont > 1000-1500 UI/L = zone discriminante).<br>• Masse latéro-utérine hétérogène ou sac gestationnel extra-utérin avec embryon et activité cardiaque (pathognomonique).<br>• Épanchement anéchogène dans le cul-de-sac de Douglas et le récessus hépato-rénal de Morison.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Traitement Chirurgical d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">En cas de GEU rompue ou d'instabilité hémodynamique :<br>• Cœlioscopie opératoire d'extrême urgence (ou laparotomie d'emblée si choc décompensé).<br>• <strong>Salpingectomie totale</strong> par voie cœlioscoique (ablation de la trompe rompue) avec évacuation de l'hémopéritoine.<br>• Transfusion sanguine selon protocole de choc hémorragique.<br>• <strong>Injection d'immunoglobulines anti-D</strong> chez toute femme Rhésus négatif !</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Prévention de l'Allo-Immunisation Rhésus\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'injection d'Immunoglobulines Anti-D (Rhophylac 200 mcg) est une obligation médicolégale absolue chez TOUTE patiente Rhésus négatif présentant une GEU dans les 72 heures, pour prévenir l'immunisation foeto-maternelle des grossesses ultérieures.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toute douleur abdominale ou pelvienne chez une femme en âge de procréer impose un test de grossesse (bêta-hCG) d'emblée, même si la patiente est sous contraception ou prétend avoir eu ses règles récemment.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le traitement médical par Méthotrexate (MTX 50 mg/m2 IM) est STRICTEMENT CONTRE-INDIQUÉ en cas de GEU rompue, d'hémopéritoine abondant ou de doute hémodynamique.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La présence d'un pseudo-sac gestationnel intra-utérin (collection liquidienne centrale sans couronne trophoblastique) ne doit pas écarter à tort le diagnostic de GEU !</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_pre_eclampsie_eclampsie",
+    "slug": "pre-eclampsie-severe-crise-eclampsie-sulfate-magnesium",
+    "title": "Fiche Urgence : 43. Pré-Éclampsie Sévère & Crise d'Éclampsie",
+    "specialtyId": "gyneco",
+    "specialtyName": "Gynécologie - Obstétrique",
+    "category": "Urgence Obstétricale",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition Pré-éclampsie : HTA gravidique (PAS ≥ 140 et/ou PAD ≥ 90 mmHg) apparaissant après 20 SA associée à une protéinurie significative (≥ 300 mg/24h).",
+      "Signes d'éclampsie imminente (signes neuro-sensoriels) : Céphalées rebelles pulsatiles, phosphènes/scotomes visuels, acouphènes, ROT polycinétiques, barre épigastrique de Chaussier.",
+      "Crise d'éclampsie : Crise convulsive généralisée tonicoclonique gravidique engageant le pronostic vital foeto-maternel.",
+      "Traitement anticonvulsivant de référence : SULFATE DE MAGNÉSIUM IV (dose de charge 4g puis 1g/h)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Critères de Pré-Éclampsie Sévère</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Présence d'au moins UN critère :<br>• HTA sévère : PAS ≥ 160 mmHg ou PAD ≥ 110 mmHg.<br>• Signes neuro-sensoriels persistants.<br>• OAP maternel.<br>• <strong>HELLP Syndrome :</strong> Hémolyse (schizocytes) + Élévation transaminases (ASAT/ALAT > 2N) + Thrombopénie (Plaquettes < 100 000/mm3).<br>• Insuffisance rénale (créatinine > 90 mcmol/L) ou oligurie.<br>• RCIU sévère / souffrance foetale aiguë.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Protocole du Sulfate de Magnésium (MgSO4)</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Traitement princeps de l'éclampsie et prévention dans les formes sévères :<br>• <strong>Dose de charge :</strong> 4 g IV dilués dans 100 mL de G5% perfusés en 15-20 min.<br>• <strong>Dose d'entretien :</strong> 1 g/h en perfusion continue IVSE pendant 24h post-partum.<br>• <strong>Surveillance de la toxicité :</strong> ROT présents, diurèse > 30 mL/h, FR > 12/min.<br>• <em>Antidote obligatoire au lit du malade :</em> Gluconate de Calcium 10% (1 g IVD).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Le Seul Traitement Étiologique Définitif\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Le seul traitement curatif de la pré-éclampsie et de l'éclampsie est la DÉLIVRANCE (extraction foetale et délivrance placentaire). Dès stabilisation hémodynamique et anticonvulsivante de la mère, la césarienne d'urgence s'impose.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le Sulfate de Magnésium est supérieur au Diazépam et à la Phénytoïne pour stopper les convulsions d'éclampsie et réduire la récidive et la mortalité maternelle.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le contrôle tensionnel doit être progressif avec la Nicardipine (Loxen IVSE) ou le Labétalol : une chute brutale de la PA maternelle effondre la perfusion utéro-placentaire et entraîne une mort foetale in utero !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>L'apparition d'une barre épigastrique de Chaussier chez une femme pré-éclamptique témoigne d'une nécrose hépatocellulaire aiguë (risque d'hématome sous-capsulaire du foie rompue).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_hemorragie_delivrance",
+    "slug": "hemorragie-de-la-delivrance-atoni-uterine-sulprostone",
+    "title": "Fiche Urgence : 44. Hémorragie du Post-Partum (Hémorragie de la Délivrance)",
+    "specialtyId": "gyneco",
+    "specialtyName": "Gynécologie - Obstétrique",
+    "category": "Urgence Obstétricale",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition : Perte sanguine ≥ 500 mL après accouchement par voie basse (ou ≥ 1000 mL après césarienne) dans les 24h suivant la naissance.",
+      "Première cause évitable de mortalité maternelle en obstétrique.",
+      "Cause la plus fréquente (70%) : Atonie utérine (utérus mou, non rétracté au-dessus de l'ombilic).",
+      "Règle séquentielle minutée : Délivrance artificielle + Révision utérine + Massage + Ocytocine IVD -> Sulprostone IVSE < 30 min -> Ballon de Bakri / Embolisation / Chirurgie."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Les 4 'T' Étiologiques</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Tonus (70%) :</strong> Atonie utérine (travail prolongé, surdistension par jumeaux/hydramnios, multiparité).<br>• <strong>Tissu (20%) :</strong> Rétention placentaire partielle ou totale, cotylédon aberrant.<br>• <strong>Traumatisme (10%) :</strong> Déchirure du col de l'utérus, plaie vaginale profonde, rupture utérine.<br>• <strong>Thrombine (1%) :</strong> Coagulopathie constitutionnelle ou CIVD sur HRP.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Escalade Thérapeutique Chronométrée</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>0 à 15 min :</strong> Massage utérin + Délivrance artificielle / Révision utérine manuelle stérile + Révision sous valves du col et du vagin.<br>• <strong>Médicaments utérotoniques :</strong><br>1. <strong>Ocytocine (Syntocinon) :</strong> 5 à 10 UI IVD lente puis perfusion 20-40 UI.<br>2. <strong>Sulprostone (Nalador) :</strong> 500 mcg IVSE sur 1 heure si saignement persistant à 15-30 min.<br>• <strong>Tamponnement intra-utérin :</strong> Ballon de Bakri.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Acide Tranexamique d'Emblée (Essai WOMAN)\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'administration précoce d'Acide Tranexamique (Exacyl 1 g IV sur 10 minutes) dans les 3 heures suivant l'accouchement réduit la mortalité par hémorragie de 30% sans risque thromboembolique surajouté.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le volume du saignement post-partum est quasi systématiquement sous-estimé visuellement de plus de 50% : utiliser impérativement un sac de recueil gradué sous les fesses de la parturiente !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais débuter la révision utérine sans sonde vésicale posée : la vidange d'une vessie pleine permet souvent à elle seule la rétraction de l'utérus.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas d'échec des utérotoniques et du tamponnement par ballon : embolisation des artères utérines en radiologie interventionnelle ou chirurgie hémostatique (capitonnage de B-Lynch, ligature hypogastrique, hystérectomie d'hémostase en dernier recours).</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_deshydratation_nourrisson",
+    "slug": "deshydratation-aigue-severe-nourrisson-perte-de-poids",
+    "title": "Fiche Urgence : 45. Déshydratation Aiguë Sévère du Nourrisson (> 10%)",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie & Puériculture",
+    "category": "Urgence Pédiatrique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "La sévérité est jugée par le POURCENTAGE DE PERTE DE POIDS par rapport au poids récent antérieur : Sévère dès > 10% (Choc dès > 15%).",
+      "Signes de déshydratation extracellulaire : Pli cutané persistant, cernes oculaires profonds, fontanelle antérieure déprimée, yeux excavés.",
+      "Signes de choc hypovolémique : Allongement du temps de recoloration cutanée (TRC > 3s), extrémités froides, marbrures, pouls filant.",
+      "Traitement d'urgence du choc : Remplissage vasculaire rapide par NaCl 0.9% ou Ringer Lactate à 20 mL/kg en 15-20 min."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Classification Clinique selon la Perte de Poids</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Légère (< 5%) :</strong> Soif, muqueuse buccale discrètement sèche. Traitement par Soluté de Réhydratation Orale (SRO) à domicile.<br>• <strong>Modérée (5 à 10%) :</strong> Pli cutané franc, cernes, soif vive, perte de poids nette. SRO par voie orale ou sonde nasogastrique.<br>• <strong>Sévère (> 10%) :</strong> Troubles de conscience (somnolence ou léthargie), hypotonie des globes oculaires, oligurie/anurie, collapsus. Hospitalisation et perfusion IV.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Protocole de Remplissage & Réhydratation IV</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Phase d'urgence (si état de choc) :</strong> Bolus de cristalloïdes isotoniques (NaCl 0.9%) à <strong>20 mL/kg en 20 minutes</strong> (renouvelable une fois si TRC reste > 3s).<br>2. <strong>Phase de réhydratation d'entretien :</strong> Calcul des besoins de base (règle d'Holliday-Segar) + compensation du déficit calculé sur 24 à 48 heures.<br>• <em>Règle de sécurité :</em> Pas de potassium tant que l'enfant n'a pas uriné !</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 L'Erreur Fatale : Les Solutés 'Maison' Inadaptés\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Réhydrater un nourrisson avec de l'eau pure, des tisanes non sucrées ou du cola dégazé entraîne une hyponatrémie aiguë foudroyante compliquée d'œdème cérébral et de convulsions comitiales. Seuls les SRO labellisés OMS ou les perfusions médicales sont autorisés.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La pesée nue du nourrisson est l'acte médical fondamental le plus informatif aux urgences pédiatriques : ne jamais commencer un examen sans le poids !</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas d'accès veineux périphérique impossible chez un nourrisson en état de choc déshydraté : pose immédiate d'une aiguille intra-osseuse tibiale (tubérosité tibiale antérieure).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>En cas de déshydratation hypernatrémique ([Na+] > 150 mmol/L), la correction doit être très lente sur 48 heures pour éviter le risque d'œdème cérébral osmotique.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_bronchiolite_grave",
+    "slug": "bronchiolite-aigue-grave-nourrisson-optiflow",
+    "title": "Fiche Urgence : 46. Bronchiolite Aiguë Sévère du Nourrisson (Signes de Lutte)",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie & Puériculture",
+    "category": "Urgence Pédiatrique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Premier épisode de dyspnée obstructive sifflante avec râles crépitants et sous-crépitants chez un nourrisson de moins de 12 mois (VRS).",
+      "Critères d'hospitalisation d'urgence : Âge < 6 semaines, prématurité, apnées/pauses respiratoires, SpO2 < 92%, prises alimentaires < 50%.",
+      "Signes d'épuisement respiratoire : Balancement thoraco-abdominal paradoxal, geignement expiratoire, respiration superficielle bradypnéique.",
+      "Traitement de support moderne : Oxygénothérapie à haut débit humidifiée et réchauffée (Optiflow) et désobstruction rhinopharyngée (DRP)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Score de Détresse Respiratoire de Wang</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">Évalue 4 paramètres cotés de 0 à 3 :<br>• Fréquence respiratoire selon l'âge.<br>• Wheezing / Sibilants à l'auscultation.<br>• Tirage intercostal, sous-costal et sus-sternal.<br>• État général / coloration.<br><em>Score ≥ 9 :</em> Détresse respiratoire sévère imposant une prise en charge en soins intensifs pédiatriques.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Recommandations HAS / Internationales</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Mesures validées efficaces :</strong> Désobstruction rhino-pharyngée (DRP) au sérum physiologique avant les repas, fractionnement des biberons, proclive dorsal 30°, oxygénothérapie si SpO2 < 92%.<br>• <strong>Inutiles ou déconseillés en routine :</strong> Bronchodilatateurs (Salbutamol), corticoïdes systémiques ou inhalés, antibiotiques, kinésithérapie respiratoire par clapping/drainage postural.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Haut Débit Nasal (Optiflow) en Réanimation\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">L'oxygénothérapie nasale à haut débit réchauffé et humidifié (2 L/kg/min) génère une pression expiratoire positive (PEP) douce qui déplisse les bronchioles collabées et diminue de plus de 80% le recours à l'intubation trachéale.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Chez le nourrisson de moins de 3 mois, l'infection à VRS peut se manifester uniquement par des APNÉES centrales isolées sans toux ni râles auscultatoires initiaux.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Les bronchodilatateurs (Ventoline) sont inefficaces chez le tout petit nourrisson en raison de l'immaturité des récepteurs bêta-2 bronchiques et de la prédominance de l'œdème muqueux sur le bronchospasme.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais forcer l'alimentation par voie orale chez un enfant polypnéique (FR > 60/min) : passer à l'alimentation entérale par sonde gastrique ou perfusion pour éviter l'inhalation bronchique.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_epiglottite_aigue",
+    "slug": "epiglottite-aigue-enfant-laryngite-sus-glottique",
+    "title": "Fiche Urgence : 47. Épiglottite Aiguë de l'Enfant (Urgence Asphyxique)",
+    "specialtyId": "pediatrie",
+    "specialtyName": "Pédiatrie & Puériculture",
+    "category": "Urgence Pédiatrique & ORL",
+    "estimatedReadTime": "4 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Cellulite bactérienne suraiguë de l'épiglotte et des tissus sus-glottiques (historiquement Haemophilus influenzae b, Streptococcus).",
+      "Position spontanée pathognomonique en 'Tripode' : Enfant assis penché en avant, bouche ouverte, langue pendante, bavant abondamment (sialorrhée par dysphagie totale).",
+      "Dyspnée laryngée inspiratoire avec stridor étouffé, voix couverte de 'patate chaude', fièvre très élevée (39-40°C), absence de toux aboyante.",
+      "INTERDICTION FORMELLE : JAMAIS D'ABAISSE-LANGUE NI DE DÉCUBITUS DORSAL (RISQUE D'ARRÊT RESPIRATOIRE RÉFLEXE INSTANTANÉ) !"
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Les 4 'D' de l'Épiglottite Aiguë</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Drooling (Bave) :</strong> Sialorrhée majeure due à l'impossibilité douloureuse d'avaler la salive.<br>• <strong>Dysphagia (Dysphagie) :</strong> Douleur pharyngée atroce bloquant toute déglutition.<br>• <strong>Dysphonia (Dysphonie) :</strong> Voix éteinte, nasonnée, étouffée.<br>• <strong>Distress (Détresse) :</strong> Polypnée, tirage sus-sternal intense, angoisse panique.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Protocole de Prise en Charge d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Ne pas toucher l'enfant :</strong> Le laisser assis dans les bras de ses parents.<br>2. <strong>Oxygène :</strong> Présenté à quelques centimètres du visage sans masque plaqué serré.<br>3. <strong>Appel du réanimateur et de l'anesthésiste-ORL :</strong> Transfert direct au bloc opératoire pour intubation orotrachéale sous anesthésie par inhalation.<br>4. <strong>Antibiothérapie IV :</strong> C3G (Ceftriaxone 50-100 mg/kg/j) débutée après sécurisation des voies aériennes.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Le Geste Fatal à Proscrire Absolument !\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Vouloir examiner la gorge avec un abaisse-langue ou allonger l'enfant pour ausculter déclenche un laryngospasme réflexe total ou la bascule de l'épiglotte tuméfiée obstruant le larynx avec arrêt cardiaque anoxique immédiat !</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais tenter de ponction veineuse, d'aérosol forcé ou de radiographie du cou chez un enfant suspect d'épiglottite tant que l'intubation au bloc n'a pas été réalisée.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La différenciation avec la laryngite sous-glottique bénigne (faux croup) repose sur la toux aboyante et la voix rauque dans la laryngite sous-glottique, alors que la toux est ABSENTE et la voix étouffée dans l'épiglottite.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Grâce à la vaccination généralisée contre Haemophilus influenzae b (Hib), la fréquence a considérablement chuté, mais des cas surviennent chez les enfants non vaccinés ou à streptocoque.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_polytraumatise",
+    "slug": "polytraumatisme-grave-damage-control-abcde",
+    "title": "Fiche Urgence : 48. Polytraumatisé Grave (Damage Control & ABCDE)",
+    "specialtyId": "ortho",
+    "specialtyName": "Orthopédie & Traumatologie",
+    "category": "Traumatologie Lourde",
+    "estimatedReadTime": "6 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Définition : Blessé présentant plusieurs lésions traumatiques dont au moins une met en jeu le pronostic vital à court terme.",
+      "Approche séquentielle internationale ATLS standardisée : A (Airway), B (Breathing), C (Circulation), D (Disability), E (Exposure).",
+      "Combat de la 'Triade Létale' : Hypothermie (< 35°C) + Acidose métabolique (pH < 7.20) + Coagulopathie traumatique précoce.",
+      "Stratégie de Damage Control : Hémostase chirurgicale écourtée d'urgence + Réanimation d'hémostase (ratio transfusionnel 1:1:1 + Acide Tranexamique)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Bilan Primaire Systématisé ABCDE</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>A (Airway) :</strong> Libération des VAS avec contrôle continu de l'axe rachidien cervical (collier rigide).<br>• <strong>B (Breathing) :</strong> Détection et décompression immédiate d'un pneumothorax sous tension ou hémothorax massif.<br>• <strong>C (Circulation) :</strong> Pose de 2 VVP gros calibre, ceinture pelvienne pour fracture du bassin, garrot hémostatique de membre si saignement externe artériel.<br>• <strong>D (Disability) :</strong> Score de Glasgow, pupilles (asymétrie/mydriase).<br>• <strong>E (Exposure) :</strong> Déshabillage complet et réchauffement immédiat.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Principes de la Réanimation d'Hémostase</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Acide tranexamique (Exacyl) :</strong> 1 g IV dans les 10 premières minutes puis 1 g sur 8h (à administrer < 3h après le trauma).<br>• <strong>Transfusion massive au ratio 1:1:1 :</strong> 1 Culot de Globules Rouges (CGR) pour 1 Plasma Frais Congelé (PFC) pour 1 Culot Plaquettaire.<br>• <strong>Hypotension permissive :</strong> Tolérer une PAS entre 80-90 mmHg (sauf traumatisme crânien où la PAS doit rester > 100-110 mmHg).</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 L'Examen Clé : Body-Scanner Total (Pan-Scanner)\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Dès stabilisation hémodynamique initiale, réalisation d'un scanner corps entier injecté (crâne, rachis, thorax, abdomen, bassin) : permet un bilan lésionnel exhaustif en moins de 10 minutes.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Tout traumatisé grave est considéré porteur d'un traumatisme instable du rachis cervical jusqu'à preuve radiologique formelle (maintien rigide de l'axe tête-cou-tronc).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>La perfusion intempestive de litres de sérum physiologique glacé aggrave la triade létale par hémodilution des facteurs de coagulation et hypothermie.</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Une fracture du bassin en 'livre ouvert' peut séquestrer plusieurs litres de sang dans l'espace rétropéritonéal : la pose immédiate d'une sangle pelvienne compressive est salvatrice.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_syndrome_des_loges",
+    "slug": "syndrome-des-loges-aigu-ischemie-aponevrotomie",
+    "title": "Fiche Urgence : 49. Syndrome des Loges Aigu des Membres (Urgence < 6h)",
+    "specialtyId": "ortho",
+    "specialtyName": "Orthopédie & Traumatologie",
+    "category": "Urgence Orthopédique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Hyperpression tissulaire à l'intérieur d'une loge ostéo-aponévrotique inextensible compromettant la microcirculation capillaire et nerveuse.",
+      "Signe d'alerte n°1 précoce : DOULEUR disproportionnée par rapport aux lésions osseuses, intolérable, rebelle aux antalgiques majeurs de palier 3.",
+      "Signe clinique pathognomonique : Tension ligneuse douloureuse de la loge musculaire avec douleur vive majorée par l'étirement passif des muscles.",
+      "SEUL TRAITEMENT EFFICACE : Aponévrotomie décompressive de décharge chirurgicale de toutes les loges du membre en urgence absolue (< 6h)."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Les 5 'P' du Syndrome des Loges</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Pain (Douleur) :</strong> Précoce, insupportable, exacerbée à l'étirement passif (signe le plus sensible).<br>• <strong>Pressure (Pression) :</strong> Loge tendue comme du bois à la palpation.<br>• <strong>Paresthesia (Paresthésies) :</strong> Engourdissement cutané dans le territoire du nerf traversant la loge (atteinte ischémique nerveuse précoce dès 2h).<br>• <strong>Pallor (Pâleur) :</strong> Tardive.<br>• <strong>Pulselessness (Disparition du pouls) :</strong> SIGNE TRÈS TARDIF de nécrose avancée !</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Mesure de Pression & Aponévrotomie</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Mesure invasive :</strong> Pression intracompartimentale > 30 mmHg, ou Pression différentielle (PAD - Pression de loge) < 30 mmHg.<br>• <strong>Aponévrotomie de décharge :</strong> Incision cutanée et aponévrotique large de toutes les loges du membre (4 loges à la jambe, 3 loges à l'avant-bras) laissée ouverte avec pansement stérile gras.<br>• Fermeture différée ou greffe cutanée secondaire.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Le Piège Redoutable du Pouls Distal Présent\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">La présence d'un pouls artériel distal perçu (radial ou tibial postérieur) N'ÉLIMINE PAS un syndrome des loges ! La pression dans la loge (35-45 mmHg) suffit à écraser les capillaires et les veinules tout en laissant passer l'onde de pouls artérielle systolique (120 mmHg).</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Attendre la disparition des pouls distaux pour intervenir conduit à l'amputation ou à des séquelles fonctionnelles motrices définitives (syndrome de Volkmann au membre supérieur).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais surélever le membre au-dessus du niveau du cœur en cas de syndrome des loges (la surélévation diminue la pression de perfusion artérielle et aggrave l'ischémie tissulaire).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Tout plâtre ou pansement compressif circulaire doit être fendu immédiatement jusqu'à la peau sur toute sa longueur dès l'apparition d'une douleur inhabituelle.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
+  },
+  {
+    "id": "fiche_urgence_fracture_ouverte",
+    "slug": "fracture-ouverte-des-membres-classification-gustilo",
+    "title": "Fiche Urgence : 50. Fracture Ouverte des Membres (Gustilo-Anderson)",
+    "specialtyId": "ortho",
+    "specialtyName": "Orthopédie & Traumatologie",
+    "category": "Urgence Traumatologique",
+    "estimatedReadTime": "5 min",
+    "accessLevel": "FREE",
+    "published": true,
+    "keyTakeaways": [
+      "Solution de continuité cutanée mettant en communication directe le foyer de fracture osseux avec le milieu extérieur septique.",
+      "Risque majeur : Infection osseuse aiguë et chronique (Ostéomyélite, pseudarthrose septique) et gangrène gazeuse.",
+      "Classification de Gustilo-Anderson (Type I < 1 cm, Type II 1-10 cm, Type III > 10 cm avec délabrement périosté).",
+      "Trépied thérapeutique immédiat : Prophylaxie antitétanique + Antibioprophylaxie précoce (< 3h) + Parage chirurgical et fixation au bloc opératoire."
+    ],
+    "htmlContent": "<div class=\"space-y-6\">\n      \n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">1. Classification de Gustilo-Anderson</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">• <strong>Type I :</strong> Plaie punctiforme < 1 cm, propre, mécanisme du dedans au dehors, comminution minime.<br>• <strong>Type II :</strong> Plaie de 1 à 10 cm sans délabrement cutané extensif ni lambeau.<br>• <strong>Type III :</strong> Plaie > 10 cm avec délabrement majeur des parties molles, contusion périostée.<br>• <em>IIIa :</em> Couverture osseuse possible.<br>• <em>IIIb :</em> Os à nu nécessitant un lambeau de couverture.<br>• <em>IIIc :</em> Lésion artérielle réparable associée.</div>\n    </div>\n    \n      \n    <div class=\"p-4 rounded-2xl border shadow-sm bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200\">\n      <h4 class=\"font-black text-sm mb-1.5 flex items-center gap-1.5\">2. Prise en Charge d'Urgence</h4>\n      <div class=\"text-xs leading-relaxed space-y-1\">1. <strong>Au déchocage :</strong> Nettoyage abondant au sérum physiologique stérile, pansement stérile protecteur (ne pas explorer au doigt !).<br>2. <strong>VAT-SAT :</strong> Vérification du statut vaccinal antitétanique.<br>3. <strong>Antibioprophylaxie IV précoce :</strong> Amoxicilline-Acide clavulanique 2g IV ou Céfazoline 2g IV (+ Gentamicine si Gustilo III ou contamination tellurique).<br>4. <strong>Chirurgie :</strong> Parage et fixation par Fixateur Externe.</div>\n    </div>\n    \n    </div>\n    \n        <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs\">\n          <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1\">\n            🚨 Règle Fondamentale : Pas d'Ostéosynthèse Interne Fermée dans le Type III\n          </div>\n          <div class=\"text-navy-700 dark:text-slate-300 leading-relaxed\">Dans les fractures ouvertes de type III ou à forte contamination tellurique, le matériel d'ostéosynthèse interne (plaque vissée ou clou) est formellement proscrit en première intention en raison du risque de colonisation bactérienne immédiate : utiliser un Fixateur Externe de pontage.</div>\n        </div>\n        \n    \n      \n    <div class=\"p-5 mt-6 rounded-2xl bg-gradient-to-br from-indigo-950/40 via-navy-900 to-navy-900 border border-indigo-500/30 shadow-lg text-xs\">\n      <div class=\"font-extrabold text-amber-400 uppercase tracking-wider text-xs flex items-center gap-2 mb-2.5\">\n        ⚡ PIÈGES AU CONCOURS & RÉFLEXES DE GARDE :\n      </div>\n      <ul class=\"space-y-2 text-slate-200 leading-relaxed\">\n        <li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Le délai de réalisation du parage chirurgical et de l'administration des antibiotiques conditionne directement le taux de surinfection osseuse (règle des 6 heures).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Ne jamais refermer primitivement sous tension une plaie traumatique contuse : préférer la cicatrisation dirigée ou le pansement à pression négative (VAC).</span></li><li class='flex items-start gap-1.5'><span class='text-amber-500 font-bold shrink-0'>▸</span><span>Toujours rechercher et consigner par écrit l'état neurologique (sensibilité distale) et vasculaire (pouls distaux, TRC, Doppler) avant et après toute manœuvre de réduction.</span></li>\n      </ul>\n    </div>\n    \n    </div>",
+    "updatedAt": "2026-09-30T19:41:15.229077Z"
   }
-,
-  {
-  "id": "fiche_endocrino_hypo",
-  "slug": "hypoglycemie-conduite-a-tenir",
-  "title": "Fiche Réflexe : Prise en charge de l'Hypoglycémie Sévère",
-  "specialtyId": "endocrino",
-  "specialtyName": "Endocrinologie - Diabétologie",
-  "category": "Urgence Métabolique",
-  "estimatedReadTime": "4 min",
-  "accessLevel": "FREE",
-  "published": true,
-  "keyTakeaways": [
-    "Seuil biologique : Glycémie capillaire ou veineuse < 0,70 g/L (3,9 mmol/L) chez le diabétique traité.",
-    "Patient conscient : Règle des 15g de glucides à absorption rapide (3 morceaux de sucre ou 150 mL de jus de fruit) et contrôle à 15 min.",
-    "Patient comateux avec voie veineuse : 2 à 3 ampoules de Sérum Glucosé à 30% (G30) en IV direct lent.",
-    "Patient comateux sans voie veineuse (diabétique de type 1) : Glucagon 1 mg en IM ou SC (ou Glucagon nasal Baqsimi)."
-  ],
-  "htmlContent": "\n      <div class=\"space-y-3 text-xs text-navy-700 dark:text-navy-300\">\n        <p><strong>Triade de Whipple :</strong> Signes neuroglycopéniques + Glycémie basse documentée + Disparition immédiate des symptômes après resucrage.</p>\n        <div class=\"p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800\">\n          <p class=\"font-bold text-amber-900 dark:text-amber-200\">Attention aux sulfamides hypoglycémiants (Daonil, Amarel) :</p>\n          <p class=\"mt-1\">Hypoglycémie prolongée sur plusieurs jours pouvant récidiver après un resucrage initial. Hospitalisation sous perfusion de G10% pendant 48 heures impérative !</p>\n        </div>\n      </div>\n    ",
-  "updatedAt": "2026-09-04T12:00:00Z"
-},
-  {
-  "id": "fiche_gastro_hemorragie",
-  "slug": "hemorragie-digestive-haute",
-  "title": "Fiche Mémotechnique : Rupture de Varices Œsophagiennes",
-  "specialtyId": "gastro",
-  "specialtyName": "Gastro-entérologie & Hépatologie",
-  "category": "Hépatologie",
-  "estimatedReadTime": "4 min",
-  "accessLevel": "PRO",
-  "published": true,
-  "keyTakeaways": [
-    "Trépied immédiat : Vaso-actif (Terlipressine ou Somatostatine) + Ligature endoscopique < 12h + Ceftriaxone IV 7 jours.",
-    "Objectif transfusionnel restrictif chez le cirrhotique : Hémoglobine cible entre 7 et 8 g/dL (ne pas trop transfuser pour ne pas ré-augmenter la pression portale !).",
-    "Sonde de Blakemore ou de Linton uniquement en cas d'échec de l'hémostase endoscopique ou d'inondation cataclysmique en attendant le TIPS."
-  ],
-  "htmlContent": "\n      <div class=\"space-y-3 text-xs text-navy-700 dark:text-navy-300\">\n        <p>Le traitement vaso-actif par Terlipressine (2 mg IV puis 1-2 mg toutes les 4h) doit être débuté <strong>dès la suspicion clinique</strong>, avant même le transfert en salle d'endoscopie digestive.</p>\n      </div>\n    ",
-  "updatedAt": "2026-09-04T13:00:00Z"
-},
-  {
-  "id": "fiche_pediatrie_apgar",
-  "slug": "score-d-apgar",
-  "title": "Fiche Synthèse : Le Score d'Apgar à la Naissance",
-  "specialtyId": "pediatrie",
-  "specialtyName": "Pédiatrie",
-  "category": "Néonatalogie",
-  "estimatedReadTime": "3 min",
-  "accessLevel": "FREE",
-  "published": true,
-  "keyTakeaways": [
-    "Évalué à 1, 5 et 10 minutes de vie.",
-    "5 items cotés de 0 à 2 : Apparence (Coloration), Pouls (FC > 100), Grimace (Réactivité), Activité (Tonus), Respiration (Cri vigoureux).",
-    "Score 8 à 10 : Normal. Score 4 à 7 : Détresse modérée. Score 0 à 3 : Mort apparente imposant une réanimation néonatale immédiate."
-  ],
-  "htmlContent": "\n      <div class=\"space-y-2 text-xs text-navy-700 dark:text-navy-300\">\n        <p>Mnémonique <strong>APGAR</strong> : <strong>A</strong>pparence, <strong>P</strong>ouls, <strong>G</strong>rimace, <strong>A</strong>ctivité, <strong>R</strong>espiration.</p>\n      </div>\n    ",
-  "updatedAt": "2026-09-04T14:00:00Z"
-},
-  {
-  "id": "fiche_chirurgie_brulures",
-  "slug": "regle-des-9-de-wallace",
-  "title": "Fiche Réflexe : Règle des 9 de Wallace (Calcul de la Surface Brûlée)",
-  "specialtyId": "chirurgie",
-  "specialtyName": "Chirurgie Générale & Viscérale",
-  "category": "Urgences & Brûlés",
-  "estimatedReadTime": "3 min",
-  "accessLevel": "FREE",
-  "published": true,
-  "keyTakeaways": [
-    "Tête et cou : 9%.",
-    "Chaque membre supérieur : 9% (face ant 4,5% + face post 4,5%).",
-    "Chaque membre inférieur : 18% (face ant 9% + face post 9%).",
-    "Face antérieure du tronc : 18% (thorax 9% + abdomen 9%).",
-    "Face postérieure du tronc : 18% (haut 9% + bas 9%).",
-    "Périnée et organes génitaux : 1%."
-  ],
-  "htmlContent": "\n      <div class=\"text-xs text-navy-700 dark:text-navy-300\">\n        <p><strong>Formule de Parkland pour la réanimation hydrique des premières 24h :</strong></p>\n        <p class=\"font-bold text-rose-700 dark:text-rose-300 mt-1\">Volume de Ringer Lactate = 4 mL x Poids (kg) x % de Surface Brûlée.</p>\n        <p class=\"text-navy-500 mt-1\">La moitié de ce volume est perfusée sur les 8 premières heures, l'autre moitié sur les 16 heures suivantes.</p>\n      </div>\n    ",
-  "updatedAt": "2026-09-04T15:00:00Z"
-},
-  {
-  "id": "fiche_uro_ipss",
-  "slug": "score-ipss-hypertrophie-prostatique",
-  "title": "Fiche Synthèse : Score IPSS & Médicaments de l'HBP",
-  "specialtyId": "uro",
-  "specialtyName": "Urologie",
-  "category": "Urologie Fonctionnelle",
-  "estimatedReadTime": "4 min",
-  "accessLevel": "PRO",
-  "published": true,
-  "keyTakeaways": [
-    "Évalue la sévérité des SBAU (symptômes du bas appareil urinaire) : 0-7 léger, 8-19 modéré, 20-35 sévère.",
-    "Alpha-bloquants (Tamsulosine, Alfuzosine) : Action rapide en 48-72h sur la composante obstructive dynamique (relaxation du col vésical).",
-    "Inhibiteurs de la 5-alpha-réductase (Finastéride, Dutastéride) : Action retardée en 3 à 6 mois, réduction du volume prostatique et divise par 2 le taux de PSA sérique !"
-  ],
-  "htmlContent": "\n      <div class=\"text-xs text-navy-700 dark:text-navy-300\">\n        <p>Piège fréquent : Tout dosage de PSA sous inhibiteur de la 5-alpha-réductase doit être <strong>multiplié par 2</strong> pour être interprété correctement dans le dépistage du cancer prostatique.</p>\n      </div>\n    ",
-  "updatedAt": "2026-09-04T16:00:00Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
-,
-{
-  "id": "fiche_orl_obstruction_nasale_et_epistaxis",
-  "slug": "orl-obstruction-nasale-et-epistaxis",
-  "title": "Fiche Flash : 1. Obstruction Nasale & Épistaxis Grave",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 1. Obstruction Nasale & Épistaxis Grave",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Rappels Anatomiques & Vascularisation Nasale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure).\n  </p>\n  <div class=\"p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/60 dark:border-rose-900/50 dark:bg-rose-950/20\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal, la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'épistaxis est une urgence médico-chirurgicale fréquente. L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen otorhinolaryngologique.\n  </p>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-6\">\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique.</p>\n    </div>\n    <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n      <p class=\"text-xs text-navy-600 dark:text-navy-300\">En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine.</p>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Étiologies de l'Obstruction Nasale</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez le Jeune Homme :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale avec épistaxis récidivantes massives.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne, cancers du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés & Pièges Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 dark:border-indigo-900/50 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 À RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li>\n      <li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li>\n      <li>• La tache vasculaire est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_cancers_des_voies_aero_digestives_superieures_vads",
-  "slug": "orl-cancers-des-voies-aero-digestives-superieures-vads",
-  "title": "Fiche Flash : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"intro\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épidémiologie & Facteurs de Risque</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Examen Clinique & Panendoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Carcinome du Nasopharynx (UCN)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">4. Points Clés Concours</h2>\n  <div class=\"p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 dark:bg-indigo-950/30 space-y-2\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">📌 RETENIR ABSOLUMENT :</div>\n    <ul class=\"text-xs text-indigo-950 dark:text-indigo-200 space-y-1.5\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li>\n      <li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li>\n      <li>• La panendoscopie des VADS est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_traumatismes_du_cou_et_de_la_face",
-  "slug": "orl-traumatismes-du-cou-et-de-la-face",
-  "title": "Fiche Flash : 3. Traumatismes de la Face et du Cou",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 3. Traumatismes de la Face et du Cou",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"opn\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Fractures des Os Propres du Nez (OPN) & Hématome de Cloison</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    La fracture des OPN est la plus fréquente des fractures de la face. L'examen otorhinolaryngologique précoce doit systématiquement rechercher une urgence chirurgicale : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Se manifeste par une obstruction nasale bilatérale avec tuméfaction violacée, lisse et fluctuante de la cloison nasale. <em>Risque évolutif :</em> Nécrose du cartilage septal avec ensellement nasal définitif et médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Fractures de Le Fort (Massif Facial Middle-Face)</h2>\n  <div class=\"space-y-3\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du massif maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_tumefactions_cervicales",
-  "slug": "orl-diagnostic-des-tumefactions-cervicales",
-  "title": "Fiche Flash : 4. Diagnostic des Tuméfactions Cervicales",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 4. Diagnostic des Tuméfactions Cervicales",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"orientations\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Démarche Diagnostique devant une Masse Cervicale</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'âge et la topographie (médiane ou latérale) constituent les deux facteurs majeurs d'orientation étiologique.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-teal-50 dark:bg-teal-950/20 border border-teal-200\">\n      <strong>Chez l'Enfant / Sujet Jeune (< 30 ans) :</strong> Origine infectieuse (adénite, adénophlegmon) ou malformation congénitale (kyste du tractus thyréoglosse, kyste amygdaloïde).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>Chez l'Adulte (> 40 ans) :</strong> Origine tumorale ganglionnaire secondaire (métastase d'un carcinome des VADS) jusqu'à preuve du contraire !\n    </div>\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Tuméfactions Congénitales Médianes & Latérales</h2>\n  <div class=\"space-y-4\">\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste du Tractus Thyréoglosse (KTT)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction médiane, sous-hyoïdienne, <strong>mobile à la déglutition et à la protraction de la langue</strong> (trajet résiduel du tractus thyréoglosse).\n      </p>\n    </div>\n    <div class=\"p-4 rounded-xl bg-white dark:bg-navy-800 border border-slate-200 shadow-sm\">\n      <h3 class=\"font-bold text-brand-600 mb-1\">🎯 Kyste Amygdaloïde (Fente Branchiale)</h3>\n      <p class=\"text-sm text-navy-700 dark:text-navy-300\">\n        Tuméfaction latéro-cervicale haute, le long du bord antérieur du muscle sternocléidomastoïdien.\n      </p>\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_pathologies_de_l_oreille_externe",
-  "slug": "orl-pathologies-de-l-oreille-externe",
-  "title": "Fiche Flash : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "30 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"otite-externe\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Externe Aiguë Diffuse</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection dermo-épidermique du conduit auditif externe (CAE), favorisée par les baignades et le nettoyage micro-traumatique par coton-tige. Germe prédominant : <strong>Pseudomonas aeruginosa</strong> (Bacille Pyocyanique).\n  </p>\n  <div class=\"p-4 rounded-xl bg-slate-50 border border-slate-200 dark:bg-navy-900/60 mb-4\">\n    <strong>Clinique :</strong> Otalgie violente, vivement exacerbée par la <em>pression sur le tragus</em> et la <em>traction du pavillon</em>. Tympan normal mais difficile à visualiser en raison de l'œdème sténosant du conduit.\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Otite Externe Nécrosante Maligne (OEM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Osteomyélite du rocher d'origine pseudomonadique survenant chez le <strong>diabétique âgé ou l'immunodéprimé</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Signes d'Alerte et Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otalgie insomniante rebelle aux antalgiques avec otorrhée purulente et bourgeon de granulation au plancher du conduit.</li>\n      <li>• Complications neurologiques : Atteinte du nerf facial (VII) à la partie postérieure du conduit, puis des nerfs crâniens inférieurs (IX, X, XI au trou déchiré postérieur).</li>\n      <li>• Traitement : Antibiothérapie antipyocyanique prolongée IV (Ceftazidime + Ciprofloxacine) et équilibre du diabète.</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otite_moyenne_aigue_oma",
-  "slug": "orl-otite-moyenne-aigue-oma",
-  "title": "Fiche Flash : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 6. L'Otite Moyenne Aiguë (OMA) & Complications",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"germes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Étiopathogénie & Bactériologie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    L'OMA fait suite à une rhinopharyngite aiguë par dysfonctionnement de la trompe d'Eustache. Principaux germes : <strong>Haemophilus influenzae</strong> (syndrome otite-conjonctivite) et <strong>Streptococcus pneumoniae</strong> (Pneumocoque, le plus fébrile et algique).\n  </p>\n</section>\n\n<section id=\"stades\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Stades Otoscopiques</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-4\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>1. OMA Congestive :</strong> Tympan rosé ou érythémateux avec conservation des reliefs osseux. Traitement antalgique/antipyrique sans antibiotique d'emblée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. OMA Collectée :</strong> Tympan bombé, dépoli, comblant les reliefs osseux. Indication à l'antibiothérapie par Amoxicilline (ou Augmentin si otite-conjonctivite).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>3. OMA Perforée :</strong> Otorrhée purulente pulsatile spontanée soulageant l'otalgie.\n    </div>\n  </div>\n</section>\n\n<section id=\"complications\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Complications : La Mastoïdite Aiguë</h2>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <strong>Mastoïdite Aiguë de l'Enfant :</strong> Décollement du pavillon de l'oreille avec comblement et œdème rétro-auriculaire douloureux. Hospitalisation, scanner du rocher et paracentèse / antibiothérapie IV ± mastoïdatesctomie.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinosinusites_aigues_et_chroniques",
-  "slug": "orl-rhinosinusites-aigues-et-chroniques",
-  "title": "Fiche Flash : 7. Les Rhinosinusites Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 7. Les Rhinosinusites Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"maxillaire\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Sinusite Maxillaire Aiguë de l'Adulte</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Infection aiguë du sinus maxillaire. Critères diagnostiques d'une surinfection bactérienne (nécessitant Amoxicilline) : au moins 2 critères majeurs (douleur sous-orbitaire unilatérale throbbing, mouchage purulente, fièvre > 38.5°C).\n  </p>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Éthmoïdite Aiguë de l'Enfant (Urgence Vitale)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Éthmoïdite Aiguë du Nourrisson</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Seul sinus développé dès la naissance. Clinique : <strong>Œdème palpebral unilatéral douloureux</strong> à prédominance médiale avec fièvre élevée.<br>\n      <em>Stade collecté (Abcès sous-périosté orbitaire) :</em> Exophtalmie, mydriase, immobilité oculaire. Scanner orbito-encéphalique en urgence et drainage.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_corps_etrangers_en_orl",
-  "slug": "orl-corps-etrangers-en-orl",
-  "title": "Fiche Flash : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "35 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 8. Corps Étrangers en ORL & Syndrome de Pénétration",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"penetration\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Le Syndrome de Pénétration (Élément Pathognomonique)</h2>\n  <div class=\"p-5 rounded-2xl bg-amber-50 border border-amber-200 dark:bg-amber-950/30\">\n    <strong>Clinique Cardinal :</strong> Accès de suffocation brutal, tirage, cyanose, toux quinteuse expulsative expiratoire survenant lors du jeu ou d'un repas chez un enfant de 6 mois à 3 ans (cacahuète, petit objet). L'interrogatoire retrouve systématiquement cet épisode inaugural.\n  </div>\n</section>\n\n<section id=\"localisation\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Prise en Charge & Bronchoscopie</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Toute suspicion de corps étranger des voies aériennes impose la réalisation d'une <strong>endoscopie au tube rigide sous AG</strong> pour extraction au tube optique.\n  </p>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_otites_moyennes_chroniques_et_cholesteatome",
-  "slug": "orl-otites-moyennes-chroniques-et-cholesteatome",
-  "title": "Fiche Flash : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"osm\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Otite Séro-Muqueuse (OSM)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Épanchement rétro-tympanique chronique (> 3 mois) à tympan fermé sans signe d'inflammation aiguë. Première cause de surdité de transmission chez l'enfant.\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20 mb-4\">\n    <strong>Otoscopie :</strong> Tympan dépoli, rétracté, ambré/jaunâtre avec bulles ou niveau liquide. <em>Traitement :</em> Aérateurs transtympaniques (yoyos) ± adénoïdectomie.\n  </div>\n</section>\n\n<section id=\"cholesteatome\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Cholestéatome (OMC Dangereuse)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Présence d'épithélium pavimenteux stratifié kératinisé dans les cavités de l'oreille moyenne. Caractérisé par son pouvoir <strong>ostéolytique destructeur</strong>.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🔍 Otoscopie & Complications</h3>\n    <ul class=\"text-xs text-rose-900 dark:text-rose-200 space-y-1.5\">\n      <li>• Otoscopie : Perforation atticale ou marginale comblée par des squames blanchâtres fétides.</li>\n      <li>• Complications : Fistule labyrinthique (vertige déclenché par la pression du conduit = Signe de la fistule), paralysie faciale périphérique (VII), méningite et abcès du cerveau.</li>\n      <li>• Traitement : Toujours chirurgical (tympanoplastie d'éradication).</li>\n    </ul>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_surdites",
-  "slug": "orl-diagnostic-des-surdites",
-  "title": "Fiche Flash : 10. Diagnostic des Surdités (Transmission vs Perception)",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 10. Diagnostic des Surdités (Transmission vs Perception)",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"diapason\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Épreuves au Diapason (Weber & Rinne)</h2>\n  <div class=\"overflow-x-auto mb-6\">\n    <table class=\"w-full text-left border-collapse border border-slate-200 dark:border-navy-700 rounded-xl overflow-hidden text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 font-bold uppercase text-navy-700 dark:text-navy-200\">\n        <tr>\n          <th class=\"p-3 border\">Type de Surdité</th>\n          <th class=\"p-3 border text-center\">Test de Weber (Vortex)</th>\n          <th class=\"p-3 border text-center\">Test de Rinne (CO vs CA)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-100 dark:divide-navy-800\">\n        <tr>\n          <td class=\"p-3 font-bold text-brand-600\">Surdité de Transmission</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté malade</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Négatif</strong> (CO > CA)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception</td>\n          <td class=\"p-3 text-center\">Latéralisé du <strong>côté sain</strong></td>\n          <td class=\"p-3 text-center\"><strong>Rinne Positif</strong> (CA > CO mais abaissés)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"audiometrie\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Audiométrie & Impédancemétrie</h2>\n  <ul class=\"space-y-3 text-sm text-navy-700 dark:text-navy-300\">\n    <li>• <strong>Surdité de Transmission :</strong> Conduction osseuse (CO) normale, courbe de conduction aérienne (CA) abaissée (existence d'un Rink / rinne audiométrique). Tympanogramme plat (épanchement OSM) ou réflexe stapedien absent (otospongiose).</li>\n    <li>• <strong>Surdité de Perception :</strong> Courbes CO et CA superposées et abaissées. Otospongiose (surdité de transmission à tympan normal avec coche de Carhart à 2000 Hz). Neurinome de l'acoustique (surdité de perception rétro-cochléaire unilatérale progressive).</li>\n  </ul>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_diagnostic_des_vertiges",
-  "slug": "orl-diagnostic-des-vertiges",
-  "title": "Fiche Flash : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 11. Diagnostic des Vertiges & Syndromes Vestibulaires",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"syndromes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Syndrome Vestibulaire Périphérique vs Central</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 dark:bg-teal-950/20\">\n      <h3 class=\"font-bold text-teal-900 mb-2\">Syndrome Périphérique (Harmonieux)</h3>\n      • Vertige rotatoire intense avec signes neuro-végétatifs (vomissements).<br>\n      • <strong>Nystagmus horizontal ou horizono-rotatoire</strong> battant du côté opposé à la lésion (phase rapide vers le côté sain).<br>\n      • Déviations toniques (Romberg, Fukuda) du <em>côté lésé</em>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20\">\n      <h3 class=\"font-bold text-rose-950 mb-2\">Syndrome Central (Dysharmonieux)</h3>\n      • Vertige souvent flou ou sensation d'instabilité.<br>\n      • Nystagmus pur (vertical, rotatoire pur ou multidirectionnel).<br>\n      • Déviations toniques non concordantes (évoquer un AVC du tronc cérébral / cérébelleux).\n    </div>\n  </div>\n</section>\n\n<section id=\"vppb\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Vertige Positionnel Paroxystique Bénin (VPPB)</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Dû à une lithiase des canaux semi-circulaires (canal postérieur +++). Vertige très bref (< 1 minute), violent, déclenché par les changements de position de la tête.\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 border border-indigo-200 mb-4\">\n    <strong>Diagnostic :</strong> Manœuvre de Dix-Hallpike (déclenche le vertige et le nystagmus épuisable avec latence). <em>Traitement :</em> Manœuvre libératoire de Semont ou Epley.\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_dyspnees_laryngees_aigues_et_chroniques",
-  "slug": "orl-dyspnees-laryngees-aigues-et-chroniques",
-  "title": "Fiche Flash : 12. Dyspnées Laryngées Aiguës et Chroniques",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "40 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 12. Dyspnées Laryngées Aiguës et Chroniques",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"triade\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Triade Clinique de la Dyspnée Laryngée</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30 mb-4\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Triade Pathognomonique</h3>\n    <ol class=\"list-decimal pl-5 text-sm text-rose-900 dark:text-rose-200 space-y-1\">\n      <li><strong>Bradypnée Inspiratoire :</strong> Ralentissement de la fréquence respiratoire avec allongement de l'inspiration.</li>\n      <li><strong>Tirage Inspiratoire :</strong> Dépression des parties meubles (sus-sternale, sus-claviculaire et intercostale).</li>\n      <li><strong>Bruit Inspiratoire :</strong> Stridor (aigu, laryngé haut) ou Cornage (grave, sous-glottique).</li>\n    </ol>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Laryngites Aiguës Pédiatriques</h2>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Laryngite Aiguë Sous-Glottique (Virale) :</strong> La plus fréquente (6 mois - 3 ans). Toux rauque, voix modifiée, bradypnée inspiratoire nocturne. Traitement : Corticothérapie orale (Dexaméthasone ou Solupred) ± nébulisation d'Adrénaline.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-100 border border-rose-300\">\n      <strong>Épiglottite Aiguë (Haemophilus influenzae b) :</strong> Urgence extrême ! Dysphagie majeure avec bavage d'interdiction, position assise penchée en avant obligatoire, voix étouffée (\"patate chaude\"). <em>Contre-indication absolue à l'abaisse-langue !</em> Intubation en milieu chirurgical.\n    </div>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-},
-{
-  "id": "fiche_orl_rhinopharyngites_et_angines",
-  "slug": "orl-rhinopharyngites-et-angines",
-  "title": "Fiche Flash : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-  "specialtyId": "orl",
-  "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-  "category": "Fiche Flash & Synthèse",
-  "estimatedReadTime": "45 min",
-  "keyTakeaways": [
-    "Fiche Flash Mémo : 13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-    "Diagnostics, pièges au concours et conduite à tenir.",
-    "Spécialité : Oto-Rhino-Laryngologie (ORL)"
-  ],
-  "accessLevel": "FREE",
-  "published": true,
-  "htmlContent": "\n<section id=\"tdr\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">1. Classification des Angines & Test TDR</h2>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n    Les angines sont érythémateuses (rouges) ou érythémato-pultacées (blanches) dans 80% des cas. La majorité est d'origine virale. Seul le <strong>Streptocoque Bêta-Hémolytique du Groupe A (SGA)</strong> justifie une antibiothérapie (Amoxicilline 6 jours) pour prévenir le Rhumatisme Articulaire Aigu (RAA).\n  </p>\n  <div class=\"p-4 rounded-xl bg-teal-50 border border-teal-200 mb-4\">\n    <strong>Test Rapide d'Orientation Diagnostique (TDR) :</strong> Réalisé au cabinet par frottis amygdalien. Si positif = Antibiothérapie Amoxicilline. Si négatif = Traitement symptomatique uniquement.\n  </div>\n</section>\n\n<section id=\"formes\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">2. Angines Particulières</h2>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 border border-purple-200\">\n      <strong>Angines Vésiculeuses (Virales) :</strong> Herpangine (Virus Coxsackie A) avec petites vésicules pharyngées, syndrome pied-main-bouche.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 border border-amber-200\">\n      <strong>Angine de Vincent (Ulcéro-nécrotique unilatérale) :</strong> Association fuso-spirillaire chez un sujet à mauvaise hygiène bucco-dentaire. Haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"phlegmon\" class=\"mb-10\">\n  <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white mb-4 border-b border-navy-100 dark:border-navy-800 pb-2\">3. Phlegmon Péri-Amygdalien (Complication Suppurée)</h2>\n  <div class=\"p-5 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/30\">\n    <h3 class=\"font-bold text-rose-950 dark:text-rose-100 mb-2\">🚨 Clinique & Ponction</h3>\n    <p class=\"text-xs text-rose-900 dark:text-rose-200 leading-relaxed\">\n      Suppuration entre la capsule amygdalienne et le muscle constricteur du pharynx.<br>\n      • Triade : <strong>Trismus serré</strong>, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.<br>\n      • Examen : Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.<br>\n      • Traitement : Ponction évacuatrice au point de bombement maximum (ou incision) + Augmentin IV.\n    </p>\n  </div>\n</section>\n",
-  "updatedAt": "2026-09-30T00:00:00.000Z"
-}
 ];
