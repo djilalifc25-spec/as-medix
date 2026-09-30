@@ -143,8 +143,22 @@ export async function POST(req: Request) {
     const { data: existing } = await supabase.from('custom_sources').select('sources').eq('scope_key', key).single();
     let structured: StructuredSource[] = normalizeSourcesList(existing?.sources && Array.isArray(existing.sources) ? existing.sources : []);
 
+    // Case 0: Toggle hyper probable status on a source
+    if (body.action === 'toggle_hyper_probable' && body.name) {
+      const cleanName = String(body.name).trim();
+      let found = structured.find(s => s.name.toLowerCase() === cleanName.toLowerCase());
+      if (found) {
+        found.isHyperProbable = Boolean(body.isHyperProbable);
+      } else {
+        structured.push({
+          name: cleanName,
+          subSources: [],
+          isHyperProbable: Boolean(body.isHyperProbable)
+        });
+      }
+    }
     // Case 1: Add a sub-source to a parent source
-    if (parentName && subSource) {
+    else if (parentName && subSource) {
       const cleanParent = String(parentName).trim();
       const cleanSub = String(subSource).trim();
       let found = structured.find(s => s.name.toLowerCase() === cleanParent.toLowerCase());
@@ -169,13 +183,19 @@ export async function POST(req: Request) {
       if (!found) {
         structured.push({
           name: cleanName,
-          subSources: initialSubs
+          subSources: initialSubs,
+          isHyperProbable: Boolean(body.isHyperProbable)
         });
-      } else if (initialSubs.length > 0) {
-        initialSubs.forEach(s => {
-          if (!found!.subSources.includes(s)) found!.subSources.push(s);
-        });
-        found.subSources.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+      } else {
+        if (body.isHyperProbable !== undefined) {
+          found.isHyperProbable = Boolean(body.isHyperProbable);
+        }
+        if (initialSubs.length > 0) {
+          initialSubs.forEach(s => {
+            if (!found!.subSources.includes(s)) found!.subSources.push(s);
+          });
+          found.subSources.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+        }
       }
     } else {
       return NextResponse.json({ error: 'Nom de source ou parentName requis' }, { status: 400 });

@@ -110,6 +110,12 @@ export async function POST(req: NextRequest) {
       const safeTitle = String(q.title || safeQuestion).substring(0, 200);
       const safeAccessLevel = String(q.accessLevel || body.accessLevel || 'PRO');
 
+      const isHyper = Boolean(body.isHyperProbable || q.isHyperProbable);
+      const tagsList = [finalSource, specialtyName || 'Médecine', 'Extrait IA'];
+      if (isHyper) {
+        tagsList.push('HYPER_PROBABLE_RESIDANAT');
+      }
+
       const newQcm: QCM = {
         id: qcmId,
         title: safeTitle,
@@ -130,9 +136,10 @@ export async function POST(req: NextRequest) {
         correctAnswers: correctAnswersArray.length > 0 ? correctAnswersArray : [0],
         explanation: q.explanation || q.explanationHtml || '',
         reference: q.reference || `Examen : ${finalSource}`,
-        tags: [finalSource, specialtyName || 'Médecine', 'Extrait IA'],
+        tags: tagsList,
         accessLevel: safeAccessLevel as any,
-        year: year ? Number(year) as any : undefined
+        year: year ? Number(year) as any : undefined,
+        isHyperProbable: isHyper
       };
 
       // Add to local DB store

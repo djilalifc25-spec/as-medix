@@ -101,13 +101,26 @@ function mapSupabaseQcmToType(row: any): QCM {
     reference: refVal,
     tags: parseTags(row.tags),
     accessLevel: row.access_level || 'FREE',
-    year: row.year && !isNaN(Number(row.year)) ? Number(row.year) as any : undefined
+    year: row.year && !isNaN(Number(row.year)) ? Number(row.year) as any : undefined,
+    isHyperProbable: Boolean(
+      (Array.isArray(row.tags) && row.tags.includes('HYPER_PROBABLE_RESIDANAT')) ||
+      row.is_hyper_probable ||
+      row.isHyperProbable
+    )
   };
 }
 
 async function syncQcmToSupabase(qcm: QCM) {
   try {
     const finalSource = qcm.source || (qcm.parentSource && qcm.subSource ? `${qcm.parentSource} - ${qcm.subSource}` : qcm.parentSource) || 'Externat';
+    const tagsArr = Array.isArray(qcm.tags) ? [...qcm.tags] : [];
+    if (qcm.isHyperProbable && !tagsArr.includes('HYPER_PROBABLE_RESIDANAT')) {
+      tagsArr.push('HYPER_PROBABLE_RESIDANAT');
+    } else if (qcm.isHyperProbable === false) {
+      const idx = tagsArr.indexOf('HYPER_PROBABLE_RESIDANAT');
+      if (idx >= 0) tagsArr.splice(idx, 1);
+    }
+
     const payload = {
       id: String(qcm.id),
       specialty: String(qcm.specialtyId || 'cardio'),
@@ -127,7 +140,7 @@ async function syncQcmToSupabase(qcm: QCM) {
       difficulty: qcm.difficulty ? String(qcm.difficulty) : 'Moyen',
       type: qcm.type ? String(qcm.type) : 'SINGLE',
       reference: qcm.reference ? String(qcm.reference) : null,
-      tags: Array.isArray(qcm.tags) ? qcm.tags : [],
+      tags: tagsArr,
       access_level: qcm.accessLevel ? String(qcm.accessLevel) : 'PRO',
       year: (qcm.year && !isNaN(Number(qcm.year))) ? Number(qcm.year) : null
     };
@@ -265,9 +278,16 @@ export async function POST(req: NextRequest) {
       correctAnswers: body.correctAnswers || [0],
       explanation: body.explanation || '',
       reference: body.reference || 'Faculté de Médecine d\'Alger',
-      tags: body.tags || [],
+      tags: (() => {
+        const t = Array.isArray(body.tags) ? [...body.tags] : [];
+        if (body.isHyperProbable && !t.includes('HYPER_PROBABLE_RESIDANAT')) {
+          t.push('HYPER_PROBABLE_RESIDANAT');
+        }
+        return t;
+      })(),
       accessLevel: body.accessLevel || 'PRO',
-      year: body.year ? Number(body.year) as any : undefined
+      year: body.year ? Number(body.year) as any : undefined,
+      isHyperProbable: Boolean(body.isHyperProbable)
     };
 
     const saved = db.createQcm(newQcm);
@@ -351,6 +371,80 @@ export async function PUT(req: NextRequest) {
       });
 
       return NextResponse.json({ success: true, count: qcmIds.length, accessLevel: validAccess });
+    }
+
+    // BATCH UPDATE HYPER PROBABLE RESIDANAT
+    if (body.action === 'batch_update_hyper_probable' && Array.isArray(body.qcmIds)) {
+      const { qcmIds, isHyperProbable } = body;
+      const targetBoolean = Boolean(isHyperProbable);
+
+      // Fetch existing rows from Supabase to preserve tags
+      const { data: existingRows } = await supabaseAdmin
+        .from('qcms')
+        .select('id, tags')
+        .in('id', qcmIds);
+
+      if (Array.isArray(existingRows)) {
+        for (const row of existingRows) {
+          const currentTags: string[] = Array.isArray(row.tags) ? [...row.tags] : [];
+          if (targetBoolean) {
+            if (!currentTags.includes('HYPER_PROBABLE_RESIDANAT')) {
+              currentTags.push('HYPER_PROBABLE_RESIDANAT');
+            }
+          } else {
+            const idx = currentTags.indexOf('HYPER_PROBABLE_RESIDANAT');
+            if (idx >= 0) currentTags.splice(idx, 1);
+          }
+
+          await supabaseAdmin
+            .from('qcms')
+            .update({ tags: currentTags })
+            .eq('id', row.id);
+        }
+      }
+
+      // Update local DB store
+      qcmIds.forEach((id: string) => {
+        const item = db.getQcmById(id);
+        const tags = Array.isArray(item?.tags) ? [...item.tags] : [];
+        if (targetBoolean) {
+          if (!tags.includes('HYPER_PROBABLE_RESIDANAT')) tags.push('HYPER_PROBABLE_RESIDANAT');
+        } else {
+          const idx = tags.indexOf('HYPER_PROBABLE_RESIDANAT');
+          if (idx >= 0) tags.splice(idx, 1);
+        }
+        db.updateQcm(id, { isHyperProbable: targetBoolean, tags });
+      });
+
+      return NextResponse.json({ success: true, count: qcmIds.length, isHyperProbable: targetBoolean });
+    }
+
+    // TOGGLE SINGLE QCM HYPER PROBABLE
+    if (body.action === 'toggle_hyper_probable' && body.id) {
+      const { id, isHyperProbable } = body;
+      const targetBoolean = Boolean(isHyperProbable);
+
+      const { data: row } = await supabaseAdmin
+        .from('qcms')
+        .select('tags')
+        .eq('id', id)
+        .maybeSingle();
+
+      const currentTags: string[] = (row && Array.isArray(row.tags)) ? [...row.tags] : [];
+      if (targetBoolean) {
+        if (!currentTags.includes('HYPER_PROBABLE_RESIDANAT')) currentTags.push('HYPER_PROBABLE_RESIDANAT');
+      } else {
+        const idx = currentTags.indexOf('HYPER_PROBABLE_RESIDANAT');
+        if (idx >= 0) currentTags.splice(idx, 1);
+      }
+
+      await supabaseAdmin
+        .from('qcms')
+        .update({ tags: currentTags })
+        .eq('id', id);
+
+      const updated = db.updateQcm(id, { isHyperProbable: targetBoolean, tags: currentTags });
+      return NextResponse.json({ success: true, qcm: updated, isHyperProbable: targetBoolean });
     }
 
     // SINGLE QCM UPDATE

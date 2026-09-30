@@ -16,28 +16,31 @@ export function normalizeSourceItem(item: any): StructuredSource {
     const name = String(item.name || '').trim();
     const rawSubs: any[] = Array.isArray(item.subSources) ? item.subSources : [];
     const subSources: string[] = Array.from(new Set(rawSubs.map((s: any) => String(s).trim()).filter(Boolean)));
-    return { name, subSources };
+    const isHyperProbable = Boolean(item.isHyperProbable);
+    return { name, subSources, isHyperProbable };
   }
   return { name: String(item).trim(), subSources: [] };
 }
 
 export function normalizeSourcesList(rawList: any[]): StructuredSource[] {
   if (!Array.isArray(rawList)) return [];
-  const map = new Map<string, Set<string>>();
+  const map = new Map<string, { subs: Set<string>; isHyperProbable: boolean }>();
 
   rawList.forEach(item => {
     const norm = normalizeSourceItem(item);
     if (!norm.name) return;
     if (!map.has(norm.name)) {
-      map.set(norm.name, new Set<string>());
+      map.set(norm.name, { subs: new Set<string>(), isHyperProbable: false });
     }
-    const currentSubs = map.get(norm.name)!;
-    norm.subSources.forEach(s => currentSubs.add(s));
+    const current = map.get(norm.name)!;
+    norm.subSources.forEach(s => current.subs.add(s));
+    if (norm.isHyperProbable) current.isHyperProbable = true;
   });
 
-  return Array.from(map.entries()).map(([name, subSet]) => ({
+  return Array.from(map.entries()).map(([name, data]) => ({
     name,
-    subSources: Array.from(subSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    subSources: Array.from(data.subs).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })),
+    isHyperProbable: data.isHyperProbable
   }));
 }
 

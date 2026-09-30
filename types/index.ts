@@ -117,6 +117,7 @@ export interface QCMOption {
 export interface StructuredSource {
   name: string;
   subSources: string[];
+  isHyperProbable?: boolean;
 }
 
 export interface QCM {
@@ -144,6 +145,7 @@ export interface QCM {
   reference: string; // e.g. "Collège National de Cardiologie, ECNi 2024"
   tags: string[];
   accessLevel: PlanType;
+  isHyperProbable?: boolean;
 }
 
 export interface QCMAttempt {

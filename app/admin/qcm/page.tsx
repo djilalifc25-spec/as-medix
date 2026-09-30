@@ -22,10 +22,13 @@ export default function AdminQcmPage() {
   const [selectedCourseFilter, setSelectedCourseFilter] = useState<string>('all');
   const [selectedSourceFilter, setSelectedSourceFilter] = useState<string>('all');
   const [selectedAccessFilter, setSelectedAccessFilter] = useState<string>('all');
+  const [selectedHyperFilter, setSelectedHyperFilter] = useState<'all' | 'hyper' | 'standard'>('all');
   const [searchQueryFilter, setSearchQueryFilter] = useState<string>('');
   const [showAllAnswersGlobal, setShowAllAnswersGlobal] = useState<boolean>(false);
   const [visibleAnswersMap, setVisibleAnswersMap] = useState<Record<string, boolean>>({});
   const [showAddForm, setShowAddForm] = useState(false);
+  const [isHyperProbable, setIsHyperProbable] = useState(false);
+  const [batchIsHyperProbable, setBatchIsHyperProbable] = useState(false);
 
   // Form states (Manual mode)
   const [title, setTitle] = useState('');
@@ -628,6 +631,74 @@ export default function AdminQcmPage() {
     }
   };
 
+  // Toggle single QCM Hyper Probable Résidanat
+  const handleToggleHyperProbable = async (qcmId: string, currentStatus: boolean) => {
+    const nextStatus = !currentStatus;
+    // Optimistic update
+    setQcms(prev => prev.map(q => q.id === qcmId ? { ...q, isHyperProbable: nextStatus } : q));
+    try {
+      const res = await fetch('/api/admin/qcm', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'toggle_hyper_probable',
+          id: qcmId,
+          isHyperProbable: nextStatus
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(nextStatus 
+          ? '🔥 QCM marqué avec succès comme "Hyper Probable pour le Résidanat" dans Supabase SQL !'
+          : '❄️ QCM retiré des questions Hyper Probables.'
+        );
+        setTimeout(() => setSuccessMsg(''), 3500);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+      } else {
+        alert(data.error || 'Erreur lors de la mise à jour');
+        await fetchData();
+      }
+    } catch (_err) {
+      alert('Erreur réseau');
+      await fetchData();
+    }
+  };
+
+  // Batch update Hyper Probable Résidanat for selected QCMs
+  const handleBatchUpdateHyperProbable = async (isHyper: boolean) => {
+    if (selectedQcmIds.length === 0) return;
+    try {
+      const res = await fetch('/api/admin/qcm', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'batch_update_hyper_probable',
+          qcmIds: selectedQcmIds,
+          isHyperProbable: isHyper
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setQcms(prev => prev.map(q => selectedQcmIds.includes(q.id) ? { ...q, isHyperProbable: isHyper } : q));
+        setSuccessMsg(isHyper
+          ? `🔥 ${selectedQcmIds.length} QCM(s) marqués comme "Hyper Probables Résidanat" dans Supabase SQL !`
+          : `❄️ ${selectedQcmIds.length} QCM(s) retirés de la sélection Hyper Probable.`
+        );
+        setSelectedQcmIds([]);
+        setTimeout(() => setSuccessMsg(''), 4000);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+      } else {
+        alert(data.error || 'Erreur lors de la mise à jour par lot');
+      }
+    } catch (_err) {
+      alert('Erreur réseau');
+    }
+  };
+
   // Create single manual QCM
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -683,6 +754,7 @@ export default function AdminQcmPage() {
       reference,
       isDailyQcm,
       accessLevel: newQcmAccessLevel,
+      isHyperProbable: isHyperProbable,
     };
 
     const res = await fetch('/api/admin/qcm', {
@@ -700,6 +772,7 @@ export default function AdminQcmPage() {
       setOptA(''); setOptB(''); setOptC(''); setOptD(''); setOptE('');
       setCorrectA(false); setCorrectB(false); setCorrectC(false); setCorrectD(false); setCorrectE(false);
       setNewQcmAccessLevel('PRO');
+      setIsHyperProbable(false);
       setShowAddForm(false);
     } else {
       alert(data.error || 'Erreur lors de la création');
@@ -941,6 +1014,7 @@ export default function AdminQcmPage() {
           explanation: qcmItem.explanationHtml || '<p>Explication clinique conforme.</p>',
           reference: reference || "Faculté de Médecine d'Alger",
           accessLevel: itemAccess,
+          isHyperProbable: batchIsHyperProbable,
         };
       });
 
@@ -952,7 +1026,8 @@ export default function AdminQcmPage() {
           specialtyId: specialtyId,
           specialtyName: (specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId))?.name || 'Cardiologie',
           source: finalGlobalSource,
-          accessLevel: defaultBatchAccessLevel || 'PRO'
+          accessLevel: defaultBatchAccessLevel || 'PRO',
+          isHyperProbable: batchIsHyperProbable
         })
       });
 
@@ -1211,7 +1286,12 @@ export default function AdminQcmPage() {
       || (selectedAccessFilter === 'FREE' && (!q.accessLevel || q.accessLevel === 'FREE'))
       || (q.accessLevel === selectedAccessFilter);
 
-    return matchYear && matchSpec && matchCourse && matchSource && matchQuery && matchAccess;
+    // 7. Hyper Probable Résidanat matching
+    const matchHyper = selectedHyperFilter === 'all'
+      || (selectedHyperFilter === 'hyper' && Boolean(q.isHyperProbable))
+      || (selectedHyperFilter === 'standard' && !q.isHyperProbable);
+
+    return matchYear && matchSpec && matchCourse && matchSource && matchQuery && matchAccess && matchHyper;
   });
 
   return (
@@ -1801,6 +1881,36 @@ export default function AdminQcmPage() {
                   </div>
                 </button>
               </div>
+            </div>
+
+            {/* 7. Hyper Probable Résidanat Toggle */}
+            <div className="pt-3 border-t border-slate-200 dark:border-navy-800">
+              <label className="flex items-center gap-3 p-3.5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border-2 border-amber-300 dark:border-amber-700/60 cursor-pointer hover:bg-amber-100/50 transition-all">
+                <input
+                  type="checkbox"
+                  checked={qcmInputMode === 'MANUAL' ? isHyperProbable : batchIsHyperProbable}
+                  onChange={(e) => {
+                    if (qcmInputMode === 'MANUAL') {
+                      setIsHyperProbable(e.target.checked);
+                    } else {
+                      setBatchIsHyperProbable(e.target.checked);
+                    }
+                  }}
+                  className="w-5 h-5 text-amber-600 rounded cursor-pointer"
+                />
+                <div>
+                  <div className="text-xs font-black text-amber-900 dark:text-amber-200 flex items-center gap-1.5">
+                    <span>🔥</span>
+                    <span>Classer comme "Hyper Probable pour le Résidanat" (Algérie)</span>
+                    <span className="text-[10px] bg-amber-500 text-white px-2 py-0.5 rounded-full font-black">
+                      Recommandé
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-amber-800/80 dark:text-amber-300/80 mt-0.5">
+                    Ce QCM sera mis en avant et apparaîtra instantanément dans le filtre "🔥 Hyper Probables" des étudiants préparant le Résidanat.
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
 
@@ -2609,7 +2719,7 @@ export default function AdminQcmPage() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 text-xs font-bold">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 text-xs font-bold">
           {/* 1. Year filter */}
           <div>
             <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
@@ -2705,7 +2815,24 @@ export default function AdminQcmPage() {
             </select>
           </div>
 
-          {/* 6. Keyword Search filter */}
+          {/* 6. Hyper Probable Résidanat filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-amber-600 dark:text-amber-400 mb-1 flex items-center gap-1">
+              <span>🔥</span>
+              <span>Résidanat :</span>
+            </label>
+            <select
+              value={selectedHyperFilter}
+              onChange={e => setSelectedHyperFilter(e.target.value as any)}
+              className="w-full px-3 py-2 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50/60 dark:bg-amber-950/40 text-amber-950 dark:text-amber-200 font-black cursor-pointer"
+            >
+              <option value="all">Tous les QCMs</option>
+              <option value="hyper">🔥 Hyper Probables (Seul)</option>
+              <option value="standard">Standard (Non Hyper)</option>
+            </select>
+          </div>
+
+          {/* 7. Keyword Search filter */}
           <div>
             <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
               🔍 Recherche Mot-Clé :
@@ -2774,6 +2901,27 @@ export default function AdminQcmPage() {
                   title="Réserver les QCMs sélectionnés au Forfait PREMIUM"
                 >
                   👑 Premium
+                </button>
+              </div>
+
+              {/* Batch Hyper Probable Changer */}
+              <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950/40 p-1 rounded-xl border border-amber-200 dark:border-amber-800">
+                <button
+                  type="button"
+                  onClick={() => handleBatchUpdateHyperProbable(true)}
+                  className="px-2.5 py-1 rounded-lg text-xs font-black bg-amber-500 hover:bg-amber-600 text-white transition-all cursor-pointer shadow-xs flex items-center gap-1"
+                  title="Marquer tous les QCMs sélectionnés comme Hyper Probables Résidanat dans Supabase"
+                >
+                  <span>🔥</span>
+                  <span>Hyper Probable ({selectedQcmIds.length})</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleBatchUpdateHyperProbable(false)}
+                  className="px-2 py-1 rounded-lg text-xs font-bold bg-white dark:bg-navy-800 hover:bg-slate-100 text-slate-700 dark:text-slate-300 transition-all cursor-pointer border border-amber-200/60"
+                  title="Retirer de la sélection Hyper Probable"
+                >
+                  <span>❄️ Retirer</span>
                 </button>
               </div>
 
@@ -2887,11 +3035,28 @@ export default function AdminQcmPage() {
                         {getSpecialtyEmoji(qcm.specialtyId)} {specialtyDisplayName}
                       </span>
 
-                      {qcm.courseTitle && (
+                      {qcm.courseTitle ? (
                         <span className="px-2 py-0.5 rounded-lg text-[11px] font-bold bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300">
                           📖 {qcm.courseTitle}
                         </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-300 border border-rose-200/50">
+                          ⚠️ Sans cours
+                        </span>
                       )}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedQcmIds([qcm.id]);
+                          setTargetBatchCourseId(qcm.courseId || '');
+                          setBatchAttachModalOpen(true);
+                        }}
+                        className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 hover:bg-indigo-100 cursor-pointer"
+                        title="Changer ou attribuer le cours de ce QCM"
+                      >
+                        🎯 {qcm.courseTitle ? 'Changer' : 'Rattacher Cours'}
+                      </button>
 
                       <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300 border border-amber-200/50">
                         🏛️ {qcm.faculty === 'ORAN' ? 'Faculté Oran' : qcm.faculty === 'SIDI_BEL_ABBES' ? 'Faculté SBA' : 'Toutes Facultés'}
@@ -2920,6 +3085,21 @@ export default function AdminQcmPage() {
                         <option value="PRO">⭐ Plan 4500 DA (PRO)</option>
                         <option value="PREMIUM">👑 Plan Premium</option>
                       </select>
+
+                      {/* Hyper Probable Résidanat Badge & 1-Click Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => handleToggleHyperProbable(qcm.id, Boolean(qcm.isHyperProbable))}
+                        className={`px-2.5 py-0.5 rounded-lg text-xs font-black transition-all flex items-center gap-1 cursor-pointer border ${
+                          qcm.isHyperProbable
+                            ? 'bg-amber-500 hover:bg-amber-600 text-white border-amber-600 shadow-sm'
+                            : 'bg-white dark:bg-navy-800 text-navy-500 dark:text-navy-400 border-navy-200 dark:border-navy-700 hover:border-amber-400 hover:text-amber-600'
+                        }`}
+                        title={qcm.isHyperProbable ? "🔥 Question Hyper Probable pour le Résidanat (Cliquer pour désactiver)" : "Marquer comme Hyper Probable pour le Résidanat"}
+                      >
+                        <span>🔥</span>
+                        <span>{qcm.isHyperProbable ? 'Hyper Probable' : 'Standard'}</span>
+                      </button>
                     </div>
                     <h3 className="text-base font-bold text-navy-950 dark:text-white">
                       {qcm.title}

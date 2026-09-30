@@ -102,7 +102,12 @@ function mapSupabaseQcmToType(row: any): QCM {
     reference: refVal,
     tags: parseTags(row.tags),
     accessLevel: row.access_level || 'FREE',
-    year: row.year && !isNaN(Number(row.year)) ? Number(row.year) as any : undefined
+    year: row.year && !isNaN(Number(row.year)) ? Number(row.year) as any : undefined,
+    isHyperProbable: Boolean(
+      (Array.isArray(row.tags) && row.tags.includes('HYPER_PROBABLE_RESIDANAT')) ||
+      row.is_hyper_probable ||
+      row.isHyperProbable
+    )
   };
 }
 
@@ -154,6 +159,10 @@ export async function GET(req: NextRequest) {
     if (source && source !== 'TOUS') {
       const selectedSourcesList = source.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
       qcms = qcms.filter(q => selectedSourcesList.some(s => matchQcmToSource(q, s)));
+    }
+    const hyperProbable = url.searchParams.get('hyperProbable');
+    if (hyperProbable === 'true') {
+      qcms = qcms.filter(q => q.isHyperProbable);
     }
 
     return NextResponse.json({ success: true, qcms, total: qcms.length });
