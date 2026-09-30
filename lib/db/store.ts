@@ -261,6 +261,21 @@ class DatabaseStore {
 
         if (fsModule.existsSync(DB_FILE_PATH)) {
         const fileContent = fsModule.readFileSync(DB_FILE_PATH, 'utf-8');
+        try {
+          const parsed = JSON.parse(fileContent);
+          if (parsed) {
+            if (Array.isArray(parsed.courses)) this.data.courses = parsed.courses;
+            if (Array.isArray(parsed.fiches)) this.data.fiches = parsed.fiches;
+            if (Array.isArray(parsed.qcms)) this.data.qcms = parsed.qcms;
+            if (Array.isArray(parsed.specialties)) this.data.specialties = parsed.specialties;
+            if (Array.isArray(parsed.deletedSpecialtyIds)) this.data.deletedSpecialtyIds = parsed.deletedSpecialtyIds;
+            if (Array.isArray(parsed.deletedCourseIds)) this.data.deletedCourseIds = parsed.deletedCourseIds;
+            if (Array.isArray(parsed.deletedQcmIds)) this.data.deletedQcmIds = parsed.deletedQcmIds;
+            if (Array.isArray(parsed.deletedFichesSpecialtyIds)) this.data.deletedFichesSpecialtyIds = parsed.deletedFichesSpecialtyIds;
+            if (parsed.customSources) this.data.customSources = parsed.customSources;
+          }
+        } catch (pe) {}
+
         if (!this.data.specialties) this.data.specialties = [];
         if (!this.data.deletedSpecialtyIds) this.data.deletedSpecialtyIds = [];
         if (!this.data.deletedCourseIds) this.data.deletedCourseIds = [];

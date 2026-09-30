@@ -41,9 +41,19 @@ function FichesHubContent() {
 
   const activeSpecialty = ALL_SPECIALTIES.find(s => s.id === selectedSpecId);
 
+  function matchesFicheSpec(f: any, specId: string, specName?: string): boolean {
+    if (!f || !specId) return false;
+    const fId = (f.specialtyId || f.specialty_id || '').toLowerCase().trim();
+    const sId = specId.toLowerCase().trim();
+    if (fId === sId) return true;
+    if (sId === 'orl' && (fId === 'orl' || (f.specialtyName && f.specialtyName.toLowerCase().includes('orl')))) return true;
+    if (f.specialtyName && specName && f.specialtyName.toLowerCase() === specName.toLowerCase()) return true;
+    return false;
+  }
+
   // Filter fiches by active specialty
   const specialtyFiches = selectedSpecId
-    ? allFiches.filter(f => f.specialtyId === selectedSpecId || f.specialty_id === selectedSpecId)
+    ? allFiches.filter(f => matchesFicheSpec(f, selectedSpecId, activeSpecialty?.name))
     : allFiches;
 
   const displayFiches = specialtyFiches.filter(f =>
@@ -310,7 +320,7 @@ function FichesHubContent() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {ALL_SPECIALTIES.map((spec) => {
-              const count = allFiches.filter(f => f.specialtyId === spec.id || f.specialty_id === spec.id).length;
+              const count = allFiches.filter(f => matchesFicheSpec(f, spec.id, spec.name)).length;
               const emoji = getSpecialtyEmoji(spec.id);
 
               return (
