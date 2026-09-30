@@ -552,7 +552,7 @@ function QcmHubContent() {
             Banque QCM Clinique & Filtre par Source
           </h1>
           <p className="text-xs sm:text-sm text-brand-100 leading-relaxed">
-            Cliquez sur un module ou ouvrez la fenêtre popup de filtrage pour combiner les sources (*Externat, Résidanat, Hypercours...*). Les questions sélectionnées s'affichent instantanément avec leur source visible à côté.
+            Sélectionnez vos modules et personnalisez vos filtres directement dans la barre latérale ou via le bouton filtre pop-up. Toutes les questions correspondantes apparaissent instantanément avec leur source bien visible.
           </p>
         </div>
 
@@ -564,7 +564,7 @@ function QcmHubContent() {
             className="px-6 py-3.5 rounded-2xl bg-white hover:bg-brand-50 text-brand-700 active:scale-95 text-xs font-black shadow-soft flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
             <SlidersHorizontal className="w-4 h-4 text-brand-700" />
-            <span>🎛️ Filtrer les Sources (Pop-up)</span>
+            <span>🎛️ Fenêtre Pop-up des Filtres</span>
             {activeFiltersCount > 0 && (
               <span className="px-2 py-0.5 rounded-full text-[10px] bg-brand-700 text-white font-mono">
                 {activeFiltersCount}
@@ -587,119 +587,55 @@ function QcmHubContent() {
       {/* 2. MAIN 2-COLUMN LAYOUT: SIDEBAR (LEFT) + LIVE QCM FEED (RIGHT) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-        {/* ========================================================= */}
-        {/* LEFT SIDEBAR: FAST MODULE SELECTION & POP-UP BUTTON       */}
-        {/* ========================================================= */}
+        {/* ========================================================================= */}
+        {/* LEFT SIDEBAR: FULL FILTER OVERVIEW + BUTTON FILTRE À CÔTÉ DE CHAQUE MODULE */}
+        {/* ========================================================================= */}
         <aside className="lg:col-span-4 xl:col-span-3 space-y-4 lg:sticky lg:top-20">
           <div className="apple-card p-5 space-y-4 border-2 border-brand-500/20 shadow-soft">
             
-            {/* BIG PROMINENT BUTTON: OPEN FILTER POPUP WINDOW */}
-            <button
-              type="button"
-              onClick={() => setIsFilterModalOpen(true)}
-              className="w-full p-4 rounded-2xl bg-gradient-to-r from-brand-600 via-brand-700 to-indigo-700 hover:from-brand-500 hover:to-indigo-600 text-white shadow-soft flex items-center justify-between transition-all cursor-pointer group active:scale-98"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform">
-                  <SlidersHorizontal className="w-5 h-5" />
-                </div>
-                <div className="text-left min-w-0">
-                  <div className="text-xs font-black tracking-wide flex items-center gap-1.5">
-                    <span>Filtres & Sources Avancés</span>
-                    {activeFiltersCount > 0 && (
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-amber-400 text-navy-950 font-black">
-                        {activeFiltersCount} actif{activeFiltersCount > 1 ? 's' : ''}
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-[10px] text-brand-100 font-medium truncate">
-                    Cliquez pour ouvrir la fenêtre popup
-                  </div>
-                </div>
+            {/* Header: Title & Reset Button */}
+            <div className="flex items-center justify-between pb-3 border-b border-navy-100 dark:border-navy-800">
+              <div className="flex items-center gap-2 text-navy-950 dark:text-white font-black text-sm">
+                <Filter className="w-4 h-4 text-brand-600" />
+                <span>Filtres de Sélection</span>
               </div>
-              <span className="px-2.5 py-1 rounded-xl text-[10px] font-black bg-white/20 text-white group-hover:bg-white group-hover:text-brand-700 transition-all shrink-0">
-                Ouvrir ↗
-              </span>
-            </button>
-
-            {/* Quick Active Scope Preview Card */}
-            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-800 space-y-2">
-              <div className="flex items-center justify-between text-[11px] font-bold text-navy-600 dark:text-navy-300">
-                <span className="uppercase tracking-wider text-[10px] font-black text-navy-400">Périmètre Actuel :</span>
-                <button
-                  type="button"
-                  onClick={handleResetFilters}
-                  className="text-brand-600 hover:underline text-[10px] font-bold"
-                >
-                  Réinitialiser
-                </button>
-              </div>
-
-              <div className="space-y-1 text-xs">
-                <div className="flex items-center justify-between font-bold text-navy-950 dark:text-white">
-                  <span className="truncate">🩺 {activeSpecialty.name}</span>
-                  <span className="font-mono text-[11px] opacity-80 text-brand-600 font-black">
-                    {filteredQcms.length} QCMs
-                  </span>
-                </div>
-
-                {selectedCourseId && (
-                  <div className="text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 truncate">
-                    📘 {allCourses.find(c => c.id === selectedCourseId)?.title || selectedCourseId}
-                  </div>
-                )}
-
-                <div className="text-[11px] text-navy-500 truncate">
-                  📚 Sources : {sourceFilterMode === 'SYSTEM' || selectedSources.includes('TOUS') ? 'Toutes les sources' : `${selectedSources.length} source(s) choisie(s)`}
-                </div>
-              </div>
-
-              {/* QUICK HYPER PROBABLE TOGGLE IN SIDEBAR */}
-              <div className="pt-2 border-t border-slate-200 dark:border-navy-800">
-                <label className="flex items-center justify-between cursor-pointer p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 hover:bg-amber-100/50 transition-all">
-                  <span className="text-xs font-black text-amber-950 dark:text-amber-200 flex items-center gap-1.5">
-                    <span>🔥</span>
-                    <span>Hyper Probables Résidanat</span>
-                  </span>
-                  <input
-                    type="checkbox"
-                    checked={onlyHyperProbable}
-                    onChange={e => {
-                      setOnlyHyperProbable(e.target.checked);
-                      setCurrentPage(1);
-                    }}
-                    className="w-4 h-4 text-amber-600 rounded cursor-pointer accent-amber-500"
-                  />
-                </label>
-              </div>
+              <button
+                type="button"
+                onClick={handleResetFilters}
+                className="text-[11px] font-bold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 cursor-pointer"
+                title="Réinitialiser tous les filtres"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Réinitialiser</span>
+              </button>
             </div>
 
-            {/* MODULES LIST IN SIDEBAR (Interactive with direct click and filter button) */}
+            {/* 1. MODULES LIST IN SIDEBAR WITH "FILTRE" BUTTON RIGHT BESIDE EACH MODULE */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-[11px] font-black uppercase text-navy-500 dark:text-navy-400 tracking-wider">
-                  🩺 Choisir un Module :
+                  🩺 Modules Médicaux :
                 </label>
                 <span className="text-[10px] text-navy-400 font-bold">
                   {filteredSpecialties.length} modules
                 </span>
               </div>
 
-              <div className="space-y-1.5 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
+              <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1 scrollbar-thin">
                 {filteredSpecialties.map(spec => {
                   const isSelected = selectedSpecId === spec.id;
                   const count = allQcms.filter(q => q.specialtyId === spec.id).length;
-                  const doneCount = allQcms.filter(q => q.specialtyId === spec.id && userStats.doneQcmIds.includes(q.id)).length;
 
                   return (
                     <div
                       key={spec.id}
-                      className={`p-2.5 rounded-2xl border transition-all flex items-center justify-between gap-2 ${
+                      className={`p-2 rounded-2xl border transition-all flex items-center justify-between gap-2 ${
                         isSelected
                           ? 'bg-brand-50 dark:bg-brand-950/60 border-brand-500 text-brand-900 dark:text-brand-200 ring-2 ring-brand-500/20 shadow-xs'
                           : 'bg-white dark:bg-navy-900 border-navy-100 dark:border-navy-800 hover:border-navy-300'
                       }`}
                     >
+                      {/* Clicking on the module selects it */}
                       <button
                         type="button"
                         onClick={() => {
@@ -707,20 +643,21 @@ function QcmHubContent() {
                           setSelectedCourseId('');
                           setCurrentPage(1);
                         }}
-                        className="flex items-center gap-2.5 min-w-0 flex-1 text-left cursor-pointer"
+                        className="flex items-center gap-2 min-w-0 flex-1 text-left cursor-pointer"
+                        title={`Sélectionner le module ${spec.name}`}
                       >
                         <SpecialtyLogo specialtyId={spec.id} size="sm" withGlow={isSelected} />
                         <div className="min-w-0 flex-1">
-                          <div className={`text-xs font-bold truncate ${isSelected ? 'text-brand-700 dark:text-brand-300 font-black' : 'text-navy-900 dark:text-white'}`}>
+                          <div className={`text-xs font-bold truncate ${isSelected ? 'font-black text-brand-700 dark:text-brand-300' : 'text-navy-900 dark:text-white'}`}>
                             {spec.name}
                           </div>
-                          <div className="text-[10px] text-navy-400 font-mono mt-0.5">
-                            {count} QCMs{doneCount > 0 ? ` • ${doneCount} fait` : ''}
+                          <div className="text-[10px] text-navy-400 font-mono">
+                            {count} QCMs
                           </div>
                         </div>
                       </button>
 
-                      {/* Direct button to open Filter Popup for this module */}
+                      {/* BUTTON "FILTRE" RIGHT BESIDE THE MODULE (Opens Pop-up Window for this module) */}
                       <button
                         type="button"
                         onClick={() => {
@@ -728,14 +665,15 @@ function QcmHubContent() {
                           setSelectedCourseId('');
                           setIsFilterModalOpen(true);
                         }}
-                        className={`px-2 py-1 rounded-xl text-[10px] font-black transition-all shrink-0 cursor-pointer ${
+                        className={`px-2.5 py-1 rounded-xl text-[10px] font-black transition-all shrink-0 cursor-pointer flex items-center gap-1 shadow-2xs ${
                           isSelected
                             ? 'bg-brand-600 text-white hover:bg-brand-700'
-                            : 'bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300 hover:bg-brand-50 hover:text-brand-600'
+                            : 'bg-indigo-50 dark:bg-navy-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-600 hover:text-white border border-indigo-200/60'
                         }`}
-                        title="Ouvrir la fenêtre de configuration pour ce module"
+                        title={`Ouvrir la fenêtre pop-up de filtrage pour ${spec.name}`}
                       >
-                        🎛️ Filtrer
+                        <span>🎛️</span>
+                        <span>Filtre</span>
                       </button>
                     </div>
                   );
@@ -743,7 +681,254 @@ function QcmHubContent() {
               </div>
             </div>
 
-            {/* Launch Fullscreen Session Button */}
+            {/* 2. PÉRIMÈTRE: TOUT LE MODULE vs PAR COURS */}
+            <div className="space-y-2 pt-2 border-t border-navy-100 dark:border-navy-800">
+              <label className="block text-[11px] font-black uppercase text-navy-500 dark:text-navy-400 tracking-wider">
+                📖 Périmètre du Module ({activeSpecialty.name}) :
+              </label>
+
+              <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-navy-100 dark:bg-navy-800 text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCourseId('');
+                    setCurrentPage(1);
+                  }}
+                  className={`py-1.5 px-2 rounded-lg text-center transition-all cursor-pointer ${
+                    !selectedCourseId
+                      ? 'bg-white dark:bg-navy-900 text-brand-700 dark:text-brand-300 shadow-xs font-black'
+                      : 'text-navy-600 dark:text-navy-400 hover:text-navy-900'
+                  }`}
+                >
+                  🌐 Tout le module
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (specialtyCourses[0] && !selectedCourseId) {
+                      setSelectedCourseId(specialtyCourses[0].id);
+                    }
+                    setCurrentPage(1);
+                  }}
+                  className={`py-1.5 px-2 rounded-lg text-center transition-all cursor-pointer ${
+                    selectedCourseId
+                      ? 'bg-white dark:bg-navy-900 text-brand-700 dark:text-brand-300 shadow-xs font-black'
+                      : 'text-navy-600 dark:text-navy-400 hover:text-navy-900'
+                  }`}
+                >
+                  📘 Par Cours
+                </button>
+              </div>
+
+              {/* Course dropdown if "Par Cours" is selected */}
+              {selectedCourseId !== '' && (
+                <div className="pt-1 animate-in fade-in duration-150">
+                  <select
+                    value={selectedCourseId}
+                    onChange={e => {
+                      setSelectedCourseId(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full px-3.5 py-2 rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-navy-900 text-navy-900 dark:text-white font-bold text-xs cursor-pointer"
+                  >
+                    <option value="">Sélectionnez un cours...</option>
+                    {specialtyCourses.map(c => {
+                      const count = allQcms.filter(q => q.courseId === c.id).length;
+                      return (
+                        <option key={c.id} value={c.id}>
+                          {c.title} ({count} QCM)
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              )}
+            </div>
+
+            {/* 3. 🔥 HYPER PROBABLE RÉSIDANAT TOGGLE CARD */}
+            <div className="p-3 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border-2 border-amber-400/60 dark:border-amber-500/40 space-y-1.5">
+              <label className="flex items-center justify-between cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🔥</span>
+                  <div>
+                    <div className="text-xs font-black text-amber-950 dark:text-amber-200">
+                      Hyper Probables Résidanat
+                    </div>
+                    <div className="text-[10px] text-amber-800/80 dark:text-amber-300/80">
+                      Questions récurrentes clés concours
+                    </div>
+                  </div>
+                </div>
+
+                <input
+                  type="checkbox"
+                  checked={onlyHyperProbable}
+                  onChange={e => {
+                    setOnlyHyperProbable(e.target.checked);
+                    setCurrentPage(1);
+                  }}
+                  className="w-4 h-4 text-amber-600 rounded cursor-pointer accent-amber-500"
+                />
+              </label>
+
+              <div className="flex items-center justify-between text-[10px] font-bold text-amber-900 dark:text-amber-300 pt-1 border-t border-amber-300/40">
+                <span>Disponibles :</span>
+                <span className="px-2 py-0.5 rounded-full bg-amber-500 text-white font-black">
+                  {hyperProbableCount} QCMs
+                </span>
+              </div>
+            </div>
+
+            {/* 4. SOURCES SELECTOR IN SIDEBAR: SYSTEM ACTUEL vs MULTI-SOURCES CUSTOM */}
+            <div className="space-y-2 pt-1">
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] font-black uppercase text-navy-500 dark:text-navy-400 tracking-wider">
+                  📚 Sources des Questions :
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setIsFilterModalOpen(true)}
+                  className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer flex items-center gap-0.5"
+                >
+                  <span>🎛️ Pop-up</span>
+                </button>
+              </div>
+
+              {/* Mode switch */}
+              <div className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-navy-100 dark:bg-navy-800 text-[11px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSourceFilterMode('SYSTEM');
+                    setSelectedSources(['TOUS']);
+                    setCurrentPage(1);
+                  }}
+                  className={`py-1 rounded-lg text-center transition-all cursor-pointer ${
+                    sourceFilterMode === 'SYSTEM'
+                      ? 'bg-white dark:bg-navy-900 text-brand-700 dark:text-brand-300 shadow-xs font-black'
+                      : 'text-navy-600 dark:text-navy-400'
+                  }`}
+                >
+                  Système Actuel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSourceFilterMode('CUSTOM');
+                    if (selectedSources.includes('TOUS')) {
+                      setSelectedSources(availableSources.slice(0, 2));
+                    }
+                    setCurrentPage(1);
+                  }}
+                  className={`py-1 rounded-lg text-center transition-all cursor-pointer ${
+                    sourceFilterMode === 'CUSTOM'
+                      ? 'bg-white dark:bg-navy-900 text-indigo-700 dark:text-indigo-300 shadow-xs font-black'
+                      : 'text-navy-600 dark:text-navy-400'
+                  }`}
+                >
+                  Filtre Choisi ({selectedSources.includes('TOUS') ? 'Toutes' : selectedSources.length})
+                </button>
+              </div>
+
+              {/* Multi-Sources Checklist in Sidebar */}
+              <div className="space-y-1 max-h-48 overflow-y-auto pr-1 scrollbar-thin">
+                {/* All sources */}
+                <label className={`flex items-center justify-between p-2 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
+                  selectedSources.includes('TOUS') || sourceFilterMode === 'SYSTEM'
+                    ? 'bg-brand-50/80 dark:bg-brand-950/40 border-brand-500 text-brand-900 dark:text-brand-200'
+                    : 'bg-white dark:bg-navy-900 border-navy-200 dark:border-navy-700 text-navy-700 dark:text-navy-300 hover:border-brand-300'
+                }`}>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedSources.includes('TOUS') || sourceFilterMode === 'SYSTEM'}
+                      onChange={() => toggleSourceSelection('TOUS')}
+                      className="w-4 h-4 text-brand-600 rounded cursor-pointer"
+                    />
+                    <span>📋 Toutes les Sources</span>
+                  </div>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-brand-100 dark:bg-brand-900 text-brand-700 dark:text-brand-300 font-mono">
+                    {allQcms.filter(q => q.specialtyId === selectedSpecId && (!selectedCourseId || q.courseId === selectedCourseId)).length}
+                  </span>
+                </label>
+
+                {/* Individual sources list */}
+                {availableSources.map(src => {
+                  const isChecked = sourceFilterMode === 'CUSTOM' && selectedSources.includes(src);
+                  const countInScope = allQcms.filter(q => {
+                    const matchSpec = q.specialtyId === selectedSpecId;
+                    const matchCrs = !selectedCourseId || q.courseId === selectedCourseId;
+                    return matchSpec && matchCrs && matchQcmToSource(q, src);
+                  }).length;
+
+                  return (
+                    <label
+                      key={src}
+                      className={`flex items-center justify-between p-1.5 px-2 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
+                        isChecked
+                          ? 'bg-indigo-50/80 dark:bg-indigo-950/40 border-indigo-500 text-indigo-900 dark:text-indigo-200'
+                          : 'bg-white dark:bg-navy-900 border-navy-200 dark:border-navy-700 text-navy-700 dark:text-navy-300 hover:border-indigo-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => toggleSourceSelection(src)}
+                          className="w-4 h-4 text-indigo-600 rounded cursor-pointer shrink-0"
+                        />
+                        <span className="truncate" title={src}>📁 {src}</span>
+                      </div>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-400 font-mono shrink-0 ml-1">
+                        {countInScope}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 5. SEARCH INPUT */}
+            <div className="space-y-1.5 pt-1">
+              <label className="block text-[11px] font-black uppercase text-navy-500 dark:text-navy-400 tracking-wider">
+                🔍 Recherche Mot-Clé :
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => {
+                    setSearchQuery(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  placeholder="ex: souffle systolique, 2021..."
+                  className="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white font-bold placeholder:font-normal focus:ring-2 focus:ring-brand-500"
+                />
+                <Search className="w-3.5 h-3.5 text-navy-400 absolute left-2.5 top-2.5" />
+              </div>
+            </div>
+
+            {/* 6. STATUS PROGRESSION FILTER */}
+            <div className="space-y-1.5 pt-1">
+              <label className="block text-[11px] font-black uppercase text-navy-500 dark:text-navy-400 tracking-wider">
+                🎯 Statut de Progression :
+              </label>
+              <select
+                value={statusFilter}
+                onChange={e => {
+                  setStatusFilter(e.target.value as any);
+                  setCurrentPage(1);
+                }}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-900 dark:text-white font-bold cursor-pointer"
+              >
+                <option value="ALL">Tous les QCMs</option>
+                <option value="UNSOLVED">⏳ Non résolus uniquement</option>
+                <option value="CORRECT">✓ Réussis</option>
+                <option value="WRONG">✕ À réviser (Erreurs)</option>
+              </select>
+            </div>
+
+            {/* SIDEBAR CTA: LAUNCH FULLSCREEN SESSION */}
             <div className="pt-2">
               <button
                 type="button"
@@ -825,7 +1010,7 @@ function QcmHubContent() {
                   className="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1 ml-1 cursor-pointer"
                 >
                   <SlidersHorizontal className="w-3 h-3" />
-                  <span>Changer les sources</span>
+                  <span>Changer via Pop-up</span>
                 </button>
               </div>
             </div>
@@ -885,7 +1070,7 @@ function QcmHubContent() {
                     Aucun QCM ne correspond à cette combinaison de filtres
                   </h3>
                   <p className="text-xs text-navy-500 max-w-md mx-auto">
-                    Vous pouvez modifier vos sources dans la fenêtre pop-up ou réinitialiser les critères.
+                    Vous pouvez modifier vos sources dans la barre latérale ou via la fenêtre pop-up.
                   </p>
                   <div className="flex items-center justify-center gap-2 pt-2">
                     <button
