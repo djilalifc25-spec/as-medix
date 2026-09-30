@@ -821,7 +821,7 @@ export default function AdminQcmPage() {
     const finalGlobalSource = getEffectiveSource();
     const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
     const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
-    const itemAccess = qcmItem.accessLevel || defaultBatchAccessLevel || 'FREE';
+    const itemAccess = qcmItem.accessLevel || defaultBatchAccessLevel || 'PRO';
 
     const correctAnswers = qcmItem.options
       .map((opt, idx) => opt.isCorrect ? idx : -1)
@@ -877,6 +877,10 @@ export default function AdminQcmPage() {
       setSelectedSourceFilter('all');
       setSelectedAccessFilter('all');
       setSuccessMsg(`✅ QCM #${qcmItem.tempNum} importé avec succès dans Supabase SQL & Banque QCM !`);
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+      }
+      await fetchData();
     } else {
       alert(data.error || 'Erreur lors de l\'importation du QCM.');
     }
@@ -901,7 +905,7 @@ export default function AdminQcmPage() {
         const itemCourseTitle = crs ? crs.title : (qcmItem.courseTitle || undefined);
         const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
         const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
-        const itemAccess = qcmItem.accessLevel || defaultBatchAccessLevel || 'FREE';
+        const itemAccess = qcmItem.accessLevel || defaultBatchAccessLevel || 'PRO';
 
         const correctAnswers = qcmItem.options
           .map((opt, idx) => opt.isCorrect ? idx : -1)
@@ -948,7 +952,7 @@ export default function AdminQcmPage() {
           specialtyId: specialtyId,
           specialtyName: (specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId))?.name || 'Cardiologie',
           source: finalGlobalSource,
-          accessLevel: defaultBatchAccessLevel
+          accessLevel: defaultBatchAccessLevel || 'PRO'
         })
       });
 
@@ -965,7 +969,8 @@ export default function AdminQcmPage() {
         setSelectedAccessFilter('all');
         setSearchQueryFilter('');
 
-        setSuccessMsg(`🚀 ${qcmsToImport.length} QCM(s) importés avec succès et enregistrés définitivement dans Supabase SQL & Banque QCM !`);
+        const count = data.importedCount || qcmsToImport.length;
+        setSuccessMsg(`🚀 ${count} QCM(s) importés avec succès et enregistrés définitivement dans Supabase SQL & Banque QCM !`);
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
         }

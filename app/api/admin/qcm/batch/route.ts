@@ -55,16 +55,34 @@ export async function POST(req: NextRequest) {
 
     for (let i = 0; i < qcms.length; i++) {
       const q = qcms[i];
-      const qcmId = q.id || `qcm_ai_${now}_${i + 1}`;
-      const finalSource = source || examTitle || q.source || 'Annales IA Extrait';
+      const qcmId = String(q.id || `qcm_ai_${now}_${i + 1}`);
+      const finalSource = String(source || examTitle || q.source || 'Annales IA Extrait');
 
-      const optionsArray = Array.isArray(q.options) ? q.options.map((opt: any, optIdx: number) => ({
-        id: opt.id || `opt_${optIdx + 1}`,
-        letter: opt.letter || String.fromCharCode(65 + optIdx),
-        text: opt.text || ''
-      })) : [];
+      const optionsArray = Array.isArray(q.options) ? q.options.map((opt: any, optIdx: number) => {
+        if (typeof opt === 'string') {
+          return {
+            id: `opt_${optIdx + 1}`,
+            letter: String.fromCharCode(65 + optIdx),
+            text: opt
+          };
+        }
+        return {
+          id: opt.id || `opt_${optIdx + 1}`,
+          letter: opt.letter || String.fromCharCode(65 + optIdx),
+          text: typeof opt.text === 'object' ? JSON.stringify(opt.text) : String(opt.text || '')
+        };
+      }) : [];
 
-      const correctAnswersArray = Array.isArray(q.correctAnswers) ? q.correctAnswers : [0];
+      const safeOptions = optionsArray.length > 0 ? optionsArray : [
+        { id: 'opt_1', letter: 'A', text: 'Proposition A' },
+        { id: 'opt_2', letter: 'B', text: 'Proposition B' }
+      ];
+
+      const correctAnswersArray = (Array.isArray(q.correctAnswers) && q.correctAnswers.length > 0)
+        ? q.correctAnswers.map((n: any) => Number(n)).filter((n: any) => !isNaN(n))
+        : (Array.isArray(q.correct_answers) && q.correct_answers.length > 0)
+          ? q.correct_answers.map((n: any) => Number(n)).filter((n: any) => !isNaN(n))
+          : [0];
 
       const hierarchy = parseSourceHierarchy(finalSource);
       const effectiveParent = q.parentSource || hierarchy.parent;
@@ -87,11 +105,16 @@ export async function POST(req: NextRequest) {
         }
       }
 
+      const safeVignette = String(q.vignette || q.vignetteText || '');
+      const safeQuestion = String(q.question || q.title || `QCM ${i + 1}`);
+      const safeTitle = String(q.title || safeQuestion).substring(0, 200);
+      const safeAccessLevel = String(q.accessLevel || body.accessLevel || 'PRO');
+
       const newQcm: QCM = {
         id: qcmId,
-        title: q.title || q.question || `QCM ${i + 1}`,
-        specialtyId: specialtyId || q.specialtyId || 'cardio',
-        specialtyName: specialtyName || q.specialtyName || 'Cardiologie',
+        title: safeTitle,
+        specialtyId: String(specialtyId || q.specialtyId || 'cardio'),
+        specialtyName: String(specialtyName || q.specialtyName || 'Cardiologie'),
         courseId: resolvedCourseId,
         courseTitle: resolvedCourseTitle,
         faculty: faculty || q.faculty || 'ORAN',
@@ -101,14 +124,14 @@ export async function POST(req: NextRequest) {
         rang: q.rang || 'Rang A',
         difficulty: q.difficulty || 'Moyen',
         type: correctAnswersArray.length > 1 ? 'MULTIPLE' : 'SINGLE',
-        vignette: q.vignette || '',
-        question: q.question || q.title || `QCM ${i + 1}`,
-        options: optionsArray,
-        correctAnswers: correctAnswersArray,
+        vignette: safeVignette,
+        question: safeQuestion,
+        options: safeOptions,
+        correctAnswers: correctAnswersArray.length > 0 ? correctAnswersArray : [0],
         explanation: q.explanation || q.explanationHtml || '',
         reference: q.reference || `Examen : ${finalSource}`,
         tags: [finalSource, specialtyName || 'Médecine', 'Extrait IA'],
-        accessLevel: (q.accessLevel || body.accessLevel || 'PRO') as any,
+        accessLevel: safeAccessLevel as any,
         year: year ? Number(year) as any : undefined
       };
 
@@ -123,74 +146,101 @@ export async function POST(req: NextRequest) {
       // Prepare Supabase payload
       supabasePayloads.push({
         id: newQcm.id,
-        specialty: newQcm.specialtyId,
-        specialty_id: newQcm.specialtyId,
-        specialty_name: newQcm.specialtyName,
-        course_id: newQcm.courseId || null,
-        course_title: newQcm.courseTitle || null,
-        question: newQcm.question,
-        title: newQcm.title,
-        vignette: newQcm.vignette,
-        options: newQcm.options,
-        correct_answers: newQcm.correctAnswers,
-        explanation: newQcm.explanation,
-        source: newQcm.source,
-        faculty: newQcm.faculty || 'ORAN',
-        rang: newQcm.rang || 'Rang A',
-        difficulty: newQcm.difficulty || 'Moyen',
-        type: newQcm.type || 'SINGLE',
-        reference: newQcm.reference || null,
-        tags: Array.isArray(newQcm.tags) ? newQcm.tags : [],
-        access_level: newQcm.accessLevel || 'FREE',
+        specialty: String(newQcm.specialtyId || 'cardio'),
+        specialty_id: String(newQcm.specialtyId || 'cardio'),
+        specialty_name: String(newQcm.specialtyName || 'Cardiologie'),
+        course_id: newQcm.courseId ? String(newQcm.courseId) : null,
+        course_title: newQcm.courseTitle ? String(newQcm.courseTitle) : null,
+        question: safeQuestion,
+        title: safeTitle,
+        vignette: safeVignette,
+        options: safeOptions,
+        correct_answers: correctAnswersArray.length > 0 ? correctAnswersArray : [0],
+        explanation: String(newQcm.explanation || ''),
+        source: String(newQcm.source || finalSource),
+        faculty: String(newQcm.faculty || 'ORAN'),
+        rang: String(newQcm.rang || 'Rang A'),
+        difficulty: String(newQcm.difficulty || 'Moyen'),
+        type: correctAnswersArray.length > 1 ? 'MULTIPLE' : 'SINGLE',
+        reference: newQcm.reference ? String(newQcm.reference) : null,
+        tags: Array.isArray(newQcm.tags) ? newQcm.tags : [finalSource, 'Extrait IA'],
+        access_level: safeAccessLevel,
         year: (newQcm.year && !isNaN(Number(newQcm.year))) ? Number(newQcm.year) : null
       });
     }
 
-    // Sync all QCMs to Supabase in batch
+    // Sync all QCMs to Supabase in batch with individual fallback
+    let supabaseSucceededCount = 0;
+    const supabaseErrors: string[] = [];
+
     if (supabasePayloads.length > 0) {
       try {
         const { error } = await supabaseAdmin.from('qcms').upsert(supabasePayloads, { onConflict: 'id' });
-        if (error) {
-          console.warn('[Batch QCM Import] Full payload failed, retrying with core schema:', error.message);
-          const corePayloads = supabasePayloads.map(p => ({
-            id: p.id,
-            specialty: p.specialty,
-            specialty_id: p.specialty_id,
-            specialty_name: p.specialty_name,
-            course_id: p.course_id,
-            course_title: p.course_title,
-            question: p.question,
-            title: p.title,
-            vignette: p.vignette,
-            options: p.options,
-            correct_answers: p.correct_answers,
-            explanation: p.explanation,
-            source: p.source,
-            faculty: p.faculty,
-            rang: p.rang,
-            reference: p.reference,
-            access_level: p.access_level,
-            year: p.year
-          }));
-          const { error: coreErr } = await supabaseAdmin.from('qcms').upsert(corePayloads, { onConflict: 'id' });
-          if (coreErr) {
-            console.error('[Batch QCM Import] Core payload error:', coreErr.message);
-          } else {
-            console.log('[Batch QCM Import] Core batch successfully upserted into Supabase:', corePayloads.length);
-          }
-        } else {
+        if (!error) {
+          supabaseSucceededCount = supabasePayloads.length;
           console.log('[Batch QCM Import] Full batch successfully upserted into Supabase:', supabasePayloads.length);
+        } else {
+          console.warn('[Batch QCM Import] Full payload failed, retrying item by item:', error.message);
+          for (const item of supabasePayloads) {
+            try {
+              const { error: itemErr } = await supabaseAdmin.from('qcms').upsert(item, { onConflict: 'id' });
+              if (itemErr) {
+                const coreItem = {
+                  id: item.id,
+                  specialty: item.specialty,
+                  specialty_id: item.specialty_id,
+                  specialty_name: item.specialty_name,
+                  course_id: item.course_id,
+                  course_title: item.course_title,
+                  question: item.question,
+                  title: item.title,
+                  vignette: item.vignette,
+                  options: item.options,
+                  correct_answers: item.correct_answers,
+                  explanation: item.explanation,
+                  source: item.source,
+                  faculty: item.faculty,
+                  rang: item.rang,
+                  reference: item.reference,
+                  access_level: item.access_level,
+                  year: item.year
+                };
+                const { error: coreErr } = await supabaseAdmin.from('qcms').upsert(coreItem, { onConflict: 'id' });
+                if (coreErr) {
+                  console.error(`[Batch QCM Import] Item ${item.id} core error:`, coreErr.message);
+                  supabaseErrors.push(`${item.id}: ${coreErr.message}`);
+                } else {
+                  supabaseSucceededCount++;
+                }
+              } else {
+                supabaseSucceededCount++;
+              }
+            } catch (err: any) {
+              console.error(`[Batch QCM Import] Item ${item.id} exception:`, err);
+              supabaseErrors.push(`${item.id}: ${err.message}`);
+            }
+          }
         }
-      } catch (sbErr) {
-        console.error('[Batch QCM Import] Supabase exception:', sbErr);
+      } catch (sbErr: any) {
+        console.error('[Batch QCM Import] Supabase batch exception:', sbErr);
+        supabaseErrors.push(sbErr.message);
       }
+    }
+
+    if (supabasePayloads.length > 0 && supabaseSucceededCount === 0) {
+      return NextResponse.json({
+        success: false,
+        error: `Échec d'enregistrement dans Supabase SQL: ${supabaseErrors.slice(0, 3).join('; ') || 'Erreur inconnue'}`
+      }, { status: 500 });
     }
 
     return NextResponse.json({
       success: true,
-      importedCount: createdQcms.length,
+      importedCount: supabaseSucceededCount > 0 ? supabaseSucceededCount : createdQcms.length,
+      totalRequested: qcms.length,
       examTitle: examTitle || source || 'Examen QCM',
-      qcms: createdQcms
+      qcms: createdQcms,
+      warnings: supabaseErrors.length > 0 ? supabaseErrors : undefined
     });
   } catch (err: any) {
     console.error('[batch-qcm-import] Error:', err);

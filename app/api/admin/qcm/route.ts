@@ -128,11 +128,12 @@ async function syncQcmToSupabase(qcm: QCM) {
       type: qcm.type ? String(qcm.type) : 'SINGLE',
       reference: qcm.reference ? String(qcm.reference) : null,
       tags: Array.isArray(qcm.tags) ? qcm.tags : [],
-      access_level: qcm.accessLevel ? String(qcm.accessLevel) : 'FREE',
+      access_level: qcm.accessLevel ? String(qcm.accessLevel) : 'PRO',
       year: (qcm.year && !isNaN(Number(qcm.year))) ? Number(qcm.year) : null
     };
     let { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
-    if (error && error.message && error.message.includes('Could not find the column')) {
+    if (error) {
+      console.warn('[Supabase Sync] Standard upsert failed, retrying core payload:', error.message);
       const corePayload = {
         id: payload.id,
         specialty: payload.specialty,
@@ -142,6 +143,7 @@ async function syncQcmToSupabase(qcm: QCM) {
         course_title: payload.course_title,
         rang: payload.rang,
         title: payload.title,
+        question: payload.question,
         vignette: payload.vignette,
         options: payload.options,
         correct_answers: payload.correct_answers,
@@ -152,7 +154,10 @@ async function syncQcmToSupabase(qcm: QCM) {
         year: payload.year,
         access_level: payload.access_level
       };
-      await supabaseAdmin.from('qcms').upsert(corePayload, { onConflict: 'id' });
+      const { error: coreErr } = await supabaseAdmin.from('qcms').upsert(corePayload, { onConflict: 'id' });
+      if (coreErr) {
+        console.error('[Supabase Sync] Core upsert error:', coreErr.message);
+      }
     }
   } catch (err) {
     console.error('[Supabase Sync] QCM upsert exception:', err);
