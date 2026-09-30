@@ -196,7 +196,13 @@ function QcmHubContent() {
     // Verify if there are matching questions
     const matchingCount = allQcms.filter(q => {
       const matchSpec = q.specialtyId === selectedSpecId;
-      const matchCourse = !courseIdToUse || q.courseId === courseIdToUse;
+      let matchCourse = true;
+      if (courseIdToUse && courseIdToUse !== 'TOUS') {
+        const qC = (q.courseId || '').toLowerCase();
+        const qT = (q.courseTitle || '').toLowerCase();
+        const target = courseIdToUse.toLowerCase();
+        matchCourse = qC === target || qT === target || Boolean(crs && (qC === crs.id.toLowerCase() || (crs.slug && qC === crs.slug.toLowerCase()) || (crs.title && qT === crs.title.toLowerCase())));
+      }
       const matchFac = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || q.faculty === selectedFaculty;
       const matchSrc = selectedSourcesList.length === 0 || selectedSourcesList.some(s => matchQcmToSource(q, s));
       return matchSpec && matchCourse && matchFac && matchSrc;
@@ -267,8 +273,14 @@ function QcmHubContent() {
     if (!q) return false;
     const qSpec = q.specialtyId || '';
     const matchSpec = qSpec.toLowerCase() === selectedSpecId.toLowerCase();
-    const qCourse = q.courseId || '';
-    const matchCourse = !selectedCourseId || qCourse.toLowerCase() === selectedCourseId.toLowerCase();
+    let matchCourse = true;
+    if (selectedCourseId && selectedCourseId !== 'TOUS') {
+      const crs = allCourses.find(c => c.id === selectedCourseId);
+      const qC = (q.courseId || '').toLowerCase();
+      const qT = (q.courseTitle || '').toLowerCase();
+      const target = selectedCourseId.toLowerCase();
+      matchCourse = qC === target || qT === target || Boolean(crs && (qC === crs.id.toLowerCase() || (crs.slug && qC === crs.slug.toLowerCase()) || (crs.title && qT === crs.title.toLowerCase())));
+    }
     const matchFaculty = selectedFaculty === 'TOUS' || !q.faculty || q.faculty === 'TOUS' || (q.faculty as string).toLowerCase() === selectedFaculty.toLowerCase();
     const matchSource = selectedSource === 'TOUS' || matchQcmToSource(q, selectedSource);
     return matchSpec && matchCourse && matchFaculty && matchSource;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { X, BookOpen, Sparkles, FileText, ExternalLink, ShieldCheck, ChevronRight, AlertTriangle, Siren, Pill, Brain } from 'lucide-react';
 import { Course } from '@/types';
 
@@ -106,12 +107,26 @@ export function CoursePreviewModal({
             </div>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-2 rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            {(course?.slug || course?.id || courseId) && (
+              <Link
+                href={`/cours/${course?.slug || course?.id || courseId}`}
+                target="_blank"
+                className="px-3 py-1.5 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-[#5D5FEF] dark:text-indigo-300 border border-indigo-500/20 text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
+                title="Ouvrir la page de cours complète dans un nouvel onglet"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Page Complète ↗</span>
+              </Link>
+            )}
+
+            <button
+              onClick={onClose}
+              className="p-2 rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Interactive Tab Switcher */}

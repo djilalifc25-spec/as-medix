@@ -457,10 +457,11 @@ function CourseDetailContent() {
 
   // Scroll listener to highlight active TOC section
   useEffect(() => {
-    if (!course?.tableOfContents) return;
+    const toc = course?.tableOfContents;
+    if (!toc || toc.length === 0) return;
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200;
-      for (const item of course.tableOfContents) {
+      for (const item of toc) {
         const el = document.getElementById(item.id);
         if (el) {
           const top = el.offsetTop;
@@ -794,7 +795,7 @@ function CourseDetailContent() {
             <div className="apple-card p-4 sm:p-10 shadow-soft relative overflow-x-hidden" onClick={handleCourseContentClick}>
               <div
                 className={`prose dark:prose-invert max-w-none break-words ${fontSizeClass} ${activeRecall ? 'select-none blur-[0.6px]' : ''} [&_img]:max-w-full [&_img]:h-auto [&_table]:block [&_table]:overflow-x-auto [&_table]:w-full [&_pre]:overflow-x-auto`}
-                dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(tocData.processedHtml || course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
+                dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(tocData.processedHtml || course.htmlContent || '', highlights.filter(h => h.itemSlug === course.slug)) }}
               />
             </div>
 
@@ -898,6 +899,17 @@ function CourseDetailContent() {
               <Maximize2 className="w-3.5 h-3.5" />
               <span>Plein Écran</span>
             </button>
+
+            {/* Direct QCM Training CTA */}
+            <Link
+              href={`/qcm-session?course=${encodeURIComponent(course.id)}&courseName=${encodeURIComponent(course.title)}&specialty=${encodeURIComponent(course.specialtyId || '')}&source=TOUS`}
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-black flex items-center gap-1.5 shadow-md active:scale-95 transition-all shrink-0 cursor-pointer border border-emerald-400/30"
+              title="S'entraîner sur tous les QCMs de ce cours (Toutes sources confondues)"
+            >
+              <Brain className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">QCMs ({courseQcms.length})</span>
+              <span className="sm:hidden">QCM</span>
+            </Link>
 
             {/* Font Controls - hidden on mobile, visible from md */}
             <div className="hidden md:flex items-center border border-navy-200/80 dark:border-navy-700/80 rounded-xl overflow-hidden bg-white/80 dark:bg-navy-900/80 shadow-xs">
@@ -1246,21 +1258,26 @@ function CourseDetailContent() {
             <div
               className={`prose dark:prose-invert max-w-none ${fontSizeClass}`}
               onClick={handleCourseContentClick}
-              dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(tocData.processedHtml || course.htmlContent, highlights.filter(h => h.itemSlug === course.slug)) }}
+              dangerouslySetInnerHTML={{ __html: applyUserHighlightsToHtml(tocData.processedHtml || course.htmlContent || '', highlights.filter(h => h.itemSlug === course.slug)) }}
             />
 
             {/* Bottom QCM Challenge CTA */}
-            <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <h3 className="text-base font-bold">Félicitations pour la lecture !</h3>
-                <p className="text-xs text-brand-100">Validez immédiatement ce cours en répondant aux QCMs dédiés.</p>
+            <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🎯</span>
+                  <h3 className="text-base font-bold">Validez votre maîtrise du cours</h3>
+                </div>
+                <p className="text-xs text-brand-100">
+                  Entraînez-vous immédiatement sur les <strong>{courseQcms.length} QCMs</strong> réels de ce cours (toutes sources d'épreuves confondues).
+                </p>
               </div>
               <Link
-                href={`/qcm?specialty=${course.specialtyId}&course=${course.id}`}
-                className="px-5 py-2.5 rounded-xl bg-white text-brand-700 text-xs font-bold shadow-soft hover:bg-brand-50 shrink-0 flex items-center gap-2"
+                href={`/qcm-session?course=${encodeURIComponent(course.id)}&courseName=${encodeURIComponent(course.title)}&specialty=${encodeURIComponent(course.specialtyId || '')}&source=TOUS`}
+                className="px-6 py-3 rounded-2xl bg-white hover:bg-slate-50 text-brand-700 hover:text-brand-800 text-xs font-black shadow-lg shrink-0 flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
               >
-                <Brain className="w-4 h-4" />
-                <span>Passer l'épreuve QCM</span>
+                <Brain className="w-4 h-4 text-brand-600" />
+                <span>Lancer la Session QCM ({courseQcms.length}) ↗</span>
               </Link>
             </div>
           </div>
@@ -1340,7 +1357,7 @@ function CourseDetailContent() {
       <CourseSearchModal
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
-        htmlContent={tocData.processedHtml || course.htmlContent}
+        htmlContent={tocData.processedHtml || course.htmlContent || ''}
         courseTitle={course.title}
         onSelectMatch={handleSelectSearchMatch}
       />

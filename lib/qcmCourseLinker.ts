@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { Course, QCM } from '@/types';
 
 const MEDICAL_ACRONYMS: Record<string, string> = {
+  'raa': 'rhumatisme articulaire aigu',
   'oma': 'otite moyenne aigue',
   'omc': 'otite moyenne chronique',
   'osm': 'otite sero muqueuse',
@@ -12,6 +13,7 @@ const MEDICAL_ACRONYMS: Record<string, string> = {
   'ica': 'insuffisance cardiaque aigue',
   'icc': 'insuffisance cardiaque chronique',
   'ra': 'retrecissement aortique',
+  'rac': 'retrecissement aortique calcifie',
   'rm': 'retrecissement mitral',
   'ia': 'insuffisance aortique',
   'im': 'insuffisance mitrale',
@@ -19,7 +21,19 @@ const MEDICAL_ACRONYMS: Record<string, string> = {
   'sahos': 'syndrome apnees hypopnees obstructives sommeil',
   'bpco': 'broncho pneumopathie chronique obstructive',
   'hta': 'hypertension arterielle',
-  'sca': 'syndrome coronarien aigu'
+  'sca': 'syndrome coronarien aigu',
+  'scast': 'syndrome coronarien aigu sus st',
+  'scastm': 'syndrome coronarien aigu sous st',
+  'idm': 'infarctus du myocarde',
+  'fa': 'fibrillation auriculaire',
+  'bav': 'bloc auriculo ventriculaire',
+  'ep': 'embolie pulmonaire',
+  'tvp': 'thrombose veineuse profonde',
+  'mte': 'maladie thrombo embolique',
+  'ei': 'endocardite infectieuse',
+  'avc': 'accident vasculaire cerebral',
+  'ait': 'accident ischemique transitoire',
+  'tvc': 'thrombose veineuse cerebrale'
 };
 
 const FRENCH_STOP_WORDS = new Set([
@@ -114,7 +128,7 @@ export function isCourseMatch(candidateTitle: string, course: Course | { title: 
  * Finds the best matching course for a QCM from a list of courses.
  */
 export function matchQcmToCourse(
-  qcm: { title?: string; question?: string; courseTitle?: string; specialtyId?: string },
+  qcm: { title?: string; question?: string; courseTitle?: string; specialtyId?: string; vignette?: string },
   availableCourses: Course[]
 ): Course | null {
   if (!availableCourses || availableCourses.length === 0) return null;
@@ -133,7 +147,8 @@ export function matchQcmToCourse(
     }
   }
 
-  const questionSample = `${qcm.title || ''} ${qcm.question || ''}`.substring(0, 300);
+  // Include vignette, title and question for optimal coverage
+  const questionSample = `${qcm.vignette || ''} ${qcm.title || ''} ${qcm.question || ''}`.substring(0, 500);
   if (questionSample.trim()) {
     let bestMatch: Course | null = null;
     let highestScore = 0;

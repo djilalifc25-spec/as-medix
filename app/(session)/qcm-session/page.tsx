@@ -60,6 +60,8 @@ function QuestionNavigator({
   userAnswersMap,
   flaggedQuestionsMap,
   isResultsRevealed,
+  revealedSingleQcmMap,
+  validatedImmediateMap,
   qcms,
   onJump,
   onClose,
@@ -69,6 +71,8 @@ function QuestionNavigator({
   userAnswersMap: Record<number, number[]>;
   flaggedQuestionsMap: Record<number, boolean>;
   isResultsRevealed: boolean;
+  revealedSingleQcmMap?: Record<number, boolean>;
+  validatedImmediateMap?: Record<number, boolean>;
   qcms: any[];
   onJump: (i: number) => void;
   onClose: () => void;
@@ -78,17 +82,18 @@ function QuestionNavigator({
 
   let correctCount = 0;
   let incorrectCount = 0;
+  let revealedCount = 0;
 
-  if (isResultsRevealed) {
-    (qcms || []).forEach((q, i) => {
-      const selected = userAnswersMap[i] || [];
-      if (selected.length > 0) {
-        const isCorrect = q && isAnswerCorrect(selected, q.correctAnswers);
-        if (isCorrect) correctCount++;
-        else incorrectCount++;
-      }
-    });
-  }
+  (qcms || []).forEach((q, i) => {
+    const selected = userAnswersMap[i] || [];
+    const isRevealed = isResultsRevealed || !!validatedImmediateMap?.[i] || !!revealedSingleQcmMap?.[i];
+    if (isRevealed && selected.length > 0) {
+      revealedCount++;
+      const isCorrect = q && isAnswerCorrect(selected, q.correctAnswers);
+      if (isCorrect) correctCount++;
+      else incorrectCount++;
+    }
+  });
 
   return (
     <div className="absolute top-14 right-2 sm:right-4 z-50 bg-slate-900/98 dark:bg-navy-950/98 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl p-4 w-72 sm:w-80 animate-in fade-in zoom-in-95 duration-150 text-white">
@@ -107,11 +112,11 @@ function QuestionNavigator({
           <div className="font-mono text-xs font-black text-white">{answeredCount}/{total}</div>
           <div className="text-white/50">Répondues</div>
         </div>
-        {isResultsRevealed ? (
+        {(isResultsRevealed || revealedCount > 0) ? (
           <>
             <div>
               <div className="font-mono text-xs font-black text-emerald-400">{correctCount}</div>
-              <div className="text-white/50">Correctes</div>
+              <div className="text-white/50">Vérifiées OK</div>
             </div>
             <div>
               <div className="font-mono text-xs font-black text-rose-400">{incorrectCount}</div>
@@ -121,7 +126,7 @@ function QuestionNavigator({
         ) : (
           <div className="col-span-2 flex items-center justify-center gap-1.5 text-sky-300 font-medium">
             <EyeOff className="w-3.5 h-3.5" />
-            <span>Mode Examen En Cours</span>
+            <span>Mode Épreuve En Cours</span>
           </div>
         )}
       </div>
@@ -131,12 +136,13 @@ function QuestionNavigator({
           const selected = userAnswersMap[i] || [];
           const isAnswered = selected.length > 0;
           const isFlagged = flaggedQuestionsMap[i];
+          const isRevealed = isResultsRevealed || !!validatedImmediateMap?.[i] || !!revealedSingleQcmMap?.[i];
           const q = (qcms || [])[i];
 
           let cls = 'bg-white/10 text-white/60 hover:bg-white/20';
           if (i === current) {
             cls = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 shadow-md';
-          } else if (isResultsRevealed && isAnswered) {
+          } else if (isRevealed && isAnswered) {
             const isCorrect = q && isAnswerCorrect(selected, q.correctAnswers);
             cls = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
           } else if (isAnswered) {
@@ -307,6 +313,8 @@ function SessionContent() {
   const [isResultsRevealed, setIsResultsRevealed] = useState(false);
   const [sessionMode, setSessionMode] = useState<'DEFERRED' | 'IMMEDIATE'>('DEFERRED');
   const [validatedImmediateMap, setValidatedImmediateMap] = useState<Record<number, boolean>>({});
+  const [revealedSingleQcmMap, setRevealedSingleQcmMap] = useState<Record<number, boolean>>({});
+  const [allCourses, setAllCourses] = useState<any[]>([]);
 
   const [completed, setCompleted] = useState(false);
   const [showNavigator, setShowNavigator] = useState(false);
@@ -332,6 +340,15 @@ function SessionContent() {
         setIsLoading(false);
       });
 
+    fetch('/api/courses')
+      .then(r => r.json())
+      .then(d => {
+        if (d.courses && Array.isArray(d.courses)) {
+          setAllCourses(d.courses);
+        }
+      })
+      .catch(() => {});
+
     fetch('/api/reminders')
       .then(r => r.json())
       .then(d => {
@@ -356,21 +373,38 @@ function SessionContent() {
       ? []
       : source.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
 
+    // Find course object for matching
+    const crsObj = course && course !== 'TOUS' 
+      ? allCourses.find(c => c.id === course || c.slug === course || c.title?.toLowerCase() === course.toLowerCase())
+      : null;
+
     return allQcms.filter(q => {
       if (!q) return false;
-      const qSpec = q.specialtyId || '';
-      const qSpecName = q.specialtyName || '';
-      const matchSpec = !specialty || qSpec.toLowerCase() === specialty.toLowerCase() || qSpecName.toLowerCase() === specialty.toLowerCase();
+      const qSpec = (q.specialtyId || '').toLowerCase();
+      const qSpecName = (q.specialtyName || '').toLowerCase();
+      const matchSpec = !specialty || specialty === 'TOUS' || qSpec === specialty.toLowerCase() || qSpecName === specialty.toLowerCase();
       
-      const qCourse = q.courseId || '';
-      const qCourseTitle = q.courseTitle || '';
-      const matchCourse = !course || !qCourse || qCourse === 'TOUS' || qCourse.toLowerCase() === course.toLowerCase() || qCourseTitle.toLowerCase() === course.toLowerCase();
+      let matchCourse = true;
+      if (course && course !== 'TOUS') {
+        const qCourse = (q.courseId || '').toLowerCase();
+        const qCourseTitle = (q.courseTitle || '').toLowerCase();
+        const targetCourseVal = course.toLowerCase();
+        
+        matchCourse = 
+          qCourse === targetCourseVal ||
+          qCourseTitle === targetCourseVal ||
+          Boolean(crsObj && (
+            qCourse === crsObj.id?.toLowerCase() ||
+            qCourse === crsObj.slug?.toLowerCase() ||
+            (crsObj.title && qCourseTitle === crsObj.title.toLowerCase())
+          ));
+      }
       
       const matchFaculty = faculty === 'TOUS' || !q.faculty || (q.faculty as string) === 'TOUS' || (q.faculty as string) === faculty;
       const matchSource = selectedSourcesList.length === 0 || selectedSourcesList.some(s => matchQcmToSource(q, s));
       return matchSpec && matchCourse && matchFaculty && matchSource;
     });
-  }, [allQcms, specialty, course, faculty, source, qcmId, remindersOnly, userReminders]);
+  }, [allQcms, specialty, course, faculty, source, qcmId, remindersOnly, userReminders, allCourses]);
 
   const totalCount = sessionQcms.length;
   const answeredCount = Object.keys(userAnswersMap).filter(k => (userAnswersMap[Number(k)] || []).length > 0).length;
@@ -378,6 +412,27 @@ function SessionContent() {
   const currentNumber = safeCurrentIndex + 1;
   const qcm = totalCount > 0 ? sessionQcms[safeCurrentIndex] : null;
   const currentQcmReminder = qcm ? userReminders.find(r => r.targetId === qcm.id && r.status === 'pending') : null;
+
+  // Resolve target course for 100% 1-click navigation
+  const targetCourse = useMemo(() => {
+    if (!qcm) return null;
+    if (qcm.courseId) {
+      const found = allCourses.find(c => c.id === qcm.courseId || c.slug === qcm.courseId);
+      if (found) return found;
+    }
+    if (qcm.courseTitle) {
+      const found = allCourses.find(c => c.title?.toLowerCase() === qcm.courseTitle?.toLowerCase());
+      if (found) return found;
+    }
+    if (course && course !== 'TOUS') {
+      const found = allCourses.find(c => c.id === course || c.slug === course);
+      if (found) return found;
+    }
+    return null;
+  }, [qcm, allCourses, course]);
+
+  const targetCourseSlug = targetCourse?.slug || targetCourse?.id || qcm?.courseId || course;
+  const targetCourseTitle = targetCourse?.title || qcm?.courseTitle || courseName || 'Consulter le cours';
 
   const isLockedForUser = useMemo(() => {
     if (!qcm) return false;
@@ -389,6 +444,7 @@ function SessionContent() {
   const currentEliminatedOptions = eliminatedOptionsMap[safeCurrentIndex] || [];
   const isCurrentFlagged = flaggedQuestionsMap[safeCurrentIndex] || false;
   const isCurrentValidatedImmediate = validatedImmediateMap[safeCurrentIndex] || false;
+  const isThisQcmRevealed = isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate) || !!revealedSingleQcmMap[safeCurrentIndex];
 
   // Keep currentIndex synchronized if session length changes
   useEffect(() => {
@@ -412,7 +468,7 @@ function SessionContent() {
 
   // Toggle option selection (Multi-select checkbox for ALL questions, never forcing single selection in UI)
   const toggleOption = (optIdx: number) => {
-    if (isLockedForUser || isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
+    if (isLockedForUser || isThisQcmRevealed) return;
 
     setUserAnswersMap(prev => {
       const currentArr = prev[safeCurrentIndex] || [];
@@ -426,7 +482,7 @@ function SessionContent() {
   // Option strike-through toggle (Rayure ❌)
   const toggleEliminateOption = (e: React.MouseEvent, optIdx: number) => {
     e.stopPropagation();
-    if (isLockedForUser || isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
+    if (isLockedForUser || isThisQcmRevealed) return;
 
     setEliminatedOptionsMap(prev => {
       const currentArr = prev[safeCurrentIndex] || [];
@@ -443,6 +499,33 @@ function SessionContent() {
       ...prev,
       [safeCurrentIndex]: !prev[safeCurrentIndex]
     }));
+  };
+
+  // Individual Question Reveal / Hide handler ("Voir la réponse de ce QCM (Uniquement)")
+  const handleToggleRevealCurrentQuestion = () => {
+    if (!qcm) return;
+    setRevealedSingleQcmMap(prev => {
+      const nextVal = !prev[safeCurrentIndex];
+      if (nextVal) {
+        const isCorrect = isAnswerCorrect(currentSelectedOptions, qcm.correctAnswers);
+        if (isCorrect) {
+          confetti({ particleCount: 35, spread: 45, origin: { y: 0.7 } });
+        }
+        // Save attempt asynchronously
+        fetch('/api/qcm/attempt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            qcmId: qcm.id,
+            userAnswers: currentSelectedOptions,
+            isCorrect,
+            scorePercentage: isCorrect ? 100 : 0,
+            timeSpentSeconds: 15
+          })
+        }).catch(() => {});
+      }
+      return { ...prev, [safeCurrentIndex]: nextVal };
+    });
   };
 
   // Advance / Previous
@@ -529,6 +612,7 @@ function SessionContent() {
     setEliminatedOptionsMap({});
     setFlaggedQuestionsMap({});
     setIsResultsRevealed(false);
+    setRevealedSingleQcmMap({});
     setValidatedImmediateMap({});
     setCompleted(false);
     setShowVignetteDetails(false);
@@ -602,7 +686,7 @@ function SessionContent() {
     );
   }
 
-  const isExplanationShown = isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate);
+  const isExplanationShown = isThisQcmRevealed;
 
   return (
     <div
@@ -640,6 +724,17 @@ function SessionContent() {
                   <BookOpen className="w-3 h-3 text-indigo-400" />
                   <span className="hidden sm:inline">📘 Voir Cours</span>
                 </button>
+
+                {targetCourseSlug && (
+                  <Link
+                    href={`/cours/${targetCourseSlug}`}
+                    target="_blank"
+                    className="hidden md:flex px-2 py-0.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold border border-white/15 items-center gap-1 shrink-0 active:scale-95"
+                    title="Ouvrir la page complète du cours dans un nouvel onglet"
+                  >
+                    <span>Ouvrir Cours ↗</span>
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -689,12 +784,13 @@ function SessionContent() {
               const selected = userAnswersMap[idx] || [];
               const isAnswered = selected.length > 0;
               const isFlagged = flaggedQuestionsMap[idx];
+              const isRevealedForIdx = isResultsRevealed || (sessionMode === 'IMMEDIATE' && validatedImmediateMap[idx]) || !!revealedSingleQcmMap[idx];
 
               let pillStyle = 'bg-white/10 text-white/70 hover:bg-white/20';
 
               if (idx === safeCurrentIndex) {
                 pillStyle = 'bg-sky-500 text-white font-black ring-2 ring-sky-300 scale-105 shadow-sm';
-              } else if (isResultsRevealed && isAnswered) {
+              } else if (isRevealedForIdx && isAnswered) {
                 const isCorrect = isAnswerCorrect(selected, q.correctAnswers);
                 pillStyle = isCorrect ? 'bg-emerald-500 text-white font-bold' : 'bg-rose-500 text-white font-bold';
               } else if (isAnswered) {
@@ -727,6 +823,8 @@ function SessionContent() {
             userAnswersMap={userAnswersMap}
             flaggedQuestionsMap={flaggedQuestionsMap}
             isResultsRevealed={isResultsRevealed}
+            revealedSingleQcmMap={revealedSingleQcmMap}
+            validatedImmediateMap={validatedImmediateMap}
             qcms={sessionQcms}
             onJump={handleJump}
             onClose={() => setShowNavigator(false)}
@@ -743,16 +841,43 @@ function SessionContent() {
               <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-sky-500/20 text-sky-300 border border-sky-500/30 uppercase tracking-wider">
                 Question d'Épreuve
               </span>
+
+              {/* Exact Source Badge */}
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-purple-500/25 text-purple-200 border border-purple-500/40 shadow-xs flex items-center gap-1">
+                <span>🏷️ Source :</span>
+                <span className="font-bold">{typeof qcm?.source === 'string' ? qcm.source : String(qcm?.source || 'Annales Examens')}</span>
+              </span>
+
+              {/* Faculty Badge */}
               {(qcm?.faculty as string) === 'ORAN' && (
-                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">Oran</span>
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">🏛️ Oran</span>
               )}
               {(qcm?.faculty as string) === 'SIDI_BEL_ABBES' && (
-                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-400/20 text-indigo-300 border border-indigo-400/30">SBA</span>
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-400/20 text-indigo-300 border border-indigo-400/30">🏛️ SBA</span>
               )}
-              {qcm?.source && (
-                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-400/20 text-purple-300 border border-purple-400/30 truncate max-w-[140px]">
-                  {typeof qcm.source === 'string' ? qcm.source : String(qcm.source || '')}
+              {(!qcm?.faculty || (qcm?.faculty as string) === 'TOUS') && (
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-400/20 text-slate-300 border border-white/10">🏛️ Faculté</span>
+              )}
+
+              {/* Year Badge */}
+              {qcm?.year && (
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-400/20 text-sky-300 border border-sky-400/30">
+                  📅 {qcm.year}
                 </span>
+              )}
+
+              {/* Direct Course Link */}
+              {targetCourseSlug && (
+                <Link
+                  href={`/cours/${targetCourseSlug}`}
+                  target="_blank"
+                  className="px-2.5 py-0.5 rounded-md text-[10px] font-black bg-indigo-500/25 hover:bg-indigo-500/45 text-indigo-200 border border-indigo-500/40 flex items-center gap-1 transition-all active:scale-95 shadow-xs"
+                  title="Ouvrir la fiche de cours complète dans un nouvel onglet"
+                >
+                  <BookOpen className="w-3 h-3 text-indigo-300" />
+                  <span className="truncate max-w-[150px] sm:max-w-[220px]">Cours : {targetCourseTitle}</span>
+                  <ArrowRight className="w-2.5 h-2.5 text-indigo-300 shrink-0" />
+                </Link>
               )}
 
               {/* Access Level Badge */}
@@ -959,6 +1084,38 @@ function SessionContent() {
                 })}
               </div>
 
+              {/* Individual Question Reveal Button ("Voir la réponse de ce QCM (Uniquement)") */}
+              <div className="pt-2 sm:pt-3 flex flex-wrap items-center gap-2">
+                {!isThisQcmRevealed ? (
+                  <button
+                    type="button"
+                    onClick={handleToggleRevealCurrentQuestion}
+                    disabled={currentSelectedOptions.length === 0}
+                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black text-xs transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer border border-emerald-400/30"
+                    title="Voir immédiatement la réponse et la justification médicale uniquement pour ce QCM"
+                  >
+                    <Eye className="w-4 h-4" />
+                    <span>👁️ Voir la réponse de ce QCM (Uniquement)</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleToggleRevealCurrentQuestion}
+                    className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white/80 hover:text-white font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer border border-white/15 active:scale-95"
+                    title="Masquer la correction de ce QCM pour continuer à réfléchir"
+                  >
+                    <EyeOff className="w-3.5 h-3.5 text-white/70" />
+                    <span>🙈 Masquer la réponse de ce QCM</span>
+                  </button>
+                )}
+
+                {!isThisQcmRevealed && currentSelectedOptions.length === 0 && (
+                  <span className="text-[11px] text-white/50 italic">
+                    💡 Cochez au moins une proposition ci-dessus pour révéler la correction de ce QCM.
+                  </span>
+                )}
+              </div>
+
               {/* Immediate mode validate button */}
               {sessionMode === 'IMMEDIATE' && !isCurrentValidatedImmediate && (
                 <div className="pt-2">
@@ -977,20 +1134,34 @@ function SessionContent() {
               {/* Explanation Card */}
               {isExplanationShown && (
                 <div className="p-3 sm:p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-in fade-in duration-200">
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
                     <div className="flex items-center gap-1.5 text-[10px] font-black text-emerald-300 uppercase tracking-wider">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Justification Médicale</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <button
                         type="button"
                         onClick={() => setIsCourseModalOpen(true)}
-                        className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold flex items-center gap-1 shadow-sm cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg bg-indigo-600/40 hover:bg-indigo-600 text-white text-[10px] font-bold flex items-center gap-1 shadow-sm cursor-pointer border border-indigo-400/30"
+                        title="Aperçu rapide du cours"
                       >
                         <BookOpen className="w-3 h-3" />
-                        <span>Fiche & Support</span>
+                        <span>Fiche Synthèse</span>
                       </button>
+
+                      {targetCourseSlug && (
+                        <Link
+                          href={`/cours/${targetCourseSlug}`}
+                          target="_blank"
+                          className="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black flex items-center gap-1.5 shadow-sm transition-all border border-indigo-400/40"
+                          title="Ouvrir le cours complet dans un nouvel onglet"
+                        >
+                          <BookOpen className="w-3 h-3 text-indigo-200" />
+                          <span>Ouvrir la Page du Cours ↗</span>
+                        </Link>
+                      )}
+
                       <button
                         type="button"
                         onClick={handleNext}

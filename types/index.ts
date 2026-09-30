@@ -86,11 +86,11 @@ export interface Course {
   viewsCount: number;
   likesCount: number;
   qcmCount: number;
-  tableOfContents: { id: string; title: string; level: number }[];
-  htmlContent: string;
+  tableOfContents?: { id: string; title: string; level: number }[];
+  htmlContent?: string;
   summaryPoints?: string[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Fiche {
