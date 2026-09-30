@@ -1400,7 +1400,7 @@ export const AppSidebar: React.FC = () => {
                             specFiches.map(fiche => (
                               <Link
                                 key={fiche.id}
-                                href={`/fiches?specialty=${spec.id}#${fiche.id}`}
+                                href={`/fiches/${fiche.id}?fullscreen=true`}
                                 onClick={handleLinkClick}
                                 className="block px-2 py-1.5 rounded-md text-[10px] font-medium text-slate-600 dark:text-slate-300 hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-white/8 transition-colors truncate"
                                 title={fiche.title}

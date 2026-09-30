@@ -9,7 +9,7 @@ import { getSpecialtyEmoji } from '@/lib/specialtyEmojis';
 import { useMemorization } from '@/lib/hooks/useMemorization';
 import {
   Zap, Search, Clock, ArrowRight, ArrowLeft, ChevronRight,
-  FileText, Sparkles, CheckCircle2
+  FileText, Sparkles, CheckCircle2, Maximize2
 } from 'lucide-react';
 
 function FichesHubContent() {
@@ -431,9 +431,19 @@ function FichesHubContent() {
                   </div>
 
                   <div
-                    className="pt-2 border-t border-navy-100 dark:border-navy-800 text-xs text-navy-600 dark:text-navy-300 leading-relaxed"
+                    className="pt-2 text-xs text-navy-600 dark:text-navy-300 leading-relaxed max-h-48 overflow-hidden relative"
                     dangerouslySetInnerHTML={{ __html: fiche.htmlContent }}
                   />
+
+                  <div className="pt-3 border-t border-navy-100 dark:border-navy-800 flex items-center justify-between gap-2">
+                    <Link
+                      href={`/fiches/${fiche.id}?fullscreen=true`}
+                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 shadow-md hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span>Ouvrir en Mode Plein Écran</span>
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
