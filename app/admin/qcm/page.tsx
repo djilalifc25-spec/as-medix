@@ -465,17 +465,10 @@ export default function AdminQcmPage() {
     setReconcilingCourses(true);
     setSuccessMsg('');
     try {
-      const res = await fetch('/api/admin/qcm/auto-link', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ autoCreateMissingCourses: true })
-      });
+      const res = await fetch('/api/admin/qcm/auto-link', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
-        const createdNotice = data.totalCoursesCreated > 0
-          ? ` (${data.totalCoursesCreated} nouveau(x) cours créé(s) pour les sujets orphelins)`
-          : '';
-        setSuccessMsg(`⚡ Rattachement automatique terminé à 100% ! ${data.totalLinked} QCM(s) rattachés à leurs cours respectifs${createdNotice}.`);
+        setSuccessMsg(`⚡ Rattachement automatique terminé ! ${data.totalLinked} QCM(s) rattachés à leurs cours existants.`);
         await fetchData();
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));

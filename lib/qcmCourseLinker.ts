@@ -161,7 +161,7 @@ export function matchQcmToCourse(
 }
 
 /**
- * Automatically finds and links all unlinked or matching QCMs to a newly created/updated course.
+ * Automatically finds and links all unlinked or matching QCMs to an existing course.
  * Updates both Supabase SQL and local DB store.
  */
 export async function autoLinkQcmsToCourse(course: {
@@ -257,12 +257,10 @@ export async function autoLinkQcmsToCourse(course: {
 }
 
 /**
- * Reconciles all unlinked QCMs across the entire database with all existing courses,
- * and optionally creates courses for orphan QCM topics.
+ * Reconciles all unlinked QCMs across the entire database ONLY with existing courses.
  */
-export async function reconcileAllOrphanedQcms(options?: { autoCreateMissingCourses?: boolean }): Promise<{
+export async function reconcileAllOrphanedQcms(): Promise<{
   totalLinked: number;
-  totalCoursesCreated: number;
   details: Array<{ courseId: string; courseTitle: string; linkedCount: number }>;
 }> {
   const localCourses = db.getCourses();
@@ -286,10 +284,8 @@ export async function reconcileAllOrphanedQcms(options?: { autoCreateMissingCour
   } catch (_) {}
 
   let totalLinked = 0;
-  let totalCoursesCreated = 0;
   const details: Array<{ courseId: string; courseTitle: string; linkedCount: number }> = [];
 
-  // Pass 1: Link to existing courses
   for (const c of allCourses) {
     const result = await autoLinkQcmsToCourse(c);
     if (result.linkedCount > 0) {
@@ -302,107 +298,5 @@ export async function reconcileAllOrphanedQcms(options?: { autoCreateMissingCour
     }
   }
 
-  // Pass 2: Optionally create missing courses for orphan QCM topics
-  if (options?.autoCreateMissingCourses) {
-    try {
-      const { data: cloudQcms } = await supabaseAdmin.from('qcms').select('*');
-      if (cloudQcms && Array.isArray(cloudQcms)) {
-        const unlinked = cloudQcms.filter(q => !q.course_id && (q.course_title || q.title));
-        const orphanGroups = new Map<string, { topic: string; specialtyId: string; qcmIds: string[] }>();
-
-        for (const q of unlinked) {
-          const rawTopic = (q.course_title || q.title || '').trim();
-          if (!rawTopic || rawTopic.length < 3 || rawTopic.startsWith('cx')) continue;
-
-          const key = rawTopic.toLowerCase();
-          if (!orphanGroups.has(key)) {
-            orphanGroups.set(key, {
-              topic: rawTopic,
-              specialtyId: String(q.specialty_id || q.specialty || 'cardio'),
-              qcmIds: [String(q.id)]
-            });
-          } else {
-            orphanGroups.get(key)!.qcmIds.push(String(q.id));
-          }
-        }
-
-        for (const group of Array.from(orphanGroups.values())) {
-          const newCourseId = `cours_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
-          const slug = group.topic.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-          
-          const newCourse: Course = {
-            id: newCourseId,
-            slug: slug || newCourseId,
-            title: group.topic,
-            subtitle: `Module ${group.specialtyId.toUpperCase()} - Cours & QCMs`,
-            specialtyId: group.specialtyId,
-            specialtyName: group.specialtyId.toUpperCase(),
-            year: 4,
-            author: 'Faculté de Médecine',
-            authorTitle: 'Professeurs Hospitalo-Universitaires',
-            description: `Cours officiel et QCMs d'entraînement pour : ${group.topic}`,
-            coverImage: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200',
-            difficulty: 'Incontournable',
-            faculty: 'TOUS',
-            source: 'Externat',
-            rang: 'Rang A',
-            estimatedDuration: '30 min',
-            tags: ['Médecine', 'Résidanat'],
-            accessLevel: 'FREE',
-            published: true,
-            viewsCount: 0,
-            likesCount: 0,
-            qcmCount: group.qcmIds.length,
-            tableOfContents: [{ id: 'sec-1', title: '1. Introduction & Physiopathologie', level: 1 }],
-            htmlContent: `<div class="space-y-6"><h2 id="sec-1">1. Introduction & Physiopathologie</h2><p>Contenu médical officiel pour <strong>${group.topic}</strong>.</p></div>`,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          };
-
-          // Save course to local DB store & Supabase
-          db.createCourse(newCourse);
-          await supabaseAdmin.from('courses').upsert({
-            id: newCourse.id,
-            slug: newCourse.slug,
-            title: newCourse.title,
-            subtitle: newCourse.subtitle,
-            specialty_id: newCourse.specialtyId,
-            specialty_name: newCourse.specialtyName,
-            year: newCourse.year,
-            html_content: newCourse.htmlContent,
-            published: true,
-            created_at: newCourse.createdAt,
-            updated_at: newCourse.updatedAt
-          }, { onConflict: 'id' });
-
-          // Link QCMs to new course
-          await supabaseAdmin.from('qcms').update({
-            course_id: newCourse.id,
-            course_title: newCourse.title,
-            specialty_id: newCourse.specialtyId
-          }).in('id', group.qcmIds);
-
-          group.qcmIds.forEach(qid => {
-            db.updateQcm(qid, {
-              courseId: newCourse.id,
-              courseTitle: newCourse.title,
-              specialtyId: newCourse.specialtyId
-            });
-          });
-
-          totalCoursesCreated++;
-          totalLinked += group.qcmIds.length;
-          details.push({
-            courseId: newCourse.id,
-            courseTitle: newCourse.title,
-            linkedCount: group.qcmIds.length
-          });
-        }
-      }
-    } catch (err) {
-      console.error('[reconcileAllOrphanedQcms] Error creating missing courses:', err);
-    }
-  }
-
-  return { totalLinked, totalCoursesCreated, details };
+  return { totalLinked, details };
 }

@@ -12,20 +12,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Accès non autorisé.' }, { status: 401 });
     }
 
-    let autoCreateMissingCourses = false;
-    try {
-      const body = await req.json();
-      if (body && body.autoCreateMissingCourses) {
-        autoCreateMissingCourses = true;
-      }
-    } catch (_) {}
-
-    const result = await reconcileAllOrphanedQcms({ autoCreateMissingCourses });
+    const result = await reconcileAllOrphanedQcms();
 
     return NextResponse.json({
       success: true,
       totalLinked: result.totalLinked,
-      totalCoursesCreated: result.totalCoursesCreated,
       details: result.details
     });
   } catch (err: any) {
