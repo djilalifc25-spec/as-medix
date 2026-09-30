@@ -130,6 +130,14 @@ export async function GET(req: NextRequest) {
     let coursesMap = new Map<string, Course>();
     let cloudFetched = false;
 
+    // Load deleted IDs FIRST — String() for type-safe comparison (Supabase IDs can be integers)
+    const deletedCourseIds = db.getDeletedCourseIds().map(String);
+    const deletedSpecialtyIds = db.getDeletedSpecialtyIds().map(String);
+    const isDeleted = (cid: any, cslug?: any, specId?: any) =>
+      deletedCourseIds.includes(String(cid)) ||
+      (cslug && deletedCourseIds.includes(String(cslug))) ||
+      (specId && deletedSpecialtyIds.includes(String(specId)));
+
     // 1. Cloud Supabase courses (Primary source of truth)
     try {
       const { data: cloudCourses, error } = await supabaseAdmin.from('courses').select('*');
@@ -137,7 +145,8 @@ export async function GET(req: NextRequest) {
         cloudFetched = true;
         for (const row of cloudCourses) {
           const mapped = mapSupabaseRowToCourse(row);
-          coursesMap.set(mapped.id, mapped);
+          if (isDeleted(mapped.id, mapped.slug, mapped.specialtyId)) continue;
+          coursesMap.set(String(mapped.id), mapped);
         }
       }
     } catch (sErr) {
@@ -147,22 +156,17 @@ export async function GET(req: NextRequest) {
     // 2. Fallback to Local DB courses if cloud query fails or for newly created local drafts
     const localCourses = db.getCourses();
     for (const c of localCourses) {
+      if (isDeleted(c.id, c.slug, c.specialtyId)) continue;
       if (!cloudFetched) {
-        coursesMap.set(c.id, c);
-      } else if (!coursesMap.has(c.id) && c.htmlContent && c.htmlContent.length > 100) {
+        coursesMap.set(String(c.id), c);
+      } else if (!coursesMap.has(String(c.id)) && c.htmlContent && c.htmlContent.length > 100) {
         // Keep local draft if not present in cloud
-        coursesMap.set(c.id, c);
+        coursesMap.set(String(c.id), c);
       }
     }
 
-    const deletedCourseIds = db.getDeletedCourseIds();
-    const deletedSpecialtyIds = db.getDeletedSpecialtyIds();
+    let courses = Array.from(coursesMap.values());
 
-    let courses = Array.from(coursesMap.values()).filter(c =>
-      !deletedCourseIds.includes(c.id) &&
-      !deletedCourseIds.includes(c.slug) &&
-      !deletedSpecialtyIds.includes(c.specialtyId)
-    );
 
     if (slug) {
       courses = courses.filter(c => matchesCourse(c, slug));

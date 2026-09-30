@@ -129,6 +129,20 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get('id');
 
+  // Load deleted IDs FIRST — use String() everywhere for type-safe comparison
+  const deletedCourseIds = db.getDeletedCourseIds().map(String);
+  const deletedSpecialtyIds = db.getDeletedSpecialtyIds().map(String);
+
+  const isDeleted = (courseId: any, courseSlug?: any, specialtyId?: any): boolean => {
+    const sid = String(courseId);
+    const sslug = courseSlug ? String(courseSlug) : '';
+    const sspec = specialtyId ? String(specialtyId) : '';
+    return deletedCourseIds.includes(sid) ||
+           !!(sslug && deletedCourseIds.includes(sslug)) ||
+           !!(sspec && deletedSpecialtyIds.includes(sspec));
+  };
+
+
   let coursesMap = new Map<string, Course>();
   let cloudFetched = false;
 
@@ -138,7 +152,9 @@ export async function GET(req: Request) {
       cloudFetched = true;
       for (const row of cloudCourses) {
         const mapped = mapSupabaseRowToCourse(row);
-        coursesMap.set(mapped.id, mapped);
+        // Skip deleted courses immediately — don't even add to map
+        if (isDeleted(mapped.id, mapped.slug, mapped.specialtyId)) continue;
+        coursesMap.set(String(mapped.id), mapped);
       }
     }
   } catch (sErr) {
@@ -147,24 +163,18 @@ export async function GET(req: Request) {
 
   const localCourses = db.getCourses();
   for (const c of localCourses) {
+    if (isDeleted(c.id, c.slug, c.specialtyId)) continue;
     if (!cloudFetched) {
-      coursesMap.set(c.id, c);
-    } else if (!coursesMap.has(c.id) && c.htmlContent && c.htmlContent.length > 100) {
-      coursesMap.set(c.id, c);
+      coursesMap.set(String(c.id), c);
+    } else if (!coursesMap.has(String(c.id)) && c.htmlContent && c.htmlContent.length > 100) {
+      coursesMap.set(String(c.id), c);
     }
   }
 
-  const deletedCourseIds = db.getDeletedCourseIds();
-  const deletedSpecialtyIds = db.getDeletedSpecialtyIds();
-
-  const allCourses = Array.from(coursesMap.values()).filter(c =>
-    !deletedCourseIds.includes(c.id) &&
-    !deletedCourseIds.includes(c.slug) &&
-    !deletedSpecialtyIds.includes(c.specialtyId)
-  );
+  const allCourses = Array.from(coursesMap.values());
 
   if (id) {
-    const course = allCourses.find(c => c.id === id);
+    const course = allCourses.find(c => String(c.id) === String(id));
     if (!course) {
       return NextResponse.json({ error: 'Cours introuvable' }, { status: 404 });
     }
@@ -173,6 +183,8 @@ export async function GET(req: Request) {
 
   return NextResponse.json({ courses: allCourses });
 }
+
+
 
 export async function POST(req: Request) {
   try {

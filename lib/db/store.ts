@@ -451,19 +451,30 @@ class DatabaseStore {
 
   public deleteCourse(id: string): boolean {
     if (!this.data.deletedCourseIds) this.data.deletedCourseIds = [];
-    const course = this.data.courses.find(c => c.id === id || c.slug === id);
-    if (!this.data.deletedCourseIds.includes(id)) {
-      this.data.deletedCourseIds.push(id);
+    const sid = String(id);
+    // Find course by id or slug (string-compare for safety)
+    const course = this.data.courses.find(c => String(c.id) === sid || c.id === id || c.slug === id);
+    // Store both the given id and the String version
+    if (!this.data.deletedCourseIds.includes(sid)) {
+      this.data.deletedCourseIds.push(sid);
     }
-    if (course && course.slug && !this.data.deletedCourseIds.includes(course.slug)) {
+    if (course?.id && !this.data.deletedCourseIds.includes(String(course.id))) {
+      this.data.deletedCourseIds.push(String(course.id));
+    }
+    if (course?.slug && !this.data.deletedCourseIds.includes(course.slug)) {
       this.data.deletedCourseIds.push(course.slug);
     }
-    this.data.courses = this.data.courses.filter(c => c.id !== id && c.slug !== id && (course ? c.slug !== course.slug : true));
+    // Remove from in-memory array
+    this.data.courses = this.data.courses.filter(c =>
+      String(c.id) !== sid && c.id !== id && c.slug !== id &&
+      (course ? String(c.id) !== String(course.id) && c.slug !== course.slug : true)
+    );
     this.updateSpecialtyCounts();
     this.updateCourseQcmCounts();
     this.save();
     return true;
   }
+
 
   public duplicateCourse(id: string): Course | undefined {
     const original = this.getCourseById(id);
