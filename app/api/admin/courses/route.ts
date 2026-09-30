@@ -92,15 +92,30 @@ async function syncCourseToSupabase(course: Course) {
   }
 }
 
-async function deleteCourseFromSupabase(id: string, slug?: string) {
+async function deleteCourseFromSupabase(id: string) {
   try {
-    await supabaseAdmin.from('courses').delete().eq('id', id);
-    if (slug) {
-      await supabaseAdmin.from('courses').delete().eq('slug', slug);
+    // Supabase courses table has NO 'slug' column — delete only by id
+    const { error } = await supabaseAdmin.from('courses').delete().eq('id', id);
+    if (error) {
+      console.error('[Supabase Sync] Course delete error:', error.message, '| id:', id);
+    } else {
+      console.log('[Supabase Sync] Course deleted from Supabase:', id);
     }
-    await supabaseAdmin.from('courses').delete().or(`id.eq.${id},slug.eq.${id}`);
   } catch (err) {
-    console.error('[Supabase Sync] Course delete error:', err);
+    console.error('[Supabase Sync] Course delete exception:', err);
+  }
+}
+
+async function deleteCoursesFromSupabase(ids: string[]) {
+  try {
+    const { error } = await supabaseAdmin.from('courses').delete().in('id', ids);
+    if (error) {
+      console.error('[Supabase Sync] Bulk course delete error:', error.message);
+    } else {
+      console.log('[Supabase Sync] Bulk deleted from Supabase:', ids.length, 'courses');
+    }
+  } catch (err) {
+    console.error('[Supabase Sync] Bulk course delete exception:', err);
   }
 }
 
@@ -188,13 +203,26 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, course: updated });
     }
 
+
     if (action === 'delete') {
-      const course = db.getCourseById(body.id) || db.getCourseBySlug(body.id);
-      const slug = course?.slug;
       const deleted = db.deleteCourse(body.id);
-      await deleteCourseFromSupabase(body.id, slug);
+      await deleteCourseFromSupabase(body.id);
       return NextResponse.json({ success: deleted });
     }
+
+    // BULK DELETE: action='bulk_delete', ids: string[]
+    if (action === 'bulk_delete') {
+      const ids: string[] = Array.isArray(body.ids) ? body.ids : [];
+      if (ids.length === 0) return NextResponse.json({ error: 'Aucun ID fourni' }, { status: 400 });
+      let deletedCount = 0;
+      for (const cid of ids) {
+        const ok = db.deleteCourse(cid);
+        if (ok) deletedCount++;
+      }
+      await deleteCoursesFromSupabase(ids);
+      return NextResponse.json({ success: true, deletedCount });
+    }
+
 
     // UPDATE EXISTING COURSE
     if (action === 'update' || (body.id && db.getCourseById(body.id))) {
@@ -346,25 +374,37 @@ export async function DELETE(req: Request) {
 
     const { searchParams } = new URL(req.url);
     let id = searchParams.get('id');
+    let ids: string[] | null = null;
 
-    if (!id && req.headers.get('content-type')?.includes('application/json')) {
+    if (req.headers.get('content-type')?.includes('application/json')) {
       try {
         const body = await req.json();
-        id = body.id;
+        if (!id) id = body.id;
+        if (Array.isArray(body.ids) && body.ids.length > 0) ids = body.ids;
       } catch (_) {}
+    }
+
+    // Bulk delete
+    if (ids && ids.length > 0) {
+      let deletedCount = 0;
+      for (const cid of ids) {
+        const ok = db.deleteCourse(cid);
+        if (ok) deletedCount++;
+      }
+      await deleteCoursesFromSupabase(ids);
+      return NextResponse.json({ success: true, deletedCount });
     }
 
     if (!id) {
       return NextResponse.json({ error: 'ID du cours manquant' }, { status: 400 });
     }
 
-    const course = db.getCourseById(id) || db.getCourseBySlug(id);
-    const slug = course?.slug;
     const deleted = db.deleteCourse(id);
-    await deleteCourseFromSupabase(id, slug);
+    await deleteCourseFromSupabase(id);
 
     return NextResponse.json({ success: deleted });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }
+
