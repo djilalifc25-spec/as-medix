@@ -173,8 +173,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Accès non autorisé' }, { status: 401 });
   }
 
-  let qcmsMap = new Map<string, QCM>();
-
   let qcms: QCM[] = [];
 
   try {
@@ -251,6 +249,72 @@ export async function POST(req: NextRequest) {
     await syncQcmToSupabase(newQcm);
 
     return NextResponse.json({ success: true, qcm: saved });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const currentUser = await getCurrentUser();
+    const sessionCookie = req.cookies.get('asmedix_session')?.value;
+    if (!currentUser && !sessionCookie) {
+      return NextResponse.json({ error: 'Accès non autorisé' }, { status: 401 });
+    }
+
+    const body = await req.json();
+
+    // BATCH UPDATE QCM COURSE ATTACHMENT
+    if (body.action === 'batch_update_course' && Array.isArray(body.qcmIds)) {
+      const { qcmIds, courseId, courseTitle, specialtyId, specialtyName } = body;
+
+      const updatePayload: Record<string, any> = {
+        course_id: String(courseId),
+        course_title: String(courseTitle)
+      };
+      if (specialtyId) updatePayload.specialty_id = String(specialtyId);
+      if (specialtyName) updatePayload.specialty_name = String(specialtyName);
+
+      // Update Supabase SQL table
+      const { error: updateErr } = await supabaseAdmin
+        .from('qcms')
+        .update(updatePayload)
+        .in('id', qcmIds);
+
+      if (updateErr) {
+        console.error('[PUT /api/admin/qcm] Batch course update error:', updateErr.message);
+      }
+
+      // Update local DB store
+      qcmIds.forEach((id: string) => {
+        db.updateQcm(id, {
+          courseId: String(courseId),
+          courseTitle: String(courseTitle),
+          ...(specialtyId ? { specialtyId: String(specialtyId) } : {}),
+          ...(specialtyName ? { specialtyName: String(specialtyName) } : {})
+        });
+      });
+
+      try {
+        db.updateCourseQcmCounts();
+      } catch (_) {}
+
+      return NextResponse.json({ success: true, count: qcmIds.length });
+    }
+
+    // SINGLE QCM UPDATE
+    if (body.id) {
+      const updated = db.updateQcm(body.id, body);
+      if (updated) {
+        await syncQcmToSupabase(updated);
+        try {
+          db.updateCourseQcmCounts();
+        } catch (_) {}
+        return NextResponse.json({ success: true, qcm: updated });
+      }
+    }
+
+    return NextResponse.json({ success: false, error: 'Paramètres invalides' }, { status: 400 });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }

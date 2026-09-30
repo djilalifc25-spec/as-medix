@@ -95,6 +95,12 @@ export default function AdminQcmPage() {
   const [showSourceSidebar, setShowSourceSidebar] = useState(false);
   const [swapInputs, setSwapInputs] = useState<Record<string, string>>({});
   const [reconcilingCourses, setReconcilingCourses] = useState(false);
+  const [selectedQcmIds, setSelectedQcmIds] = useState<string[]>([]);
+  const [batchAttachModalOpen, setBatchAttachModalOpen] = useState(false);
+  const [targetBatchCourseId, setTargetBatchCourseId] = useState('');
+  const [targetBatchSpecId, setTargetBatchSpecId] = useState('all');
+  const [batchCourseSearchQuery, setBatchCourseSearchQuery] = useState('');
+  const [batchAttaching, setBatchAttaching] = useState(false);
 
   // Helper to compute combined parent + sub-source name (e.g. "Externat - 2021")
   const getEffectiveSource = (): string => {
@@ -459,10 +465,17 @@ export default function AdminQcmPage() {
     setReconcilingCourses(true);
     setSuccessMsg('');
     try {
-      const res = await fetch('/api/admin/qcm/auto-link', { method: 'POST' });
+      const res = await fetch('/api/admin/qcm/auto-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ autoCreateMissingCourses: true })
+      });
       const data = await res.json();
       if (data.success) {
-        setSuccessMsg(`⚡ Rattachement automatique terminé ! ${data.totalLinked} QCM(s) rattachés directement à leurs cours respectifs.`);
+        const createdNotice = data.totalCoursesCreated > 0
+          ? ` (${data.totalCoursesCreated} nouveau(x) cours créé(s) pour les sujets orphelins)`
+          : '';
+        setSuccessMsg(`⚡ Rattachement automatique terminé à 100% ! ${data.totalLinked} QCM(s) rattachés à leurs cours respectifs${createdNotice}.`);
         await fetchData();
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
@@ -474,6 +487,85 @@ export default function AdminQcmPage() {
       alert(err.message || 'Erreur réseau');
     } finally {
       setReconcilingCourses(false);
+    }
+  };
+
+  const handleToggleSelectQcm = (id: string) => {
+    setSelectedQcmIds(prev =>
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleToggleSelectAllFiltered = () => {
+    if (selectedQcmIds.length === filteredQcms.length && filteredQcms.length > 0) {
+      setSelectedQcmIds([]);
+    } else {
+      setSelectedQcmIds(filteredQcms.map(q => q.id));
+    }
+  };
+
+  const handleBatchAttachToCourse = async () => {
+    if (selectedQcmIds.length === 0 || !targetBatchCourseId) {
+      alert('Veuillez sélectionner au moins un QCM et un cours de destination.');
+      return;
+    }
+
+    const targetCourse = courses.find(c => c.id === targetBatchCourseId);
+    if (!targetCourse) {
+      alert('Cours introuvable.');
+      return;
+    }
+
+    setBatchAttaching(true);
+    try {
+      const res = await fetch('/api/admin/qcm', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'batch_update_course',
+          qcmIds: selectedQcmIds,
+          courseId: targetCourse.id,
+          courseTitle: targetCourse.title,
+          specialtyId: targetCourse.specialtyId,
+          specialtyName: targetCourse.specialtyName
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSuccessMsg(`🎯 ${selectedQcmIds.length} QCM(s) rattachés avec succès au cours "${targetCourse.title}" !`);
+        setSelectedQcmIds([]);
+        setBatchAttachModalOpen(false);
+        await fetchData();
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+      } else {
+        alert(data.error || 'Erreur lors du rattachement');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Erreur réseau');
+    } finally {
+      setBatchAttaching(false);
+    }
+  };
+
+  const handleBatchDeleteSelectedQcms = async () => {
+    if (selectedQcmIds.length === 0) return;
+    if (!confirm(`Voulez-vous vraiment supprimer les ${selectedQcmIds.length} QCM(s) sélectionnés ?`)) return;
+
+    try {
+      for (const id of selectedQcmIds) {
+        await fetch(`/api/admin/qcm?id=${id}`, { method: 'DELETE' });
+      }
+      setSuccessMsg(`🗑️ ${selectedQcmIds.length} QCM(s) supprimés avec succès de Supabase.`);
+      setSelectedQcmIds([]);
+      await fetchData();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+      }
+    } catch (err: any) {
+      alert('Erreur lors de la suppression groupée.');
     }
   };
 
@@ -1388,7 +1480,6 @@ export default function AdminQcmPage() {
               </div>
 
               <div>
-              <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
                     5. Source Parente & Sous-Source (Session d'Examen) :
@@ -1539,7 +1630,6 @@ export default function AdminQcmPage() {
                     </div>
                   );
                 })()}
-              </div>
               </div>
             </div>
           </div>
@@ -2428,15 +2518,56 @@ export default function AdminQcmPage() {
         </div>
       </div>
 
-      {/* Global Answer Toggle Bar */}
+      {/* Global Answer Toggle & Bulk Actions Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-white dark:bg-navy-900 border border-navy-200 dark:border-navy-800 shadow-sm mb-4">
-        <div className="flex items-center gap-2 text-xs font-bold text-navy-700 dark:text-navy-300">
+        <div className="flex items-center gap-3 text-xs font-bold text-navy-700 dark:text-navy-300 flex-wrap">
+          <label className="flex items-center gap-2 cursor-pointer bg-slate-100 dark:bg-navy-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-navy-700">
+            <input
+              type="checkbox"
+              checked={selectedQcmIds.length > 0 && selectedQcmIds.length === filteredQcms.length}
+              onChange={handleToggleSelectAllFiltered}
+              className="w-4 h-4 text-brand-600 rounded"
+            />
+            <span>Tout sélectionner ({filteredQcms.length})</span>
+          </label>
+
           <span className="px-2.5 py-1 rounded-xl bg-brand-500/10 text-brand-600 dark:bg-brand-950 dark:text-brand-300">
             📊 {filteredQcms.length} QCM(s) affiché(s)
           </span>
+
+          {selectedQcmIds.length > 0 && (
+            <span className="px-3 py-1 rounded-xl bg-purple-500/10 text-purple-700 dark:text-purple-300 font-extrabold border border-purple-500/20">
+              🎯 {selectedQcmIds.length} sélectionné(s)
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {selectedQcmIds.length > 0 && (
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  setTargetBatchCourseId('');
+                  setBatchAttachModalOpen(true);
+                }}
+                className="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm flex items-center gap-1.5 transition-all"
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>🎯 Rattacher à un Cours ({selectedQcmIds.length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleBatchDeleteSelectedQcms}
+                className="px-3 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-sm flex items-center gap-1.5 transition-all"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Supprimer ({selectedQcmIds.length})</span>
+              </button>
+            </>
+          )}
+
           <button
             type="button"
             onClick={() => setShowAllAnswersGlobal(true)}
@@ -2447,7 +2578,7 @@ export default function AdminQcmPage() {
             }`}
           >
             <Eye className="w-3.5 h-3.5" />
-            <span>👁️ Afficher les réponses de TOUS les QCMs</span>
+            <span>👁️ Afficher les réponses</span>
           </button>
 
           <button
@@ -2463,7 +2594,7 @@ export default function AdminQcmPage() {
             }`}
           >
             <EyeOff className="w-3.5 h-3.5" />
-            <span>🙈 Masquer TOUTES les réponses</span>
+            <span>🙈 Masquer réponses</span>
           </button>
         </div>
       </div>
@@ -2493,6 +2624,7 @@ export default function AdminQcmPage() {
             const specObj = specialtiesList.find(s => s.id === qcm.specialtyId) || ALL_SPECIALTIES.find(s => s.id === qcm.specialtyId);
             const specialtyDisplayName = specObj ? specObj.name : (qcm.specialtyName || qcm.specialtyId);
             const isAnswerVisible = showAllAnswersGlobal || Boolean(visibleAnswersMap[qcm.id]);
+            const isSelected = selectedQcmIds.includes(qcm.id);
 
             const effectiveYr = (qcm.year !== undefined && qcm.year !== null && (qcm.year as any) !== '')
               ? Number(qcm.year)
@@ -2503,10 +2635,17 @@ export default function AdminQcmPage() {
               : 'Transversal';
 
             return (
-              <div key={qcm.id} className="apple-card p-6 space-y-4">
+              <div key={qcm.id} className={`apple-card p-6 space-y-4 transition-all ${isSelected ? 'ring-2 ring-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20' : ''}`}>
                 <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => handleToggleSelectQcm(qcm.id)}
+                      className="w-5 h-5 text-indigo-600 rounded mt-1 cursor-pointer shrink-0"
+                    />
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap mb-1.5">
                       <span className="px-2.5 py-0.5 rounded-lg text-xs font-black bg-brand-500/10 text-brand-600 dark:bg-brand-950 dark:text-brand-300 border border-brand-500/20 flex items-center gap-1">
                         <span>🎓</span>
                         <span>{yearLabel}</span>
@@ -2536,8 +2675,9 @@ export default function AdminQcmPage() {
                       {qcm.title}
                     </h3>
                   </div>
+                </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={() => setVisibleAnswersMap(prev => ({ ...prev, [qcm.id]: !prev[qcm.id] }))}
@@ -2892,6 +3032,117 @@ export default function AdminQcmPage() {
                   <>
                     <Sparkles className="w-4 h-4 text-amber-300" />
                     <span>🚀 Démarrer l'Extraction par IA</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* BATCH COURSE ATTACHMENT MODAL */}
+      {batchAttachModalOpen && (
+        <div className="fixed inset-0 z-50 bg-navy-950/70 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="apple-card max-w-lg w-full p-6 sm:p-8 space-y-6 animate-in fade-in zoom-in duration-200">
+            <div className="flex items-center justify-between pb-4 border-b border-navy-100 dark:border-navy-800">
+              <div className="flex items-center gap-2">
+                <Layers className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-base font-bold text-navy-900 dark:text-white">
+                  Rattacher les {selectedQcmIds.length} QCM(s) Sélectionnés à un Cours
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setBatchAttachModalOpen(false)}
+                className="p-1 rounded-xl text-navy-400 hover:text-navy-900 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-xs text-navy-600 dark:text-navy-400">
+                Sélectionnez le cours de destination pour attribuer directement ces <strong>{selectedQcmIds.length} QCM(s)</strong> dans la base de données Supabase SQL.
+              </p>
+
+              {/* Specialty Filter inside modal */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  1. Filtrer par Spécialité / Module :
+                </label>
+                <select
+                  value={targetBatchSpecId}
+                  onChange={e => setTargetBatchSpecId(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold"
+                >
+                  <option value="all">Toutes les spécialités ({specialtiesList.length})</option>
+                  {specialtiesList.map(s => (
+                    <option key={s.id} value={s.id}>{getSpecialtyEmoji(s.id)} {s.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Course Search */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  2. Chercher un cours par mot-clé :
+                </label>
+                <input
+                  type="text"
+                  value={batchCourseSearchQuery}
+                  onChange={e => setBatchCourseSearchQuery(e.target.value)}
+                  placeholder="ex: Otite, Vertiges, Retrecissement..."
+                  className="w-full px-4 py-2.5 rounded-2xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs font-bold"
+                />
+              </div>
+
+              {/* Course Selection List */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-1">
+                  3. Choisir le Cours de destination :
+                </label>
+                <select
+                  value={targetBatchCourseId}
+                  onChange={e => setTargetBatchCourseId(e.target.value)}
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-indigo-500 bg-indigo-50/50 dark:bg-navy-800 text-xs font-bold text-navy-950 dark:text-white"
+                  size={6}
+                >
+                  {courses
+                    .filter(c => targetBatchSpecId === 'all' || c.specialtyId === targetBatchSpecId)
+                    .filter(c => !batchCourseSearchQuery || c.title.toLowerCase().includes(batchCourseSearchQuery.toLowerCase()))
+                    .map(c => (
+                      <option key={c.id} value={c.id} className="p-2 border-b border-indigo-100 dark:border-navy-700">
+                        📖 {c.title} ({c.specialtyName || c.specialtyId})
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-navy-100 dark:border-navy-800">
+              <button
+                type="button"
+                onClick={() => setBatchAttachModalOpen(false)}
+                className="px-5 py-2.5 rounded-2xl text-xs font-bold text-navy-600 hover:bg-navy-100 dark:hover:bg-navy-800"
+              >
+                Annuler
+              </button>
+
+              <button
+                type="button"
+                onClick={handleBatchAttachToCourse}
+                disabled={batchAttaching || !targetBatchCourseId}
+                className="px-6 py-2.5 rounded-2xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
+              >
+                {batchAttaching ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Rattachement en cours...</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>Confirmer le Rattachement</span>
                   </>
                 )}
               </button>

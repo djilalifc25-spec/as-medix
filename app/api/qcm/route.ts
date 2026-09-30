@@ -3,6 +3,7 @@ import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { QCM } from '@/types';
 import { matchQcmToSource, parseSourceHierarchy } from '@/lib/sourceUtils';
+import { isCourseMatch } from '@/lib/qcmCourseLinker';
 
 export const dynamic = 'force-dynamic';
 
@@ -136,7 +137,16 @@ export async function GET(req: NextRequest) {
       qcms = qcms.filter(q => q.specialtyId === specialty);
     }
     if (course) {
-      qcms = qcms.filter(q => q.courseId === course);
+      const coursesList = db.getCourses();
+      const targetCourse = coursesList.find(c => c.id === course || c.slug === course || c.title === course);
+
+      qcms = qcms.filter(q => {
+        if (q.courseId === course) return true;
+        if (targetCourse && q.courseId === targetCourse.id) return true;
+        if (targetCourse && q.courseTitle && isCourseMatch(q.courseTitle, targetCourse)) return true;
+        if (targetCourse && !q.courseId && q.question && isCourseMatch(q.question, targetCourse)) return true;
+        return false;
+      });
     }
     if (faculty && faculty !== 'TOUS') {
       qcms = qcms.filter(q => q.faculty === faculty || q.faculty === 'TOUS' || !q.faculty);
