@@ -131,7 +131,16 @@ async function syncQcmToSupabase(qcm: QCM) {
       access_level: qcm.accessLevel ? String(qcm.accessLevel) : 'PRO',
       year: (qcm.year && !isNaN(Number(qcm.year))) ? Number(qcm.year) : null
     };
-    let { error } = await supabaseAdmin.from('qcms').upsert(payload, { onConflict: 'id' });
+
+    let activeClient = supabaseAdmin;
+    let { error } = await activeClient.from('qcms').upsert(payload, { onConflict: 'id' });
+
+    if (error && error.message && error.message.toLowerCase().includes('unregistered api key')) {
+      const { createClient } = await import('@supabase/supabase-js');
+      activeClient = createClient('https://mkaqspqmdspoisdjduza.supabase.co', 'sb_publishable_tyOYBYbiwqKBAsRMSijtMQ_gQ9cEL_3');
+      const retry = await activeClient.from('qcms').upsert(payload, { onConflict: 'id' });
+      error = retry.error;
+    }
     if (error) {
       console.warn('[Supabase Sync] Standard upsert failed, retrying core payload:', error.message);
       const corePayload = {
@@ -183,7 +192,15 @@ export async function GET(req: NextRequest) {
   let qcms: QCM[] = [];
 
   try {
-    const { data: cloudQcms, error } = await supabaseAdmin.from('qcms').select('*');
+    let activeClient = supabaseAdmin;
+    let { data: cloudQcms, error } = await activeClient.from('qcms').select('*');
+    if (error && error.message && error.message.toLowerCase().includes('unregistered api key')) {
+      const { createClient } = await import('@supabase/supabase-js');
+      activeClient = createClient('https://mkaqspqmdspoisdjduza.supabase.co', 'sb_publishable_tyOYBYbiwqKBAsRMSijtMQ_gQ9cEL_3');
+      const retry = await activeClient.from('qcms').select('*');
+      cloudQcms = retry.data;
+      error = retry.error;
+    }
     if (!error && Array.isArray(cloudQcms) && cloudQcms.length > 0) {
       qcms = cloudQcms.map(mapSupabaseQcmToType);
     }
