@@ -21,6 +21,7 @@ export default function AdminQcmPage() {
   const [selectedYearFilter, setSelectedYearFilter] = useState<string>('all');
   const [selectedCourseFilter, setSelectedCourseFilter] = useState<string>('all');
   const [selectedSourceFilter, setSelectedSourceFilter] = useState<string>('all');
+  const [selectedAccessFilter, setSelectedAccessFilter] = useState<string>('all');
   const [searchQueryFilter, setSearchQueryFilter] = useState<string>('');
   const [showAllAnswersGlobal, setShowAllAnswersGlobal] = useState<boolean>(false);
   const [visibleAnswersMap, setVisibleAnswersMap] = useState<Record<string, boolean>>({});
@@ -52,6 +53,7 @@ export default function AdminQcmPage() {
   const [explanationHtml, setExplanationHtml] = useState('<div class="space-y-2"><p><strong>Justification clinique :</strong></p><p>Le diagnostic repose sur...</p></div>');
   const [reference, setReference] = useState("Faculté de Médecine d'Alger");
   const [activeTab, setActiveTab] = useState<'html' | 'preview'>('html');
+  const [newQcmAccessLevel, setNewQcmAccessLevel] = useState<'FREE' | 'PRO' | 'PREMIUM'>('PRO');
   const [successMsg, setSuccessMsg] = useState('');
 
   // Per-scope sources & hierarchy
@@ -75,6 +77,7 @@ export default function AdminQcmPage() {
   const [parsedQcms, setParsedQcms] = useState<ParsedQcmItem[]>([]);
   const [editingQcmId, setEditingQcmId] = useState<string | null>(null);
   const [batchSaving, setBatchSaving] = useState(false);
+  const [defaultBatchAccessLevel, setDefaultBatchAccessLevel] = useState<'FREE' | 'PRO' | 'PREMIUM'>('PRO');
 
   // AI QCM Extractor Modal States
   const [aiQcmModalOpen, setAiQcmModalOpen] = useState(false);
@@ -88,6 +91,7 @@ export default function AdminQcmPage() {
   const [aiRawInput, setAiRawInput] = useState('');
   const [examTitleInput, setExamTitleInput] = useState('');
   const [aiExtracting, setAiExtracting] = useState(false);
+  const [directAiSync, setDirectAiSync] = useState(true);
 
   // Standalone Answer Key Drawer state for parsed QCMs
   const [quickAnswerKeyText, setQuickAnswerKeyText] = useState('');
@@ -402,14 +406,21 @@ export default function AdminQcmPage() {
           year: year !== '' ? Number(year) : undefined,
           faculty: faculty || 'ORAN',
           parentSource: parentSource || undefined,
-          subSource: subSource || undefined
+          subSource: subSource || undefined,
+          accessLevel: defaultBatchAccessLevel,
         }));
 
-        setParsedQcms(parsedItems);
-        setShowAddForm(true);
-        setQcmInputMode('BATCH_IMPORT');
-        setAiQcmModalOpen(false);
-        setSuccessMsg(`🤖 Extraction IA Réussie ! ${parsedItems.length} QCM(s) extraits de "${data.examTitle}". Vous pouvez réviser ci-dessous et cliquer sur "Importer Tout".`);
+        if (directAiSync) {
+          setSuccessMsg(`🚀 Extraction réussie (${parsedItems.length} QCMs) ! Enregistrement direct dans Supabase SQL...`);
+          setAiQcmModalOpen(false);
+          await handleImportAllParsedQcms(parsedItems);
+        } else {
+          setParsedQcms(parsedItems);
+          setShowAddForm(true);
+          setQcmInputMode('BATCH_IMPORT');
+          setAiQcmModalOpen(false);
+          setSuccessMsg(`🤖 Extraction IA Réussie ! ${parsedItems.length} QCM(s) extraits de "${data.examTitle}". Vous pouvez réviser ci-dessous et cliquer sur "Importer Tout".`);
+        }
       } else {
         alert('L\'IA n\'a extrait aucun QCM du document fourni. Vérifiez le contenu.');
       }
@@ -562,6 +573,61 @@ export default function AdminQcmPage() {
     }
   };
 
+  // Batch update access level for selected QCMs
+  const handleBatchUpdateAccess = async (newAccess: 'FREE' | 'PRO' | 'PREMIUM') => {
+    if (selectedQcmIds.length === 0) return;
+    try {
+      const res = await fetch('/api/admin/qcm', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'batch_update_access',
+          qcmIds: selectedQcmIds,
+          accessLevel: newAccess
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setQcms(prev => prev.map(q => selectedQcmIds.includes(q.id) ? { ...q, accessLevel: newAccess } : q));
+        const label = newAccess === 'FREE' ? 'Gratuit (Libre)' : newAccess === 'PRO' ? 'Plan 4500 DA (PRO)' : 'Premium';
+        setSuccessMsg(`✨ ${selectedQcmIds.length} QCM(s) configurés avec succès vers le forfait "${label}" dans Supabase SQL !`);
+        setSelectedQcmIds([]);
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
+        }
+      } else {
+        alert(data.error || 'Erreur lors de la mise à jour par lot');
+      }
+    } catch (_e) {
+      alert('Erreur réseau');
+    }
+  };
+
+  // Quick single QCM access level update
+  const handleUpdateSingleQcmAccess = async (qcmId: string, newAccess: 'FREE' | 'PRO' | 'PREMIUM') => {
+    // Optimistic local update
+    setQcms(prev => prev.map(q => q.id === qcmId ? { ...q, accessLevel: newAccess } : q));
+    try {
+      const res = await fetch('/api/admin/qcm', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: qcmId, accessLevel: newAccess })
+      });
+      const data = await res.json();
+      if (!data.success) {
+        alert(data.error || 'Erreur lors de la mise à jour de l\'accès');
+        await fetchData();
+      } else {
+        const label = newAccess === 'FREE' ? 'Gratuit (Libre)' : newAccess === 'PRO' ? 'Plan 4500 DA (PRO)' : 'Premium';
+        setSuccessMsg(`✨ Accès QCM mis à jour vers "${label}" dans Supabase !`);
+        setTimeout(() => setSuccessMsg(''), 3500);
+      }
+    } catch (_err) {
+      alert('Erreur réseau');
+      await fetchData();
+    }
+  };
+
   // Create single manual QCM
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -616,6 +682,7 @@ export default function AdminQcmPage() {
       explanation: explanationHtml,
       reference,
       isDailyQcm,
+      accessLevel: newQcmAccessLevel,
     };
 
     const res = await fetch('/api/admin/qcm', {
@@ -632,6 +699,7 @@ export default function AdminQcmPage() {
       setQuestion('');
       setOptA(''); setOptB(''); setOptC(''); setOptD(''); setOptE('');
       setCorrectA(false); setCorrectB(false); setCorrectC(false); setCorrectD(false); setCorrectE(false);
+      setNewQcmAccessLevel('PRO');
       setShowAddForm(false);
     } else {
       alert(data.error || 'Erreur lors de la création');
@@ -753,6 +821,7 @@ export default function AdminQcmPage() {
     const finalGlobalSource = getEffectiveSource();
     const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
     const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
+    const itemAccess = qcmItem.accessLevel || defaultBatchAccessLevel || 'FREE';
 
     const correctAnswers = qcmItem.options
       .map((opt, idx) => opt.isCorrect ? idx : -1)
@@ -786,6 +855,7 @@ export default function AdminQcmPage() {
       correctAnswers: correctAnswers.length > 0 ? correctAnswers : [0],
       explanation: qcmItem.explanationHtml || '<p>Explication clinique conforme.</p>',
       reference: reference || "Faculté de Médecine d'Alger",
+      accessLevel: itemAccess,
     };
 
     // Auto-save new custom source to DB if it's not already in scopeSources
@@ -801,15 +871,21 @@ export default function AdminQcmPage() {
     if (data.success && data.qcm) {
       setQcms(prev => [data.qcm, ...prev]);
       setParsedQcms(prev => prev.filter(q => q.id !== qcmItem.id));
-      setSuccessMsg(`✅ QCM #${qcmItem.tempNum} importé avec succès dans la Banque de QCM !`);
+      if (itemSpecId) setSelectedSpecialtyFilter(itemSpecId);
+      setSelectedYearFilter('all');
+      setSelectedCourseFilter('all');
+      setSelectedSourceFilter('all');
+      setSelectedAccessFilter('all');
+      setSuccessMsg(`✅ QCM #${qcmItem.tempNum} importé avec succès dans Supabase SQL & Banque QCM !`);
     } else {
       alert(data.error || 'Erreur lors de l\'importation du QCM.');
     }
   };
 
   // Batch import all parsed QCMs (Single atomic batch request)
-  const handleImportAllParsedQcms = async () => {
-    if (parsedQcms.length === 0) return;
+  const handleImportAllParsedQcms = async (customQcms?: ParsedQcmItem[]) => {
+    const sourceItems = customQcms || parsedQcms;
+    if (!sourceItems || sourceItems.length === 0) return;
     setBatchSaving(true);
     setSuccessMsg('');
 
@@ -817,7 +893,7 @@ export default function AdminQcmPage() {
       const finalGlobalSource = getEffectiveSource();
       await ensureSourceInScope(finalGlobalSource);
 
-      const qcmsToImport = parsedQcms.map(qcmItem => {
+      const qcmsToImport = sourceItems.map(qcmItem => {
         const itemSpecId = qcmItem.specialtyId || specialtyId;
         const spec = specialtiesList.find(s => s.id === itemSpecId) || ALL_SPECIALTIES.find(s => s.id === itemSpecId);
         const itemCourseId = qcmItem.courseId || courseId;
@@ -825,6 +901,7 @@ export default function AdminQcmPage() {
         const itemCourseTitle = crs ? crs.title : (qcmItem.courseTitle || undefined);
         const itemSource = qcmItem.source || finalGlobalSource || 'Annales Examens';
         const itemYear = qcmItem.year !== undefined ? qcmItem.year : (year !== '' ? Number(year) : undefined);
+        const itemAccess = qcmItem.accessLevel || defaultBatchAccessLevel || 'FREE';
 
         const correctAnswers = qcmItem.options
           .map((opt, idx) => opt.isCorrect ? idx : -1)
@@ -859,20 +936,36 @@ export default function AdminQcmPage() {
           correctAnswers: correctAnswers.length > 0 ? correctAnswers : [0],
           explanation: qcmItem.explanationHtml || '<p>Explication clinique conforme.</p>',
           reference: reference || "Faculté de Médecine d'Alger",
+          accessLevel: itemAccess,
         };
       });
 
       const res = await fetch('/api/admin/qcm/batch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ qcms: qcmsToImport })
+        body: JSON.stringify({
+          qcms: qcmsToImport,
+          specialtyId: specialtyId,
+          specialtyName: (specialtiesList.find(s => s.id === specialtyId) || ALL_SPECIALTIES.find(s => s.id === specialtyId))?.name || 'Cardiologie',
+          source: finalGlobalSource,
+          accessLevel: defaultBatchAccessLevel
+        })
       });
 
       const data = await res.json();
       if (data.success) {
         setQcms(prev => [...(data.qcms || qcmsToImport), ...prev]);
         setParsedQcms([]);
-        setSuccessMsg(`🚀 ${qcmsToImport.length} QCM(s) extraits par l'IA importés avec succès et enregistrés définitivement dans Supabase !`);
+        setShowAddForm(false);
+        // Automatically align filters so newly uploaded QCMs are immediately visible in table
+        if (specialtyId) setSelectedSpecialtyFilter(specialtyId);
+        setSelectedYearFilter('all');
+        setSelectedCourseFilter('all');
+        setSelectedSourceFilter('all');
+        setSelectedAccessFilter('all');
+        setSearchQueryFilter('');
+
+        setSuccessMsg(`🚀 ${qcmsToImport.length} QCM(s) importés avec succès et enregistrés définitivement dans Supabase SQL & Banque QCM !`);
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('asmedix-content-updated'));
         }
@@ -1108,7 +1201,12 @@ export default function AdminQcmPage() {
       || (q.source && q.source.toLowerCase().includes(query))
       || (q.courseTitle && q.courseTitle.toLowerCase().includes(query));
 
-    return matchYear && matchSpec && matchCourse && matchSource && matchQuery;
+    // 6. Access Level matching
+    const matchAccess = selectedAccessFilter === 'all'
+      || (selectedAccessFilter === 'FREE' && (!q.accessLevel || q.accessLevel === 'FREE'))
+      || (q.accessLevel === selectedAccessFilter);
+
+    return matchYear && matchSpec && matchCourse && matchSource && matchQuery && matchAccess;
   });
 
   return (
@@ -1625,6 +1723,80 @@ export default function AdminQcmPage() {
                 })()}
               </div>
             </div>
+
+            {/* 6. Access Level Selector (Plan Gratuit vs Plan 4500 DA vs Premium) */}
+            <div className="pt-3 border-t border-slate-200 dark:border-navy-800">
+              <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300 mb-2">
+                🔒 Forfait & Niveau d'Accès Attribué aux QCMs :
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNewQcmAccessLevel('FREE');
+                    setDefaultBatchAccessLevel('FREE');
+                    setParsedQcms(prev => prev.map(q => ({ ...q, accessLevel: 'FREE' })));
+                  }}
+                  className={`p-3 rounded-2xl border text-left transition-all ${
+                    (qcmInputMode === 'MANUAL' ? newQcmAccessLevel === 'FREE' : defaultBatchAccessLevel === 'FREE')
+                      ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-900 dark:text-emerald-200 ring-2 ring-emerald-500/20 font-bold'
+                      : 'bg-white dark:bg-navy-800 border-navy-200 dark:border-navy-700 text-navy-700 dark:text-navy-300 hover:border-navy-300'
+                  }`}
+                >
+                  <div className="text-xs font-black flex items-center gap-1.5">
+                    <span>🟢</span>
+                    <span>Gratuit (Tous les étudiants)</span>
+                  </div>
+                  <div className="text-[10px] text-navy-500 dark:text-navy-400 mt-1">
+                    Accessible sans abonnement par tous les comptes.
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNewQcmAccessLevel('PRO');
+                    setDefaultBatchAccessLevel('PRO');
+                    setParsedQcms(prev => prev.map(q => ({ ...q, accessLevel: 'PRO' })));
+                  }}
+                  className={`p-3 rounded-2xl border text-left transition-all ${
+                    (qcmInputMode === 'MANUAL' ? newQcmAccessLevel === 'PRO' : defaultBatchAccessLevel === 'PRO')
+                      ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-500 text-amber-900 dark:text-amber-200 ring-2 ring-amber-500/20 font-bold'
+                      : 'bg-white dark:bg-navy-800 border-navy-200 dark:border-navy-700 text-navy-700 dark:text-navy-300 hover:border-navy-300'
+                  }`}
+                >
+                  <div className="text-xs font-black flex items-center gap-1.5">
+                    <span>⭐</span>
+                    <span>Plan 4500 DA (Forfait PRO)</span>
+                  </div>
+                  <div className="text-[10px] text-navy-500 dark:text-navy-400 mt-1">
+                    Verrouillé pour les comptes gratuits. Déblocage via le forfait 4500 DA.
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNewQcmAccessLevel('PREMIUM');
+                    setDefaultBatchAccessLevel('PREMIUM');
+                    setParsedQcms(prev => prev.map(q => ({ ...q, accessLevel: 'PREMIUM' })));
+                  }}
+                  className={`p-3 rounded-2xl border text-left transition-all ${
+                    (qcmInputMode === 'MANUAL' ? newQcmAccessLevel === 'PREMIUM' : defaultBatchAccessLevel === 'PREMIUM')
+                      ? 'bg-purple-50 dark:bg-purple-950/40 border-purple-500 text-purple-900 dark:text-purple-200 ring-2 ring-purple-500/20 font-bold'
+                      : 'bg-white dark:bg-navy-800 border-navy-200 dark:border-navy-700 text-navy-700 dark:text-navy-300 hover:border-navy-300'
+                  }`}
+                >
+                  <div className="text-xs font-black flex items-center gap-1.5">
+                    <span>👑</span>
+                    <span>Plan Premium (Accès VIP)</span>
+                  </div>
+                  <div className="text-[10px] text-navy-500 dark:text-navy-400 mt-1">
+                    Réservé exclusivement aux abonnés du Forfait Premium Intégral.
+                  </div>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* MODE 2: BATCH PDF / TEXT IMPORT SYSTEM */}
@@ -1790,7 +1962,7 @@ export default function AdminQcmPage() {
 
                       <button
                         type="button"
-                        onClick={handleImportAllParsedQcms}
+                        onClick={() => handleImportAllParsedQcms()}
                         disabled={batchSaving}
                         className="px-5 py-2.5 rounded-2xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all flex items-center gap-2 disabled:opacity-50"
                       >
@@ -1972,8 +2144,8 @@ export default function AdminQcmPage() {
                               </div>
                             </div>
 
-                            {/* Per-QCM Source, Course & Year Attribute Bar */}
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 text-xs">
+                            {/* Per-QCM Source, Course, Year & Access Level Attribute Bar */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 p-2.5 rounded-xl bg-indigo-50/70 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800 text-xs">
                               <div>
                                 <div className="flex items-center justify-between mb-0.5">
                                   <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300">📌 Source pour ce QCM :</span>
@@ -2066,6 +2238,22 @@ export default function AdminQcmPage() {
                                   {MEDICAL_YEARS.map(y => (
                                     <option key={y.year} value={y.year}>{y.label}</option>
                                   ))}
+                                </select>
+                              </div>
+
+                              <div>
+                                <span className="block text-[10px] font-bold text-indigo-700 dark:text-indigo-300 mb-0.5">🔒 Niveau d'Accès :</span>
+                                <select
+                                  value={qcmItem.accessLevel || defaultBatchAccessLevel}
+                                  onChange={e => {
+                                    const val = e.target.value as any;
+                                    setParsedQcms(prev => prev.map(q => q.id === qcmItem.id ? { ...q, accessLevel: val } : q));
+                                  }}
+                                  className="w-full px-2.5 py-1 rounded-lg border border-indigo-300 dark:border-indigo-700 bg-white dark:bg-navy-900 font-bold text-navy-900 dark:text-white"
+                                >
+                                  <option value="FREE">🟢 Gratuit (Libre)</option>
+                                  <option value="PRO">⭐ Plan 4500 DA (PRO)</option>
+                                  <option value="PREMIUM">👑 Plan Premium</option>
                                 </select>
                               </div>
                             </div>
@@ -2416,7 +2604,7 @@ export default function AdminQcmPage() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs font-bold">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 text-xs font-bold">
           {/* 1. Year filter */}
           <div>
             <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
@@ -2495,7 +2683,24 @@ export default function AdminQcmPage() {
             </select>
           </div>
 
-          {/* 5. Keyword Search filter */}
+          {/* 5. Access Level filter */}
+          <div>
+            <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
+              🔒 Niveau d'Accès :
+            </label>
+            <select
+              value={selectedAccessFilter}
+              onChange={e => setSelectedAccessFilter(e.target.value)}
+              className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-navy-900 dark:text-white font-bold"
+            >
+              <option value="all">🔒 Tous les Niveaux d'Accès</option>
+              <option value="FREE">🟢 Gratuit (Libre)</option>
+              <option value="PRO">⭐ Plan 4500 DA (PRO)</option>
+              <option value="PREMIUM">👑 Plan Premium</option>
+            </select>
+          </div>
+
+          {/* 6. Keyword Search filter */}
           <div>
             <label className="block text-[10px] font-black uppercase text-navy-500 dark:text-navy-400 mb-1">
               🔍 Recherche Mot-Clé :
@@ -2538,6 +2743,35 @@ export default function AdminQcmPage() {
         <div className="flex items-center gap-2 flex-wrap">
           {selectedQcmIds.length > 0 && (
             <>
+              {/* Batch Access Level Changer */}
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-navy-800 p-1 rounded-xl border border-slate-200 dark:border-navy-700">
+                <span className="text-[10px] font-bold text-navy-500 px-1">Accès :</span>
+                <button
+                  type="button"
+                  onClick={() => handleBatchUpdateAccess('FREE')}
+                  className="px-2 py-1 rounded-lg text-xs font-bold bg-emerald-100 hover:bg-emerald-200 text-emerald-800 transition-all cursor-pointer"
+                  title="Rendre les QCMs sélectionnés accessibles gratuitement"
+                >
+                  🟢 Gratuit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleBatchUpdateAccess('PRO')}
+                  className="px-2 py-1 rounded-lg text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-800 transition-all cursor-pointer"
+                  title="Réserver les QCMs sélectionnés au Forfait PRO (Plan 4500 DA)"
+                >
+                  ⭐ Plan 4500 DA
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleBatchUpdateAccess('PREMIUM')}
+                  className="px-2 py-1 rounded-lg text-xs font-bold bg-purple-100 hover:bg-purple-200 text-purple-800 transition-all cursor-pointer"
+                  title="Réserver les QCMs sélectionnés au Forfait PREMIUM"
+                >
+                  👑 Premium
+                </button>
+              </div>
+
               <button
                 type="button"
                 onClick={() => {
@@ -2663,6 +2897,24 @@ export default function AdminQcmPage() {
                           📌 {qcm.source}
                         </span>
                       )}
+
+                      {/* Access Level Badge & Quick Dropdown */}
+                      <select
+                        value={qcm.accessLevel || 'FREE'}
+                        onChange={(e) => handleUpdateSingleQcmAccess(qcm.id, e.target.value as any)}
+                        className={`px-2.5 py-0.5 rounded-lg text-xs font-black border cursor-pointer transition-all ${
+                          qcm.accessLevel === 'PREMIUM'
+                            ? 'bg-purple-100 text-purple-900 border-purple-400 dark:bg-purple-950 dark:text-purple-200 ring-1 ring-purple-400/30'
+                            : qcm.accessLevel === 'PRO'
+                            ? 'bg-amber-100 text-amber-900 border-amber-400 dark:bg-amber-950 dark:text-amber-200 ring-1 ring-amber-400/30'
+                            : 'bg-emerald-100 text-emerald-900 border-emerald-400 dark:bg-emerald-950 dark:text-emerald-200 ring-1 ring-emerald-400/30'
+                        }`}
+                        title="Changer le niveau d'accès pour ce QCM dans Supabase"
+                      >
+                        <option value="FREE">🟢 Gratuit (Libre)</option>
+                        <option value="PRO">⭐ Plan 4500 DA (PRO)</option>
+                        <option value="PREMIUM">👑 Plan Premium</option>
+                      </select>
                     </div>
                     <h3 className="text-base font-bold text-navy-950 dark:text-white">
                       {qcm.title}
@@ -2999,6 +3251,67 @@ export default function AdminQcmPage() {
                 </div>
               )}
             </div>
+
+            {/* Access Level for Extracted Batch */}
+            <div className="space-y-1.5 p-3.5 rounded-2xl bg-purple-50/50 dark:bg-navy-950 border border-purple-200 dark:border-purple-800">
+              <label className="block text-xs font-bold uppercase text-navy-800 dark:text-navy-200">
+                🔒 Forfait & Niveau d'Accès Attribué au Lot :
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setDefaultBatchAccessLevel('FREE')}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
+                    defaultBatchAccessLevel === 'FREE'
+                      ? 'bg-emerald-600 text-white font-black shadow-xs ring-2 ring-emerald-400/40'
+                      : 'bg-white dark:bg-navy-900 text-navy-700 dark:text-navy-300 border-navy-200 dark:border-navy-700'
+                  }`}
+                >
+                  🟢 Gratuit (Libre)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDefaultBatchAccessLevel('PRO')}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
+                    defaultBatchAccessLevel === 'PRO'
+                      ? 'bg-amber-600 text-white font-black shadow-xs ring-2 ring-amber-400/40'
+                      : 'bg-white dark:bg-navy-900 text-navy-700 dark:text-navy-300 border-navy-200 dark:border-navy-700'
+                  }`}
+                >
+                  ⭐ Plan 4500 DA (PRO)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDefaultBatchAccessLevel('PREMIUM')}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
+                    defaultBatchAccessLevel === 'PREMIUM'
+                      ? 'bg-purple-600 text-white font-black shadow-xs ring-2 ring-purple-400/40'
+                      : 'bg-white dark:bg-navy-900 text-navy-700 dark:text-navy-300 border-navy-200 dark:border-navy-700'
+                  }`}
+                >
+                  👑 Plan Premium
+                </button>
+              </div>
+            </div>
+
+            {/* Direct Sync Checkbox */}
+            <label className="flex items-center gap-2.5 cursor-pointer p-3 rounded-2xl bg-indigo-50/60 dark:bg-navy-950 border border-indigo-200 dark:border-indigo-800">
+              <input
+                type="checkbox"
+                checked={directAiSync}
+                onChange={e => setDirectAiSync(e.target.checked)}
+                className="w-4 h-4 text-indigo-600 rounded"
+              />
+              <div className="text-xs">
+                <span className="font-bold text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5">
+                  <span>⚡ Enregistrer directement dans Supabase SQL & Banque QCM</span>
+                  <span className="px-1.5 py-0.2 rounded bg-emerald-500 text-white text-[9px] font-black uppercase">Recommandé</span>
+                </span>
+                <p className="text-[10px] text-navy-500 dark:text-navy-400 mt-0.5">
+                  Téléverse immédiatement les QCMs dans la base Supabase et actualise automatiquement la banque QCM.
+                </p>
+              </div>
+            </label>
 
             {/* Modal Actions */}
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-navy-100 dark:border-navy-800">

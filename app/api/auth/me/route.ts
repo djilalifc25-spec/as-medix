@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { getAuthenticatedUser } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { db } from '@/lib/db/store';
 
 export async function GET() {
   try {
-    const user = await getAuthenticatedUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ authenticated: false, user: null });
     }

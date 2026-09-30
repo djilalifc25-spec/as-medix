@@ -1,19 +1,34 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, Suspense, useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { INITIAL_QCMS } from '@/lib/db/seedQcm';
 import {
   ChevronLeft, ChevronRight, X, CheckCircle2, XCircle,
   RotateCcw, Award, BookOpen, Brain, Zap,
   HelpCircle, Flag, ChevronDown, Check, ArrowRight, Bell,
-  Eye, EyeOff, Sparkles, SlidersHorizontal
+  Eye, EyeOff, Sparkles, SlidersHorizontal, Lock, Crown
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CoursePreviewModal } from '@/components/qcm/CoursePreviewModal';
-import { StudyReminder } from '@/types';
+import { StudyReminder, User } from '@/types';
 import { matchQcmToSource } from '@/lib/sourceUtils';
+
+// Helper to verify user permissions for QCM access level
+function canUserAccessQcm(user: { role?: string; plan?: string } | null, accessLevel?: string): boolean {
+  if (!accessLevel || accessLevel === 'FREE') return true;
+  if (!user) return false;
+  if (user.role === 'ADMIN' || user.role === 'SUPER_ADMIN') return true;
+  if (accessLevel === 'PRO') {
+    return user.plan === 'PRO' || user.plan === 'PREMIUM';
+  }
+  if (accessLevel === 'PREMIUM') {
+    return user.plan === 'PREMIUM';
+  }
+  return true;
+}
 
 // Helper for strict grading
 function isAnswerCorrect(selected: number[], correctAnswers?: number[]) {
@@ -128,6 +143,9 @@ function QuestionNavigator({
             cls = 'bg-indigo-600 text-indigo-100 font-bold border border-indigo-400/40';
           }
 
+          const isPro = q?.accessLevel === 'PRO';
+          const isPremium = q?.accessLevel === 'PREMIUM';
+
           return (
             <button
               key={i}
@@ -140,14 +158,22 @@ function QuestionNavigator({
                   🚩
                 </span>
               )}
+              {isPro && (
+                <span className="absolute -bottom-1 -left-1 w-2 h-2 rounded-full bg-amber-400 border border-slate-900 shadow" title="Plan Pro 4500 DA" />
+              )}
+              {isPremium && (
+                <span className="absolute -bottom-1 -left-1 w-2 h-2 rounded-full bg-purple-400 border border-slate-900 shadow" title="Premium" />
+              )}
             </button>
           );
         })}
       </div>
 
-      <div className="flex items-center justify-between gap-1 mt-3 pt-2.5 border-t border-white/10 text-[9px] text-white/60">
+      <div className="flex items-center justify-between gap-1 mt-3 pt-2.5 border-t border-white/10 text-[9px] text-white/60 flex-wrap">
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-indigo-600 inline-block" /> Coché</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-amber-500 inline-block" /> Flag 🚩</span>
+        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> Pro 4500</span>
+        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-purple-400 inline-block" /> Premium</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-sky-500 inline-block" /> Actif</span>
         <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-sm bg-white/10 inline-block" /> Restant ({remainingCount})</span>
       </div>
@@ -267,6 +293,7 @@ function SessionContent() {
 
   const [allQcms, setAllQcms] = useState(INITIAL_QCMS);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<{ id?: string; name?: string; role?: string; plan?: string } | null>(null);
   const [showVignetteDetails, setShowVignetteDetails] = useState(false);
   const [userReminders, setUserReminders] = useState<StudyReminder[]>([]);
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
@@ -286,6 +313,13 @@ function SessionContent() {
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   useEffect(() => {
+    fetch('/api/auth/me')
+      .then(r => r.json())
+      .then(d => {
+        if (d.user) setCurrentUser(d.user);
+      })
+      .catch(() => {});
+
     fetch('/api/qcm', { cache: 'no-store' })
       .then(r => r.json())
       .then(d => {
@@ -345,6 +379,11 @@ function SessionContent() {
   const qcm = totalCount > 0 ? sessionQcms[safeCurrentIndex] : null;
   const currentQcmReminder = qcm ? userReminders.find(r => r.targetId === qcm.id && r.status === 'pending') : null;
 
+  const isLockedForUser = useMemo(() => {
+    if (!qcm) return false;
+    return !canUserAccessQcm(currentUser, qcm.accessLevel);
+  }, [qcm, currentUser]);
+
   // Selected & Eliminated options for current QCM
   const currentSelectedOptions = userAnswersMap[safeCurrentIndex] || [];
   const currentEliminatedOptions = eliminatedOptionsMap[safeCurrentIndex] || [];
@@ -373,7 +412,7 @@ function SessionContent() {
 
   // Toggle option selection (Multi-select checkbox for ALL questions, never forcing single selection in UI)
   const toggleOption = (optIdx: number) => {
-    if (isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
+    if (isLockedForUser || isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
 
     setUserAnswersMap(prev => {
       const currentArr = prev[safeCurrentIndex] || [];
@@ -387,7 +426,7 @@ function SessionContent() {
   // Option strike-through toggle (Rayure ❌)
   const toggleEliminateOption = (e: React.MouseEvent, optIdx: number) => {
     e.stopPropagation();
-    if (isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
+    if (isLockedForUser || isResultsRevealed || (sessionMode === 'IMMEDIATE' && isCurrentValidatedImmediate)) return;
 
     setEliminatedOptionsMap(prev => {
       const currentArr = prev[safeCurrentIndex] || [];
@@ -716,6 +755,23 @@ function SessionContent() {
                 </span>
               )}
 
+              {/* Access Level Badge */}
+              {qcm?.accessLevel === 'PRO' && (
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1 shadow-sm">
+                  <span>⭐</span> Plan 4500 DA
+                </span>
+              )}
+              {qcm?.accessLevel === 'PREMIUM' && (
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1 shadow-sm">
+                  <span>👑</span> Premium
+                </span>
+              )}
+              {(!qcm?.accessLevel || qcm?.accessLevel === 'FREE') && (
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                  <span>🟢</span> Gratuit
+                </span>
+              )}
+
               {/* Flag Question Button (🚩) */}
               <button
                 type="button"
@@ -789,131 +845,179 @@ function SessionContent() {
             {typeof qcm?.question === 'string' ? qcm.question : (qcm?.question ? String(qcm.question) : 'Question QCM')}
           </h2>
 
-          {/* 5 Options with Elimination (❌ Rayure) */}
-          <div className="space-y-1.5 sm:space-y-2">
-            {(qcm?.options || []).map((opt, idx) => {
-              if (!opt) return null;
-              const isSelected = currentSelectedOptions.includes(idx);
-              const isEliminated = currentEliminatedOptions.includes(idx);
-              const isCorrect = Array.isArray(qcm?.correctAnswers) && qcm.correctAnswers.includes(idx);
-
-              let base = 'border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 active:scale-[0.99] cursor-pointer';
-              let ltr = 'bg-white/10 text-white/70';
-
-              if (isExplanationShown) {
-                if (isCorrect) {
-                  base = 'border-emerald-500/80 bg-emerald-500/15 text-emerald-100 shadow-sm';
-                  ltr = 'bg-emerald-500 text-white font-black';
-                } else if (isSelected) {
-                  base = 'border-rose-500/80 bg-rose-500/15 text-rose-200 line-through';
-                  ltr = 'bg-rose-500 text-white font-black';
-                } else {
-                  base = 'border-white/5 bg-white/3 text-white/40';
-                }
-              } else if (isSelected) {
-                base = 'border-sky-500 bg-sky-500/20 text-sky-100 ring-2 ring-sky-500/30 shadow-sm';
-                ltr = 'bg-sky-500 text-white font-black';
-              } else if (isEliminated) {
-                base = 'border-white/5 bg-white/5 text-white/30 line-through opacity-60';
-                ltr = 'bg-rose-500/30 text-rose-300 font-bold';
-              }
-
-              return (
-                <div
-                  key={opt.id ? String(opt.id) : `opt_${idx}`}
-                  onClick={() => toggleOption(idx)}
-                  className={`relative group flex items-center gap-2.5 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition-all duration-150 ${base}`}
+          {/* Options OR Paywall Lock Card */}
+          {isLockedForUser ? (
+            <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-navy-900/90 to-slate-900/90 border border-amber-500/40 shadow-2xl text-center space-y-4 my-3 backdrop-blur-md">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-inner">
+                <Lock className="w-6 h-6" />
+              </div>
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wider">
+                  <span>{qcm?.accessLevel === 'PREMIUM' ? '👑 Pack Premium Requis' : '⭐ Plan Pro (4500 DA) Requis'}</span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-white">
+                  Question Réservée aux Abonnés {qcm?.accessLevel === 'PREMIUM' ? 'Premium' : 'Pro (4500 DA)'}
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70 max-w-md mx-auto leading-relaxed">
+                  Ce QCM officiel et sa justification médicale sont réservés aux abonnés du {qcm?.accessLevel === 'PREMIUM' ? 'Pack Intégral Premium (7 000 DA)' : 'Forfait Pro Résidanat (4 500 DA)'}. Débloquez l'accès illimité à l'intégralité de la banque de questions, corrections détaillées et fiches flash.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <Link
+                  href={`/checkout?plan=${qcm?.accessLevel === 'PREMIUM' ? 'PREMIUM' : 'PRO'}`}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  {/* Letter badge */}
-                  <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-all ${ltr}`}>
-                    {typeof opt.letter === 'string' ? opt.letter : String(opt.letter || String.fromCharCode(65 + idx))}
-                  </span>
-
-                  {/* Option Text */}
-                  <span className={`text-xs sm:text-sm flex-1 leading-snug font-medium ${isEliminated ? 'line-through decoration-rose-400/60' : ''}`}>
-                    {typeof opt.text === 'string' ? opt.text : String(opt.text || '')}
-                  </span>
-
-                  {/* Action Right: Rayure (❌) and Status Check */}
-                  <div className="shrink-0 flex items-center gap-1.5">
-                    {!isExplanationShown && (
-                      <button
-                        type="button"
-                        onClick={(e) => toggleEliminateOption(e, idx)}
-                        className={`p-1 rounded-md text-[11px] font-bold transition-all hover:bg-rose-500/20 ${
-                          isEliminated ? 'text-rose-400 bg-rose-500/20 opacity-100' : 'text-white/50 hover:text-white opacity-70 sm:opacity-0 sm:group-hover:opacity-100'
-                        }`}
-                        title="Rayer / Éliminer cette option"
-                      >
-                        ❌
-                      </button>
-                    )}
-
-                    {isExplanationShown && isCorrect && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
-                    {isExplanationShown && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-rose-400" />}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Immediate mode validate button */}
-          {sessionMode === 'IMMEDIATE' && !isCurrentValidatedImmediate && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={handleValidateImmediate}
-                disabled={currentSelectedOptions.length === 0}
-                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-35 text-white font-black text-xs transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-              >
-                <span>Valider ma réponse à ce QCM</span>
-                <Check className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-
-          {/* Explanation Card */}
-          {isExplanationShown && (
-            <div className="p-3 sm:p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-in fade-in duration-200">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 text-[10px] font-black text-emerald-300 uppercase tracking-wider">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Justification Médicale</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsCourseModalOpen(true)}
-                    className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold flex items-center gap-1 shadow-sm cursor-pointer"
-                  >
-                    <BookOpen className="w-3 h-3" />
-                    <span>Fiche & Support</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-xs font-black flex items-center gap-1 shadow-sm cursor-pointer"
-                  >
-                    <span>Suivante</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                  <Crown className="w-4 h-4" />
+                  <span>Débloquer avec le {qcm?.accessLevel === 'PREMIUM' ? 'Plan Premium (7000 DA)' : 'Plan Pro (4500 DA)'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <span>Passer au QCM suivant</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
-
-              <div className="text-xs text-white/85 leading-relaxed">
-                {qcm?.explanationHtml ? (
-                  <div dangerouslySetInnerHTML={{ __html: typeof qcm.explanationHtml === 'string' ? qcm.explanationHtml : String(qcm.explanationHtml) }} />
-                ) : (
-                  <p>{typeof qcm?.explanation === 'string' ? qcm.explanation : (qcm?.explanation ? String(qcm.explanation) : 'Pas d\'explication fournie.')}</p>
-                )}
-              </div>
-              {qcm?.reference && (
-                <div className="text-[10px] text-emerald-400/80 pt-1 border-t border-emerald-500/20 flex items-center gap-1">
-                  <Flag className="w-3 h-3" />
-                  <span>Réf : {typeof qcm.reference === 'string' ? qcm.reference : String(qcm.reference)}</span>
+              {!currentUser && (
+                <div className="pt-2 text-[11px] text-white/50">
+                  Déjà abonné ?{' '}
+                  <Link href="/login" className="text-sky-400 hover:underline font-bold">
+                    Connectez-vous à votre compte
+                  </Link>
                 </div>
               )}
             </div>
+          ) : (
+            <>
+              {/* 5 Options with Elimination (❌ Rayure) */}
+              <div className="space-y-1.5 sm:space-y-2">
+                {(qcm?.options || []).map((opt, idx) => {
+                  if (!opt) return null;
+                  const isSelected = currentSelectedOptions.includes(idx);
+                  const isEliminated = currentEliminatedOptions.includes(idx);
+                  const isCorrect = Array.isArray(qcm?.correctAnswers) && qcm.correctAnswers.includes(idx);
+
+                  let base = 'border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/20 active:scale-[0.99] cursor-pointer';
+                  let ltr = 'bg-white/10 text-white/70';
+
+                  if (isExplanationShown) {
+                    if (isCorrect) {
+                      base = 'border-emerald-500/80 bg-emerald-500/15 text-emerald-100 shadow-sm';
+                      ltr = 'bg-emerald-500 text-white font-black';
+                    } else if (isSelected) {
+                      base = 'border-rose-500/80 bg-rose-500/15 text-rose-200 line-through';
+                      ltr = 'bg-rose-500 text-white font-black';
+                    } else {
+                      base = 'border-white/5 bg-white/3 text-white/40';
+                    }
+                  } else if (isSelected) {
+                    base = 'border-sky-500 bg-sky-500/20 text-sky-100 ring-2 ring-sky-500/30 shadow-sm';
+                    ltr = 'bg-sky-500 text-white font-black';
+                  } else if (isEliminated) {
+                    base = 'border-white/5 bg-white/5 text-white/30 line-through opacity-60';
+                    ltr = 'bg-rose-500/30 text-rose-300 font-bold';
+                  }
+
+                  return (
+                    <div
+                      key={opt.id ? String(opt.id) : `opt_${idx}`}
+                      onClick={() => toggleOption(idx)}
+                      className={`relative group flex items-center gap-2.5 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition-all duration-150 ${base}`}
+                    >
+                      {/* Letter badge */}
+                      <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-all ${ltr}`}>
+                        {typeof opt.letter === 'string' ? opt.letter : String(opt.letter || String.fromCharCode(65 + idx))}
+                      </span>
+
+                      {/* Option Text */}
+                      <span className={`text-xs sm:text-sm flex-1 leading-snug font-medium ${isEliminated ? 'line-through decoration-rose-400/60' : ''}`}>
+                        {typeof opt.text === 'string' ? opt.text : String(opt.text || '')}
+                      </span>
+
+                      {/* Action Right: Rayure (❌) and Status Check */}
+                      <div className="shrink-0 flex items-center gap-1.5">
+                        {!isExplanationShown && (
+                          <button
+                            type="button"
+                            onClick={(e) => toggleEliminateOption(e, idx)}
+                            className={`p-1 rounded-md text-[11px] font-bold transition-all hover:bg-rose-500/20 ${
+                              isEliminated ? 'text-rose-400 bg-rose-500/20 opacity-100' : 'text-white/50 hover:text-white opacity-70 sm:opacity-0 sm:group-hover:opacity-100'
+                            }`}
+                            title="Rayer / Éliminer cette option"
+                          >
+                            ❌
+                          </button>
+                        )}
+
+                        {isExplanationShown && isCorrect && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                        {isExplanationShown && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-rose-400" />}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Immediate mode validate button */}
+              {sessionMode === 'IMMEDIATE' && !isCurrentValidatedImmediate && (
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={handleValidateImmediate}
+                    disabled={currentSelectedOptions.length === 0}
+                    className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-35 text-white font-black text-xs transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Valider ma réponse à ce QCM</span>
+                    <Check className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
+              {/* Explanation Card */}
+              {isExplanationShown && (
+                <div className="p-3 sm:p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 text-[10px] font-black text-emerald-300 uppercase tracking-wider">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Justification Médicale</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsCourseModalOpen(true)}
+                        className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold flex items-center gap-1 shadow-sm cursor-pointer"
+                      >
+                        <BookOpen className="w-3 h-3" />
+                        <span>Fiche & Support</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNext}
+                        className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-xs font-black flex items-center gap-1 shadow-sm cursor-pointer"
+                      >
+                        <span>Suivante</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-white/85 leading-relaxed">
+                    {qcm?.explanationHtml ? (
+                      <div dangerouslySetInnerHTML={{ __html: typeof qcm.explanationHtml === 'string' ? qcm.explanationHtml : String(qcm.explanationHtml) }} />
+                    ) : (
+                      <p>{typeof qcm?.explanation === 'string' ? qcm.explanation : (qcm?.explanation ? String(qcm.explanation) : 'Pas d\'explication fournie.')}</p>
+                    )}
+                  </div>
+                  {qcm?.reference && (
+                    <div className="text-[10px] text-emerald-400/80 pt-1 border-t border-emerald-500/20 flex items-center gap-1">
+                      <Flag className="w-3 h-3" />
+                      <span>Réf : {typeof qcm.reference === 'string' ? qcm.reference : String(qcm.reference)}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>
