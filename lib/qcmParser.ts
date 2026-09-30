@@ -66,6 +66,55 @@ export function parseAnswerKey(keyText: string): Map<number, string[]> {
 }
 
 /**
+ * Normalizes messy exam text extracted from PDFs or pasted directly.
+ * Handles:
+ * 1. Questions joined inline without newlines (e.g. "...mitraux. 2. Le souffle...")
+ * 2. Options joined inline on the same line (e.g. "A. Option 1. B. Option 2 C. Option 3")
+ * 3. Question text directly followed by A. without newline (e.g. "...chez cette patiente, A. HTA")
+ * 4. Broken header numbers (e.g. "2\ne PROMOTION" -> "2e PROMOTION")
+ */
+export function normalizeExamRawText(rawText: string): string {
+  if (!rawText || typeof rawText !== 'string') return '';
+
+  let text = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  // Strip user prompt questions appended at the bottom if any
+  text = text.replace(/(?:il\s+peux\s+pax\s+exctracter|pourqoi|pourquoi).*$/i, '');
+
+  // Fix broken headers like "2\ne PROMOTION" -> "2e PROMOTION"
+  text = text.replace(/(\d+)\s*\n\s*(e\s+(?:PROMOTION|ANNEE|ANNÉE|CYCLE))/gi, '$1$2');
+
+  // Insert double newlines before inline question headers
+  // E.g. "mitraux. 2. Le souffle..." -> "mitraux.\n\n2. Le souffle..."
+  // E.g. "Dégénérative. 5. L'insuffisance..." -> "Dégénérative.\n\n5. L'insuffisance..."
+  text = text.replace(
+    /(?:[.;:!?]|\))\s+(\d{1,3}[\s.:#=)–-]+\s*(?:[A-Z\u00C0-\u00DF]|Le|La|Les|Un|Une|Parmi|Dans|Chez|Au|En|Quel|Quelle|Quelles|Quels|Toutes|Tous|Voici|Conformément|Indiquez))/g,
+    '\n\n$1'
+  );
+
+  // Also handle inline "QCM 2" or "Question 2"
+  text = text.replace(
+    /(?:[.;:!?]|\))\s+((?:QCM|Q|Question)\s*\d+[\s.:#=)–-]+)/gi,
+    '\n\n$1'
+  );
+
+  // Insert newline before inline uppercase Option letters (A., B., C., D., E.)
+  // E.g. "A. Infarctus... B. Cardiomyopathie C. Traumatisme..."
+  text = text.replace(
+    /(?<=[^\nA-E\d])\s+([A-E])[\).\s:-]\s*(?=[A-Z\u00C0-\u00DFa-z0-9])/g,
+    '\n$1. '
+  );
+
+  // Handle question followed directly by A. (e.g. "...chez cette patiente, A. HTA")
+  text = text.replace(
+    /(?<=[?,;:!])\s*([A-E])[\).\s:-]\s*(?=[A-Z\u00C0-\u00DF])/g,
+    '\n$1. '
+  );
+
+  return text;
+}
+
+/**
  * Parses raw text extracted from PDF or pasted exam text into structured QCMs.
  * Merges with optional answer key map.
  */
@@ -74,18 +123,23 @@ export function parseQcmDocument(rawText: string, answerKeyText?: string): Parse
 
   const answerKeyMap = answerKeyText ? parseAnswerKey(answerKeyText) : new Map<number, string[]>();
 
-  // Normalize line breaks
-  const text = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  // Robust multi-step normalization
+  const text = normalizeExamRawText(rawText);
 
-  // Split text by QCM blocks: lines starting with "QCM 1", "Question 1", "Q1.", or "1." followed by text
-  const blockHeaderRegex = /(?:^|\n)(?=(?:QCM|Q|Question|\d+)\s*[\d.:#–-]+\s*[^A-Ea-e\n])/gi;
+  // Split text by QCM blocks: lines starting with "QCM 1", "Question 1", "Q1.", or "1." followed by typical question start words
+  const blockHeaderRegex = /(?:^|\n)(?=(?:QCM|Q|Question|\d{1,3})\s*[\s.:#=)–-]+\s*(?:[A-Z\u00C0-\u00DF]|Le|La|Les|Un|Une|Parmi|Dans|Chez|Au|En|Quel|Quelle|Quelles|Quels|Toutes|Tous|Voici|Conformément|Indiquez))/gi;
   
   // Split into chunks
-  let rawBlocks = text.split(blockHeaderRegex).filter(b => b.trim().length > 10);
+  let rawBlocks = text.split(blockHeaderRegex).filter(b => b.trim().length > 15);
 
-  // Fallback: If split produced only 1 chunk or nothing, attempt splitting by "QCM" or numbers
+  // Fallback: If split produced only 1 chunk or nothing, attempt splitting by standard numbered markers
   if (rawBlocks.length <= 1) {
-    rawBlocks = text.split(/\n\s*(?=\d+[\s.:\)-]\s+[A-Z\u00C0-\u00FF])/gi).filter(b => b.trim().length > 10);
+    rawBlocks = text.split(/(?:^|\n)(?=(?:QCM|Q|Question|\d{1,3})[\s.:#=)–-]+)/gi).filter(b => b.trim().length > 15);
+  }
+
+  // Filter out any preamble / exam header block (like "EXAMEN DE CARDIOLOGIE 2e PROMOTION") that has no options A-E
+  if (rawBlocks.length > 0 && !/\n\s*[A-E][\).\s:-]/.test(rawBlocks[0])) {
+    rawBlocks = rawBlocks.slice(1);
   }
 
   const result: ParsedQcmItem[] = [];
@@ -102,8 +156,8 @@ export function parseQcmDocument(rawText: string, answerKeyText?: string): Parse
     autoNumCounter++;
 
     // Separate Question Text from Options and Inline Explanations
-    // Options regex matching A), B., C -, A :, A - ...
-    const optionSplitRegex = /(?:^|\n)\s*([A-Ea-e])[\).\s:-]\s*/g;
+    // Strict uppercase options regex: A., B), C :, D -, E.
+    const optionSplitRegex = /(?:^|\n)\s*([A-E])[\).\s:-]\s*/g;
     
     const optionMatches = Array.from(trimmedBlock.matchAll(optionSplitRegex));
 

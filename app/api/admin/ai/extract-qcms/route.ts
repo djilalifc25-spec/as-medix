@@ -6,6 +6,7 @@ import { matchQcmToCourse } from '@/lib/qcmCourseLinker';
 import { db } from '@/lib/db/store';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { Course } from '@/types';
+import { normalizeExamRawText } from '@/lib/qcmParser';
 
 export const dynamic = 'force-dynamic';
 
@@ -147,6 +148,9 @@ export async function POST(req: NextRequest) {
         error: 'Veuillez fournir le texte brut des QCMs ou un lien PDF direct valide.'
       }, { status: 400 });
     }
+
+    // Normalize exam text (fixes concatenated questions and inline options)
+    content = normalizeExamRawText(content);
 
     const coursesPromptContext = coursesList.length > 0
       ? `LISTE DES COURS EXISTANTS DANS CE MODULE (AS-MEDIX) :
