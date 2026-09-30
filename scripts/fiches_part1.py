@@ -12,48 +12,58 @@ NOW_ISO = datetime.datetime.utcnow().isoformat() + "Z"
 
 def make_card(title, content, color="slate"):
     color_map = {
-        "rose": "bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-800 text-rose-950 dark:text-rose-200",
-        "indigo": "bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-800 text-indigo-950 dark:text-indigo-200",
-        "amber": "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200",
-        "emerald": "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200",
-        "purple": "bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800 text-purple-950 dark:text-purple-200",
-        "blue": "bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-blue-950 dark:text-blue-200",
-        "slate": "bg-white dark:bg-navy-800 border-slate-200 dark:border-navy-700 text-navy-800 dark:text-navy-200",
+        "rose": "bg-rose-950/60 border-rose-800/80 text-rose-100",
+        "indigo": "bg-indigo-950/60 border-indigo-800/80 text-indigo-100",
+        "amber": "bg-amber-950/60 border-amber-800/80 text-amber-100",
+        "emerald": "bg-emerald-950/60 border-emerald-800/80 text-emerald-100",
+        "purple": "bg-purple-950/60 border-purple-800/80 text-purple-100",
+        "blue": "bg-sky-950/60 border-sky-800/80 text-sky-100",
+        "slate": "bg-slate-900/90 border-slate-700/80 text-slate-100",
+    }
+    title_colors = {
+        "rose": "text-rose-300",
+        "indigo": "text-indigo-300",
+        "amber": "text-amber-300",
+        "emerald": "text-emerald-300",
+        "purple": "text-purple-300",
+        "blue": "text-sky-300",
+        "slate": "text-white",
     }
     c_cls = color_map.get(color, color_map["slate"])
+    t_cls = title_colors.get(color, title_colors["slate"])
     return f"""
-    <div class="p-4 rounded-2xl border shadow-sm {c_cls}">
-      <h4 class="font-black text-sm mb-1.5 flex items-center gap-1.5">{title}</h4>
-      <div class="text-xs leading-relaxed space-y-1">{content}</div>
+    <div class="p-4 rounded-2xl border shadow-md {c_cls}">
+      <h4 class="font-black text-sm mb-1.5 flex items-center gap-1.5 {t_cls}">{title}</h4>
+      <div class="text-xs leading-relaxed space-y-1 text-slate-200">{content}</div>
     </div>
     """
 
 def make_alert(title, text, alert_type="danger"):
     if alert_type == "danger":
         return f"""
-        <div class="p-4 my-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/30 text-xs">
-          <div class="flex items-center gap-2 text-rose-700 dark:text-rose-300 font-extrabold text-sm mb-1">
+        <div class="p-4 my-4 rounded-2xl border border-rose-800/80 bg-rose-950/60 text-xs shadow-md">
+          <div class="flex items-center gap-2 text-rose-300 font-black text-sm mb-1">
             🚨 {title}
           </div>
-          <div class="text-navy-700 dark:text-slate-300 leading-relaxed">{text}</div>
+          <div class="text-slate-200 leading-relaxed">{text}</div>
         </div>
         """
     elif alert_type == "warning":
         return f"""
-        <div class="p-4 my-4 rounded-2xl border border-amber-200 bg-amber-50/70 dark:border-amber-900/50 dark:bg-amber-950/30 text-xs">
-          <div class="flex items-center gap-2 text-amber-700 dark:text-amber-300 font-extrabold text-sm mb-1">
+        <div class="p-4 my-4 rounded-2xl border border-amber-800/80 bg-amber-950/60 text-xs shadow-md">
+          <div class="flex items-center gap-2 text-amber-300 font-black text-sm mb-1">
             ⚠️ {title}
           </div>
-          <div class="text-navy-700 dark:text-slate-300 leading-relaxed">{text}</div>
+          <div class="text-slate-200 leading-relaxed">{text}</div>
         </div>
         """
     else:
         return f"""
-        <div class="p-4 my-4 rounded-2xl border border-indigo-200 bg-indigo-50/70 dark:border-indigo-900/50 dark:bg-indigo-950/30 text-xs">
-          <div class="flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-extrabold text-sm mb-1">
+        <div class="p-4 my-4 rounded-2xl border border-indigo-800/80 bg-indigo-950/60 text-xs shadow-md">
+          <div class="flex items-center gap-2 text-indigo-300 font-black text-sm mb-1">
             💡 {title}
           </div>
-          <div class="text-navy-700 dark:text-slate-300 leading-relaxed">{text}</div>
+          <div class="text-slate-200 leading-relaxed">{text}</div>
         </div>
         """
 
