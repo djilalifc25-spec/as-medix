@@ -52,9 +52,14 @@ function FichesHubContent() {
   }
 
   // Filter fiches by active specialty
+  const activeSpecialtiesWithFiches = ALL_SPECIALTIES.filter(spec =>
+    allFiches.some(f => matchesFicheSpec(f, spec.id, spec.name))
+  );
+
   const specialtyFiches = selectedSpecId
     ? allFiches.filter(f => matchesFicheSpec(f, selectedSpecId, activeSpecialty?.name))
     : allFiches;
+
 
   const displayFiches = specialtyFiches.filter(f =>
     !search ||
@@ -128,8 +133,9 @@ function FichesHubContent() {
             >
               ← Vue Grille
             </button>
-            {ALL_SPECIALTIES.map(s => {
+            {activeSpecialtiesWithFiches.map(s => {
               const isSelected = selectedSpecId === s.id;
+              const count = allFiches.filter(f => matchesFicheSpec(f, s.id, s.name)).length;
               return (
                 <button
                   key={s.id}
@@ -142,9 +148,11 @@ function FichesHubContent() {
                 >
                   <span>{getSpecialtyEmoji(s.id)}</span>
                   <span>{s.shortName}</span>
+                  <span className="text-[10px] opacity-75 font-semibold">({count})</span>
                 </button>
               );
             })}
+
           </div>
         ) : <div />}
 
@@ -314,14 +322,15 @@ function FichesHubContent() {
               1. Choisissez une Spécialité Médicale :
             </h2>
             <span className="text-xs text-navy-500 font-medium">
-              20 Modules de Révision Express
+              {activeSpecialtiesWithFiches.length} Modules de Révision Active
             </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {ALL_SPECIALTIES.map((spec) => {
+            {activeSpecialtiesWithFiches.map((spec) => {
               const count = allFiches.filter(f => matchesFicheSpec(f, spec.id, spec.name)).length;
               const emoji = getSpecialtyEmoji(spec.id);
+
 
               return (
                 <button

@@ -1351,7 +1351,6 @@ export const AppSidebar: React.FC = () => {
                 {specialtiesList
                   .filter(s => !deletedFichesSpecialtyIds.includes(s.id) && (faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty))
                   .map(spec => {
-                    const isFicheSpecOpen = activeFicheSpec === spec.id;
                     const specFiches = fichesList.filter(f => {
                       if (!f) return false;
                       const fId = (f.specialtyId || (f as any).specialty_id || '').toLowerCase().trim();
@@ -1361,6 +1360,11 @@ export const AppSidebar: React.FC = () => {
                       if (f.specialtyName && spec.name && f.specialtyName.toLowerCase() === spec.name.toLowerCase()) return true;
                       return false;
                     });
+                    return { spec, specFiches };
+                  })
+                  .filter(({ specFiches }) => specFiches.length > 0)
+                  .map(({ spec, specFiches }) => {
+                    const isFicheSpecOpen = activeFicheSpec === spec.id;
 
                     return (
                       <div key={spec.id} className="space-y-0.5">
@@ -1368,6 +1372,7 @@ export const AppSidebar: React.FC = () => {
                         onClick={() => setActiveFicheSpec(isFicheSpecOpen ? null : spec.id)}
                         className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-left transition-all ${
                           isFicheSpecOpen
+
                             ? 'bg-amber-100/70 dark:bg-amber-950 text-amber-800 dark:text-amber-300'
                             : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
                         }`}
