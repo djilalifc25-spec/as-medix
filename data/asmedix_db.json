@@ -989,72 +989,600 @@
       "updatedAt": "2026-09-25T16:03:38.637574+00:00"
     },
     {
-      "id": "cours_orl_rhinopharyngites_angines",
-      "slug": "rhinopharyngites-et-angines-de-l-adulte-et-de-l-enfant",
-      "title": "13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
-      "subtitle": "Diagnostic clinique, Score de Mac Isaac, TDR, Angines spécifiques (Diphtérie, MNI, Vincent, Syphilis), Syndrome de Lemierre et Complications Post-Streptococciques",
+      "id": "cours_orl_obstruction_epistaxis",
+      "slug": "obstruction-nasale-et-epistaxis",
+      "title": "1. Obstruction Nasale & Épistaxis Grave",
+      "subtitle": "Étiologies chez l'adulte et l'enfant, plexus de Kiesselbach, conduite à tenir d'urgence devant une épistaxis grave, tamponnement antérieur/postérieur, embolisation & ligature artérielle.",
       "specialtyId": "orl",
       "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
-      "author": "Dr S. ACHOUR",
-      "authorTitle": "Maître de Conférences en ORL & Chirurgie Cervico-Faciale",
-      "description": "Cours officiel exhaustif conforme au programme du Résidanat de Médecine : physiopathologie, diagnostic différentiel des angines érythémateuses, pultacées, pseudo-membraneuses, ulcéro-nécrotiques et vésiculeuses, scores cliniques, antibiothérapie ciblée et urgences chirurgico-septiques.",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Étiologies chez l'adulte et l'enfant, plexus de Kiesselbach, conduite à tenir d'urgence devant une épistaxis grave, tamponnement antérieur/postérieur, embolisation & ligature artérielle.",
       "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
       "difficulty": "Incontournable",
       "faculty": "TOUS",
       "rang": "Rang A",
-      "estimatedDuration": "45 min",
+      "estimatedDuration": "40 min",
       "tags": [
         "ORL",
-        "Angines",
-        "Rhinopharyngite",
         "Résidanat",
-        "Mac Isaac",
-        "SBHA",
-        "Lemierre"
+        "4ème Année"
       ],
       "accessLevel": "FREE",
       "published": true,
-      "viewsCount": 1890,
-      "likesCount": 340,
-      "qcmCount": 12,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
       "tableOfContents": [
         {
-          "id": "rhinopharyngite",
-          "title": "1. Rhinopharyngites Aiguës",
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
           "level": 1
         },
         {
-          "id": "angines-definition",
-          "title": "2. Angines Aiguës & Étiopathogénie",
-          "level": 1
-        },
-        {
-          "id": "angines-classification",
-          "title": "3. Formes Cliniques des Angines",
-          "level": 1
-        },
-        {
-          "id": "mac-isaac",
-          "title": "4. Score de Mac Isaac & TDR",
-          "level": 1
-        },
-        {
-          "id": "complications",
-          "title": "5. Complications & Lemierre",
-          "level": 1
-        },
-        {
-          "id": "traitement",
-          "title": "6. Stratégies Thérapeutiques",
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
           "level": 1
         },
         {
           "id": "points-cles",
-          "title": "7. Points Clés Concours",
+          "title": "3. Points Clés & Pièges Concours",
           "level": 1
         }
       ],
-      "htmlContent": "\n<!-- EN-TÊTE DU COURS OFFICIEL -->\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Résidanat ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Incontournable Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Dr S. ACHOUR</strong> (Maître de Conférences en ORL & Chirurgie Cervico-Faciale)\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Guide de référence clinique exhaustif : physiopathologie, diagnostic étiologique (virale vs bactérienne à SBHA), classification clinique complète (érythémateuses, pultacées, pseudo-membraneuses, ulcéro-nécrotiques, vésiculeuses), scores cliniques (Mac Isaac), TDR, complications loco-régionales et générales (Syndrome de Lemierre, RAA), et stratégies thérapeutiques médicales et chirurgicales.\n  </p>\n</div>\n\n<!-- SECTION 1: RHINOPHARYNGITES AIGUËS -->\n<section id=\"rhinopharyngite\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">I. Rhinopharyngites Aiguës de l'Enfant et de l'Adulte</h2>\n  </div>\n\n  <div class=\"my-6 p-4 rounded-2xl bg-slate-100 dark:bg-navy-800/80 border border-slate-200 dark:border-navy-700 text-center\">\n    <img src=\"https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=1000\" alt=\"Muqueuse rhinopharyngée et examen ORL\" class=\"w-full max-h-80 object-cover rounded-xl shadow-md mb-2\">\n    <span class=\"text-xs text-navy-600 dark:text-navy-400 font-medium\">Figure 1 : Inflammation aiguë de la muqueuse nasopharyngée (Rhinopharyngite virale).</span>\n  </div>\n\n  <div class=\"space-y-4 text-navy-700 dark:text-navy-300 leading-relaxed text-sm\">\n    <p>\n      <strong>1. Définition & Généralités :</strong> La rhinopharyngite désigne une inflammation aiguë d'origine infectieuse de la muqueuse des fosses nasales et du pharynx. Cette dénomination est spécifiquement française ; les anglo-saxons utilisent les termes de <em>\"common cold\"</em> (rhume banal) ou d'inflammation aiguë des voies aériennes supérieures. C'est une pathologie bénigne, d'évolution spontanément favorable en <strong>7 à 10 jours</strong>.\n    </p>\n\n    <div class=\"p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900/50\">\n      <h3 class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm mb-1\">🦠 2. Étiologie (100% Virale) :</h3>\n      <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n        Les rhinopharyngites aiguës non compliquées sont d'origine exclusivement virale : <strong>Rhinovirus</strong> (agent principal &gt; 50%), Coronavirus, Virus Influenzae & Parainfluenzae, Virus Respiratoire Syncytial (VRS), Adénovirus, Enterovirus.\n      </p>\n    </div>\n\n    <p>\n      <strong>3. Examen Clinique :</strong> Le diagnostic est strictement clinique et associe :\n    </p>\n    <ul class=\"list-disc pl-5 space-y-1 text-xs text-navy-700 dark:text-navy-300\">\n      <li><strong>Syndrome infectieux :</strong> Inconstant. Fièvre entre 38°C et 39°C avec parfois vomissements et diarrhée chez le nourrisson. Adénopathies cervicales bilatérales et sensibles.</li>\n      <li><strong>Rhinite :</strong> Obstruction nasale, éternuements, rhinorrhée antérieure et/ou postérieure séro-muqueuse (forme catarrhale) ou muco-purulente.</li>\n      <li><strong>Pharyngite :</strong> Douleurs pharyngées, odynophagie, toux. Tympans souvent discrètement congestifs (sans véritable Otite Moyenne Aiguë).</li>\n    </ul>\n\n    <div class=\"p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50\">\n      <h3 class=\"font-bold text-amber-800 dark:text-amber-300 text-sm mb-1\">🚨 4. Signes d'Alarme Imposant une Reconsultation :</h3>\n      <ul class=\"text-xs text-navy-700 dark:text-navy-300 space-y-1\">\n        <li>• Fièvre persistant après 72 heures de traitement antipyrétique bien conduit.</li>\n        <li>• Persistance des symptômes au-delà de 10 jours.</li>\n        <li>• Apparition d'une gêne respiratoire (stridor, tirage, polypnée).</li>\n        <li>• Refus alimentaire ou prise de boisson diminuée de plus de 50%.</li>\n        <li>• Modification du comportement (somnolence, léthargie, irritabilité majeure).</li>\n      </ul>\n    </div>\n\n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 my-4\">\n      <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n        <h4 class=\"font-bold text-rose-900 dark:text-rose-200 text-xs mb-1\">5. Complications Loco-régionales & Générales</h4>\n        <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n          <strong>Surinfections bactériennes :</strong> Otite Moyenne Aiguë (OMA) purulente, adénophlegmon cervical, sinusites aiguës (<strong>éthmoïdite aiguë</strong> chez le jeune enfant), infections broncho-pulmonaires.<br>\n          <strong>Complications générales :</strong> Déshydratation aiguë sur diarrhée/vomissements, convulsions hyperthermiques secondaires à la fièvre.\n        </p>\n      </div>\n      <div class=\"p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200\">\n        <h4 class=\"font-bold text-emerald-900 dark:text-emerald-200 text-xs mb-1\">6. Prise en Charge Thérapeutique</h4>\n        <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n          <strong>Traitement symptomatique exclusif :</strong> Désobstruction Rhinopharyngée (DRP) au sérum salé physiologique pluriquotidienne + Paracétamol.<br>\n          <strong class=\"text-rose-700\">CONTRE-INDICATIONS ABSOLUES :</strong> AINS et Corticoïdes sont proscrits ! Les antibiotiques n'ont aucune indication dans la forme aiguë non compliquée.\n        </p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SECTION 2: ANGINES AIGUËS & ÉTIOPATHOGÉNIE -->\n<section id=\"angines-definition\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">II. Angines Aiguës : Définition, Anatomie & Étiopathogénie</h2>\n  </div>\n\n  <div class=\"space-y-4 text-navy-700 dark:text-navy-300 leading-relaxed text-sm\">\n    <p>\n      <strong>1. Définition & Généralités :</strong> L'<strong>angine</strong> (du latin <em>angere</em> = étrangler) est une inflammation infectieuse aiguë des amygdales palatines (tonsilles), à la différence de la pharyngite qui désigne l'atteinte diffuse de l'oropharynx. Elle représente environ 10% des motifs de consultation en médecine générale.\n    </p>\n\n    <div class=\"p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/50\">\n      <div class=\"font-bold text-rose-800 dark:text-rose-300 text-sm mb-1\">🚨 LES 3 IMPÉRATIFS DU PRATICIEN DEVANT UNE ANGINE :</div>\n      <ul class=\"text-xs text-navy-700 dark:text-navy-300 space-y-1 font-semibold\">\n        <li>1. Ne jamais négliger une angine à Streptocoque Bêta-Hémolytique du Groupe A (SBHA) en raison du risque de complications post-streptococciques graves (RAA, GNA).</li>\n        <li>2. Ne pas méconnaître une angine diphtérique (pronostic vital engagé).</li>\n        <li>3. Éliminer un cancer de l'amygdale (carcinome épidermoïde sur terrain alcoolo-tabagique) devant toute ulcération unilatérale indurée.</li>\n      </ul>\n    </div>\n\n    <!-- Rappels Anatomiques -->\n    <div class=\"my-6 p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-navy-900 dark:text-white text-base mb-3 flex items-center gap-2\">\n        🏛️ Rappels Anatomiques : L'Anneau de Waldeyer\n      </h3>\n      <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-3\">\n        L'<strong>anneau lymphatique de Waldeyer</strong> constitue la première barrière de défense immunitaire lymphoïde à l'entrée des voies aéro-digestives supérieures. Il comprend :\n      </p>\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-3 text-xs mb-3\">\n        <div class=\"p-3 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-navy-800\">\n          <strong>1. Amygdales Palatines (Tonsilles) :</strong> Formations paires en forme d'amande situées entre les piliers antérieur et postérieur de l'oropharynx.\n        </div>\n        <div class=\"p-3 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-navy-800\">\n          <strong>2. Amygdale Pharyngée (Végétations) :</strong> Située au niveau du plafond du rhinopharynx (nasopharynx).\n        </div>\n        <div class=\"p-3 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200 dark:border-navy-800\">\n          <strong>3. Amygdale Linguale :</strong> Située à la base de la langue en arrière du v lingual.\n        </div>\n      </div>\n      <p class=\"text-xs text-slate-500 dark:text-slate-400\">\n        • Vascularisation : Carotide externe (artère tonsillaire) | Innervation : Nerfs IX (glossopharyngien), X (vague) et sympathique.\n      </p>\n    </div>\n\n    <!-- Étiologies complètes -->\n    <div class=\"p-5 rounded-2xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-700\">\n      <h3 class=\"font-bold text-navy-900 dark:text-white text-sm mb-3\">🧫 Microbiologie Complète des Angines Aiguës :</h3>\n\n      <div class=\"space-y-3 text-xs\">\n        <div class=\"p-3 rounded-xl bg-white dark:bg-navy-800 border border-slate-200\">\n          <strong class=\"text-brand-600\">A. Angines Virales (50 à 90% des cas) :</strong><br>\n          • <em>Myxovirus :</em> Influenzae A et B (grippe).<br>\n          • <em>Adénovirus :</em> Fièvre adéno-pharyngo-conjonctivale (APC types 3 et 7).<br>\n          • <em>Enterovirus :</em> Coxsackie A (agent de l'<strong>herpangine</strong> chez l'enfant &lt; 7 ans et syndrome pieds-mains-bouche).<br>\n          • <em>Herpès Virus :</em> HSV-1 (angine herpétique), EBV (Mononucléose Infectieuse - MNI), VZV (zona pharyngé du IX).\n        </div>\n\n        <div class=\"p-3 rounded-xl bg-white dark:bg-navy-800 border border-slate-200\">\n          <strong class=\"text-rose-600\">B. Angines Bactériennes (10 à 50% des cas) :</strong><br>\n          • <strong>Streptocoque Bêta-Hémolytique du Groupe A (SBHA) :</strong> 25-40% chez l'enfant (pic 5-10 ans), 10-25% chez l'adulte. Cocci Gram+ aéro-anaérobie. Secrète des toxines érythrogènes (scarlatine).<br>\n          • <em>Autres Streptocoques :</em> Groupes C, G, E, F (ne provoquent JAMAIS de RAA !).<br>\n          • <em>Corynebacterium diphtheriae :</em> Bacille Gram+ à toxine diphtérique.<br>\n          • <em>Association Fuso-Spirillaire :</em> Bacille de Plaut-Vincent (Gram-) + Spirilles (Borrelia vincenti) &rarr; Angine de Vincent.<br>\n          • <em>Treponema pallidum :</em> Chancre syphilitique primaire.<br>\n          • <em>Autres :</em> Staphylococcus aureus, Haemophilus influenzae, Pneumocoque, Klebsiella pneumoniae.\n        </div>\n\n        <div class=\"p-3 rounded-xl bg-white dark:bg-navy-800 border border-slate-200\">\n          <strong class=\"text-purple-600\">C. Angines Mycosiques & Maladies Systémiques :</strong><br>\n          • <em>Candida albicans :</em> Chez l'immunodéprimé, le diabétique ou sous corticoïdes inhalés au long cours.<br>\n          • <em>Au cours des infections spécifiques :</em> Typhoïde, Tularémie, Rougeole, Rubéole, VIH (primo-infection pseudo-grippale), Toxoplasmose.\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- SECTION 3: CLASSIFICATION CLINIQUE EXHAUSTIVE DES ANGINES -->\n<section id=\"angines-classification\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">03</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">III. Formes Cliniques & Diagnostic Différentiel des Angines</h2>\n  </div>\n\n  <div class=\"space-y-6\">\n\n    <!-- 1. ANGINES ÉRYTHÉMATEUSES ET ÉRYTHÉMATO-PULTACÉES -->\n    <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"text-lg font-bold text-brand-600 dark:text-brand-400 mb-3\">\n        1. Angines Érythémateuses & Érythémato-Pultacées (Rouges & Blanches)\n      </h3>\n      <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-4\">\n        Ce sont les angines les plus fréquentes (angines communes). L'oropharynx est rouge vif avec ou sans exsudat pultacé gris-jaunâtre non adhérent.\n      </p>\n\n      <!-- Tableau comparatif Virale vs SBHA -->\n      <div class=\"overflow-x-auto mb-4 rounded-xl border border-slate-200 dark:border-navy-700\">\n        <table class=\"w-full text-left text-xs\">\n          <thead class=\"bg-slate-100 dark:bg-navy-900 font-bold text-navy-900 dark:text-white\">\n            <tr>\n              <th class=\"p-2.5\">Critère Orientatif</th>\n              <th class=\"p-2.5 text-brand-600\">Angine Virale</th>\n              <th class=\"p-2.5 text-rose-600\">Angine à SBHA (Bactérienne)</th>\n            </tr>\n          </thead>\n          <tbody class=\"divide-y divide-slate-200 dark:divide-navy-700 text-navy-700 dark:text-navy-300\">\n            <tr>\n              <td class=\"p-2.5 font-bold\">Épidémiologie</td>\n              <td class=\"p-2.5\">Toute l'année, tous les âges</td>\n              <td class=\"p-2.5 font-bold text-rose-700\">Hiver/Printemps, 5 à 15 ans (dès 3 ans)</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 font-bold\">Début & Fièvre</td>\n              <td class=\"p-2.5\">Progressif, fébricule ~38°C</td>\n              <td class=\"p-2.5 font-bold\">Brutal, fièvre élevée &gt; 38,5°C</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 font-bold\">Signes ORL associés</td>\n              <td class=\"p-2.5 text-emerald-700 font-semibold\">Toux, rhinorrhée, enrouement, conjonctivite</td>\n              <td class=\"p-2.5 font-semibold text-rose-700\">Absence de toux, dysphagie intense</td>\n            </tr>\n            <tr>\n              <td class=\"p-2.5 font-bold\">Examen physique</td>\n              <td class=\"p-2.5\">ADP cervicales diffuses modérées</td>\n              <td class=\"p-2.5 font-semibold\">ADP sous-angulo-maxillaires sensibles, purpura du voile</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n\n    <!-- 2. ANGINES PSEUDO-MEMBRANEUSES -->\n    <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"text-lg font-bold text-rose-600 dark:text-rose-400 mb-3\">\n        2. Angines Pseudo-Membraneuses (Fausses Membranes)\n      </h3>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n        <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200\">\n          <h4 class=\"font-bold text-rose-900 dark:text-rose-200 text-sm mb-1\">A. Diphtérie (Corynebacterium diphtheriae)</h4>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-2\">\n            Urgence vitale rare et contagieuse ! AEG marquée. Fausses membranes <strong>adhérentes, reproductibles et extensives</strong> aux piliers et à la paroi postérieure du pharynx. Risque d'extension laryngée (<strong>Croup</strong> avec dysphonie et dyspnée).\n          </p>\n          <div class=\"p-2 rounded-lg bg-rose-100 dark:bg-rose-900/50 text-xs font-bold text-rose-950 dark:text-rose-100\">\n            🚨 CAT : Isolement du patient + Prélèvement de gorge + Sérothérapie antidiphtérique en urgence + Pénicilline V.\n          </div>\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200\">\n          <h4 class=\"font-bold text-purple-900 dark:text-purple-200 text-sm mb-1\">B. Mononucléose Infectieuse (MNI / EBV)</h4>\n          <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-2\">\n            Enduit pultacé confluant réalisant un aspect de fausses membranes <strong>non adhérentes</strong>. Amygdales très volumineuses obstructives, poly-adénopathies, splénomégalie. FNS : Syndrome mononucléosique (hyperlymphocytose à grands monocytes).\n          </p>\n          <div class=\"p-2 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-xs font-bold text-amber-950 dark:text-amber-100\">\n            ⚠️ PIÈGE MAJEUR : Aminopénicillines (Amoxicilline) CONTRE-INDIQUÉES &rarr; Provoquent un rash cutané érythémateux dans 90% des cas !\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <!-- 3. ANGINES ULCÉRO-NÉCROTIQUES -->\n    <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"text-lg font-bold text-amber-600 dark:text-amber-400 mb-3\">\n        3. Angines Ulcéro-Nécrotiques\n      </h3>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 text-xs\">\n        <div class=\"p-4 rounded-xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200\">\n          <h4 class=\"font-bold text-amber-900 dark:text-amber-200 text-sm mb-1\">1. Angine de Vincent</h4>\n          <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-2\">\n            Sujet jeune avec mauvaise hygiène bucco-dentaire. Ulcération <strong>unilatérale profonde souple au toucher</strong>, à bords irréguliers avec enduit jaunâtre facile à enlever, haleine fétide et hypersialorrhée.\n          </p>\n          <strong>Germe :</strong> Association fuso-spirillaire (Plaut-Vincent + Borrelia).<br>\n          <strong>Traitement :</strong> Pénicilline V ou Métronidazole.\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n          <h4 class=\"font-bold text-navy-900 dark:text-white text-sm mb-1\">2. Chancre Syphilitique</h4>\n          <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-2\">\n            Syphilis primaire amygdalienne (*Treponema pallidum*). Ulcération unilatérale peu profonde, peu douloureuse, <strong>indurée au toucher protégé</strong> avec adénopathie fermement indurée.\n          </p>\n          <strong>Règle :</strong> Bilan sérologique VDRL-TPHA systématique avant de traiter une angine de Vincent !\n        </div>\n\n        <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200\">\n          <h4 class=\"font-bold text-rose-900 dark:text-rose-200 text-sm mb-1\">3. Cancer de l'Amygdale</h4>\n          <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-2\">\n            Chez le patient <strong>alcoolo-tabagique</strong> : Ulcération amygdalienne <strong>dure, indolore et saignant au contact</strong>.\n          </p>\n          <strong>Hémopathies :</strong> Angine ulcéro-nécrotique bilatérale fébrile (NFS urgente pour éliminer agranulocytose ou leucémie aiguë).\n        </div>\n      </div>\n    </div>\n\n    <!-- 4. ANGINES VÉSICULEUSES -->\n    <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-3\">\n        4. Angines Vésiculeuses (100% Virales)\n      </h3>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-3 text-xs\">\n        <div class=\"p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200\">\n          <strong>Angine Herpétique (HSV-1) :</strong> Début brutal, fièvre 39-40°C, odynophagie intense, otalgie réflexe, bouquet de petites vésicules rompues sur fond érythémateux + herpès labial associé.\n        </div>\n        <div class=\"p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200\">\n          <strong>Herpangine (Coxsackie A) :</strong> Enfant &lt; 7 ans, poussées épidémiques estivales, petites vésicules de l'hémivoile et des piliers.\n        </div>\n        <div class=\"p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/20 border border-emerald-200\">\n          <strong>Zona Pharyngien (VZV / IX) :</strong> Éruption vésiculeuse unilatérale strictement limitée au territoire du nerf glossopharyngien. Algies post-zostériennes chez le sujet âgé.\n        </div>\n      </div>\n    </div>\n\n  </div>\n</section>\n\n<!-- SECTION 4: SCORE DE MAC ISAAC & TDR -->\n<section id=\"mac-isaac\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-bold text-lg\">04</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">IV. Score de Mac Isaac & Test de Diagnostic Rapide (TDR)</h2>\n  </div>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-6\">\n\n    <!-- Score Mac Isaac -->\n    <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-navy-900 dark:text-white text-base mb-3 flex items-center gap-2\">\n        📊 Score Clinique de Mac Isaac\n      </h3>\n      <table class=\"w-full text-left text-xs mb-3\">\n        <thead class=\"bg-slate-100 dark:bg-navy-900 font-bold\">\n          <tr><th class=\"p-2\">Item Clinique</th><th class=\"p-2 text-right\">Points</th></tr>\n        </thead>\n        <tbody class=\"divide-y divide-slate-200 dark:divide-navy-700\">\n          <tr><td class=\"p-2\">Fièvre &gt; 38°C</td><td class=\"p-2 text-right font-bold text-brand-600\">+1</td></tr>\n          <tr><td class=\"p-2\">Absence de toux</td><td class=\"p-2 text-right font-bold text-brand-600\">+1</td></tr>\n          <tr><td class=\"p-2\">Adénopathies cervicales antérieures sensibles</td><td class=\"p-2 text-right font-bold text-brand-600\">+1</td></tr>\n          <tr><td class=\"p-2\">Atteinte amygdalienne (augmentation volume ou exsudat)</td><td class=\"p-2 text-right font-bold text-brand-600\">+1</td></tr>\n          <tr><td class=\"p-2\">Âge entre 3 et 14 ans</td><td class=\"p-2 text-right font-bold text-brand-600\">+1</td></tr>\n          <tr><td class=\"p-2\">Âge entre 15 et 44 ans</td><td class=\"p-2 text-right font-bold text-slate-500\">0</td></tr>\n          <tr><td class=\"p-2\">Âge &ge; 45 ans</td><td class=\"p-2 text-right font-bold text-rose-600\">-1</td></tr>\n        </tbody>\n      </table>\n      <div class=\"p-3 rounded-xl bg-slate-50 dark:bg-navy-900 text-xs space-y-1\">\n        <div>• <strong>Score &lt; 2 :</strong> Probabilité SBHA très faible &rarr; Pas de TDR, traitement symptomatique.</div>\n        <div>• <strong>Score &ge; 2 :</strong> Effectuer un Test de Diagnostic Rapide (TDR).</div>\n      </div>\n    </div>\n\n    <!-- TDR -->\n    <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n      <h3 class=\"font-bold text-navy-900 dark:text-white text-base mb-3 flex items-center gap-2\">\n        🧪 Test de Diagnostic Rapide (TDR du SBHA)\n      </h3>\n      <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-3\">\n        Le TDR détecte l'antigène de paroi (protéine M) du Streptocoque Bêta-Hémolytique du Groupe A en <strong>7 à 10 minutes</strong> au cabinet.\n      </p>\n      <div class=\"p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/30 text-xs text-indigo-950 dark:text-indigo-200 mb-3\">\n        • <strong>Spécificité : 97,8%</strong> | <strong>Sensibilité : &gt; 90%</strong><br>\n        • Contenu du kit : Écouvillons stériles, abaisses-langues, réactifs d'extraction A et B, tubes et bandelettes réactives.\n      </div>\n      <div class=\"p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 text-xs text-emerald-900 dark:text-emerald-200 font-semibold\">\n        ✅ Décision Thérapeutique :<br>\n        - TDR (+) &rarr; Traitement par Amoxicilline 6 jours.<br>\n        - TDR (-) &rarr; Pas d'antibiotique (Angine virale) !\n      </div>\n    </div>\n\n  </div>\n</section>\n\n<!-- SECTION 5: COMPLICATIONS LOCO-RÉGIONALES & SYNDROME DE LEMIERRE -->\n<section id=\"complications\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">05</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">V. Complications Loco-Régionales & Syndrome de Lemierre</h2>\n  </div>\n\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\n    <div class=\"p-5 rounded-2xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50\">\n      <h3 class=\"font-bold text-rose-900 dark:text-rose-200 text-base mb-2\">\n        💥 1. Phlegmon Péri-Amygdalien (PPA)\n      </h3>\n      <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-3\">\n        Suppuration entre la capsule de l'amygdale et le muscle constricteur du pharynx.\n      </p>\n      <ul class=\"text-xs text-rose-950 dark:text-rose-100 space-y-1.5 font-medium\">\n        <li>• <strong>Triade Clinique :</strong> Trismus serré, otalgie réflexe, odynophagie majeure unilatérale avec voix étouffée.</li>\n        <li>• <strong>Examen :</strong> Amygdale refoulée vers le bas et le dedans, pilier antérieur bombé, luette œdématiée déviée du côté opposé.</li>\n        <li>• <strong>Traitement :</strong> Ponction/Incision évacuatrice au point de bombement maximum + Augmentin IV.</li>\n      </ul>\n    </div>\n\n    <div class=\"p-5 rounded-2xl bg-purple-50/80 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-900/50\">\n      <h3 class=\"font-bold text-purple-900 dark:text-purple-200 text-base mb-2\">\n        🩺 2. Syndrome de Lemierre (Septicémie Post-Angine)\n      </h3>\n      <p class=\"text-xs text-navy-700 dark:text-navy-300 leading-relaxed mb-3\">\n        Infection grave due à <em>Fusobacterium necrophorum</em> (germe anaérobie stricts).\n      </p>\n      <ul class=\"text-xs text-purple-950 dark:text-purple-100 space-y-1.5 font-medium\">\n        <li>• <strong>Association Pathognomique :</strong> Thrombophlébite de la veine jugulaire interne (VJI) + Emboles septiques pulmonaires (abcès pulmonaires excavés multiples).</li>\n        <li>• <strong>Diagnostic :</strong> TDM cervico-thoracique avec injection de produit de contraste.</li>\n        <li>• <strong>Traitement :</strong> Antibiothérapie IV prolongée à forte dose (Bêtalactamines + Métronidazole) +/- Anticoagulation.</li>\n      </ul>\n    </div>\n  </div>\n\n  <div class=\"p-4 rounded-2xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200 dark:border-navy-700 text-xs space-y-2\">\n    <strong>Autres Complications :</strong>\n    <ul class=\"list-disc pl-5 space-y-1\">\n      <li><strong>Loco-régionales :</strong> Abcès rétropharyngé / pré-stylien, adénophlegmon cervical, cellulite cervicale diffuse (urgence vitale avec médiastinite).</li>\n      <li><strong>Complications post-streptococciques tardives :</strong> Rhumatisme Articulaire Aigu (RAA), Glomérulonéphrite Aiguë (GNA), Érythème noueux, Chorée de Sydenham.</li>\n    </ul>\n  </div>\n</section>\n\n<!-- SECTION 6: TRAITEMENT & CONCLU -->\n<section id=\"traitement\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-bold text-lg\">06</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">VI. Stratégies Thérapeutiques (Médicales & Chirurgicales)</h2>\n  </div>\n\n  <div class=\"p-5 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm mb-6 space-y-4 text-xs\">\n    <div>\n      <h3 class=\"font-bold text-emerald-700 dark:text-emerald-400 text-sm mb-1\">1. Antibiothérapie de Première Intention du SBHA :</h3>\n      <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed\">\n        • <strong>Amoxicilline per os :</strong> 50 mg/kg/j chez l'enfant et 2 g/j chez l'adulte pendant <strong>6 jours</strong> (permet de guérir l'épisode et de prévenir à 100% le RAA).<br>\n        • <em>Si allergie aux pénicillines sans contre-indication aux céphalosporines :</em> Cefpodoxime-proxétil 5 jours.<br>\n        • <em>Si contre-indication absolue aux bêta-lactamines :</em> Macrolides (Azithromycine 3 jours ou Clarithromycine 5 jours).\n      </p>\n    </div>\n\n    <div>\n      <h3 class=\"font-bold text-navy-900 dark:text-white text-sm mb-1\">2. Indications de l'Amygdalectomie (Chirurgie) :</h3>\n      <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed\">\n        • Angines récidivantes : &ge; 7 épisodes sur 1 an, ou &ge; 5 épisodes par an pendant 2 ans consécutifs, ou &ge; 3 par an pendant 3 ans.<br>\n        • Récidive de phlegmon péri-amygdalien ou hypertrophie amygdalienne obstructive (Syndrome d'Apnée Obstructive du Sommeil - SAHOS).\n      </p>\n    </div>\n  </div>\n</section>\n\n<!-- SECTION 7: POINTS CLÉS RÉSIDANAT -->\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS DU RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• <strong>Amoxicilline et MNI :</strong> L'Amoxicilline est strictement contre-indiquée dans la mononucléose infectieuse (déclenche un rash cutané étendu chez 90% des patients).</li>\n      <li>• <strong>Angine de Vincent :</strong> Ulcération unilatérale profonde souple due à l'association fuso-spirillaire (Plaut-Vincent + Borrelia).</li>\n      <li>• <strong>Diphtérie :</strong> Fausses membranes adhérentes, nacrées et extensives. Urgence : Isolement + Sérothérapie immédiate.</li>\n      <li>• <strong>Syndrome de Lemierre :</strong> Thrombophlébite de la veine jugulaire interne + emboles septiques pulmonaires excavés à <em>Fusobacterium necrophorum</em>.</li>\n      <li>• <strong>Score de Mac Isaac :</strong> Si score &ge; 2 &rarr; Réaliser TDR. Amoxicilline 6 jours uniquement si TDR (+).</li>\n    </ul>\n  </div>\n</section>\n",
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    1. Obstruction Nasale & Épistaxis Grave\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Physiopathologie de la tache vasculaire de Kiesselbach, conduite à tenir d'urgence devant une épistaxis grave, et diagnostic d'une obstruction nasale chronique.\n  </p>\n</div>\n\n<section id=\"intro\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Anatomie & Vascularisation Nasale</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    La muqueuse nasale présente une vascularisation extrêmement riche issue du système <strong>Carotide Externe</strong> (artère sphénopalatine, branche terminale de la maxillaire interne) et du système <strong>Carotide Interne</strong> (artères éthmoïdales antérieure et postérieure, branches de l'ophtalmique).\n  </p>\n  <div class=\"p-4 rounded-2xl border border-rose-200 bg-rose-50/70 dark:border-rose-900/50 dark:bg-rose-950/20 mb-4\">\n    <div class=\"flex items-center gap-2 text-rose-700 dark:text-rose-300 font-bold mb-1 text-sm\">\n      🩸 Zone Cardinale : La Tache Vasculaire de Kiesselbach\n    </div>\n    <p class=\"text-xs text-navy-700 dark:text-navy-300\">\n      Située à la partie antéro-inférieure du septum nasal (à 1 cm en arrière de la narine), la <strong>tache vasculaire (plexus de Kiesselbach)</strong> est anastomotique entre carotide interne et externe. C'est le siège de plus de 90% des épistaxis bénignes de l'enfant et du sujet jeune.\n    </p>\n  </div>\n</section>\n\n<section id=\"epistaxis\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Conduite à Tenir d'Urgence devant une Épistaxis Grave</h2>\n  </div>\n  <div class=\"space-y-4 text-xs text-navy-700 dark:text-navy-300\">\n    <p class=\"text-sm\">L'appréciation du retentissement hémodynamique (pouls, tension artérielle, choc) prime sur l'examen ORL.</p>\n    <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4\">\n      <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n        <h3 class=\"font-bold text-brand-600 dark:text-brand-400 mb-2\">1. Tamponnement Antérieur</h3>\n        <p>Mèche grasse ou éponge résorbable (Merocel) introduite d'avant en arrière parallèlement au plancher des fosses nasales pendant 48 heures.</p>\n      </div>\n      <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n        <h3 class=\"font-bold text-amber-600 dark:text-amber-400 mb-2\">2. Tamponnement Postérieur / Ballonnets</h3>\n        <p>Indiqué si l'épistaxis persiste malgré le tamponnement antérieur. Réalisé sous couverture antibiotique (prévention du choc toxique).</p>\n      </div>\n      <div class=\"p-4 rounded-2xl bg-white dark:bg-navy-800 border border-slate-200 dark:border-navy-700 shadow-sm\">\n        <h3 class=\"font-bold text-rose-600 dark:text-rose-400 mb-2\">3. Embolisation & Ligature</h3>\n        <p>En cas d'échec : embolisation de l'artère maxillaire interne sous angiographie ou ligature sous endoscopie de l'artère sphénopalatine ou des éthmoïdales.</p>\n      </div>\n    </div>\n  </div>\n</section>\n\n<section id=\"obstruction\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-bold text-lg\">03</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Étiologies de l'Obstruction Nasale</h2>\n  </div>\n  <div class=\"space-y-3 text-xs\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Chez le Nourrisson :</strong> Atrésie choanale (urgence vitale si bilatérale, empêchant la téterie), corps étranger nasal méconnu (rhinorrhée unilatérale fétide).\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200\">\n      <strong>Chez l'Adolescent Masculin :</strong> <em>Angiofibrome nasopharyngien juvénile</em> (fibrome nasopharyngien) se révélant par une obstruction nasale progressive avec épistaxis récidivantes massives. (Contre-indication absolue à la biopsie !).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Chez l'Adulte :</strong> Déviation septale, hypertrophie des cornets, polypose naso-sinusienne (PNS), carcinome du nasopharynx (UCN).\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Épistaxis + rhinorrhée fétide purulente unilatérale chez l'enfant = Corps étranger nasal méconnu jusqu'à preuve du contraire.</li><li>• Épistaxis à répétition chez un adolescent masculin = Évoquer impérativement le fibrome nasopharyngien (contre-indication absolue à la biopsie !).</li><li>• La tache vasculaire (plexus de Kiesselbach) est située dans la partie antéro-inférieure du septum nasal.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_cancers_vads",
+      "slug": "cancers-des-vads",
+      "title": "2. Cancers des Voies Aéro-Digestives Supérieures (VADS)",
+      "subtitle": "Carcinome épidermoïde, facteurs de risque (alcool-tabac, HPV-16, EBV), bilan d'extension, panendoscopie sous AG, carcinome du nasopharynx (UCN) et principes de traitement.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Carcinome épidermoïde, facteurs de risque (alcool-tabac, HPV-16, EBV), bilan d'extension, panendoscopie sous AG, carcinome du nasopharynx (UCN) et principes de traitement.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    2. Cancers des VADS\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Carcinome épidermoïde, facteurs de risque alcool-tabac, HPV, EBV, bilan d'extension et panendoscopie sous AG.\n  </p>\n</div>\n\n<section id=\"epidemiologie\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Épidémiologie & Facteurs de Risque</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Plus de 90% des cancers des VADS sont des <strong>carcinomes épidermoïdes</strong>. La synergie alcoolo-tabagique constitue le facteur de risque majeur pour la cavité buccale, l'oropharynx, le hypopharynx et le larynx.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>HPV (Human Papillomavirus 16) :</strong> Responsable d'une incidence croissante des cancers de l'oropharynx (amygdales, base de langue) chez des sujets plus jeunes et non-fumeurs. Bon pronostic.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>EBV (Virus d'Epstein-Barr) :</strong> Associé de façon constante aux Carcinomes Nasopharyngés (UCN / Undifferentiated Carcinoma of Nasopharyngeal Type) endémiques au Maghreb.\n    </div>\n  </div>\n</section>\n\n<section id=\"clinique\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Examen Clinique & Panendoscopie</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Devant toute <strong>adénopathie cervicale chronique de l'adulte (> 3 semaines)</strong>, dure, indolore et fixe, un cancer des VADS doit être recherché systématiquement par l'examen ORL complet et la nasofibroscopie.\n  </p>\n  <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 mb-4 text-xs\">\n    <strong>Panendoscopie des VADS sous AG :</strong> Indispensable pour la biopsie de la lésion primitive, la recherche d'une seconde localisation synchrone (10 à 15% des cas) et le bilan d'extension oesophagien et bronchique.\n  </div>\n</section>\n\n<section id=\"ucn\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-bold text-lg\">03</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Carcinome du Nasopharynx (UCN)</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Le cancer du cavum (UCN) se caractérise par sa triade évocatrice : <strong>Otite séro-muqueuse unilatérale</strong> de l'adulte, adénopathie cervicale haute sous-digastrique et atteinte des nerfs crâniens (diplopie par atteinte du VI, névralgie du V).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Otite séro-muqueuse unilatérale chez l'adulte = Examen impératif du cavum (nasopharynx).</li><li>• L'UCN est très radiosensible et chimiosensible (traitement basé sur la radio-chimiothérapie).</li><li>• La panendoscopie des VADS sous AG est obligatoire avant toute décision thérapeutique.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_traumatismes_face_cou",
+      "slug": "traumatismes-de-la-face-et-du-cou",
+      "title": "3. Traumatismes de la Face et du Cou",
+      "subtitle": "Fractures des os propres du nez (OPN), hématome de cloison, disjonctions cranio-faciales de Le Fort (I, II, III), fractures du zygoma, du plancher de l'orbite et la mandibule.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Fractures des os propres du nez (OPN), hématome de cloison, disjonctions cranio-faciales de Le Fort (I, II, III), fractures du zygoma, du plancher de l'orbite et la mandibule.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    3. Traumatismes de la Face et du Cou\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Fractures des OPN, hématome de cloison nasal, disjonctions cranio-faciales de Le Fort et traumatismes cervicales.\n  </p>\n</div>\n\n<section id=\"opn\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Fractures des OPN & Hématome de Cloison</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    La fracture des Os Propres du Nez est la plus fréquente des fractures faciales. L'examen précoce doit rechercher l'urgence absolue : <strong>l'hématome de cloison nasal</strong>.\n  </p>\n  <div class=\"p-4 my-4 rounded-xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 text-xs\">\n    <strong>⚠️ Urgence Médicale : Hématome de Cloison</strong><br>\n    Tuméfaction violacée, lisse et fluctuante de la cloison nasale entraînant une obstruction bilatérale. <em>Risque évolutif :</em> nécrose du cartilage septal avec ensellement nasal définitif et risque de médiastinite. Drainage chirurgical en urgence sous couverture antibiotique.\n  </div>\n</section>\n\n<section id=\"lefort\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Fractures de Le Fort (Massif Facial)</h2>\n  </div>\n  <div class=\"space-y-3 text-xs\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort I (Disjonction basilaire) :</strong> Trait horizontal au-dessus de l'arcade dentaire supérieure détachant l'arcade alvéolo-dentaire du reste du maxillaire.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort II (Disjonction pyramido-naso-maxillaire) :</strong> Trait pyramidal passant par la racine du nez, la paroi médiale de l'orbite et le rebord orbitaire inférieur.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900/60 border border-slate-200\">\n      <strong>Le Fort III (Disjonction cranio-faciale totale) :</strong> Trait haut séparant l'ensemble du massif facial de la base du crâne.\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Tout hématome de cloison nasal doit être drainé en urgence pour éviter la nécrose du cartilage septal.</li><li>• La fracture du plancher de l'orbite (Blow-out) se manifeste par une diplopie verticale (incarcération du droit inférieur) et une hypoesthésie du V2.</li><li>• La fracture du zygoma associe une dépression pommette, un trismus et une anesthésie sous-orbitaire.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_tumefactions_cervicales",
+      "slug": "diagnostic-des-tumefactions-cervicales",
+      "title": "4. Diagnostic des Tuméfactions Cervicales",
+      "subtitle": "Diagnostic étiologique d'une masse cervicale de l'adulte et de l'enfant, adénopathies infectieuses/tumorales, kyste du canal thyréoglosse, kyste amygdaloïde et adénophlegmon.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Diagnostic étiologique d'une masse cervicale de l'adulte et de l'enfant, adénopathies infectieuses/tumorales, kyste du canal thyréoglosse, kyste amygdaloïde et adénophlegmon.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    4. Diagnostic des Tuméfactions Cervicales\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Orientation diagnostique devant une masse cervicale médiane ou latérale, congénitale, infectieuse ou tumorale.\n  </p>\n</div>\n\n<section id=\"orientation\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Démarche Diagnostique & Règle d'Or</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    La démarche repose sur l'âge du patient, le caractère médian ou latéral de la tuméfaction et son mode d'évolution.\n  </p>\n  <div class=\"p-4 rounded-2xl bg-rose-50 border border-rose-200 dark:bg-rose-950/20 text-xs mb-4\">\n    <strong>🚨 Règle d'Or de l'Adulte Alcoolo-Tabagique :</strong> Toute adénopathie cervicale chronique (> 3 semaines) de l'adulte de plus de 40 ans est une <strong>métastase d'un carcinome épidermoïde des VADS</strong> jusqu'à preuve du contraire !\n  </div>\n</section>\n\n<section id=\"congenitales\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Tuméfactions Congénitales</h2>\n  </div>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>Kyste du Canal Thyréoglosse (Médian) :</strong> Tuméfaction médiane sous-hyoïdienne mobile à la déglutition et à la protraction de la langue. Risque de fistule ou d'infection. Traitement : Exérèse chirurgicale emportant le corps de l'os hyoïde (Opération de Sistrunk).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>Kyste Amygdaloïde / Branchial (Latéral) :</strong> Tuméfaction cervicale latérale sous-angulo-mandibulaire, remaniement du 2ème arc branchial. Rénitente, s'infectant souvent lors d'épisodes d'angines.\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Le kyste du canal thyréoglosse est la cause la plus fréquente des tuméfactions cervicales médianes congénitales de l'enfant.</li><li>• Une masse cervicale latérale fixe, dure chez l'adulte = Bilan d'extension VADS complet sous panendoscopie.</li><li>• L'exérèse du kyste du canal thyréoglosse nécessite la résection du corps de l'os hyoïde (Sistrunk) pour éviter la récidive.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_oreille_externe",
+      "slug": "pathologies-de-l-oreille-externe",
+      "title": "5. Pathologies de l'Oreille Externe & Otite Externe Maligne",
+      "subtitle": "Otite externe aiguë diffuse, Pseudomonas aeruginosa, otite externe nécrosante maligne du diabétique, othématome, corps étrangers et bouchon de cérumen.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Otite externe aiguë diffuse, Pseudomonas aeruginosa, otite externe nécrosante maligne du diabétique, othématome, corps étrangers et bouchon de cérumen.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    5. Pathologies de l'Oreille Externe\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Otite externe diffuse, otite externe maligne nécrosante du diabétique, othématome et pathologies du conduit auditif externe.\n  </p>\n</div>\n\n<section id=\"diffuse\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Otite Externe Aiguë Diffuse</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Dermite infectieuse du conduit auditif externe (CAE), très fréquente en période estivale (baignade).\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200 text-xs mb-4\">\n    • <strong>Germes :</strong> <em>Pseudomonas aeruginosa</em> (pyocyanique) et <em>Staphylococcus aureus</em>.<br>\n    • <strong>Clinique :</strong> Otalgie très vive majorée par la pression du tragus et la traction du pavillon. Otoscopie : CAE sténosé, érythémateux et œdématié.<br>\n    • <strong>Traitement :</strong> Gouttes auriculaires antibiotiques et corticoïdes (Ofloxacine) + antalgiques per os. Pas d'antibiotiques systémiques dans la forme simple !\n  </div>\n</section>\n\n<section id=\"oem\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Otite Externe Maligne (Nécrosante)</h2>\n  </div>\n  <div class=\"p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 text-xs space-y-2\">\n    <div class=\"font-bold text-rose-900 dark:text-rose-200 text-sm\">🚨 Urgence Médicale du Diabétique Âgé :</div>\n    <p class=\"text-navy-700 dark:text-navy-300\">\n      Ostéomyélite progressive de la base du crâne (rocher) due à <em>Pseudomonas aeruginosa</em> chez le diabétique déséquilibré ou l'immunodéprimé.\n    </p>\n    <ul class=\"space-y-1 text-rose-950 dark:text-rose-100\">\n      <li>• <strong>Clinique :</strong> Otalgie insomniante rebelle aux antalgiques + otorrhée fétide + bourgeon charnu au plancher du CAE.</li>\n      <li>• <strong>Complication :</strong> Atteinte des nerfs crâniens à la base du crâne (paralysie faciale du VII, puis IX, X, XI).</li>\n      <li>• <strong>Diagnostic :</strong> TDM du rocher (lyse osseuse) et Scintigraphie osseuse au Technetium 99m / Gallium 67.</li>\n      <li>• <strong>Traitement :</strong> Hospitalisation + Ciprofloxacine IV haute dose + Céftazidime pendant 6 à 8 semaines.</li>\n    </ul>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Signe du tragus positif (douleur vive à la pression) = Otite externe aiguë.</li><li>• Otite externe résistante au traitement chez un diabétique âgé = Évoquer l'Otite Externe Maligne Nécrosante à Pseudomonas.</li><li>• L'othématome du pavillon nécessite une ponction/incision sous asepsie stricte pour éviter la nécrose du cartilage et l'oreille en chou-fleur.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_oma_complications",
+      "slug": "l-otite-moyenne-aigue-oma-et-complications",
+      "title": "6. L'Otite Moyenne Aiguë (OMA) & Complications",
+      "subtitle": "Physiopathologie de la trompe d'Eustache, stades otoscopiques (congestif, purulent collecté), germes (Pneumocoque PSD, Haemophilus), mastoïdite aiguë et paralysie faciale.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Physiopathologie de la trompe d'Eustache, stades otoscopiques (congestif, purulent collecté), germes (Pneumocoque PSD, Haemophilus), mastoïdite aiguë et paralysie faciale.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    6. L'Otite Moyenne Aiguë (OMA)\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Physiopathologie de la trompe d'Eustache, stades otoscopiques, germes et complications mastoïdiennes.\n  </p>\n</div>\n\n<section id=\"physiopath\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Physiopathologie & Germes</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    L'OMA est une infection aiguë de la muqueuse de la cavité tympanique, faisant suite à une rhinopharyngite virale par dysfonctionnement de la <strong>trompe d'Eustache</strong>.\n  </p>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mb-4\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200\">\n      <strong>Pneumocoque (Streptococcus pneumoniae) :</strong> 1ère cause. Souches de sensibilité diminuée à la pénicilline (PSD). Otalgie intense et fièvre élevée.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200\">\n      <strong>Haemophilus influenzae :</strong> 2ème cause. Associé fréquemment au <strong>syndrome otite-conjonctivite</strong>.\n    </div>\n  </div>\n</section>\n\n<section id=\"stades\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Stades Otoscopiques & Paracentèse</h2>\n  </div>\n  <div class=\"space-y-3 text-xs\">\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>1. Stade Congestif :</strong> Tympan hyperémié, relief du manche du marteau conservé. Traitement symptomatique (antalgiques). Pas d'antibiotiques d'emblée chez l'enfant > 2 ans peu symptomatique.\n    </div>\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200\">\n      <strong>2. Stade Purulent Collecté :</strong> Tympan opaque, bombé effaçant les reliefs osseux. Indication à l'Amoxicilline (80-90 mg/kg/j pendant 8-10 jours chez le nourrisson).<br>\n      <strong>Paracentèse :</strong> Indiquée si hyperalgie insomniante, fièvre élevée persistante sous traitement ou OMA chez le nourrisson &lt; 3 mois.\n    </div>\n  </div>\n</section>\n\n<section id=\"mastoidite\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">03</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Mastoïdite Aiguë (Complication Majeure)</h2>\n  </div>\n  <div class=\"p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 text-xs space-y-2\">\n    <div class=\"font-bold text-rose-900 dark:text-rose-200 text-sm\">🚨 Clinique de la Mastoïdite Aiguë :</div>\n    <p class=\"text-navy-700 dark:text-navy-300\">\n      Complication osseuse de l'OMA avec lyse des cellules mastoïdiennes.\n    </p>\n    <ul class=\"space-y-1 text-rose-950 dark:text-rose-100 font-semibold\">\n      <li>• Tuméfaction rétro-auriculaire douloureuse avec <strong>décollement du pavillon de l'oreille</strong> et comblement du sillon rétro-auriculaire.</li>\n      <li>• Chute de la paroi postérieure du CAE à l'otoscopie.</li>\n      <li>• CAT : TDM du rocher + Hospitalisation + Céfotaxime/Ceftriaxone IV + Paracentèse ou Mastoïdectomie si abcès sous-périosté.</li>\n    </ul>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Le syndrome Otite-Conjonctivite évoque en priorité une infection à Haemophilus influenzae.</li><li>• Décollement du pavillon de l'oreille + otalgie fébrile = Mastoïdite aiguë (Urgence hospitalière).</li><li>• L'OMA purulente du nourrisson de moins de 2 ans relève d'une antibiothérapie systématique par Amoxicilline.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_rhinosinusites",
+      "slug": "les-rhinosinusites-aigues-et-chroniques",
+      "title": "7. Les Rhinosinusites Aiguës et Chroniques",
+      "subtitle": "Sinusite maxillaire aiguë bactérienne, critères de prescription antibiotique, éthmoïdite aiguë du nourrisson, sinusite bloquée d'urgence et sinusites chroniques.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Sinusite maxillaire aiguë bactérienne, critères de prescription antibiotique, éthmoïdite aiguë du nourrisson, sinusite bloquée d'urgence et sinusites chroniques.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    7. Les Rhinosinusites Aiguës et Chroniques\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Diagnostic des sinusites maxillaires, éthmoïdite aiguë de l'enfant et sinusite bloquée d'urgence.\n  </p>\n</div>\n\n<section id=\"maxillaire\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Sinusite Maxillaire Aiguë Bactérienne</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    La majorité des rhinosinusites sont virales. La surinfection bactérienne maxillaire est affirmée devant au moins <strong>2 des 3 critères majeurs</strong> :\n  </p>\n  <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200 text-xs space-y-1 mb-4\">\n    <div>1. Augmentation des douleurs sous-orbitaires (unilatérales, pulsatiles, majorées la tête penchée en avant).</div>\n    <div>2. Modification de la rhinorrhée (devient purulente et unilatérale).</div>\n    <div>3. Persistance ou réaggravation de la fièvre au-delà de 3 jours d'évolution.</div>\n  </div>\n</section>\n\n<section id=\"ethmoidite\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Éthmoïdite Aiguë de l'Enfant (Urgence Pédiatrique)</h2>\n  </div>\n  <div class=\"p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 text-xs space-y-2\">\n    <div class=\"font-bold text-rose-900 dark:text-rose-200 text-sm\">🚨 Clinique de l'Éthmoïdite Aiguë :</div>\n    <p class=\"text-navy-700 dark:text-navy-300\">\n      Seule sinusite présente dès la naissance (le sinus éthmoïdal est le seul développé chez le nouveau-né).\n    </p>\n    <ul class=\"space-y-1 text-rose-950 dark:text-rose-100 font-semibold\">\n      <li>• Œdème palpébral médial unilatéral douloureux fébrile (&gt; 39°C) chez l'enfant.</li>\n      <li>• <em>Stade d'accès orbitaire :</em> Phlegmon orbitaire (exophtalmie, ophtalmoplégie, mydriase) = Urgence chirurgicale absolue !</li>\n      <li>• CAT : TDM massif facial + Cefotaxime IV + Vancomycine + Avis ophtalmo & ORL d'urgence.</li>\n    </ul>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• L'éthmoïdite aiguë est la seule sinusite du nourrisson et du jeune enfant (sinus présent dès la naissance).</li><li>• Une sinusite bloquée hyperalgique nécessite une ponction ou un drainage chirurgical en urgence.</li><li>• L'apparition d'une exophtalmie ou d'un déficit oculomoteur au cours d'une éthmoïdite signe la complication orbitaire.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_corps_etrangers",
+      "slug": "corps-etrangers-en-orl",
+      "title": "8. Corps Étrangers en ORL & Syndrome de Pénétration",
+      "subtitle": "Syndrome de pénétration laringo-trachéal, corps étrangers bronchiques, manœuvre de Heimlich / Mofenson, endoscopie rigide et corps étrangers nasaux/auriculaires.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Syndrome de pénétration laringo-trachéal, corps étrangers bronchiques, manœuvre de Heimlich / Mofenson, endoscopie rigide et corps étrangers nasaux/auriculaires.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    8. Corps Étrangers en ORL\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Syndrome de pénétration, inhalation de corps étrangers chez l'enfant, manœuvres d'urgence et corps étrangers nasaux.\n  </p>\n</div>\n\n<section id=\"penetration\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Le Syndrome de Pénétration Laryngo-Trachéal</h2>\n  </div>\n  <div class=\"p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 text-xs space-y-2\">\n    <div class=\"font-bold text-rose-900 dark:text-rose-200 text-sm\">🚨 Événement Inaugural Pathognomonique :</div>\n    <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed\">\n      Accès de suffocation brutal et dramatique avec toux quinteuse expulsive, cyanose, et frayeur chez un enfant (6 mois à 3 ans) qui jouait ou mangeait (cacahuète).\n    </p>\n    <div class=\"p-3 rounded-xl bg-rose-100 dark:bg-rose-900/50 font-bold text-rose-950 dark:text-rose-100\">\n      ⚡ RÈGLE ABSOLUE : Tout syndrome de pénétration raconté par les parents impose une <strong>Endoscopie Trachéo-Bronchique au tube rigide sous AG</strong> même si l'examen clinique et la radio sont normaux !\n    </div>\n  </div>\n</section>\n\n<section id=\"cat\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Conduite à Tenir d'Urgence (Heimlich vs Mofenson)</h2>\n  </div>\n  <div class=\"space-y-3 text-xs\">\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200\">\n      <strong>Si Obstruction Totale (Suffocation sans aucun bruit) :</strong><br>\n      • Nourrisson &lt; 2 ans : Manœuvre de <strong>Mofenson</strong> (5 claques dorsales puis 5 compressions sternales).<br>\n      • Enfant &gt; 2 ans / Adulte : Manœuvre de <strong>Heimlich</strong> (compressions épigastriques).\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>Si Obstruction Partielle (Toux efficace, enfant qui parle/pleure) :</strong><br>\n      <strong class=\"text-rose-600\">NE JAMAIS FAIRE DE MANŒUVRE DE HEIMLICH OU MOFENSON !</strong> Risque de déplacer le corps étranger et d'enclaver la glotte. Respecter la position spontanée et transférer au bloc d'ORL.\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Un syndrome de pénétration rapporté à l'interrogatoire impose l'endoscopie rigide systématique.</li><li>• Ne jamais effectuer de manœuvre d'expulsion (Heimlich/Mofenson) si la toux est efficace et l'enfant respire.</li><li>• Rhinorrhée unilatérale fétide purulente chez l'enfant = Corps étranger nasal méconnu.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_omc_cholesteatome",
+      "slug": "les-otites-moyennes-chroniques-omc-et-cholesteatome",
+      "title": "9. Les Otites Moyennes Chroniques (OMC) & Cholestéatome",
+      "subtitle": "OMC à tympan ouvert non dangereuse vs OMC cholestéatomateuse dangereuse, lyse osseuse, signe de la fistule, otorrhée fétide et tympanoplastie.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "OMC à tympan ouvert non dangereuse vs OMC cholestéatomateuse dangereuse, lyse osseuse, signe de la fistule, otorrhée fétide et tympanoplastie.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    9. Les Otites Moyennes Chroniques (OMC)\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    OMC simple non dangereuse vs Cholestéatome destructeur d'os, signe de la fistule et traitement chirurgical.\n  </p>\n</div>\n\n<section id=\"cholesteatome\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Le Cholestéatome (OMC Dangereuse)</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Le <strong>cholestéatome</strong> est la présence d’éco-système d’épithélium malpighien kératinisé dans la cavité tympanique. C'est une OMC \"dangereuse\" en raison de son pouvoir d'<strong>ostéolyse enzymatique progressive</strong> des structures osseuses du rocher.\n  </p>\n  <div class=\"p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 text-xs space-y-2 mb-4\">\n    <div class=\"font-bold text-rose-900 dark:text-rose-200 text-sm\">🔍 Otoscopie & Clinique :</div>\n    <ul class=\"space-y-1 text-navy-700 dark:text-navy-300\">\n      <li>• <strong>Otorrhée fétide</strong> minime mais permanente + Surdité de transmission progressive.</li>\n      <li>• Otoscopie : <strong>Perforation marginale atticale</strong> (pars flaccida) avec des squames blanchâtres (perles de cholestéatome).</li>\n      <li>• <strong>Signe de la fistule (Nystagmus à la pression du tragus) :</strong> Traduit la lyse du canal semi-circulaire externe (risque de labyrinthe).</li>\n    </ul>\n  </div>\n</section>\n\n<section id=\"traitement\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Traitement Chirurgical Systematique</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Le traitement du cholestéatome est <strong>exclusivement chirurgical</strong> : Tympanoplastie d'exérèse avec tympanotomie postérieure et évidement petro-mastoïdien pour éradiquer la totalité du sac cholestéatomateux.\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Toute perforation tympanique marginale atticale avec squames blanchâtres = Cholestéatome jusqu'à preuve du contraire.</li><li>• Le signe de la fistule positif traduit une érosion osseuse du canal semi-circulaire externe par le cholestéatome.</li><li>• Le traitement du cholestéatome est exclusivement chirurgical.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_diagnostic_surdites",
+      "slug": "diagnostic-des-surdites",
+      "title": "10. Diagnostic des Surdités (Transmission vs Perception)",
+      "subtitle": "Acoumétrie (Rinne & Weber), audiométrie tonale/vocale, surdité de transmission (Otospongiose) vs surdité de perception (Presbyacousie, Neurinome du VIII).",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Acoumétrie (Rinne & Weber), audiométrie tonale/vocale, surdité de transmission (Otospongiose) vs surdité de perception (Presbyacousie, Neurinome du VIII).",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    10. Diagnostic des Surdités\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Acoumétrie au diapason (Rinne & Weber), audiométrie, otospongiose, presbyacousie et neurinome du VIII.\n  </p>\n</div>\n\n<section id=\"acoumetrie\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Acoumétrie au Diapason (Rinne & Weber)</h2>\n  </div>\n\n  <div class=\"overflow-x-auto mb-6 rounded-2xl border border-slate-200 dark:border-navy-700 shadow-sm\">\n    <table class=\"w-full text-left text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 text-navy-900 dark:text-white font-bold\">\n        <tr>\n          <th class=\"p-3\">Type de Surdité</th>\n          <th class=\"p-3\">Épreuve de Weber (Diapason au vertex)</th>\n          <th class=\"p-3\">Épreuve de Rinne (VA vs VB)</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-200 dark:divide-navy-700 text-navy-700 dark:text-navy-300\">\n        <tr class=\"hover:bg-slate-50 dark:hover:bg-navy-900/40\">\n          <td class=\"p-3 font-bold text-indigo-600\">Surdité de Transmission (Oreille externe / moyenne)</td>\n          <td class=\"p-3 font-bold text-indigo-700\">Latéralisé du côté MALADE (Lésé)</td>\n          <td class=\"p-3 font-bold text-rose-600\">Rinne NÉGATIF (Conduction Osseuse &gt; Conduction Aérienne)</td>\n        </tr>\n        <tr class=\"hover:bg-slate-50 dark:hover:bg-navy-900/40\">\n          <td class=\"p-3 font-bold text-purple-600\">Surdité de Perception (Cochlée / Nerf VIII)</td>\n          <td class=\"p-3 font-bold text-purple-700\">Latéralisé du côté SAIN</td>\n          <td class=\"p-3 font-bold text-emerald-600\">Rinne POSITIF (Conduction Aérienne &gt; Conduction Osseuse)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"etiologies\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Étiologies Principales</h2>\n  </div>\n  <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200\">\n      <strong>Otospongiose (Transmission à tympan normal) :</strong> Dystrophie osseuse de la capsule labyrinthique ankylosant l'étrier dans la fenêtre ovale. Femme jeune, héréditaire, aggravée par les grossesses. Traitement : Stapédotomie avec prothèse.\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200\">\n      <strong>Neurinome du VIII (Perception rétro-cochléaire) :</strong> Schwannome du nerf vestibulaire. Surdité de perception unilatérale progressive avec acouphènes et baisse de la sélectivité vocale. IRM de l'angle pontocérébelleux impérative !\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Weber latéralisé du côté malade + Rinne négatif (VB > VA) = Surdité de transmission.</li><li>• Surdité de transmission progressive à tympan normal chez une femme jeune = Otospongiose.</li><li>• Toute surdité de perception unilatérale de l'adulte impose une IRM de l'angle ponto-cérébelleux pour éliminer un Neurinome du VIII.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_diagnostic_vertiges",
+      "slug": "diagnostic-des-vertiges",
+      "title": "11. Diagnostic des Vertiges & Syndromes Vestibulaires",
+      "subtitle": "Syndrome vestibulaire périphérique harmonieux vs central dysharmonieux, VPPB (Dix-Hallpike & Epley), Névrite vestibulaire, Maladie de Menière et examen HINTS d'urgence.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Syndrome vestibulaire périphérique harmonieux vs central dysharmonieux, VPPB (Dix-Hallpike & Epley), Névrite vestibulaire, Maladie de Menière et examen HINTS d'urgence.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    11. Diagnostic des Vertiges\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Syndrome vestibulaire périphérique harmonieux vs central dysharmonieux, VPPB, Menière et névrite vestibulaire.\n  </p>\n</div>\n\n<section id=\"syndromes\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Périphérique (Harmonieux) vs Central (Dysharmonieux)</h2>\n  </div>\n\n  <div class=\"overflow-x-auto mb-6 rounded-2xl border border-slate-200 dark:border-navy-700 shadow-sm\">\n    <table class=\"w-full text-left text-xs\">\n      <thead class=\"bg-slate-100 dark:bg-navy-800 text-navy-900 dark:text-white font-bold\">\n        <tr>\n          <th class=\"p-3\">Signe Clinique</th>\n          <th class=\"p-3 text-indigo-600\">Syndrome Vestibulaire Périphérique</th>\n          <th class=\"p-3 text-rose-600\">Syndrome Vestibulaire Central</th>\n        </tr>\n      </thead>\n      <tbody class=\"divide-y divide-slate-200 dark:divide-navy-700 text-navy-700 dark:text-navy-300\">\n        <tr>\n          <td class=\"p-3 font-bold\">Harmonie</td>\n          <td class=\"p-3 font-bold text-indigo-700\">HARMONIEUX (Toutes les déviations se font dans le même sens)</td>\n          <td class=\"p-3 font-bold text-rose-700\">DYSHARMONIEUX (Déviations incohérentes)</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold\">Nystagmus</td>\n          <td class=\"p-3\">Horizonto-rotatoire, unidirectionnel, battant du côté SAIN</td>\n          <td class=\"p-3 font-bold text-rose-600\">Vertical pur, rotatoire pur ou multidirectionnel</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold\">Fixation visuelle</td>\n          <td class=\"p-3\">Inhibe le nystagmus</td>\n          <td class=\"p-3 font-bold\">N'inhibe PAS le nystagmus</td>\n        </tr>\n        <tr>\n          <td class=\"p-3 font-bold\">Signes cochléaires</td>\n          <td class=\"p-3 text-emerald-700 font-semibold\">Fréquents (Acouphènes, hypoacousie)</td>\n          <td class=\"p-3 font-semibold text-rose-700\">Absents (Associé à des signes neurologiques du tronc)</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n\n<section id=\"pathologies\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Grands Tableaux Étiologiques Périphériques</h2>\n  </div>\n  <div class=\"grid grid-cols-1 md:grid-cols-3 gap-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200\">\n      <strong>VPPB (Vertige Positionnel Paroxystique Bénin) :</strong> Vertige rotatoire bref (&lt; 1 min) déclenché par les changements de position de la tête (otholithes dans le canal postérieur). Diagnostic : Manœuvre de <strong>Dix-Hallpike</strong>. Traitement : Manœuvre libératoire d'<strong>Epley</strong>.\n    </div>\n    <div class=\"p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200\">\n      <strong>Maladie de Menière (Hydrops endolymphatique) :</strong> Triade paroxystique : Vertige rotatoire durant quelques heures + Acouphènes + Hypoacousie fluctuante sur les fréquences graves. Traitement de crise (Tanganil/Avis de repos) & fond (Bétahistine).\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200\">\n      <strong>Névrite Vestibulaire :</strong> Grand vertige rotatoire aigu brutal durant plusieurs jours sans aucun signe cochléaire (audition normale). Origine virale probable.\n    </div>\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• Nystagmus vertical pur ou multidirectionnel non inhibé par la fixation = Vertige Central (Urgence Neurologique / AVC).</li><li>• Vertige rotatoire très bref lors du lever/coucher déclenché par la manœuvre de Dix-Hallpike = VPPB (Traitement par manœuvre d'Epley).</li><li>• La triade vertige rotatoire + acouphènes + hypoacousie fluctuante définit la Maladie de Menière.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_dyspnees_laryngees",
+      "slug": "dyspnees-laryngees",
+      "title": "12. Dyspnées Laryngées Aiguës et Chroniques",
+      "subtitle": "Dyspnée inspiratoire avec stridor et tirage, épiglottite aiguë à Haemophilus de l'enfant (urgence vitale), laryngite striduleuse, cancer du larynx de l'adulte et indications de la trachéotomie.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Dyspnée inspiratoire avec stridor et tirage, épiglottite aiguë à Haemophilus de l'enfant (urgence vitale), laryngite striduleuse, cancer du larynx de l'adulte et indications de la trachéotomie.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    12. Dyspnées Laryngées Aiguës et Chroniques\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Bradypnée inspiratoire avec stridor et tirage, épiglottite aiguë d'urgence et cancer du larynx.\n  </p>\n</div>\n\n<section id=\"triade\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Triade Diagnostique de la Dyspnée Laryngée</h2>\n  </div>\n  <div class=\"p-5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/20 border border-indigo-200 text-xs space-y-2 mb-4\">\n    <div class=\"font-bold text-indigo-900 dark:text-indigo-200 text-sm\">🫁 Triade Pathognomonique de l'Obstruction Laryngée :</div>\n    <ul class=\"space-y-1 text-navy-700 dark:text-navy-300\">\n      <li>• 1. <strong>Bradypnée Inspiratoire</strong> (allongement du temps inspiratoire).</li>\n      <li>• 2. <strong>Stridor</strong> (bruit inspiratoire aigu ou cornage).</li>\n      <li>• 3. <strong>Tirage</strong> (dépression sus-sternale, intercostale et creux sus-claviculaire).</li>\n    </ul>\n  </div>\n</section>\n\n<section id=\"epiglottite\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Épiglottite Aiguë (Urgence Pédiatrique Vitale)</h2>\n  </div>\n  <div class=\"p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 text-xs space-y-2\">\n    <div class=\"font-bold text-rose-900 dark:text-rose-200 text-sm\">🚨 Clinique de l'Épiglottite Aiguë (Haemophilus influenzae B) :</div>\n    <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed\">\n      Infection bactérienne fulminante du larynx supraglottique chez l'enfant de 2 à 6 ans.\n    </p>\n    <ul class=\"space-y-1.5 text-rose-950 dark:text-rose-100 font-semibold\">\n      <li>• <strong>Position assise penchée en avant</strong>, tête en hyperextension, refus d'être allongé.</li>\n      <li>• Dysphagie majeure avec <strong>ptyalisme / hypersialorrhée</strong> (l'enfant ne peut plus avaler sa salive) et voix étouffée.</li>\n      <li>• <strong class=\"text-rose-700\">CONTRE-INDICATION ABSOLUE À L'EXAMEN À L'ABAISSE-LANGUE !</strong> Risk d'arrêt cardiorespiratoire réflexe immédiat par spasme glottique !</li>\n      <li>• CAT : Transfert médicalisé au bloc opératoire + Intubation nasotrachéale sous contrôle vidéo + Céfotaxime IV.</li>\n    </ul>\n  </div>\n</section>\n\n<section id=\"adulte\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">03</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">Dyspnée Laryngée Chronique de l'Adulte</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Toute <strong>dysphonie chronique &gt; 3 semaines</strong> chez un adulte alcoolo-tabagique impose un examen nasofibroscopique pour éliminer un <strong>Carcinome épidermoïde du larynx</strong> (corde vocale).\n  </p>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• La dyspnée laryngée associe une bradypnée inspiratoire, un stridor et un tirage sus-sternal.</li><li>• Devant une suspicion d'épiglottite aiguë (enfant assis penché en avant qui bave), l'examen à l'abaisse-langue est STRICTEMENT CONTRE-INDIQUÉ !</li><li>• Toute dysphonie durant plus de 3 semaines chez l'adulte alcoolo-tabagique impose la nasofibroscopie pour éliminer un cancer du larynx.</li>\n    </ul>\n  </div>\n</section>\n",
+      "createdAt": "2026-09-30T00:00:00.000Z",
+      "updatedAt": "2026-09-30T00:00:00.000Z"
+    },
+    {
+      "id": "cours_orl_rhinopharyngites_angines",
+      "slug": "rhinopharyngites-et-angines-de-l-adulte-et-de-l-enfant",
+      "title": "13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant",
+      "subtitle": "Diagnostic clinique, Score de Mac Isaac, TDR, Angines spécifiques (Diphtérie, MNI, Vincent, Syphilis), Syndrome de Lemierre et Complications Post-Streptococciques.",
+      "specialtyId": "orl",
+      "specialtyName": "Oto-Rhino-Laryngologie (ORL)",
+      "author": "Pr. M. Belhadj / Dr S. ACHOUR",
+      "authorTitle": "Chef de Service & PHU en ORL",
+      "description": "Diagnostic clinique, Score de Mac Isaac, TDR, Angines spécifiques (Diphtérie, MNI, Vincent, Syphilis), Syndrome de Lemierre et Complications Post-Streptococciques.",
+      "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
+      "difficulty": "Incontournable",
+      "faculty": "TOUS",
+      "rang": "Rang A",
+      "estimatedDuration": "40 min",
+      "tags": [
+        "ORL",
+        "Résidanat",
+        "4ème Année"
+      ],
+      "accessLevel": "FREE",
+      "published": true,
+      "viewsCount": 1250,
+      "likesCount": 180,
+      "qcmCount": 8,
+      "tableOfContents": [
+        {
+          "id": "intro",
+          "title": "1. Physiopathologie & Épidémiologie",
+          "level": 1
+        },
+        {
+          "id": "clinique",
+          "title": "2. Examen Clinique & Formes",
+          "level": 1
+        },
+        {
+          "id": "points-cles",
+          "title": "3. Points Clés & Pièges Concours",
+          "level": 1
+        }
+      ],
+      "htmlContent": "\n<div class=\"p-6 mb-8 rounded-3xl bg-gradient-to-r from-indigo-900 via-navy-900 to-purple-900 text-white shadow-xl border border-indigo-700/50\">\n  <div class=\"flex flex-wrap items-center justify-between gap-4 border-b border-indigo-700/60 pb-4 mb-4\">\n    <div class=\"flex items-center gap-3\">\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/40\">Programme Officiel ORL 4ème Année</span>\n      <span class=\"px-3 py-1 text-xs font-bold rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/40\">Résidanat & Concours</span>\n    </div>\n    <div class=\"text-xs text-indigo-200\">\n      Auteur : <strong>Pr. M. Belhadj / Dr S. ACHOUR</strong> (Faculté de Médecine) | Durée : <strong>40 min</strong>\n    </div>\n  </div>\n  <h1 class=\"text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2\">\n    13. Rhinopharyngites et Angines de l'Adulte et de l'Enfant\n  </h1>\n  <p class=\"text-xs sm:text-sm text-indigo-100 leading-relaxed max-w-4xl\">\n    Diagnostic clinique, Score de Mac Isaac, TDR, Diphtérie, MNI, Vincent, Lemierre et Traitements.\n  </p>\n</div>\n\n<section id=\"rhinopharyngite\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-lg\">01</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">I. Rhinopharyngites Aiguës de l'Enfant et de l'Adulte</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    La <strong>rhinopharyngite aiguë</strong> est une inflammation infectieuse de la muqueuse des fosses nasales et du pharynx, d'origine 100% virale (Rhinovirus, VRS, Adénovirus). L'évolution est spontanément favorable en 7 à 10 jours. Pas d'antibiothérapie !\n  </p>\n</section>\n\n<section id=\"angines-definition\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 font-bold text-lg\">02</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">II. Angines Aiguës : Épidémiologie & Étiologies</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    L'angine se définit par une inflammation aiguë des amygdales palatines. 60-80% sont virales et 20-40% sont dues au Streptocoque Bêta-Hémolytique du Groupe A (SBHA) entre 3 et 15 ans.\n  </p>\n</section>\n\n<section id=\"angines-classification\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">03</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">III. Formes Cliniques & Diagnostic Différentiel</h2>\n  </div>\n  <div class=\"space-y-4 text-xs\">\n    <div class=\"p-4 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200\">\n      <strong>Diphtérie (Corynebacterium diphtheriae) :</strong> Urgence vitale ! Fausses membranes adhérentes nacrées extensives. Isolement + Sérothérapie + Pénicilline V.\n    </div>\n    <div class=\"p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200\">\n      <strong>Mononucléose Infectieuse (MNI / EBV) :</strong> Enduit pultacé non adhérent, amygdales obstructives, poly-ADP, splénomégalie. <strong class=\"text-rose-600\">Amoxicilline CONTRE-INDIQUÉE (rash cutané dans 90% des cas) !</strong>\n    </div>\n    <div class=\"p-4 rounded-xl bg-slate-50 dark:bg-navy-900 border border-slate-200\">\n      <strong>Angine de Vincent :</strong> Association fuso-spirillaire chez le sujet jeune à mauvaise hygiène dentaire. Ulcération unilatérale profonde souple avec haleine fétide.\n    </div>\n  </div>\n</section>\n\n<section id=\"mac-isaac\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-bold text-lg\">04</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">IV. Score de Mac Isaac & TDR</h2>\n  </div>\n  <p class=\"text-navy-700 dark:text-navy-300 leading-relaxed mb-4 text-sm\">\n    Si score de Mac Isaac &ge; 2 &rarr; Réaliser TDR (Sensibilité &gt; 90%, Spécificité 97,8%). Si TDR (+) &rarr; Amoxicilline pendant 6 jours.\n  </p>\n</section>\n\n<section id=\"complications\" class=\"mb-12\">\n  <div class=\"flex items-center gap-3 mb-4 border-b border-slate-200 dark:border-navy-800 pb-3\">\n    <span class=\"p-2.5 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold text-lg\">05</span>\n    <h2 class=\"text-2xl font-bold text-navy-900 dark:text-white\">V. Complications Loco-Régionales & Syndrome de Lemierre</h2>\n  </div>\n  <div class=\"p-4 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 text-xs\">\n    <strong>Syndrome de Lemierre (Fusobacterium necrophorum) :</strong> Thrombophlébite de la veine jugulaire interne + emboles septiques pulmonaires excavés. Diagnostic : TDM cervico-thoracique injecté.\n  </div>\n</section>\n\n<section id=\"points-cles\" class=\"mb-12\">\n  <div class=\"p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-navy-900 to-purple-950 text-white shadow-xl space-y-4 border border-indigo-700/50\">\n    <div class=\"flex items-center gap-3 text-amber-400 font-bold text-base border-b border-indigo-800/80 pb-2\">\n      📌 POINTS CLÉS & PIÈGES AU CONCOURS RÉSIDANAT\n    </div>\n    <ul class=\"text-xs text-indigo-100 space-y-2.5 leading-relaxed\">\n      <li>• L'Amoxicilline est strictement contre-indiquée dans la mononucléose infectieuse (déclenche un rash cutané étendu chez 90% des patients).</li><li>• Angine de Vincent = Ulcération unilatérale profonde souple due à l'association fuso-spirillaire.</li><li>• Syndrome de Lemierre = Thrombophlébite de la VJI + emboles septiques pulmonaires à Fusobacterium necrophorum.</li>\n    </ul>\n  </div>\n</section>\n",
       "createdAt": "2026-09-30T00:00:00.000Z",
       "updatedAt": "2026-09-30T00:00:00.000Z"
     }
