@@ -426,13 +426,24 @@ class DatabaseStore {
     return this.data.courses[idx];
   }
 
+  public getDeletedCourseIds(): string[] {
+    return this.data.deletedCourseIds || [];
+  }
+
+  public getDeletedSpecialtyIds(): string[] {
+    return this.data.deletedSpecialtyIds || [];
+  }
+
   public deleteCourse(id: string): boolean {
     if (!this.data.deletedCourseIds) this.data.deletedCourseIds = [];
+    const course = this.data.courses.find(c => c.id === id || c.slug === id);
     if (!this.data.deletedCourseIds.includes(id)) {
       this.data.deletedCourseIds.push(id);
     }
-    const prevLen = this.data.courses.length;
-    this.data.courses = this.data.courses.filter(c => c.id !== id);
+    if (course && course.slug && !this.data.deletedCourseIds.includes(course.slug)) {
+      this.data.deletedCourseIds.push(course.slug);
+    }
+    this.data.courses = this.data.courses.filter(c => c.id !== id && c.slug !== id && (course ? c.slug !== course.slug : true));
     this.updateSpecialtyCounts();
     this.updateCourseQcmCounts();
     this.save();

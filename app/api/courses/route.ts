@@ -155,7 +155,14 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    let courses = Array.from(coursesMap.values());
+    const deletedCourseIds = db.getDeletedCourseIds();
+    const deletedSpecialtyIds = db.getDeletedSpecialtyIds();
+
+    let courses = Array.from(coursesMap.values()).filter(c =>
+      !deletedCourseIds.includes(c.id) &&
+      !deletedCourseIds.includes(c.slug) &&
+      !deletedSpecialtyIds.includes(c.specialtyId)
+    );
 
     if (slug) {
       courses = courses.filter(c => matchesCourse(c, slug));

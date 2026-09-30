@@ -92,9 +92,13 @@ async function syncCourseToSupabase(course: Course) {
   }
 }
 
-async function deleteCourseFromSupabase(id: string) {
+async function deleteCourseFromSupabase(id: string, slug?: string) {
   try {
     await supabaseAdmin.from('courses').delete().eq('id', id);
+    if (slug) {
+      await supabaseAdmin.from('courses').delete().eq('slug', slug);
+    }
+    await supabaseAdmin.from('courses').delete().or(`id.eq.${id},slug.eq.${id}`);
   } catch (err) {
     console.error('[Supabase Sync] Course delete error:', err);
   }
@@ -135,7 +139,14 @@ export async function GET(req: Request) {
     }
   }
 
-  const allCourses = Array.from(coursesMap.values());
+  const deletedCourseIds = db.getDeletedCourseIds();
+  const deletedSpecialtyIds = db.getDeletedSpecialtyIds();
+
+  const allCourses = Array.from(coursesMap.values()).filter(c =>
+    !deletedCourseIds.includes(c.id) &&
+    !deletedCourseIds.includes(c.slug) &&
+    !deletedSpecialtyIds.includes(c.specialtyId)
+  );
 
   if (id) {
     const course = allCourses.find(c => c.id === id);
@@ -178,8 +189,10 @@ export async function POST(req: Request) {
     }
 
     if (action === 'delete') {
+      const course = db.getCourseById(body.id) || db.getCourseBySlug(body.id);
+      const slug = course?.slug;
       const deleted = db.deleteCourse(body.id);
-      await deleteCourseFromSupabase(body.id);
+      await deleteCourseFromSupabase(body.id, slug);
       return NextResponse.json({ success: deleted });
     }
 
@@ -318,6 +331,39 @@ export async function PUT(req: Request) {
     }
 
     return NextResponse.json({ success: true, course: updated });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const currentUser = await getCurrentUser();
+    const sessionCookie = (req as any).cookies?.get?.('asmedix_session')?.value;
+    if (!currentUser && !sessionCookie) {
+      return NextResponse.json({ error: 'Accès non autorisé' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    let id = searchParams.get('id');
+
+    if (!id && req.headers.get('content-type')?.includes('application/json')) {
+      try {
+        const body = await req.json();
+        id = body.id;
+      } catch (_) {}
+    }
+
+    if (!id) {
+      return NextResponse.json({ error: 'ID du cours manquant' }, { status: 400 });
+    }
+
+    const course = db.getCourseById(id) || db.getCourseBySlug(id);
+    const slug = course?.slug;
+    const deleted = db.deleteCourse(id);
+    await deleteCourseFromSupabase(id, slug);
+
+    return NextResponse.json({ success: deleted });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }

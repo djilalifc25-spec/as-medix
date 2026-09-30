@@ -1352,7 +1352,7 @@ export const AppSidebar: React.FC = () => {
                   .filter(s => !deletedFichesSpecialtyIds.includes(s.id) && (faculty === 'TOUS' || !s.faculty || s.faculty === 'TOUS' || s.faculty === faculty))
                   .map(spec => {
                     const isFicheSpecOpen = activeFicheSpec === spec.id;
-                    const specFiches = fichesList.filter(f => f.specialtyId === spec.id);
+                    const specFiches = fichesList.filter(f => f.specialtyId === spec.id || (f as any).specialty_id === spec.id);
 
                     return (
                       <div key={spec.id} className="space-y-0.5">
