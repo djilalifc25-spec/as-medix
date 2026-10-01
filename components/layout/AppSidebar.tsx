@@ -22,7 +22,7 @@ import {
   BookOpen, Zap, Brain, Siren, Calculator, FileText, Stethoscope,
   Activity, Pill, Heart, FlaskConical, Sparkles, BarChart3,
   MessageCircle, Home, Target, PlayCircle, Bell, School, Folder, Calendar,
-  SlidersHorizontal, Play, Check, RefreshCw, Search
+  SlidersHorizontal, Play, Search
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { matchQcmToSource } from '@/lib/sourceUtils';
@@ -196,20 +196,16 @@ export const AppSidebar: React.FC = () => {
     router.push(`/qcm-session?${p.toString()}`);
   };
 
-  const viewFilteredInHub = () => {
-    if (!filterModalSpec) return;
-    const srcStr = (fmSrcMode === 'CUSTOM' && !fmSources.includes('TOUS')) ? fmSources.join(',') : 'TOUS';
-    const p = new URLSearchParams({
-      specialty: filterModalSpec,
-      ...(fmCourseId ? { course: fmCourseId } : {}),
-      ...(srcStr !== 'TOUS' ? { source: srcStr } : {}),
-      ...(fmHyper ? { hyper: 'true' } : {}),
-      ...(fmStatus !== 'ALL' ? { status: fmStatus } : {}),
-    });
-    setFilterModalSpec(null);
-    if (isMobileOpen) setMobileOpen(false);
-    router.push(`/qcm?${p.toString()}`);
-  };
+  // Lock background website scrolling when filter popup window is open
+  useEffect(() => {
+    if (filterModalSpec) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [filterModalSpec]);
 
   const fetchDynamicData = useCallback(async () => {
     try {
@@ -599,7 +595,7 @@ export const AppSidebar: React.FC = () => {
         {isMobileOpen && (
           <div className="lg:hidden fixed inset-0 z-[70] flex animate-fade-in">
             <div onClick={() => setMobileOpen(false)} className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" />
-            <div className="relative w-[90vw] sm:w-80 max-w-[340px] h-full p-2 sm:p-2.5 z-10 flex flex-col"
+            <div className="relative w-[92vw] sm:w-[350px] max-w-[360px] h-full p-2 sm:p-2.5 z-10 flex flex-col overflow-hidden"
               style={{ paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0px))', paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 0px))' }}>
               {renderSidebarContent(true)}
             </div>
@@ -610,7 +606,7 @@ export const AppSidebar: React.FC = () => {
   }
 
   // =========================================================================
-  // 2. EXPANDED SIDEBAR CONTENT (w-72)
+  // 2. EXPANDED SIDEBAR CONTENT (w-80)
   // =========================================================================
   function renderSidebarContent(isMobile: boolean = false) {
     return (
@@ -658,7 +654,7 @@ export const AppSidebar: React.FC = () => {
         </div>
 
         {/* Scrollable Navigation Body */}
-        <div suppressHydrationWarning className="flex-1 overflow-y-auto py-3 px-3 space-y-1.5 scrollbar-thin">
+        <div suppressHydrationWarning className="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2.5 sm:px-3 space-y-1.5 scrollbar-thin touch-pan-y">
           
           {/* Dashboard Item */}
           <Link
@@ -1010,11 +1006,11 @@ export const AppSidebar: React.FC = () => {
 
                               return (
                                 <div key={`qcm_spec_${spec.id}`} className="space-y-0.5">
-                                  <div className="flex items-center gap-1">
+                                  <div className="flex items-center gap-1.5 w-full min-w-0">
                                     {/* Specialty expand button */}
                                     <button
                                       onClick={() => setActiveQcmSpec(isSpecOpen ? null : spec.id)}
-                                      className={`flex-1 flex items-center justify-between gap-1 px-1.5 sm:px-2 py-1 rounded-md text-[11px] font-semibold text-left transition-all ${
+                                      className={`flex-1 min-w-0 flex items-center justify-between gap-1.5 px-2 py-1.5 rounded-lg text-[11px] font-semibold text-left transition-all ${
                                         isSpecOpen
                                           ? 'bg-iris-100/70 dark:bg-iris-950 text-[#5D5FEF] font-bold'
                                           : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
@@ -1032,14 +1028,14 @@ export const AppSidebar: React.FC = () => {
                                       </div>
                                     </button>
 
-                                    {/* 🎛️ Filtre button */}
+                                    {/* 🎛️ Filtre button - clearly visual, prominent badge */}
                                     <button
                                       type="button"
                                       onClick={e => { e.stopPropagation(); openFilterModal(spec.id); }}
                                       title={`Filtrer les QCMs de ${spec.name}`}
-                                      className="shrink-0 flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-black bg-[#5D5FEF]/10 hover:bg-[#5D5FEF] text-[#5D5FEF] hover:text-white border border-[#5D5FEF]/30 hover:border-[#5D5FEF] transition-all cursor-pointer shadow-2xs"
+                                      className="shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-black bg-[#5D5FEF] text-white hover:bg-[#4a4cd6] shadow-xs active:scale-95 transition-all cursor-pointer"
                                     >
-                                      <SlidersHorizontal className="w-2.5 h-2.5" />
+                                      <SlidersHorizontal className="w-3 h-3 text-white shrink-0" />
                                       <span>Filtre</span>
                                     </button>
                                   </div>
@@ -1263,11 +1259,11 @@ export const AppSidebar: React.FC = () => {
 
                             return (
                               <div key={`qcm_spec_${spec.id}`} className="space-y-0.5">
-                                <div className="flex items-center gap-1">
+                                <div className="flex items-center gap-1.5 w-full min-w-0">
                                   {/* Specialty expand button */}
                                   <button
                                     onClick={() => setActiveQcmSpec(isSpecOpen ? null : spec.id)}
-                                    className={`flex-1 flex items-center justify-between gap-1 px-1.5 sm:px-2 py-1 rounded-md text-[11px] font-semibold text-left transition-all ${
+                                    className={`flex-1 min-w-0 flex items-center justify-between gap-1.5 px-2 py-1.5 rounded-lg text-[11px] font-semibold text-left transition-all ${
                                       isSpecOpen
                                         ? 'bg-iris-100/70 dark:bg-iris-950 text-[#5D5FEF] font-bold'
                                         : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
@@ -1285,14 +1281,14 @@ export const AppSidebar: React.FC = () => {
                                     </div>
                                   </button>
 
-                                  {/* 🎛️ Filtre button */}
+                                  {/* 🎛️ Filtre button - clearly visual, prominent badge */}
                                   <button
                                     type="button"
                                     onClick={e => { e.stopPropagation(); openFilterModal(spec.id); }}
                                     title={`Filtrer les QCMs de ${spec.name}`}
-                                    className="shrink-0 flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-black bg-[#5D5FEF]/10 hover:bg-[#5D5FEF] text-[#5D5FEF] hover:text-white border border-[#5D5FEF]/30 hover:border-[#5D5FEF] transition-all cursor-pointer shadow-2xs"
+                                    className="shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-black bg-[#5D5FEF] text-white hover:bg-[#4a4cd6] shadow-xs active:scale-95 transition-all cursor-pointer"
                                   >
-                                    <SlidersHorizontal className="w-2.5 h-2.5" />
+                                    <SlidersHorizontal className="w-3 h-3 text-white shrink-0" />
                                     <span>Filtre</span>
                                   </button>
                                 </div>
@@ -1997,7 +1993,7 @@ export const AppSidebar: React.FC = () => {
   // =========================================================================
   return (
     <>
-      <aside className="hidden lg:flex w-72 flex-col fixed top-0 left-0 bottom-0 z-30 p-2.5 transition-all duration-300">
+      <aside className="hidden lg:flex w-80 flex-col fixed top-0 left-0 bottom-0 z-30 p-2.5 transition-all duration-300">
         {renderSidebarContent(false)}
       </aside>
 
@@ -2006,7 +2002,7 @@ export const AppSidebar: React.FC = () => {
         <div className="lg:hidden fixed inset-0 z-[70] flex animate-fade-in">
           <div onClick={() => setMobileOpen(false)} className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" />
           <div
-            className="relative w-[90vw] sm:w-80 max-w-[340px] h-full p-2 sm:p-2.5 z-10 flex flex-col"
+            className="relative w-[92vw] sm:w-[350px] max-w-[360px] h-full p-2 sm:p-2.5 z-10 flex flex-col overflow-hidden"
             style={{ paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0px))', paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 0px))' }}
           >
             {renderSidebarContent(true)}
@@ -2019,11 +2015,11 @@ export const AppSidebar: React.FC = () => {
       {/* ═══════════════════════════════════════════════════════════ */}
       {filterModalSpec && (
         <div
-          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-150"
+          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-150 overflow-hidden"
           onClick={e => { if (e.target === e.currentTarget) setFilterModalSpec(null); }}>
 
           <div
-            className="w-full sm:max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200"
+            className="w-full sm:max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col max-h-[90vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200 overflow-hidden"
             role="dialog" aria-modal="true">
 
             {/* Modal Header */}
@@ -2048,8 +2044,8 @@ export const AppSidebar: React.FC = () => {
               </button>
             </div>
 
-            {/* Modal body */}
-            <div className="overflow-y-auto flex-1 p-4 space-y-4 scrollbar-thin">
+            {/* Modal body - smoothly scrollable */}
+            <div className="overflow-y-auto overscroll-contain flex-1 p-4 sm:p-5 space-y-4 scrollbar-thin touch-pan-y">
 
               {/* ── Section 1: Périmètre (Tout le module vs Par cours) ── */}
               <section className="space-y-2">
@@ -2182,7 +2178,7 @@ export const AppSidebar: React.FC = () => {
             </div>{/* end modal body */}
 
             {/* Modal footer */}
-            <div className="shrink-0 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3.5">
+            <div className="shrink-0 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3.5 sm:p-4">
               {/* Live counter */}
               <div className="flex items-center gap-2 mb-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
                 <span className={`w-2 h-2 rounded-full shrink-0 ${fmPreviewCount > 0 ? 'bg-emerald-500 animate-pulse' : 'bg-rose-400'}`} />
@@ -2192,22 +2188,13 @@ export const AppSidebar: React.FC = () => {
                 </span>
               </div>
 
-              {/* Action buttons */}
-              <div className="flex flex-col gap-2">
-                <button type="button" onClick={() => viewFilteredInHub()}
-                  className="w-full py-2.5 rounded-xl bg-[#5D5FEF] hover:bg-[#4340C4] text-white text-[11px] font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
-                  disabled={fmPreviewCount === 0}>
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Voir les QCMs dans le Hub ({fmPreviewCount})</span>
-                </button>
-
-                <button type="button" onClick={launchFilteredSession}
-                  disabled={fmPreviewCount === 0}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-[11px] font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed">
-                  <Play className="w-3.5 h-3.5 fill-white" />
-                  <span>🚀 Lancer l'Épreuve Directement</span>
-                </button>
-              </div>
+              {/* Action button: Direct Launch */}
+              <button type="button" onClick={launchFilteredSession}
+                disabled={fmPreviewCount === 0}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs sm:text-sm font-black shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.99]">
+                <Play className="w-4 h-4 fill-white" />
+                <span>🚀 Lancer l'Épreuve Directement ({fmPreviewCount} QCM)</span>
+              </button>
             </div>
 
           </div>

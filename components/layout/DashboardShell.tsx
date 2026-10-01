@@ -29,7 +29,7 @@ function DashboardShellInner({
       {/* Main Content Area properly offset from fixed sidebar on desktop */}
       <div
         className={`flex flex-col flex-1 pb-24 lg:pb-8 min-w-0 transition-all duration-300 ease-in-out ${
-          isCollapsed ? 'lg:ml-20' : 'lg:ml-72'
+          isCollapsed ? 'lg:ml-20' : 'lg:ml-80'
         }`}
       >
         <AppTopNav user={user} />
