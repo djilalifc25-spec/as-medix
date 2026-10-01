@@ -21,8 +21,11 @@ import {
   ChevronRight, ChevronDown, ChevronLeft, PanelLeftClose, PanelLeftOpen, X,
   BookOpen, Zap, Brain, Siren, Calculator, FileText, Stethoscope,
   Activity, Pill, Heart, FlaskConical, Sparkles, BarChart3,
-  MessageCircle, Home, Target, PlayCircle, Bell, School, Folder, Calendar
+  MessageCircle, Home, Target, PlayCircle, Bell, School, Folder, Calendar,
+  SlidersHorizontal, Play, Check, RefreshCw, Search
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { matchQcmToSource } from '@/lib/sourceUtils';
 
 const MEDICAL_YEARS = [
   { year: 1, name: '1ère Année', cycle: 'PCEM 1', label: '1ère Année (PCEM1)' },
@@ -37,6 +40,7 @@ export const AppSidebar: React.FC = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentSpecialtyParam = searchParams.get('specialty');
+  const router = useRouter();
 
   const { isCollapsed, toggleCollapsed, setCollapsed, isMobileOpen, setMobileOpen } = useSidebar();
   const { faculty, setFaculty } = useFaculty();
@@ -79,6 +83,133 @@ export const AppSidebar: React.FC = () => {
   const [deletedFichesSpecialtyIds, setDeletedFichesSpecialtyIds] = useState<string[]>([]);
   const [catsList, setCatsList] = useState<CATProtocol[]>(INITIAL_CAT);
   const [adminSources, setAdminSources] = useState<{ specialty?: string; course?: string; faculty?: string; sources: string[]; structuredSources?: StructuredSource[] }[]>([]);
+
+  // ── Filter modal state ──
+  const [filterModalSpec, setFilterModalSpec] = useState<string | null>(null);
+  const [fmCourseId,   setFmCourseId]   = useState<string>('');
+  const [fmSrcMode,    setFmSrcMode]    = useState<'SYSTEM'|'CUSTOM'>('SYSTEM');
+  const [fmSources,    setFmSources]    = useState<string[]>(['TOUS']);
+  const [fmHyper,      setFmHyper]      = useState<boolean>(false);
+  const [fmStatus,     setFmStatus]     = useState<'ALL'|'UNSOLVED'|'CORRECT'|'WRONG'>('ALL');
+  const [fmSearch,     setFmSearch]     = useState<string>('');
+  const [fmAvailSrcs,  setFmAvailSrcs]  = useState<string[]>([]);
+
+  const openFilterModal = (specId: string) => {
+    setFilterModalSpec(specId);
+    setFmCourseId('');
+    setFmSrcMode('SYSTEM');
+    setFmSources(['TOUS']);
+    setFmHyper(false);
+    setFmStatus('ALL');
+    setFmSearch('');
+    fetch(`/api/admin/sources?specialty=${encodeURIComponent(specId)}${faculty !== 'TOUS' ? `&faculty=${faculty}` : ''}`)
+      .then(r => r.json())
+      .then(d => { if (d.sources && Array.isArray(d.sources)) setFmAvailSrcs(d.sources); })
+      .catch(() => {});
+  };
+
+  // Reload sources when course or spec changes inside modal
+  useEffect(() => {
+    if (!filterModalSpec) return;
+    const params = new URLSearchParams();
+    params.set('specialty', filterModalSpec);
+    if (fmCourseId) params.set('course', fmCourseId);
+    if (faculty !== 'TOUS') params.set('faculty', faculty);
+    fetch(`/api/admin/sources?${params}`)
+      .then(r => r.json())
+      .then(d => { if (d.sources && Array.isArray(d.sources)) setFmAvailSrcs(d.sources); })
+      .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterModalSpec, fmCourseId, faculty]);
+
+  const fmPreviewCount = React.useMemo(() => {
+    if (!filterModalSpec) return 0;
+    return qcmsList.filter(q => {
+      if ((q.specialtyId || '').toLowerCase() !== filterModalSpec.toLowerCase()) return false;
+      if (fmCourseId) {
+        const crs = coursesList.find(c => c.id === fmCourseId);
+        const qC = (q.courseId || '').toLowerCase();
+        const qT = (q.courseTitle || '').toLowerCase();
+        const ok = qC === fmCourseId.toLowerCase() || qT === fmCourseId.toLowerCase() ||
+          (crs && (qC === crs.id.toLowerCase() || (crs.title && qT === crs.title.toLowerCase())));
+        if (!ok) return false;
+      }
+      if (faculty !== 'TOUS') {
+        const qF = (q.faculty || 'TOUS').toUpperCase();
+        if (qF !== 'TOUS' && qF !== faculty.toUpperCase()) return false;
+      }
+      if (fmSrcMode === 'CUSTOM' && !fmSources.includes('TOUS')) {
+        if (!fmSources.some(s => matchQcmToSource(q, s))) return false;
+      }
+      if (fmHyper && !q.isHyperProbable) return false;
+      if (fmSearch.trim()) {
+        const t = fmSearch.toLowerCase().trim();
+        const str = `${q.question || ''} ${q.vignette || ''} ${q.source || ''}`.toLowerCase();
+        if (!str.includes(t)) return false;
+      }
+      return true;
+    }).length;
+  }, [filterModalSpec, fmCourseId, fmSrcMode, fmSources, fmHyper, fmSearch, qcmsList, coursesList, faculty]);
+
+  const fmSpecialty = React.useMemo(() =>
+    specialtiesList.find(s => s.id === filterModalSpec),
+    [specialtiesList, filterModalSpec]
+  );
+
+  const fmCourses = React.useMemo(() =>
+    coursesList.filter(c => c.specialtyId === filterModalSpec &&
+      (faculty === 'TOUS' || !c.faculty || c.faculty === 'TOUS' || c.faculty === faculty)),
+    [coursesList, filterModalSpec, faculty]
+  );
+
+  const fmHyperCount = React.useMemo(() =>
+    qcmsList.filter(q => q.specialtyId === filterModalSpec && q.isHyperProbable).length,
+    [qcmsList, filterModalSpec]
+  );
+
+  const toggleFmSource = (src: string) => {
+    if (src === 'TOUS') { setFmSrcMode('SYSTEM'); setFmSources(['TOUS']); return; }
+    setFmSrcMode('CUSTOM');
+    setFmSources(prev => {
+      const without = prev.filter(s => s !== 'TOUS' && s !== src);
+      if (prev.includes(src)) return without.length === 0 ? ['TOUS'] : without;
+      return [...without, src];
+    });
+  };
+
+  const launchFilteredSession = () => {
+    if (!filterModalSpec || fmPreviewCount === 0) return;
+    const spec = fmSpecialty;
+    const crs  = coursesList.find(c => c.id === fmCourseId);
+    const srcStr = (fmSrcMode === 'CUSTOM' && !fmSources.includes('TOUS')) ? fmSources.join(',') : 'TOUS';
+    const p = new URLSearchParams({
+      specialty: filterModalSpec,
+      course: fmCourseId,
+      source: srcStr,
+      faculty,
+      specialtyName: spec?.name || filterModalSpec,
+      courseName: crs?.title || fmCourseId,
+      ...(fmHyper ? { hyper: 'true' } : {}),
+    });
+    setFilterModalSpec(null);
+    if (isMobileOpen) setMobileOpen(false);
+    router.push(`/qcm-session?${p.toString()}`);
+  };
+
+  const viewFilteredInHub = () => {
+    if (!filterModalSpec) return;
+    const srcStr = (fmSrcMode === 'CUSTOM' && !fmSources.includes('TOUS')) ? fmSources.join(',') : 'TOUS';
+    const p = new URLSearchParams({
+      specialty: filterModalSpec,
+      ...(fmCourseId ? { course: fmCourseId } : {}),
+      ...(srcStr !== 'TOUS' ? { source: srcStr } : {}),
+      ...(fmHyper ? { hyper: 'true' } : {}),
+      ...(fmStatus !== 'ALL' ? { status: fmStatus } : {}),
+    });
+    setFilterModalSpec(null);
+    if (isMobileOpen) setMobileOpen(false);
+    router.push(`/qcm?${p.toString()}`);
+  };
 
   const fetchDynamicData = useCallback(async () => {
     try {
@@ -879,25 +1010,39 @@ export const AppSidebar: React.FC = () => {
 
                               return (
                                 <div key={`qcm_spec_${spec.id}`} className="space-y-0.5">
-                                  <button
-                                    onClick={() => setActiveQcmSpec(isSpecOpen ? null : spec.id)}
-                                    className={`w-full flex items-center justify-between gap-1 px-1.5 sm:px-2 py-1 rounded-md text-[11px] font-semibold text-left transition-all ${
-                                      isSpecOpen
-                                        ? 'bg-iris-100/70 dark:bg-iris-950 text-[#5D5FEF] font-bold'
-                                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                                      <span className="text-xs shrink-0">{getSpecialtyEmoji(spec.id)}</span>
-                                      <span className="truncate">{spec.name}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1 shrink-0 ml-1">
-                                      <span className="text-[10px] text-slate-400 font-mono font-bold whitespace-nowrap">
-                                        {specCount}
-                                      </span>
-                                      {isSpecOpen ? <ChevronDown className="w-2.5 h-2.5 text-[#5D5FEF] shrink-0" /> : <ChevronRight className="w-2.5 h-2.5 text-slate-400 shrink-0" />}
-                                    </div>
-                                  </button>
+                                  <div className="flex items-center gap-1">
+                                    {/* Specialty expand button */}
+                                    <button
+                                      onClick={() => setActiveQcmSpec(isSpecOpen ? null : spec.id)}
+                                      className={`flex-1 flex items-center justify-between gap-1 px-1.5 sm:px-2 py-1 rounded-md text-[11px] font-semibold text-left transition-all ${
+                                        isSpecOpen
+                                          ? 'bg-iris-100/70 dark:bg-iris-950 text-[#5D5FEF] font-bold'
+                                          : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                                      }`}
+                                    >
+                                      <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                                        <span className="text-xs shrink-0">{getSpecialtyEmoji(spec.id)}</span>
+                                        <span className="truncate">{spec.name}</span>
+                                      </div>
+                                      <div className="flex items-center gap-1 shrink-0 ml-1">
+                                        <span className="text-[10px] text-slate-400 font-mono font-bold whitespace-nowrap">
+                                          {specCount}
+                                        </span>
+                                        {isSpecOpen ? <ChevronDown className="w-2.5 h-2.5 text-[#5D5FEF] shrink-0" /> : <ChevronRight className="w-2.5 h-2.5 text-slate-400 shrink-0" />}
+                                      </div>
+                                    </button>
+
+                                    {/* 🎛️ Filtre button */}
+                                    <button
+                                      type="button"
+                                      onClick={e => { e.stopPropagation(); openFilterModal(spec.id); }}
+                                      title={`Filtrer les QCMs de ${spec.name}`}
+                                      className="shrink-0 flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-black bg-[#5D5FEF]/10 hover:bg-[#5D5FEF] text-[#5D5FEF] hover:text-white border border-[#5D5FEF]/30 hover:border-[#5D5FEF] transition-all cursor-pointer shadow-2xs"
+                                    >
+                                      <SlidersHorizontal className="w-2.5 h-2.5" />
+                                      <span>Filtre</span>
+                                    </button>
+                                  </div>
 
                                   {/* Level 3: Totalité du Module vs Par Cours */}
                                   {isSpecOpen && (() => {
@@ -1118,25 +1263,39 @@ export const AppSidebar: React.FC = () => {
 
                             return (
                               <div key={`qcm_spec_${spec.id}`} className="space-y-0.5">
-                                <button
-                                  onClick={() => setActiveQcmSpec(isSpecOpen ? null : spec.id)}
-                                  className={`w-full flex items-center justify-between gap-1 px-1.5 sm:px-2 py-1 rounded-md text-[11px] font-semibold text-left transition-all ${
-                                    isSpecOpen
-                                      ? 'bg-iris-100/70 dark:bg-iris-950 text-[#5D5FEF] font-bold'
-                                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                                    <span className="text-xs shrink-0">{getSpecialtyEmoji(spec.id)}</span>
-                                    <span className="truncate">{spec.name}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1 shrink-0 ml-1">
-                                    <span className="text-[9px] text-slate-400 font-mono font-bold whitespace-nowrap">
-                                      {specCount}
-                                    </span>
-                                    {isSpecOpen ? <ChevronDown className="w-2.5 h-2.5 text-[#5D5FEF] shrink-0" /> : <ChevronRight className="w-2.5 h-2.5 text-slate-400 shrink-0" />}
-                                  </div>
-                                </button>
+                                <div className="flex items-center gap-1">
+                                  {/* Specialty expand button */}
+                                  <button
+                                    onClick={() => setActiveQcmSpec(isSpecOpen ? null : spec.id)}
+                                    className={`flex-1 flex items-center justify-between gap-1 px-1.5 sm:px-2 py-1 rounded-md text-[11px] font-semibold text-left transition-all ${
+                                      isSpecOpen
+                                        ? 'bg-iris-100/70 dark:bg-iris-950 text-[#5D5FEF] font-bold'
+                                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                                      <span className="text-xs shrink-0">{getSpecialtyEmoji(spec.id)}</span>
+                                      <span className="truncate">{spec.name}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1 shrink-0 ml-1">
+                                      <span className="text-[9px] text-slate-400 font-mono font-bold whitespace-nowrap">
+                                        {specCount}
+                                      </span>
+                                      {isSpecOpen ? <ChevronDown className="w-2.5 h-2.5 text-[#5D5FEF] shrink-0" /> : <ChevronRight className="w-2.5 h-2.5 text-slate-400 shrink-0" />}
+                                    </div>
+                                  </button>
+
+                                  {/* 🎛️ Filtre button */}
+                                  <button
+                                    type="button"
+                                    onClick={e => { e.stopPropagation(); openFilterModal(spec.id); }}
+                                    title={`Filtrer les QCMs de ${spec.name}`}
+                                    className="shrink-0 flex items-center gap-0.5 px-1.5 py-1 rounded-md text-[9px] font-black bg-[#5D5FEF]/10 hover:bg-[#5D5FEF] text-[#5D5FEF] hover:text-white border border-[#5D5FEF]/30 hover:border-[#5D5FEF] transition-all cursor-pointer shadow-2xs"
+                                  >
+                                    <SlidersHorizontal className="w-2.5 h-2.5" />
+                                    <span>Filtre</span>
+                                  </button>
+                                </div>
 
                                 {isSpecOpen && (() => {
                                   const moduleStructuredSources = getStructuredModuleSources(spec.id);
@@ -1854,6 +2013,207 @@ export const AppSidebar: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {/* INTELLIGENT FILTER POPUP MODAL                              */}
+      {/* ═══════════════════════════════════════════════════════════ */}
+      {filterModalSpec && (
+        <div
+          className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-150"
+          onClick={e => { if (e.target === e.currentTarget) setFilterModalSpec(null); }}>
+
+          <div
+            className="w-full sm:max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[85vh] animate-in slide-in-from-bottom-4 sm:zoom-in-95 duration-200"
+            role="dialog" aria-modal="true">
+
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800 shrink-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#5D5FEF] flex items-center justify-center shrink-0 shadow-xs">
+                  <SlidersHorizontal className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span>🎛️ Filtrer :</span>
+                    <span className="text-[#5D5FEF]">{fmSpecialty?.name || filterModalSpec}</span>
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    <span className="font-black text-[#5D5FEF]">{fmPreviewCount}</span> QCMs correspondent
+                  </div>
+                </div>
+              </div>
+              <button type="button" onClick={() => setFilterModalSpec(null)}
+                className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+                <X className="w-3.5 h-3.5 text-slate-500" />
+              </button>
+            </div>
+
+            {/* Modal body */}
+            <div className="overflow-y-auto flex-1 p-4 space-y-4 scrollbar-thin">
+
+              {/* ── Section 1: Périmètre (Tout le module vs Par cours) ── */}
+              <section className="space-y-2">
+                <label className="block text-[10px] font-black uppercase text-slate-400 tracking-wider">
+                  📖 Périmètre
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button type="button" onClick={() => setFmCourseId('')}
+                    className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                      !fmCourseId
+                        ? 'bg-[#5D5FEF]/10 border-[#5D5FEF] ring-2 ring-[#5D5FEF]/20 shadow-xs'
+                        : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-[#5D5FEF]/50'
+                    }`}>
+                    <div className="text-[11px] font-black text-slate-900 dark:text-white">🌐 Tout le Module</div>
+                    <div className="text-[9px] text-slate-500 mt-0.5">
+                      {fmSpecialty?.name} · {qcmsList.filter(q => q.specialtyId === filterModalSpec).length} QCMs
+                    </div>
+                  </button>
+                  <button type="button"
+                    onClick={() => { if (fmCourses[0] && !fmCourseId) setFmCourseId(fmCourses[0].id); }}
+                    className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                      fmCourseId
+                        ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-400 ring-2 ring-indigo-400/20 shadow-xs'
+                        : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-indigo-400/50'
+                    }`}>
+                    <div className="text-[11px] font-black text-slate-900 dark:text-white">📘 Par Cours</div>
+                    <div className="text-[9px] text-slate-500 mt-0.5">{fmCourses.length} cours disponibles</div>
+                  </button>
+                </div>
+
+                {fmCourseId && (
+                  <select value={fmCourseId} onChange={e => setFmCourseId(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-indigo-200 dark:border-indigo-700 bg-indigo-50/50 dark:bg-slate-900 text-slate-900 dark:text-white font-bold text-[11px] cursor-pointer animate-in fade-in duration-150">
+                    {fmCourses.map(c => {
+                      const n = qcmsList.filter(q => q.courseId === c.id).length;
+                      return <option key={c.id} value={c.id}>📖 {c.title} ({n} QCMs)</option>;
+                    })}
+                  </select>
+                )}
+              </section>
+
+              {/* ── Section 2: Sources ── */}
+              <section className="space-y-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
+                    📚 Sources
+                  </label>
+                  <div className="flex items-center gap-2 text-[10px] font-bold">
+                    <button type="button" onClick={() => { setFmSrcMode('CUSTOM'); setFmSources([...fmAvailSrcs]); }}
+                      className="text-[#5D5FEF] hover:underline cursor-pointer">Tout cocher</button>
+                    <span className="text-slate-300">•</span>
+                    <button type="button" onClick={() => { setFmSrcMode('SYSTEM'); setFmSources(['TOUS']); }}
+                      className="text-slate-400 hover:underline cursor-pointer">Tout décocher</button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-1.5">
+                  {/* All sources option */}
+                  <label className={`flex items-center gap-2 p-2 rounded-xl border text-[11px] font-bold cursor-pointer transition-all col-span-2 ${
+                    fmSrcMode === 'SYSTEM'
+                      ? 'bg-[#5D5FEF]/10 border-[#5D5FEF] text-[#5D5FEF]'
+                      : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-[#5D5FEF]/40'
+                  }`}>
+                    <input type="radio" checked={fmSrcMode === 'SYSTEM'} onChange={() => { setFmSrcMode('SYSTEM'); setFmSources(['TOUS']); }}
+                      className="accent-[#5D5FEF] cursor-pointer" />
+                    <span>⚡ Toutes les sources (couverture exhaustive)</span>
+                  </label>
+
+                  {/* Individual sources */}
+                  {fmAvailSrcs.map(src => {
+                    const isChk = fmSrcMode === 'CUSTOM' && fmSources.includes(src);
+                    const cnt = qcmsList.filter(q => {
+                      const mS = q.specialtyId === filterModalSpec;
+                      const mC = !fmCourseId || q.courseId === fmCourseId;
+                      return mS && mC && matchQcmToSource(q, src);
+                    }).length;
+                    return (
+                      <label key={src}
+                        className={`flex items-center justify-between gap-1.5 p-2 rounded-xl border text-[10.5px] font-bold cursor-pointer transition-all select-none ${
+                          isChk
+                            ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-400 text-indigo-900 dark:text-indigo-200'
+                            : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-[#5D5FEF]/40'
+                        }`}>
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <input type="checkbox" checked={isChk} onChange={() => toggleFmSource(src)}
+                            className="w-3.5 h-3.5 accent-[#5D5FEF] cursor-pointer shrink-0" />
+                          <span className="truncate text-[10px]" title={src}>📁 {src}</span>
+                        </div>
+                        <span className="shrink-0 px-1 py-0.5 rounded-full text-[9px] font-mono bg-slate-100 dark:bg-slate-700 text-slate-500">{cnt}</span>
+                      </label>
+                    );
+                  })}
+
+                  {fmAvailSrcs.length === 0 && (
+                    <p className="col-span-2 text-[10px] text-slate-400 italic">Aucune source pour cette sélection.</p>
+                  )}
+                </div>
+              </section>
+
+              {/* ── Section 3: Hyper Probable ── */}
+              <section className="pt-1 border-t border-slate-100 dark:border-slate-800">
+                <label className="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-400/50 cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <span>🔥</span>
+                    <div>
+                      <div className="text-[11px] font-black text-amber-900 dark:text-amber-200">
+                        Hyper Probables Résidanat
+                      </div>
+                      <div className="text-[9px] text-amber-700/80 dark:text-amber-300/70">
+                        {fmHyperCount} questions clés disponibles
+                      </div>
+                    </div>
+                  </div>
+                  <input type="checkbox" checked={fmHyper} onChange={e => setFmHyper(e.target.checked)}
+                    className="w-4 h-4 accent-amber-500 cursor-pointer" />
+                </label>
+              </section>
+
+              {/* ── Section 4: Recherche mot-clé ── */}
+              <section className="pt-1 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
+                <label className="block text-[10px] font-black uppercase text-slate-400 tracking-wider">🔍 Recherche</label>
+                <div className="relative">
+                  <input type="text" value={fmSearch} onChange={e => setFmSearch(e.target.value)}
+                    placeholder="Mot-clé, ex: HTA, souffle systolique..."
+                    className="w-full pl-7 pr-3 py-2 text-[11px] rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 font-medium focus:ring-2 focus:ring-[#5D5FEF]/40 focus:border-[#5D5FEF]" />
+                  <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-2.5" />
+                </div>
+              </section>
+
+            </div>{/* end modal body */}
+
+            {/* Modal footer */}
+            <div className="shrink-0 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3.5">
+              {/* Live counter */}
+              <div className="flex items-center gap-2 mb-3 p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                <span className={`w-2 h-2 rounded-full shrink-0 ${fmPreviewCount > 0 ? 'bg-emerald-500 animate-pulse' : 'bg-rose-400'}`} />
+                <span className="text-[11px] font-black text-slate-900 dark:text-white">
+                  <strong className={`text-sm ${fmPreviewCount > 0 ? 'text-[#5D5FEF]' : 'text-rose-500'}`}>{fmPreviewCount}</strong>
+                  {' '}QCM(s) correspondent à vos critères
+                </span>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex flex-col gap-2">
+                <button type="button" onClick={() => viewFilteredInHub()}
+                  className="w-full py-2.5 rounded-xl bg-[#5D5FEF] hover:bg-[#4340C4] text-white text-[11px] font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                  disabled={fmPreviewCount === 0}>
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Voir les QCMs dans le Hub ({fmPreviewCount})</span>
+                </button>
+
+                <button type="button" onClick={launchFilteredSession}
+                  disabled={fmPreviewCount === 0}
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-[11px] font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <Play className="w-3.5 h-3.5 fill-white" />
+                  <span>🚀 Lancer l'Épreuve Directement</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </>
   );
 };
