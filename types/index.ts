@@ -89,6 +89,8 @@ export interface Course {
   tableOfContents?: { id: string; title: string; level: number }[];
   htmlContent?: string;
   summaryPoints?: string[];
+  pdfUrl?: string; // Direct PDF Link (Google Drive, Supabase, web URL)
+  isDirectPdf?: boolean; // When true, displays directly in fullscreen PDF viewer instead of presentation HTML
   createdAt?: string;
   updatedAt?: string;
 }
@@ -146,6 +148,7 @@ export interface QCM {
   tags: string[];
   accessLevel: PlanType;
   isHyperProbable?: boolean;
+  pdfUrl?: string; // Direct PDF link to original exam / sujet
 }
 
 export interface QCMAttempt {

@@ -139,7 +139,8 @@ export async function POST(req: NextRequest) {
         tags: tagsList,
         accessLevel: safeAccessLevel as any,
         year: year ? Number(year) as any : undefined,
-        isHyperProbable: isHyper
+        isHyperProbable: isHyper,
+        pdfUrl: q.pdfUrl ? String(q.pdfUrl) : undefined
       };
 
       // Add to local DB store
@@ -172,7 +173,8 @@ export async function POST(req: NextRequest) {
         reference: newQcm.reference ? String(newQcm.reference) : null,
         tags: Array.isArray(newQcm.tags) ? newQcm.tags : [finalSource, 'Extrait IA'],
         access_level: safeAccessLevel,
-        year: (newQcm.year && !isNaN(Number(newQcm.year))) ? Number(newQcm.year) : null
+        year: (newQcm.year && !isNaN(Number(newQcm.year))) ? Number(newQcm.year) : null,
+        pdf_url: newQcm.pdfUrl ? String(newQcm.pdfUrl) : null
       });
     }
 

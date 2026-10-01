@@ -8,11 +8,12 @@ import {
   ChevronLeft, ChevronRight, X, CheckCircle2, XCircle,
   RotateCcw, Award, BookOpen, Brain, Zap,
   HelpCircle, Flag, ChevronDown, Check, ArrowRight, Bell,
-  Eye, EyeOff, Sparkles, SlidersHorizontal, Lock, Crown
+  Eye, EyeOff, Sparkles, SlidersHorizontal, Lock, Crown, FileText
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CoursePreviewModal } from '@/components/qcm/CoursePreviewModal';
+import { DirectPdfViewer } from '@/components/study/DirectPdfViewer';
 import { StudyReminder, User } from '@/types';
 import { matchQcmToSource } from '@/lib/sourceUtils';
 
@@ -304,6 +305,7 @@ function SessionContent() {
   const [userReminders, setUserReminders] = useState<StudyReminder[]>([]);
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
   // Advanced Session State
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -724,6 +726,19 @@ function SessionContent() {
                   <BookOpen className="w-3 h-3 text-indigo-400" />
                   <span className="hidden sm:inline">📘 Voir Cours</span>
                 </button>
+
+                {/* Direct PDF original subject button */}
+                {qcm?.pdfUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setIsPdfModalOpen(true)}
+                    className="px-2 py-0.5 rounded-lg bg-rose-500/25 hover:bg-rose-500/35 text-rose-300 text-[10px] font-bold border border-rose-500/40 flex items-center gap-1 shrink-0 active:scale-95 cursor-pointer"
+                    title="Consulter le document / sujet PDF original d'examen"
+                  >
+                    <FileText className="w-3 h-3 text-rose-400" />
+                    <span>📄 Sujet PDF</span>
+                  </button>
+                )}
 
                 {targetCourseSlug && (
                   <Link
@@ -1150,6 +1165,18 @@ function SessionContent() {
                         <span>Fiche Synthèse</span>
                       </button>
 
+                      {qcm?.pdfUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setIsPdfModalOpen(true)}
+                          className="px-2.5 py-1 rounded-lg bg-rose-600/40 hover:bg-rose-600 text-white text-[10px] font-bold flex items-center gap-1 shadow-sm cursor-pointer border border-rose-400/30"
+                          title="Consulter le document / sujet PDF original d'examen"
+                        >
+                          <FileText className="w-3 h-3 text-rose-300" />
+                          <span>📄 Sujet PDF</span>
+                        </button>
+                      )}
+
                       {targetCourseSlug && (
                         <Link
                           href={`/cours/${targetCourseSlug}`}
@@ -1258,6 +1285,35 @@ function SessionContent() {
         specialtyName={specialtyName || (qcm as any)?.specialtyName}
         explanation={qcm?.explanation}
       />
+
+      {/* Direct PDF Modal (Original Sujet / Épreuve avec outils d'annotation) */}
+      {isPdfModalOpen && qcm?.pdfUrl && (
+        <div className="fixed inset-0 z-50 bg-black/90 flex flex-col animate-in fade-in duration-200">
+          <div className="h-12 bg-navy-950 border-b border-navy-800 flex items-center justify-between px-4 shrink-0">
+            <span className="text-xs font-bold text-white flex items-center gap-2">
+              <span className="text-rose-400">📄</span>
+              <span className="font-black text-rose-300">Sujet PDF Original :</span>
+              <span className="text-navy-300 font-normal truncate max-w-xs">{qcm.title || 'Examen'}</span>
+            </span>
+            <button
+              onClick={() => setIsPdfModalOpen(false)}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold transition-all cursor-pointer"
+            >
+              ✕ Fermer
+            </button>
+          </div>
+          <div className="flex-1 relative overflow-hidden">
+            <DirectPdfViewer
+              pdfUrl={qcm.pdfUrl}
+              courseTitle={qcm.title || 'Sujet PDF'}
+              specialtyName={specialtyName || qcm.specialtyName || 'Médecine'}
+              specialtyId={qcm.specialtyId}
+              courseId={qcm.courseId || qcm.id}
+              onBack={() => setIsPdfModalOpen(false)}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Reminder / Trap Modal */}
       {qcm && (

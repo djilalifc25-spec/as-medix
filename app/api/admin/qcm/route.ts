@@ -106,7 +106,8 @@ function mapSupabaseQcmToType(row: any): QCM {
       (Array.isArray(row.tags) && row.tags.includes('HYPER_PROBABLE_RESIDANAT')) ||
       row.is_hyper_probable ||
       row.isHyperProbable
-    )
+    ),
+    pdfUrl: row.pdf_url || row.pdfUrl || undefined
   };
 }
 
@@ -142,7 +143,8 @@ async function syncQcmToSupabase(qcm: QCM) {
       reference: qcm.reference ? String(qcm.reference) : null,
       tags: tagsArr,
       access_level: qcm.accessLevel ? String(qcm.accessLevel) : 'PRO',
-      year: (qcm.year && !isNaN(Number(qcm.year))) ? Number(qcm.year) : null
+      year: (qcm.year && !isNaN(Number(qcm.year))) ? Number(qcm.year) : null,
+      pdf_url: qcm.pdfUrl ? String(qcm.pdfUrl) : null
     };
 
     let activeClient = supabaseAdmin;

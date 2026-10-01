@@ -115,6 +115,8 @@ function mapSupabaseRowToCourse(row: any): Course {
       { id: 'sec-1', title: '1. Introduction', level: 1 }
     ],
     htmlContent: row.html_content || row.content || '<p>Contenu du cours...</p>',
+    pdfUrl: row.pdf_url || row.pdfUrl || undefined,
+    isDirectPdf: Boolean(row.is_direct_pdf ?? row.isDirectPdf),
     createdAt: row.created_at || new Date().toISOString(),
     updatedAt: row.updated_at || new Date().toISOString()
   };

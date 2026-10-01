@@ -744,6 +744,18 @@ function QcmHubContent() {
                               📘 {qcm.courseTitle}<ExternalLink className="w-2.5 h-2.5" />
                             </Link>
                           )}
+
+                          {qcm.pdfUrl && (
+                            <a
+                              href={qcm.pdfUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-0.5 rounded-lg text-[11px] font-black bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-100 flex items-center gap-1 transition-colors"
+                              title="Consulter le document / sujet PDF original"
+                            >
+                              📄 Sujet PDF
+                            </a>
+                          )}
                         </div>
                         <span className="text-[11px] font-bold text-navy-500 dark:text-navy-400">
                           {qcm.type === 'MULTIPLE' ? '☑️ Choix Multiple' : '🔘 Choix Simple'}

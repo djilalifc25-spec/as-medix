@@ -12,7 +12,7 @@ import { processCourseToc } from '@/lib/utils/tocExtractor';
 import {
   ArrowLeft, Clock, BookOpen, Brain, Sparkles, Maximize2, Minimize2,
   CheckCircle2, ChevronRight, X, List, Share2, Bookmark, Highlighter, Eye, EyeOff, Edit3, Save, Bell, AlertTriangle,
-  Play, ChevronDown, Search
+  Play, ChevronDown, Search, FileText
 } from 'lucide-react';
 import { useMemorization } from '@/lib/hooks/useMemorization';
 import { useFaculty } from '@/components/context/FacultyContext';
@@ -25,6 +25,7 @@ import { SpacedRepetitionModal } from '@/components/study/SpacedRepetitionModal'
 import { ReminderModal } from '@/components/study/ReminderModal';
 import { CourseNotesDrawer } from '@/components/study/CourseNotesDrawer';
 import { CourseSearchModal, SearchMatchResult } from '@/components/study/CourseSearchModal';
+import { DirectPdfViewer } from '@/components/study/DirectPdfViewer';
 import { SavedHighlight } from '@/lib/hooks/useMemorization';
 
 function normalizeSlug(str: string): string {
@@ -176,6 +177,7 @@ function applyUserHighlightsToHtml(
 function CourseDetailContent() {
   const params = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const slug = params.slug as string;
 
   const [course, setCourse] = useState<Course | null>(() => {
@@ -223,6 +225,16 @@ function CourseDetailContent() {
   }, []);
 
   const { setActiveSpecialtyId } = useSpecialtyTheme();
+
+  const [viewFormat, setViewFormat] = useState<'pdf' | 'presentation'>('presentation');
+
+  useEffect(() => {
+    if (course) {
+      if (course.isDirectPdf || (course.pdfUrl && (!course.htmlContent || course.htmlContent.length < 120))) {
+        setViewFormat('pdf');
+      }
+    }
+  }, [course]);
 
   useEffect(() => {
     if (course?.specialtyId) {
@@ -559,6 +571,23 @@ function CourseDetailContent() {
     notFound();
   }
 
+  // 📄 Direct PDF Fullscreen Viewer with Highlighter, Reminder & Study Tools
+  if (viewFormat === 'pdf' && course.pdfUrl) {
+    return (
+      <DirectPdfViewer
+        pdfUrl={course.pdfUrl}
+        courseTitle={course.title}
+        specialtyName={course.specialtyName}
+        specialtyId={course.specialtyId}
+        courseId={course.id}
+        qcmCount={course.qcmCount}
+        onBack={() => router.push('/cours')}
+        onSwitchToPresentation={course.htmlContent && course.htmlContent.length > 50 ? () => setViewFormat('presentation') : undefined}
+        hasPresentationFormat={Boolean(course.htmlContent && course.htmlContent.length > 50)}
+      />
+    );
+  }
+
   const fontSizeClass = {
     sm: 'text-sm leading-relaxed',
     base: 'text-base leading-relaxed',
@@ -693,6 +722,19 @@ function CourseDetailContent() {
                 <Bell className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                 <span className="hidden sm:inline text-[11px]">Rappel</span>
               </button>
+
+              {/* PDF Direct button if pdfUrl exists */}
+              {course.pdfUrl && (
+                <button
+                  type="button"
+                  onClick={() => setViewFormat('pdf')}
+                  className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-300 dark:border-purple-700/50 text-xs font-bold flex items-center gap-1 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
+                  title="Afficher le PDF original en plein écran avec surligneur et outils"
+                >
+                  <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                  <span className="hidden sm:inline text-[11px]">PDF Original</span>
+                </button>
+              )}
 
               {/* Font Size Selector */}
               <div className="hidden md:flex items-center border border-navy-200 dark:border-navy-700 rounded-xl overflow-hidden bg-white dark:bg-navy-900 shadow-xs">
@@ -888,6 +930,19 @@ function CourseDetailContent() {
               <Search className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
               <span className="hidden sm:inline text-[11px]">Rechercher</span>
             </button>
+
+            {/* PDF Direct button if pdfUrl exists */}
+            {course.pdfUrl && (
+              <button
+                type="button"
+                onClick={() => setViewFormat('pdf')}
+                className="px-3 py-1.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-300 dark:border-purple-700/50 text-xs font-bold flex items-center gap-1 transition-all shadow-xs active:scale-95 cursor-pointer shrink-0"
+                title="Afficher le document PDF original en plein écran avec surligneur et outils"
+              >
+                <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                <span className="hidden sm:inline">PDF Original</span>
+              </button>
+            )}
 
             {/* Fullscreen Mode Button - PROMINENT, STICKY & ALWAYS VISIBLE ON MOBILE WITHOUT SCROLLING */}
             <button

@@ -27,6 +27,7 @@ export interface ParsedQcmItem {
   year?: number;
   faculty?: 'ORAN' | 'SIDI_BEL_ABBES' | 'TOUS';
   accessLevel?: 'FREE' | 'PRO' | 'PREMIUM';
+  pdfUrl?: string;
 }
 
 /**

@@ -36,6 +36,8 @@ function mapSupabaseRowToCourse(row: any): Course {
       { id: 'sec-1', title: '1. Introduction', level: 1 }
     ],
     htmlContent: row.html_content || row.content || '<p>Contenu du cours...</p>',
+    pdfUrl: row.pdf_url || row.pdfUrl || undefined,
+    isDirectPdf: Boolean(row.is_direct_pdf ?? row.isDirectPdf),
     createdAt: row.created_at || new Date().toISOString(),
     updatedAt: row.updated_at || new Date().toISOString()
   };
@@ -72,7 +74,9 @@ async function syncCourseToSupabase(course: Course) {
       views_count: Number(course.viewsCount || 0),
       likes_count: Number(course.likesCount || 0),
       qcm_count: Number(course.qcmCount || 5),
-      table_of_contents: course.tableOfContents || []
+      table_of_contents: course.tableOfContents || [],
+      pdf_url: course.pdfUrl || null,
+      is_direct_pdf: Boolean(course.isDirectPdf)
     };
 
     const { error: fullError } = await supabaseAdmin.from('courses').upsert(fullPayload, { onConflict: 'id' });
@@ -260,6 +264,8 @@ export async function POST(req: Request) {
           accessLevel: body.accessLevel || existing.accessLevel,
           published: body.published !== undefined ? Boolean(body.published) : existing.published,
           year: body.year !== undefined ? (body.year ? Number(body.year) as any : undefined) : existing.year,
+          pdfUrl: body.pdfUrl !== undefined ? body.pdfUrl : existing.pdfUrl,
+          isDirectPdf: body.isDirectPdf !== undefined ? Boolean(body.isDirectPdf) : existing.isDirectPdf,
           htmlContent: body.htmlContent !== undefined ? autoFormatCourseHtml(body.htmlContent).htmlContent : existing.htmlContent,
           tableOfContents: (body.tableOfContents && body.tableOfContents.length > 0) ? body.tableOfContents : (body.htmlContent ? autoFormatCourseHtml(body.htmlContent).tableOfContents : existing.tableOfContents),
         });
@@ -296,6 +302,8 @@ export async function POST(req: Request) {
       tags: body.tags || ['Médecine', 'Résidanat'],
       accessLevel: body.accessLevel || 'FREE',
       published: body.published !== undefined ? Boolean(body.published) : true,
+      pdfUrl: body.pdfUrl || undefined,
+      isDirectPdf: Boolean(body.isDirectPdf),
       viewsCount: 0,
       likesCount: 0,
       qcmCount: 5,

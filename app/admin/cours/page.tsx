@@ -333,9 +333,16 @@ export default function AdminCoursesPage() {
                         </button>
                       </td>
                       <td className="p-4">
-                        <Link href={`/admin/cours/nouveau?id=${course.id}`} className="font-bold text-navy-900 dark:text-white text-sm hover:text-[#5D5FEF] transition-colors inline-block">
-                          {course.title}
-                        </Link>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <Link href={`/admin/cours/nouveau?id=${course.id}`} className="font-bold text-navy-900 dark:text-white text-sm hover:text-[#5D5FEF] transition-colors inline-block">
+                            {course.title}
+                          </Link>
+                          {course.pdfUrl && (
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase tracking-wider bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                              📄 PDF Direct
+                            </span>
+                          )}
+                        </div>
                         <div className="text-[11px] text-navy-400 truncate max-w-xs">{course.subtitle || course.slug}</div>
                       </td>
                       <td className="p-4 font-semibold">

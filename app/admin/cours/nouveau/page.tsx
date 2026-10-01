@@ -44,6 +44,8 @@ function CourseEditorContent() {
   const [accessLevel, setAccessLevel] = useState<'FREE' | 'PRO' | 'PREMIUM'>('FREE');
   const [tagsInput, setTagsInput] = useState('Urgences, Diagnostic, Algérie');
   const [isPublished, setIsPublished] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState('');
+  const [isDirectPdf, setIsDirectPdf] = useState(false);
 
   // Editor Display Mode: 'code' | 'split' | 'preview'
   const [viewMode, setViewMode] = useState<'code' | 'split' | 'preview'>('split');
@@ -359,6 +361,30 @@ ${textContent.substring(0, 90000)}`;
     };
   };
 
+  const handleUseDirectPdf = () => {
+    if (!aiPdfUrl.trim()) {
+      setAiError("Veuillez saisir ou coller l'URL du fichier PDF.");
+      return;
+    }
+    const cleanUrl = aiPdfUrl.trim();
+    setPdfUrl(cleanUrl);
+    setIsDirectPdf(true);
+
+    // Auto generate clean title if empty
+    if (!title.trim()) {
+      const rawName = cleanUrl.split('?')[0];
+      const extracted = rawName.substring(rawName.lastIndexOf('/') + 1).replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ');
+      if (extracted && extracted.length > 3) {
+        setTitle(extracted.charAt(0).toUpperCase() + extracted.slice(1));
+      } else {
+        setTitle('Cours PDF');
+      }
+    }
+
+    setSuccessNotice("📄 Mode PDF Direct configuré ! Le cours s'affichera directement en lecteur PDF Plein Écran avec le surligneur, bouton rappel et outils d'étude sans altération de mise en page.");
+    setAiModalOpen(false);
+  };
+
   const handleRunAi = async () => {
     if (aiInputType === 'text' && !aiRawInput.trim()) {
       setAiError('Veuillez coller le texte ou le code HTML brut du cours à analyser.');
@@ -600,6 +626,8 @@ ${textContent.substring(0, 90000)}`;
         setAccessLevel(c.accessLevel || 'FREE');
         setTagsInput(Array.isArray(c.tags) ? c.tags.join(', ') : (c.tags || ''));
         setIsPublished(Boolean(c.published));
+        setPdfUrl(c.pdfUrl || '');
+        setIsDirectPdf(Boolean(c.isDirectPdf));
         setHtmlContent(c.htmlContent || defaultTemplate);
         setCurrentSlug(c.slug || '');
       } catch (err: any) {
@@ -715,6 +743,8 @@ ${textContent.substring(0, 90000)}`;
         accessLevel,
         tags,
         published: publishNow,
+        pdfUrl: pdfUrl.trim() || undefined,
+        isDirectPdf,
         htmlContent: finalHtml,
       };
 
@@ -1145,6 +1175,75 @@ ${textContent.substring(0, 90000)}`;
                 placeholder="Titre académique (ex: Chef de Clinique)"
                 className="w-full px-3 py-2 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-800 text-xs text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
+            </div>
+
+            {/* 📄 DIRECT PDF LINK & FULLSCREEN SETTINGS */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-brand-500/10 border-2 border-purple-300 dark:border-purple-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">📄</span>
+                  <div>
+                    <h3 className="text-xs font-black text-purple-950 dark:text-purple-200 uppercase tracking-wider">
+                      Document PDF Direct (Sans transformation)
+                    </h3>
+                    <p className="text-[10px] text-navy-500 dark:text-navy-400">
+                      Affichage en lecteur PDF plein écran avec surligneur, bouton rappel & outils
+                    </p>
+                  </div>
+                </div>
+                {pdfUrl && (
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 border border-purple-200">
+                    PDF Configuré
+                  </span>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-navy-700 dark:text-navy-300 mb-1">
+                  Lien Direct du PDF (Google Drive, Supabase Storage, Web)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    value={pdfUrl}
+                    onChange={e => {
+                      setPdfUrl(e.target.value);
+                      if (e.target.value.trim() && !isDirectPdf) setIsDirectPdf(true);
+                    }}
+                    placeholder="https://drive.google.com/file/d/... ou lien .pdf"
+                    className="flex-1 px-3 py-2 rounded-xl border border-purple-300 dark:border-purple-700 bg-white dark:bg-navy-800 text-xs font-mono text-navy-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
+                  {pdfUrl && (
+                    <a
+                      href={pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 rounded-xl bg-purple-100 hover:bg-purple-200 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1 transition-colors"
+                      title="Ouvrir le PDF"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Tester</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <label className="flex items-center gap-2.5 p-2 rounded-xl bg-white/70 dark:bg-navy-900/70 border border-purple-200 dark:border-purple-800/60 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={isDirectPdf}
+                  onChange={e => setIsDirectPdf(e.target.checked)}
+                  className="w-4 h-4 accent-purple-600 rounded cursor-pointer"
+                />
+                <div>
+                  <div className="text-xs font-bold text-navy-950 dark:text-white">
+                    Activer le Mode Lecteur PDF Direct Plein Écran
+                  </div>
+                  <div className="text-[10px] text-navy-500">
+                    Le cours s'ouvrira directement dans le lecteur PDF immersif avec surligneur 4 couleurs, bouton Rappel (SRS), notes et outils d'étude.
+                  </div>
+                </div>
+              </label>
             </div>
 
             {/* Tags */}
@@ -1888,6 +1987,19 @@ ${textContent.substring(0, 90000)}`;
               >
                 Annuler
               </button>
+
+              {aiInputType === 'pdfUrl' && (
+                <button
+                  type="button"
+                  onClick={handleUseDirectPdf}
+                  className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  title="Conserver le document PDF tel quel sans conversion IA"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>📄 Utiliser en PDF Direct (Sans transformation)</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={handleRunAi}

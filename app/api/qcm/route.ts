@@ -107,7 +107,8 @@ function mapSupabaseQcmToType(row: any): QCM {
       (Array.isArray(row.tags) && row.tags.includes('HYPER_PROBABLE_RESIDANAT')) ||
       row.is_hyper_probable ||
       row.isHyperProbable
-    )
+    ),
+    pdfUrl: row.pdf_url || row.pdfUrl || undefined
   };
 }
 

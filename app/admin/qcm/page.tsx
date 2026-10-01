@@ -42,6 +42,7 @@ export default function AdminQcmPage() {
   const [sourceOther, setSourceOther] = useState('');
   const [isDailyQcm, setIsDailyQcm] = useState(false);
   const [vignette, setVignette] = useState('');
+  const [pdfUrl, setPdfUrl] = useState('');
   const [question, setQuestion] = useState('');
   const [optA, setOptA] = useState('');
   const [optB, setOptB] = useState('');
@@ -394,6 +395,7 @@ export default function AdminQcmPage() {
           tempNum: q.qNum || 1,
           title: q.title || `QCM ${q.qNum || 1}`,
           vignetteText: q.vignette || '',
+          pdfUrl: q.pdfUrl || (aiInputType === 'drive_pdf' && aiPdfUrl.trim() ? aiPdfUrl.trim() : undefined),
           question: q.question || '',
           options: (q.options || []).map((opt: any, optIdx: number) => ({
             letter: opt.letter || String.fromCharCode(65 + optIdx),
@@ -747,6 +749,7 @@ export default function AdminQcmPage() {
       difficulty: 'Moyen',
       type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
       vignette: vignette || '',
+      pdfUrl: pdfUrl.trim() || undefined,
       question,
       options,
       correctAnswers,
@@ -768,6 +771,7 @@ export default function AdminQcmPage() {
       setQcms([data.qcm, ...qcms]);
       setSuccessMsg(`✅ QCM "${data.qcm.title}" ajouté et synchronisé avec Supabase !`);
       setTitle('');
+      setPdfUrl('');
       setQuestion('');
       setOptA(''); setOptB(''); setOptC(''); setOptD(''); setOptE('');
       setCorrectA(false); setCorrectB(false); setCorrectC(false); setCorrectD(false); setCorrectE(false);
@@ -919,6 +923,7 @@ export default function AdminQcmPage() {
       difficulty: 'Moyen',
       type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
       vignette: qcmItem.vignetteText || '',
+      pdfUrl: qcmItem.pdfUrl || (aiInputType === 'drive_pdf' && aiPdfUrl.trim() ? aiPdfUrl.trim() : undefined),
       question: qcmItem.question,
       options: qcmItem.options.map((opt, idx) => ({
         id: `opt_${idx + 1}`,
@@ -1004,6 +1009,7 @@ export default function AdminQcmPage() {
           difficulty: 'Moyen',
           type: correctAnswers.length > 1 ? 'MULTIPLE' : 'SINGLE',
           vignette: qcmItem.vignetteText || '',
+          pdfUrl: qcmItem.pdfUrl || (aiInputType === 'drive_pdf' && aiPdfUrl.trim() ? aiPdfUrl.trim() : undefined),
           question: qcmItem.question,
           options: qcmItem.options.map((opt, idx) => ({
             id: `opt_${idx + 1}`,
@@ -2560,6 +2566,36 @@ export default function AdminQcmPage() {
                 </div>
               </div>
 
+              {/* Direct PDF Link (Original Sujet / Épreuve) */}
+              <div className="p-4 rounded-2xl bg-navy-50/70 dark:bg-navy-800/40 border border-navy-200/80 dark:border-navy-700/80 space-y-1.5">
+                <label className="block text-xs font-black uppercase text-navy-800 dark:text-navy-200 flex items-center gap-1.5">
+                  <span>📄</span>
+                  <span>Lien Direct du Document / Sujet PDF Original (Optionnel) :</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="url"
+                    value={pdfUrl}
+                    onChange={e => setPdfUrl(e.target.value)}
+                    placeholder="ex: https://drive.google.com/file/d/... ou https://domaine.com/examen.pdf"
+                    className="w-full px-4 py-2.5 pr-24 rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 text-xs font-bold"
+                  />
+                  {pdfUrl && (
+                    <a
+                      href={pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute right-2 top-2 px-2.5 py-1 text-[11px] font-bold rounded-lg bg-navy-100 hover:bg-navy-200 dark:bg-navy-700 text-navy-700 dark:text-navy-300"
+                    >
+                      Tester ↗
+                    </a>
+                  )}
+                </div>
+                <p className="text-[11px] text-navy-500 dark:text-navy-400">
+                  Permet à l'étudiant d'ouvrir le document PDF d'origine en plein écran dans un visualiseur interactif (avec surligneur 4 couleurs, notes et rappels SRS).
+                </p>
+              </div>
+
               {/* Options & Correct checkboxes */}
               <div className="space-y-3">
                 <label className="block text-xs font-bold uppercase text-navy-700 dark:text-navy-300">
@@ -3066,6 +3102,19 @@ export default function AdminQcmPage() {
                         <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200/50">
                           📌 {qcm.source}
                         </span>
+                      )}
+
+                      {qcm.pdfUrl && (
+                        <a
+                          href={qcm.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-0.5 rounded-lg text-[10px] font-black bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800 hover:bg-rose-100 flex items-center gap-1 transition-colors"
+                          title="Consulter le document / sujet PDF original"
+                        >
+                          <span>📄</span>
+                          <span>Sujet PDF</span>
+                        </a>
                       )}
 
                       {/* Access Level Badge & Quick Dropdown */}
